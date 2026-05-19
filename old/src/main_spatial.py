@@ -1,4 +1,4 @@
-"""Legacy Gao+2023 GC formation stage.
+"""Legacy Gao+2024 GC formation stage.
 
 This script reads one fixed merger tree per target halo, identifies GC-forming
 events from halo growth along each branch, samples a cluster initial mass
@@ -27,9 +27,22 @@ import time
 import os
 import sys
 from pathlib import Path
-import schechter_interp
-import smhm
-from IMBH import IMBHModel, IMBHModelConfig
+import NSC.old.src.schechter_interp as schechter_interp
+import NSC.old.src.smhm as smhm
+from NSC.old.src.help import check_finite_non_negative, check_finite_positive
+import NSC.old.src.exsitu_nsc as exsitu_nsc
+from NSC.old.src.eff_rad import (
+    EFF_RAD_CATALOGUE,
+    EFF_RAD_CHOICES,
+    EFF_RAD_EMPIRICAL,
+    EFF_RAD_GAO2023,
+    EFF_RADIUS_CATALOGUE_BUILD_COMMAND,
+    load_eff_radius_catalogue,
+    nearest_snap_from_redshift,
+    resolve_birth_re_kpc,
+    validate_eff_rad_mode,
+)
+from NSC.old.src.IMBH import IMBHModel, IMBHModelConfig
 np.random.seed(1)
 
 #use same cosmology as Illustris
@@ -60,13 +73,13 @@ ACCRETED_BARYON_CHOICES = (ACCRETED_BARYON_MURATOV_GNEDIN2010, ACCRETED_BARYON_C
 
 
 def _build_arg_parser():
-    parser = argparse.ArgumentParser(description="Legacy Gao+2023 GC formation stage.")
+    parser = argparse.ArgumentParser(description="Legacy Gao+2024 GC formation stage.")
     parser.add_argument("ns", type=float, help="Sersic index N_s")
     parser.add_argument(
         "--data-dir",
         type=Path,
         default=Path(__file__).resolve().parents[1] / "data",
-        help="Path to the raw Gao+2023 data directory.",
+        help="Path to the raw Gao+2024 data directory.",
     )
     parser.add_argument(
         "--tree-dir",
@@ -86,11 +99,14 @@ def _build_arg_parser():
     parser.add_argument("--lg_cut-off_mass", dest="lg_cut_off_mass", type=float, default=12.0, help="log10 Schechter cutoff mass Mc in Msun")
     parser.add_argument("--metal", choices=METAL_CHOICES, default=METAL_CHOKSI2018, help="stellar mass-metallicity relation")
     parser.add_argument("--accreted_baryon", choices=ACCRETED_BARYON_CHOICES, default=ACCRETED_BARYON_MURATOV_GNEDIN2010, help="accreted-baryon fraction limiter")
+    parser.add_argument("--eff_rad", choices=EFF_RAD_CHOICES, default=EFF_RAD_GAO2023, help="effective-radius model for GC birth radii")
+    parser.add_argument("--eff_rad_catalogue", type=Path, default=None, help="optional sidecar CSV used when --eff_rad catalogue")
     parser.add_argument("--run-all", type=int, default=1, help="run all halos if 1, otherwise use the halo count and mass window below")
     parser.add_argument("--log-mh-min", type=float, default=11.5, help="minimum descendant z=0 host halo log mass for selection")
     parser.add_argument("--log-mh-max", type=float, default=12.5, help="maximum descendant z=0 host halo log mass for selection")
     parser.add_argument("--n-halos", type=int, default=10, help="number of halos to keep when --run-all=0")
     parser.add_argument("--IMBH", type=int, choices=[0, 1], default=1, help="enable the IMBH seeding module if 1, otherwise keep IMBH-related columns at zero")
+    parser.add_argument("--satNSC", "--ex-situNSC", dest="ex_situ_nsc", type=int, choices=[0, 1], default=0, help="if 1, convert satellite-sunk non-MPB GCs into synthetic ex-situ satellite NSCs before evolution")
     parser.add_argument("--final-z", "--final-redshift", dest="final_redshift", type=float, default=0.0, help="final redshift where the formation/survival stage stops; halo selection remains tied to the descendant z=0 host")
     return parser
 
@@ -111,7 +127,7 @@ snaps_path = data_dir / "snaps2redshifts.txt"
 treedir = args.tree_dir.resolve() if(args.tree_dir is not None) else (data_dir / "fixed_trees_large_spin")
 for required_path in (massloss_path, snaps_path, treedir):
     if(not required_path.exists()):
-        raise FileNotFoundError("Required Gao+2023 input path not found: " + str(required_path))
+        raise FileNotFoundError("Required Gao+2024 input path not found: " + str(required_path))
 
 fm = open(massloss_path)
 flost, t_solar, t_subsolar = np.loadtxt(fm, usecols = (1,2,3), unpack = True)
@@ -132,15 +148,40 @@ mpb_only = bool(args.mpb_only)
 lg_cut_off_mass = float(args.lg_cut_off_mass)
 metal_model = args.metal
 accreted_baryon_model = args.accreted_baryon
+eff_rad_model = validate_eff_rad_mode(args.eff_rad)
+eff_rad_catalogue_path = args.eff_rad_catalogue.resolve() if(args.eff_rad_catalogue is not None) else None
+eff_rad_catalogue = None
+if(eff_rad_model == EFF_RAD_CATALOGUE):
+    if(eff_rad_catalogue_path is None):
+        raise FileNotFoundError(
+            "--eff_rad catalogue requires a sidecar CSV. Build it with: "
+            + EFF_RADIUS_CATALOGUE_BUILD_COMMAND
+        )
+    if(not eff_rad_catalogue_path.is_file()):
+        raise FileNotFoundError(
+            "Effective-radius catalogue not found: "
+            + str(eff_rad_catalogue_path)
+            + ". Build it with: "
+            + EFF_RADIUS_CATALOGUE_BUILD_COMMAND
+        )
+    eff_rad_catalogue = load_eff_radius_catalogue(eff_rad_catalogue_path)
+eff_rad_source_counts = {
+    EFF_RAD_GAO2023: 0,
+    EFF_RAD_EMPIRICAL: 0,
+    EFF_RAD_CATALOGUE: 0,
+}
+eff_rad_fallback_counts = {}
+eff_rad_formation_events = 0
 run_all = bool(args.run_all)
 log_mh_min = float(args.log_mh_min)
 log_mh_max = float(args.log_mh_max)
 N = int(args.n_halos)
 final_redshift = float(args.final_redshift)
+ex_situ_nsc_enabled = bool(args.ex_situ_nsc)
 final_epoch_label = "z=0" if(abs(final_redshift) < 1.0e-12) else ("z=" + str(np.round(final_redshift, 5)))
 host_epoch_label = "z=0"
 
-cat.write('#model parameters: p2, p3, mpb_only, lg_cut_off_mass, metal, accreted_baryon, z_final = ' +  str(p2) + " " +  str(p3) +  " " + str(mpb_only) + " " +  str(lg_cut_off_mass) + " " + str(metal_model) + " " + str(accreted_baryon_model) + " " + str(final_redshift)  + "\n")
+cat.write('#model parameters: p2, p3, mpb_only, lg_cut_off_mass, metal, accreted_baryon, eff_rad, eff_rad_catalogue, z_final = ' +  str(p2) + " " +  str(p3) +  " " + str(mpb_only) + " " +  str(lg_cut_off_mass) + " " + str(metal_model) + " " + str(accreted_baryon_model) + " " + str(eff_rad_model) + " " + str(eff_rad_catalogue_path) + " " + str(final_redshift)  + "\n")
 cat.write(
     str("#haloID")
     + " | "
@@ -174,12 +215,91 @@ cat.write(
     + "\n"
 )
 
-allcat.write('#model parameters: p2, p3, mpb_only, lg_cut_off_mass, metal, accreted_baryon, z_final = ' +  str(p2) + " " +  str(p3) +  " " + str(mpb_only) + " " +  str(lg_cut_off_mass) + " " + str(metal_model) + " " + str(accreted_baryon_model) + " " + str(final_redshift)  + "\n")
+allcat.write('#model parameters: p2, p3, mpb_only, lg_cut_off_mass, metal, accreted_baryon, eff_rad, eff_rad_catalogue, z_final = ' +  str(p2) + " " +  str(p3) +  " " + str(mpb_only) + " " +  str(lg_cut_off_mass) + " " + str(metal_model) + " " + str(accreted_baryon_model) + " " + str(eff_rad_model) + " " + str(eff_rad_catalogue_path) + " " + str(final_redshift)  + "\n")
 allcat.write(
     "#haloID | logMh(" + host_epoch_label + ") | haloID @ form | logMh(tform) | logM*(tform) | "
     "logMgas(tform) | logMcl(tform) | zform | [Fe/H] | rGalaxy (kpc) | "
     "GC radius (pc) | Sigma_h (Msun/pc^2) | IMBH mass (Msun)\n"
 )
+
+satnsc_allcat = None
+satnsc_object_handle = None
+satnsc_component_handle = None
+satnsc_branch_handle = None
+satnsc_object_writer = None
+satnsc_component_writer = None
+satnsc_branch_writer = None
+if(ex_situ_nsc_enabled):
+    satnsc_allcat = open(output_dir / ("all_exsitu_nsc_" + nsStr + ".txt"), "w")
+    satnsc_allcat.write(
+        "# Ex-situ satellite-NSC active catalogue. Rows include in-situ GCs, "
+        "loose released ex-situ GCs, and synthetic ex-situ satellite NSCs.\n"
+    )
+    satnsc_allcat.write(
+        "#haloID | logMh(" + host_epoch_label + ") | haloID @ form | logMh(tform) | logM*(tform) | "
+        "logMgas(tform) | logMcl(active) | z_active | [Fe/H] | rGalaxy (kpc) | "
+        "GC radius (pc) | Sigma_h (Msun/pc^2) | IMBH mass (Msun)\n"
+    )
+
+    satnsc_object_handle = open(output_dir / ("satnsc_object_types_" + nsStr + ".csv"), "w", encoding="utf-8", newline="")
+    satnsc_component_handle = open(output_dir / ("nsc_components_" + nsStr + ".csv"), "w", encoding="utf-8", newline="")
+    satnsc_branch_handle = open(output_dir / ("branch_release_" + nsStr + ".csv"), "w", encoding="utf-8", newline="")
+    satnsc_object_writer = csv.DictWriter(
+        satnsc_object_handle,
+        fieldnames=[
+            "row_index_raw",
+            "hid_z0",
+            "object_type",
+            "branch_id",
+            "gc_uid",
+            "nsc_uid",
+            "z_original_form",
+            "z_release",
+            "local_r_kpc",
+            "release_r_kpc",
+        ],
+    )
+    satnsc_component_writer = csv.DictWriter(
+        satnsc_component_handle,
+        fieldnames=[
+            "hid_z0",
+            "nsc_uid",
+            "branch_id",
+            "component_gc_uid",
+            "component_idform",
+            "z_form",
+            "z_release",
+            "m_birth_msun",
+            "m_release_msun",
+            "local_r_kpc",
+            "t_df_sat_gyr",
+            "imbh_mass_msun",
+        ],
+    )
+    satnsc_branch_writer = csv.DictWriter(
+        satnsc_branch_handle,
+        fieldnames=[
+            "hid_z0",
+            "branch_id",
+            "z_release",
+            "t_release_gyr",
+            "branch_mass_msun",
+            "mpb_mass_msun",
+            "r_release_kpc",
+            "n_gc_branch",
+            "n_loose",
+            "n_nsc_components",
+            "n_pre_release_disrupted",
+            "n_unreleased",
+            "m_birth_total_msun",
+            "m_loose_release_msun",
+            "m_nsc_release_msun",
+            "m_nsc_imbh_msun",
+        ],
+    )
+    satnsc_object_writer.writeheader()
+    satnsc_component_writer.writeheader()
+    satnsc_branch_writer.writeheader()
 
 #initialize all the interpolation tables for use with Schechter function
 schechter_interp.init(10**lg_cut_off_mass)
@@ -195,7 +315,8 @@ imbh_model = IMBHModel(IMBHModelConfig(enabled = bool(args.IMBH)))
 # Define globular cluster class to store data about each cluster.
 class GC :
     def __init__(self, mass, originHaloMass, origin_redshift, metallicity, osm, omgas, is_mpb, idform,
-                 gc_radius_pc = 0.0, gc_sigma_h_msun_pc2 = 0.0, imbh_mass_msun = 0.0) :
+                 gc_radius_pc = 0.0, gc_sigma_h_msun_pc2 = 0.0, imbh_mass_msun = 0.0,
+                 branch_id = -1, formation_tree_index = -1, gc_uid = -1) :
         self.mass = mass
         self.originHaloMass = originHaloMass
         self.origin_redshift = origin_redshift
@@ -205,11 +326,22 @@ class GC :
         self.is_mpb = is_mpb
         self.idform = idform
         self.rGalaxy = 0.0
+        self.local_rGalaxy = 0.0
         self.gc_radius_pc = gc_radius_pc
         self.gc_sigma_h_msun_pc2 = gc_sigma_h_msun_pc2
         self.imbh_mass_msun = imbh_mass_msun
+        self.branch_id = int(branch_id)
+        self.formation_tree_index = int(formation_tree_index)
+        self.gc_uid = int(gc_uid)
+        self.object_type = (
+            exsitu_nsc.OBJECT_INSITU_GC
+            if is_mpb
+            else exsitu_nsc.OBJECT_LOOSE_EXSITU_GC
+        )
     def assign_rGalaxy(self, radius):
         self.rGalaxy = radius
+    def assign_local_rGalaxy(self, radius):
+        self.local_rGalaxy = radius
 
 
 def seed_imbh_properties(cluster_mass, metallicity):
@@ -221,12 +353,9 @@ def seed_imbh_properties(cluster_mass, metallicity):
     sigma_h_msun_pc2 = float(estimate["sigma_h_msun_pc2"])
     imbh_mass_msun = float(estimate["imbh_mass_msun"])
 
-    if(not np.isfinite(gc_radius_pc) or gc_radius_pc < 0):
-        gc_radius_pc = 0.0
-    if(not np.isfinite(sigma_h_msun_pc2) or sigma_h_msun_pc2 < 0):
-        sigma_h_msun_pc2 = 0.0
-    if(not np.isfinite(imbh_mass_msun) or imbh_mass_msun < 0):
-        imbh_mass_msun = 0.0
+    check_finite_positive(gc_radius_pc, "IMBH model GC half-mass radius")
+    check_finite_positive(sigma_h_msun_pc2, "IMBH model GC half-mass surface density")
+    check_finite_non_negative(imbh_mass_msun, "IMBH model seed mass")
 
     return gc_radius_pc, sigma_h_msun_pc2, imbh_mass_msun
 
@@ -260,6 +389,8 @@ def accreted_baryon_fin_norm(Mh, z):
 
 # Calculate gas mass given stellar mass, halo mass, redshift using scaling relations. Double power law for SM-Mg relation, then scale with redshift. Revise if gas fraction exceeds accreted baryon fraction. As described in Choksi, Gnedin, and Li (2018).
 def gasMass(SM, Mh, z) :
+    check_finite_positive(SM, "stellar mass in gasMass")
+    check_finite_positive(Mh, "halo mass in gasMass")
     slope = 0.33
     if(SM < 1e9):
         slope = 0.19
@@ -274,13 +405,21 @@ def gasMass(SM, Mh, z) :
     log_ratio += np.random.normal(0, 0.3)
     ratio = 10**log_ratio
     Mg = SM*ratio
+    check_finite_positive(Mg, "unlimited gas mass in gasMass")
     fstar = SM/(fb*Mh)
     fgas = Mg/(fb*Mh)
     fin = accreted_baryon_fin_norm(Mh, z)
+    check_finite_positive(fstar, "stellar baryon fraction in gasMass")
+    check_finite_positive(fgas, "gas baryon fraction in gasMass")
+    check_finite_positive(fin, "accreted baryon fraction in gasMass")
 
     if(fstar+fgas > fin):
+        if(fstar >= fin):
+            return 0.0
         fgas = fin-fstar
         Mg = fgas*fb*Mh
+        check_finite_positive(fgas, "limited gas baryon fraction in gasMass")
+        check_finite_positive(Mg, "limited gas mass in gasMass")
     return Mg
 
 
@@ -330,7 +469,7 @@ def Mr_frac_sersic_inverse(fm, ns):
     ZZ = special.gammaincinv(ns*(3.-p), fm)
     return (ZZ/b)**ns
 
-def gc_sersic_sampling(gc_list, mass_sum, halomass, redshift, jsp, ns):
+def gc_sersic_sampling(gc_list, mass_sum, halomass, redshift, re_kpc, re_source, ns):
     """
     sample GC spatial distribution within galactic disk with a Sersic profile
     """
@@ -339,8 +478,8 @@ def gc_sersic_sampling(gc_list, mass_sum, halomass, redshift, jsp, ns):
     rVir = smhm.virialRadius(halomass, redshift) # in pc
     Hz = smhm.H0*smhm.E(redshift) # in Myr^-1
 
-    fallback_outer_kpc = 0.5*rVir/1e3
-    #fallback_outer_kpc = 0.1*rVir/1e3
+    #fallback_outer_kpc = 0.5*rVir/1e3
+    fallback_outer_kpc = 0.2*rVir/1e3
     if((not np.isfinite(fallback_outer_kpc)) or (fallback_outer_kpc <= 0.0)):
         print(
             "[gc_sersic_sampling] invalid fallback outer radius "
@@ -350,12 +489,14 @@ def gc_sersic_sampling(gc_list, mass_sum, halomass, redshift, jsp, ns):
         fallback_outer_kpc = 1.0
     fallback_outer_kpc = float(np.clip(fallback_outer_kpc, rgal_min_kpc, rgal_max_kpc))
 
-    # jsp in (kpc/h)*(km/s) similar to (kpc/h)*(pc/Myr)
-    Re = jsp*h100/20./Hz/rVir # in kpc
+    Re = float(re_kpc)
     if((not np.isfinite(Re)) or (Re <= 0.0)):
+        reason = "invalid_resolved_radius"
+        eff_rad_fallback_counts[reason] = eff_rad_fallback_counts.get(reason, 0) + 1
         print(
             "[gc_sersic_sampling] invalid Sersic scale radius "
-            + f"(Re={Re}, jsp={jsp}, Hz={Hz}, rVir={rVir}, halomass={halomass}, z={redshift}); "
+            + f"(mode={eff_rad_model}, source={re_source}, Re={Re}, Hz={Hz}, rVir={rVir}, "
+            + f"halomass={halomass}, z={redshift}); "
             + f"using fallback Re={fallback_outer_kpc} kpc",
             file = sys.stderr,
         )
@@ -376,9 +517,11 @@ def gc_sersic_sampling(gc_list, mass_sum, halomass, redshift, jsp, ns):
 
     m_tot = -0.5*gc_list[0].mass
     for gc in gc_list:
-        if gc.is_mpb:
+        if gc.is_mpb or ex_situ_nsc_enabled:
             # Main-branch clusters are ordered by cumulative formed mass so the
-            # distribution matches the target enclosed Sersic mass profile.
+            # distribution matches the target enclosed Sersic mass profile. In
+            # satellite-NSC mode, non-MPB clusters also need this local radius
+            # inside their own satellite branch.
             m_tot += gc.mass
             enclosed_mass_fraction_raw = m_tot/mass_sum
             if((not np.isfinite(enclosed_mass_fraction_raw)) or (enclosed_mass_fraction_raw <= 0.0) or (enclosed_mass_fraction_raw >= 1.0)):
@@ -402,11 +545,16 @@ def gc_sersic_sampling(gc_list, mass_sum, halomass, redshift, jsp, ns):
                 )
                 rGalaxy = fallback_outer_kpc
             rGalaxy = float(np.clip(rGalaxy, rgal_min_kpc, rgal_max_kpc))
-            gc.assign_rGalaxy(rGalaxy)
+            gc.assign_local_rGalaxy(rGalaxy)
+            if gc.is_mpb:
+                gc.assign_rGalaxy(rGalaxy)
+            else:
+                gc.assign_rGalaxy(fallback_outer_kpc)
         else:
             # Non-MPB clusters are treated as accreted satellites and placed at
             # a representative outer-halo radius rather than in the disk model.
             m_tot += gc.mass
+            gc.assign_local_rGalaxy(fallback_outer_kpc)
             gc.assign_rGalaxy(fallback_outer_kpc)
 
     # uniform radius distribution
@@ -420,9 +568,13 @@ def gc_sersic_sampling(gc_list, mass_sum, halomass, redshift, jsp, ns):
     return
 
 
-def clusterFormation(Mg, halomass, redshift, metallicity, SM, is_mpb, hid, jj) :
+def clusterFormation(Mg, halomass, redshift, metallicity, SM, is_mpb, hid, jj, branch_id, formation_tree_index, re_kpc, re_source) :
     gc_list = []
+    if(Mg == 0.0):
+        return gc_list
+    check_finite_positive(Mg, "gas mass in clusterFormation")
     Mgc = 3e-5*p2*Mg/fb #total mass of all GCs formed in cluster formation event
+    check_finite_positive(Mgc, "GC mass budget in clusterFormation")
     log_Mgc = np.log10(Mgc)
     if(log_Mgc < log_Mmin): #not enough mass to form a single cluster of mass Mmin
         return gc_list
@@ -450,6 +602,8 @@ def clusterFormation(Mg, halomass, redshift, metallicity, SM, is_mpb, hid, jj) :
         gc_radius_pc = gc_radius_pc,
         gc_sigma_h_msun_pc2 = sigma_h_msun_pc2,
         imbh_mass_msun = imbh_mass_msun,
+        branch_id = branch_id,
+        formation_tree_index = formation_tree_index,
     )
     gc_list.append(maxGC)
     mass_sum = Mmax
@@ -479,6 +633,8 @@ def clusterFormation(Mg, halomass, redshift, metallicity, SM, is_mpb, hid, jj) :
             gc_radius_pc = gc_radius_pc,
             gc_sigma_h_msun_pc2 = sigma_h_msun_pc2,
             imbh_mass_msun = imbh_mass_msun,
+            branch_id = branch_id,
+            formation_tree_index = formation_tree_index,
         )
         gc_list.append(cluster)
 
@@ -486,7 +642,7 @@ def clusterFormation(Mg, halomass, redshift, metallicity, SM, is_mpb, hid, jj) :
     # inherit the smallest radius purely because it was appended first.
     np.random.shuffle(gc_list)
     # sample spatial distribution of GCs within a Sersic disk
-    gc_sersic_sampling(gc_list, mass_sum, halomass, redshift, jj, ns)
+    gc_sersic_sampling(gc_list, mass_sum, halomass, redshift, re_kpc, re_source, ns)
     return gc_list
 
 
@@ -526,6 +682,309 @@ def disruption(M0, fe_h, origin_redshift, tnow, use_weak = False): #if use_weak 
         return mf*2e5*(1-f_lost)
     else:
         return mtid_z0*2e5*(1-f_lost)
+
+
+def pre_release_mass(cluster, z_release):
+    t_release_yr = smhm.cosmicTime(z_release, units="yr")
+    t_form_yr = smhm.cosmicTime(cluster.origin_redshift, units="yr")
+    if(t_release_yr < t_form_yr - 1.0):
+        raise ValueError(
+            "branch release precedes GC formation for "
+            + f"gc_uid={cluster.gc_uid}, z_form={cluster.origin_redshift}, z_release={z_release}"
+        )
+    m_release = disruption(cluster.mass, cluster.metallicity, cluster.origin_redshift, t_release_yr)
+    if(not np.isfinite(m_release) or m_release <= 0.0):
+        if(cluster.imbh_mass_msun > 0.0):
+            check_finite_positive(cluster.imbh_mass_msun, "pre-release carried IMBH mass")
+            return float(cluster.imbh_mass_msun)
+        return 0.0
+    check_finite_positive(m_release, "pre-release GC mass")
+    if(cluster.imbh_mass_msun > m_release):
+        check_finite_positive(cluster.imbh_mass_msun, "pre-release carried IMBH mass")
+        return float(cluster.imbh_mass_msun)
+    return float(m_release)
+
+
+def encode_active_log_mass(mass_msun, imbh_mass_msun):
+    mass = check_finite_positive(mass_msun, "active catalogue object mass")
+    imbh = check_finite_non_negative(imbh_mass_msun, "active catalogue object IMBH mass")
+    if(imbh > mass):
+        raise ValueError(f"active catalogue IMBH mass exceeds object mass: imbh={imbh}, mass={mass}")
+
+    log_mass = float(np.round(np.log10(mass), 5))
+    imbh_encoded = float(np.round(imbh, 5))
+    decoded_mass = 10.0**log_mass
+    if(imbh_encoded > decoded_mass + 1.0e-7):
+        log_mass = float(np.ceil(np.log10(imbh_encoded) * 1.0e5) / 1.0e5)
+        decoded_mass = 10.0**log_mass
+        while(imbh_encoded > decoded_mass + 1.0e-7):
+            log_mass = float(np.round(log_mass + 1.0e-5, 5))
+            decoded_mass = 10.0**log_mass
+    if(imbh_encoded > decoded_mass + 1.0e-7):
+        raise ValueError(
+            "active catalogue encoded mass is below encoded IMBH mass: "
+            + f"imbh={imbh_encoded}, decoded_mass={decoded_mass}"
+        )
+    return log_mass
+
+
+def make_all_row(hid_num, logmsub, cluster, *, mass_msun, z_out, r_out_kpc, imbh_mass_msun, idform_override = None):
+    mass = check_finite_positive(mass_msun, "active catalogue object mass")
+    radius = check_finite_positive(r_out_kpc, "active catalogue object release radius")
+    imbh = check_finite_non_negative(imbh_mass_msun, "active catalogue object IMBH mass")
+    if(imbh > mass):
+        raise ValueError(f"active catalogue IMBH mass exceeds object mass: imbh={imbh}, mass={mass}")
+    log_mass = encode_active_log_mass(mass, imbh)
+    idform = cluster.idform if(idform_override is None) else idform_override
+    return [
+        hid_num,
+        np.round(logmsub, 5),
+        idform,
+        np.round(np.log10(cluster.originHaloMass), 5),
+        np.round(np.log10(cluster.origin_sm), 5),
+        np.round(np.log10(cluster.origin_mgas), 5),
+        log_mass,
+        np.round(z_out, 5),
+        np.round(cluster.metallicity, 5),
+        np.round(radius, 5),
+        np.round(cluster.gc_radius_pc, 5),
+        np.round(cluster.gc_sigma_h_msun_pc2, 5),
+        np.round(imbh, 5),
+    ]
+
+
+def _satnsc_object_row(
+    row_index_raw,
+    hid_num,
+    cluster,
+    *,
+    object_type,
+    nsc_uid,
+    z_release,
+    release_r_kpc,
+):
+    return {
+        "row_index_raw": int(row_index_raw),
+        "hid_z0": int(hid_num),
+        "object_type": int(object_type),
+        "branch_id": int(cluster.branch_id),
+        "gc_uid": int(cluster.gc_uid),
+        "nsc_uid": int(nsc_uid),
+        "z_original_form": float(cluster.origin_redshift),
+        "z_release": float(z_release),
+        "local_r_kpc": float(cluster.local_rGalaxy),
+        "release_r_kpc": float(release_r_kpc),
+    }
+
+
+def build_satellite_nsc_catalogue(clusters, full_tree, hid_num, logmsub, final_redshift):
+    release_map = exsitu_nsc.build_branch_release_map(full_tree, final_redshift)
+    t_final = smhm.cosmicTime(final_redshift, units="Gyr")
+    augmented_rows = []
+    object_type_rows = []
+    component_rows = []
+    branch_rows = []
+    row_index_raw = 0
+    nsc_uid_next = 1
+
+    branch_ids = sorted(set(int(cluster.branch_id) for cluster in clusters))
+    for branch_id in branch_ids:
+        branch_gcs = [cluster for cluster in clusters if int(cluster.branch_id) == branch_id]
+        if(len(branch_gcs) == 0):
+            continue
+        m_birth_total = float(np.sum([cluster.mass for cluster in branch_gcs]))
+
+        if(branch_id == full_tree.mpb_branch_id):
+            for cluster in branch_gcs:
+                row_index_raw += 1
+                augmented_rows.append(
+                    make_all_row(
+                        hid_num,
+                        logmsub,
+                        cluster,
+                        mass_msun=cluster.mass,
+                        z_out=cluster.origin_redshift,
+                        r_out_kpc=cluster.rGalaxy,
+                        imbh_mass_msun=cluster.imbh_mass_msun,
+                    )
+                )
+                object_type_rows.append(
+                    _satnsc_object_row(
+                        row_index_raw,
+                        hid_num,
+                        cluster,
+                        object_type=exsitu_nsc.OBJECT_INSITU_GC,
+                        nsc_uid=0,
+                        z_release=cluster.origin_redshift,
+                        release_r_kpc=cluster.rGalaxy,
+                    )
+                )
+            continue
+
+        release = release_map.get(branch_id)
+        if(release is None):
+            raise ValueError(f"Missing branch-release information for branch_id={branch_id}")
+
+        if(release.t_release_gyr > t_final):
+            branch_rows.append(
+                {
+                    "hid_z0": int(hid_num),
+                    "branch_id": int(branch_id),
+                    "z_release": float(release.z_release),
+                    "t_release_gyr": float(release.t_release_gyr),
+                    "branch_mass_msun": float(release.branch_mass_msun),
+                    "mpb_mass_msun": float(release.mpb_mass_msun),
+                    "r_release_kpc": float(release.r_release_kpc),
+                    "n_gc_branch": int(len(branch_gcs)),
+                    "n_loose": 0,
+                    "n_nsc_components": 0,
+                    "n_pre_release_disrupted": 0,
+                    "n_unreleased": int(len(branch_gcs)),
+                    "m_birth_total_msun": m_birth_total,
+                    "m_loose_release_msun": 0.0,
+                    "m_nsc_release_msun": 0.0,
+                    "m_nsc_imbh_msun": 0.0,
+                }
+            )
+            continue
+
+        loose_components = []
+        sunk_components = []
+        t_df_by_uid = {}
+        for cluster in branch_gcs:
+            t_form = smhm.cosmicTime(cluster.origin_redshift, units="Gyr")
+            t_df_sat = exsitu_nsc.estimate_satellite_df_time_gyr(
+                cluster.mass,
+                cluster.local_rGalaxy,
+                cluster.originHaloMass,
+                cluster.origin_redshift,
+            )
+            t_df_by_uid[int(cluster.gc_uid)] = float(t_df_sat)
+            if(t_form + t_df_sat < release.t_release_gyr):
+                sunk_components.append(cluster)
+            else:
+                loose_components.append(cluster)
+
+        n_pre_release_disrupted = 0
+        n_loose_released = 0
+        m_loose_release = 0.0
+        for cluster in loose_components:
+            m_release = pre_release_mass(cluster, release.z_release)
+            if(m_release <= 0.0):
+                n_pre_release_disrupted += 1
+                continue
+            n_loose_released += 1
+            m_loose_release += m_release
+            row_index_raw += 1
+            augmented_rows.append(
+                make_all_row(
+                    hid_num,
+                    logmsub,
+                    cluster,
+                    mass_msun=m_release,
+                    z_out=release.z_release,
+                    r_out_kpc=release.r_release_kpc,
+                    imbh_mass_msun=cluster.imbh_mass_msun,
+                )
+            )
+            object_type_rows.append(
+                _satnsc_object_row(
+                    row_index_raw,
+                    hid_num,
+                    cluster,
+                    object_type=exsitu_nsc.OBJECT_LOOSE_EXSITU_GC,
+                    nsc_uid=0,
+                    z_release=release.z_release,
+                    release_r_kpc=release.r_release_kpc,
+                )
+            )
+
+        surviving_components = []
+        for cluster in sunk_components:
+            m_release = pre_release_mass(cluster, release.z_release)
+            if(m_release <= 0.0):
+                n_pre_release_disrupted += 1
+                continue
+            surviving_components.append((cluster, m_release))
+
+        m_nsc_release = float(np.sum([m_release for _, m_release in surviving_components]))
+        m_nsc_imbh = float(np.sum([cluster.imbh_mass_msun for cluster, _ in surviving_components]))
+        if(m_nsc_imbh > m_nsc_release + 1.0e-12):
+            raise ValueError(
+                f"synthetic satellite NSC IMBH mass exceeds total mass for branch_id={branch_id}: "
+                f"imbh={m_nsc_imbh}, mass={m_nsc_release}"
+            )
+        nsc_uid = 0
+        if(m_nsc_release > 0.0 and len(surviving_components) > 0):
+            nsc_uid = nsc_uid_next
+            nsc_uid_next += 1
+            template, _ = max(surviving_components, key=lambda item: item[1])
+            synthetic_idform = -abs(int(branch_id)) if int(branch_id) != 0 else -1
+            row_index_raw += 1
+            augmented_rows.append(
+                make_all_row(
+                    hid_num,
+                    logmsub,
+                    template,
+                    mass_msun=m_nsc_release,
+                    z_out=release.z_release,
+                    r_out_kpc=release.r_release_kpc,
+                    imbh_mass_msun=m_nsc_imbh,
+                    idform_override=synthetic_idform,
+                )
+            )
+            object_type_rows.append(
+                _satnsc_object_row(
+                    row_index_raw,
+                    hid_num,
+                    template,
+                    object_type=exsitu_nsc.OBJECT_SATELLITE_NSC,
+                    nsc_uid=nsc_uid,
+                    z_release=release.z_release,
+                    release_r_kpc=release.r_release_kpc,
+                )
+            )
+            object_type_rows[-1]["gc_uid"] = 0
+            for component, m_release in surviving_components:
+                component_rows.append(
+                    {
+                        "hid_z0": int(hid_num),
+                        "nsc_uid": int(nsc_uid),
+                        "branch_id": int(branch_id),
+                        "component_gc_uid": int(component.gc_uid),
+                        "component_idform": int(component.idform),
+                        "z_form": float(component.origin_redshift),
+                        "z_release": float(release.z_release),
+                        "m_birth_msun": float(component.mass),
+                        "m_release_msun": float(m_release),
+                        "local_r_kpc": float(component.local_rGalaxy),
+                        "t_df_sat_gyr": float(t_df_by_uid[int(component.gc_uid)]),
+                        "imbh_mass_msun": float(component.imbh_mass_msun),
+                    }
+                )
+
+        branch_rows.append(
+            {
+                "hid_z0": int(hid_num),
+                "branch_id": int(branch_id),
+                "z_release": float(release.z_release),
+                "t_release_gyr": float(release.t_release_gyr),
+                "branch_mass_msun": float(release.branch_mass_msun),
+                "mpb_mass_msun": float(release.mpb_mass_msun),
+                "r_release_kpc": float(release.r_release_kpc),
+                "n_gc_branch": int(len(branch_gcs)),
+                "n_loose": int(n_loose_released),
+                "n_nsc_components": int(len(surviving_components)),
+                "n_pre_release_disrupted": int(n_pre_release_disrupted),
+                "n_unreleased": 0,
+                "m_birth_total_msun": m_birth_total,
+                "m_loose_release_msun": float(m_loose_release),
+                "m_nsc_release_msun": float(m_nsc_release),
+                "m_nsc_imbh_msun": float(m_nsc_imbh),
+            }
+        )
+
+    return augmented_rows, exsitu_nsc.make_object_type_rows(object_type_rows), component_rows, branch_rows
 
 
 @dataclass(frozen = True)
@@ -579,37 +1038,31 @@ def _iter_tree_files(tree_dir):
 
 
 def loadTree(tree_path):
-    m, fp, subid, mpi, redshifts, jsp = [], [], [], [], [], []
-    with open(tree_path) as f:
-        count = -1
-        for line in f:
-            count += 1
-            if(count == 0):
-                continue
-            cols = line.split()
-            m.append(float(cols[0])); fp.append(int(cols[1])); subid.append(int(cols[2])); mpi.append(int(cols[3])); redshifts.append(float(cols[5]));
-            jsp.append(np.sqrt(float(cols[6])*float(cols[6])+float(cols[7])*float(cols[7])+float(cols[8])*float(cols[8])))
-    if(len(m) == 0):
-        return np.array([]), np.array([]), np.array([]), np.array([]), np.array([]), np.array([]), 0.0, -1
-    m  = np.array(m); fp  = np.array(fp); subid = np.array(subid); mpi = np.array(mpi); redshifts = np.array(redshifts); jsp = np.array(jsp)
-    mpbi = mpi[m == np.amax(m)][0]
-    main_mask_full = mpi == mpbi
-    if(np.any(main_mask_full)):
-        msub_z0 = 10**np.amax(m[main_mask_full])
-    else:
-        msub_z0 = 10**np.amax(m)
-    keep = redshifts >= final_redshift
-    m = m[keep]; fp = fp[keep]; subid = subid[keep]; redshifts = redshifts[keep]; jsp = jsp[keep]; mpi = mpi[keep]
-    if(len(m) == 0):
-        return np.array([]), np.array([]), np.array([]), np.array([]), np.array([]), np.array([]), msub_z0, mpbi
-    if(mpb_only):
-        # `mpb_only` reduces the event search to the main branch only. The
-        # fixed tree files contain all retained branches by default.
-        m = m[mpi == mpbi]; fp = fp[mpi == mpbi]; subid = subid[mpi == mpbi]; redshifts = redshifts[mpi == mpbi]; jsp = jsp[mpi == mpbi]; mpi = mpi[mpi == mpbi]
-    if(len(m) == 0):
-        return np.array([]), np.array([]), np.array([]), np.array([]), np.array([]), np.array([]), msub_z0, mpbi
-    m = 10**m
-    return m, fp, subid, redshifts, jsp, mpi, msub_z0, mpbi
+    full_tree = exsitu_nsc.read_full_tree(tree_path)
+    formation_tree = exsitu_nsc.filter_tree_for_formation(full_tree, final_redshift, mpb_only)
+    if(len(formation_tree.log_mh) == 0):
+        return (
+            np.array([]),
+            np.array([]),
+            np.array([]),
+            np.array([]),
+            np.array([]),
+            np.array([]),
+            full_tree.msub_z0_msun,
+            full_tree.mpb_branch_id,
+            full_tree,
+        )
+    return (
+        formation_tree.mass_msun,
+        formation_tree.first_prog_id,
+        formation_tree.subhalo_id,
+        formation_tree.redshift,
+        formation_tree.spin_norm,
+        formation_tree.branch_id,
+        full_tree.msub_z0_msun,
+        full_tree.mpb_branch_id,
+        full_tree,
+    )
 
 
 t0 = smhm.cosmicTime(final_redshift, units = 'yr')
@@ -621,7 +1074,7 @@ num_run = 0
 for tree_entry in _iter_tree_files(treedir):
     hid_num = int(tree_entry.halo_id_z0)
     tree_path = tree_entry.path
-    m, fp, subid, redshifts, jsp, mpi, msub_z0, mpbi = loadTree(tree_path)
+    m, fp, subid, redshifts, jsp, mpi, msub_z0, mpbi, full_tree = loadTree(tree_path)
     if(len(m) == 0):
         continue
     # if(run_all == False and msub  < 10**log_mh_min or msub > 10**log_mh_max or num_run >= N):
@@ -670,10 +1123,30 @@ for tree_entry in _iter_tree_files(treedir):
         if(ratio > p3):  #if merger criterion satisfied
             metallicity = MMR(SM, znow)
             is_mpb = mpi[i] == mpbi
+            snap_form = nearest_snap_from_redshift(znow, snaps2)
+            re_result = resolve_birth_re_kpc(
+                mode = eff_rad_model,
+                halomass_msun = mass,
+                redshift = znow,
+                mstar_msun = SM,
+                jsp = jj,
+                sersic_n = ns,
+                fixed_tree_basename = tree_entry.path.name,
+                dark_subhalo_id = int(subid[i]),
+                snapnum = int(snap_form),
+                catalogue = eff_rad_catalogue,
+            )
+            eff_rad_formation_events += 1
+            eff_rad_source_counts[re_result.source] = eff_rad_source_counts.get(re_result.source, 0) + 1
+            if(re_result.fallback_reason):
+                eff_rad_fallback_counts[re_result.fallback_reason] = eff_rad_fallback_counts.get(re_result.fallback_reason, 0) + 1
             # `subid[i]` records the halo hosting the formation event; later
             # stages use it to mark MPB vs accreted GCs in merged catalogs.
-            clusters.extend(clusterFormation(Mg, mass, znow, metallicity, SM, is_mpb, subid[i], jj))
+            clusters.extend(clusterFormation(Mg, mass, znow, metallicity, SM, is_mpb, subid[i], jj, mpi[i], i, re_result.re_kpc, re_result.source))
             continue
+
+    for gc_uid, cluster in enumerate(clusters, start=1):
+        cluster.gc_uid = gc_uid
 
     clusters2, log_initial_masses = [], []
     for cluster in clusters:
@@ -692,8 +1165,13 @@ for tree_entry in _iter_tree_files(treedir):
             gc_radius_pc = cluster.gc_radius_pc,
             gc_sigma_h_msun_pc2 = cluster.gc_sigma_h_msun_pc2,
             imbh_mass_msun = cluster.imbh_mass_msun,
+            branch_id = cluster.branch_id,
+            formation_tree_index = cluster.formation_tree_index,
+            gc_uid = cluster.gc_uid,
         )
         evolved_cluster.assign_rGalaxy(cluster.rGalaxy)
+        evolved_cluster.assign_local_rGalaxy(cluster.local_rGalaxy)
+        evolved_cluster.object_type = cluster.object_type
         clusters2.append(evolved_cluster)
 
     evolved_clusters = [cluster for cluster in clusters2 if cluster.mass > 0]
@@ -756,6 +1234,19 @@ for tree_entry in _iter_tree_files(treedir):
             + str(np.round(GC_imbh_mass[i],5))
             + "\n"
         )
+    if(ex_situ_nsc_enabled):
+        augmented_rows, object_type_rows, component_rows, branch_rows = build_satellite_nsc_catalogue(
+            clusters,
+            full_tree,
+            hid_num,
+            logmsub,
+            final_redshift,
+        )
+        for row in augmented_rows:
+            satnsc_allcat.write(" ".join(str(value) for value in row) + "\n")
+        satnsc_object_writer.writerows(object_type_rows)
+        satnsc_component_writer.writerows(component_rows)
+        satnsc_branch_writer.writerows(branch_rows)
     for i in range(len(GC_masses2)): #only those surviving to the chosen final redshift
         zform = GC_redshifts2[i]
         mh_tform = GC_mhost_tform2[i]; log_mh_tform = np.log10(mh_tform);
@@ -795,6 +1286,44 @@ for tree_entry in _iter_tree_files(treedir):
         )
 cat.close()
 allcat.close()
+if(satnsc_allcat is not None):
+    satnsc_allcat.close()
+if(satnsc_object_handle is not None):
+    satnsc_object_handle.close()
+if(satnsc_component_handle is not None):
+    satnsc_component_handle.close()
+if(satnsc_branch_handle is not None):
+    satnsc_branch_handle.close()
+summary_path = output_dir / ("eff_radius_summary_" + nsStr + ".csv")
+with summary_path.open("w", encoding = "utf-8", newline = "") as summary_handle:
+    fieldnames = [
+        "eff_rad",
+        "eff_rad_catalogue",
+        "formation_events",
+        "gao2023_count",
+        "empirical_count",
+        "catalogue_count",
+        "empirical_fallbacks",
+        "fallback_reason",
+        "fallback_count",
+    ]
+    writer = csv.DictWriter(summary_handle, fieldnames = fieldnames)
+    writer.writeheader()
+    empirical_fallbacks = int(sum(eff_rad_fallback_counts.values()))
+    base_row = {
+        "eff_rad": eff_rad_model,
+        "eff_rad_catalogue": "" if eff_rad_catalogue_path is None else str(eff_rad_catalogue_path),
+        "formation_events": int(eff_rad_formation_events),
+        "gao2023_count": int(eff_rad_source_counts.get(EFF_RAD_GAO2023, 0)),
+        "empirical_count": int(eff_rad_source_counts.get(EFF_RAD_EMPIRICAL, 0)),
+        "catalogue_count": int(eff_rad_source_counts.get(EFF_RAD_CATALOGUE, 0)),
+        "empirical_fallbacks": empirical_fallbacks,
+    }
+    if(len(eff_rad_fallback_counts) == 0):
+        writer.writerow({**base_row, "fallback_reason": "", "fallback_count": 0})
+    else:
+        for reason, count in sorted(eff_rad_fallback_counts.items()):
+            writer.writerow({**base_row, "fallback_reason": reason, "fallback_count": int(count)})
 if(num_run < N and run_all == False):
     print("requested", N, "halos, but there were only", num_run, "halos stored in the mass range you requested. Model was run on all available halos.\n")
 print("all done!")

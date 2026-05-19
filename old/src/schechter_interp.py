@@ -13,8 +13,7 @@ import numpy as np
 from scipy import interpolate
 import mpmath
 import sys
-#sys.path.insert(0, '/Users/nchoksi/gdrive/Astro/')
-import smhm
+import NSC.old.src.smhm as smhm
 
 log_mv = np.linspace(4.9, 8.6, num = 2000)
 dlog_mv_inv = 1./(log_mv[1] - log_mv[0])

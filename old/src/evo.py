@@ -22,8 +22,31 @@ from typing import List, Optional, Tuple
 import numpy as np
 from scipy import special
 
-from config import *
+from NSC.old.src.help import check_finite, check_finite_non_negative, check_finite_positive
+from NSC.old.src.eff_rad import (
+    EFF_RAD_CATALOGUE,
+    EFF_RAD_CHOICES,
+    EFF_RAD_GAO2023,
+    EFF_RADIUS_CATALOGUE_BUILD_COMMAND,
+    load_eff_radius_catalogue,
+    nearest_snap_from_redshift,
+    resolve_background_re_kpc,
+    validate_eff_rad_mode,
+)
 
+G_kpc = 4.300931494278067e-6  # gravitational constant [kpc·(km/s)²·M☉⁻¹]
+PI = math.pi
+pc = 3.0856775814913673e16 # [m]
+kpc = pc * 1.0e3 # [m]
+Mpc = pc * 1.0e6 # [m]
+ALEX_VC_CONV = 65.7677131526 # ?
+t_universe = 13.780 # DESI 2024 + BAO [Gyr]
+Omega_m0 = 0.307 # DESI 2024 + BAO
+H0 = 67.97 # Hubble constant (DESI 2024 + BAO) [(km/s)/Mpc]
+Omega_Lambda0 = 1.0 - Omega_m0 # DESI 2024 + BAO
+Gyr = 365.25 * 24.0 * 3600.0 * 1.0e9 # [s]
+t_Lambda_Gyr = 2.0 / (3.0 * H0 * math.sqrt(Omega_Lambda0)) * Mpc / 1.0e3 / Gyr
+SqrtOmega_Lambda0OverOmega_m0 = math.sqrt(Omega_Lambda0 / Omega_m0)
 EPS = 1.0e-30
 
 STAT_ALIVE = 1 # GC is still alive at the end of the evolution
@@ -120,10 +143,93 @@ def _read_haloevo_mpb(path: Path) -> np.ndarray:
         return np.zeros((0, 9), dtype=float)
     return np.asarray(rows, dtype=float)
 
+
 def read_haloevo_mpb(path: Path) -> np.ndarray:
     """Public wrapper for the MPB parser used by plotting-ready summaries."""
 
     return _read_haloevo_mpb(path)
+
+
+def _snap_redshifts_for_haloevo(path: Path) -> np.ndarray:
+    """Load the snapshot-redshift table matching one fixed-tree file."""
+
+    haloevo_path = Path(path)
+    data_dir = haloevo_path.parent.parent
+    name = haloevo_path.name
+    candidates: list[Path] = []
+    for suite_key in ("illustris1_dark", "tng50_1_dark"):
+        if name.startswith(suite_key + "_"):
+            candidates.append(data_dir / f"snaps2redshifts_{suite_key}.txt")
+    candidates.extend(sorted(data_dir.glob("snaps2redshifts_*_dark.txt")))
+    candidates.append(Path(__file__).resolve().parents[1] / "data" / "snaps2redshifts.txt")
+
+    seen: set[Path] = set()
+    for candidate in candidates:
+        candidate = candidate.resolve()
+        if candidate in seen:
+            continue
+        seen.add(candidate)
+        if candidate.is_file():
+            return np.asarray(np.loadtxt(candidate, comments="#", ndmin=1), dtype=float).reshape(-1)
+    raise FileNotFoundError(f"No snapshot-redshift table could be resolved for {haloevo_path}")
+
+def f_x_SMHM(x: float, z: float) -> float:
+    """f(x) function from the Behroozi+2013 SMHM relation"""
+    check_finite(x, name="lg(M_h/M_1) x")
+    check_finite_non_negative(z, name="Redshift z")
+
+    a = 1.0 / (1.0 + z)
+    nu = math.exp(- 4.0 * a * a)
+    alpha = - 1.412 + 0.731 * (a - 1.0) * nu
+    delta = 3.508 + (2.608 * (a - 1.0) - 0.043 * z) * nu
+    gamma = 0.316 + (1.319 * (a - 1.0) + 0.279 * z) * nu
+    return - math.log10(10.0 ** (alpha * x) + 1.0) + delta * (math.log10(1.0 + math.exp(x))) ** gamma / (1.0 + math.exp(0.1**x))
+
+def Omega_m(z: float) -> float:
+    """flat LambdaCDM matter density parameter"""
+    check_finite_non_negative(z, name="Redshift z")
+
+    z_plus_1_cubed = (1.0 + z) ** 3
+    return Omega_m0 * z_plus_1_cubed / (1.0 - Omega_m0 + Omega_m0 * z_plus_1_cubed)
+
+def CosmicAgeGyr2Redshift(t_Gyr: float) -> float:
+    """flat LambdaCDM cosmic age to redshift conversion without radiation"""
+    check_finite_positive(t_Gyr, name="Cosmic age in Gyr t_Gyr")
+
+    z = (SqrtOmega_Lambda0OverOmega_m0 / math.sinh(t_Gyr / t_Lambda_Gyr)) ** (2.0 / 3.0) - 1.0
+    check_finite_non_negative(z, name="Redshift z")
+    return z
+
+def Rv_kpc(Mhalo_1e9Msun: float, t_Gyr: float, tun: Tunables) -> float:
+    check_finite_positive(Mhalo_1e9Msun, name="Halo mass Mhalo_1e9Msun")
+    check_finite_positive(t_Gyr, name="Cosmic age in Gyr t_Gyr")
+
+    z = CosmicAgeGyr2Redshift(t_Gyr)
+    Omega_m_z = Omega_m(z)
+    Delta_v = (18.0 * PI * PI + 82.0 * (Omega_m_z - 1.0) - 39.0 * (Omega_m_z - 1.0) ** 2) / Omega_m_z
+    check_finite_positive(Delta_v, name="Average halo over-density at Rv Delta_v")
+    Rv_kpc = 163.0 / ((1.0 + z) * tun.h) * (Mhalo_1e9Msun * tun.h * 200.0 / (1.0e3 * Omega_m0 * Delta_v)) ** (1.0 / 3.0)
+    check_finite_positive(Rv_kpc, name="Halo virial radius in kpc Rv_kpc")
+    return Rv_kpc
+
+def Mstar_1e9Msun_SMHM(Mhalo_1e9Msun: float, t_Gyr: float) -> float:
+    check_finite_positive(Mhalo_1e9Msun, name="Halo mass Mhalo_1e9Msun")
+    check_finite_positive(t_Gyr, name="Cosmic age in Gyr t_Gyr")
+
+    z = CosmicAgeGyr2Redshift(t_Gyr)
+    a = 1.0 / (1.0 + z)
+    nu = math.exp(- 4.0 * a * a)
+    epsilon = 10.0 ** (- 1.777 - 0.006 * (a - 1.0) * nu - 0.119 * (a - 1.0))
+    M1 = 10.0 ** (11.514 - (1.793 * (a - 1.0) + 0.251 * z) * nu)
+    Mstar_1e9Msun = epsilon * M1 * 10.0 ** (f_x_SMHM(math.log10(Mhalo_1e9Msun * 1.0e9 / M1), z) - f_x_SMHM(0.0, z)) / 1.0e9
+    check_finite_positive(Mstar_1e9Msun, name="Stellar mass in 1e9 Msun Mstar_1e9Msun")
+    return Mstar_1e9Msun
+
+def Sersic_coefs(N_S: float) -> Tuple[float, float]:
+    check_finite_positive(N_S, name="Sersic index N_S")
+    p = 1.0 - 0.6097 / N_S + 0.05563 / (N_S * N_S)
+    b = 2.0 * N_S - 1.0 / 3.0 + 0.009876 / N_S
+    return p, b
 
 def rho_bkgd(r_kpc: float, SersicReff_kpc: float, Mv_1e9Msun: float, t_Gyr: float, tun: Tunables) -> float:
     check_finite_positive(r_kpc, name="Radius in kpc r_kpc")
@@ -142,6 +248,19 @@ def rho_bkgd(r_kpc: float, SersicReff_kpc: float, Mv_1e9Msun: float, t_Gyr: floa
     m_ser_r = Mstar_1e9Msun_SMHM(Mv_1e9Msun, t_Gyr) * float(special.gammainc(2.2 * (3.0 - p), sersic_z))
     vc_bg = math.sqrt(max(r_kpc * dphidr_dm + m_ser_r / r_kpc, 0.0))
     return vc_bg * vc_bg / ((4.0 / 3.0) * PI * r_kpc * r_kpc)
+
+def Redshift2CosmicAgeGyr(z: float) -> float:
+    """Flat LCDM cosmic age in Gyr.
+
+    For a spatially flat matter+Lambda cosmology, the age at redshift z has the analytic form
+
+        t(z) = 2 / (3 H0 sqrt(Omega_L)) * asinh(sqrt(Omega_L / Omega_M) / (1 + z)^(3/2))
+
+    which is exact under the flat-LCDM assumption.
+    """
+
+    check_finite_non_negative(z, name="Redshift z")
+    return t_Lambda_Gyr * math.asinh(SqrtOmega_Lambda0OverOmega_m0 / ((1.0 + z) ** 1.5))
 
 def swf(t_gyr: float) -> float:
     t_safe = max(float(t_gyr), 1.0e-12)
@@ -200,7 +319,7 @@ def vc_kms(Mencl_1e5Msun: float, r_kpc: float, rho_bkgd: float) -> float:
     check_finite_positive(r_kpc, name="GC distance from the galactic centre in kpc r_kpc")
     check_finite_positive(rho_bkgd, name="Background density in Msun/kpc^3 rho_bkgd")
 
-    rho_GC = (Mencl_1e5Msun * 1.0e5) / ((4.0 / 3.0) * PI * (r_kpc**3))
+    rho_GC = (Mencl_1e5Msun / 1.0e5) / ((4.0 / 3.0) * PI * (r_kpc**3))
     check_finite_non_negative(rho_GC, name="GC density in Msun/kpc^3 rho_GC")
     vc_kms = math.sqrt((4.0 * PI / 3.0) * G_kpc * (rho_bkgd + rho_GC) * (r_kpc**2))
     check_finite_positive(vc_kms, name="Circular velocity in km/s vc_kms")
@@ -337,6 +456,10 @@ def evolve_single_halo(
     *,
     sersic_n: float = 2.2,
     final_redshift: float = 0.0,
+    df: int = 1,
+    tidal_stripping: str = "Fragione+2019",
+    eff_rad: str = EFF_RAD_GAO2023,
+    eff_rad_catalogue_path: Optional[Path] = None,
     trace_path: Optional[Path] = None,
 ) -> Tuple[np.ndarray, np.ndarray]:
     """Evolve one halo's GC system from formation to z=0.
@@ -356,6 +479,27 @@ def evolve_single_halo(
         raise ValueError("sersic_n must be positive")
     if final_redshift < 0.0:
         raise ValueError("final_redshift must be non-negative")
+    if int(df) not in (0, 1):
+        raise ValueError("df must be 0 or 1")
+    df_enabled = bool(int(df))
+    tidal_stripping = validateStrippingChoices(tidal_stripping)
+    eff_rad_model = validate_eff_rad_mode(eff_rad)
+    eff_rad_catalogue = None
+    if eff_rad_model == EFF_RAD_CATALOGUE:
+        if eff_rad_catalogue_path is None:
+            raise FileNotFoundError(
+                "--eff_rad catalogue requires a sidecar CSV. Build it with: "
+                + EFF_RADIUS_CATALOGUE_BUILD_COMMAND
+            )
+        eff_rad_catalogue_path = Path(eff_rad_catalogue_path)
+        if not eff_rad_catalogue_path.is_file():
+            raise FileNotFoundError(
+                "Effective-radius catalogue not found: "
+                + str(eff_rad_catalogue_path)
+                + ". Build it with: "
+                + EFF_RADIUS_CATALOGUE_BUILD_COMMAND
+            )
+        eff_rad_catalogue = load_eff_radius_catalogue(eff_rad_catalogue_path)
 
     gc_init = _numeric_rows(gcini_path)
     if gc_init.size == 0:
@@ -368,13 +512,13 @@ def evolve_single_halo(
     # Modern GCini rows use the 13-column formation catalog.
     m_gc_init = 10.0 ** (gc_init[:, 6] - 5.0)
     r_gc_init = gc_init[:, 9].astype(float)
-    t_gc_init = np.array([Redshift2CosmicAge(z=z, time_unit="Gyr") for z in gc_init[:, 7]], dtype=float)
+    t_gc_init = np.array([Redshift2CosmicAgeGyr(z) for z in gc_init[:, 7]], dtype=float)
     if gc_init.shape[1] > 12:
         m_imbh = np.asarray(gc_init[:, 12], dtype=float) / 1.0e5
     else:
         m_imbh = np.zeros(n_gc, dtype=float)
 
-    t_end = Redshift2CosmicAge(z=final_redshift, time_unit="Gyr")
+    t_end = Redshift2CosmicAgeGyr(final_redshift)
     if np.any(t_gc_init > t_end + 1.0e-10):
         raise ValueError(
             "GCini contains clusters formed after the requested final_redshift. "
@@ -422,7 +566,10 @@ def evolve_single_halo(
         raise ValueError(f"No usable halo rows found in {haloevo_path}")
     mhalo = 10.0 ** (halo[:, 0] - 9.0)
     redshift_halo = halo[:, 5].astype(float)
-    bg_time = np.array([Redshift2CosmicAge(z=z, time_unit="Gyr") for z in redshift_halo], dtype=float)
+    subhalo_id_halo = halo[:, 2].astype(int)
+    snap_redshifts = _snap_redshifts_for_haloevo(haloevo_path)
+    snapnum_halo = np.array([nearest_snap_from_redshift(z, snap_redshifts) for z in redshift_halo], dtype=int)
+    bg_time = np.array([Redshift2CosmicAgeGyr(z) for z in redshift_halo], dtype=float)
     spin_norm = np.sqrt(halo[:, 6] ** 2 + halo[:, 7] ** 2 + halo[:, 8] ** 2) * kpc / tun.h * 1.0e3
 
     tposini = int(math.floor(float(np.min(t_gc_init)) / max(t_end, EPS) * tun.t_div))
@@ -451,20 +598,37 @@ def evolve_single_halo(
     spin_now = float(spin_norm[0]) if len(spin_norm) > 0 else 0.0
     masshalo = float(mhalo[0]) if len(mhalo) > 0 else 0.0
     redshift_now = float(redshift_halo[0]) if len(redshift_halo) > 0 else 0.0
+    subhalo_id_now = int(subhalo_id_halo[0]) if len(subhalo_id_halo) > 0 else -1
+    snapnum_now = int(snapnum_halo[0]) if len(snapnum_halo) > 0 else -1
     sersic_re_now = 1.0
     t_l_block = 0.0
-    eff_rad_source_count = 0
+    eff_rad_source_counts = {mode_name: 0 for mode_name in EFF_RAD_CHOICES}
+    eff_rad_fallback_counts: dict[str, int] = {}
 
     def resolve_current_background_re() -> float:
-        nonlocal eff_rad_source_count
-        re_kpc = resolve_background_re_kpc(
+        result = resolve_background_re_kpc(
+            mode=eff_rad_model,
             mhalo_1e9msun=masshalo,
+            redshift=redshift_now,
             t_l_gyr=t_l_block,
             spin_norm=spin_now,
-            tun=tun)
-        eff_rad_source_count += 1
-        check_finite_positive(re_kpc, name="Resolved effective radius in kpc re_kpc")
-        return float(re_kpc)
+            sersic_n=sersic_n,
+            tun=tun,
+            fixed_tree_basename=Path(haloevo_path).name,
+            dark_subhalo_id=int(subhalo_id_now),
+            snapnum=int(snapnum_now),
+            catalogue=eff_rad_catalogue,
+        )
+        eff_rad_source_counts[result.source] = eff_rad_source_counts.get(result.source, 0) + 1
+        if result.fallback_reason:
+            eff_rad_fallback_counts[result.fallback_reason] = eff_rad_fallback_counts.get(result.fallback_reason, 0) + 1
+        if (not math.isfinite(result.re_kpc)) or result.re_kpc <= 0.0:
+            raise ValueError(
+                f"Resolved invalid effective radius {result.re_kpc!r} for mode={eff_rad_model}, "
+                f"source={result.source}, halo={Path(haloevo_path).name}, snap={snapnum_now}, "
+                f"subhalo={subhalo_id_now}, z={redshift_now}"
+            )
+        return float(result.re_kpc)
 
     def remaining_stellar_mass(i: int) -> float:
         return max(float(m_gc[i] - m_imbh[i]), 0.0)
@@ -482,7 +646,7 @@ def evolve_single_halo(
         t_now = float(t_gc[i])
         trace_fh.write(
             f"{trace_index:d} {phase} {i + 1:d} {current_status_for_trace(i):d} "
-            f"{t_now:.10e} {CosmicAge2Redshift(t_now, time_unit='Gyr'):.10e} "
+            f"{t_now:.10e} {CosmicAgeGyr2Redshift(t_now):.10e} "
             f"{r_gc[i]:.10e} {1.0e5 * m_gc[i]:.10e} {int(bin_gc[i]):d}\n"
         )
 
@@ -532,13 +696,15 @@ def evolve_single_halo(
         i: int,
         prefix_snapshot: np.ndarray,
     ) -> float:
+        if not df_enabled:
+            return 0.0
         b_now = assign_bin_fast(r_gc[i], r_min, log_r_min, inv_log_span, tun.binnub)
-        m_enclose, rho_bg, rho_tot = rho_components(r_gc[i], b_now, prefix_snapshot)
+        m_enclose, _, rho_tot = rho_components(r_gc[i], b_now, prefix_snapshot)
         return rk4_rdot_analytic(
             M_GC_1e5Msun=mass_df,
             r_kpc=r_gc[i],
             dt_gyr=dt_gc[i],
-            rho_bg_current=rho_bg,
+            rho_bg_current=rho_tot,
             m_enclosed_current_1e5=m_enclose,
             prefix_snapshot=prefix_snapshot,
             r_min=r_min,
@@ -569,7 +735,7 @@ def evolve_single_halo(
             enter_wanderer(i, int(bin_gc[i]), deposit_stars=False)
 
         b = int(bin_gc[i])
-        m_enclose, rho_bkgd, rho_tot = rho_components(r_gc[i], b, prefix_snapshot)
+        m_enclose, _, rho_tot = rho_components(r_gc[i], b, prefix_snapshot)
 
         if not is_wanderer[i]:
             if cluster_halfmass_density(m_gc[i]) < rho_tot:
@@ -581,10 +747,14 @@ def evolve_single_halo(
                     write_trace_row(i, "prep")
                     return
 
-        v = vc_kms(m_enclose, r_gc[i], rho_bkgd)
+        v = vc_kms(m_enclose, r_gc[i], rho_tot)
 
         if is_wanderer[i]:
             mdot_td[i] = 0.0
+            if v <= 0.0 or not df_enabled:
+                rdot_df[i] = 0.0
+                dt_gc[i] = min(max(t_r - t_gc[i], 0.0), tun.dt_max)
+                return
             dot_r = m_imbh[i] / (0.45 * max(r_gc[i], EPS) * max(v, EPS))
             dt_orb = ts_r * r_gc[i] / max(dot_r, EPS)
             if t_gc[i] + dt_orb > t_r:
@@ -595,13 +765,31 @@ def evolve_single_halo(
             rdot_df[i] = current_rdot(m_imbh[i], i, prefix_snapshot)
             return
 
-        mdot_td[i] = rateStrippingFragioneP2019(m_gc[i], r_gc[i], v)
+        if tidal_stripping == "Choksi+2018":
+            mdot_td[i] = rateStrippingChoksiP2018(m_gc[i])
+        else:
+            if v <= 0.0:
+                mdot_td[i] = 0.0
+                rdot_df[i] = 0.0
+                dt_gc[i] = min(max(t_r - t_gc[i], 0.0), tun.dt_max)
+                return
+            mdot_td[i] = rateStrippingFragioneP2019(m_gc[i], r_gc[i], v)
 
         dtm = ts_m * m_gc[i] / max(mdot_td[i], EPS)
         if t_gc[i] + dtm > t_r:
             dtm = t_r - t_gc[i]
         elif dtm < ts_m * tun.t_limit:
             dtm = ts_m * tun.t_limit
+
+        if v <= 0.0:
+            rdot_df[i] = 0.0
+            dt_gc[i] = min(dtm, tun.dt_max)
+            return
+
+        if not df_enabled:
+            rdot_df[i] = 0.0
+            dt_gc[i] = min(dtm, tun.dt_max)
+            return
 
         dot_r = m_gc[i] / (0.45 * max(r_gc[i], EPS) * max(v, EPS))
         dt_orb = ts_r * r_gc[i] / max(dot_r, EPS)
@@ -645,7 +833,9 @@ def evolve_single_halo(
                 )
             spin_now = float(spin_norm[snap_pos - 1])
             state_idx = snap_pos - 1
-            redshift_now = CosmicAge2Redshift(t_l, time_unit="Gyr")
+            redshift_now = CosmicAgeGyr2Redshift(t_l)
+        subhalo_id_now = int(subhalo_id_halo[state_idx])
+        snapnum_now = int(snapnum_halo[state_idx])
         sersic_re_now = resolve_current_background_re()
         prefix_snapshot = _prefix_from_sumgc_total(m_sumgc_total)
         for i in range(n_gc):
@@ -811,7 +1001,7 @@ def evolve_single_halo(
                     f"{1.0e5 * m_sumgc_total[l, 2]:.10e}\n"
                 )
 
-        if tpos == tun.t_div:
+        if verbose:
             print(f"{tpos - tposini:5d} / {tun.t_div - tposini:5d}  runtime={time.time() - start:8.3f} s")
         tpos += 1
 
@@ -839,7 +1029,18 @@ def evolve_single_halo(
     if trace_fh is not None:
         trace_fh.close()
 
-    print(f"effective-radius summary Gao+2024={eff_rad_source_count} fallbacks=none")
+    if verbose:
+        fallback_text = ", ".join(f"{reason}:{count}" for reason, count in sorted(eff_rad_fallback_counts.items()))
+        if not fallback_text:
+            fallback_text = "none"
+        print(
+            "effective-radius summary "
+            f"mode={eff_rad_model} "
+            f"Gao+2024={eff_rad_source_counts.get(EFF_RAD_GAO2023, 0)} "
+            f"empirical={eff_rad_source_counts.get('empirical', 0)} "
+            f"catalogue={eff_rad_source_counts.get('catalogue', 0)} "
+            f"fallbacks={fallback_text}"
+        )
 
     return finalGCs_array, depo
 
@@ -852,9 +1053,14 @@ def _build_arg_parser() -> argparse.ArgumentParser:
     p.add_argument("depos", type=Path, help="deposit-profile output file")
     p.add_argument("gcfin", type=Path, help="final-GC output file")
     p.add_argument("haloevo", type=Path, help="halo evolution table")
+    p.add_argument("--DF", dest="df", type=int, choices=[0, 1], default=1, help="if 1, enable dynamical-friction orbital decay; if 0, keep radii fixed against DF")
+    p.add_argument("--tidal_stripping", choices=StrippingChoices, default="Fragione+2019", help="continuous tidal-stripping prescription: current Fragione+2019 local-orbit rate or Choksi+2018 fixed-P disruption rate")
     p.add_argument("--ns", type=float, default=2.2, help="Sersic index N_s used in the background stellar profile")
     p.add_argument("--final-redshift", type=float, default=0.0, help="stop the evolution at this redshift instead of z=0")
+    p.add_argument("--eff_rad", choices=EFF_RAD_CHOICES, default=EFF_RAD_GAO2023, help="effective-radius model")
+    p.add_argument("--eff_rad_catalogue", type=Path, default=None, help="sidecar CSV used when --eff_rad catalogue")
     p.add_argument("--trace", type=Path, default=None, help="optional orbit-trace output path")
+    p.add_argument("--quiet", action="store_true", help="disable progress prints")
     return p
 
 
@@ -868,8 +1074,13 @@ def main() -> None:
         depos_path=args.depos,
         gcfin_path=args.gcfin,
         haloevo_path=args.haloevo,
+        verbose=not args.quiet,
+        df=args.df,
+        tidal_stripping=args.tidal_stripping,
         sersic_n=args.ns,
         final_redshift=args.final_redshift,
+        eff_rad=args.eff_rad,
+        eff_rad_catalogue_path=args.eff_rad_catalogue,
         trace_path=args.trace,
     )
 

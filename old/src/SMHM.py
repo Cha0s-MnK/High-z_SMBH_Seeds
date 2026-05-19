@@ -1,4 +1,4 @@
-"""Cosmology and stellar-mass helper utilities used throughout Gao+2023.
+"""Cosmology and stellar-mass helper utilities used throughout Gao+2024.
 
 The original project treated this as a grab-bag of convenience functions, so a
 lot of later code calls into this module without restating units. The most

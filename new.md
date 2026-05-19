@@ -29,6 +29,8 @@ We totally rewrite the Fortran evolution of GCs files to Python.
 ### GC formation controls
 
 The GC formation stage now exposes the model choices that were previously hard-coded in `src/main_spatial.py`. The `--metal` option selects either the original `Choksi+2018` stellar mass-metallicity relation or the updated `Chen&Gnedin2024` relation, with the same GC-to-GC metallicity scatter in both modes. The `--accreted_baryon` option selects either the default `Muratov&Gnedin2010` baryon-accretion limiter or the updated `Chen&Gnedin2023` limiter. The Schechter CIMF cutoff is now passed as `--lg_cut-off_mass`, the base-10 logarithm of the cutoff mass in solar masses.
+
+The GC birth-radius and analytical background-radius scale no longer have to be tied directly to halo spin. The new `--eff_rad` option keeps `Gao+2023` as the default control case, while `empirical` uses the star-forming size-mass-redshift relation from `gc_birth_radius_methods.pdf` and `catalogue` uses a matched full-physics SFR-concentration sidecar with explicit empirical fallbacks.
  
 ### Stellar evolution
 

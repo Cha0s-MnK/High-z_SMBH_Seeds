@@ -1,0 +1,663 @@
+nohup: ignoring input
+main_spatial finished for N_s=2.0. log=/tmp/gao2023_main_spatial_gdi4nls9/ns2p0/main_spatial_ns2p0.log
+   99 /    99  runtime= 250.133 s
+effective-radius summary Gao+2024=99 fallbacks=none
+   98 /    98  runtime= 329.977 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   97 /    97  runtime= 107.888 s
+effective-radius summary Gao+2024=97 fallbacks=none
+   98 /    98  runtime= 104.795 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   98 /    98  runtime=  17.181 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   97 /    97  runtime=   5.939 s
+effective-radius summary Gao+2024=97 fallbacks=none
+   96 /    96  runtime=   4.360 s
+effective-radius summary Gao+2024=96 fallbacks=none
+   97 /    97  runtime=   7.695 s
+effective-radius summary Gao+2024=97 fallbacks=none
+   98 /    98  runtime= 242.517 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   98 /    98  runtime= 316.238 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   98 /    98  runtime= 112.956 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   97 /    97  runtime=  35.165 s
+effective-radius summary Gao+2024=97 fallbacks=none
+   97 /    97  runtime=  52.732 s
+effective-radius summary Gao+2024=97 fallbacks=none
+   98 /    98  runtime=  41.762 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   96 /    96  runtime=   1.045 s
+effective-radius summary Gao+2024=96 fallbacks=none
+   92 /    92  runtime=   0.969 s
+effective-radius summary Gao+2024=92 fallbacks=none
+   96 /    96  runtime=  10.031 s
+effective-radius summary Gao+2024=96 fallbacks=none
+   87 /    87  runtime=   1.407 s
+effective-radius summary Gao+2024=87 fallbacks=none
+   96 /    96  runtime=   1.574 s
+effective-radius summary Gao+2024=96 fallbacks=none
+   96 /    96  runtime=   5.339 s
+effective-radius summary Gao+2024=96 fallbacks=none
+   91 /    91  runtime=   2.567 s
+effective-radius summary Gao+2024=91 fallbacks=none
+   91 /    91  runtime=   3.498 s
+effective-radius summary Gao+2024=91 fallbacks=none
+   98 /    98  runtime= 439.970 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   98 /    98  runtime= 191.795 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   98 /    98  runtime=  78.641 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   98 /    98  runtime=  67.596 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   98 /    98  runtime=  32.683 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   97 /    97  runtime=   8.796 s
+effective-radius summary Gao+2024=97 fallbacks=none
+   95 /    95  runtime=   4.877 s
+effective-radius summary Gao+2024=95 fallbacks=none
+   95 /    95  runtime=   4.029 s
+effective-radius summary Gao+2024=95 fallbacks=none
+   98 /    98  runtime= 350.808 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   98 /    98  runtime= 361.876 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   97 /    97  runtime=  43.255 s
+effective-radius summary Gao+2024=97 fallbacks=none
+   98 /    98  runtime=  64.617 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   96 /    96  runtime=   4.886 s
+effective-radius summary Gao+2024=96 fallbacks=none
+   94 /    94  runtime=   3.650 s
+effective-radius summary Gao+2024=94 fallbacks=none
+   98 /    98  runtime= 419.291 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   99 /    99  runtime= 292.552 s
+effective-radius summary Gao+2024=99 fallbacks=none
+   98 /    98  runtime=  74.562 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   97 /    97  runtime=   8.016 s
+effective-radius summary Gao+2024=97 fallbacks=none
+   97 /    97  runtime=  12.175 s
+effective-radius summary Gao+2024=97 fallbacks=none
+   86 /    86  runtime=   1.506 s
+effective-radius summary Gao+2024=86 fallbacks=none
+   90 /    90  runtime=   1.052 s
+effective-radius summary Gao+2024=90 fallbacks=none
+   97 /    97  runtime=  11.419 s
+effective-radius summary Gao+2024=97 fallbacks=none
+   96 /    96  runtime=   4.630 s
+effective-radius summary Gao+2024=96 fallbacks=none
+   94 /    94  runtime=   4.114 s
+effective-radius summary Gao+2024=94 fallbacks=none
+   99 /    99  runtime= 603.575 s
+effective-radius summary Gao+2024=99 fallbacks=none
+   98 /    98  runtime= 178.964 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   98 /    98  runtime=  30.161 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   93 /    93  runtime=   5.063 s
+effective-radius summary Gao+2024=93 fallbacks=none
+   97 /    97  runtime=   4.955 s
+effective-radius summary Gao+2024=97 fallbacks=none
+   96 /    96  runtime=   5.603 s
+effective-radius summary Gao+2024=96 fallbacks=none
+   98 /    98  runtime= 439.069 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   98 /    98  runtime= 119.873 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   98 /    98  runtime= 116.161 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   98 /    98  runtime=  50.193 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   98 /    98  runtime=  17.335 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   96 /    96  runtime=  10.926 s
+effective-radius summary Gao+2024=96 fallbacks=none
+   98 /    98  runtime=  62.547 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   85 /    85  runtime=   1.545 s
+effective-radius summary Gao+2024=85 fallbacks=none
+   96 /    96  runtime=   7.207 s
+effective-radius summary Gao+2024=96 fallbacks=none
+   95 /    95  runtime=   4.164 s
+effective-radius summary Gao+2024=95 fallbacks=none
+   99 /    99  runtime= 563.660 s
+effective-radius summary Gao+2024=99 fallbacks=none
+   98 /    98  runtime= 223.540 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   97 /    97  runtime=   5.916 s
+effective-radius summary Gao+2024=97 fallbacks=none
+   97 /    97  runtime=   9.664 s
+effective-radius summary Gao+2024=97 fallbacks=none
+   97 /    97  runtime=  14.602 s
+effective-radius summary Gao+2024=97 fallbacks=none
+   95 /    95  runtime=   5.855 s
+effective-radius summary Gao+2024=95 fallbacks=none
+   94 /    94  runtime=   5.006 s
+effective-radius summary Gao+2024=94 fallbacks=none
+   98 /    98  runtime= 752.396 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   98 /    98  runtime=  45.465 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   97 /    97  runtime=  17.806 s
+effective-radius summary Gao+2024=97 fallbacks=none
+   67 /    67  runtime=   1.211 s
+effective-radius summary Gao+2024=67 fallbacks=none
+   90 /    90  runtime=   1.704 s
+effective-radius summary Gao+2024=90 fallbacks=none
+   85 /    85  runtime=   1.789 s
+effective-radius summary Gao+2024=85 fallbacks=none
+   83 /    83  runtime=   1.810 s
+effective-radius summary Gao+2024=83 fallbacks=none
+   79 /    79  runtime=   2.291 s
+effective-radius summary Gao+2024=79 fallbacks=none
+   95 /    95  runtime=   4.441 s
+effective-radius summary Gao+2024=95 fallbacks=none
+   99 /    99  runtime= 788.011 s
+effective-radius summary Gao+2024=99 fallbacks=none
+   96 /    96  runtime=  13.081 s
+effective-radius summary Gao+2024=96 fallbacks=none
+   82 /    82  runtime=   1.006 s
+effective-radius summary Gao+2024=82 fallbacks=none
+   95 /    95  runtime=   4.290 s
+effective-radius summary Gao+2024=95 fallbacks=none
+   93 /    93  runtime=   1.205 s
+effective-radius summary Gao+2024=93 fallbacks=none
+   98 /    98  runtime=  17.904 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   92 /    92  runtime=   4.000 s
+effective-radius summary Gao+2024=92 fallbacks=none
+   98 /    98  runtime= 550.239 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   98 /    98  runtime= 157.241 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   98 /    98  runtime=  67.305 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   97 /    97  runtime=  27.495 s
+effective-radius summary Gao+2024=97 fallbacks=none
+   97 /    97  runtime=   8.823 s
+effective-radius summary Gao+2024=97 fallbacks=none
+   85 /    85  runtime=   0.945 s
+effective-radius summary Gao+2024=85 fallbacks=none
+   88 /    88  runtime=   1.148 s
+effective-radius summary Gao+2024=88 fallbacks=none
+   97 /    97  runtime=  12.034 s
+effective-radius summary Gao+2024=97 fallbacks=none
+   94 /    94  runtime=   4.383 s
+effective-radius summary Gao+2024=94 fallbacks=none
+   98 /    98  runtime= 721.827 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   98 /    98  runtime=  58.694 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   98 /    98  runtime=  32.259 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   97 /    97  runtime=   5.925 s
+effective-radius summary Gao+2024=97 fallbacks=none
+   97 /    97  runtime=   4.459 s
+effective-radius summary Gao+2024=97 fallbacks=none
+   63 /    63  runtime=   1.811 s
+effective-radius summary Gao+2024=63 fallbacks=none
+   96 /    96  runtime=   4.527 s
+effective-radius summary Gao+2024=96 fallbacks=none
+   98 /    98  runtime= 265.373 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   98 /    98  runtime= 339.393 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   98 /    98  runtime= 183.363 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   98 /    98  runtime=  18.567 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   97 /    97  runtime=  15.613 s
+effective-radius summary Gao+2024=97 fallbacks=none
+   96 /    96  runtime=   3.585 s
+effective-radius summary Gao+2024=96 fallbacks=none
+   95 /    95  runtime=   4.092 s
+effective-radius summary Gao+2024=95 fallbacks=none
+   99 /    99  runtime= 527.769 s
+effective-radius summary Gao+2024=99 fallbacks=none
+   97 /    97  runtime= 132.324 s
+effective-radius summary Gao+2024=97 fallbacks=none
+   98 /    98  runtime= 148.398 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   92 /    92  runtime=   1.308 s
+effective-radius summary Gao+2024=92 fallbacks=none
+   91 /    91  runtime=   1.136 s
+effective-radius summary Gao+2024=91 fallbacks=none
+   94 /    94  runtime=   1.241 s
+effective-radius summary Gao+2024=94 fallbacks=none
+   93 /    93  runtime=   1.287 s
+effective-radius summary Gao+2024=93 fallbacks=none
+   91 /    91  runtime=   1.409 s
+effective-radius summary Gao+2024=91 fallbacks=none
+   94 /    94  runtime=   1.571 s
+effective-radius summary Gao+2024=94 fallbacks=none
+   87 /    87  runtime=   1.691 s
+effective-radius summary Gao+2024=87 fallbacks=none
+   72 /    72  runtime=   1.217 s
+effective-radius summary Gao+2024=72 fallbacks=none
+   96 /    96  runtime=   2.213 s
+effective-radius summary Gao+2024=96 fallbacks=none
+   96 /    96  runtime=   4.835 s
+effective-radius summary Gao+2024=96 fallbacks=none
+   92 /    92  runtime=   3.453 s
+effective-radius summary Gao+2024=92 fallbacks=none
+   99 /    99  runtime= 694.193 s
+effective-radius summary Gao+2024=99 fallbacks=none
+   97 /    97  runtime=  99.548 s
+effective-radius summary Gao+2024=97 fallbacks=none
+   92 /    92  runtime=   0.963 s
+effective-radius summary Gao+2024=92 fallbacks=none
+   97 /    97  runtime=  21.458 s
+effective-radius summary Gao+2024=97 fallbacks=none
+   92 /    92  runtime=   1.747 s
+effective-radius summary Gao+2024=92 fallbacks=none
+   91 /    91  runtime=   1.666 s
+effective-radius summary Gao+2024=91 fallbacks=none
+   93 /    93  runtime=   2.895 s
+effective-radius summary Gao+2024=93 fallbacks=none
+   95 /    95  runtime=   4.108 s
+effective-radius summary Gao+2024=95 fallbacks=none
+   85 /    85  runtime=   2.953 s
+effective-radius summary Gao+2024=85 fallbacks=none
+   99 /    99  runtime= 375.508 s
+effective-radius summary Gao+2024=99 fallbacks=none
+   99 /    99  runtime= 380.050 s
+effective-radius summary Gao+2024=99 fallbacks=none
+   98 /    98  runtime=  34.063 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   98 /    98  runtime=  15.211 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   97 /    97  runtime=   9.189 s
+effective-radius summary Gao+2024=97 fallbacks=none
+   78 /    78  runtime=   1.221 s
+effective-radius summary Gao+2024=78 fallbacks=none
+   97 /    97  runtime=  10.817 s
+effective-radius summary Gao+2024=97 fallbacks=none
+   94 /    94  runtime=   3.831 s
+effective-radius summary Gao+2024=94 fallbacks=none
+   99 /    99  runtime= 770.574 s
+effective-radius summary Gao+2024=99 fallbacks=none
+   96 /    96  runtime=  45.040 s
+effective-radius summary Gao+2024=96 fallbacks=none
+   92 /    92  runtime=   1.777 s
+effective-radius summary Gao+2024=92 fallbacks=none
+   96 /    96  runtime=   4.940 s
+effective-radius summary Gao+2024=96 fallbacks=none
+   92 /    92  runtime=   3.967 s
+effective-radius summary Gao+2024=92 fallbacks=none
+   94 /    94  runtime=   3.571 s
+effective-radius summary Gao+2024=94 fallbacks=none
+   99 /    99  runtime= 386.981 s
+effective-radius summary Gao+2024=99 fallbacks=none
+   98 /    98  runtime= 262.659 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   98 /    98  runtime= 100.463 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   97 /    97  runtime=  65.272 s
+effective-radius summary Gao+2024=97 fallbacks=none
+   77 /    77  runtime=   1.288 s
+effective-radius summary Gao+2024=77 fallbacks=none
+   95 /    95  runtime=   1.897 s
+effective-radius summary Gao+2024=95 fallbacks=none
+   87 /    87  runtime=   1.610 s
+effective-radius summary Gao+2024=87 fallbacks=none
+   84 /    84  runtime=   1.848 s
+effective-radius summary Gao+2024=84 fallbacks=none
+   79 /    79  runtime=   2.238 s
+effective-radius summary Gao+2024=79 fallbacks=none
+   79 /    79  runtime=   2.832 s
+effective-radius summary Gao+2024=79 fallbacks=none
+   90 /    90  runtime=   2.936 s
+effective-radius summary Gao+2024=90 fallbacks=none
+   98 /    98  runtime= 556.864 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   98 /    98  runtime= 201.010 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   97 /    97  runtime=  21.920 s
+effective-radius summary Gao+2024=97 fallbacks=none
+   98 /    98  runtime=  27.036 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   96 /    96  runtime=   1.215 s
+effective-radius summary Gao+2024=96 fallbacks=none
+   95 /    95  runtime=   6.415 s
+effective-radius summary Gao+2024=95 fallbacks=none
+   86 /    86  runtime=   1.284 s
+effective-radius summary Gao+2024=86 fallbacks=none
+   95 /    95  runtime=   4.991 s
+effective-radius summary Gao+2024=95 fallbacks=none
+   98 /    98  runtime=   3.896 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   79 /    79  runtime=   2.839 s
+effective-radius summary Gao+2024=79 fallbacks=none
+   91 /    91  runtime=   2.615 s
+effective-radius summary Gao+2024=91 fallbacks=none
+   98 /    98  runtime= 391.324 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   98 /    98  runtime= 108.801 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   98 /    98  runtime= 113.388 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   98 /    98  runtime= 116.572 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   98 /    98  runtime=  53.389 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   97 /    97  runtime=  11.515 s
+effective-radius summary Gao+2024=97 fallbacks=none
+   93 /    93  runtime=   0.918 s
+effective-radius summary Gao+2024=93 fallbacks=none
+   97 /    97  runtime=  25.364 s
+effective-radius summary Gao+2024=97 fallbacks=none
+   92 /    92  runtime=   3.624 s
+effective-radius summary Gao+2024=92 fallbacks=none
+   77 /    77  runtime=   2.860 s
+effective-radius summary Gao+2024=77 fallbacks=none
+   91 /    91  runtime=   2.503 s
+effective-radius summary Gao+2024=91 fallbacks=none
+   98 /    98  runtime= 635.137 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   98 /    98  runtime=  76.256 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   98 /    98  runtime=  71.944 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   98 /    98  runtime=  27.076 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   87 /    87  runtime=   1.112 s
+effective-radius summary Gao+2024=87 fallbacks=none
+   81 /    81  runtime=   1.128 s
+effective-radius summary Gao+2024=81 fallbacks=none
+   97 /    97  runtime=   6.110 s
+effective-radius summary Gao+2024=97 fallbacks=none
+   98 /    98  runtime=   3.815 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   92 /    92  runtime=   3.750 s
+effective-radius summary Gao+2024=92 fallbacks=none
+   96 /    96  runtime=   3.672 s
+effective-radius summary Gao+2024=96 fallbacks=none
+   98 /    98  runtime= 373.726 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   98 /    98  runtime= 391.618 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   97 /    97  runtime=  40.736 s
+effective-radius summary Gao+2024=97 fallbacks=none
+   95 /    95  runtime=   1.157 s
+effective-radius summary Gao+2024=95 fallbacks=none
+   96 /    96  runtime=   5.414 s
+effective-radius summary Gao+2024=96 fallbacks=none
+   93 /    93  runtime=   1.237 s
+effective-radius summary Gao+2024=93 fallbacks=none
+   94 /    94  runtime=   1.511 s
+effective-radius summary Gao+2024=94 fallbacks=none
+   97 /    97  runtime=   4.854 s
+effective-radius summary Gao+2024=97 fallbacks=none
+   64 /    64  runtime=   1.495 s
+effective-radius summary Gao+2024=64 fallbacks=none
+   74 /    74  runtime=   1.982 s
+effective-radius summary Gao+2024=74 fallbacks=none
+   90 /    90  runtime=   3.555 s
+effective-radius summary Gao+2024=90 fallbacks=none
+   90 /    90  runtime=   2.656 s
+effective-radius summary Gao+2024=90 fallbacks=none
+   97 /    97  runtime= 119.076 s
+effective-radius summary Gao+2024=97 fallbacks=none
+   98 /    98  runtime= 352.141 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   98 /    98  runtime=  44.245 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   98 /    98  runtime= 311.112 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   96 /    96  runtime=   3.847 s
+effective-radius summary Gao+2024=96 fallbacks=none
+   99 /    99  runtime= 470.159 s
+effective-radius summary Gao+2024=99 fallbacks=none
+   98 /    98  runtime= 178.605 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   97 /    97  runtime=  26.624 s
+effective-radius summary Gao+2024=97 fallbacks=none
+   97 /    97  runtime=   1.448 s
+effective-radius summary Gao+2024=97 fallbacks=none
+   92 /    92  runtime=   1.072 s
+effective-radius summary Gao+2024=92 fallbacks=none
+   96 /    96  runtime=   6.640 s
+effective-radius summary Gao+2024=96 fallbacks=none
+   93 /    93  runtime=   2.188 s
+effective-radius summary Gao+2024=93 fallbacks=none
+   95 /    95  runtime=   4.264 s
+effective-radius summary Gao+2024=95 fallbacks=none
+   80 /    80  runtime=   2.817 s
+effective-radius summary Gao+2024=80 fallbacks=none
+   96 /    96  runtime=   3.504 s
+effective-radius summary Gao+2024=96 fallbacks=none
+   98 /    98  runtime= 143.757 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   98 /    98  runtime= 388.616 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   98 /    98  runtime= 173.011 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   97 /    97  runtime=  72.522 s
+effective-radius summary Gao+2024=97 fallbacks=none
+   97 /    97  runtime=  30.878 s
+effective-radius summary Gao+2024=97 fallbacks=none
+   98 /    98  runtime=   8.076 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   95 /    95  runtime=   2.551 s
+effective-radius summary Gao+2024=95 fallbacks=none
+   92 /    92  runtime=   3.668 s
+effective-radius summary Gao+2024=92 fallbacks=none
+   94 /    94  runtime=   4.047 s
+effective-radius summary Gao+2024=94 fallbacks=none
+   94 /    94  runtime=   3.162 s
+effective-radius summary Gao+2024=94 fallbacks=none
+   98 /    98  runtime= 284.931 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   98 /    98  runtime= 282.821 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   98 /    98  runtime=  61.555 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   98 /    98  runtime=  92.680 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   97 /    97  runtime=  59.572 s
+effective-radius summary Gao+2024=97 fallbacks=none
+   97 /    97  runtime=  21.078 s
+effective-radius summary Gao+2024=97 fallbacks=none
+   91 /    91  runtime=   1.188 s
+effective-radius summary Gao+2024=91 fallbacks=none
+   97 /    97  runtime=   0.986 s
+effective-radius summary Gao+2024=97 fallbacks=none
+   92 /    92  runtime=   1.011 s
+effective-radius summary Gao+2024=92 fallbacks=none
+   97 /    97  runtime=   8.411 s
+effective-radius summary Gao+2024=97 fallbacks=none
+   97 /    97  runtime=   8.259 s
+effective-radius summary Gao+2024=97 fallbacks=none
+   73 /    73  runtime=   2.183 s
+effective-radius summary Gao+2024=73 fallbacks=none
+   95 /    95  runtime=   5.456 s
+effective-radius summary Gao+2024=95 fallbacks=none
+   98 /    98  runtime= 660.253 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   98 /    98  runtime= 107.356 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   97 /    97  runtime=  24.956 s
+effective-radius summary Gao+2024=97 fallbacks=none
+   93 /    93  runtime=   0.904 s
+effective-radius summary Gao+2024=93 fallbacks=none
+   97 /    97  runtime=  15.252 s
+effective-radius summary Gao+2024=97 fallbacks=none
+   97 /    97  runtime=   9.340 s
+effective-radius summary Gao+2024=97 fallbacks=none
+   97 /    97  runtime=   9.563 s
+effective-radius summary Gao+2024=97 fallbacks=none
+   93 /    93  runtime=   2.645 s
+effective-radius summary Gao+2024=93 fallbacks=none
+   98 /    98  runtime= 541.579 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   98 /    98  runtime= 231.866 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   98 /    98  runtime=  40.873 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   95 /    95  runtime=   5.192 s
+effective-radius summary Gao+2024=95 fallbacks=none
+   85 /    85  runtime=   1.758 s
+effective-radius summary Gao+2024=85 fallbacks=none
+   97 /    97  runtime=   3.567 s
+effective-radius summary Gao+2024=97 fallbacks=none
+   79 /    79  runtime=   2.847 s
+effective-radius summary Gao+2024=79 fallbacks=none
+   95 /    95  runtime=   2.663 s
+effective-radius summary Gao+2024=95 fallbacks=none
+   98 /    98  runtime= 629.481 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   98 /    98  runtime= 153.383 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   97 /    97  runtime=  29.435 s
+effective-radius summary Gao+2024=97 fallbacks=none
+   97 /    97  runtime=   7.454 s
+effective-radius summary Gao+2024=97 fallbacks=none
+   82 /    82  runtime=   1.807 s
+effective-radius summary Gao+2024=82 fallbacks=none
+   97 /    97  runtime=   5.310 s
+effective-radius summary Gao+2024=97 fallbacks=none
+   93 /    93  runtime=   3.276 s
+effective-radius summary Gao+2024=93 fallbacks=none
+   98 /    98  runtime= 651.310 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   97 /    97  runtime=  57.097 s
+effective-radius summary Gao+2024=97 fallbacks=none
+   98 /    98  runtime= 140.725 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   98 /    98  runtime= 746.802 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   97 /    97  runtime=  27.968 s
+effective-radius summary Gao+2024=97 fallbacks=none
+   98 /    98  runtime=  58.766 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   98 /    98  runtime= 551.656 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   97 /    97  runtime=  76.178 s
+effective-radius summary Gao+2024=97 fallbacks=none
+   98 /    98  runtime=  96.332 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   98 /    98  runtime= 138.900 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   98 /    98  runtime= 850.602 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   99 /    99  runtime= 864.946 s
+effective-radius summary Gao+2024=99 fallbacks=none
+   98 /    98  runtime= 869.680 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   98 /    98  runtime= 943.324 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   98 /    98  runtime= 989.443 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   99 /    99  runtime= 925.529 s
+effective-radius summary Gao+2024=99 fallbacks=none
+   99 /    99  runtime=1073.573 s
+effective-radius summary Gao+2024=99 fallbacks=none
+   98 /    98  runtime=1115.847 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   98 /    98  runtime=1097.011 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   98 /    98  runtime= 884.139 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   98 /    98  runtime=1154.125 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   99 /    99  runtime=1116.393 s
+effective-radius summary Gao+2024=99 fallbacks=none
+   99 /    99  runtime=1154.650 s
+effective-radius summary Gao+2024=99 fallbacks=none
+   98 /    98  runtime=1329.888 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   98 /    98  runtime=1347.121 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   99 /    99  runtime=1417.778 s
+effective-radius summary Gao+2024=99 fallbacks=none
+   98 /    98  runtime=1427.550 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   99 /    99  runtime=1332.370 s
+effective-radius summary Gao+2024=99 fallbacks=none
+   98 /    98  runtime=1310.211 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   98 /    98  runtime=1436.505 s
+effective-radius summary Gao+2024=98 fallbacks=none
+   99 /    99  runtime=1483.307 s
+effective-radius summary Gao+2024=99 fallbacks=none
+   99 /    99  runtime=1484.287 s
+effective-radius summary Gao+2024=99 fallbacks=none
+   99 /    99  runtime=1599.730 s
+effective-radius summary Gao+2024=99 fallbacks=none
+   99 /    99  runtime=1784.191 s
+effective-radius summary Gao+2024=99 fallbacks=none
+   99 /    99  runtime=1824.149 s
+effective-radius summary Gao+2024=99 fallbacks=none
+   99 /    99  runtime=2011.222 s
+effective-radius summary Gao+2024=99 fallbacks=none
+   99 /    99  runtime=2552.337 s
+effective-radius summary Gao+2024=99 fallbacks=none
+   99 /    99  runtime=2665.040 s
+effective-radius summary Gao+2024=99 fallbacks=none
+   99 /    99  runtime=2224.698 s
+effective-radius summary Gao+2024=99 fallbacks=none
+   99 /    99  runtime=2713.984 s
+effective-radius summary Gao+2024=99 fallbacks=none
+   99 /    99  runtime=3357.913 s
+effective-radius summary Gao+2024=99 fallbacks=none
+   99 /    99  runtime=2839.622 s
+effective-radius summary Gao+2024=99 fallbacks=none
+N_s=2p0: completed 1/304 halos
+N_s=2p0: completed 10/304 halos
+N_s=2p0: completed 20/304 halos
+N_s=2p0: completed 30/304 halos
+N_s=2p0: completed 40/304 halos
+N_s=2p0: completed 50/304 halos
+N_s=2p0: completed 60/304 halos
+N_s=2p0: completed 70/304 halos
+concurrent.futures.process._RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "/home/software/miniconda3/envs/Cha0s/lib/python3.11/concurrent/futures/process.py", line 261, in _process_worker
+    r = call_item.fn(*call_item.args, **call_item.kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/subonan/NSC/src_new/run.py", line 1333, in _evolve_one_halo_task
+    gcfin_arr, _ = evolve_single_halo(
+                   ^^^^^^^^^^^^^^^^^^^
+  File "/home/subonan/NSC/src_new/evo.py", line 729, in evolve_single_halo
+    prepare_gc_step(i, prefix_snapshot, t_r)
+  File "/home/subonan/NSC/src_new/evo.py", line 614, in prepare_gc_step
+    rdot_df[i] = current_rdot(m_gc[i], i, prefix_snapshot)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/subonan/NSC/src_new/evo.py", line 537, in current_rdot
+    return rk4_rdot_analytic(
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/subonan/NSC/src_new/evo.py", line 313, in rk4_rdot_analytic
+    k2 = dt_gyr * _substep_rdot(r2)
+                  ^^^^^^^^^^^^^^^^^
+  File "/home/subonan/NSC/src_new/evo.py", line 302, in _substep_rdot
+    v = vc_kms(m_enclose, rr, rho_bg)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/subonan/NSC/src_new/evo.py", line 201, in vc_kms
+    check_finite_positive(rho_bkgd, name="Background density in Msun/kpc^3 rho_bkgd")
+  File "/home/subonan/NSC/src_new/config.py", line 80, in check_finite_positive
+    raise ValueError(f"{name} must be finite and positive, but got {val}!")
+ValueError: Background density in Msun/kpc^3 rho_bkgd must be finite and positive, but got 0.0!
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/subonan/NSC/src_new/run.py", line 1948, in <module>
+    main()
+  File "/home/subonan/NSC/src_new/run.py", line 1781, in main
+    ns_ret, halo_ids_ret, summary_df_ret, halo_summary_df_ret, halo_summary_by_z_df_ret = _run_single_ns_pipeline(
+                                                                                          ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/subonan/NSC/src_new/run.py", line 1623, in _run_single_ns_pipeline
+    hz0_ret, status_h, m_final_h, lookback_time_final_h, r_final_h = fut.result()
+                                                                     ^^^^^^^^^^^^
+  File "/home/software/miniconda3/envs/Cha0s/lib/python3.11/concurrent/futures/_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/software/miniconda3/envs/Cha0s/lib/python3.11/concurrent/futures/_base.py", line 401, in __get_result
+    raise self._exception
+ValueError: Background density in Msun/kpc^3 rho_bkgd must be finite and positive, but got 0.0!

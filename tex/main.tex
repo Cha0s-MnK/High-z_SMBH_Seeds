@@ -82,6 +82,8 @@
 \newcommand{\vdag}{(v)^\dagger}
 \newcommand\aastex{AAS\TeX}
 \newcommand\latex{La\TeX}
+
+\newcommand{\czkong}[1]{{\color{magenta}#1}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
 %% The following section outlines numerous optional output that
@@ -119,7 +121,7 @@
 \begin{document}
 \begin{CJK*}{UTF8}{gbsn}
 
-\title{Connecting intermediate-mass black holes formed in globular clusters to high redshift supermassive black holes}
+\title{Connecting intermediate-mass black holes formed in globular clusters to high redshift supermassive black hole seeds}
 
 %% A significant change from AASTeX v6+ is in the author blocks. Now an email
 %% address is required for each author. This means that each author requires
@@ -216,216 +218,222 @@ We describe the current semi-analytic nuclear-star-cluster (NSC) model used to c
 
 \section{Method} \label{sect:method}
 
-The NSC model follows the ex-situ channel in which GCs form during hierarchical galaxy assembly, orbit in an evolving host potential, and contribute stellar mass to the nuclear region through stellar evolution, tidal stripping, direct tidal tearing, and dynamical-friction-driven sinking. The model is based on the semi-analytic GC framework of Choksi+2018 and Gao+2023, extended with the newer Chen+Gnedin2023 baryon-retention limit, the Chen+Gnedin2024 mass--metallicity relation, the Fragione+2019 local tidal-stripping prescription, and a formation-time IMBH seed module based on the FROST-CLUSTERS runaway-collision fits. Where the code contains multiple historical branches, this section describes the latest implemented physical branch used by the maintained NSC runs.
+The NSC model follows the ex-situ channel in which GCs form during hierarchical galaxy assembly, orbit in an evolving host potential, and contribute stellar mass to the nuclear region through stellar evolution, tidal stripping, direct tidal tearing, and dynamical-friction (DF)-driven sinking. The model is based on the semi-analytic GC framework of \cite{Choksi+2018GC} and \cite{Gao+2024GC}, extended with the \cite{Chen&Gnedin2023GC} baryon-retention limit, the \cite{Chen&Gnedin2024aGC} mass--metallicity relation, the \cite{Fragione+2019GC} local tidal-stripping prescription, and a formation-time IMBH seed module based on the FROST-CLUSTERS runaway-collision fits \citep{Rantala+2026FROST}. This section describes the physical model used for the NSC runs analysed in this work.
 
-\subsection{GC formation} \label{subsect:gc_formation}
+\subsection{GC formation} \label{subsect:GCformation}
 
-We paint GC formation onto fixed halo merger trees. Unless explicitly restricted to the main progenitor branch for a controlled test, the model walks all retained branches of each tree. A formation event is triggered when the specific halo growth rate between a progenitor and its descendant exceeds the threshold \(p_3\),
-\begin{equation}
-R_{\rm m} =
-\frac{M_{{\rm h},2}/M_{{\rm h},1}-1}{t_2-t_1}
-> p_3 ,
+We paint GC formation onto fixed halo merger trees and walk all retained branches of each tree. A formation event is triggered when the specific halo growth rate between a progenitor and its descendant exceeds the threshold $p_3$ \footnote{We keep the notation $p_3$ for the formation-trigger threshold and $p_2$ mentioned later for the GC formation-efficiency normalisation following the convention of \cite{Muratov&Gnedin2010GC}.},
+\begin{align}
+\dfrac{M_{{\rm h}, 2} / M_{{\rm h}, 1} - 1}{t_2 - t_1} & > p_3 ,
 \label{eq:formation_trigger}
-\end{equation}
-where \(M_{{\rm h},1}\) and \(M_{{\rm h},2}\) are the halo masses at cosmic times \(t_1\) and \(t_2\). The model then assigns a stellar mass to the host using the Behroozi et al. stellar mass--halo mass relation. Along each branch, the first stellar mass is drawn with scatter. Later timesteps preserve memory of the previous stellar mass by adding the change in the median relation multiplied by a lognormal fluctuation,
-\begin{equation}
-M_{\star,2} =
-M_{\star,1}+
-\left[\overline{M}_{\star}(M_{{\rm h},2},z_2)
--\overline{M}_{\star}(M_{{\rm h},1},z_1)\right]
-10^{\mathcal{N}(0,\xi)} ,
-\end{equation}
+\end{align}
+where $M_{{\rm h}, 1}$ and $M_{{\rm h}, 2}$ are the halo masses at cosmic times $t_1$ and $t_2$. The model then assigns a stellar mass to the host using the \cite{Behroozi+2013SMHM} stellar mass--halo mass relation. Along each branch, the first stellar mass is drawn with scatter. Later timesteps preserve memory of the previous stellar mass by adding the change in the median relation multiplied by a lognormal fluctuation,
+\begin{align}
+M_{\star,2} & =
+M_{\star,1}
++ \left[\overline{M}_{\star}(M_{{\rm h},2}, z_2)
+- \overline{M}_{\star}(M_{{\rm h},1}, z_1)\right]
+10^{\mathcal{N}(0, \xi(z_2))} ,
+\end{align}
 with
-\begin{equation}
-\xi(z)=0.218+0.023\frac{z}{1+z}.
-\end{equation}
+\begin{align}
+\xi(z) & = 0.218 + 0.023 \dfrac{z}{1 + z}.
+\end{align}
 If the stochastic update would give an unphysical negative stellar mass, the previous stellar mass is retained.
 
 The cold gas mass is computed from the gas-to-stellar mass ratio
-\begin{equation}
-\eta(M_{\star},z) \equiv \frac{M_{\rm gas}}{M_{\star}} =
-\begin{cases}
-6.8\left(M_{\star}/10^9\,M_{\odot}\right)^{-n_M}
-\left[(1+z)/3\right]^{2.7}, & z<2,\\
-6.8\left(M_{\star}/10^9\,M_{\odot}\right)^{-n_M}
-\left[(1+z)/3\right]^{1.4}, & 2\le z\le 3,\\
-10.2\left(M_{\star}/10^9\,M_{\odot}\right)^{-n_M}, & z>3,
+\begin{align}
+\eta(M_{\star}, z) & = \dfrac{M_{\rm gas}}{M_{\star}} \notag \\
+& = \begin{cases}
+6.8\left(\dfrac{M_{\star}}{10^9\,M_{\odot}}\right)^{-n_M}
+\left(\dfrac{1 + z}{3}\right)^{2.7}, & z < 2,\\
+6.8\left(\dfrac{M_{\star}}{10^9\,M_{\odot}}\right)^{-n_M}
+\left(\dfrac{1 + z}{3}\right)^{1.4}, & 2 \le z \le 3,\\
+10.2\left(\dfrac{M_{\star}}{10^9\,M_{\odot}}\right)^{-n_M}, & z > 3,
 \end{cases}
 \label{eq:gas_fraction}
-\end{equation}
-where \(n_M=0.33\) for \(M_{\star}\ge 10^9\,M_{\odot}\) and \(n_M=0.19\) below this mass. A 0.3 dex lognormal scatter is applied to this gas relation.
+\end{align}
+where $n_M = 0.33$ for $M_{\star} \ge 10^9\,M_{\odot}$ and $n_M = 0.19$ below this mass. A 0.3 dex lognormal scatter is applied to this gas relation.
 
-For the baryon-retention limit, we use the newer Chen+Gnedin2023 branch implemented in the code. Defining \(f_{\star}=M_{\star}/(f_{\rm b}M_{\rm h})\) and \(f_{\rm gas}=M_{\rm gas}/(f_{\rm b}M_{\rm h})\), the sum \(f_{\star}+f_{\rm gas}\) is not allowed to exceed the accreted baryon fraction normalised by \(f_{\rm b}\),
-\begin{equation}
-f_{\rm in}=s\left(M_{\rm ch}(z)/M_{\rm h},2\right),
-\end{equation}
+For the baryon-retention limit, we use the \cite{Chen&Gnedin2023GC} version. Defining $f_{\star} = M_{\star} / (f_{\rm b} M_{\rm h})$ and $f_{\rm gas} = M_{\rm gas} / (f_{\rm b} M_{\rm h})$, the sum $f_{\star} + f_{\rm gas}$ is not allowed to exceed the accreted baryon fraction normalised by $f_{\rm b}$,
+\begin{align}
+f_{\rm in} & = s\left(\dfrac{M_{\rm ch}(z)}{M_{\rm h}}, 2\right),
+\end{align}
 where
-\begin{equation}
-s(x,y)=\left[1+\left(2^{y/3}-1\right)x^y\right]^{-3/y},
-\end{equation}
-\begin{equation}
-M_{\rm ch}(z)=1.69\times10^{10}\,M_{\odot}
-\exp\left[-0.63z-\ln\left(1+\exp\{(z/\beta)^{\gamma}\}\right)\right],
-\end{equation}
-and the current branch adopts \(z_{\rm rei}=6\), \(\gamma=15\), and
-\begin{equation}
-\beta=z_{\rm rei}
-\left[\ln\left(1.82\times10^3\exp[-0.63z_{\rm rei}]\right)-1\right]^{-1/\gamma}.
-\end{equation}
-If the baryon limit is exceeded, the gas mass is reduced to \(M_{\rm gas}=(f_{\rm in}-f_{\star})f_{\rm b}M_{\rm h}\).
+\begin{align}
+s(x, y) & = \left[1 + \left(2^{y / 3} - 1\right) x^y\right]^{-3 / y},
+\end{align}
+\begin{align}
+M_{\rm ch}(z) & = 1.69 \times 10^{10}\,M_{\odot}
+e^{-0.63 z - \ln\left(1 + e^{(z / \beta)^{\gamma}}\right)},
+\end{align}
+and we adopt $z_{\rm rei} = 6$, $\gamma = 15$, and
+\begin{align}
+\beta & = z_{\rm rei}
+\left[\ln\left(1.82 \times 10^3 e^{-0.63 z_{\rm rei}}\right) - 1\right]^{-1 / \gamma}.
+\end{align}
+If the baryon limit is exceeded, the gas mass is reduced to $M_{\rm gas} = (f_{\rm in} - f_{\star}) f_{\rm b} M_{\rm h}$.
 
 The total mass formed in clusters during the event is
-\begin{equation}
-M_{\rm GC,tot}=\frac{3\times10^{-5}p_2}{f_{\rm b}}M_{\rm gas},
+\begin{align}
+M_{\rm GC,tot} & = \dfrac{3 \times 10^{-5} p_2}{f_{\rm b}} M_{\rm gas},
 \label{eq:gc_total_mass}
-\end{equation}
-where \(p_2\) sets the overall GC formation efficiency. This is equivalent to the \(1.8\times10^{-4}p_2M_{\rm gas}\) form for the adopted cosmic baryon fraction \(f_{\rm b}=0.167\). Events with \(M_{\rm GC,tot}<10^5\,M_{\odot}\) do not form any cluster in the current NSC implementation.
+\end{align}
+where $p_2$ sets the overall GC formation efficiency. This is equivalent to the $1.8 \times 10^{-4} p_2 M_{\rm gas}$ form for the adopted cosmic baryon fraction $f_{\rm b} = 0.167$. Events with $M_{\rm GC,tot} < 10^5\,M_{\odot}$ do not form any cluster in the current NSC implementation.
 
 \subsection{GC sampling} \label{subsect:gc_sampling}
+
+After a formation event fixes the total cluster mass budget, the model assigns the properties of the individual clusters in three steps. Sect.~\ref{subsubsect:mass_sampling} describes the sampling of birth masses from a Schechter initial cluster mass function. Sect.~\ref{subsubsect:spatial_sampling} describes how those clusters are placed within the host or satellite system. Sect.~\ref{subsubsect:metallicity_assignment} then assigns the cluster metallicities that enter both the stellar-evolution and IMBH-seeding calculations.
 
 \subsubsection{Mass sampling} \label{subsubsect:mass_sampling}
 
 Individual GC birth masses are sampled from a Schechter initial cluster mass function,
-\begin{equation}
-\frac{dN}{dM}\propto M^{-2}\exp(-M/M_{\rm c}),
+\begin{align}
+\dfrac{\mathrm{d} N}{\mathrm{d} M} & \propto M^{-2} e^{-M / M_{\rm c}} ,
 \label{eq:cimf}
-\end{equation}
-with \(M_{\rm min}=10^5\,M_{\odot}\). The cut-off mass \(M_{\rm c}\) is an input parameter through \(\log_{10}(M_{\rm c}/M_{\odot})\); the maintained IMBH--NSC runs use \(M_{\rm c}=10^7\,M_{\odot}\). For each formation event we first reserve the most massive cluster by solving the deterministic constraint that one cluster is expected above \(M_{\rm max}\),
-\begin{equation}
-1=\int_{M_{\rm max}}^{\infty}\frac{dN}{dM}\,dM .
-\end{equation}
+\end{align}
+with $M_{\rm min} = 10^5\,M_{\odot}$. The cut-off mass $M_{\rm c}$ is an input parameter; in the fiducial runs we set $M_{\rm c} = 10^7~M_{\odot}$. For each formation event we first reserve the most massive cluster by solving the deterministic constraint that one cluster is expected above $M_{\rm max}$,
+\begin{align}
+1 = \int_{M_{\rm max}}^{+ \infty} \dfrac{\mathrm{d} N}{\mathrm{d}M} \mathrm{d} M .
+\end{align}
 The rest of the cluster population is then drawn by inverse-transform sampling of the cumulative Schechter function until the event mass budget is exhausted. If the final draw would exceed the remaining mass budget, its mass is set to the remaining mass. The cluster list is shuffled before radii are assigned, so the deterministically reserved maximum-mass cluster is not always placed at the smallest S{\'e}rsic radius.
 
 \subsubsection{Spatial sampling} \label{subsubsect:spatial_sampling}
 
-Main-progenitor-branch clusters are treated as in-situ objects and are assigned birth galactocentric radii from the deprojected S{\'e}rsic profile used by Gao+2023,
-\begin{equation}
-\rho(r)=\rho_0\left(\frac{r}{R_{\rm e}}\right)^{-p}
-\exp\left[-b\left(\frac{r}{R_{\rm e}}\right)^{1/N_{\rm S}}\right],
+Main-progenitor-branch clusters are treated as in-situ objects and are assigned birth galactocentric radii from the deprojected S{\'e}rsic profile used by \cite{Gao+2024GC},
+\begin{align}
+\rho(r) & = \rho_0 \left(\dfrac{r}{R_{\rm e}}\right)^{-p}
+e^{-b\left(r / R_{\rm e}\right)^{1 / N_{\rm S}}},
 \label{eq:sersic_density}
-\end{equation}
+\end{align}
 where
-\begin{equation}
-p=1-\frac{0.6097}{N_{\rm S}}+\frac{0.05563}{N_{\rm S}^2},
-\qquad
-b=2N_{\rm S}-\frac{1}{3}+\frac{0.009876}{N_{\rm S}}.
-\end{equation}
-The active model still uses the Gao+2023 halo-spin radius scale,
-\begin{equation}
-R_{\rm e}=\frac{j_{\rm sp}h}{20H(z)R_{\rm vir}},
-\end{equation}
-which is the code form of the Bullock-style spin proxy for the classical \(R_{\rm e}\simeq \lambda R_{\rm vir}/\sqrt{2}\) disc scaling. The S{\'e}rsic enclosed-mass fraction is inverted through the regularised incomplete gamma function,
-\begin{equation}
-r_{\rm GC}=R_{\rm e}
-\left[\frac{P^{-1}\{N_{\rm S}(3-p),u\}}{b}\right]^{N_{\rm S}},
-\end{equation}
-where \(u\) is the assigned enclosed mass fraction of a cluster within the formation event. Clusters that form on non-main branches are treated as accreted satellite clusters and are initially placed at \(0.5R_{\rm vir}\) of the descendant halo rather than in the central S{\'e}rsic component.
+\begin{align}
+p & = 1 - \dfrac{0.6097}{N_{\rm S}} + \dfrac{0.05563}{N_{\rm S}^2}, \\
+b & = 2 N_{\rm S} - \dfrac{1}{3} + \dfrac{0.009876}{N_{\rm S}}.
+\end{align}
+We use the Gao+2023 halo-spin radius scale,
+\begin{align}
+R_{\rm e} & = \dfrac{j_{\rm sp} h}{20 H(z) R_{\rm vir}},
+\end{align}
+which corresponds to the Bullock-style spin proxy for the classical $R_{\rm e} \simeq \lambda R_{\rm vir} / \sqrt{2}$ disc scaling. The S{\'e}rsic enclosed-mass fraction is inverted through the regularised incomplete gamma function,
+\begin{align}
+r_{\rm GC} & = R_{\rm e}
+\left[\dfrac{P^{-1}\{N_{\rm S}(3 - p), u\}}{b}\right]^{N_{\rm S}},
+\end{align}
+where $u$ is the assigned enclosed mass fraction of a cluster within the formation event. Clusters that form on non-main branches are treated as accreted satellite clusters and are initially placed at $0.5 R_{\rm vir}$ of the descendant halo rather than in the central S{\'e}rsic component.
 
 \subsubsection{Metallicity assignment} \label{subsubsect:metallicity_assignment}
 
-When a formation event occurs, the host interstellar-medium metallicity is assigned from the newer Chen+Gnedin2024 mass--metallicity branch implemented in the code,
-\begin{equation}
+When a formation event occurs, the host interstellar-medium metallicity is assigned from the \cite{Chen&Gnedin2024aGC} mass--metallicity branch,
+\begin{align}
 [\mathrm{Fe}/\mathrm{H}]_{\rm gal}
-=0.3\log_{10}\left(\frac{M_{\star}}{10^9\,M_{\odot}}\right)
--\log_{10}(1+z)-0.5 .
+& = 0.3 \log_{10}\left(\dfrac{M_{\star}}{10^9\,M_{\odot}}\right)
+- \log_{10}(1 + z) - 0.5 .
 \label{eq:chen_mzr}
-\end{equation}
-The metallicity is capped at \([\mathrm{Fe}/\mathrm{H}]=0.3\). Each cluster then receives an independent internal metallicity perturbation,
-\begin{equation}
+\end{align}
+The metallicity is capped at $[\mathrm{Fe}/\mathrm{H}] = 0.3$. Each cluster then receives an independent internal metallicity perturbation,
+\begin{align}
 [\mathrm{Fe}/\mathrm{H}]_{\rm GC}
-=[\mathrm{Fe}/\mathrm{H}]_{\rm gal}+\mathcal{N}(0,\sigma_m),
-\end{equation}
-with \(\sigma_m=0.3\) dex. This scattered cluster metallicity is used both for stellar-evolution bookkeeping and for the IMBH seed calculation.
+& = [\mathrm{Fe}/\mathrm{H}]_{\rm gal} + \mathcal{N}(0, \sigma_m),
+\end{align}
+with $\sigma_m = 0.3$ dex. This scattered cluster metallicity is used both for stellar-evolution bookkeeping and for the IMBH seed calculation. \czkong{[Add an metallicity transfer here from [Fe/H] to $Z/Z_\odot$, since IMBH used the latter.]} For the IMBH module, the cluster abundance is converted to a solar-scaled metallicity through
+\begin{align}
+\dfrac{Z}{Z_{\odot}} & = 10^{[\mathrm{Fe}/\mathrm{H}]_{\rm GC}}.
+\label{eq:metallicity_transfer}
+\end{align}
 
 \subsection{GC evolution} \label{subsect:gc_evolution}
 
-The active evolution solver follows every formed GC in an analytic, evolving background from its formation time to \(z=0\). The halo history is read from the main-progenitor block of the fixed merger tree; the halo mass is linearly interpolated with cosmic time, and the spin normalisation is updated from the corresponding tree block. The dark-matter component is modelled with an NFW profile, the stellar component with a S{\'e}rsic background, and previously stripped model GCs contribute to the enclosed mass used in later timesteps. In the current code, the S{\'e}rsic shape used in the background-density call is fixed at \(N_{\rm S}=2.2\), while the GC birth radii can be scanned over the requested \(N_{\rm S}\) values. The event scheduler divides the full interval into 100 coarse background blocks and evolves the fastest-changing active object first within each block, with the timestep capped by the smaller of the mass-loss and orbital-decay timescales and by the maximum solver step of \(0.1\,{\rm Gyr}\).
+The evolution calculation follows every formed GC in an analytic, evolving background from its formation time to $z = 0$. The halo history is read from the main-progenitor block of the fixed merger tree; the halo mass is linearly interpolated with cosmic time, and the spin normalisation is updated from the corresponding tree block. The dark-matter component is modelled with an NFW profile, the stellar component with a S{\'e}rsic background, and previously stripped model GCs contribute to the enclosed mass used in later timesteps. In these runs, the S{\'e}rsic shape used in the background-density call is fixed at $N_{\rm S} = 2.2$, while the GC birth radii can be scanned over the requested $N_{\rm S}$ values. The event scheduler divides the full interval into 100 coarse background blocks and evolves the fastest-changing active object first within each block, with the timestep capped by the smaller of the mass-loss and orbital-decay timescales and by the maximum solver step of $0.1\,{\rm Gyr}$.
 
 \subsubsection{Stellar evolution} \label{subsubsect:stellar_evolution}
 
 Bound stellar mass is reduced by a cumulative stellar-evolution loss fraction,
-\begin{equation}
-f_{\rm se}(t)=
+\begin{align}
+f_{\rm se}(t) & =
 \max\left[
 0,
--\frac{x^2}{100}+0.288x-1.42
+- \dfrac{x^2}{100} + 0.288 x - 1.42
 \right],
-\qquad
-x=\log_{10}\left(\frac{t}{\rm Gyr}\right)+9 ,
+\notag \\
+x & = \log_{10}\left(\dfrac{t}{\rm Gyr}\right) + 9 ,
 \label{eq:stellar_evolution}
-\end{equation}
-where \(t\) is the cluster age. At each finite timestep, the increment \(\Delta f_{\rm se}\) removes the corresponding stellar mass from the bound cluster. The same stellar-evolution correction is also applied to stellar debris that was stripped at earlier timesteps, so the deposited stellar-mass profile tracks both unevolved and evolved stellar mass.
+\end{align}
+where $t$ is the cluster age. At each finite timestep, the increment $\Delta f_{\rm se}$ removes the corresponding stellar mass from the bound cluster. The same stellar-evolution correction is also applied to stellar debris that was stripped at earlier timesteps, so the deposited stellar-mass profile tracks both unevolved and evolved stellar mass.
 
 \subsubsection{Tidal stripping} \label{subsubsect:tidal_stripping}
 
-For the continuous tidal-stripping branch we use the implemented Fragione+2019 mode, which is the latest available mode in the model. In code units \(M_5=M/(10^5\,M_{\odot})\), the stripping rate is
-\begin{equation}
+For continuous tidal stripping we follow the local-orbit prescription of \cite{Fragione+2019GC}. \czkong{[Avoid this way, write $\dfrac{M}{10^5~M_\odot}$ in the equations.]} The stripping rate is
+\begin{align}
 \dot{M}_{\rm tid}
-=\frac{2^{2/3}0.1M_5^{1/3}}{P(r)},
-\qquad
-P(r)=100\frac{r/{\rm kpc}}{v_{\rm c}/{\rm km\,s^{-1}}},
+& = \dfrac{0.1\,2^{2 / 3} \left(\dfrac{M}{10^5\,M_{\odot}}\right)^{1 / 3}}{P(r)},
+\notag \\
+P(r) & = 100 \dfrac{r / {\rm kpc}}{v_{\rm c} / {\rm km\,s^{-1}}},
 \label{eq:tidal_stripping}
-\end{equation}
-where \(r\) is the instantaneous galactocentric radius and \(v_{\rm c}\) is the local circular velocity in the combined background and deposited-GC potential. The stripped stellar mass is added to the radial deposition bin occupied by the cluster at that timestep. If an IMBH is present, stripping is not allowed to remove the black-hole mass itself; only the stellar component can be lost.
+\end{align}
+where $M$ is the instantaneous bound mass, $r$ is the instantaneous galactocentric radius, and $v_{\rm c}$ is the local circular velocity in the combined background and deposited-GC potential. The stripped stellar mass is added to the radial deposition bin occupied by the cluster at that timestep. If an IMBH is present, stripping is not allowed to remove the black-hole mass itself; only the stellar component can be lost.
 
 \subsubsection{Direct tidal tearing} \label{subsubsect:direct_tidal_tearing}
 
 In addition to continuous stripping, the model includes direct tidal tearing. At each active step the cluster half-mass density is approximated as
-\begin{equation}
-\rho_{\rm h}=
+\begin{align}
+\rho_{\rm h} & =
 \begin{cases}
-10^3, & M_5<1,\\
-10^3M_5^2, & 1\le M_5\le 10,\\
-10^5, & M_5>10,
+10^3, & M < 10^5\,M_{\odot},\\
+10^3 \left(\dfrac{M}{10^5\,M_{\odot}}\right)^2, & 10^5\,M_{\odot} \le M \le 10^6\,M_{\odot},\\
+10^5, & M > 10^6\,M_{\odot},
 \end{cases}
 \label{eq:cluster_density}
-\end{equation}
-in the internal density units of the evolution solver. The cluster is directly destroyed if \(\rho_{\rm h}<\rho_{\rm tot}(r)\), where \(\rho_{\rm tot}\) is the sum of the analytic galactic background density and the mean enclosed density of previously deposited model GCs. A GC without an IMBH is then marked as torn and its remaining bound mass is deposited locally. A GC with an IMBH deposits its remaining stellar component, but the IMBH remnant survives as a wandering black hole.
+\end{align}
+in the internal density units of the evolution solver. The cluster is directly destroyed if $\rho_{\rm h} < \rho_{\rm tot}(r)$, where $\rho_{\rm tot}$ is the sum of the analytic galactic background density and the mean enclosed density of previously deposited model GCs. A GC without an IMBH is then marked as torn and its remaining bound mass is deposited locally. A GC with an IMBH deposits its remaining stellar component, but the IMBH remnant survives as a wandering black hole.
 
 \subsubsection{Dynamical friction} \label{subsubsect:dynamical_friction}
 
 Dynamical friction drives the radial inspiral of both bound GCs and wandering IMBH remnants. The instantaneous inspiral rate is evaluated as
-\begin{equation}
-\dot{r}_{\rm df}=-\frac{M_5}{0.45\,r\,v_{\rm c}},
+\begin{align}
+\dot{r}_{\rm df} & = - \dfrac{M / (10^5\,M_{\odot})}{0.45\,r\,v_{\rm c}},
 \label{eq:dynamical_friction}
-\end{equation}
-where \(M_5\) is the current inspiralling mass in units of \(10^5\,M_{\odot}\). The code integrates this radial decay with a fourth-order Runge--Kutta estimate that re-evaluates the enclosed deposited mass and analytic background density at substeps. Objects reaching \(r_{\rm sink}=10^{-3}\,{\rm kpc}\) are counted as sunk into the central NSC channel. The command-line switch \texttt{--DF} can disable this radial decay for controlled tests, but the physical model described here uses dynamical friction.
+\end{align}
+where $M$ is the current inspiralling mass. The code integrates this radial decay with a fourth-order Runge--Kutta estimate that re-evaluates the enclosed deposited mass and analytic background density at substeps. Objects reaching $r_{\rm sink} = 10^{-3}\,{\rm kpc}$ are counted as sunk into the central NSC channel.
 
-\subsection{IMBH} \label{subsect:imbh}
+\subsection{Intermediate-Mass Black Holes (IMBHs)} \label{subsect:IMBH}
 
 \subsubsection{Runaway collisions and IMBH formation} \label{subsubsect:runaway_imbh}
 
-The IMBH module assigns a seed once, at GC birth. It follows the FROST-CLUSTERS runaway-collision prescription, in which dense, metal-poor clusters can build very massive stars through stellar collisions before those products collapse into IMBHs. The cluster structural scale is the three-dimensional half-mass radius
-\begin{equation}
-r_{\rm h}=
-\frac{f_{\rm h}R_4}{1.3}
-\left(\frac{M_{\rm cl}}{10^4\,M_{\odot}}\right)^{\beta},
+The IMBH module assigns a seed once, at GC birth. It follows the runaway-collision prescription in \cite{Rantala+2026FROST}, in which dense, metal-poor clusters can build very massive stars through stellar collisions before those products collapse into IMBHs. The cluster structural scale is the three-dimensional half-mass radius
+\begin{align}
+r_{\rm h} & =
+\dfrac{f_{\rm h} R_4}{1.3}
+\left(\dfrac{M_{\rm cl}}{10^4\,M_{\odot}}\right)^{\beta},
 \label{eq:imbh_radius}
-\end{equation}
-with \(f_{\rm h}=0.125\), \(R_4=2.365\,{\rm pc}\), and \(\beta=0.180\). Assuming a Plummer profile, the projected half-mass radius is \(R_{\rm h}=r_{\rm h}/1.305\), and the projected half-mass surface density is
-\begin{equation}
-\Sigma_{\rm h}=\frac{M_{\rm cl}}{2\pi R_{\rm h}^2}.
+\end{align}
+with $f_{\rm h} = 0.125$, $R_4 = 2.365\,{\rm pc}$, and $\beta = 0.180$. Assuming a Plummer profile, the projected half-mass radius is $R_{\rm h} = r_{\rm h} / 1.305$, and the projected half-mass surface density is
+\begin{align}
+\Sigma_{\rm h} & = \dfrac{M_{\rm cl}}{2 \pi R_{\rm h}^2}.
 \label{eq:imbh_sigma}
-\end{equation}
+\end{align}
 
-The metallicity input is \(Z/Z_{\odot}=10^{[\mathrm{Fe}/\mathrm{H}]_{\rm GC}}\), clipped to \(10^{-2}\le Z/Z_{\odot}\le 1\). The seed mass is then evaluated from two metallicity-dependent fits. Defining \(Q=\log_{10}[\Sigma_{\rm h}/(M_{\odot}\,{\rm pc}^{-2})]\), the calibrated-density branch is
-\begin{equation}
-M_{\bullet,9}=
+The metallicity input is the solar-scaled metallicity from equation~(\ref{eq:metallicity_transfer}), clipped to $10^{-2} \le Z / Z_{\odot} \le 1$. The seed mass is then evaluated from two metallicity-dependent fits. Defining $Q = \log_{10}[\Sigma_{\rm h} / (M_{\odot}\,{\rm pc}^{-2})]$, the calibrated-density branch is
+\begin{align}
+M_{\bullet,9} & =
 \begin{cases}
-A(Z)Q+B(Z)Q^2+C(Z),
-& Q\ge Q_{\rm crit}(Z),\\
-0, & Q<Q_{\rm crit}(Z),
+A(Z) Q + B(Z) Q^2 + C(Z), & Q \ge Q_{\rm crit}(Z),\\
+0, & Q < Q_{\rm crit}(Z),
 \end{cases}
-\end{equation}
-where \(A\), \(B\), \(C\), and \(Q_{\rm crit}=\log_{10}[\Sigma_{\rm crit}/(M_{\odot}\,{\rm pc}^{-2})]\) are piecewise-linear functions of \(\log_{10}(Z/Z_{\odot})\) with the FROST-CLUSTERS coefficient intervals. For high surface densities, \(Q\ge 5.22\), the code switches to the high-density extrapolation
-\begin{equation}
-M_{\bullet,10}=D(Z)Q+E(Z).
-\end{equation}
-The adopted seed mass is \(M_{\bullet,10}\) above this density threshold and \(M_{\bullet,9}\) below it. Any seed with \(M_{\bullet}<100\,M_{\odot}\) is discarded. After assignment, the IMBH mass and the birth structural diagnostics \((r_{\rm h},\Sigma_{\rm h})\) are stored with the GC and are not updated by later stellar evolution or tidal stripping.
+\end{align}
+where $A$, $B$, $C$, and $Q_{\rm crit} = \log_{10}[\Sigma_{\rm crit} / (M_{\odot}\,{\rm pc}^{-2})]$ are piecewise-linear functions of $\log_{10}(Z / Z_{\odot})$ with the FROST-CLUSTERS coefficient intervals. For high surface densities, $Q \ge 5.22$, the code switches to the high-density extrapolation
+\begin{align}
+M_{\bullet,10} & = D(Z) Q + E(Z).
+\end{align}
+The adopted seed mass is $M_{\bullet,10}$ above this density threshold and $M_{\bullet,9}$ below it. Any seed with $M_{\bullet} < 100\,M_{\odot}$ is discarded. After assignment, the IMBH mass and the birth structural diagnostics $(r_{\rm h}, \Sigma_{\rm h})$ are stored with the GC and are not updated by later stellar evolution or tidal stripping.
 
 \subsubsection{Wandered IMBHs} \label{subsubsect:wandered_imbh}
 
-An IMBH-hosting GC can lose its stellar envelope before reaching the centre. This happens either when continuous stellar and tidal mass loss reduces the bound stellar mass down to the IMBH mass, or when direct tidal tearing removes the remaining stellar component. In that case the model deposits the residual stellar mass into the local radial bin and converts the object into a wandering IMBH. A wandering IMBH no longer undergoes stellar evolution or tidal stripping, but it continues to experience dynamical friction using its own mass. If it reaches \(r_{\rm sink}\), it is counted as a sunk wandering IMBH; otherwise it remains as a surviving off-centre remnant at the final redshift.
+An IMBH-hosting GC can lose its stellar envelope before reaching the centre. This happens either when continuous stellar and tidal mass loss reduces the bound stellar mass down to the IMBH mass, or when direct tidal tearing removes the remaining stellar component. In that case the model deposits the residual stellar mass into the local radial bin and converts the object into a wandering IMBH. A wandering IMBH no longer undergoes stellar evolution or tidal stripping, but it continues to experience dynamical friction using its own mass. If it reaches $r_{\rm sink}$, it is counted as a sunk wandering IMBH; otherwise it remains as a surviving off-centre remnant at the final redshift.
+
+\subsection{Final Fate of GCs} \label{subsect:stat}
+
+\czkong{[Add a subsection here to describe the final status of GCs, matching those in the model/code.]}
 
 %% Please use the acknowledgment and contribution environments. This will 
 %% be anonomyized when the "anonymous" style option is used. 
@@ -490,7 +498,655 @@ All authors contributed equally to the Terra Mater collaboration.
 
 \appendix
 
-\section{Determining halo parameters}
+\section{Cosmology and Halo Quantities}
+\label{app:cosmology_equations}
+
+This appendix collects the auxiliary equations used by the model. They are written here in terms of physical variables and model parameters. The model assumes a spatially flat matter-plus-Lambda cosmology with
+\begin{align}
+\Omega_{\Lambda,0} &= 1 - \Omega_{\rm m,0},\\
+E(z) &= \dfrac{H(z)}{H_0}
+     = \left[\Omega_{\rm m,0}(1+z)^3 + \Omega_{\Lambda,0}\right]^{1/2}.
+\end{align}
+Here $H_0$ is the Hubble constant, $H(z)$ is the Hubble parameter at redshift $z$, $\Omega_{\rm m,0}$ is the present-day matter density parameter, and $\Omega_{\Lambda,0}$ is the present-day dark-energy density parameter. For the Illustris-based formation quantities, the adopted values are $\Omega_{\rm m,0}=0.2726$ and $\Omega_{\Lambda,0}=0.7274$. For the analytic background used during orbital evolution, the same equations are evaluated with $\Omega_{\rm m,0}=0.307$ and $\Omega_{\Lambda,0}=0.693$.
+
+The evolving matter density parameter is
+\begin{align}
+\Omega_{\rm m}(z) &=
+\dfrac{\Omega_{\rm m,0}(1+z)^3}
+{\Omega_{\Lambda,0}+\Omega_{\rm m,0}(1+z)^3}.
+\end{align}
+The numerator is the matter density scaled by expansion, and the denominator is the total matter plus dark-energy density in the flat cosmology.
+
+The cosmic age at redshift $z$ is
+\begin{align}
+t(z) &=
+\dfrac{2}{3 H_0 \sqrt{\Omega_{\Lambda,0}}}
+\operatorname{asinh}
+\left[
+\sqrt{\dfrac{\Omega_{\Lambda,0}}{\Omega_{\rm m,0}}}
+(1+z)^{-3/2}
+\right].
+\end{align}
+The inverse age-to-redshift conversion is
+\begin{align}
+z(t) &=
+\left[
+\dfrac{\sqrt{\Omega_{\Lambda,0}/\Omega_{\rm m,0}}}
+{\sinh \left( t / T_{\Lambda} \right)}
+\right]^{2/3}
+-1,\\
+T_{\Lambda} &=
+\dfrac{2}{3 H_0 \sqrt{\Omega_{\Lambda,0}}}.
+\end{align}
+Here $t$ is cosmic age and $T_{\Lambda}$ is the LambdaCDM age prefactor. The local Hubble time is
+\begin{align}
+t_{\rm H}(z) &= \dfrac{1}{H_0 E(z)}.
+\end{align}
+
+The virial overdensity relative to the critical density follows the Bryan--Norman form
+\begin{align}
+\Delta_{\rm vir}(z) &= 18\pi^2 + 82x - 39x^2,\\
+x &= \Omega_{\rm m}(z)-1.
+\end{align}
+The critical density and the corresponding virial radius are
+\begin{align}
+\rho_{\rm crit}(z) &=
+\dfrac{3H_0^2E^2(z)}{8\pi G},\\
+R_{\rm vir} &=
+\left[
+\dfrac{3M_{\rm h}}{4\pi \Delta_{\rm vir}(z)\rho_{\rm crit}(z)}
+\right]^{1/3},
+\end{align}
+where $G$ is the gravitational constant and $M_{\rm h}$ is halo mass. In the analytic evolution background, the same virial scaling is written in the equivalent form
+\begin{align}
+R_{\rm vir} &=
+\dfrac{163}{h}
+\dfrac{(M_{{\rm h},9}h/10^3)^{1/3}}
+{\left[\Omega_{\rm m,0}\Delta_{\rm vir}(z)/(200\Omega_{\rm m}(z))\right]^{1/3}(1+z)}
+~{\rm kpc}.
+\end{align}
+Here $h=H_0/(100~{\rm km~s^{-1}~Mpc^{-1}})$ and $M_{{\rm h},9}=M_{\rm h}/(10^9~M_{\odot})$.
+
+The virial velocity, one-dimensional dark-matter velocity dispersion, and virial temperature proxy are
+\begin{align}
+v_{\rm vir} &= \left(\dfrac{GM_{\rm h}}{R_{\rm vir}}\right)^{1/2},\\
+\sigma_{\rm DM} &= \left(\dfrac{GM_{\rm h}}{2R_{\rm vir}}\right)^{1/2},\\
+T_{\rm vir} &= 3.6\times10^5
+\left(\dfrac{0.9785\,v_{\rm vir}}{100~{\rm km~s^{-1}}}\right)^2 .
+\end{align}
+The factor $0.9785$ converts pc Myr$^{-1}$ to km s$^{-1}$ in the formation-stage halo units.
+
+For the dark-matter part of the analytic background, the halo concentration and scale radius are
+\begin{align}
+c &= 9.354
+\left(\dfrac{M_{\rm v}h}{10^{12}~M_{\odot}}\right)^{-0.094},\\
+R_{\rm s} &= \dfrac{R_{\rm vir}}{c}.
+\end{align}
+The radial derivative of the NFW potential is
+\begin{align}
+\dfrac{{\rm d}\Phi_{\rm DM}}{{\rm d}r}
+&= M_{\rm v}
+\left[
+\dfrac{\ln (1+r/R_{\rm s})}{r^2}
+-\dfrac{1}{(R_{\rm s}+r)r}
+\right],
+\end{align}
+where $M_{\rm v}$ is the virial mass in the mass unit used by the potential calculation, $R_{\rm s}$ is the NFW scale radius, and $r$ is galactocentric radius.
+
+The approximate bulge mass associated with a galaxy of stellar mass $M_{\star}$ is
+\begin{align}
+\log_{10} M_{\rm bulge} &=
+\log_{10} M_{\star}
++\log_{10}
+\left[
+\dfrac{z_{\rm mul}}
+{1+e^{-1.12882(\log_{10}M_{\star}-10.1993)}}
+\right],\\
+z_{\rm mul} &= 1-\dfrac{1-a}{2},\\
+a &= \dfrac{1}{1+z}.
+\end{align}
+The factor $z_{\rm mul}$ reduces the bulge fraction at high redshift through the scale factor $a$.
+
+\section{Galaxy Scaling Relations}
+\label{app:galaxy_scaling_equations}
+
+The stellar mass--halo mass relation is written as
+\begin{align}
+\log_{10} M_{\star} &=
+\log_{10}(\epsilon M_1)
++ f\left(\log_{10}\dfrac{M_{\rm h}}{M_1}\right)
+- f(0) + \xi,\\
+f(x) &=
+\begin{cases}
+-\log_{10}(10^{\alpha x}+1)
++ \dfrac{\delta\left[\log_{10}(1+e^x)\right]^{\gamma}}
+{1+e^{10^{-x}}},
+& x>-2,\\
+-\log_{10}(10^{\alpha x}+1),
+& x\leq -2.
+\end{cases}
+\end{align}
+Here $M_{\star}$ is stellar mass, $M_{\rm h}$ is halo mass, $M_1$ is the characteristic halo mass, $\epsilon$ is the stellar-to-halo normalisation, $\alpha$, $\delta$, and $\gamma$ control the low-mass slope, high-mass transition, and curvature, and $\xi$ is the lognormal scatter. The redshift-dependent quantities are
+\begin{align}
+a &= \dfrac{1}{1+z},\\
+\nu &= e^{-4a^2},\\
+\log_{10}\epsilon
+&= -1.777 -0.006(a-1)\nu -0.119(a-1),\\
+\log_{10}M_1
+&= 11.514 + \left[-1.793(a-1)-0.251z\right]\nu,\\
+\alpha_{\rm form}
+&= -1.412 +0.713(a-1)\nu,\\
+\alpha_{\rm evol}
+&= -1.412 +0.731(a-1)\nu,\\
+\delta
+&= 3.508+\left[2.608(a-1)-0.043z\right]\nu,\\
+\gamma
+&= 0.316+\left[1.319(a-1)+0.279z\right]\nu,\\
+\xi &\sim {\cal N}\left[0,\,0.218-0.023(a-1)\right].
+\end{align}
+The symbols $\alpha_{\rm form}$ and $\alpha_{\rm evol}$ denote the two retained calibrations of the same functional form: the formation-stage halo catalogues use $\alpha_{\rm form}$, while the analytic evolution background uses $\alpha_{\rm evol}$.
+
+The optional Kravtsov-style fixed-parameter versions use the same $f(x)$ and
+\begin{align}
+(\log_{10}\epsilon,\log_{10}M_1,\alpha,\delta,\gamma)_{\rm M200}
+&=(-1.618,\,11.39,\,-1.795,\,4.345,\,0.619),\\
+(\log_{10}\epsilon,\log_{10}M_1,\alpha,\delta,\gamma)_{\rm vir}
+&=(-1.663,\,11.43,\,-1.750,\,4.290,\,0.595).
+\end{align}
+
+Along a merger-tree branch, stellar mass is grown self-consistently using
+\begin{align}
+M_{\star,i} &=
+M_{\star,{\rm prog}}
++\left[
+M_{\star,{\rm SMHM}}(M_{{\rm h},i},z_i)
+-M_{\star,{\rm SMHM}}(M_{{\rm h},{\rm prog}},z_{\rm prog})
+\right]10^{\xi_i}.
+\end{align}
+Here the subscript ``prog'' denotes the first progenitor, and $M_{\star,{\rm SMHM}}$ is the median stellar mass from the SMHM relation.
+
+The cold-gas mass is expressed through $\eta=M_{\rm g}/M_{\star}$:
+\begin{align}
+\log_{10}\eta &=
+-0.45 - n_M(\log_{10}M_{\star}-9) + Z_{\eta}(z) + \xi_{\rm g},\\
+n_M &=
+\begin{cases}
+0.19, & M_{\star}<10^9~M_{\odot},\\
+0.33, & M_{\star}\geq10^9~M_{\odot},
+\end{cases}\\
+\xi_{\rm g} &\sim {\cal N}(0,0.3).
+\end{align}
+The redshift term is
+\begin{align}
+Z_{\eta}(z) &=
+\begin{cases}
+(3-t_{\rm dep})\log_{10}\left(\dfrac{1+z}{3}\right)
++(3-t_{\rm dep})\log_{10}3, & z<2,\\
+(1.7-t_{\rm dep})\log_{10}\left(\dfrac{1+z}{3}\right)
++(3-t_{\rm dep})\log_{10}3, & 2\leq z<3,\\
+(1.7-t_{\rm dep})\log_{10}\left(\dfrac{4}{3}\right)
++(3-t_{\rm dep})\log_{10}3, & z\geq3,
+\end{cases}\\
+t_{\rm dep} &= 0.3.
+\end{align}
+The resulting gas mass is $M_{\rm g}=\eta M_{\star}$ before applying the baryon-retention ceiling.
+
+The retained baryon fraction is limited by
+\begin{align}
+f_{\star} &= \dfrac{M_{\star}}{f_{\rm b}M_{\rm h}},\\
+f_{\rm g} &= \dfrac{M_{\rm g}}{f_{\rm b}M_{\rm h}},\\
+f_{\rm g} &\rightarrow
+\begin{cases}
+0, & f_{\star}\geq f_{\rm in},\\
+f_{\rm in}-f_{\star}, & f_{\star}<f_{\rm in}\ {\rm and}\ f_{\star}+f_{\rm g}>f_{\rm in},\\
+f_{\rm g}, & f_{\star}+f_{\rm g}\leq f_{\rm in},
+\end{cases}
+\end{align}
+where $f_{\rm b}$ is the cosmic baryon fraction, $f_{\star}$ and $f_{\rm g}$ are stellar and gas fractions normalised to $f_{\rm b}M_{\rm h}$, and $f_{\rm in}$ is the accreted baryon fraction.
+
+The smooth filtering function used for baryon retention is
+\begin{align}
+s(x,y) &= \left[1+\left(2^{y/3}-1\right)x^y\right]^{-3/y}.
+\end{align}
+The Muratov--Gnedin retention model is
+\begin{align}
+f_{\rm in} &= \left(1+\dfrac{M_{\rm ch}}{M_{\rm h}}\right)^{-3},\\
+M_{\rm ch} &= \max
+\left[
+\dfrac{3.6\times10^9 e^{-0.6(1+z)}}{h},
+\dfrac{1.5\times10^{10} 180^{-1/2}}{E(z)h}
+\right]M_{\odot}.
+\end{align}
+The Chen--Gnedin retention model is
+\begin{align}
+f_{\rm in} &= s\left(\dfrac{M_{\rm ch}}{M_{\rm h}},2\right),\\
+M_{\rm ch}(z) &=
+\dfrac{1.69\times10^{10}e^{-0.63z}}
+{1+e^{(z/\beta)^{\Gamma}}}~M_{\odot},\\
+\beta &= z_{\rm rei}
+\left[\ln\left(1.82\times10^3 e^{-0.63z_{\rm rei}}\right)-1\right]^{-1/\Gamma},\\
+z_{\rm rei} &= 6,\qquad \Gamma=15.
+\end{align}
+Here $M_{\rm ch}$ is the characteristic halo mass at which reionisation suppresses baryon accretion.
+
+Two mass--metallicity relations are used. The Choksi-style relation is
+\begin{align}
+[\mathrm{Fe}/\mathrm{H}]_{\rm gal}
+&=0.35(\log_{10}M_{\star}-10.5)
+-0.9\log_{10}(1+z),
+\end{align}
+and the Chen--Gnedin relation is
+\begin{align}
+[\mathrm{Fe}/\mathrm{H}]_{\rm gal}
+&=0.3\log_{10}\left(\dfrac{M_{\star}}{10^9~M_{\odot}}\right)
+-\log_{10}(1+z)-0.5.
+\end{align}
+Both are capped at $[\mathrm{Fe}/\mathrm{H}]=0.3$. The cluster metallicity is
+\begin{align}
+[\mathrm{Fe}/\mathrm{H}]_{\rm GC}
+&=[\mathrm{Fe}/\mathrm{H}]_{\rm gal}+\xi_m,\\
+\xi_m &\sim {\cal N}(0,0.3),
+\end{align}
+and the solar-scaled metal fraction entering the IMBH fit is
+\begin{align}
+\dfrac{Z}{Z_{\odot}} &= 10^{[\mathrm{Fe}/\mathrm{H}]_{\rm GC}}.
+\end{align}
+
+\section{Cluster Formation, Sampling, and Birth Radii}
+\label{app:cluster_initial_equations}
+
+GC formation is triggered by rapid halo growth,
+\begin{align}
+R_{\rm m} &=
+\dfrac{M_{{\rm h},i}/M_{{\rm h},{\rm prog}}-1}
+{t_i-t_{\rm prog}},\\
+R_{\rm m} &> p_3.
+\end{align}
+Here $R_{\rm m}$ is the specific halo growth rate, $t_i$ and $t_{\rm prog}$ are the cosmic ages of the current halo and its progenitor, and $p_3$ is the threshold parameter.
+
+The total mass formed in clusters during one event is
+\begin{align}
+M_{\rm GC,tot} &= 3\times10^{-5}p_2\dfrac{M_{\rm g}}{f_{\rm b}},
+\end{align}
+where $p_2$ controls the cluster formation efficiency.
+
+Individual cluster masses are drawn from a Schechter initial cluster mass function,
+\begin{align}
+\dfrac{{\rm d}N}{{\rm d}M} &= A_{\rm c}M^{-2}e^{-M/M_{\rm c}},
+\end{align}
+where $A_{\rm c}$ is the normalisation and $M_{\rm c}$ is the exponential cut-off mass. The upper incomplete gamma function is
+\begin{align}
+\Gamma(s,x) &= \int_x^{\infty} u^{s-1}e^{-u}\,{\rm d}u.
+\end{align}
+The deterministic maximum-mass relation is obtained from the condition that one cluster lies above $M_{\max}$:
+\begin{align}
+1 &= A_{\rm c}M_{\rm c}^{-1}\Gamma\left(-1,\dfrac{M_{\max}}{M_{\rm c}}\right),\\
+M_{\rm GC,tot} &=
+\dfrac{M_{\rm c}
+\left[
+\Gamma\left(0,\dfrac{M_{\min}}{M_{\rm c}}\right)
+-\Gamma\left(0,\dfrac{M_{\max}}{M_{\rm c}}\right)
+\right]}
+{\Gamma\left(-1,\dfrac{M_{\max}}{M_{\rm c}}\right)}.
+\end{align}
+For sampling between $M_{\min}$ and $M_{\max}$, the cumulative probability is
+\begin{align}
+r(<M) &=
+\dfrac{
+\Gamma\left(-1,\dfrac{M_{\min}}{M_{\rm c}}\right)
+-\Gamma\left(-1,\dfrac{M}{M_{\rm c}}\right)}
+{
+\Gamma\left(-1,\dfrac{M_{\min}}{M_{\rm c}}\right)
+-\Gamma\left(-1,\dfrac{M_{\max}}{M_{\rm c}}\right)}.
+\end{align}
+
+The three-dimensional Sersic density profile used for birth radii is
+\begin{align}
+\rho(R) &= A_{\rm S}e^{-2n(R/R_{\rm e})^{1/n}},\\
+M_{\rm S,tot} &=
+\dfrac{4\pi A_{\rm S}}{8^n}
+n^{1-3n}R_{\rm e}^3\Gamma(3n).
+\end{align}
+Here $A_{\rm S}$ is the density normalisation, $n$ is the Sersic index, and $R_{\rm e}$ is the effective radius. The shape coefficients used for enclosed-mass inversion are
+\begin{align}
+p(n) &= 1-\dfrac{0.6097}{n}+\dfrac{0.05563}{n^2},\\
+b(n) &= 2n-\dfrac{1}{3}+\dfrac{0.009876}{n}.
+\end{align}
+If $P(a,x)$ is the regularised lower incomplete gamma function, then
+\begin{align}
+f_M(<R) &= P\left[n(3-p),\,b\left(\dfrac{R}{R_{\rm e}}\right)^{1/n}\right],\\
+\dfrac{R}{R_{\rm e}} &=
+\left[
+\dfrac{P^{-1}\left(n(3-p),f_M\right)}{b}
+\right]^n.
+\end{align}
+Main-branch clusters are placed by matching their cumulative mass fraction to $f_M$. Accreted clusters are assigned a representative outer radius
+\begin{align}
+R_{\rm acc} &= 0.5R_{\rm vir}.
+\end{align}
+
+For the angular-momentum birth-radius model, the effective radius is
+\begin{align}
+R_{\rm e} &=
+\dfrac{j_{\rm sp}h}{20H(z)R_{\rm vir}},
+\end{align}
+where $j_{\rm sp}$ is the specific angular momentum norm of the halo, $h=H_0/(100~{\rm km~s^{-1}~Mpc^{-1}})$, $H(z)$ is the Hubble parameter, and $R_{\rm vir}$ is the virial radius. In the analytic background, the corresponding spin parameter and effective radius are
+\begin{align}
+\lambda &=
+\dfrac{J}{\left(2GR_{\rm vir}M_{\rm h}\right)^{1/2}},\\
+R_{\rm e} &= \dfrac{\lambda R_{\rm vir}}{\sqrt{2}},
+\end{align}
+where $J$ is the halo angular-momentum norm in the same unit system as $G$, $R_{\rm vir}$, and $M_{\rm h}$.
+
+For the empirical star-forming size relation, the GC radius scale is
+\begin{align}
+R_{\rm e,GC} &= F_{\rm GC}R_{\rm e,SF}.
+\end{align}
+At $z>3$,
+\begin{align}
+R_{\rm e,SF} &=
+0.83
+\left(\dfrac{M_{\star}}{10^{8.5}~M_{\odot}}\right)^{0.25}
+\left(\dfrac{1+z}{5}\right)^{-1.24}
+~{\rm kpc}.
+\end{align}
+At lower redshift, tabulated coefficients are interpolated in $\log(1+z)$ and
+\begin{align}
+\log_{10} R_{\rm e,SF}
+&=\log_{10}A_{\rm SF}(z)
++\alpha_{\rm SF}(z)
+\log_{10}\left(\dfrac{M_{\star}}{5\times10^{10}~M_{\odot}}\right)
++\xi_R,\\
+\xi_R &\sim {\cal N}\left[0,\sigma_{\log R}(z)\right].
+\end{align}
+The current fiducial value is $F_{\rm GC}=1$.
+
+When star-formation aperture fractions are available, a Sersic effective radius is inferred from the fractions $f_1$ and $f_2$ inside $R_{1/2,\star}$ and $2R_{1/2,\star}$:
+\begin{align}
+a_n &= n(3-p),\\
+X_1 &= P^{-1}(a_n,f_1),\\
+X_2 &= P^{-1}(a_n,f_2),\\
+R_{{\rm e},1} &= R_{1/2,\star}\left(\dfrac{b}{X_1}\right)^n,\\
+R_{{\rm e},2} &= 2R_{1/2,\star}\left(\dfrac{b}{X_2}\right)^n,\\
+R_{\rm e,SF} &= \left(R_{{\rm e},1}R_{{\rm e},2}\right)^{1/2}.
+\end{align}
+
+\section{Cluster Evolution}
+\label{app:evolution_equations}
+
+The stellar background mass enclosed by radius $r$ is
+\begin{align}
+M_{\star}(<r) &=
+M_{\star}
+P\left[n(3-p),\,b\left(\dfrac{r}{R_{\rm e}}\right)^{1/n}\right].
+\end{align}
+The circular velocity of the smooth background is
+\begin{align}
+v_{\rm c,bg}^2(r) &=
+r\dfrac{{\rm d}\Phi_{\rm DM}}{{\rm d}r}
++\dfrac{M_{\star}(<r)}{r},
+\end{align}
+and the associated mean background density is
+\begin{align}
+\rho_{\rm bg}(r) &=
+\dfrac{v_{\rm c,bg}^2(r)}{(4\pi/3)r^2}.
+\end{align}
+The deposited cluster material already enclosed within $r$ contributes
+\begin{align}
+\rho_{\rm GC}(<r) &=
+\dfrac{M_{\rm GC}(<r)}{(4\pi/3)r^3},
+\end{align}
+with unit conversions absorbed into the numerical constants of the evolution equations. The circular velocity used for orbital decay is
+\begin{align}
+v_{\rm c}(r) &=
+C_v\left[(\rho_{\rm bg}+\rho_{\rm GC})(4\pi/3)r^2\right]^{1/2},
+\end{align}
+where $C_v$ converts the adopted mass, radius, and time units to km s$^{-1}$.
+
+The dynamical-friction inspiral rate is
+\begin{align}
+\dfrac{{\rm d}r}{{\rm d}t} &=
+-\dfrac{M_{\rm GC,5}}{0.45\,r\,v_{\rm c}},
+\end{align}
+where $M_{\rm GC,5}=M_{\rm GC}/(10^5~M_{\odot})$, $r$ is in kpc, and $v_{\rm c}$ is in km s$^{-1}$. The fourth-order Runge--Kutta update evaluates the positive inward step function $D(r)=M_{\rm GC,5}/(0.45rv_{\rm c})$ as
+\begin{align}
+k_1 &= \Delta t\,D(r),\\
+k_2 &= \Delta t\,D(r-k_1/2),\\
+k_3 &= \Delta t\,D(r-k_2/2),\\
+k_4 &= \Delta t\,D(r-k_3),\\
+\Delta r &= \dfrac{k_1+2k_2+2k_3+k_4}{6}.
+\end{align}
+The radius is then updated as $r\rightarrow r-\Delta r$.
+
+For the local-orbit tidal-stripping model,
+\begin{align}
+P(r) &= 100\dfrac{r}{v_{\rm c}},\\
+\dfrac{{\rm d}M_{\rm GC,5}}{{\rm d}t}
+&=2^{2/3}\,0.1\,
+\dfrac{M_{\rm GC,5}^{1/3}}{P(r)}.
+\end{align}
+Here $P(r)$ is a normalised orbital period. The alternative fixed-period disruption law is
+\begin{align}
+t_{\rm tid} &= 10~{\rm Gyr}
+\left(\dfrac{M_{\rm GC}}{2\times10^5~M_{\odot}}\right)^{2/3}P_0,\\
+t_{\rm iso} &= 17~{\rm Gyr}
+\left(\dfrac{M_{\rm GC}}{2\times10^5~M_{\odot}}\right),\\
+\dfrac{{\rm d}M_{\rm GC}}{{\rm d}t}
+&= -\dfrac{M_{\rm GC}}{\min(t_{\rm tid},t_{\rm iso})},
+\end{align}
+where $P_0=0.5$ is the fixed normalised orbital period.
+
+The analytic formation-stage survival estimate applies
+\begin{align}
+m_0 &= \dfrac{M_0}{2\times10^5~M_{\odot}},\\
+t_{\rm tid,0} &= 10^{10}~{\rm yr}\,m_0^{2/3}P_0,\\
+\nu_{\rm tid,0} &= \dfrac{1}{t_{\rm tid,0}},\\
+k(t) &= 1-\dfrac{2}{3}\nu_{\rm tid,0}(t-t_{\rm form}),\\
+m_{\rm tid}(t) &= m_0 k^{3/2}.
+\end{align}
+If weak-field evaporation is included, the transition mass is
+\begin{align}
+m_{\rm iso} &= \left(\dfrac{P_0}{1.7}\right)^3,
+\end{align}
+and, when $m_{\rm tid}<m_{\rm iso}$,
+\begin{align}
+t_{\rm iso,start} &=
+t_{\rm form}
++\dfrac{3\left[1-(m_{\rm iso}/m_0)^{2/3}\right]}
+{2\nu_{\rm tid,0}},\\
+m_{\rm f} &=
+m_{\rm iso}
+-\dfrac{t-t_{\rm iso,start}}{1.7\times10^{10}~{\rm yr}}.
+\end{align}
+
+The stellar-evolution mass-loss fraction is represented as
+\begin{align}
+f_{\rm sw}(t) &=
+\max\left[0,\,-\dfrac{x^2}{100}+0.288x-1.42\right],\\
+x &= \log_{10}\left(\dfrac{t}{\rm yr}\right).
+\end{align}
+For tabulated metallicity-dependent stellar evolution, the solar and subsolar tables are used directly at $[\mathrm{Fe}/\mathrm{H}]\geq0$ and $[\mathrm{Fe}/\mathrm{H}]\leq -0.69$. Between them, the stellar-evolution time grid is interpolated as
+\begin{align}
+t_{\rm int} &=
+t_{\rm sub}
++\dfrac{t_{\odot}-t_{\rm sub}}{0.69}
+\left([\mathrm{Fe}/\mathrm{H}]+0.69\right).
+\end{align}
+The final mass after analytic survival filtering is
+\begin{align}
+M_{\rm f} &=
+2\times10^5~M_{\odot}\,m_{\rm dyn}
+\left[1-f_{\rm lost}(t-t_{\rm form},[\mathrm{Fe}/\mathrm{H}])\right],
+\end{align}
+where $m_{\rm dyn}$ is either $m_{\rm tid}$ or the weak-field value $m_{\rm f}$, and $f_{\rm lost}$ is the metallicity-dependent stellar-evolution loss fraction.
+
+During the time-dependent evolution, the stellar-wind loss over one step is
+\begin{align}
+\Delta f_{\rm sw} &=
+f_{\rm sw}(t+\Delta t-t_{\rm form})
+-f_{\rm sw}(t-t_{\rm form}),\\
+\Delta M_{\rm sw,bound} &=
+M_{\rm init}\dfrac{M_{\rm bound}}
+{M_{\rm bound}+M_{\rm dep}}\Delta f_{\rm sw},\\
+\Delta M_{\rm sw,dep} &=
+M_{\rm init}\dfrac{M_{\rm dep}}
+{M_{\rm bound}+M_{\rm dep}}\Delta f_{\rm sw},\\
+\Delta M_{\rm tid} &=
+\left|\dfrac{{\rm d}M_{\rm GC}}{{\rm d}t}\right|\Delta t.
+\end{align}
+Here $M_{\rm bound}$ is the current bound cluster mass, $M_{\rm dep}$ is the mass already deposited by the same cluster, and $M_{\rm init}$ is its initial mass.
+
+The cluster half-mass density used for direct tidal tearing is
+\begin{align}
+\rho_{\rm h} &=
+\begin{cases}
+10^3, & M_{\rm GC,5}<1,\\
+10^3M_{\rm GC,5}^2, & 1\leq M_{\rm GC,5}\leq10,\\
+10^5, & M_{\rm GC,5}>10,
+\end{cases}
+\end{align}
+with density in $M_{\odot}\,{\rm pc}^{-3}$. A cluster is torn apart when
+\begin{align}
+\rho_{\rm h} &< \rho_{\rm bg}+\rho_{\rm GC}.
+\end{align}
+
+The adaptive time-step limits are
+\begin{align}
+\Delta t_M &= t_{\rm s,m}\dfrac{M_{\rm GC}}{|{\rm d}M_{\rm GC}/{\rm d}t|},\\
+\Delta t_r &= t_{\rm s,r}\dfrac{r}{|{\rm d}r/{\rm d}t|},\\
+\Delta t &= \min(\Delta t_M,\Delta t_r,\Delta t_{\max}),
+\end{align}
+where $t_{\rm s,m}$ and $t_{\rm s,r}$ are user-specified fractional step parameters.
+
+The radial deposition bins are logarithmic:
+\begin{align}
+b(r) &= 1+\left\lfloor
+\dfrac{\log_{10}\max(r,r_{\min})-\log_{10}r_{\min}}
+{\log_{10}r_{\max}-\log_{10}r_{\min}}
+(N_{\rm bin}-1)
+\right\rfloor ,
+\end{align}
+with the result limited to the interval $1\leq b\leq N_{\rm bin}$.
+
+\section{Intermediate-Mass Black Hole Seeding}
+\label{app:imbh_equations}
+
+The cluster half-mass radius used for IMBH seeding is
+\begin{align}
+r_{\rm h} &=
+\dfrac{f_{\rm h}R_4}{1.3}
+\left(\dfrac{M_{\rm cl}}{10^4~M_{\odot}}\right)^{\beta},
+\end{align}
+with $f_{\rm h}=0.125$, $R_4=2.365~{\rm pc}$, and $\beta=0.180$. For a Plummer profile, the projected half-mass radius is
+\begin{align}
+R_{\rm h} &= \dfrac{r_{\rm h}}{1.305},
+\end{align}
+and the half-mass surface density is
+\begin{align}
+\Sigma_{\rm h} &=
+\dfrac{M_{\rm cl}}{2\pi R_{\rm h}^2}.
+\end{align}
+
+The metallicity entering the IMBH fit is restricted to the calibrated interval:
+\begin{align}
+\left(\dfrac{Z}{Z_{\odot}}\right)_{\rm fit}
+&=\min\left[
+1,\,
+\max\left(10^{-2},\,\dfrac{Z}{Z_{\odot}}\right)
+\right].
+\end{align}
+For each metallicity interval, every fit coefficient $Y$ is a linear function of $\log_{10}(Z/Z_{\odot})$,
+\begin{align}
+Y &= k_Y\log_{10}\left(\dfrac{Z}{Z_{\odot}}\right)+b_Y,
+\end{align}
+where $Y$ denotes one of the tabulated coefficients and $(k_Y,b_Y)$ is selected from the corresponding metallicity segment.
+
+Let
+\begin{align}
+Q &= \log_{10}\left(\dfrac{\Sigma_{\rm h}}
+{M_{\odot}~{\rm pc}^{-2}}\right).
+\end{align}
+In the calibrated-density regime, the IMBH mass fit is
+\begin{align}
+M_{\bullet,9} &=
+\begin{cases}
+AQ+BQ^2+C, & \Sigma_{\rm h}\geq\Sigma_{\rm crit},\\
+0, & \Sigma_{\rm h}<\Sigma_{\rm crit}.
+\end{cases}
+\end{align}
+The critical density is
+\begin{align}
+\log_{10}\left(\dfrac{\Sigma_{\rm crit}}
+{M_{\odot}~{\rm pc}^{-2}}\right)
+&= S.
+\end{align}
+For the high-density branch,
+\begin{align}
+M_{\bullet,10} &= DQ+E.
+\end{align}
+The selected seed mass is
+\begin{align}
+M_{\bullet} &=
+\begin{cases}
+M_{\bullet,10}, & Q\geq5.22,\\
+M_{\bullet,9}, & Q<5.22,
+\end{cases}\\
+M_{\bullet} &\rightarrow
+\begin{cases}
+M_{\bullet}, & M_{\bullet}\geq100~M_{\odot},\\
+0, & M_{\bullet}<100~M_{\odot}.
+\end{cases}
+\end{align}
+Here $A$, $B$, $C$, $D$, $E$, and $S$ are the metallicity-dependent fitted coefficients, and $M_{\bullet}$ is the IMBH seed mass assigned to the cluster.
+
+\section{Auxiliary Statistical and Photometric Relations}
+\label{app:auxiliary_equations}
+
+The Euclidean separation used for halo-coordinate distances is
+\begin{align}
+d_{12} &=
+\left[
+(x_1-x_2)^2+(y_1-y_2)^2+(z_1-z_2)^2
+\right]^{1/2}.
+\end{align}
+
+For a power-law probability density ${\rm d}N/{\rm d}M\propto M^{\alpha}$, inverse-transform sampling gives
+\begin{align}
+M &= M_{\min}(1-r)^{1/(\alpha+1)}
+\end{align}
+for an unbounded upper tail, and
+\begin{align}
+M &=
+\left[
+r\left(M_{\max}^{\alpha+1}-M_{\min}^{\alpha+1}\right)
++M_{\min}^{\alpha+1}
+\right]^{1/(\alpha+1)}
+\end{align}
+for the bounded interval $M_{\min}\leq M\leq M_{\max}$, where $r$ is a uniform deviate on $[0,1)$.
+
+The AB magnitude and flux-density conversions are
+\begin{align}
+F_{\nu}({\rm Jy}) &=
+\dfrac{10^{(23.9-m_{\rm AB})/2.5}}{10^6},\\
+m_{\rm AB} &=
+-2.5\log_{10}\left(\dfrac{F_{\nu}}{3631~{\rm Jy}}\right).
+\end{align}
+
+The Gaussian kernel density estimate used for one-dimensional distributions is
+\begin{align}
+\widehat{p}(x) &=
+\dfrac{1}{\sqrt{2\pi}\,h\,N}
+\sum_{i=1}^{N} w_i
+e^{-(x-x_i)^2/(2h^2)},
+\end{align}
+where $h$ is the bandwidth, $x_i$ are the samples, $w_i$ are optional weights, and $N$ is the number of samples.
+
+Linear interpolation on a uniformly spaced grid is
+\begin{align}
+y(x) &= y_j + q(y_{j+1}-y_j),\\
+j &= \left\lfloor \dfrac{x-x_0}{\Delta x}\right\rfloor,\\
+q &= \dfrac{x-x_0}{\Delta x}-j.
+\end{align}
 
 %% For this sample we use BibTeX plus aasjournalv7.bst to generate the
 %% the bibliography. The sample7.bib file was populated from ADS. To

@@ -55,7 +55,7 @@ if str(SRC_DIR) not in sys.path:
     sys.path.insert(0, str(SRC_DIR))
 
 import smhm  # noqa: E402
-from evo import Redshift2CosmicTimeGyr  # noqa: E402
+from evo import Redshift2CosmicAgeGyr  # noqa: E402
 
 np.random.seed(1)
 
@@ -67,7 +67,7 @@ DEFAULT_OUT_DIR = Path("/lingshan/disk3/subonan/_outputs/High-z_SMBHs_Max64_z0")
 DEFAULT_OBS_CACHE_DIR = PROJECT_ROOT / "data" / "Choksi+2018"
 CHOKSI_SUPPLEMENT_DIR = DEFAULT_OBS_CACHE_DIR / "choksi_supplement"
 CHOKSI_MODEL_PATH = CHOKSI_SUPPLEMENT_DIR / "model.txt"
-T_UNIVERSE_GYR = float(Redshift2CosmicTimeGyr(0.0))
+T_UNIVERSE_GYR = float(Redshift2CosmicAgeGyr(0.0))
 
 FIGURE_STEMS = {
     1: "mean_feh",
@@ -377,7 +377,7 @@ def _load_halo_summary(path: Path) -> pd.DataFrame:
 
 def cosmic_time_gyr(z: np.ndarray | float) -> np.ndarray | float:
     arr = np.asarray(z, dtype=float)
-    flat = np.array([Redshift2CosmicTimeGyr(float(value)) for value in arr.ravel()], dtype=float)
+    flat = np.array([Redshift2CosmicAgeGyr(float(value)) for value in arr.ravel()], dtype=float)
     out = flat.reshape(arr.shape)
     if np.isscalar(z):
         return float(out)
