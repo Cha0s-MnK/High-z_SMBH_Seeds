@@ -2,11 +2,11 @@
 # Licensed under BSD-3-Clause License - see LICENSE
 
 """
-Reproduce Neumayer et al. (2020) Figures 3, 12, and 13 from local outputs.
+Reproduce Neumayer et al. (2020) Figure 12 from local High-z SMBHs outputs.
 
 This script is intentionally standalone. It reads one local model output directory
 and cached observational source tables under
-``/home/subonan/High-z_SMBH_Seeds/data/Neumayer+2020``. It does not modify the
+``/home/subonan/High-z SMBHs/data/Neumayer+2020``. It does not modify the
 existing run or plotting pipeline.
 """
 
@@ -50,24 +50,21 @@ warnings.filterwarnings("ignore", category=UnitsWarning)
 warnings.filterwarnings("ignore", category=MergeConflictWarning)
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-SRC_DIR = PROJECT_ROOT / "src"
-if str(SRC_DIR) not in sys.path:
-    sys.path.insert(0, str(SRC_DIR))
+SRC_NEW_DIR = PROJECT_ROOT / "src_new"
+if str(SRC_NEW_DIR) not in sys.path:
+    sys.path.insert(0, str(SRC_NEW_DIR))
 
-from config import NSC_RADIUS_PC, STD_DPI  # noqa: E402
+from config import STD_DPI  # noqa: E402
 
 DEFAULT_OUT_DIR = Path("/lingshan/disk3/subonan/_outputs/High-z_SMBHs_Orig_R0.5_z0")
 DEFAULT_OBS_CACHE_DIR = PROJECT_ROOT / "data" / "Neumayer+2020"
-if not DEFAULT_OBS_CACHE_DIR.is_dir():
-    DEFAULT_OBS_CACHE_DIR = PROJECT_ROOT.parent / "data" / "Neumayer+2020"
 
 NS_VALUE_DEFAULT = 2.0
-FIGURE_03_FILENAME = "Fig.03_galaxy_demographics.pdf"
-FIGURE_12_FILENAME = "Fig.12_nsc_scaling.pdf"
-FIGURE_13_FILENAME = "Fig.13_bh_nsc_mass_ratio.pdf"
+NSC_PROXY_RADIUS_PC = 10.0
+FIGURE_03_FILENAME = "Fig.03_galaxy_demographics.png"
+FIGURE_12_FILENAME = "Fig.12_nsc_scaling.png"
 RAW_SUBDIR = "raw"
 ORIGINAL_REVIEW_SUBDIR = "original_nsc_review"
-FIG13_SOURCE_FILENAME = "bh_nsc_galmass.csv"
 COMPILED_FIG03_CSV = "neumayer2020_fig03_demographics.csv"
 COMPILED_FIG03_META_JSON = "neumayer2020_fig03_demographics_meta.json"
 COMPILED_OBS_CSV = "neumayer2020_fig12_compilation.csv"
@@ -76,11 +73,9 @@ RUN_METADATA_NAME = "run_metadata.json"
 HALO_TREE_LOOKUP_NAME = "halo_tree_lookup.csv"
 FULL_PHYSICS_COUNTERPARTS_NAME = "full_physics_counterparts_z0.csv"
 NEUMAYER_DIVIDER_NAME = "neumayer2020_fig3_divider.json"
+HOST_TYPE_MODES = ("auto", "split", "none")
 OBS_HOST_TYPE_COLOURS = {"late": "tab:blue", "early": "tab:red"}
 MODEL_HOST_TYPE_COLOURS = {"late": "dodgerblue", "early": "firebrick"}
-FIG13_OBS_COLOURS = {"late": "b", "early": "r", "ucd": "m"}
-FIG13_MARKER_SIZE = 100
-FIG13_AXIS_MARGIN = 0.1
 
 PAPER_FULL_FIT = (0.48, 6.51)
 PAPER_GOOD_FIT = (0.92, 6.13)
@@ -129,17 +124,6 @@ class Fig03Catalog:
 
 
 @dataclass
-class Fig13Catalog:
-    table: pd.DataFrame
-    source_path: Path
-    duplicate_names: List[str]
-    missing_host_mass_count: int
-    nonfinite_mass_count: int
-    unknown_galtype_count: int
-    ucd_upper_limit_count: int
-
-
-@dataclass
 class ModelSummary:
     table: pd.DataFrame
     ns_value: float
@@ -148,6 +132,7 @@ class ModelSummary:
     fit_intercept: float
     divider: Dict[str, object] | None = None
     mixed_suite: bool = False
+    host_type_mode: str = "auto"
 
 
 def _apply_plot_style() -> None:
@@ -208,18 +193,6 @@ def _regular_log_bin_edges(values: Iterable[float], step_dex: float = 0.5) -> np
     if len(edges) < 2:
         edges = np.array([lo, lo + float(step_dex)], dtype=float)
     return edges
-
-
-def _expanded_linear_limits(base: Tuple[float, float], values: Iterable[float], margin: float) -> Tuple[float, float]:
-    vals = np.asarray(list(values), dtype=float)
-    vals = vals[np.isfinite(vals)]
-    if len(vals) == 0:
-        return float(base[0]), float(base[1])
-    lo = min(float(base[0]), float(vals.min()) - float(margin))
-    hi = max(float(base[1]), float(vals.max()) + float(margin))
-    if hi <= lo:
-        hi = lo + 2.0 * float(margin)
-    return lo, hi
 
 
 def _binned_percentiles(x_log: pd.Series | np.ndarray, y: pd.Series | np.ndarray, bins: np.ndarray, min_count: int = 5) -> pd.DataFrame:
@@ -324,34 +297,6 @@ def _find_final_gcs_file(allcat_ns_path: Path) -> Path:
     if not path.exists():
         raise FileNotFoundError(f"Missing finalGCs file for {allcat_ns_path.name}: {path}")
     return path
-
-
-def _find_halo_summary_file(allcat_ns_path: Path) -> Path:
-    stem = allcat_ns_path.stem
-    if "_ns" not in stem:
-        raise ValueError(f"Could not infer N_s tag from {allcat_ns_path.name}")
-    ns_tag = stem.split("_ns", 1)[1].split("_", 1)[0]
-    path = allcat_ns_path.parent / f"haloSummary_ns{ns_tag}.csv"
-    if not path.exists():
-        raise FileNotFoundError(f"Missing haloSummary file for {allcat_ns_path.name}: {path}")
-    return path
-
-
-def _load_halo_summary_table(path: Path) -> pd.DataFrame:
-    df = pd.read_csv(path)
-    required = ["hid_z0", "M_NSC", "M_SMBH_final"]
-    for col in required:
-        if col not in df.columns:
-            raise ValueError(f"Missing required column '{col}' in {path}.")
-    df["hid_z0"] = pd.to_numeric(df["hid_z0"], errors="raise").astype(int)
-    for col in ["M_NSC", "M_SMBH_final"]:
-        df[col] = pd.to_numeric(df[col], errors="raise")
-        if not np.all(np.isfinite(df[col].to_numpy(dtype=float))):
-            raise ValueError(f"Column {col} contains non-finite values in {path}.")
-        if np.any(df[col].to_numpy(dtype=float) < 0.0):
-            raise ValueError(f"Column {col} contains negative values in {path}.")
-    df["M_BH"] = df["M_SMBH_final"]
-    return df[["hid_z0", "M_NSC", "M_BH"]].sort_values("hid_z0").reset_index(drop=True)
 
 
 def load_allcat(allcat_path: Path) -> pd.DataFrame:
@@ -587,85 +532,6 @@ def load_fig03_observations(cache_dir: Path = DEFAULT_OBS_CACHE_DIR) -> Fig03Cat
     return Fig03Catalog(table=table, cache_dir=cache_dir, metadata=metadata)
 
 
-def _fig13_source_path() -> Path:
-    return DEFAULT_OBS_CACHE_DIR / ORIGINAL_REVIEW_SUBDIR / FIG13_SOURCE_FILENAME
-
-
-def load_fig13_observations() -> Fig13Catalog:
-    source_path = _fig13_source_path()
-    if not source_path.exists():
-        raise FileNotFoundError(f"Missing Neumayer+2020 Figure 13 source table: {source_path}")
-
-    table = pd.read_csv(source_path, skipinitialspace=True)
-    required = ["object", "logbhmass", "bhulimit", "lognscmass", "nsculimit", "logmstar", "galtype", "sources"]
-    missing = [name for name in required if name not in table.columns]
-    if missing:
-        raise ValueError(f"{source_path} is missing required columns: {missing}")
-
-    table = table.rename(
-        columns={
-            "object": "name",
-            "logbhmass": "logM_bh",
-            "lognscmass": "logM_nsc",
-            "logmstar": "logMstar_gal",
-            "bhulimit": "bh_is_upper_limit",
-            "nsculimit": "nsc_is_upper_limit",
-            "galtype": "galtype_code",
-        }
-    )
-    for col in ["logM_bh", "bh_is_upper_limit", "logM_nsc", "nsc_is_upper_limit", "logMstar_gal", "galtype_code"]:
-        table[col] = pd.to_numeric(table[col], errors="coerce")
-
-    table["name"] = table["name"].astype(str).str.strip()
-    table["sources"] = table["sources"].astype(str)
-    duplicate_names = sorted(table.loc[table["name"].duplicated(keep=False), "name"].dropna().astype(str).unique().tolist())
-    missing_host_mass_count = int((~np.isfinite(table["logMstar_gal"].to_numpy(dtype=float))).sum())
-
-    host_type_map = {1: "late", 2: "early", 0: "ucd"}
-    table["host_type"] = table["galtype_code"].map(host_type_map)
-    table["bh_is_upper_limit"] = table["bh_is_upper_limit"] == 1
-    table["nsc_is_upper_limit"] = table["nsc_is_upper_limit"] == 1
-    table["log_bh_to_nsc"] = table["logM_bh"] - table["logM_nsc"]
-
-    nonfinite_mass_mask = (
-        ~np.isfinite(table["logM_bh"].to_numpy(dtype=float))
-        | ~np.isfinite(table["logM_nsc"].to_numpy(dtype=float))
-        | ~np.isfinite(table["log_bh_to_nsc"].to_numpy(dtype=float))
-    )
-    unknown_galtype_mask = table["host_type"].isna() & ~nonfinite_mass_mask
-    ucd_upper_limit_mask = (
-        (table["host_type"] == "ucd")
-        & (table["bh_is_upper_limit"] | table["nsc_is_upper_limit"])
-        & ~nonfinite_mass_mask
-        & ~unknown_galtype_mask
-    )
-    table["plot_keep"] = ~(nonfinite_mass_mask | unknown_galtype_mask | ucd_upper_limit_mask)
-
-    nonfinite_mass_count = int(nonfinite_mass_mask.sum())
-    unknown_galtype_count = int(unknown_galtype_mask.sum())
-    ucd_upper_limit_count = int(ucd_upper_limit_mask.sum())
-    if duplicate_names:
-        print(f"WARNING: duplicated Figure 13 object names: {', '.join(duplicate_names)}")
-    if missing_host_mass_count > 0:
-        print(f"WARNING: Figure 13 rows missing host stellar mass: {missing_host_mass_count}")
-    if nonfinite_mass_count > 0:
-        print(f"WARNING: Figure 13 rows skipped for non-finite BH/NSC masses: {nonfinite_mass_count}")
-    if unknown_galtype_count > 0:
-        print(f"WARNING: Figure 13 rows skipped for unknown galtype: {unknown_galtype_count}")
-    if ucd_upper_limit_count > 0:
-        print(f"WARNING: Figure 13 UCD upper-limit rows skipped: {ucd_upper_limit_count}")
-
-    return Fig13Catalog(
-        table=table,
-        source_path=source_path,
-        duplicate_names=duplicate_names,
-        missing_host_mass_count=missing_host_mass_count,
-        nonfinite_mass_count=nonfinite_mass_count,
-        unknown_galtype_count=unknown_galtype_count,
-        ucd_upper_limit_count=ucd_upper_limit_count,
-    )
-
-
 def _build_obs_compilation_from_cache(cache_dir: Path) -> Tuple[Path, Path]:
     cache_dir.mkdir(parents=True, exist_ok=True)
     compiled_csv = cache_dir / COMPILED_OBS_CSV
@@ -786,6 +652,15 @@ def load_observations(cache_dir: Path = DEFAULT_OBS_CACHE_DIR) -> ObsCatalog:
     return ObsCatalog(table=table, cache_dir=cache_dir, metadata=metadata)
 
 
+def _is_missing_counterpart_products_error(exc: FileNotFoundError) -> bool:
+    text = str(exc)
+    return (
+        "cached full-physics counterpart products" in text
+        or FULL_PHYSICS_COUNTERPARTS_NAME in text
+        or NEUMAYER_DIVIDER_NAME in text
+    )
+
+
 def _load_mixed_suite_inputs(out_dir: Path, require_counterparts: bool) -> tuple[bool, pd.DataFrame | None, pd.DataFrame | None, Dict[str, object] | None]:
     if not require_counterparts:
         return False, None, None, None
@@ -839,11 +714,16 @@ def _load_mixed_suite_inputs(out_dir: Path, require_counterparts: bool) -> tuple
     return True, halo_lookup, counterparts, divider
 
 
-def build_model_summary(out_dir: Path, ns_value: float, nsc_radius_pc: float = NSC_RADIUS_PC) -> ModelSummary:
+def build_model_summary(out_dir: Path, ns_value: float, nsc_radius_pc: float = NSC_PROXY_RADIUS_PC, host_type_mode: str = "auto") -> ModelSummary:
+    if host_type_mode not in HOST_TYPE_MODES:
+        raise ValueError(f"host_type_mode must be one of {HOST_TYPE_MODES}; got {host_type_mode!r}")
+
     allcat_template_path = _resolve_model_inputs_from_out_dir(out_dir)
     allcat_path = _build_ns_allcat_path(allcat_template_path, ns_value)
+    final_gcs_path = _find_final_gcs_file(allcat_path)
     formed = load_allcat(allcat_path)
-    halo_summary = _load_halo_summary_table(_find_halo_summary_file(allcat_path))
+    final_gcs = _load_final_gcs_table(final_gcs_path, len(formed), formed["hid_z0"].to_numpy(dtype=int))
+    deposit_profile = _load_deposit_profile(allcat_path)
 
     halo = (
         formed.groupby("hid_z0", sort=True)
@@ -852,117 +732,136 @@ def build_model_summary(out_dir: Path, ns_value: float, nsc_radius_pc: float = N
     )
     halo["M_halo_z0"] = np.power(10.0, halo["logMh_z0"].to_numpy(dtype=float))
     halo["M_star_z0"] = np.power(10.0, halo["logMstar_z0"].to_numpy(dtype=float))
-    halo = halo.merge(halo_summary, on="hid_z0", how="left", validate="one_to_one")
-    if halo["M_NSC"].isna().any():
-        missing = halo.loc[halo["M_NSC"].isna(), "hid_z0"].astype(int).tolist()
-        raise ValueError(
-            "haloSummary is missing one or more halos present in the model output: "
-            + ", ".join(str(item) for item in missing[:12])
-        )
+    halo["M_nsc_proxy"] = 0.0
 
-    mixed_suite, halo_lookup, counterparts, divider = _load_mixed_suite_inputs(out_dir, require_counterparts=True)
-    if not mixed_suite:
-        raise FileNotFoundError(
-            f"{out_dir} is missing required split-style full-physics counterpart data. "
-            f"Expected {RUN_METADATA_NAME}, {HALO_TREE_LOOKUP_NAME}, {FULL_PHYSICS_COUNTERPARTS_NAME}, and {NEUMAYER_DIVIDER_NAME}."
-        )
+    radius_kpc = float(nsc_radius_pc) / 1000.0
+    if deposit_profile is not None:
+        dep_halo_ids, dep_mass = _deposit_mass_within_radius(deposit_profile, radius_kpc, halo["hid_z0"].to_numpy(dtype=int))
+        dep_map = {int(hid): float(mass) for hid, mass in zip(dep_halo_ids, dep_mass)}
+        halo["M_nsc_proxy"] = halo["hid_z0"].map(dep_map).fillna(0.0)
+    else:
+        fallback = formed.join(final_gcs[[col for col in ["status", "m_final_msun", "r_final_kpc"] if col in final_gcs.columns]])
+        fallback = fallback.loc[(fallback["status"] == 1) & (fallback["r_final_kpc"] <= radius_kpc)].copy()
+        fallback_mass = fallback.groupby("hid_z0")["m_final_msun"].sum()
+        halo["M_nsc_proxy"] = halo["hid_z0"].map(fallback_mass).fillna(0.0)
 
-    assert halo_lookup is not None
-    assert counterparts is not None
-    halo_lookup = halo_lookup.copy()
-    counterparts = counterparts.copy()
-    for col in ["hid_z0", "subhalo_id_z0", "file_index"]:
-        halo_lookup[col] = pd.to_numeric(halo_lookup[col], errors="raise")
-    for col in [
-        "halo_id_z0",
-        "subhalo_id_z0_dark",
-        "fp_subhalo_id_z0",
-        "matched",
-        "ambiguous_match",
-        "n_fp_matches",
-        "stellar_mass_fp_msun",
-        "logMstar_fp_msun",
-        "g_mag_fp",
-        "i_mag_fp",
-        "g_minus_i",
-    ]:
-        if col in counterparts.columns:
-            counterparts[col] = pd.to_numeric(counterparts[col], errors="coerce")
+    resolved_host_type_mode = host_type_mode
+    if host_type_mode == "none":
+        mixed_suite, halo_lookup, counterparts, divider = _load_mixed_suite_inputs(out_dir, require_counterparts=False)
+    elif host_type_mode == "split":
+        mixed_suite, halo_lookup, counterparts, divider = _load_mixed_suite_inputs(out_dir, require_counterparts=True)
+        resolved_host_type_mode = "split" if mixed_suite else "none"
+    else:
+        try:
+            mixed_suite, halo_lookup, counterparts, divider = _load_mixed_suite_inputs(out_dir, require_counterparts=True)
+            resolved_host_type_mode = "split" if mixed_suite else "none"
+        except FileNotFoundError as exc:
+            if not _is_missing_counterpart_products_error(exc):
+                raise
+            print(f"Warning: {exc} Falling back to --host-type-mode none.")
+            mixed_suite, halo_lookup, counterparts, divider = _load_mixed_suite_inputs(out_dir, require_counterparts=False)
+            resolved_host_type_mode = "none"
 
-    halo = halo.merge(
-        halo_lookup[["hid_z0", "simulation_key", "simulation", "subhalo_id_z0", "fixed_tree_basename", "file_index"]],
-        on="hid_z0",
-        how="left",
-        validate="one_to_one",
-    )
-    if halo["simulation_key"].isna().any():
-        missing = halo.loc[halo["simulation_key"].isna(), "hid_z0"].astype(int).tolist()
-        raise ValueError(
-            "halo_tree_lookup.csv is missing one or more halos present in the model output: "
-            + ", ".join(str(item) for item in missing[:12])
-        )
+    if mixed_suite:
+        assert halo_lookup is not None
+        assert counterparts is not None
+        halo_lookup = halo_lookup.copy()
+        counterparts = counterparts.copy()
+        for col in ["hid_z0", "subhalo_id_z0", "file_index"]:
+            halo_lookup[col] = pd.to_numeric(halo_lookup[col], errors="raise")
+        for col in [
+            "halo_id_z0",
+            "subhalo_id_z0_dark",
+            "fp_subhalo_id_z0",
+            "matched",
+            "ambiguous_match",
+            "n_fp_matches",
+            "stellar_mass_fp_msun",
+            "logMstar_fp_msun",
+            "g_mag_fp",
+            "i_mag_fp",
+            "g_minus_i",
+        ]:
+            if col in counterparts.columns:
+                counterparts[col] = pd.to_numeric(counterparts[col], errors="coerce")
 
-    halo = halo.merge(
-        counterparts[
-            [
-                "simulation_key_dark",
-                "subhalo_id_z0_dark",
-                "fp_subhalo_id_z0",
-                "logMstar_fp_msun",
-                "g_minus_i",
-                "host_type_fig3",
-                "colour_class_fig3",
-                "matched",
-                "ambiguous_match",
-                "n_fp_matches",
-                "stellar_mass_fp_msun",
-                "g_mag_fp",
-                "i_mag_fp",
-            ]
-        ],
-        left_on=["simulation_key", "subhalo_id_z0"],
-        right_on=["simulation_key_dark", "subhalo_id_z0_dark"],
-        how="left",
-        validate="one_to_one",
-    )
-    if halo["matched"].isna().any():
-        missing = halo.loc[halo["matched"].isna(), ["hid_z0", "simulation_key", "subhalo_id_z0"]]
-        preview = ", ".join(
-            f"({int(row.hid_z0)}, {row.simulation_key}, {int(row.subhalo_id_z0)})"
-            for row in missing.head(12).itertuples()
+        halo = halo.merge(
+            halo_lookup[["hid_z0", "simulation_key", "simulation", "subhalo_id_z0", "fixed_tree_basename", "file_index"]],
+            on="hid_z0",
+            how="left",
+            validate="one_to_one",
         )
-        raise ValueError(
-            "The cached full-physics counterpart table is missing one or more selected halos: "
-            + preview
-        )
+        if halo["simulation_key"].isna().any():
+            missing = halo.loc[halo["simulation_key"].isna(), "hid_z0"].astype(int).tolist()
+            raise ValueError(
+                "halo_tree_lookup.csv is missing one or more halos present in the model output: "
+                + ", ".join(str(item) for item in missing[:12])
+            )
 
-    matched = pd.to_numeric(halo["matched"], errors="coerce").fillna(0).astype(int) == 1
-    if int(matched.sum()) == 0:
-        raise ValueError("All selected model rows are unmatched to the full-physics counterpart table.")
-    halo.loc[~matched, "host_type_fig3"] = "unmatched"
-    halo.loc[~matched, "colour_class_fig3"] = "unmatched"
+        halo = halo.merge(
+            counterparts[
+                [
+                    "simulation_key_dark",
+                    "subhalo_id_z0_dark",
+                    "fp_subhalo_id_z0",
+                    "logMstar_fp_msun",
+                    "g_minus_i",
+                    "host_type_fig3",
+                    "colour_class_fig3",
+                    "matched",
+                    "ambiguous_match",
+                    "n_fp_matches",
+                    "stellar_mass_fp_msun",
+                    "g_mag_fp",
+                    "i_mag_fp",
+                ]
+            ],
+            left_on=["simulation_key", "subhalo_id_z0"],
+            right_on=["simulation_key_dark", "subhalo_id_z0_dark"],
+            how="left",
+            validate="one_to_one",
+        )
+        if halo["matched"].isna().any():
+            missing = halo.loc[halo["matched"].isna(), ["hid_z0", "simulation_key", "subhalo_id_z0"]]
+            preview = ", ".join(
+                f"({int(row.hid_z0)}, {row.simulation_key}, {int(row.subhalo_id_z0)})"
+                for row in missing.head(12).itertuples()
+            )
+            raise ValueError(
+                "The cached full-physics counterpart table is missing one or more selected halos: "
+                + preview
+            )
+    else:
+        halo["simulation_key"] = pd.Series(pd.NA, index=halo.index, dtype="object")
+        halo["simulation"] = pd.Series(pd.NA, index=halo.index, dtype="object")
+        halo["subhalo_id_z0"] = np.nan
+        halo["fixed_tree_basename"] = pd.Series(pd.NA, index=halo.index, dtype="object")
+        halo["file_index"] = np.nan
+        halo["simulation_key_dark"] = pd.Series(pd.NA, index=halo.index, dtype="object")
+        halo["subhalo_id_z0_dark"] = np.nan
+        halo["fp_subhalo_id_z0"] = np.nan
+        halo["logMstar_fp_msun"] = np.nan
+        halo["g_minus_i"] = np.nan
+        halo["host_type_fig3"] = "unmatched"
+        halo["colour_class_fig3"] = "unmatched"
+        halo["matched"] = 0
+        halo["ambiguous_match"] = 0
+        halo["n_fp_matches"] = 0
+        halo["stellar_mass_fp_msun"] = np.nan
+        halo["g_mag_fp"] = np.nan
+        halo["i_mag_fp"] = np.nan
 
     halo["logMstar_plot"] = halo["logMstar_z0"].to_numpy(dtype=float)
     use_fp = np.isfinite(pd.to_numeric(halo["logMstar_fp_msun"], errors="coerce").to_numpy(dtype=float))
     halo.loc[use_fp, "logMstar_plot"] = halo.loc[use_fp, "logMstar_fp_msun"].to_numpy(dtype=float)
     halo["M_star_plot"] = np.power(10.0, halo["logMstar_plot"].to_numpy(dtype=float))
-    halo["f_NSC"] = halo["M_NSC"] / halo["M_star_z0"]
-    halo["f_NSC_plot"] = halo["M_NSC"] / halo["M_star_plot"]
-    halo["logM_NSC"] = np.nan
-    positive_nsc = halo["M_NSC"].to_numpy(dtype=float) > 0.0
-    halo.loc[positive_nsc, "logM_NSC"] = np.log10(halo.loc[positive_nsc, "M_NSC"].to_numpy(dtype=float))
-    halo["logM_BH"] = np.nan
-    positive_bh = halo["M_BH"].to_numpy(dtype=float) > 0.0
-    halo.loc[positive_bh, "logM_BH"] = np.log10(halo.loc[positive_bh, "M_BH"].to_numpy(dtype=float))
-    halo["log_bh_to_nsc"] = np.nan
-    positive_bh_nsc = positive_bh & positive_nsc
-    halo.loc[positive_bh_nsc, "log_bh_to_nsc"] = np.log10(
-        halo.loc[positive_bh_nsc, "M_BH"].to_numpy(dtype=float) / halo.loc[positive_bh_nsc, "M_NSC"].to_numpy(dtype=float)
-    )
-    fit_mask = np.isfinite(halo["logMstar_plot"]) & np.isfinite(halo["logM_NSC"]) & positive_nsc
+    halo["f_nsc_proxy"] = halo["M_nsc_proxy"] / halo["M_star_z0"]
+    halo["f_nsc_proxy_plot"] = halo["M_nsc_proxy"] / halo["M_star_plot"]
+    halo["logM_nsc_proxy"] = _safe_log10(halo["M_nsc_proxy"].to_numpy(dtype=float))
+    fit_mask = np.isfinite(halo["logMstar_plot"]) & np.isfinite(halo["logM_nsc_proxy"]) & (halo["M_nsc_proxy"] > 0.0)
     if int(fit_mask.sum()) < 2:
-        raise ValueError("Need at least two model halos with finite host stellar mass and non-zero M_NSC to fit Fig.12.")
-    fit = np.polyfit(halo.loc[fit_mask, "logMstar_plot"].to_numpy(dtype=float) - 9.0, halo.loc[fit_mask, "logM_NSC"].to_numpy(dtype=float), 1)
+        raise ValueError("Need at least two model halos with finite host stellar mass and non-zero NSC proxy mass to fit Fig.12.")
+    fit = np.polyfit(halo.loc[fit_mask, "logMstar_plot"].to_numpy(dtype=float) - 9.0, halo.loc[fit_mask, "logM_nsc_proxy"].to_numpy(dtype=float), 1)
     return ModelSummary(
         table=halo,
         ns_value=float(ns_value),
@@ -971,6 +870,7 @@ def build_model_summary(out_dir: Path, ns_value: float, nsc_radius_pc: float = N
         fit_intercept=float(fit[1]),
         divider=divider,
         mixed_suite=bool(mixed_suite),
+        host_type_mode=resolved_host_type_mode,
     )
 
 
@@ -982,7 +882,7 @@ def build_figure_03(model: ModelSummary, fig03_obs: Fig03Catalog) -> Tuple[plt.F
     bins = np.asarray(fig03_obs.metadata.get("occupation_bins", np.arange(5.5, 12.5, 0.7)), dtype=float)
     slope = float(fig03_obs.metadata.get("divider_slope", 0.12))
     intercept = float(fig03_obs.metadata.get("divider_intercept", -0.32))
-    split_host_types = model.mixed_suite
+    split_host_types = model.mixed_suite and model.host_type_mode == "split"
 
     fig, axes = plt.subplots(1, 2, constrained_layout=True, dpi=STD_DPI, figsize=(10.8, 4.8))
     ax_left, ax_right = axes
@@ -1013,34 +913,32 @@ def build_figure_03(model: ModelSummary, fig03_obs: Fig03Catalog) -> Tuple[plt.F
     model_table = model.table.copy()
     model_mask = np.isfinite(model_table["logMstar_plot"].to_numpy(dtype=float))
     model_rows = model_table.loc[model_mask].copy()
-    model_rows["has_nsc_model"] = model_rows["M_NSC"].to_numpy(dtype=float) > 0.0
+    model_rows["has_nsc_model"] = model_rows["M_nsc_proxy"].to_numpy(dtype=float) > 0.0
 
     if split_host_types:
-        unmatched = model_rows.loc[~model_rows["host_type_fig3"].isin(["early", "late"])].copy()
-        unmatched_summary = _occupation_fraction_summary(unmatched["logMstar_plot"], unmatched["has_nsc_model"], bins, min_count=1)
-        if not unmatched_summary.empty:
-            ax_right.plot(unmatched_summary["x"].to_numpy(dtype=float), unmatched_summary["fraction"].to_numpy(dtype=float), c="0.45", lw=1.6, ls=":", marker="s", markersize=4, label="Model unmatched")
         for host_type, colour, label in [("early", MODEL_HOST_TYPE_COLOURS["early"], "Model early-type"), ("late", MODEL_HOST_TYPE_COLOURS["late"], "Model late-type")]:
             subset = model_rows.loc[model_rows["host_type_fig3"] == host_type].copy()
             summary = _occupation_fraction_summary(subset["logMstar_plot"], subset["has_nsc_model"], bins, min_count=1)
             if summary.empty:
                 continue
-            ax_right.plot(summary["x"].to_numpy(dtype=float), summary["fraction"].to_numpy(dtype=float), c=colour, lw=2.0, ls="--", marker="s", markersize=4, label=label)
+            ax_right.plot(summary["x"].to_numpy(dtype=float), summary["fraction"].to_numpy(dtype=float), c=colour, lw=2.0, ls="--", marker="s", markersize=3, label=label)
+        unmatched = model_rows.loc[~model_rows["host_type_fig3"].isin(["early", "late"])].copy()
+        unmatched_summary = _occupation_fraction_summary(unmatched["logMstar_plot"], unmatched["has_nsc_model"], bins, min_count=1)
+        if not unmatched_summary.empty:
+            ax_right.plot(unmatched_summary["x"].to_numpy(dtype=float), unmatched_summary["fraction"].to_numpy(dtype=float), c="0.45", lw=1.6, ls=":", label="Model unmatched")
     else:
         model_summary = _occupation_fraction_summary(model_rows["logMstar_plot"], model_rows["has_nsc_model"], bins, min_count=1)
         if not model_summary.empty:
-            ax_right.plot(model_summary["x"].to_numpy(dtype=float), model_summary["fraction"].to_numpy(dtype=float), c="black", lw=2.0, ls="--", marker="s", markersize=4, label="Model")
+            ax_right.plot(model_summary["x"].to_numpy(dtype=float), model_summary["fraction"].to_numpy(dtype=float), c="black", lw=2.0, ls="--", marker="s", markersize=3, label="Model")
 
-    x_limits = _expanded_linear_limits((5.5, 12.0), list(obs_table["logMstar_gal"].to_numpy(dtype=float)) + list(model_rows["logMstar_plot"].to_numpy(dtype=float)), 0.1)
-    y_limits = _expanded_linear_limits((-1.4, 1.55), obs_table["g_minus_i"].to_numpy(dtype=float), 0.05)
-    ax_left.set_xlim(*x_limits)
-    ax_left.set_ylim(*y_limits)
+    ax_left.set_xlim(5.5, 12.0)
+    ax_left.set_ylim(-1.4, 1.55)
     ax_left.set_xlabel(r"$\log_{10}(M_{\star}/M_{\odot})$")
     ax_left.set_ylabel(r"$(g-i)_0$")
     ax_left.grid(True, alpha=0.3, linestyle=":", which="both")
     ax_left.legend(frameon=False, loc="best", ncol=1, fontsize=8)
 
-    ax_right.set_xlim(*x_limits)
+    ax_right.set_xlim(5.5, 12.0)
     ax_right.set_ylim(0.0, 1.0)
     ax_right.set_xlabel(r"$\log_{10}(M_{\star}/M_{\odot})$")
     ax_right.set_ylabel("Fraction of galaxies with NSC")
@@ -1055,6 +953,7 @@ def build_figure_03(model: ModelSummary, fig03_obs: Fig03Catalog) -> Tuple[plt.F
         "n_obs_early": int((obs_table["host_type_fig3"] == "early").sum()),
         "n_model_total": int(len(model_rows)),
         "n_model_nucleated": int(model_rows["has_nsc_model"].sum()),
+        "host_type_mode": model.host_type_mode,
         "split_host_types": int(split_host_types),
         "n_model_late": int((model_rows["host_type_fig3"] == "late").sum()),
         "n_model_early": int((model_rows["host_type_fig3"] == "early").sum()),
@@ -1072,11 +971,11 @@ def build_figure_12(model: ModelSummary, obs: ObsCatalog) -> Tuple[plt.Figure, D
     obs_bins = _regular_log_bin_edges(obs_table["logMstar_gal"], 0.5)
 
     model_table = model.table.copy()
-    model_fit_mask = np.isfinite(model_table["logMstar_plot"]) & np.isfinite(model_table["logM_NSC"]) & (model_table["M_NSC"] > 0.0)
+    model_fit_mask = np.isfinite(model_table["logMstar_plot"]) & np.isfinite(model_table["logM_nsc_proxy"]) & (model_table["M_nsc_proxy"] > 0.0)
     model_points = model_table.loc[model_fit_mask].copy()
     model_bins = _regular_log_bin_edges(model_points["logMstar_plot"], 0.5)
-    model_ratio_summary = _binned_percentiles(model_points["logMstar_plot"], model_points["f_NSC_plot"], model_bins, min_count=5)
-    split_host_types = model.mixed_suite
+    model_ratio_summary = _binned_percentiles(model_points["logMstar_plot"], model_points["f_nsc_proxy_plot"], model_bins, min_count=5)
+    split_host_types = model.mixed_suite and model.host_type_mode == "split"
 
     fig, axes = plt.subplots(1, 2, constrained_layout=True, dpi=STD_DPI, figsize=(10.8, 4.8))
     ax_left, ax_right = axes
@@ -1094,32 +993,16 @@ def build_figure_12(model: ModelSummary, obs: ObsCatalog) -> Tuple[plt.Figure, D
         late_model = model_points.loc[model_points["host_type_fig3"] == "late"].copy()
         early_model = model_points.loc[model_points["host_type_fig3"] == "early"].copy()
         unmatched_model = model_points.loc[~model_points["host_type_fig3"].isin(["late", "early"])].copy()
-        if len(unmatched_model) > 0:
-            ax_left.scatter(unmatched_model["M_star_plot"].to_numpy(dtype=float), unmatched_model["M_NSC"].to_numpy(dtype=float), c="0.65", s=18, alpha=0.25, marker="s", linewidths=0.0)
         if len(late_model) > 0:
-            ax_left.scatter(late_model["M_star_plot"].to_numpy(dtype=float), late_model["M_NSC"].to_numpy(dtype=float), c=MODEL_HOST_TYPE_COLOURS["late"], s=18, alpha=0.45, marker="s", linewidths=0.0)
+            ax_left.scatter(late_model["M_star_plot"].to_numpy(dtype=float), late_model["M_nsc_proxy"].to_numpy(dtype=float), c=MODEL_HOST_TYPE_COLOURS["late"], s=20, alpha=0.45, linewidths=0.0)
         if len(early_model) > 0:
-            ax_left.scatter(early_model["M_star_plot"].to_numpy(dtype=float), early_model["M_NSC"].to_numpy(dtype=float), c=MODEL_HOST_TYPE_COLOURS["early"], s=18, alpha=0.45, marker="s", linewidths=0.0)
+            ax_left.scatter(early_model["M_star_plot"].to_numpy(dtype=float), early_model["M_nsc_proxy"].to_numpy(dtype=float), c=MODEL_HOST_TYPE_COLOURS["early"], s=20, alpha=0.45, linewidths=0.0)
+        if len(unmatched_model) > 0:
+            ax_left.scatter(unmatched_model["M_star_plot"].to_numpy(dtype=float), unmatched_model["M_nsc_proxy"].to_numpy(dtype=float), c="0.65", s=18, alpha=0.25, linewidths=0.0)
     else:
-        ax_left.scatter(model_points["M_star_plot"].to_numpy(dtype=float), model_points["M_NSC"].to_numpy(dtype=float), c="0.25", s=18, alpha=0.45, marker="s", linewidths=0.0)
+        ax_left.scatter(model_points["M_star_plot"].to_numpy(dtype=float), model_points["M_nsc_proxy"].to_numpy(dtype=float), c="0.25", s=18, alpha=0.45, linewidths=0.0)
 
-    left_x_log_limits = _expanded_linear_limits(
-        (5.5, 11.2),
-        list(obs_table["logMstar_gal"].to_numpy(dtype=float)) + list(model_points["logMstar_plot"].to_numpy(dtype=float)),
-        0.1,
-    )
-    left_y_log_limits = _expanded_linear_limits(
-        (4.5, 9.1),
-        list(obs_table["logM_nsc"].to_numpy(dtype=float)) + list(model_points["logM_NSC"].to_numpy(dtype=float)),
-        0.1,
-    )
-    model_log_fraction = np.log10(model_points.loc[model_points["f_NSC_plot"] > 0.0, "f_NSC_plot"].to_numpy(dtype=float))
-    right_y_log_limits = _expanded_linear_limits(
-        (-4.0, 0.0),
-        list(obs_table["log_fraction"].to_numpy(dtype=float)) + list(model_log_fraction),
-        0.1,
-    )
-    x_line = np.logspace(left_x_log_limits[0], left_x_log_limits[1], 300)
+    x_line = np.logspace(5.5, 11.2, 300)
     y_paper = np.power(10.0, PAPER_FULL_FIT[0] * (np.log10(x_line) - 9.0) + PAPER_FULL_FIT[1])
     y_good = np.power(10.0, PAPER_GOOD_FIT[0] * (np.log10(x_line) - 9.0) + PAPER_GOOD_FIT[1])
     y_model = np.power(10.0, model.fit_slope * (np.log10(x_line) - 9.0) + model.fit_intercept)
@@ -1138,7 +1021,7 @@ def build_figure_12(model: ModelSummary, obs: ObsCatalog) -> Tuple[plt.Figure, D
     if split_host_types:
         for host_type, colour in [("late", MODEL_HOST_TYPE_COLOURS["late"]), ("early", MODEL_HOST_TYPE_COLOURS["early"])]:
             subset = model_points.loc[model_points["host_type_fig3"] == host_type].copy()
-            summary = _binned_percentiles(subset["logMstar_plot"], subset["f_NSC_plot"], model_bins, min_count=5)
+            summary = _binned_percentiles(subset["logMstar_plot"], subset["f_nsc_proxy_plot"], model_bins, min_count=5)
             if summary.empty:
                 continue
             ax_right.fill_between(np.power(10.0, summary["x"]), summary["q25"], summary["q75"], facecolor=colour, edgecolor="none", linewidth=0.0, alpha=0.15)
@@ -1157,14 +1040,13 @@ def build_figure_12(model: ModelSummary, obs: ObsCatalog) -> Tuple[plt.Figure, D
     if split_host_types:
         left_handles.extend(
             [
-                mpl.lines.Line2D([], [], marker="s", ls="", color=MODEL_HOST_TYPE_COLOURS["late"], markersize=6, alpha=0.7, label="Model late (Fig.3 colour cut)"),
-                mpl.lines.Line2D([], [], marker="s", ls="", color=MODEL_HOST_TYPE_COLOURS["early"], markersize=6, alpha=0.7, label="Model early (Fig.3 colour cut)"),
+                mpl.lines.Line2D([], [], marker="o", ls="", color=MODEL_HOST_TYPE_COLOURS["late"], markersize=6, alpha=0.7, label="Model late (Fig.3 colour cut)"),
+                mpl.lines.Line2D([], [], marker="o", ls="", color=MODEL_HOST_TYPE_COLOURS["early"], markersize=6, alpha=0.7, label="Model early (Fig.3 colour cut)"),
+                mpl.lines.Line2D([], [], marker="o", ls="", color="0.65", markersize=6, alpha=0.45, label="Model unmatched"),
             ]
         )
-        if len(unmatched_model) > 0:
-            left_handles.append(mpl.lines.Line2D([], [], marker="s", ls="", color="0.65", markersize=6, alpha=0.45, label="Model unmatched"))
     else:
-        left_handles.append(mpl.lines.Line2D([], [], marker="s", ls="", color="0.25", markersize=6, alpha=0.7, label="Model"))
+        left_handles.append(mpl.lines.Line2D([], [], marker="o", ls="", color="0.25", markersize=6, alpha=0.7, label="Model"))
     left_handles.extend(
         [
             mpl.lines.Line2D([], [], c="black", ls="--", lw=1.8, label="Paper fit"),
@@ -1180,8 +1062,8 @@ def build_figure_12(model: ModelSummary, obs: ObsCatalog) -> Tuple[plt.Figure, D
     ax_left.yaxis.set_major_formatter(mpl.ticker.LogFormatterMathtext(base=10.0))
     ax_left.set_xlabel(r"$M_{\star,\mathrm{gal}}\,[M_{\odot}]$")
     ax_left.set_ylabel(r"$M_{\mathrm{NSC}}\,[M_{\odot}]$")
-    ax_left.set_xlim(10.0 ** left_x_log_limits[0], 10.0 ** left_x_log_limits[1])
-    ax_left.set_ylim(10.0 ** left_y_log_limits[0], 10.0 ** left_y_log_limits[1])
+    ax_left.set_xlim(10.0 ** 5.5, 10.0 ** 11.2)
+    ax_left.set_ylim(10.0 ** 4.5, 10.0 ** 9.1)
     ax_left.grid(True, alpha=0.3, linestyle=":", which="both")
 
     ax_right.set_xscale("log")
@@ -1190,8 +1072,8 @@ def build_figure_12(model: ModelSummary, obs: ObsCatalog) -> Tuple[plt.Figure, D
     ax_right.yaxis.set_major_formatter(mpl.ticker.LogFormatterMathtext(base=10.0))
     ax_right.set_xlabel(r"$M_{\star,\mathrm{gal}}\,[M_{\odot}]$")
     ax_right.set_ylabel(r"$M_{\mathrm{NSC}}/M_{\star,\mathrm{gal}}$")
-    ax_right.set_xlim(10.0 ** left_x_log_limits[0], 10.0 ** left_x_log_limits[1])
-    ax_right.set_ylim(10.0 ** right_y_log_limits[0], 10.0 ** right_y_log_limits[1])
+    ax_right.set_xlim(10.0 ** 5.5, 10.0 ** 11.2)
+    ax_right.set_ylim(1.0e-4, 1.0)
     ax_right.grid(True, alpha=0.3, linestyle=":", which="both")
     right_handles = [
         mpl.lines.Line2D([], [], c=OBS_HOST_TYPE_COLOURS["late"], lw=2.0, label="Obs late-type median"),
@@ -1227,6 +1109,7 @@ def build_figure_12(model: ModelSummary, obs: ObsCatalog) -> Tuple[plt.Figure, D
         "n_model_halos": int(len(model_points)),
         "nsc_proxy_radius_pc": float(model.nsc_radius_pc),
         "mixed_suite": int(model.mixed_suite),
+        "host_type_mode": model.host_type_mode,
         "split_host_types": int(split_host_types),
         "n_model_late": int((model_points["host_type_fig3"] == "late").sum()),
         "n_model_early": int((model_points["host_type_fig3"] == "early").sum()),
@@ -1235,134 +1118,13 @@ def build_figure_12(model: ModelSummary, obs: ObsCatalog) -> Tuple[plt.Figure, D
     return fig, summary
 
 
-def build_figure_13(model: ModelSummary, obs: Fig13Catalog) -> Tuple[plt.Figure, Dict[str, object]]:
-    _apply_plot_style()
-
-    obs_table = obs.table.loc[obs.table["plot_keep"].astype(bool)].copy()
-    model_table = model.table.copy()
-    model_valid = (
-        np.isfinite(model_table["logMstar_z0"].to_numpy(dtype=float))
-        & (model_table["M_BH"].to_numpy(dtype=float) > 0.0)
-        & (model_table["M_NSC"].to_numpy(dtype=float) > 0.0)
-        & np.isfinite(model_table["logM_NSC"].to_numpy(dtype=float))
-        & np.isfinite(model_table["log_bh_to_nsc"].to_numpy(dtype=float))
-    )
-    model_points = model_table.loc[model_valid].copy()
-    if len(model_points) == 0:
-        raise ValueError("No finite Figure 13 model rows remain after excluding zero-BH, zero-NSC, or missing-host rows.")
-
-    fig, axes = plt.subplots(1, 2, constrained_layout=True, dpi=STD_DPI, figsize=(10.8, 4.8))
-    ax_left, ax_right = axes
-
-    detections = (~obs_table["bh_is_upper_limit"]) & (~obs_table["nsc_is_upper_limit"])
-    late = obs_table["host_type"] == "late"
-    early = obs_table["host_type"] == "early"
-    ucd = obs_table["host_type"] == "ucd"
-    bh_upper = obs_table["bh_is_upper_limit"].astype(bool)
-    nsc_upper = obs_table["nsc_is_upper_limit"].astype(bool)
-    finite_host = np.isfinite(obs_table["logMstar_gal"].to_numpy(dtype=float))
-
-    ax_left.axhline(0.0, c="black", ls="--", alpha=0.3)
-    ax_right.axhline(0.0, c="black", ls="--", alpha=0.3)
-
-    late_bh_left = late & bh_upper & finite_host
-    early_bh_left = early & bh_upper & finite_host
-    ax_left.quiver(obs_table.loc[late_bh_left, "logMstar_gal"], obs_table.loc[late_bh_left, "log_bh_to_nsc"], np.zeros(int(late_bh_left.sum())), -np.ones(int(late_bh_left.sum())), color=FIG13_OBS_COLOURS["late"], alpha=0.4)
-    ax_left.quiver(obs_table.loc[early_bh_left, "logMstar_gal"], obs_table.loc[early_bh_left, "log_bh_to_nsc"], np.zeros(int(early_bh_left.sum())), -np.ones(int(early_bh_left.sum())), color=FIG13_OBS_COLOURS["early"], alpha=0.4)
-    late_nsc_left = late & nsc_upper & finite_host
-    early_nsc_left = early & nsc_upper & finite_host
-    ax_left.quiver(obs_table.loc[late_nsc_left, "logMstar_gal"], obs_table.loc[late_nsc_left, "log_bh_to_nsc"], np.zeros(int(late_nsc_left.sum())), np.ones(int(late_nsc_left.sum())), color=FIG13_OBS_COLOURS["late"], alpha=0.4)
-    ax_left.quiver(obs_table.loc[early_nsc_left, "logMstar_gal"], obs_table.loc[early_nsc_left, "log_bh_to_nsc"], np.zeros(int(early_nsc_left.sum())), np.ones(int(early_nsc_left.sum())), color=FIG13_OBS_COLOURS["early"], alpha=0.4)
-
-    late_bh_right = late & bh_upper
-    early_bh_right = early & bh_upper
-    ax_right.quiver(obs_table.loc[late_bh_right, "logM_nsc"], obs_table.loc[late_bh_right, "log_bh_to_nsc"], np.zeros(int(late_bh_right.sum())), -np.ones(int(late_bh_right.sum())), color=FIG13_OBS_COLOURS["late"], alpha=0.4)
-    ax_right.quiver(obs_table.loc[early_bh_right, "logM_nsc"], obs_table.loc[early_bh_right, "log_bh_to_nsc"], np.zeros(int(early_bh_right.sum())), -np.ones(int(early_bh_right.sum())), color=FIG13_OBS_COLOURS["early"], alpha=0.4)
-    late_nsc_right = late & nsc_upper
-    early_nsc_right = early & nsc_upper
-    ax_right.quiver(obs_table.loc[late_nsc_right, "logM_nsc"], obs_table.loc[late_nsc_right, "log_bh_to_nsc"], -np.ones(int(late_nsc_right.sum())), np.ones(int(late_nsc_right.sum())), color=FIG13_OBS_COLOURS["late"], alpha=0.4)
-    ax_right.quiver(obs_table.loc[early_nsc_right, "logM_nsc"], obs_table.loc[early_nsc_right, "log_bh_to_nsc"], -np.ones(int(early_nsc_right.sum())), np.ones(int(early_nsc_right.sum())), color=FIG13_OBS_COLOURS["early"], alpha=0.4)
-
-    for host_type, colour in [("late", FIG13_OBS_COLOURS["late"]), ("early", FIG13_OBS_COLOURS["early"])]:
-        left_mask = (obs_table["host_type"] == host_type) & detections & finite_host
-        right_mask = (obs_table["host_type"] == host_type) & detections
-        ax_left.scatter(obs_table.loc[left_mask, "logMstar_gal"], obs_table.loc[left_mask, "log_bh_to_nsc"], color=colour, s=FIG13_MARKER_SIZE, alpha=0.7, linewidths=0.0)
-        ax_right.scatter(obs_table.loc[right_mask, "logM_nsc"], obs_table.loc[right_mask, "log_bh_to_nsc"], color=colour, s=FIG13_MARKER_SIZE, alpha=0.7, linewidths=0.0)
-    ucd_det = ucd & detections
-    ax_right.scatter(obs_table.loc[ucd_det, "logM_nsc"], obs_table.loc[ucd_det, "log_bh_to_nsc"], color=FIG13_OBS_COLOURS["ucd"], s=FIG13_MARKER_SIZE, alpha=0.7, linewidths=0.0)
-
-    unmatched_model = model_points.loc[~model_points["host_type_fig3"].isin(["late", "early"])].copy()
-    if len(unmatched_model) > 0:
-        ax_left.scatter(unmatched_model["logMstar_z0"], unmatched_model["log_bh_to_nsc"], c="0.55", s=FIG13_MARKER_SIZE, alpha=1.0, marker="s", edgecolors="none", linewidths=0.0)
-        ax_right.scatter(unmatched_model["logM_NSC"], unmatched_model["log_bh_to_nsc"], c="0.55", s=FIG13_MARKER_SIZE, alpha=1.0, marker="s", edgecolors="none", linewidths=0.0)
-    for host_type, colour in [("late", MODEL_HOST_TYPE_COLOURS["late"]), ("early", MODEL_HOST_TYPE_COLOURS["early"])]:
-        subset = model_points.loc[model_points["host_type_fig3"] == host_type].copy()
-        if len(subset) == 0:
-            continue
-        ax_left.scatter(subset["logMstar_z0"], subset["log_bh_to_nsc"], c=colour, s=FIG13_MARKER_SIZE, alpha=1.0, marker="s", edgecolors="none", linewidths=0.0)
-        ax_right.scatter(subset["logM_NSC"], subset["log_bh_to_nsc"], c=colour, s=FIG13_MARKER_SIZE, alpha=1.0, marker="s", edgecolors="none", linewidths=0.0)
-
-    left_obs_mask = ((late | early) & finite_host)
-    right_obs_mask = late | early | ucd
-    left_x_limits = _expanded_linear_limits((8.6, 11.9), list(obs_table.loc[left_obs_mask, "logMstar_gal"]) + list(model_points["logMstar_z0"]), FIG13_AXIS_MARGIN)
-    left_y_limits = _expanded_linear_limits((-4.0, 4.0), list(obs_table.loc[left_obs_mask, "log_bh_to_nsc"]) + list(model_points["log_bh_to_nsc"]), FIG13_AXIS_MARGIN)
-    right_x_limits = _expanded_linear_limits((5.5, 8.5), list(obs_table.loc[right_obs_mask, "logM_nsc"]) + list(model_points["logM_NSC"]), FIG13_AXIS_MARGIN)
-    right_y_limits = _expanded_linear_limits((-4.0, 4.0), list(obs_table.loc[right_obs_mask, "log_bh_to_nsc"]) + list(model_points["log_bh_to_nsc"]), FIG13_AXIS_MARGIN)
-
-    ax_left.set_xlim(*left_x_limits)
-    ax_left.set_ylim(*left_y_limits)
-    ax_right.set_xlim(*right_x_limits)
-    ax_right.set_ylim(*right_y_limits)
-    ax_left.set_xlabel(r"$\log_{10}(M_{\star,\mathrm{gal}}/M_{\odot})$")
-    ax_right.set_xlabel(r"$\log_{10}(M_{\mathrm{NSC}}/M_{\odot})$")
-    ax_left.set_ylabel(r"$\log_{10}(M_{\mathrm{BH}}/M_{\mathrm{NSC}})$")
-    ax_right.set_ylabel(r"$\log_{10}(M_{\mathrm{BH}}/M_{\mathrm{NSC}})$")
-    for ax in axes:
-        ax.grid(True, alpha=0.3, linestyle=":", which="both")
-        ax.tick_params(direction="in", right=True, top=True, which="both")
-
-    bh_limit_handle = mpl.lines.Line2D([], [], marker=r"$\downarrow$", ls="", color="0.25", markersize=10, label="BH upper limit")
-    nsc_limit_handle = mpl.lines.Line2D([], [], marker=r"$\uparrow$", ls="", color="0.45", markersize=10, label="NSC upper limit")
-    left_handles = [
-        mpl.lines.Line2D([], [], marker="o", ls="", color=FIG13_OBS_COLOURS["late"], markersize=7, alpha=0.7, label="Obs late-type"),
-        mpl.lines.Line2D([], [], marker="o", ls="", color=FIG13_OBS_COLOURS["early"], markersize=7, alpha=0.7, label="Obs early-type"),
-        bh_limit_handle,
-        nsc_limit_handle,
-        mpl.lines.Line2D([], [], marker="s", ls="", color=MODEL_HOST_TYPE_COLOURS["late"], markersize=7, label="Model late-type"),
-        mpl.lines.Line2D([], [], marker="s", ls="", color=MODEL_HOST_TYPE_COLOURS["early"], markersize=7, label="Model early-type"),
-    ]
-    if len(unmatched_model) > 0:
-        left_handles.append(mpl.lines.Line2D([], [], marker="s", ls="", color="0.55", markersize=7, label="Model unmatched"))
-    right_handles = list(left_handles)
-    if int(ucd_det.sum()) > 0:
-        right_handles.insert(2, mpl.lines.Line2D([], [], marker="o", ls="", color=FIG13_OBS_COLOURS["ucd"], markersize=7, alpha=0.7, label="Obs UCDs"))
-    ax_left.legend(handles=left_handles, frameon=False, loc="best", ncol=1, fontsize=8)
-    ax_right.legend(handles=right_handles, frameon=False, loc="best", ncol=1, fontsize=8)
-
-    zero_bh = model_table["M_BH"].to_numpy(dtype=float) <= 0.0
-    zero_nsc = model_table["M_NSC"].to_numpy(dtype=float) <= 0.0
-    missing_host = ~np.isfinite(model_table["logMstar_z0"].to_numpy(dtype=float))
-    summary = {
-        "n_obs_rows": int(len(obs.table)),
-        "duplicate_names": obs.duplicate_names,
-        "missing_host_mass_count": int(obs.missing_host_mass_count),
-        "nonfinite_mass_count": int(obs.nonfinite_mass_count),
-        "unknown_galtype_count": int(obs.unknown_galtype_count),
-        "ucd_upper_limit_count": int(obs.ucd_upper_limit_count),
-        "n_model_plotted": int(len(model_points)),
-        "n_model_zero_bh": int(zero_bh.sum()),
-        "n_model_zero_nsc": int(zero_nsc.sum()),
-        "n_model_missing_host": int(missing_host.sum()),
-        "bh_mass_column": "M_SMBH_final",
-    }
-    return fig, summary
-
-
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Plot Neumayer+2020 Figures 3, 12, and 13 from one local High-z SMBHs output directory.")
+    parser = argparse.ArgumentParser(description="Plot Neumayer+2020 Figures 3 and 12 from one local High-z SMBHs output directory.")
     parser.add_argument("--out_dir", type=Path, default=DEFAULT_OUT_DIR, help="Model output directory containing allcat/ns*/deposit products.")
     parser.add_argument("--plot_dir", type=Path, default=None, help="Plot output directory. Default: <out_dir>/_plots_Neumayer+2020")
     parser.add_argument("--ns-value", type=float, default=NS_VALUE_DEFAULT, help="Sersic N_s value to load from the ns* subdirectory.")
+    parser.add_argument("--host-type-mode", choices=HOST_TYPE_MODES, default="auto", help="Use full-physics early/late split ('split'), automatically fall back when unavailable ('auto'), or plot all hosts together ('none').")
+    parser.add_argument("--no-host-type-split", action="store_true", help="Shortcut for --host-type-mode none.")
     args = parser.parse_args()
 
     out_dir = args.out_dir.resolve()
@@ -1371,8 +1133,8 @@ def main() -> None:
 
     obs = load_observations()
     fig03_obs = load_fig03_observations()
-    fig13_obs = load_fig13_observations()
-    model = build_model_summary(out_dir, args.ns_value, NSC_RADIUS_PC)
+    host_type_mode = "none" if args.no_host_type_split else args.host_type_mode
+    model = build_model_summary(out_dir, args.ns_value, NSC_PROXY_RADIUS_PC, host_type_mode=host_type_mode)
 
     fig03, summary03 = build_figure_03(model, fig03_obs)
     figure03_path = plot_dir / FIGURE_03_FILENAME
@@ -1382,7 +1144,7 @@ def main() -> None:
         f"Saved {figure03_path} | "
         f"n_obs={summary03['n_obs_total']} | "
         f"n_obs_nsc={summary03['n_obs_nucleated']} | "
-        f"n_model={summary03['n_model_total']}"
+        f"host_type_mode={summary03['host_type_mode']}"
     )
 
     fig12, summary12 = build_figure_12(model, obs)
@@ -1391,29 +1153,9 @@ def main() -> None:
     plt.close(fig12)
     print(
         f"Saved {figure12_path} | "
-        f"n_obs_fit={summary12['n_obs_fit_rows']} | "
-        f"n_model={summary12['n_model_halos']}"
-    )
-
-    fig13, summary13 = build_figure_13(model, fig13_obs)
-    figure13_path = plot_dir / FIGURE_13_FILENAME
-    fig13.savefig(figure13_path, bbox_inches="tight")
-    plt.close(fig13)
-    summary13["saved_pdf_path"] = str(figure13_path)
-    duplicates = ", ".join(summary13["duplicate_names"]) if summary13["duplicate_names"] else "none"
-    print(
-        f"Saved {figure13_path} | "
-        f"n_obs={summary13['n_obs_rows']} | "
-        f"duplicates={duplicates} | "
-        f"missing_host_obs={summary13['missing_host_mass_count']} | "
-        f"skipped_nonfinite_obs={summary13['nonfinite_mass_count']} | "
-        f"skipped_unknown_galtype={summary13['unknown_galtype_count']} | "
-        f"skipped_ucd_upper={summary13['ucd_upper_limit_count']} | "
-        f"n_model={summary13['n_model_plotted']} | "
-        f"excluded_zero_bh={summary13['n_model_zero_bh']} | "
-        f"excluded_zero_nsc={summary13['n_model_zero_nsc']} | "
-        f"excluded_missing_host={summary13['n_model_missing_host']} | "
-        f"bh_mass_column={summary13['bh_mass_column']}"
+        f"model_fit=({summary12['model_fit_slope']:.3f}, {summary12['model_fit_intercept']:.3f}) | "
+        f"obs_fit=({summary12['obs_full_fit_slope_from_cache']:.3f}, {summary12['obs_full_fit_intercept_from_cache']:.3f}) | "
+        f"host_type_mode={summary12['host_type_mode']}"
     )
 
 

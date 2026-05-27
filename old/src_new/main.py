@@ -29,6 +29,7 @@ import sys
 from pathlib import Path
 import exsituNSC
 from config import *
+from IMBH import *
 
 #use same cosmology as Illustris
 fb = .167 #cosmic baryon fraction
@@ -143,7 +144,7 @@ cat.write(
     + " | "
     + str("Sigma_h (Msun/pc^2)")
     + " | "
-    + str("M_IMBH_init")
+    + str("IMBH mass (Msun)")
     + "\n"
 )
 
@@ -151,7 +152,7 @@ allcat.write('#model parameters: p2, p3, lg_cut_off_mass = ' +  str(p2) + " " + 
 allcat.write(
     "#haloID | logMh(z=0) | haloID @ form | logMh(tform) | logM*(tform) | "
     "logMgas(tform) | logMcl(tform) | zform | [Fe/H] | rGalaxy (kpc) | "
-    "GC radius (pc) | Sigma_h (Msun/pc^2) | M_IMBH_init\n"
+    "GC radius (pc) | Sigma_h (Msun/pc^2) | IMBH mass (Msun)\n"
 )
 
 #initialize all the interpolation tables for use with Schechter function
@@ -163,6 +164,7 @@ ug52 = upper_gamma2_log_mass(5.0, mc)
 # First-step GC IMBH seeding: seed exactly once at GC formation, using the
 # Eq. (7) cluster radius relation and the GC metallicity after intrinsic
 # cluster-to-cluster scatter has been applied.
+imbh_model = IMBHModel(IMBHModelConfig(enabled = True))
 
 # Define globular cluster class to store data about each cluster.
 class GC :
@@ -192,8 +194,10 @@ class GC :
 
 
 def seed_imbh_properties(cluster_mass, metallicity):
-    z_ratio = 10.0**metallicity
-    estimate = estimate_for_gc(cluster_mass, z_ratio)
+    if(not imbh_model.config.enabled):
+        return 0.0, 0.0, 0.0
+
+    estimate = imbh_model.estimate_for_gc(cluster_mass, metallicity)
     gc_radius_pc = float(estimate["r_h_pc"])
     sigma_h_msun_pc2 = float(estimate["sigma_h_msun_pc2"])
     imbh_mass_msun = float(estimate["imbh_mass_msun"])
@@ -353,7 +357,7 @@ def gc_sersic_sampling(gc_list, mass_sum, halomass, redshift, re_kpc, re_source,
                 rGalaxy = fallback_outer_kpc
             rGalaxy = float(np.clip(rGalaxy, rgal_min_kpc, rgal_max_kpc))
             gc.assign_local_rGalaxy(rGalaxy)
-            if gc.is_mpb or ex_situ_nsc_enabled:
+            if gc.is_mpb:
                 gc.assign_rGalaxy(rGalaxy)
             else:
                 gc.assign_rGalaxy(fallback_outer_kpc)

@@ -50,9 +50,9 @@ from scipy.stats import ks_2samp
 from sklearn.mixture import GaussianMixture
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-SRC_DIR = PROJECT_ROOT / "src"
-if str(SRC_DIR) not in sys.path:
-    sys.path.insert(0, str(SRC_DIR))
+SRC_NEW_DIR = PROJECT_ROOT / "src_new"
+if str(SRC_NEW_DIR) not in sys.path:
+    sys.path.insert(0, str(SRC_NEW_DIR))
 
 from config import Ez, H100, Mstar_SMHM, Redshift2CosmicAge, STD_DPI  # noqa: E402
 
@@ -63,8 +63,6 @@ RUN_METADATA_NAME = "run_metadata.json"
 
 DEFAULT_OUT_DIR = Path("/lingshan/disk3/subonan/_outputs/High-z_SMBHs_Max64_z0")
 DEFAULT_OBS_CACHE_DIR = PROJECT_ROOT / "data" / "Choksi+2018"
-if not DEFAULT_OBS_CACHE_DIR.is_dir():
-    DEFAULT_OBS_CACHE_DIR = PROJECT_ROOT.parent / "data" / "Choksi+2018"
 CHOKSI_SUPPLEMENT_DIR = DEFAULT_OBS_CACHE_DIR / "choksi_supplement"
 CHOKSI_MODEL_PATH = CHOKSI_SUPPLEMENT_DIR / "model.txt"
 T_UNIVERSE_GYR = float(Redshift2CosmicAge(0.0))
@@ -352,20 +350,17 @@ def _load_final_gcs_table(path: Path, expected_len: int, expected_halo_ids: np.n
     df["status"] = df["status"].astype(int)
     df["halo_id_z0"] = df["halo_id_z0"].astype(int)
     df["gc_index_halo"] = df["gc_index_halo"].astype(int)
-    if "M_GC_final" not in df.columns:
-        raise ValueError(f"{path} is missing required column M_GC_final")
-    if (df["M_GC_final"].dropna() < 0.0).any():
-        raise ValueError(f"{path} contains negative M_GC_final values")
-    df["M_GC_final"] = np.where(
-        np.isfinite(df["M_GC_final"]) & (df["M_GC_final"] > 0.0),
-        df["M_GC_final"],
-        0.0,
-    )
-    m_final = df["M_GC_final"].to_numpy(dtype=float)
-    log_m_final = np.full(len(m_final), np.nan, dtype=float)
-    positive = m_final > 0.0
-    log_m_final[positive] = np.log10(m_final[positive])
-    df["log10_M_GC_final"] = log_m_final
+    if "m_final_msun" in df.columns:
+        df["m_final_msun"] = np.where(
+            np.isfinite(df["m_final_msun"]) & (df["m_final_msun"] > 0.0),
+            df["m_final_msun"],
+            0.0,
+        )
+        m_final = df["m_final_msun"].to_numpy(dtype=float)
+        log_m_final = np.full(len(m_final), np.nan, dtype=float)
+        positive = m_final > 0.0
+        log_m_final[positive] = np.log10(m_final[positive])
+        df["log10_m_final_msun"] = log_m_final
     return df.reset_index(drop=True)
 
 
@@ -931,23 +926,22 @@ def build_model_catalog(allcat_template_path: Path, mpb_path: Path, ns_value: fl
     formed = load_allcat(allcat_path)
     final_gcs = _load_final_gcs_table(final_gcs_path, len(formed), formed["hid_z0"].to_numpy(dtype=int))
 
-    keep_cols = [col for col in ["status", "M_GC_final", "log10_M_GC_final", "m_init_msun", "r_final_kpc"] if col in final_gcs.columns]
+    keep_cols = [col for col in ["status", "m_final_msun", "log10_m_final_msun", "m_init_msun", "r_final_kpc"] if col in final_gcs.columns]
     catalog = formed.join(final_gcs[keep_cols])
-    if "M_GC_final" not in catalog.columns:
-        raise ValueError(f"{final_gcs_path} is missing required column M_GC_final")
-    if "log10_M_GC_final" not in catalog.columns:
-        m_final = catalog["M_GC_final"].to_numpy(dtype=float)
+    if "m_final_msun" not in catalog.columns:
+        catalog["m_final_msun"] = np.nan
+    if "log10_m_final_msun" not in catalog.columns:
+        m_final = catalog["m_final_msun"].to_numpy(dtype=float)
         log_m_final = np.full(len(m_final), np.nan, dtype=float)
         positive = m_final > 0.0
         log_m_final[positive] = np.log10(m_final[positive])
-        catalog["log10_M_GC_final"] = log_m_final
+        catalog["log10_m_final_msun"] = log_m_final
     catalog["status"] = catalog["status"].fillna(0).astype(int)
 
     survivors = catalog.loc[catalog["status"] == 1].copy().reset_index(drop=True)
     split_threshold, _, _ = fit_metallicity_split(survivors["feh"].to_numpy(dtype=float))
     survivors["population"] = _population_from_threshold(survivors["feh"], split_threshold)
-    survivors = survivors.loc[survivors["M_GC_final"].to_numpy(dtype=float) > 0.0].copy().reset_index(drop=True)
-    survivors["logM_final"] = np.log10(survivors["M_GC_final"].to_numpy(dtype=float))
+    survivors["logM_final"] = np.log10(np.clip(survivors["m_final_msun"].to_numpy(dtype=float), 1.0e-30, None))
     survivors["t_form_gyr"] = np.array(
         [Redshift2CosmicAge(float(value)) for value in survivors["zform"].to_numpy(dtype=float)],
         dtype=float,
@@ -998,7 +992,7 @@ def load_choksi_paper_model(path: Path = CHOKSI_MODEL_PATH) -> PaperModelCatalog
     survivors = survivors.dropna(subset=columns).copy()
     survivors["hid_z0"] = survivors["hid_z0"].astype(int)
     survivors["isMPB"] = survivors["isMPB"].astype(int)
-    survivors["M_GC_final"] = np.power(10.0, survivors["logM_final"].to_numpy(dtype=float))
+    survivors["m_final_msun"] = np.power(10.0, survivors["logM_final"].to_numpy(dtype=float))
     survivors["M_gas_form"] = gas_mass_from_stellar_halo(
         np.power(10.0, survivors["logMstar_form"].to_numpy(dtype=float)),
         np.power(10.0, survivors["logMh_form"].to_numpy(dtype=float)),
@@ -1025,7 +1019,7 @@ def _build_halo_level_table_from_survivors(
             mean_feh=("feh", "mean"),
             sigma_feh=("feh", lambda values: float(np.std(values.to_numpy(dtype=float), ddof=0))),
             blue_fraction=("population", lambda values: float(np.mean(values == "blue"))),
-            M_gc_final=("M_GC_final", "sum"),
+            M_gc_final=("m_final_msun", "sum"),
         )
         .reset_index()
     )
@@ -1189,12 +1183,9 @@ def _choose_representative_vcs_systems(obs: ObsCatalog, model_halos: pd.DataFram
     gc = obs.acsvcs_gc.loc[(obs.acsvcs_gc["pGC"] >= 0.5) & np.isfinite(obs.acsvcs_gc["feh"])].copy()
     counts = gc.groupby("VCC", sort=True).size().rename("n_gc").reset_index()
     systems = obs.vcs_systems.merge(counts, on="VCC", how="left").fillna({"n_gc": 0})
-    if model_halos.empty:
-        candidates = systems.loc[systems["n_gc"] >= 20].copy()
-    else:
-        logsm_lo = float(model_halos["logMstar_z0"].min()) - 0.15
-        logsm_hi = float(model_halos["logMstar_z0"].max()) + 0.2
-        candidates = systems.loc[(systems["logSM"] >= logsm_lo) & (systems["logSM"] <= logsm_hi) & (systems["n_gc"] >= 20)].copy()
+    logsm_lo = float(model_halos["logMstar_z0"].min()) - 0.15
+    logsm_hi = float(model_halos["logMstar_z0"].max()) + 0.2
+    candidates = systems.loc[(systems["logSM"] >= logsm_lo) & (systems["logSM"] <= logsm_hi) & (systems["n_gc"] >= 20)].copy()
     if len(candidates) < 4:
         candidates = systems.loc[systems["n_gc"] >= 20].copy()
     candidates = candidates.sort_values(["logSM", "n_gc"]).reset_index(drop=True)
@@ -1218,8 +1209,6 @@ def _choose_representative_vcs_systems(obs: ObsCatalog, model_halos: pd.DataFram
 def _match_model_halos_to_observations(obs_examples: pd.DataFrame, halo_table: pd.DataFrame) -> List[int]:
     used: set[int] = set()
     halo_rows = halo_table.sort_values("logMstar_z0").reset_index(drop=True)
-    if halo_rows.empty:
-        return [-1] * len(obs_examples)
     matched: List[int] = []
     for logsm in obs_examples["logSM"].to_numpy(dtype=float):
         order = np.argsort(np.abs(halo_rows["logMstar_z0"].to_numpy(dtype=float) - logsm))
@@ -1410,10 +1399,8 @@ def build_figure_04(model: ModelCatalog, obs: ObsCatalog) -> plt.Figure:
         model_feh = model.survivors.loc[model.survivors["hid_z0"] == int(hid), "feh"].to_numpy(dtype=float)
         obs_feh = obs_feh[np.isfinite(obs_feh)]
         model_feh = model_feh[np.isfinite(model_feh)]
-        ks_label = "n/a"
-        if len(model_feh) > 0 and len(obs_feh) > 0:
-            ks_label = f"{ks_2samp(model_feh, obs_feh).pvalue:.2g}"
-            ax.hist(model_feh, bins=bins, density=True, histtype="stepfilled", color="tab:blue", alpha=0.35, label="model")
+        ks_p = ks_2samp(model_feh, obs_feh).pvalue
+        ax.hist(model_feh, bins=bins, density=True, histtype="stepfilled", color="tab:blue", alpha=0.35, label="model")
         ax.hist(obs_feh, bins=bins, density=True, histtype="step", color="black", lw=1.5, label="VCS")
         ax.text(
             0.03,
@@ -1421,7 +1408,7 @@ def build_figure_04(model: ModelCatalog, obs: ObsCatalog) -> plt.Figure:
             f"VCC {int(obs_row['VCC'])}\n"
             + rf"$\log_{{10}}M_{{\ast}}={obs_row['logSM']:.2f}$"
             + "\n"
-            + rf"$p_{{KS}}={ks_label}$",
+            + rf"$p_{{KS}}={ks_p:.2g}$",
             transform=ax.transAxes,
             ha="left",
             va="top",
@@ -1595,19 +1582,14 @@ def build_figure_06(model: ModelCatalog, paper_model: PaperModelCatalog | None =
         ax.set_xscale("log")
         ax.xaxis.set_major_formatter(mpl.ticker.LogFormatterMathtext(base=10.0))
         ax.grid(True, alpha=0.3, linestyle=":", which="both")
-        handles, _ = ax.get_legend_handles_labels()
-        if handles:
-            ax.legend(frameon=False, loc="best", ncol=1)
+        ax.legend(frameon=False, loc="best", ncol=1)
     axes[0].set_xlim(1.0e11, 10.0**14.5)
     return fig
 
 
 def build_figure_07(model: ModelCatalog, obs: ObsCatalog, paper_model: PaperModelCatalog | None = None) -> plt.Figure:
     halo_table = build_halo_level_table(model)
-    if halo_table.empty:
-        halo_edges = np.array([0.0, 1.0], dtype=float)
-    else:
-        halo_edges = _unique_bin_edges(halo_table["logMh_z0"].to_numpy(dtype=float), 3)
+    halo_edges = _unique_bin_edges(halo_table["logMh_z0"].to_numpy(dtype=float), 3)
     halo_labels = ["low", "mid", "high"]
     halo_bin_map: Dict[int, str] = {}
     for _, row in halo_table.iterrows():
@@ -1794,7 +1776,7 @@ def _build_cluster_fraction_table(model: ModelCatalog, feh_edges: np.ndarray) ->
 
         survivors = model.survivors.loc[model.survivors["hid_z0"] == int(hid)].copy()
         survivor_feh = survivors["feh"].to_numpy(dtype=float)
-        survivor_mass = survivors["M_GC_final"].to_numpy(dtype=float)
+        survivor_mass = survivors["m_final_msun"].to_numpy(dtype=float)
         cluster_bins = np.zeros(len(feh_edges) - 1, dtype=float)
         for i, (left, right) in enumerate(zip(feh_edges[:-1], feh_edges[1:])):
             if i == len(feh_edges) - 2:
@@ -1981,9 +1963,7 @@ def build_figure_10(model: ModelCatalog, obs: ObsCatalog) -> plt.Figure:
     ax.set_yscale("log")
     ax.set_ylim(1.0e-4, 1.0)
     ax.grid(True, alpha=0.3, linestyle=":", which="both")
-    handles, _ = ax.get_legend_handles_labels()
-    if handles:
-        ax.legend(frameon=False, loc="lower left", ncol=1)
+    ax.legend(frameon=False, loc="lower left", ncol=1)
     return fig
 
 
@@ -2051,6 +2031,6 @@ figure_builders = {
 
 for fig_num in selected_figures:
     fig = figure_builders[fig_num]()
-    path = plot_dir / f"Fig.{fig_num:02d}_{FIGURE_STEMS[fig_num]}.pdf"
+    path = plot_dir / f"Fig.{fig_num:02d}_{FIGURE_STEMS[fig_num]}.png"
     fig.savefig(path, dpi=STD_DPI, bbox_inches="tight")
     plt.close(fig)

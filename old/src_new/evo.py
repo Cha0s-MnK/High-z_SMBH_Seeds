@@ -15,10 +15,9 @@ from __future__ import annotations
 import argparse
 import math
 import time
-import warnings
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Dict, List, Optional, Sequence, Tuple
+from typing import List, Optional, Tuple
 
 import numpy as np
 from scipy import special
@@ -34,17 +33,10 @@ STAT_SUNK = -3 # GC sank to the center before it was fully disrupted, so the fin
 STAT_WANDERER = -4 # GC is tagged as a wanderer at formation because its IMBH mass exceeds its stellar mass; it is considered lost regardless of its final radius or mass
 STAT_WANDERER_SUNK = -5 # GC is tagged as a wanderer at formation and also sank to the center; this is a subset of STAT_WANDERER but is tracked separately for potential future analysis of IMBH wanderers that do sink to the center
 
-
-class NSCEvolutionWarning(RuntimeWarning):
-    """Warnings for numerically or physically delicate NSC evolution states."""
-
-
-warnings.simplefilter("always", NSCEvolutionWarning)
-
 StrippingChoices = ("Choksi+2018", "Fragione+2019")
 
 FINAL_GC_HEADER = "\n".join([
-    "gc_index status M_GC_final m_init_msun lookback_time_final_gyr lookback_time_init_gyr r_final_kpc r_init_kpc M_IMBH_final",
+    "gc_index status m_final_msun m_init_msun lookback_time_final_gyr lookback_time_init_gyr r_final_kpc r_init_kpc",
     ("rows: one GC per input GCini row; lookback times are measured from the configured final redshift; "
      "status = 1 alive, -1 exhausted, -2 torn, -3 sunk_to_center, -4 IMBH_wanderer, -5 sunk_wanderer"),])
 
@@ -67,8 +59,8 @@ class Tunables:
     binnub: int = 100
     # Minimum base timescale in Gyr allowed for the ts_m and ts_r timestep floors.
     t_limit: float = 1.0e-2
-    # Radius in kpc below which a cluster is tagged as sunk to the centre. [kpc]
-    r_sink: float = NSC_RADIUS_PC * 1.0e-3
+    # Radius in kpc below which a cluster is tagged as sunk to the center.
+    r_sink: float = 1.0e-3
     # Little-h used in the halo virial-radius and spin conversions.
     h: float = 0.704
     # Inner radius floor in kpc for radial binning and background-density calls.
@@ -138,14 +130,6 @@ def rho_bkgd(r_kpc: float, SersicReff_kpc: float, Mv_1e9Msun: float, t_Gyr: floa
     check_finite_positive(SersicReff_kpc, name="Sersic effective radius in kpc SersicReff_kpc")
     check_finite_positive(Mv_1e9Msun, name="Halo virial mass in 1e9 Msun Mv_1e9Msun")
     check_finite_positive(t_Gyr, name="Cosmic age in Gyr t_Gyr")
-
-    if float(r_kpc) < 1.0e-3:
-        warnings.warn(
-            f"rho_bkgd called below 1 pc: r_kpc={float(r_kpc):.6e}. "
-            "This is inside the numerical caution region for the external GC background model.",
-            NSCEvolutionWarning,
-            stacklevel=2,
-        )
 
     p, b = Sersic_coefs(2.2)
     c = 9.354 / ((Mv_1e9Msun * tun.h / 1.0e3) ** 0.094) # halo concentration
@@ -281,10 +265,10 @@ def _deposit_full_mass(
     m_gc[i] = 0.0
 
 
-def drdt_DF_RK4(
+def rk4_rdot_analytic(
     M_GC_1e5Msun: float,
     r_kpc: float,
-    dt_Gyr: float,
+    dt_gyr: float,
     rho_bg_current: float,
     m_enclosed_current_1e5: float,
     prefix_snapshot: np.ndarray,
@@ -297,37 +281,49 @@ def drdt_DF_RK4(
     masshalo: float,
     t_l_gyr: float,
     tun: Tunables,
-) -> Optional[float]: # >= 0.0
-    """RK4 estimate of the radial inspiral rate; None means the step reaches r <= 0."""
-    check_finite_positive(M_GC_1e5Msun, name="GC mass in 1e5 M☉ M_GC_1e5Msun")
-    check_finite_positive(r_kpc, name="GC distance from the galactic centre in kpc r_kpc")
-    check_finite_positive(dt_Gyr, name="Timestep in Gyr dt_Gyr")
+) -> float:
+    """RK4 estimate of the radial inspiral rate using analytic rho_bg calls."""
 
-    k1 = dt_Gyr * M_GC_1e5Msun / (0.45 * r_kpc * vc_kms(m_enclosed_current_1e5, r_kpc, rho_bg_current))
+    if dt_gyr <= 0.0:
+        return 0.0
 
-    def drdt_DF(rr: float) -> float: # > 0.0
-        check_finite_positive(rr, name="Substep DF radius in kpc rr")
+    v_c_kms = vc_kms(m_enclosed_current_1e5, r_kpc, rho_bg_current)
+    if (r_kpc <= 0.0) or (v_c_kms <= 0.0):
+        return 1.0e10
+    dot_r = M_GC_1e5Msun / (0.45 * r_kpc * v_c_kms)
+    k1 = dt_gyr * dot_r
+
+    def _substep_rdot(rr: float) -> float:
+        if rr <= 0.0:
+            return 1.0e10
         rk_bin = assign_bin_fast(rr, r_min, log_r_min, inv_log_span, binnub)
         m_enclose = _enclosed_mass_before_bin_from_prefix(rk_bin, prefix_snapshot)
         rho_bg = rho_bkgd(rr, sersic_re_now, masshalo, t_l_gyr, tun)
-        return M_GC_1e5Msun / (0.45 * rr * vc_kms(m_enclose, rr, rho_bg))
+        v = vc_kms(m_enclose, rr, rho_bg)
+        if v <= 0.0:
+            return 1.0e10
+        return M_GC_1e5Msun / (0.45 * rr * v)
 
     r2 = r_kpc - 0.5 * k1
     if r2 <= 0.0:
-        return None
+        k2 = 1.0e10
+        k3 = 1.0e10
+        k4 = 1.0e10
     else:
-        k2 = drdt_DF(r2) * dt_Gyr
+        k2 = dt_gyr * _substep_rdot(r2)
         r3 = r_kpc - 0.5 * k2
         if r3 <= 0.0:
-            return None
+            k3 = 1.0e10
+            k4 = 1.0e10
         else:
-            k3 = drdt_DF(r3) * dt_Gyr
+            k3 = dt_gyr * _substep_rdot(r3)
             r4 = r_kpc - k3
             if r4 <= 0.0:
-                return None
+                k4 = 1.0e10
             else:
-                k4 = drdt_DF(r4) * dt_Gyr
-    return (k1 + 2.0 * k2 + 2.0 * k3 + k4) / (6.0 * dt_Gyr)
+                k4 = dt_gyr * _substep_rdot(r4)
+    return (k1 + 2.0 * k2 + 2.0 * k3 + k4) / (6.0 * max(dt_gyr, EPS))
+
 
 def evolve_single_halo(
     ts_m: float,
@@ -342,9 +338,7 @@ def evolve_single_halo(
     sersic_n: float = 2.2,
     final_redshift: float = 0.0,
     trace_path: Optional[Path] = None,
-    eddington_ratio: float = 0.0,
-    inventory_redshifts: Optional[Sequence[float]] = None,
-) -> Tuple[np.ndarray, np.ndarray, List[dict], Dict[float, float]]:
+) -> Tuple[np.ndarray, np.ndarray]:
     """Evolve one halo's GC system from formation to z=0.
 
     The state is stored in legacy units for direct compatibility with the
@@ -362,7 +356,6 @@ def evolve_single_halo(
         raise ValueError("sersic_n must be positive")
     if final_redshift < 0.0:
         raise ValueError("final_redshift must be non-negative")
-    eddington_ratio = check_eddington_ratio(eddington_ratio)
 
     gc_init = _numeric_rows(gcini_path)
     if gc_init.size == 0:
@@ -372,59 +365,35 @@ def evolve_single_halo(
     if gc_init.shape[1] < 10:
         raise ValueError("GCini rows must have at least 10 columns")
 
-    # Modern GCini rows use the 13-column formation catalogue.  Internal
-    # continuation rows use 15 columns so satellite survivors can enter a new
-    # host with their current mass, age, and accretion radius without
-    # pretending they formed at the merger time.
-    if gc_init.shape[1] >= 15:
-        m_gc_init = np.asarray(gc_init[:, 7], dtype=float) / 1.0e5
-        z_gc_init = np.asarray(gc_init[:, 8], dtype=float)
-        t_gc_init = np.array([Redshift2CosmicAge(z=z, time_unit="Gyr") for z in z_gc_init], dtype=float)
-        m_gc_current = np.power(10.0, np.asarray(gc_init[:, 5], dtype=float)) / 1.0e5
-        z_gc_current = np.asarray(gc_init[:, 6], dtype=float)
-        t_gc_current = np.array([Redshift2CosmicAge(z=z, time_unit="Gyr") for z in z_gc_current], dtype=float)
-        r_gc_init = gc_init[:, 10].astype(float)
-        m_imbh_init = np.asarray(gc_init[:, 13], dtype=float) / 1.0e5
-        m_imbh = np.asarray(gc_init[:, 14], dtype=float) / 1.0e5
+    # Modern GCini rows use the 13-column formation catalog.
+    m_gc_init = 10.0 ** (gc_init[:, 6] - 5.0)
+    r_gc_init = gc_init[:, 9].astype(float)
+    t_gc_init = np.array([Redshift2CosmicAge(z=z, time_unit="Gyr") for z in gc_init[:, 7]], dtype=float)
+    if gc_init.shape[1] > 12:
+        m_imbh = np.asarray(gc_init[:, 12], dtype=float) / 1.0e5
     else:
-        m_gc_init = 10.0 ** (gc_init[:, 6] - 5.0)
-        r_gc_init = gc_init[:, 9].astype(float)
-        t_gc_init = np.array([Redshift2CosmicAge(z=z, time_unit="Gyr") for z in gc_init[:, 7]], dtype=float)
-        m_gc_current = m_gc_init.copy()
-        t_gc_current = t_gc_init.copy()
-        if gc_init.shape[1] > 12:
-            m_imbh_init = np.asarray(gc_init[:, 12], dtype=float) / 1.0e5
-            m_imbh = m_imbh_init.copy()
-        else:
-            m_imbh_init = np.zeros(n_gc, dtype=float)
-            m_imbh = np.zeros(n_gc, dtype=float)
+        m_imbh = np.zeros(n_gc, dtype=float)
 
     t_end = Redshift2CosmicAge(z=final_redshift, time_unit="Gyr")
-    if np.any(t_gc_current > t_end + 1.0e-10):
+    if np.any(t_gc_init > t_end + 1.0e-10):
         raise ValueError(
-            "GCini contains clusters whose current segment start is after the requested final_redshift. "
-            "Regenerate the formation catalogue or branch-continuation rows with a consistent final redshift."
+            "GCini contains clusters formed after the requested final_redshift. "
+            "Regenerate the formation catalog with the same final redshift."
         )
 
     if np.any(~np.isfinite(m_imbh)):
         raise ValueError("IMBH masses must be finite.")
-    if np.any(~np.isfinite(m_imbh_init)):
-        raise ValueError("Initial IMBH seed masses must be finite.")
     if np.any(m_imbh < 0.0):
         raise ValueError("IMBH masses must be non-negative.")
-    if np.any(m_imbh_init < 0.0):
-        raise ValueError("Initial IMBH seed masses must be non-negative.")
-    m_gc = np.maximum(m_gc_current, 0.0)
+    if np.any(m_imbh > m_gc_init + 1.0e-12):
+        raise ValueError("IMBH masses cannot exceed their parent GC initial masses.")
+
+    m_gc = m_gc_init.copy()
     r_gc = r_gc_init.copy()
-    t_gc = t_gc_current.copy()
-    t_gc_segment_start = t_gc_current.copy()
+    t_gc = t_gc_init.copy()
     status = np.full(n_gc, STAT_ALIVE, dtype=int)
     is_wanderer = m_imbh >= (m_gc - 1.0e-12)
     m_gc[is_wanderer] = m_imbh[is_wanderer]
-    m_imbh_final = 1.0e5 * m_imbh.copy()
-    global_gc_index = np.arange(1, n_gc + 1, dtype=int)
-    if gc_init.shape[1] >= 16:
-        global_gc_index = np.asarray(gc_init[:, 15], dtype=int)
 
     r_min = tun.r_min
     r_max = max(float(np.max(r_gc_init)), r_min * 1.0001)
@@ -445,36 +414,8 @@ def evolve_single_halo(
     depo = np.zeros((n_gc, tun.binnub, 3), dtype=float)
     m_sumbin_total = np.zeros((n_gc, 3), dtype=float)
     m_sumgc_total = np.zeros((tun.binnub, 3), dtype=float)
-    final_stellar_mass = np.zeros(n_gc, dtype=float)
-    has_entered_nsc = np.zeros(n_gc, dtype=bool)
-    central_history: List[dict] = []
-    M_NSC_msun = 0.0
-    M_SMBH_init_msun = 0.0
-    M_SMBH_entry_msun = 0.0
-    M_BH_msun = 0.0
-    t_smbh_current_gyr = 0.0
 
-    inventory_targets: List[Tuple[float, float]] = []
-    if inventory_redshifts is not None:
-        seen_inventory_z: set[float] = set()
-        for z_value in inventory_redshifts:
-            z_float = float(z_value)
-            if (not np.isfinite(z_float)) or z_float < 0.0:
-                raise ValueError(f"Invalid inventory output redshift: {z_value}")
-            if z_float in seen_inventory_z:
-                continue
-            seen_inventory_z.add(z_float)
-            t_target = float(Redshift2CosmicAge(z_float, time_unit="Gyr"))
-            if t_target <= t_end + 1.0e-10:
-                inventory_targets.append((z_float, min(t_target, t_end)))
-    if not any(abs(z - 0.0) < 1.0e-12 for z, _ in inventory_targets):
-        inventory_targets.append((0.0, t_end))
-    inventory_by_z: Dict[float, float] = {}
-    pending_inventory_targets = sorted(inventory_targets, key=lambda item: item[1])
-    min_segment_start_gyr = float(np.min(t_gc))
-    while pending_inventory_targets and pending_inventory_targets[0][1] < min_segment_start_gyr - 1.0e-10:
-        z_value, _ = pending_inventory_targets.pop(0)
-        inventory_by_z[float(z_value)] = 0.0
+    prconst = 100.0
 
     halo = _read_haloevo_mpb(haloevo_path)
     if halo.shape[0] == 0:
@@ -484,15 +425,9 @@ def evolve_single_halo(
     bg_time = np.array([Redshift2CosmicAge(z=z, time_unit="Gyr") for z in redshift_halo], dtype=float)
     spin_norm = np.sqrt(halo[:, 6] ** 2 + halo[:, 7] ** 2 + halo[:, 8] ** 2) * kpc / tun.h * 1.0e3
 
-    base_block_edges = np.linspace(0.0, t_end, int(tun.t_div) + 1, dtype=float)
-    inventory_edge_times = np.asarray([t for _, t in pending_inventory_targets], dtype=float)
-    block_edges = np.unique(np.concatenate((base_block_edges, inventory_edge_times)))
-    block_edges = block_edges[(block_edges >= 0.0) & (block_edges <= t_end + 1.0e-12)]
-    block_edges[-1] = t_end
-    tpos = int(np.searchsorted(block_edges, float(np.min(t_gc)), side="left"))
-    tpos = max(1, min(len(block_edges) - 1, tpos))
-    tposini = tpos - 1
-    n_blocks_to_run = max(len(block_edges) - 1 - tposini, 1)
+    tposini = int(math.floor(float(np.min(t_gc_init)) / max(t_end, EPS) * tun.t_div))
+    tposini = max(0, min(tun.t_div, tposini))
+    tpos = 1 + tposini
     snap_pos = 0
     start = time.time()
     dt_gc = np.full(n_gc, t_end, dtype=float)
@@ -551,50 +486,6 @@ def evolve_single_halo(
             f"{r_gc[i]:.10e} {1.0e5 * m_gc[i]:.10e} {int(bin_gc[i]):d}\n"
         )
 
-    def gc_warning_context(i: int, phase: str) -> str:
-        return (
-            f"phase={phase} "
-            f"gc_index={i + 1} "
-            f"global_gc_index={int(global_gc_index[i])} "
-            f"status={int(status[i])} "
-            f"t_cosmic_gyr={float(t_gc[i]):.10e} "
-            f"redshift={float(CosmicAge2Redshift(float(t_gc[i]), time_unit='Gyr')):.10e} "
-            f"r_kpc={float(r_gc[i]):.10e} "
-            f"r_sink_kpc={float(tun.r_sink):.10e} "
-            f"bin_index={int(bin_gc[i])} "
-            f"m_gc_msun={1.0e5 * float(m_gc[i]):.10e} "
-            f"m_imbh_msun={1.0e5 * float(m_imbh[i]):.10e} "
-            f"m_imbh_init_msun={1.0e5 * float(m_imbh_init[i]):.10e} "
-            f"is_wanderer={bool(is_wanderer[i])} "
-            f"has_entered_nsc={bool(has_entered_nsc[i])} "
-            f"gcini_path={gcini_path}"
-        )
-
-    def advance_central_bh_to(t_target_gyr: float) -> None:
-        nonlocal M_BH_msun, t_smbh_current_gyr
-        t_target = min(max(float(t_target_gyr), 0.0), t_end)
-        dt_gyr = max(t_target - float(t_smbh_current_gyr), 0.0)
-        M_BH_msun = float(grow_eddington_mass_msun(
-            M_BH_msun,
-            dt_gyr=dt_gyr,
-            f_edd=eddington_ratio,
-            overflow_policy="warn_inf",
-        ))
-        t_smbh_current_gyr = float(t_target)
-
-    def sample_pending_imbh_inventory(t_sample_gyr: float) -> None:
-        nonlocal pending_inventory_targets
-        t_sample = float(t_sample_gyr)
-        ready: List[Tuple[float, float]] = []
-        while pending_inventory_targets and pending_inventory_targets[0][1] <= t_sample + 1.0e-10:
-            ready.append(pending_inventory_targets.pop(0))
-        if not ready:
-            return
-        non_sunk_seeded = (m_imbh_init > 0.0) & (~has_entered_nsc) & (t_gc_segment_start <= t_sample + 1.0e-10)
-        inventory_msun = float(np.sum(1.0e5 * np.maximum(m_imbh[non_sunk_seeded], 0.0)))
-        for z_value, _ in ready:
-            inventory_by_z[float(z_value)] = inventory_msun
-
     def cap_bound_mass_loss(i: int, dm: float) -> float:
         loss = min(max(float(dm), 0.0), float(m_gc[i]))
         if m_imbh[i] > 0.0:
@@ -614,85 +505,13 @@ def evolve_single_halo(
         m_gc[i] = m_imbh[i]
         is_wanderer[i] = True
 
-    def record_nsc_entry(i: int, bin_index: int, t_event_gyr: float) -> None:
-        """Terminate one object that has entered the 6 pc central aperture."""
-
-        nonlocal M_NSC_msun, M_SMBH_init_msun, M_SMBH_entry_msun, M_BH_msun
-        if status[i] != STAT_ALIVE or has_entered_nsc[i]:
-            return
-        t_event = min(max(float(t_event_gyr), 1.0e-12), t_end)
-        advance_central_bh_to(t_event)
-        stellar_1e5 = remaining_stellar_mass(i)
-        bh_1e5 = max(float(m_imbh[i]), 0.0)
-        delta_nsc = 0.0
-        delta_smbh_init = 1.0e5 * max(float(m_imbh_init[i]), 0.0)
-        delta_smbh_entry = 1.0e5 * bh_1e5
-
-        if stellar_1e5 > 0.0 and (not is_wanderer[i]):
-            delta_nsc = 1.0e5 * stellar_1e5
-            final_stellar_mass[i] = delta_nsc
-            status[i] = STAT_SUNK
-        else:
-            final_stellar_mass[i] = 0.0
-            status[i] = STAT_WANDERER_SUNK
-
-        M_NSC_msun += delta_nsc
-        M_SMBH_init_msun += delta_smbh_init
-        M_SMBH_entry_msun += delta_smbh_entry
-        M_BH_msun += delta_smbh_entry
-        has_entered_nsc[i] = True
-        m_imbh_final[i] = delta_smbh_entry
-        m_gc[i] = 0.0
-        t_gc[i] = t_event
-        dt_gc[i] = t_end
-        central_history.append(
-            {
-                "gc_index": int(i + 1),
-                "status": int(status[i]),
-                "t_cosmic_gyr": float(t_event),
-                "redshift": float(CosmicAge2Redshift(t_event, time_unit="Gyr")),
-                "delta_M_NSC": float(delta_nsc),
-                "delta_M_SMBH_init": float(delta_smbh_init),
-                "delta_M_SMBH_entry": float(delta_smbh_entry),
-                "M_NSC": float(M_NSC_msun),
-                "M_SMBH_init": float(M_SMBH_init_msun),
-                "M_SMBH_entry": float(M_SMBH_entry_msun),
-                "M_SMBH_current": float(M_BH_msun),
-            }
-        )
-
     def sink_bound_gc(i: int, bin_index: int) -> None:
-        record_nsc_entry(i, bin_index, float(t_gc[i]))
-
-    def stop_if_already_inside_nsc(i: int, phase: str) -> bool:
-        if status[i] != STAT_ALIVE or has_entered_nsc[i]:
-            return True
-        if r_gc[i] <= tun.r_sink:
-            if r_gc[i] == 0.0:
-                warnings.warn(
-                    "GC reached r_final_kpc=0.0 before NSC entry bookkeeping; preserving 0.0. "
-                    + gc_warning_context(i, phase),
-                    NSCEvolutionWarning,
-                    stacklevel=2,
-                )
-            record_nsc_entry(i, int(bin_gc[i]), float(t_gc[i]))
-            return True
-        return False
-
-    def mark_inside_sink_torn_without_deposit(i: int, phase: str) -> None:
-        residual_msun = 1.0e5 * float(m_gc[i])
-        status[i] = STAT_TORN
-        warnings.warn(
-            "Non-IMBH GC was tidally torn after ending inside the NSC sink; "
-            "keeping final status as STAT_TORN and excluding the final residual mass from depos. "
-            f"excluded_residual_msun={residual_msun:.10e} "
-            + gc_warning_context(i, phase),
-            NSCEvolutionWarning,
-            stacklevel=2,
-        )
-        final_stellar_mass[i] = 0.0
-        m_gc[i] = 0.0
-        dt_gc[i] = t_end
+        if m_imbh[i] > 0.0:
+            deposit_remaining_stars(i, bin_index)
+            m_gc[i] = 0.0
+        else:
+            _deposit_full_mass(i, bin_index, m_gc, depo, m_sumbin_total, m_sumgc_total)
+        status[i] = STAT_SUNK
 
     def rho_bg_current_block(r_now: float) -> float:
         rr = max(float(r_now), 1.0e-12)
@@ -712,13 +531,13 @@ def evolve_single_halo(
         mass_df: float,
         i: int,
         prefix_snapshot: np.ndarray,
-    ) -> Optional[float]:
+    ) -> float:
         b_now = assign_bin_fast(r_gc[i], r_min, log_r_min, inv_log_span, tun.binnub)
         m_enclose, rho_bg, rho_tot = rho_components(r_gc[i], b_now, prefix_snapshot)
-        drdt_DF = drdt_DF_RK4(
+        return rk4_rdot_analytic(
             M_GC_1e5Msun=mass_df,
             r_kpc=r_gc[i],
-            dt_Gyr=dt_gc[i],
+            dt_gyr=dt_gc[i],
             rho_bg_current=rho_bg,
             m_enclosed_current_1e5=m_enclose,
             prefix_snapshot=prefix_snapshot,
@@ -731,9 +550,6 @@ def evolve_single_halo(
             t_l_gyr=t_l_block,
             tun=tun,
         )
-        if drdt_DF is None:
-            return r_gc[i] / dt_gc[i]
-        return drdt_DF
 
     def prepare_gc_step(
         i: int,
@@ -743,7 +559,7 @@ def evolve_single_halo(
         """Prepare one active GC or IMBH wanderer against the current deposit field."""
 
         dt_gc[i] = t_end
-        if stop_if_already_inside_nsc(i, "prepare"):
+        if status[i] != STAT_ALIVE:
             return
         if m_gc_init[i] <= 1.0e-2:
             return
@@ -798,14 +614,11 @@ def evolve_single_halo(
         rdot_df[i] = current_rdot(m_gc[i], i, prefix_snapshot)
 
     for i in range(n_gc):
-        stop_if_already_inside_nsc(i, "init")
-
-    for i in range(n_gc):
         write_trace_row(i, "init")
 
-    while tpos < len(block_edges):
-        t_l = float(block_edges[tpos - 1])
-        t_r = float(block_edges[tpos])
+    while tpos <= tun.t_div:
+        t_l = t_end * (tpos - 1) / tun.t_div
+        t_r = t_end * tpos / tun.t_div
         t_l_block = t_l
 
         while snap_pos < len(bg_time) and bg_time[snap_pos] <= t_l:
@@ -862,13 +675,15 @@ def evolve_single_halo(
                 dM_gc_sw = cap_bound_mass_loss(i, dM_gc_sw)
                 m_gc[i] -= dM_gc_sw
                 if (m_imbh[i] > 0.0) and (m_gc[i] <= m_imbh[i] + 1.0e-12):
-                    enter_wanderer(i, int(bin_gc[i]), deposit_stars=False)
+                    m_gc[i] = m_imbh[i]
+                    is_wanderer[i] = True
 
                 if not is_wanderer[i]:
                     dM_gc = cap_bound_mass_loss(i, dt_gc[i] * mdot_td[i])
                     m_gc[i] -= dM_gc
                     if (m_imbh[i] > 0.0) and (m_gc[i] <= m_imbh[i] + 1.0e-12):
-                        enter_wanderer(i, int(bin_gc[i]), deposit_stars=False)
+                        m_gc[i] = m_imbh[i]
+                        is_wanderer[i] = True
 
             if dM_gc > 0.0 or dM_gc_sw > 0.0:
                 bi = int(bin_gc[i]) - 1
@@ -886,46 +701,32 @@ def evolve_single_halo(
             b = int(bin_gc[i])
             if is_wanderer[i]:
                 if r_gc[i] <= tun.r_sink:
-                    record_nsc_entry(i, b, float(t_gc[i]))
+                    dt_gc[i] = t_end
+                    status[i] = STAT_WANDERER_SUNK
+                    m_gc[i] = 0.0
                 else:
                     prepare_gc_step(i, prefix_snapshot, t_r)
             else:
+                _, _, rho_tot = rho_components(r_gc[i], b, prefix_snapshot)
+                rho_h = cluster_halfmass_density(m_gc[i])
+
                 if m_gc[i] <= 0.0:
                     dt_gc[i] = t_end
                     status[i] = STAT_EXHAUSTED
                     m_gc[i] = 0.0
-                elif r_gc[i] <= 0.0:
+                elif r_gc[i] <= tun.r_sink:
                     dt_gc[i] = t_end
                     sink_bound_gc(i, b)
-                else:
-                    _, _, rho_tot = rho_components(r_gc[i], b, prefix_snapshot)
-                    rho_h = cluster_halfmass_density(m_gc[i])
-                    if rho_h < rho_tot:
-                        dt_gc[i] = t_end
-                        if m_imbh[i] > 0.0:
-                            enter_wanderer(i, b, deposit_stars=True)
-                            if r_gc[i] <= tun.r_sink:
-                                warnings.warn(
-                                    "IMBH-hosting GC was tidally torn and is also inside the NSC sink; "
-                                    "recording final status as STAT_WANDERER_SUNK. "
-                                    + gc_warning_context(i, "mixed_torn_wanderer_sink"),
-                                    NSCEvolutionWarning,
-                                    stacklevel=2,
-                                )
-                                record_nsc_entry(i, b, float(t_gc[i]))
-                            else:
-                                prepare_gc_step(i, prefix_snapshot, t_r)
-                        else:
-                            if r_gc[i] <= tun.r_sink:
-                                mark_inside_sink_torn_without_deposit(i, "mixed_torn_no_imbh_sink")
-                            else:
-                                status[i] = STAT_TORN
-                                _deposit_full_mass(i, b, m_gc, depo, m_sumbin_total, m_sumgc_total)
-                    elif r_gc[i] <= tun.r_sink:
-                        dt_gc[i] = t_end
-                        sink_bound_gc(i, b)
-                    else:
+                elif rho_h < rho_tot:
+                    dt_gc[i] = t_end
+                    if m_imbh[i] > 0.0:
+                        enter_wanderer(i, b, deposit_stars=True)
                         prepare_gc_step(i, prefix_snapshot, t_r)
+                    else:
+                        status[i] = STAT_TORN
+                        _deposit_full_mass(i, b, m_gc, depo, m_sumbin_total, m_sumgc_total)
+                else:
+                    prepare_gc_step(i, prefix_snapshot, t_r)
 
             write_trace_row(i, "event")
             next_i = int(np.argmin(t_gc + dt_gc))
@@ -952,13 +753,15 @@ def evolve_single_halo(
                 dM_gc_sw = cap_bound_mass_loss(i, dM_gc_sw)
                 m_gc[i] -= dM_gc_sw
                 if (m_imbh[i] > 0.0) and (m_gc[i] <= m_imbh[i] + 1.0e-12):
-                    enter_wanderer(i, int(bin_gc[i]), deposit_stars=False)
+                    m_gc[i] = m_imbh[i]
+                    is_wanderer[i] = True
 
                 if not is_wanderer[i]:
                     dM_gc = cap_bound_mass_loss(i, dt_gc[i] * mdot_td[i])
                     m_gc[i] -= dM_gc
                     if (m_imbh[i] > 0.0) and (m_gc[i] <= m_imbh[i] + 1.0e-12):
-                        enter_wanderer(i, int(bin_gc[i]), deposit_stars=False)
+                        m_gc[i] = m_imbh[i]
+                        is_wanderer[i] = True
 
             if dM_gc > 0.0 or dM_gc_sw > 0.0:
                 bi = int(bin_gc[i]) - 1
@@ -976,50 +779,29 @@ def evolve_single_halo(
             b = int(bin_gc[i])
             if is_wanderer[i]:
                 if r_gc[i] <= tun.r_sink:
-                    record_nsc_entry(i, b, float(t_gc[i]))
+                    dt_gc[i] = t_end
+                    status[i] = STAT_WANDERER_SUNK
+                    m_gc[i] = 0.0
             else:
+                _, _, rho_tot = rho_components(r_gc[i], b, prefix_snapshot)
+                rho_h = cluster_halfmass_density(m_gc[i])
+
                 if m_gc[i] <= 0.0:
                     dt_gc[i] = t_end
                     status[i] = STAT_EXHAUSTED
                     m_gc[i] = 0.0
-                elif r_gc[i] <= 0.0:
-                    warnings.warn(
-                        "GC reached r_final_kpc=0.0 before post-step density classification; preserving 0.0. "
-                        + gc_warning_context(i, "post_step_zero_radius"),
-                        NSCEvolutionWarning,
-                        stacklevel=2,
-                    )
+                elif r_gc[i] <= tun.r_sink:
                     dt_gc[i] = t_end
                     sink_bound_gc(i, b)
-                else:
-                    _, _, rho_tot = rho_components(r_gc[i], b, prefix_snapshot)
-                    rho_h = cluster_halfmass_density(m_gc[i])
-                    if rho_h < rho_tot:
-                        dt_gc[i] = t_end
-                        if m_imbh[i] > 0.0:
-                            enter_wanderer(i, b, deposit_stars=True)
-                            if r_gc[i] <= tun.r_sink:
-                                warnings.warn(
-                                    "IMBH-hosting GC was tidally torn and is also inside the NSC sink; "
-                                    "recording final status as STAT_WANDERER_SUNK. "
-                                    + gc_warning_context(i, "mixed_torn_wanderer_sink"),
-                                    NSCEvolutionWarning,
-                                    stacklevel=2,
-                                )
-                                record_nsc_entry(i, b, float(t_gc[i]))
-                        else:
-                            if r_gc[i] <= tun.r_sink:
-                                mark_inside_sink_torn_without_deposit(i, "mixed_torn_no_imbh_sink")
-                            else:
-                                status[i] = STAT_TORN
-                                _deposit_full_mass(i, b, m_gc, depo, m_sumbin_total, m_sumgc_total)
-                    elif r_gc[i] <= tun.r_sink:
-                        dt_gc[i] = t_end
-                        sink_bound_gc(i, b)
+                elif rho_h < rho_tot:
+                    dt_gc[i] = t_end
+                    if m_imbh[i] > 0.0:
+                        enter_wanderer(i, b, deposit_stars=True)
+                    else:
+                        status[i] = STAT_TORN
+                        _deposit_full_mass(i, b, m_gc, depo, m_sumbin_total, m_sumgc_total)
 
             write_trace_row(i, "coarse")
-
-        sample_pending_imbh_inventory(t_r)
 
         with depos_path.open("a") as fdep:
             for l in range(tun.binnub):
@@ -1029,62 +811,37 @@ def evolve_single_halo(
                     f"{1.0e5 * m_sumgc_total[l, 2]:.10e}\n"
                 )
 
-        if tpos == len(block_edges) - 1:
-            print(f"{tpos - tposini:5d} / {n_blocks_to_run:5d}  runtime={time.time() - start:8.3f} s")
+        if tpos == tun.t_div:
+            print(f"{tpos - tposini:5d} / {tun.t_div - tposini:5d}  runtime={time.time() - start:8.3f} s")
         tpos += 1
-
-    advance_central_bh_to(t_end)
-    central_history.append(
-        {
-            "gc_index": 0,
-            "status": 0,
-            "t_cosmic_gyr": float(t_end),
-            "redshift": float(final_redshift),
-            "delta_M_NSC": 0.0,
-            "delta_M_SMBH_init": 0.0,
-            "delta_M_SMBH_entry": 0.0,
-            "M_NSC": float(M_NSC_msun),
-            "M_SMBH_init": float(M_SMBH_init_msun),
-            "M_SMBH_entry": float(M_SMBH_entry_msun),
-            "M_SMBH_current": float(M_BH_msun),
-            "event_type": "final_snapshot",
-        }
-    )
-    sample_pending_imbh_inventory(t_end)
 
     status_out = status.copy()
     status_out[(status == STAT_ALIVE) & is_wanderer] = STAT_WANDERER
-    alive_stellar = (status == STAT_ALIVE) & (~is_wanderer)
-    final_stellar_mass[alive_stellar] = 1.0e5 * np.maximum(m_gc[alive_stellar] - m_imbh[alive_stellar], 0.0)
-    final_stellar_mass = np.maximum(final_stellar_mass, 0.0)
-    m_imbh_final[~has_entered_nsc] = 1.0e5 * np.maximum(m_imbh[~has_entered_nsc], 0.0)
 
     with gcfin_path.open("w") as fgc:
         fgc.write("# " + FINAL_GC_HEADER.replace("\n", "\n# ") + "\n")
         for i in range(n_gc):
             fgc.write(
-                f"{i + 1:d} {int(status_out[i]):d} {final_stellar_mass[i]:.10e} {1.0e5 * m_gc_init[i]:.10e} "
-                f"{t_end - t_gc[i]:.10e} {t_end - t_gc_init[i]:.10e} {r_gc[i]:.10e} {r_gc_init[i]:.10e} "
-                f"{m_imbh_final[i]:.10e}\n"
+                f"{i + 1:d} {int(status_out[i]):d} {1.0e5 * m_gc[i]:.10e} {1.0e5 * m_gc_init[i]:.10e} "
+                f"{t_end - t_gc[i]:.10e} {t_end - t_gc_init[i]:.10e} {r_gc[i]:.10e} {r_gc_init[i]:.10e}\n"
             )
 
     finalGCs_array = np.column_stack((
         np.arange(1, n_gc + 1, dtype=float),
         status_out.astype(float),
-        final_stellar_mass,
+        1.0e5 * m_gc,
         1.0e5 * m_gc_init,
         t_end - t_gc,
         t_end - t_gc_init,
         r_gc,
         r_gc_init,
-        m_imbh_final,
     ))
     if trace_fh is not None:
         trace_fh.close()
 
     print(f"effective-radius summary Gao+2024={eff_rad_source_count} fallbacks=none")
 
-    return finalGCs_array, depo, central_history, inventory_by_z
+    return finalGCs_array, depo
 
 
 def _build_arg_parser() -> argparse.ArgumentParser:
@@ -1098,7 +855,6 @@ def _build_arg_parser() -> argparse.ArgumentParser:
     p.add_argument("--ns", type=float, default=2.2, help="Sersic index N_s used in the background stellar profile")
     p.add_argument("--final-redshift", type=float, default=0.0, help="stop the evolution at this redshift instead of z=0")
     p.add_argument("--trace", type=Path, default=None, help="optional orbit-trace output path")
-    p.add_argument("--Eddington", type=float, default=0.0, help="dimensionless Eddington ratio for uncapped central BH growth; GC-hosted and non-central wandering IMBHs do not accrete")
     return p
 
 
@@ -1115,7 +871,6 @@ def main() -> None:
         sersic_n=args.ns,
         final_redshift=args.final_redshift,
         trace_path=args.trace,
-        eddington_ratio=args.Eddington,
     )
 
 

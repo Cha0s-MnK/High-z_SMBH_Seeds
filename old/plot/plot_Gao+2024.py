@@ -32,9 +32,9 @@ import sys
 from typing import Dict, List, Sequence, Tuple
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-SRC_DIR = PROJECT_ROOT / "src"
-if str(SRC_DIR) not in sys.path:
-    sys.path.insert(0, str(SRC_DIR))
+SRC_NEW_DIR = PROJECT_ROOT / "src_new"
+if str(SRC_NEW_DIR) not in sys.path:
+    sys.path.insert(0, str(SRC_NEW_DIR))
 
 from config import STD_DPI  # noqa: E402
 
@@ -934,7 +934,7 @@ def _load_final_gcs_table(
 
     columns = _read_comment_columns(path)
     col_index = {name: idx for idx, name in enumerate(columns)}
-    for required in ["halo_id_z0", "gc_index_halo", "status", "M_GC_final", "r_final_kpc"]:
+    for required in ["halo_id_z0", "gc_index_halo", "status", "m_final_msun", "r_final_kpc"]:
         if required not in col_index:
             raise ValueError(f"Missing required column '{required}' in {path}.")
 
@@ -965,7 +965,7 @@ def _load_final_gcs_table(
         )
 
     status = np.asarray(arr[:, col_index["status"]], dtype=int)
-    m_final = np.asarray(arr[:, col_index["M_GC_final"]], dtype=float)
+    m_final = np.asarray(arr[:, col_index["m_final_msun"]], dtype=float)
     r_final = np.asarray(arr[:, col_index["r_final_kpc"]], dtype=float)
     m_final = np.where(np.isfinite(m_final) & (m_final > 0), m_final, 0.0)
     r_final = np.where(np.isfinite(r_final) & (r_final > 0), r_final, np.nan)
@@ -976,7 +976,7 @@ def _load_halo_summary(path: Path) -> pd.DataFrame:
     """Load one per-N_s halo summary table."""
 
     df = pd.read_csv(path)
-    required = ["hid_z0", "M_IMBH_init_tot", "M_SMBH_final", "M_NSC", "n_sunk"]
+    required = ["hid_z0", "m_imbh_seed_total_msun", "m_smbh_est_msun", "n_sunk"]
     for col in required:
         if col not in df.columns:
             raise ValueError(f"Missing required column '{col}' in {path}.")
@@ -985,13 +985,93 @@ def _load_halo_summary(path: Path) -> pd.DataFrame:
         if col == "hid_z0":
             continue
         df[col] = pd.to_numeric(df[col], errors="coerce")
-    for col in ["M_SMBH_final", "M_NSC"]:
-        vals = df[col].to_numpy(dtype=float)
-        if not np.all(np.isfinite(vals)):
-            raise ValueError(f"Column {col} contains non-finite values in {path}.")
-        if np.any(vals < 0.0):
-            raise ValueError(f"Column {col} contains negative values in {path}.")
     return df.sort_values("hid_z0").reset_index(drop=True)
+
+
+def _build_halo_summary_from_final_gcs(
+    path: Path,
+    gc_ns: pd.DataFrame,
+    expected_halo_ids: np.ndarray,
+) -> pd.DataFrame:
+    """Reconstruct the halo summary when a published CSV is absent.
+
+    Older Gao output trees may have the merged ``finalGCs_ns*.dat`` tables but
+    not the later ``haloSummary_ns*.csv`` files. The BH statistics needed by
+    Figures 10 and 11 can still be derived exactly from the per-GC final table
+    because it already stores the halo id, status code, initial/final GC mass,
+    and the IMBH seed mass for each formed cluster.
+    """
+
+    columns = _read_comment_columns(path)
+    col_index = {name: idx for idx, name in enumerate(columns)}
+    required = [
+        "halo_id_z0",
+        "status",
+        "m_final_msun",
+        "m_init_msun",
+        "imbh_mass_msun",
+    ]
+    for required_col in required:
+        if required_col not in col_index:
+            raise ValueError(f"Missing required column '{required_col}' in {path}.")
+
+    arr = np.asarray(np.loadtxt(path, ndmin=2), dtype=float)
+    if len(arr) != len(expected_halo_ids):
+        raise ValueError(
+            f"Length mismatch for finalGCs table: {path} has {len(arr)} rows, "
+            f"expected {len(expected_halo_ids)}."
+        )
+
+    halo_ids = np.asarray(arr[:, col_index["halo_id_z0"]], dtype=int)
+    if not np.array_equal(halo_ids, np.asarray(expected_halo_ids, dtype=int)):
+        raise ValueError(
+            f"Row-order mismatch between {path} and the matching allcat_ns file "
+            "when rebuilding haloSummary."
+        )
+
+    status = np.asarray(arr[:, col_index["status"]], dtype=int)
+    m_final = np.asarray(arr[:, col_index["m_final_msun"]], dtype=float)
+    m_final = np.where(np.isfinite(m_final) & (m_final > 0.0), m_final, 0.0)
+    m_init = np.asarray(arr[:, col_index["m_init_msun"]], dtype=float)
+    m_init = np.where(np.isfinite(m_init) & (m_init > 0.0), m_init, 0.0)
+    imbh = np.asarray(arr[:, col_index["imbh_mass_msun"]], dtype=float)
+    imbh = np.where(np.isfinite(imbh) & (imbh > 0.0), imbh, 0.0)
+
+    gc_tmp = gc_ns[["hid_z0", "logMh_z0"]].copy()
+    gc_tmp["status"] = status
+    gc_tmp["m_init_msun"] = m_init
+    gc_tmp["m_final_msun"] = m_final
+    gc_tmp["imbh_mass_msun"] = imbh
+
+    rows: List[dict] = []
+    for hid, grp in gc_tmp.groupby("hid_z0", sort=True):
+        s = grp["status"].to_numpy(dtype=int)
+        seed_mass = grp["imbh_mass_msun"].to_numpy(dtype=float)
+        n_sunk_gc = int(np.sum(s == -3))
+        n_sunk_wanderer = int(np.sum(s == -5))
+        m_smbh_gc_sunk = float(seed_mass[s == -3].sum())
+        m_smbh_wanderer_sunk = float(seed_mass[s == -5].sum())
+        rows.append(
+            {
+                "hid_z0": int(hid),
+                "logMh_z0": float(grp["logMh_z0"].iloc[0]),
+                "n_gc_total": int(len(grp)),
+                "n_alive": int(np.sum(s == 1)),
+                "n_wanderer": int(np.sum(s == -4)),
+                "n_exhausted": int(np.sum(s == -1)),
+                "n_torn": int(np.sum(s == -2)),
+                "n_sunk_gc": n_sunk_gc,
+                "n_sunk_wanderer": n_sunk_wanderer,
+                "n_sunk": n_sunk_gc + n_sunk_wanderer,
+                "m_gc_init_total_msun": float(grp["m_init_msun"].sum()),
+                "m_gc_final_total_msun": float(grp["m_final_msun"].sum()),
+                "m_imbh_seed_total_msun": float(seed_mass.sum()),
+                "m_smbh_gc_sunk_msun": m_smbh_gc_sunk,
+                "m_smbh_wanderer_sunk_msun": m_smbh_wanderer_sunk,
+                "m_smbh_est_msun": m_smbh_gc_sunk + m_smbh_wanderer_sunk,
+            }
+        )
+    return pd.DataFrame(rows).sort_values("hid_z0").reset_index(drop=True)
 
 
 def _find_deposit_file(allcat_ns_path: Path) -> Path | None:
@@ -1107,9 +1187,14 @@ def simulate_models(
             expected_halo_ids=np.asarray(gc_ns["hid_z0"], dtype=int),
         )
         halo_summary_path = _find_halo_summary_file(allcat_ns_path)
-        if halo_summary_path is None:
-            raise FileNotFoundError(f"Missing haloSummary file for {allcat_ns_path.name}.")
-        halo_summary = _load_halo_summary(halo_summary_path)
+        if halo_summary_path is not None:
+            halo_summary = _load_halo_summary(halo_summary_path)
+        else:
+            halo_summary = _build_halo_summary_from_final_gcs(
+                final_gcs_path,
+                gc_ns=gc_ns,
+                expected_halo_ids=np.asarray(gc_ns["hid_z0"], dtype=int),
+            )
 
         deposit_profile = _load_deposit_profile(allcat_ns_path)
 
@@ -1246,7 +1331,6 @@ def _deposit_mean_profile(
     *,
     grid_kpc: np.ndarray | None = None,
     halo_ids: np.ndarray | None = None,
-    nsc_mass_by_halo: pd.Series | None = None,
 ) -> Tuple[np.ndarray, np.ndarray]:
     """Average deposited cumulative profile for a halo subset.
 
@@ -1277,8 +1361,6 @@ def _deposit_mean_profile(
         # Deposit tables are already cumulative in radius, so only a 1D radial
         # interpolation is needed before taking the halo-average profile.
         prof[jj] = np.interp(grid, radii, cum, left=0.0, right=cum[-1])
-        if nsc_mass_by_halo is not None:
-            prof[jj] += float(nsc_mass_by_halo.get(int(profile.halo_ids[ii]), 0.0))
     return grid, np.mean(prof, axis=0)
 
 
@@ -1469,32 +1551,45 @@ def _halo_level_table(
                 "M_halo": float(np.power(10.0, g["logMh_z0"].iloc[0])),
                 "M_gc_init": float(g["M_form"].sum()),
                 "M_gc_final": float(g["M_final"].sum()),
+                "M_nsc": 0.0,
             }
         )
 
     out = pd.DataFrame(rows).set_index("hid_z0").sort_index()
+    if model.deposit_profile is not None and nsc_radius_kpc is not None:
+        # Preferred NSC proxy: deposited mass within the adopted NSC radius.
+        halo_ids_dep, m_dep = _deposit_mass_within_radius(
+            model.deposit_profile,
+            float(nsc_radius_kpc),
+        )
+        if len(halo_ids_dep) > 0:
+            out.loc[halo_ids_dep, "M_nsc"] = m_dep
+    else:
+        # Fallback for older outputs without deposit tables: use surviving GC
+        # mass inside a fixed central aperture.
+        out["M_nsc"] = [
+            float(temp.loc[(temp["hid_z0"] == hid) & (temp["r_final"] <= 0.3), "M_final"].sum())
+            for hid in out.index.to_numpy(dtype=int)
+        ]
     if model.halo_summary is not None and len(model.halo_summary) > 0:
         hs = model.halo_summary[
-            ["hid_z0", "M_IMBH_init_tot", "M_SMBH_final", "M_NSC", "n_sunk"]
+            ["hid_z0", "m_imbh_seed_total_msun", "m_smbh_est_msun", "n_sunk"]
         ].copy()
         hs["hid_z0"] = hs["hid_z0"].astype(int)
         hs = hs.set_index("hid_z0").sort_index()
         out = out.join(
             hs.rename(
                 columns={
-                    "M_IMBH_init_tot": "M_bh_total",
-                    "M_SMBH_final": "M_smbh",
-                    "M_NSC": "M_nsc",
+                    "m_imbh_seed_total_msun": "M_bh_total",
+                    "m_smbh_est_msun": "M_smbh",
                 }
             ),
             how="left",
         )
     else:
-        out["M_nsc"] = 0.0
         out["M_bh_total"] = 0.0
         out["M_smbh"] = 0.0
         out["n_sunk"] = 0
-    out["M_nsc"] = pd.to_numeric(out["M_nsc"], errors="coerce").fillna(0.0)
     out["M_bh_total"] = pd.to_numeric(out["M_bh_total"], errors="coerce").fillna(0.0)
     out["M_smbh"] = pd.to_numeric(out["M_smbh"], errors="coerce").fillna(0.0)
     out["n_sunk"] = pd.to_numeric(out["n_sunk"], errors="coerce").fillna(0).astype(int)
@@ -1502,9 +1597,9 @@ def _halo_level_table(
     out["logM_halo"] = _safe_log10(out["M_halo"].to_numpy())
     out["logM_gc_init"] = _safe_log10(out["M_gc_init"].to_numpy())
     out["logM_gc_final"] = _safe_log10(out["M_gc_final"].to_numpy())
-    out["logM_nsc"] = _safe_log10(out["M_nsc"].to_numpy())
-    out["logM_bh_total"] = _safe_log10(out["M_bh_total"].to_numpy())
-    out["logM_smbh"] = _safe_log10(out["M_smbh"].to_numpy())
+    out["logM_nsc"] = _safe_log10(np.clip(out["M_nsc"].to_numpy(), 1.0, None))
+    out["logM_bh_total"] = _safe_log10(np.clip(out["M_bh_total"].to_numpy(), 1.0, None))
+    out["logM_smbh"] = _safe_log10(np.clip(out["M_smbh"].to_numpy(), 1.0, None))
     return out
 
 
@@ -1571,7 +1666,7 @@ def build_reproduction(
     written_paths: List[Path] = []
 
     def save(fig_num: int, stem: str) -> Path:
-        path = output_dir / f"Fig.{fig_num:02d}_{stem}.pdf"
+        path = output_dir / f"Fig.{fig_num:02d}_{stem}.png"
         plt.savefig(path, dpi=STD_DPI, bbox_inches="tight")
         written_paths.append(path)
         plt.close()
@@ -1850,14 +1945,9 @@ def build_reproduction(
             r_grid_pc,
         )
         if model.deposit_profile is not None:
-            # Newer outputs split terminal NSC transfers from the radial
-            # deposit table, so include M_NSC in the enclosed stellar mass.
-            nsc_mass_by_halo = model.halo_summary.set_index("hid_z0")["M_NSC"]
-            r_dep_kpc, c_final = _deposit_mean_profile(
-                model.deposit_profile,
-                grid_kpc=r_grid_pc / 1000.0,
-                nsc_mass_by_halo=nsc_mass_by_halo,
-            )
+            # Newer outputs provide the deposited cumulative profile directly,
+            # which is the quantity intended for the central-mass panels.
+            r_dep_kpc, c_final = _deposit_mean_profile(model.deposit_profile, grid_kpc=r_grid_pc / 1000.0)
             r_dep_pc = 1000.0 * r_dep_kpc
         else:
             r_dep_pc = r_grid_pc
@@ -1950,7 +2040,6 @@ def build_reproduction(
     bg_lw = 0.45
     bg_alpha = 0.10
     mass_form_all = gc["M_form"].to_numpy(dtype=float)
-    nsc_mass_by_halo_ref = model_ref.halo_summary.set_index("hid_z0")["M_NSC"]
     for hid in np.unique(halo_ids):
         hmask = halo_ids == hid
         c_init_h = _cumulative_profile(
@@ -1961,8 +2050,7 @@ def build_reproduction(
         ax.plot(r_grid_pc, c_init_h, "--", lw=bg_lw, color=bg_init_color, alpha=bg_alpha, zorder=1)
     if model_ref.deposit_profile is not None:
         grid_kpc = r_grid_pc / 1000.0
-        for hid, radii, cum in zip(
-            model_ref.deposit_profile.halo_ids,
+        for radii, cum in zip(
             model_ref.deposit_profile.r_outer_kpc,
             model_ref.deposit_profile.cumulative_mass_msun,
         ):
@@ -1971,7 +2059,6 @@ def build_reproduction(
             if len(radii) == 0 or len(cum) == 0:
                 continue
             c_dep_h = np.interp(grid_kpc, radii, cum, left=0.0, right=cum[-1])
-            c_dep_h = c_dep_h + float(nsc_mass_by_halo_ref.get(int(hid), 0.0))
             ax.plot(r_grid_pc, c_dep_h, "-", lw=bg_lw, color=bg_dep_color, alpha=bg_alpha, zorder=1)
     else:
         final_mask_all = _final_survivor_mask(model_ref)
@@ -1998,7 +2085,6 @@ def build_reproduction(
                 model_ref.deposit_profile,
                 grid_kpc=r_grid_pc / 1000.0,
                 halo_ids=hid_sel,
-                nsc_mass_by_halo=nsc_mass_by_halo_ref,
             )
             r_dep_pc = 1000.0 * r_dep_kpc
         else:

@@ -34,7 +34,6 @@ M_sun     = 1.988416e30           # solar mass [kg] (reference: https://en.wikip
 N_A       = 6.02214076e23         # Avogadro constant [mol⁻¹] (reference: https://en.wikipedia.org/wiki/Avogadro_constant)
 pc        = 3.0856775814913673e16 # parsec [m] (reference: https://en.wikipedia.org/wiki/Parsec)
 PI        = np.pi                 # π
-sigma_T   = 6.6524587321e-29      # Thomson cross section [m^2]
 yr        = 365.25 * 24 * 3600    # Julian year [s]
 
 kpc       = 1.0e3 * pc            # kiloparsec [m]
@@ -56,13 +55,6 @@ H100 = 0.704
 NUM_PROC = 16
 OUT_DIR  = "/lingshan/disk3/subonan/_output"
 STD_DPI  = 512
-
-# Single physical aperture for the nuclear star cluster proxy and GC sink.
-# Units: pc.  Code that needs kpc should use ``NSC_RADIUS_PC * 1.0e-3``.
-NSC_RADIUS_PC = 1.0
-
-EDDINGTON_EPSILON = 0.1
-CENTRAL_BH_WARNING_MASS_MSUN = 1.0e12
 
 # ================== #
 # HELPER FUNCTION(S) #
@@ -87,58 +79,6 @@ def check_finite_positive(val, name="val"):
     if not np.isfinite(val) or val <= 0.0:
         raise ValueError(f"{name} must be finite and positive, but got {val}!")
     return val
-
-def check_eddington_ratio(f_edd):
-    return check_finite_non_negative(f_edd, name="Eddington ratio f_Edd")
-
-def eddington_salpeter_time_gyr(epsilon: float = EDDINGTON_EPSILON) -> float:
-    epsilon = check_finite_positive(epsilon, name="Eddington radiative efficiency epsilon")
-    if epsilon >= 1.0:
-        raise ValueError("Eddington radiative efficiency epsilon must be < 1.")
-    t_sec = epsilon * sigma_T * c / (4.0 * PI * G * m_p * (1.0 - epsilon))
-    return t_sec / Gyr
-
-def grow_eddington_mass_msun(
-    m_bh_msun,
-    dt_gyr: float,
-    f_edd: float,
-    epsilon: float = EDDINGTON_EPSILON,
-    *,
-    overflow_policy: str = "raise",
-):
-    mass = np.asarray(m_bh_msun, dtype=float)
-    scalar_output = mass.ndim == 0
-    dt_gyr = check_finite_non_negative(dt_gyr, name="Eddington growth timestep dt_gyr")
-    f_edd = check_eddington_ratio(f_edd)
-    if np.any(~np.isfinite(mass)) or np.any(mass < 0.0):
-        raise ValueError("Eddington growth input mass must be finite and non-negative.")
-    if f_edd == 0.0 or dt_gyr == 0.0 or np.all(mass == 0.0):
-        return float(mass) if scalar_output else mass.copy()
-
-    t_salp_gyr = eddington_salpeter_time_gyr(epsilon=epsilon)
-    exponent = f_edd * dt_gyr / t_salp_gyr
-    if not np.isfinite(exponent):
-        raise ValueError("Eddington growth exponent must be finite.")
-
-    try:
-        growth = math.exp(exponent)
-    except OverflowError:
-        if overflow_policy == "warn_inf":
-            growth = np.inf
-        else:
-            raise
-    grown = mass * growth
-    if np.any(~np.isfinite(grown)):
-        if overflow_policy == "warn_inf":
-            grown = np.where(mass > 0.0, np.inf, mass)
-        elif overflow_policy == "ignore":
-            grown = grown
-        else:
-            raise OverflowError("Eddington growth produced a non-finite BH mass.")
-    return float(grown) if scalar_output else grown
-
-def central_bh_mass_warning_needed(m_bh_msun):
-    return np.any(np.asarray(m_bh_msun, dtype=float) > CENTRAL_BH_WARNING_MASS_MSUN)
 
 # linear interpolation on a uniformly spaced grid
 

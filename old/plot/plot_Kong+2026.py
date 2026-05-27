@@ -2,7 +2,7 @@
 # Licensed under BSD-3-Clause License - see LICENSE
 
 """
-Plot IMBH seed diagnostics and stored central-BH summaries from one finished run.
+Plot IMBH seed diagnostics and sunk-BH summaries from one finished run.
 
 This script reads one per-``N_s`` formation catalogue for Fig.01 and Fig.02:
 initial cluster mass versus radius, and initial surface density versus
@@ -52,43 +52,18 @@ SRC_DIR = PROJECT_ROOT / "src"
 if str(SRC_DIR) not in sys.path:
     sys.path.insert(0, str(SRC_DIR))
 
-from config import Mstar_SMHM, STD_DPI, imbh_mass_from_sigma_metallicity  # noqa: E402
-
-
-class IMBHModelConfig:
-    def __init__(self, *, enabled: bool = True, fh: float = 0.125, metallicity_kind: str = "feh") -> None:
-        self.enabled = bool(enabled)
-        self.fh = float(fh)
-        self.metallicity_kind = str(metallicity_kind)
-
-
-class IMBHModel:
-    def __init__(self, config: IMBHModelConfig) -> None:
-        self.config = config
-
-    def radius_eq7(self, cluster_mass_msun):
-        mass = np.asarray(cluster_mass_msun, dtype=float)
-        radius = self.config.fh * 2.365 / 1.3 * (np.clip(mass, 1.0e-30, None) / 1.0e4) ** 0.180
-        return float(radius) if radius.ndim == 0 else radius
-
-    def imbh_mass_from_sigma_metallicity(self, sigma_h_msun_pc2, metallicity):
-        if self.config.metallicity_kind == "z_ratio":
-            z_ratio = metallicity
-        else:
-            z_ratio = np.power(10.0, np.asarray(metallicity, dtype=float))
-        return imbh_mass_from_sigma_metallicity(sigma_h_msun_pc2, z_ratio)
+from config import Mstar_SMHM, STD_DPI  # noqa: E402
+from IMBH import IMBHModel, IMBHModelConfig  # noqa: E402
 
 DEFAULT_OUT_DIR = Path("/lingshan/disk3/subonan/_outputs/High-z_SMBHs_Orig_R0.5_z0")
 DEFAULT_CLIFF_DATA_DIR = PROJECT_ROOT / "data" / "TheCliff+2026"
-if not DEFAULT_CLIFF_DATA_DIR.is_dir():
-    DEFAULT_CLIFF_DATA_DIR = PROJECT_ROOT.parent / "data" / "TheCliff+2026"
 NS_VALUE_DEFAULT = 2.0
-FIGURE_01_FILENAME = "Fig.01_initial_cluster_mass_radius_imbh_seeds.pdf"
-FIGURE_02_FILENAME = "Fig.02_initial_surface_density_metallicity_imbh_thresholds.pdf"
-FIGURE_03_FILENAME = "Fig.03_sunk_bh_mass_vs_halo_mass.pdf"
-FIGURE_04_FILENAME = "Fig.04_sunk_bh_mass_vs_stellar_mass_at_redshift.pdf"
-FIGURE_05_FILENAME = "Fig.05_bh_mass_vs_nsc_mass_at_redshift.pdf"
-FIGURE_06_FILENAME = "Fig.06_sunk_bh_mass_histogram.pdf"
+FIGURE_01_FILENAME = "Fig.01_initial_cluster_mass_radius_imbh_seeds.png"
+FIGURE_02_FILENAME = "Fig.02_initial_surface_density_metallicity_imbh_thresholds.png"
+FIGURE_03_FILENAME = "Fig.03_sunk_bh_mass_vs_halo_mass.png"
+FIGURE_04_FILENAME = "Fig.04_sunk_bh_mass_vs_stellar_mass_at_redshift.png"
+FIGURE_05_FILENAME = "Fig.05_bh_mass_vs_nsc_mass_at_redshift.png"
+FIGURE_06_FILENAME = "Fig.06_sunk_bh_mass_histogram.png"
 HALO_MASS_UNIT_LABEL = r"M_{\odot}"
 SMHM_TOP_AXIS_DEFAULT = True
 CLIFF_OBS_FILENAME = "cliff_fig14_mbh_mstar_points.csv"
@@ -98,6 +73,8 @@ IMBH_CONTOUR_LEVELS = (100.0, 300.0, 1000.0, 3000.0)
 IMBH_SIZE_REFERENCE_MASSES = (100.0, 300.0, 1000.0, 3000.0)
 MIN_IMBH_PLOT_MASS_MSUN = 0.0
 SUNK_BH_STATUSES = (-3, -5)
+NSC_MASS_AVAILABLE_COLUMN = "nsc_mass_available"
+NSC_LOG_MASS_COLUMN = "logM_nsc_z_msun"
 TIMES_COMPATIBLE_FONT_PATHS = (
     Path("/usr/share/fonts/urw-base35/NimbusRoman-Regular.otf"),
     Path("/usr/share/fonts/urw-base35/NimbusRoman-Bold.otf"),
@@ -110,8 +87,9 @@ REQUIRED_SUMMARY_COLUMNS = [
     "lookback_to_z0_gyr",
     "halo_mass_available",
     "logMh_z_msun",
-    "M_NSC",
-    "M_SMBH_final",
+    "m_smbh_gc_sunk_msun",
+    "m_smbh_wanderer_sunk_msun",
+    "m_smbh_est_msun",
 ]
 REQUIRED_ALLCAT_COLUMNS = [
     "hid_z0",
@@ -123,12 +101,11 @@ REQUIRED_FORMATION_COLUMNS = [
     "feh",
     "gc_radius_pc",
     "sigma_h_msun_pc2",
-    "M_IMBH_init",
+    "imbh_mass_msun",
 ]
 REQUIRED_FINAL_GC_COLUMNS = [
     "status",
-    "M_IMBH_init",
-    "M_IMBH_final",
+    "imbh_mass_msun",
 ]
 REQUIRED_CLIFF_OBS_COLUMNS = [
     "name",
@@ -255,16 +232,15 @@ def _load_ns_final_gc_table(out_dir: Path, ns_value: float) -> pd.DataFrame:
         raise ValueError(f"{path} is missing required columns: {missing}")
 
     raw["status"] = pd.to_numeric(raw["status"], errors="coerce")
-    raw["M_IMBH_init"] = pd.to_numeric(raw["M_IMBH_init"], errors="coerce")
-    raw["M_IMBH_final"] = pd.to_numeric(raw["M_IMBH_final"], errors="coerce")
+    raw["imbh_mass_msun"] = pd.to_numeric(raw["imbh_mass_msun"], errors="coerce")
     if raw["status"].isna().any():
         raise ValueError(f"{path} contains non-numeric GC status values.")
     raw["status"] = raw["status"].astype(int)
     return raw.copy()
 
 
-def _imbh_marker_sizes(imbh_mass: np.ndarray) -> np.ndarray:
-    mass = np.asarray(imbh_mass, dtype=float)
+def _imbh_marker_sizes(imbh_mass_msun: np.ndarray) -> np.ndarray:
+    mass = np.asarray(imbh_mass_msun, dtype=float)
     sizes = np.full(mass.shape, 18.0, dtype=float)
     valid = np.isfinite(mass) & (mass > 0.0)
     if not np.any(valid):
@@ -363,10 +339,24 @@ def _attach_plot_masses(summary: pd.DataFrame, z0_halo_mass_lookup: Dict[int, fl
         np.log10(mstar),
         np.nan,
     )
-    out["M_NSC"] = pd.to_numeric(out["M_NSC"], errors="coerce")
-    out["M_SMBH_final"] = pd.to_numeric(out["M_SMBH_final"], errors="coerce")
-    if (out["M_NSC"].dropna() < 0.0).any() or (out["M_SMBH_final"].dropna() < 0.0).any():
-        raise ValueError("haloSummaryByZ contains negative M_NSC or M_SMBH_final values.")
+    if NSC_LOG_MASS_COLUMN in out.columns:
+        out[NSC_LOG_MASS_COLUMN] = pd.to_numeric(out[NSC_LOG_MASS_COLUMN], errors="coerce")
+        if NSC_MASS_AVAILABLE_COLUMN in out.columns:
+            out[NSC_MASS_AVAILABLE_COLUMN] = pd.to_numeric(
+                out[NSC_MASS_AVAILABLE_COLUMN],
+                errors="coerce",
+            ).fillna(0).astype(int)
+            valid_nsc = (
+                (out[NSC_MASS_AVAILABLE_COLUMN].to_numpy(dtype=int) == 1)
+                & np.isfinite(out[NSC_LOG_MASS_COLUMN].to_numpy(dtype=float))
+            )
+        else:
+            valid_nsc = np.isfinite(out[NSC_LOG_MASS_COLUMN].to_numpy(dtype=float))
+        out["m_nsc_z_msun"] = np.nan
+        out.loc[valid_nsc, "m_nsc_z_msun"] = np.power(
+            10.0,
+            out.loc[valid_nsc, NSC_LOG_MASS_COLUMN].to_numpy(dtype=float),
+        )
     return out
 
 
@@ -387,7 +377,7 @@ def _regular_log_bin_edges(values: Iterable[float], step_dex: float) -> np.ndarr
 
 def _bin_track(track: pd.DataFrame, edges: np.ndarray, x_log_col: str) -> pd.DataFrame:
     x_log = track[x_log_col].to_numpy(dtype=float)
-    y = track["M_SMBH_final"].to_numpy(dtype=float)
+    y = track["m_smbh_est_msun"].to_numpy(dtype=float)
     rows = []
     for idx, (left, right) in enumerate(zip(edges[:-1], edges[1:])):
         include_right = idx == len(edges) - 2
@@ -565,7 +555,7 @@ def plot_fig01(formation: pd.DataFrame) -> plt.Figure:
     cluster_mass = np.power(10.0, log_mass)
     radius_pc = formation["gc_radius_pc"].to_numpy(dtype=float)
     z_form = formation["zform"].to_numpy(dtype=float)
-    imbh_mass = formation["M_IMBH_init"].to_numpy(dtype=float)
+    imbh_mass = formation["imbh_mass_msun"].to_numpy(dtype=float)
     valid = (
         np.isfinite(cluster_mass)
         & (cluster_mass > 0.0)
@@ -632,7 +622,7 @@ def plot_fig02(formation: pd.DataFrame) -> plt.Figure:
     sigma_h = formation["sigma_h_msun_pc2"].to_numpy(dtype=float)
     feh = formation["feh"].to_numpy(dtype=float)
     z_form = formation["zform"].to_numpy(dtype=float)
-    imbh_mass = formation["M_IMBH_init"].to_numpy(dtype=float)
+    imbh_mass = formation["imbh_mass_msun"].to_numpy(dtype=float)
     valid = (
         np.isfinite(sigma_h)
         & (sigma_h > 0.0)
@@ -702,7 +692,7 @@ def plot_fig03(joined: pd.DataFrame, mass_bin_width_dex: float, add_stellar_mass
     x_log_col = "logMh_z0_msun"
     plot_rows = joined[
         np.isfinite(joined[x_log_col].to_numpy(dtype=float))
-        & np.isfinite(joined["M_SMBH_final"].to_numpy(dtype=float))
+        & np.isfinite(joined["m_smbh_est_msun"].to_numpy(dtype=float))
     ].copy()
     if len(plot_rows) == 0:
         raise ValueError("No finite rows are available for plotting.")
@@ -738,7 +728,7 @@ def plot_fig03(joined: pd.DataFrame, mass_bin_width_dex: float, add_stellar_mass
         n_tracks += 1
 
     if n_tracks == 0:
-        raise ValueError("All binned central-BH tracks are empty or non-positive.")
+        raise ValueError("All binned sunk-BH tracks are empty or non-positive.")
 
     colour_bar = fig.colorbar(mpl.cm.ScalarMappable(norm=norm, cmap=cmap), ax=ax, aspect=30, pad=0.0)
     colour_bar.set_label("Redshift z")
@@ -748,7 +738,7 @@ def plot_fig03(joined: pd.DataFrame, mass_bin_width_dex: float, add_stellar_mass
     ax.set_xscale("log")
     ax.set_yscale("log")
     ax.set_xlabel(rf"Descendant $z=0$ halo mass [${HALO_MASS_UNIT_LABEL}$]")
-    ax.set_ylabel(r"Stored central BH mass [$M_{\odot}$]")
+    ax.set_ylabel(r"Sunk BH mass [$M_{\odot}$]")
     ax.set_xlim(left=10.0**edges[0], right=10.0**edges[-1])
     ax.set_ylim(bottom=1.0e2, top=1.0e8)
     if add_stellar_mass_axis:
@@ -761,7 +751,7 @@ def plot_fig04(joined: pd.DataFrame, mass_bin_width_dex: float, observations: pd
     x_log_col = "logMstar_z_smhm_msun"
     plot_rows = joined[
         np.isfinite(joined[x_log_col].to_numpy(dtype=float))
-        & np.isfinite(joined["M_SMBH_final"].to_numpy(dtype=float))
+        & np.isfinite(joined["m_smbh_est_msun"].to_numpy(dtype=float))
     ].copy()
     if len(plot_rows) == 0:
         raise ValueError("No finite rows are available for plotting.")
@@ -801,7 +791,7 @@ def plot_fig04(joined: pd.DataFrame, mass_bin_width_dex: float, observations: pd
         n_tracks += 1
 
     if n_tracks == 0:
-        raise ValueError("All binned central-BH tracks are empty or non-positive.")
+        raise ValueError("All binned sunk-BH tracks are empty or non-positive.")
 
     colour_bar = fig.colorbar(mpl.cm.ScalarMappable(norm=norm, cmap=cmap), ax=ax, aspect=30, pad=0.0)
     colour_bar.set_label("Redshift z")
@@ -811,7 +801,7 @@ def plot_fig04(joined: pd.DataFrame, mass_bin_width_dex: float, observations: pd
     ax.set_xscale("log")
     ax.set_yscale("log")
     ax.set_xlabel(rf"Stellar mass at redshift $z$ from MPB $M_h(z)$ and SMHM [${HALO_MASS_UNIT_LABEL}$]")
-    ax.set_ylabel(r"Stored central BH mass [$M_{\odot}$]")
+    ax.set_ylabel(r"Sunk BH mass [$M_{\odot}$]")
     ax.set_xlim(left=10.0**x_limit_edges[0], right=10.0**x_limit_edges[-1])
     ax.set_ylim(bottom=1.0e2, top=1.0e8)
 
@@ -836,21 +826,21 @@ def plot_fig04(joined: pd.DataFrame, mass_bin_width_dex: float, observations: pd
 
 
 def plot_fig05(joined: pd.DataFrame) -> plt.Figure:
-    if "M_NSC" not in joined.columns:
+    if "m_nsc_z_msun" not in joined.columns:
         raise ValueError(
-            "Run output is missing the expected NSC mass column 'M_NSC'. "
+            f"Run output is missing the expected NSC mass column '{NSC_LOG_MASS_COLUMN}'. "
             "Regenerate the haloSummaryByZ output with redshift-resolved NSC masses."
         )
 
     plot_rows = joined[
-        np.isfinite(joined["M_NSC"].to_numpy(dtype=float))
-        & (joined["M_NSC"].to_numpy(dtype=float) > 0.0)
-        & np.isfinite(joined["M_SMBH_final"].to_numpy(dtype=float))
-        & (joined["M_SMBH_final"].to_numpy(dtype=float) > 0.0)
+        np.isfinite(joined["m_nsc_z_msun"].to_numpy(dtype=float))
+        & (joined["m_nsc_z_msun"].to_numpy(dtype=float) > 0.0)
+        & np.isfinite(joined["m_smbh_est_msun"].to_numpy(dtype=float))
+        & (joined["m_smbh_est_msun"].to_numpy(dtype=float) > 0.0)
         & np.isfinite(joined["z_out"].to_numpy(dtype=float))
     ].copy()
     if len(plot_rows) == 0:
-        raise ValueError("No finite positive NSC and central-BH masses are available for Fig.05.")
+        raise ValueError("No finite positive NSC and sunk-BH masses are available for Fig.05.")
 
     z_values = np.sort(plot_rows["z_out"].unique())
     if len(z_values) == 1:
@@ -861,8 +851,8 @@ def plot_fig05(joined: pd.DataFrame) -> plt.Figure:
 
     fig, ax = plt.subplots(1, 1, constrained_layout=True, dpi=STD_DPI, figsize=(6.8, 4.8))
     scatter = ax.scatter(
-        plot_rows["M_NSC"].to_numpy(dtype=float),
-        plot_rows["M_SMBH_final"].to_numpy(dtype=float),
+        plot_rows["m_nsc_z_msun"].to_numpy(dtype=float),
+        plot_rows["m_smbh_est_msun"].to_numpy(dtype=float),
         c=plot_rows["z_out"].to_numpy(dtype=float),
         cmap=cmap,
         norm=norm,
@@ -879,23 +869,23 @@ def plot_fig05(joined: pd.DataFrame) -> plt.Figure:
     ax.set_xscale("log")
     ax.set_yscale("log")
     ax.set_xlabel(rf"NSC mass at redshift $z$ [${HALO_MASS_UNIT_LABEL}$]")
-    ax.set_ylabel(r"Stored central BH mass [$M_{\odot}$]")
+    ax.set_ylabel(r"Sunk BH mass [$M_{\odot}$]")
     ax.grid(True, alpha=0.3, linestyle=":", which="both")
     ax.tick_params(direction="in", right=True, top=True, which="both")
     return fig
 
 
 def plot_fig06(final_gc: pd.DataFrame) -> plt.Figure:
-    imbh_mass = final_gc["M_IMBH_final"].to_numpy(dtype=float)
+    imbh_mass = final_gc["imbh_mass_msun"].to_numpy(dtype=float)
     status = final_gc["status"].to_numpy(dtype=int)
     if np.any(np.isfinite(imbh_mass) & (imbh_mass < 0.0)):
-        raise ValueError("Final-GC table contains negative M_IMBH_final values.")
+        raise ValueError("Final-GC table contains negative IMBH seed masses.")
 
     all_bh_mass = imbh_mass[np.isfinite(imbh_mass) & (imbh_mass > 0.0)]
     sunk_mask = np.isin(status, np.asarray(SUNK_BH_STATUSES, dtype=int))
     sunk_bh_mass = imbh_mass[sunk_mask & np.isfinite(imbh_mass) & (imbh_mass > 0.0)]
     if len(all_bh_mass) == 0:
-        raise ValueError("No positive final IMBH masses are available for Fig.06.")
+        raise ValueError("No positive BH seed masses are available for Fig.06.")
 
     log_mass = np.log10(all_bh_mass)
     log_lo = math.floor(float(np.nanmin(log_mass)) * 4.0) / 4.0
@@ -913,7 +903,7 @@ def plot_fig06(final_gc: pd.DataFrame) -> plt.Figure:
         alpha=0.55,
         edgecolor="0.45",
         linewidth=1.0,
-        label=_mass_hist_label("All IMBH rows", all_bh_mass),
+        label=_mass_hist_label("All original BH seeds", all_bh_mass),
     )
     counts_sunk = np.array([], dtype=float)
     if len(sunk_bh_mass) > 0:
@@ -923,16 +913,16 @@ def plot_fig06(final_gc: pd.DataFrame) -> plt.Figure:
             histtype="step",
             color="black",
             linewidth=1.8,
-            label=_mass_hist_label("Sunk IMBH rows", sunk_bh_mass),
+            label=_mass_hist_label("Sunk BH seeds", sunk_bh_mass),
         )
     else:
-        ax.plot([], [], c="black", lw=1.8, label=_mass_hist_label("Sunk IMBH rows", sunk_bh_mass))
+        ax.plot([], [], c="black", lw=1.8, label=_mass_hist_label("Sunk BH seeds", sunk_bh_mass))
 
     counts_nonzero = np.concatenate([counts_all[counts_all > 0.0], counts_sunk[counts_sunk > 0.0]])
     if len(counts_nonzero) > 0 and float(np.nanmax(counts_nonzero)) / max(float(np.nanmin(counts_nonzero)), 1.0) >= 20.0:
         ax.set_yscale("log")
     ax.set_xscale("log")
-    ax.set_xlabel(r"Final GC-line IMBH mass [$M_{\odot}$]")
+    ax.set_xlabel(r"BH seed mass [$M_{\odot}$]")
     ax.set_ylabel("Number of BHs per bin")
     ax.grid(True, alpha=0.3, linestyle=":", which="both")
     ax.legend(frameon=False, loc="best", ncol=1)
@@ -941,7 +931,7 @@ def plot_fig06(final_gc: pd.DataFrame) -> plt.Figure:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Plot IMBH seed diagnostics, central-BH halo tracks, SMHM comparison points, and NSC-BH mass points from one local High-z SMBHs output directory.")
+    parser = argparse.ArgumentParser(description="Plot IMBH seed diagnostics, sunk-BH halo tracks, SMHM comparison points, and NSC-BH mass points from one local High-z SMBHs output directory.")
     parser.add_argument("--out_dir", type=Path, default=DEFAULT_OUT_DIR, help="Model output directory containing ns*/allcat_ns*.txt, allcat_s-*.txt, and ns*/haloSummaryByZ_ns*.csv.")
     parser.add_argument("--plot_dir", type=Path, default=None, help="Plot output directory. Default: <out_dir>/_plots_Kong+2026")
     parser.add_argument("--ns-value", type=float, default=NS_VALUE_DEFAULT, help="Single N_s value used for all figures; Fig.01 and Fig.02 intentionally use only this per-N_s formation catalogue.")
