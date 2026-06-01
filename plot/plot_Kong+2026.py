@@ -9,11 +9,14 @@ initial cluster mass versus radius, and initial surface density versus
 metallicity with IMBH-mass threshold contours. It also reads the
 redshift-resolved halo summary and root ``allcat`` table written by
 ``my/run.py`` so Fig.03 plots sunk BH mass against descendant z=0 halo mass.
-Fig.04 converts the run-output same-redshift MPB halo masses to stellar
-masses with the project SMHM helper for comparison to observed ``M_BH-M_*``
-points. Fig.05 plots sunk BH mass against the redshift-resolved NSC mass when
-that column is present in the run output. Fig.06 compares the individual seed
-BH mass distribution for all BH seeds and the subset that sank into the centre.
+Fig.04 writes ``Fig.04_Mbh~Mstar.pdf`` after converting the run-output
+same-redshift MPB halo masses to stellar masses with the project SMHM helper
+for comparison to observed ``M_BH-M_*`` points. Fig.05 writes
+``Fig.05_Mbh~Mnsc.pdf`` and plots sunk BH mass against the redshift-resolved
+NSC mass when that column is present in the run output. Fig.06 compares the
+individual seed BH mass distribution for all BH seeds and the subset that sank
+into the centre. Fig.07 plots individual sunk IMBH mass against sunk GC stellar
+mass, including sunk wanderers, coloured by sunk redshift.
 """
 
 from __future__ import annotations
@@ -52,7 +55,16 @@ SRC_DIR = PROJECT_ROOT / "src"
 if str(SRC_DIR) not in sys.path:
     sys.path.insert(0, str(SRC_DIR))
 
-from config import Mstar_SMHM, STD_DPI, imbh_mass_from_sigma_metallicity  # noqa: E402
+from config import (  # noqa: E402
+    CosmicAge2Redshift,
+    Mstar_SMHM,
+    Redshift2CosmicAge,
+    STD_DPI,
+    imbh_mass_from_sigma_metallicity,
+)
+from load_obs import load_cliff_fig14_observations  # noqa: E402
+from load_output import build_kong_model, load_run_metadata  # noqa: E402
+from plot_common import plot_dir as default_plot_dir  # noqa: E402
 
 
 class IMBHModelConfig:
@@ -78,77 +90,32 @@ class IMBHModel:
             z_ratio = np.power(10.0, np.asarray(metallicity, dtype=float))
         return imbh_mass_from_sigma_metallicity(sigma_h_msun_pc2, z_ratio)
 
-DEFAULT_OUT_DIR = Path("/lingshan/disk3/subonan/_outputs/High-z_SMBHs_Orig_R0.5_z0")
-DEFAULT_CLIFF_DATA_DIR = PROJECT_ROOT / "data" / "TheCliff+2026"
-if not DEFAULT_CLIFF_DATA_DIR.is_dir():
-    DEFAULT_CLIFF_DATA_DIR = PROJECT_ROOT.parent / "data" / "TheCliff+2026"
 NS_VALUE_DEFAULT = 2.0
 FIGURE_01_FILENAME = "Fig.01_initial_cluster_mass_radius_imbh_seeds.pdf"
 FIGURE_02_FILENAME = "Fig.02_initial_surface_density_metallicity_imbh_thresholds.pdf"
 FIGURE_03_FILENAME = "Fig.03_sunk_bh_mass_vs_halo_mass.pdf"
-FIGURE_04_FILENAME = "Fig.04_sunk_bh_mass_vs_stellar_mass_at_redshift.pdf"
-FIGURE_05_FILENAME = "Fig.05_bh_mass_vs_nsc_mass_at_redshift.pdf"
+FIGURE_04_FILENAME = "Fig.04_Mbh~Mstar.pdf"
+FIGURE_05_FILENAME = "Fig.05_Mbh~Mnsc.pdf"
 FIGURE_06_FILENAME = "Fig.06_sunk_bh_mass_histogram.pdf"
+FIGURE_07_FILENAME = "Fig.07_sunkMimbh~sunkMgc.pdf"
 HALO_MASS_UNIT_LABEL = r"M_{\odot}"
 SMHM_TOP_AXIS_DEFAULT = True
-CLIFF_OBS_FILENAME = "cliff_fig14_mbh_mstar_points.csv"
 BH_TO_STELLAR_MASS_RATIOS = (0.01, 0.1, 1.0)
 FH_VALUES = (0.125, 0.184, 0.269, 0.395, 0.580)
 IMBH_CONTOUR_LEVELS = (100.0, 300.0, 1000.0, 3000.0)
 IMBH_SIZE_REFERENCE_MASSES = (100.0, 300.0, 1000.0, 3000.0)
 MIN_IMBH_PLOT_MASS_MSUN = 0.0
-SUNK_BH_STATUSES = (-3, -5)
+SYMLINTHRESH_MGC_MSUN = 1.0e3
+STATUS_SUNK_GC = -3
+STATUS_WANDERER = -4
+STATUS_SUNK_WANDERER = -5
+SUNK_BH_STATUSES = (STATUS_SUNK_GC, STATUS_SUNK_WANDERER)
 TIMES_COMPATIBLE_FONT_PATHS = (
     Path("/usr/share/fonts/urw-base35/NimbusRoman-Regular.otf"),
     Path("/usr/share/fonts/urw-base35/NimbusRoman-Bold.otf"),
     Path("/usr/share/fonts/urw-base35/NimbusRoman-Italic.otf"),
     Path("/usr/share/fonts/urw-base35/NimbusRoman-BoldItalic.otf"),
 )
-REQUIRED_SUMMARY_COLUMNS = [
-    "hid_z0",
-    "z_out",
-    "lookback_to_z0_gyr",
-    "halo_mass_available",
-    "logMh_z_msun",
-    "M_NSC",
-    "M_SMBH_final",
-]
-REQUIRED_ALLCAT_COLUMNS = [
-    "hid_z0",
-    "logMh_z0",
-]
-REQUIRED_FORMATION_COLUMNS = [
-    "logM_form",
-    "zform",
-    "feh",
-    "gc_radius_pc",
-    "sigma_h_msun_pc2",
-    "M_IMBH_init",
-]
-REQUIRED_FINAL_GC_COLUMNS = [
-    "status",
-    "M_IMBH_init",
-    "M_IMBH_final",
-]
-REQUIRED_CLIFF_OBS_COLUMNS = [
-    "name",
-    "sample",
-    "reference",
-    "z",
-    "logMstar",
-    "logMstar_err_lo",
-    "logMstar_err_hi",
-    "logMstar_upper_limit",
-    "logMBH",
-    "logMBH_err_lo",
-    "logMBH_err_hi",
-    "logMBH_upper_limit",
-    "plot_group",
-    "marker",
-    "color",
-    "source_note",
-]
-
 
 def _ns_tag(ns_value: float) -> str:
     return f"{float(ns_value):.1f}".replace(".", "p")
@@ -189,24 +156,6 @@ def _apply_plot_style() -> None:
         plt.rcParams["text.latex.preamble"] = r"\usepackage{amsmath} \usepackage{bm}"
 
 
-def _load_summary_table(out_dir: Path, ns_value: float) -> pd.DataFrame:
-    ns_tag = _ns_tag(ns_value)
-    path = out_dir / f"ns{ns_tag}" / f"haloSummaryByZ_ns{ns_tag}.csv"
-    if not path.exists():
-        raise FileNotFoundError(f"Missing redshift-resolved halo summary: {path}")
-    table = pd.read_csv(path)
-    missing = [name for name in REQUIRED_SUMMARY_COLUMNS if name not in table.columns]
-    if missing:
-        if "halo_mass_available" in missing or "logMh_z_msun" in missing:
-            raise ValueError(
-                f"{path} is missing required same-redshift halo-mass columns: {missing}. "
-                "This output was produced before halo masses at z_out were stored. "
-                "Regenerate the run output with the updated my/run.py."
-            )
-        raise ValueError(f"{path} is missing required columns: {missing}")
-    return table.copy()
-
-
 def _read_comment_columns(path: Path) -> List[str]:
     with path.open("r", encoding="utf-8") as fh:
         for line in fh:
@@ -215,52 +164,6 @@ def _read_comment_columns(path: Path) -> List[str]:
                 if text:
                     return text.split()
     raise ValueError(f"Cannot find header columns in {path}")
-
-
-def _load_ns_formation_table(out_dir: Path, ns_value: float) -> pd.DataFrame:
-    ns_tag = _ns_tag(ns_value)
-    ns_dir = out_dir / f"ns{ns_tag}"
-    candidates = sorted(ns_dir.glob(f"allcat_ns{ns_tag}_s-*_p2-*_p3-*.txt"))
-    if len(candidates) == 0:
-        raise FileNotFoundError(f"Missing per-N_s formation catalogue in {ns_dir}. Expected allcat_ns{ns_tag}_s-*_p2-*_p3-*.txt.")
-    if len(candidates) > 1:
-        names = ", ".join(path.name for path in candidates)
-        raise RuntimeError(f"Found multiple per-N_s formation catalogues in {ns_dir}; expected exactly one: {names}")
-
-    path = candidates[0]
-    columns = _read_comment_columns(path)
-    raw = pd.read_csv(path, sep=r"\s+", comment="#", header=None, engine="python")
-    raw = raw.iloc[:, : len(columns)].copy()
-    raw.columns = columns[: raw.shape[1]]
-    missing = [name for name in REQUIRED_FORMATION_COLUMNS if name not in raw.columns]
-    if missing:
-        raise ValueError(f"{path} is missing required columns: {missing}")
-    for col in REQUIRED_FORMATION_COLUMNS:
-        raw[col] = pd.to_numeric(raw[col], errors="coerce")
-    return raw.copy()
-
-
-def _load_ns_final_gc_table(out_dir: Path, ns_value: float) -> pd.DataFrame:
-    ns_tag = _ns_tag(ns_value)
-    path = out_dir / f"ns{ns_tag}" / f"finalGCs_ns{ns_tag}.dat"
-    if not path.exists():
-        raise FileNotFoundError(f"Missing per-N_s final-GC catalogue: {path}")
-
-    columns = _read_comment_columns(path)
-    raw = pd.read_csv(path, sep=r"\s+", comment="#", header=None, engine="python")
-    raw = raw.iloc[:, : len(columns)].copy()
-    raw.columns = columns[: raw.shape[1]]
-    missing = [name for name in REQUIRED_FINAL_GC_COLUMNS if name not in raw.columns]
-    if missing:
-        raise ValueError(f"{path} is missing required columns: {missing}")
-
-    raw["status"] = pd.to_numeric(raw["status"], errors="coerce")
-    raw["M_IMBH_init"] = pd.to_numeric(raw["M_IMBH_init"], errors="coerce")
-    raw["M_IMBH_final"] = pd.to_numeric(raw["M_IMBH_final"], errors="coerce")
-    if raw["status"].isna().any():
-        raise ValueError(f"{path} contains non-numeric GC status values.")
-    raw["status"] = raw["status"].astype(int)
-    return raw.copy()
 
 
 def _imbh_marker_sizes(imbh_mass: np.ndarray) -> np.ndarray:
@@ -288,28 +191,30 @@ def _mass_hist_label(label: str, masses: np.ndarray) -> str:
     return f"{label} (N={len(mass)}, median={np.median(mass):.2g} $M_\\odot$)"
 
 
-def _load_z0_halo_mass_lookup(out_dir: Path) -> Dict[int, float]:
-    allcat_candidates = sorted(out_dir.glob("allcat_s-*.txt"))
-    if len(allcat_candidates) == 0:
-        raise FileNotFoundError(f"Missing root allcat file in {out_dir}. Expected one file matching allcat_s-*.txt.")
-    if len(allcat_candidates) > 1:
-        names = ", ".join(path.name for path in allcat_candidates)
-        raise RuntimeError(f"Found multiple root allcat files in {out_dir}; expected exactly one: {names}")
+def _redshift_from_final_lookback(lookback_time_gyr: np.ndarray, final_redshift: float) -> np.ndarray:
+    lookback = np.asarray(lookback_time_gyr, dtype=float)
+    if np.any(~np.isfinite(lookback)):
+        raise ValueError("Cannot convert non-finite final-GC lookback times to sunk redshifts.")
+    if np.any(lookback < 0.0):
+        raise ValueError("Cannot convert negative final-GC lookback times to sunk redshifts.")
 
-    path = allcat_candidates[0]
-    columns = _read_comment_columns(path)
-    raw = pd.read_csv(path, sep=r"\s+", comment="#", header=None, engine="python")
-    raw = raw.iloc[:, : len(columns)].copy()
-    raw.columns = columns[: raw.shape[1]]
-    missing = [name for name in REQUIRED_ALLCAT_COLUMNS if name not in raw.columns]
-    if missing:
-        raise ValueError(f"{path} is missing required columns: {missing}")
-    for col in REQUIRED_ALLCAT_COLUMNS:
-        raw[col] = pd.to_numeric(raw[col], errors="coerce")
-    table = raw.dropna(subset=REQUIRED_ALLCAT_COLUMNS).copy()
-    table["hid_z0"] = table["hid_z0"].astype(int)
-    grouped = table.groupby("hid_z0", sort=True)["logMh_z0"].first()
-    return {int(hid): float(logmh) for hid, logmh in grouped.items()}
+    final_age_gyr = float(Redshift2CosmicAge(float(final_redshift), time_unit="Gyr"))
+    if np.any(lookback > final_age_gyr):
+        max_lookback = float(np.nanmax(lookback))
+        raise ValueError(
+            "Final-GC lookback time is older than the final cosmic age: "
+            f"max_lookback={max_lookback:.6g} Gyr, final_age={final_age_gyr:.6g} Gyr."
+        )
+
+    event_age_gyr = final_age_gyr - lookback
+    if np.any(event_age_gyr <= 0.0):
+        min_event_age = float(np.nanmin(event_age_gyr))
+        raise ValueError(f"Final-GC sunk event has non-positive cosmic age: {min_event_age:.6g} Gyr.")
+
+    return np.asarray(
+        [CosmicAge2Redshift(float(age), time_unit="Gyr") for age in event_age_gyr],
+        dtype=float,
+    )
 
 
 def _stellar_mass_from_halo_mass_at_redshift(
@@ -458,35 +363,6 @@ def _as_bool(value: object) -> bool:
     if pd.isna(value):
         return False
     return str(value).strip().lower() in {"1", "true", "t", "yes", "y"}
-
-
-def _load_cliff_fig14_observations(data_dir: Path) -> pd.DataFrame:
-    path = data_dir / CLIFF_OBS_FILENAME
-    if not path.exists():
-        raise FileNotFoundError(f"Missing Cliff Fig.14 observation table: {path}")
-    table = pd.read_csv(path)
-    missing = [name for name in REQUIRED_CLIFF_OBS_COLUMNS if name not in table.columns]
-    if missing:
-        raise ValueError(f"{path} is missing required columns: {missing}")
-
-    numeric_columns = [
-        "z",
-        "logMstar",
-        "logMstar_err_lo",
-        "logMstar_err_hi",
-        "logMBH",
-        "logMBH_err_lo",
-        "logMBH_err_hi",
-    ]
-    for column in numeric_columns:
-        table[column] = pd.to_numeric(table[column], errors="coerce")
-    for column in ["logMstar_upper_limit", "logMBH_upper_limit"]:
-        table[column] = table[column].map(_as_bool)
-    for column in ["name", "sample", "reference", "plot_group", "marker", "color", "source_note"]:
-        table[column] = table[column].fillna("").astype(str)
-
-    valid = np.isfinite(table["logMstar"].to_numpy(dtype=float)) & np.isfinite(table["logMBH"].to_numpy(dtype=float))
-    return table.loc[valid].copy()
 
 
 def _log_error_to_linear(log_value: float, err_lo: float, err_hi: float) -> np.ndarray | None:
@@ -940,30 +816,129 @@ def plot_fig06(final_gc: pd.DataFrame) -> plt.Figure:
     return fig
 
 
+def plot_fig07(final_gc: pd.DataFrame, final_redshift: float = 0.0) -> plt.Figure:
+    required = ["status", "M_GC_final", "M_IMBH_final", "lookback_time_final_gyr"]
+    missing = [name for name in required if name not in final_gc.columns]
+    if missing:
+        raise ValueError(f"Final-GC table is missing required Fig.07 column(s): {missing}")
+
+    status_raw = pd.to_numeric(final_gc["status"], errors="coerce").to_numpy(dtype=float)
+    if np.any(~np.isfinite(status_raw)):
+        raise ValueError("Final-GC table contains non-finite status values.")
+    status = status_raw.astype(int)
+    if np.any(np.abs(status_raw - status.astype(float)) > 1.0e-8):
+        raise ValueError("Final-GC table contains non-integer status values.")
+
+    gc_mass = pd.to_numeric(final_gc["M_GC_final"], errors="coerce").to_numpy(dtype=float)
+    imbh_mass = pd.to_numeric(final_gc["M_IMBH_final"], errors="coerce").to_numpy(dtype=float)
+    lookback = pd.to_numeric(final_gc["lookback_time_final_gyr"], errors="coerce").to_numpy(dtype=float)
+
+    sunk_mask = np.isin(status, np.asarray(SUNK_BH_STATUSES, dtype=int))
+    sunk_mask &= status != STATUS_WANDERER
+    if np.any(sunk_mask & np.isfinite(gc_mass) & (gc_mass < 0.0)):
+        raise ValueError("Final-GC table contains negative M_GC_final for sunk rows.")
+    if np.any(sunk_mask & np.isfinite(imbh_mass) & (imbh_mass < 0.0)):
+        raise ValueError("Final-GC table contains negative M_IMBH_final for sunk rows.")
+
+    positive_sunk_bh = (
+        sunk_mask
+        & np.isfinite(gc_mass)
+        & (gc_mass >= 0.0)
+        & np.isfinite(imbh_mass)
+        & (imbh_mass > 0.0)
+    )
+    if np.any(positive_sunk_bh & ~np.isfinite(lookback)):
+        raise ValueError("Final-GC table contains non-finite lookback times for positive sunk IMBH rows.")
+
+    plot_mask = positive_sunk_bh & np.isfinite(lookback)
+    if not np.any(plot_mask):
+        raise ValueError("No finite sunk rows with positive final IMBH masses are available for Fig.07.")
+
+    sunk_redshift = _redshift_from_final_lookback(lookback[plot_mask], final_redshift=final_redshift)
+    plot_rows = pd.DataFrame(
+        {
+            "status": status[plot_mask],
+            "M_GC_final": gc_mass[plot_mask],
+            "M_IMBH_final": imbh_mass[plot_mask],
+            "sunk_redshift": sunk_redshift,
+        }
+    )
+
+    z_values = plot_rows["sunk_redshift"].to_numpy(dtype=float)
+    if len(np.unique(z_values)) == 1:
+        norm = colors.Normalize(vmin=float(z_values[0]) - 0.5, vmax=float(z_values[0]) + 0.5)
+    else:
+        norm = colors.Normalize(vmin=float(np.nanmin(z_values)), vmax=float(np.nanmax(z_values)))
+    cmap = mpl.cm.viridis
+
+    fig, ax = plt.subplots(1, 1, constrained_layout=True, dpi=STD_DPI, figsize=(6.8, 4.8))
+    first_scatter = None
+    for status_value, marker, label in [
+        (STATUS_SUNK_GC, "o", "Sunk GC"),
+        (STATUS_SUNK_WANDERER, "s", "Sunk IMBH wanderer"),
+    ]:
+        rows = plot_rows.loc[plot_rows["status"].to_numpy(dtype=int) == status_value]
+        if len(rows) == 0:
+            continue
+        scatter = ax.scatter(
+            rows["M_GC_final"].to_numpy(dtype=float),
+            rows["M_IMBH_final"].to_numpy(dtype=float),
+            c=rows["sunk_redshift"].to_numpy(dtype=float),
+            cmap=cmap,
+            norm=norm,
+            marker=marker,
+            s=20,
+            alpha=0.6,
+            edgecolors="none",
+            rasterized=True,
+            label=label,
+        )
+        if first_scatter is None:
+            first_scatter = scatter
+
+    if first_scatter is None:
+        raise ValueError("No finite sunk rows with positive final IMBH masses are available for Fig.07.")
+
+    colour_bar = fig.colorbar(first_scatter, ax=ax, aspect=30, pad=0.0)
+    colour_bar.set_label("Sunk redshift z")
+    if len(np.unique(z_values)) == 1:
+        colour_bar.set_ticks([float(z_values[0])])
+
+    ax.set_xscale("symlog", linthresh=SYMLINTHRESH_MGC_MSUN)
+    ax.set_yscale("log")
+    ax.set_xlabel(r"Sunk GC stellar mass $M_{\rm GC,sunk}$ [$M_{\odot}$]")
+    ax.set_ylabel(r"Sunk IMBH mass $M_{\rm IMBH,sunk}$ [$M_{\odot}$]")
+    ax.grid(True, alpha=0.3, linestyle=":", which="both")
+    ax.legend(frameon=False, loc="best", ncol=1)
+    ax.tick_params(direction="in", right=True, top=True, which="both")
+    return fig
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Plot IMBH seed diagnostics, central-BH halo tracks, SMHM comparison points, and NSC-BH mass points from one local High-z SMBHs output directory.")
-    parser.add_argument("--out_dir", type=Path, default=DEFAULT_OUT_DIR, help="Model output directory containing ns*/allcat_ns*.txt, allcat_s-*.txt, and ns*/haloSummaryByZ_ns*.csv.")
-    parser.add_argument("--plot_dir", type=Path, default=None, help="Plot output directory. Default: <out_dir>/_plots_Kong+2026")
+    parser.add_argument("--out_dir", type=Path, required=True, help="Model output directory containing ns*/allcat_ns*.txt, allcat_s-*.txt, and ns*/haloSummaryByZ_ns*.csv.")
     parser.add_argument("--ns-value", type=float, default=NS_VALUE_DEFAULT, help="Single N_s value used for all figures; Fig.01 and Fig.02 intentionally use only this per-N_s formation catalogue.")
     parser.add_argument("--mass-bin-width-dex", type=float, default=0.5, help="Log10 halo-mass bin width.")
     parser.add_argument("--no-smhm-top-axis", action="store_true", help="Do not add the SMHM stellar-mass top x-axis to Fig.03.")
-    parser.add_argument("--cliff-data-dir", type=Path, default=DEFAULT_CLIFF_DATA_DIR, help="Directory containing Cliff Fig.14 observation CSV files.")
     parser.add_argument("--no-cliff-observations", action="store_true", help="Do not overlay Cliff Fig.14 observational points on Fig.04.")
     args = parser.parse_args()
 
     out_dir = args.out_dir.resolve()
-    plot_dir = args.plot_dir.resolve() if args.plot_dir is not None else (out_dir / "_plots_Kong+2026").resolve()
+    plot_dir = default_plot_dir(out_dir, "Kong+2026")
     plot_dir.mkdir(parents=True, exist_ok=True)
 
     _apply_plot_style()
-    summary = _load_summary_table(out_dir, args.ns_value)
-    formation = _load_ns_formation_table(out_dir, args.ns_value)
-    final_gc = _load_ns_final_gc_table(out_dir, args.ns_value)
-    z0_halo_mass_lookup = _load_z0_halo_mass_lookup(out_dir)
-    joined = _attach_plot_masses(summary, z0_halo_mass_lookup)
+    model = build_kong_model(out_dir, args.ns_value)
+    formation = model.formation
+    final_gc = model.final_gc
+    joined = model.summary_by_z
+    metadata = load_run_metadata(out_dir)
+    final_redshift = float(metadata.get("final_redshift", 0.0))
+    if not np.isfinite(final_redshift) or final_redshift < 0.0:
+        raise ValueError(f"run_metadata final_redshift must be finite and non-negative, got {final_redshift!r}.")
     cliff_observations = None
     if not args.no_cliff_observations:
-        cliff_observations = _load_cliff_fig14_observations(args.cliff_data_dir.resolve())
+        cliff_observations = load_cliff_fig14_observations().table
 
     fig01 = plot_fig01(formation)
     path01 = plot_dir / FIGURE_01_FILENAME
@@ -1009,6 +984,12 @@ def main() -> None:
     fig06.savefig(path06, dpi=STD_DPI, bbox_inches="tight")
     plt.close(fig06)
     print(f"Saved {path06}")
+
+    fig07 = plot_fig07(final_gc, final_redshift=final_redshift)
+    path07 = plot_dir / FIGURE_07_FILENAME
+    fig07.savefig(path07, dpi=STD_DPI, bbox_inches="tight")
+    plt.close(fig07)
+    print(f"Saved {path07}")
 
 
 if __name__ == "__main__":

@@ -26,8 +26,8 @@ from scipy import interpolate
 import time
 import os
 import sys
+import warnings
 from pathlib import Path
-import exsituNSC
 from config import *
 
 #use same cosmology as Illustris
@@ -41,9 +41,10 @@ tdep = 0.3 #scaling of the gas depletion time with redshift, tdep \propto (1+z)^
 pr = 0.5 #normalized period of rotation; t_tid \propto P
 miso = (pr/1.7)**3 #mass where tiso < ttid
 TREE_LOOKUP_BASENAME = "id_lookup_large_dark.csv"
+ZFORM_FORMAT = "{:.10f}"
 
 def _build_arg_parser():
-    parser = argparse.ArgumentParser(description="Legacy Gao+2024 GC formation stage.")
+    parser = argparse.ArgumentParser(description="Legacy Gao+2024 GC formation stage.", allow_abbrev=False)
     parser.add_argument("ns", type=float, help="Sersic index N_s")
     parser.add_argument(
         "--data-dir",
@@ -70,11 +71,26 @@ def _build_arg_parser():
     parser.add_argument("--log-mh-min", type=float, default=11.5, help="minimum descendant z=0 host halo log mass for selection")
     parser.add_argument("--log-mh-max", type=float, default=12.5, help="maximum descendant z=0 host halo log mass for selection")
     parser.add_argument("--n-halos", type=int, default=10, help="number of halos to keep when --run-all=0")
-    parser.add_argument("--ex-situNSC", dest="ex_situ_nsc", type=int, choices=[0, 1], default=0, help="if 1, sample non-MPB GCs in their own branch for downstream branch evolution")
+    parser.add_argument(
+        "--ex-situ",
+        dest="ex_situ",
+        type=int,
+        choices=[0, 1, 2],
+        default=0,
+        help=(
+            "ex-situ GC treatment: 0 Gao+2024-style analytic survival for non-MPB GCs; "
+            "1 branch evolution without importing satellite central NSC/BH masses; "
+            "2 branch evolution with satellite central NSC/BH import"
+        ),
+    )
     return parser
 
 
-args = _build_arg_parser().parse_args()
+_parser = _build_arg_parser()
+_old_ex_situ_flag = "--ex-situ" + "NSC"
+if any(arg == _old_ex_situ_flag or arg.startswith(_old_ex_situ_flag + "=") for arg in sys.argv[1:]):
+    _parser.error(f"{_old_ex_situ_flag} has been removed; use --ex-situ")
+args = _parser.parse_args()
 
 # Sersic index
 # ns = 2.2
@@ -100,18 +116,17 @@ ssolar = interpolate.interp1d(t_solar, flost, kind = 'linear')
 
 cat = open(output_dir / ('z0_cat_'+nsStr+'.txt'), 'w') #historical filename for the survivor catalog
 allcat = open(output_dir / ('all_'+nsStr+'.txt'), 'w') #full catalog of all GCs
+analytic_survival = open(output_dir / ('analytic_survival_'+nsStr+'.txt'), 'w')
 
 p2 = float(args.p2)
 p3 = float(args.p3)
 lg_cut_off_mass = float(args.lg_cut_off_mass)
-eff_rad_source_counts = {"Gao+2024": 0}
-eff_rad_fallback_counts = {}
-eff_rad_formation_events = 0
 run_all = bool(args.run_all)
 log_mh_min = float(args.log_mh_min)
 log_mh_max = float(args.log_mh_max)
 N = int(args.n_halos)
-ex_situ_nsc_enabled = bool(args.ex_situ_nsc)
+ex_situ_mode = int(args.ex_situ)
+branch_local_radius_enabled = ex_situ_mode in (1, 2)
 
 cat.write('#model parameters: p2, p3, lg_cut_off_mass = ' +  str(p2) + " " +  str(p3) +  " " +  str(lg_cut_off_mass) + "\n")
 cat.write(
@@ -153,6 +168,7 @@ allcat.write(
     "logMgas(tform) | logMcl(tform) | zform | [Fe/H] | rGalaxy (kpc) | "
     "GC radius (pc) | Sigma_h (Msun/pc^2) | M_IMBH_init\n"
 )
+analytic_survival.write("# hid_z0 gc_uid isMPB branch_id M_GC_analytic_final survives_analytic M_IMBH_init rGalaxy\n")
 
 #initialize all the interpolation tables for use with Schechter function
 mc = 10**lg_cut_off_mass
@@ -263,12 +279,6 @@ def MMR(SM, z):
 
 import scipy.special as special
 
-def rho_sersic(R, A, Re, ns):
-    return A * np.exp( -2 * ns * (R/Re)**(1./ns) )
-
-def mtot_sersic(A,Re,ns):
-    return 4*np.pi*A/8**ns * ns**(1-3*ns) * Re**3 * special.gamma(3*ns)
-
 def Mr_frac_sersic_inverse(fm, ns):
     # give the mass fraction of total enclosed mass
     # return radius of the exactly location in unit of re
@@ -298,8 +308,6 @@ def gc_sersic_sampling(gc_list, mass_sum, halomass, redshift, re_kpc, re_source,
 
     Re = float(re_kpc)
     if((not np.isfinite(Re)) or (Re <= 0.0)):
-        reason = "invalid_resolved_radius"
-        eff_rad_fallback_counts[reason] = eff_rad_fallback_counts.get(reason, 0) + 1
         print(
             "[gc_sersic_sampling] invalid Sersic scale radius "
             + f"(source={re_source}, Re={Re}, rVir={rVir}, "
@@ -324,11 +332,11 @@ def gc_sersic_sampling(gc_list, mass_sum, halomass, redshift, re_kpc, re_source,
 
     m_tot = -0.5*gc_list[0].mass
     for gc in gc_list:
-        if gc.is_mpb or ex_situ_nsc_enabled:
+        if gc.is_mpb or branch_local_radius_enabled:
             # Main-branch clusters are ordered by cumulative formed mass so the
             # distribution matches the target enclosed Sersic mass profile. In
-            # satellite-NSC mode, non-MPB clusters also need this local radius
-            # inside their own satellite branch.
+            # branch-continuation modes, non-MPB clusters also need this local
+            # radius inside their own satellite branch.
             m_tot += gc.mass
             enclosed_mass_fraction_raw = m_tot/mass_sum
             if((not np.isfinite(enclosed_mass_fraction_raw)) or (enclosed_mass_fraction_raw <= 0.0) or (enclosed_mass_fraction_raw >= 1.0)):
@@ -353,7 +361,7 @@ def gc_sersic_sampling(gc_list, mass_sum, halomass, redshift, re_kpc, re_source,
                 rGalaxy = fallback_outer_kpc
             rGalaxy = float(np.clip(rGalaxy, rgal_min_kpc, rgal_max_kpc))
             gc.assign_local_rGalaxy(rGalaxy)
-            if gc.is_mpb or ex_situ_nsc_enabled:
+            if gc.is_mpb or branch_local_radius_enabled:
                 gc.assign_rGalaxy(rGalaxy)
             else:
                 gc.assign_rGalaxy(fallback_outer_kpc)
@@ -533,30 +541,80 @@ def _iter_tree_files(tree_dir):
 
 
 def loadTree(tree_path):
-    full_tree = exsituNSC.read_full_tree(tree_path)
-    formation_tree = exsituNSC.filter_tree_for_formation(full_tree, 0.0)
-    if(len(formation_tree.log_mh) == 0):
-        return (
-            np.array([]),
-            np.array([]),
-            np.array([]),
-            np.array([]),
-            np.array([]),
-            np.array([]),
-            full_tree.msub_z0_msun,
-            full_tree.mpb_branch_id,
-            full_tree,
+    log_mh = []
+    first_prog_id = []
+    subhalo_id = []
+    branch_id = []
+    redshift = []
+    spin_norm = []
+    short_row_count = 0
+
+    with Path(tree_path).open("r", encoding = "utf-8") as handle:
+        for line_no, line in enumerate(handle):
+            if(line_no == 0):
+                continue
+            cols = line.split()
+            if(len(cols) < 9):
+                short_row_count += 1
+                continue
+            log_mh.append(float(cols[0]))
+            first_prog_id.append(int(cols[1]))
+            subhalo_id.append(int(cols[2]))
+            branch_id.append(int(cols[3]))
+            redshift.append(float(cols[5]))
+            sx = float(cols[6])
+            sy = float(cols[7])
+            sz = float(cols[8])
+            spin_norm.append(float(np.sqrt(sx * sx + sy * sy + sz * sz)))
+
+    if(short_row_count > 0):
+        warnings.warn(
+            "Skipped "
+            + str(short_row_count)
+            + " short fixed-tree row(s) with fewer than 9 columns in "
+            + str(tree_path),
+            RuntimeWarning,
         )
+
+    if(len(log_mh) == 0):
+        empty_float = np.array([], dtype = float)
+        empty_int = np.array([], dtype = int)
+        return (
+            empty_float,
+            empty_int,
+            empty_int,
+            empty_float,
+            empty_float,
+            empty_int,
+            0.0,
+            -1,
+        )
+
+    log_mh = np.asarray(log_mh, dtype = float)
+    mass_msun = np.power(10.0, log_mh)
+    first_prog_id = np.asarray(first_prog_id, dtype = int)
+    subhalo_id = np.asarray(subhalo_id, dtype = int)
+    branch_id = np.asarray(branch_id, dtype = int)
+    redshift = np.asarray(redshift, dtype = float)
+    spin_norm = np.asarray(spin_norm, dtype = float)
+
+    mpb_branch_id = fixed_tree_mpb_branch_id(log_mh, branch_id)
+    main_mask = branch_id == mpb_branch_id
+    if(np.any(main_mask)):
+        msub_z0_msun = float(np.max(mass_msun[main_mask]))
+    else:
+        msub_z0_msun = float(np.max(mass_msun))
+
+    keep = redshift >= 0.0
     return (
-        formation_tree.mass_msun,
-        formation_tree.first_prog_id,
-        formation_tree.subhalo_id,
-        formation_tree.redshift,
-        formation_tree.spin_norm,
-        formation_tree.branch_id,
-        full_tree.msub_z0_msun,
-        full_tree.mpb_branch_id,
-        full_tree,
+        mass_msun[keep],
+        first_prog_id[keep],
+        subhalo_id[keep],
+        redshift[keep],
+        spin_norm[keep],
+        branch_id[keep],
+        msub_z0_msun,
+        mpb_branch_id,
     )
 
 
@@ -567,7 +625,7 @@ num_run = 0
 for tree_entry in _iter_tree_files(treedir):
     hid_num = int(tree_entry.halo_id_z0)
     tree_path = tree_entry.path
-    m, fp, subid, redshifts, jsp, mpi, msub_z0, mpbi, full_tree = loadTree(tree_path)
+    m, fp, subid, redshifts, jsp, mpi, msub_z0, mpbi = loadTree(tree_path)
     if(len(m) == 0):
         continue
     # if(run_all == False and msub  < 10**log_mh_min or msub > 10**log_mh_max or num_run >= N):
@@ -616,8 +674,6 @@ for tree_entry in _iter_tree_files(treedir):
             metallicity = MMR(SM, znow)
             is_mpb = mpi[i] == mpbi
             Re = resolve_birth_re_kpc(halomass_msun = mass, redshift = znow, jsp = jj) # [kpc]
-            eff_rad_formation_events += 1
-            eff_rad_source_counts["Gao+2024"] = eff_rad_source_counts.get("Gao+2024", 0) + 1
             # `subid[i]` records the halo hosting the formation event; later
             # stages use it to mark MPB vs accreted GCs in merged catalogs.
             clusters.extend(clusterFormation(Mg, mass, znow, metallicity, SM, is_mpb, subid[i], jj, mpi[i], i, Re, "Gao+2024"))
@@ -626,9 +682,10 @@ for tree_entry in _iter_tree_files(treedir):
     for gc_uid, cluster in enumerate(clusters, start=1):
         cluster.gc_uid = gc_uid
 
-    clusters2, log_initial_masses = [], []
+    clusters2, log_initial_masses, analytic_final_masses = [], [], []
     for cluster in clusters:
         final_mass = disruption(cluster.mass, cluster.metallicity, cluster.origin_redshift, t0)
+        analytic_final_masses.append(float(final_mass))
         if(final_mass > 0):
             log_initial_masses.append(np.log10(cluster.mass))
         evolved_cluster = GC(
@@ -697,7 +754,7 @@ for tree_entry in _iter_tree_files(treedir):
             + " "
             + str(np.round(GC_log_masses[i],5))
             + " "
-            + str(np.round(GC_redshifts[i],5))
+            + ZFORM_FORMAT.format(float(GC_redshifts[i]))
             + " "
             + str(np.round(GC_mets[i],5))
             + " "
@@ -709,6 +766,16 @@ for tree_entry in _iter_tree_files(treedir):
             + " "
             + str(np.round(GC_imbh_mass[i],5))
             + "\n"
+        )
+        analytic_survival.write(
+            f"{int(hid_num)} "
+            f"{int(clusters[i].gc_uid)} "
+            f"{int(bool(clusters[i].is_mpb))} "
+            f"{int(clusters[i].branch_id)} "
+            f"{float(analytic_final_masses[i]):.10e} "
+            f"{int(float(analytic_final_masses[i]) > 0.0)} "
+            f"{float(clusters[i].imbh_mass_msun):.10e} "
+            f"{float(clusters[i].rGalaxy):.10e}\n"
         )
     for i in range(len(GC_masses2)): #only those surviving to the chosen final redshift
         zform = GC_redshifts2[i]
@@ -730,7 +797,7 @@ for tree_entry in _iter_tree_files(treedir):
             + " "
             + str(np.round(logm_tform,5))
             + " "
-            + str(np.round(zform, 5))
+            + ZFORM_FORMAT.format(float(zform))
             + " "
             + str(np.round(GC_metallicity2[i],5))
             + " "
@@ -749,28 +816,7 @@ for tree_entry in _iter_tree_files(treedir):
         )
 cat.close()
 allcat.close()
-summary_path = output_dir / ("eff_radius_summary_" + nsStr + ".csv")
-with summary_path.open("w", encoding = "utf-8", newline = "") as summary_handle:
-    fieldnames = [
-        "formation_events",
-        "Gao+2024_count",
-        "empirical_fallbacks",
-        "fallback_reason",
-        "fallback_count",
-    ]
-    writer = csv.DictWriter(summary_handle, fieldnames = fieldnames)
-    writer.writeheader()
-    empirical_fallbacks = int(sum(eff_rad_fallback_counts.values()))
-    base_row = {
-        "formation_events": int(eff_rad_formation_events),
-        "Gao+2024_count": int(eff_rad_source_counts.get("Gao+2024", 0)),
-        "empirical_fallbacks": empirical_fallbacks,
-    }
-    if(len(eff_rad_fallback_counts) == 0):
-        writer.writerow({**base_row, "fallback_reason": "", "fallback_count": 0})
-    else:
-        for reason, count in sorted(eff_rad_fallback_counts.items()):
-            writer.writerow({**base_row, "fallback_reason": reason, "fallback_count": int(count)})
+analytic_survival.close()
 if(num_run < N and run_all == False):
     print("requested", N, "halos, but there were only", num_run, "halos stored in the mass range you requested. Model was run on all available halos.\n")
 print("all done!")

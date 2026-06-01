@@ -55,13 +55,15 @@ if str(SRC_DIR) not in sys.path:
     sys.path.insert(0, str(SRC_DIR))
 
 from config import Ez, H100, Mstar_SMHM, Redshift2CosmicAge, STD_DPI  # noqa: E402
+from load_obs import load_choksi_observations  # noqa: E402
+from load_output import build_choksi_model, load_choksi_paper_model  # noqa: E402
+from plot_common import plot_dir as default_plot_dir  # noqa: E402
 
 np.random.seed(1)
 
 NS_VALUE_DEFAULT = 2.0
 RUN_METADATA_NAME = "run_metadata.json"
 
-DEFAULT_OUT_DIR = Path("/lingshan/disk3/subonan/_outputs/High-z_SMBHs_Max64_z0")
 DEFAULT_OBS_CACHE_DIR = PROJECT_ROOT / "data" / "Choksi+2018"
 if not DEFAULT_OBS_CACHE_DIR.is_dir():
     DEFAULT_OBS_CACHE_DIR = PROJECT_ROOT.parent / "data" / "Choksi+2018"
@@ -189,197 +191,6 @@ def _model_output_root_from_allcat_path(allcat_path: Path) -> Path:
     return parent
 
 
-def _load_run_metadata(allcat_path: Path) -> Dict[str, object]:
-    path = _model_output_root_from_allcat_path(allcat_path) / RUN_METADATA_NAME
-    if not path.exists():
-        return {}
-    with path.open("r", encoding="utf-8") as fh:
-        return json.load(fh)
-
-
-def _read_comment_columns(path: Path) -> List[str]:
-    with path.open("r", encoding="utf-8") as fh:
-        for line in fh:
-            if not line.startswith("#"):
-                continue
-            text = line[1:].strip()
-            if text:
-                return text.split()
-    raise ValueError(f"Cannot find header columns in {path}")
-
-
-def _build_ns_allcat_path(allcat_template_path: Path, ns_value: float) -> Path:
-    model_output_root = _model_output_root_from_allcat_path(allcat_template_path)
-    name = allcat_template_path.name
-    match = re.match(r"^(?P<prefix>.+?)(?P<suffix>_s-.*\.txt)$", name)
-    if match is None:
-        raise ValueError(
-            "Cannot infer per-N_s allcat path from template name. "
-            f"Expected '*_s-...txt', got {name}"
-        )
-    prefix = re.sub(r"_ns[0-9p]+$", "", match.group("prefix"))
-    suffix = match.group("suffix")
-    ns_tag = _ns_tag(ns_value)
-    return model_output_root / f"ns{ns_tag}" / f"{prefix}_ns{ns_tag}{suffix}"
-
-
-def _resolve_model_inputs_from_out_dir(out_dir: Path) -> Tuple[Path, Path]:
-    model_root = out_dir.resolve()
-    if not model_root.exists():
-        raise FileNotFoundError(f"Model output directory does not exist: {model_root}")
-    if not model_root.is_dir():
-        raise NotADirectoryError(f"Model output path is not a directory: {model_root}")
-
-    allcat_candidates = sorted(model_root.glob("allcat_s-*.txt"))
-    if len(allcat_candidates) == 0:
-        raise FileNotFoundError(
-            f"Missing root allcat file in {model_root}. Expected exactly one file matching allcat_s-*.txt."
-        )
-    if len(allcat_candidates) > 1:
-        names = ", ".join(path.name for path in allcat_candidates)
-        raise RuntimeError(
-            f"Found multiple root allcat files in {model_root}; expected exactly one: {names}"
-        )
-
-    mpb_path = model_root / "mpb_from_fixed_trees.csv"
-    if not mpb_path.exists():
-        raise FileNotFoundError(f"Missing MPB catalog in {model_root}: {mpb_path}")
-    return allcat_candidates[0].resolve(), mpb_path.resolve()
-
-
-def _find_final_gcs_file(allcat_ns_path: Path) -> Path:
-    match = re.search(r"_ns([0-9]+p[0-9]+)", allcat_ns_path.stem)
-    if match is None:
-        raise ValueError(f"Could not infer N_s tag from {allcat_ns_path.name}")
-    path = allcat_ns_path.parent / f"finalGCs_ns{match.group(1)}.dat"
-    if not path.exists():
-        raise FileNotFoundError(f"Missing finalGCs file for {allcat_ns_path.name}: {path}")
-    return path
-
-
-def load_allcat(allcat_path: Path) -> pd.DataFrame:
-    """Load one allcat table and add derived mass columns."""
-
-    columns = _read_comment_columns(allcat_path)
-    raw = pd.read_csv(
-        allcat_path,
-        sep=r"\s+",
-        comment="#",
-        header=None,
-        engine="python",
-    )
-    if raw.shape[1] < len(ALLCAT_REQUIRED_COLUMNS):
-        raise ValueError(
-            f"Allcat file has {raw.shape[1]} columns; expected at least {len(ALLCAT_REQUIRED_COLUMNS)}"
-        )
-
-    n_keep = min(raw.shape[1], len(columns))
-    raw = raw.iloc[:, :n_keep].copy()
-    raw.columns = columns[:n_keep]
-    for col in raw.columns:
-        raw[col] = pd.to_numeric(raw[col], errors="coerce")
-
-    gc = raw.dropna(subset=ALLCAT_REQUIRED_COLUMNS).copy()
-    gc["hid_z0"] = gc["hid_z0"].astype(int)
-    gc["isMPB"] = gc["isMPB"].astype(int)
-    gc["subfind_form"] = gc["subfind_form"].astype(int)
-    gc["snap_form"] = gc["snap_form"].astype(int)
-    gc["M_form"] = np.power(10.0, gc["logM_form"].to_numpy(dtype=float))
-    gc["M_halo_z0"] = np.power(10.0, gc["logMh_z0"].to_numpy(dtype=float))
-    gc["M_halo_form"] = np.power(10.0, gc["logMh_form"].to_numpy(dtype=float))
-    gc["M_star_z0"] = np.power(10.0, gc["logMstar_z0"].to_numpy(dtype=float))
-    gc["M_star_form"] = np.power(10.0, gc["logMstar_form"].to_numpy(dtype=float))
-    return gc.reset_index(drop=True)
-
-
-def load_mpb(mpb_path: Path) -> pd.DataFrame:
-    """Load the MPB table and add convenience columns."""
-
-    mpb = pd.read_csv(mpb_path)
-    for col in ["subhalo_id_z0", "SnapNum"]:
-        if col not in mpb.columns:
-            raise ValueError(f"MPB table is missing required column '{col}': {mpb_path}")
-    mpb["subhalo_id_z0"] = pd.to_numeric(mpb["subhalo_id_z0"], errors="coerce").astype(int)
-    mpb["SnapNum"] = pd.to_numeric(mpb["SnapNum"], errors="coerce").astype(int)
-    if {"SubhaloSpin_x", "SubhaloSpin_y", "SubhaloSpin_z"}.issubset(mpb.columns):
-        mpb["spin_mag"] = np.sqrt(
-            np.square(pd.to_numeric(mpb["SubhaloSpin_x"], errors="coerce"))
-            + np.square(pd.to_numeric(mpb["SubhaloSpin_y"], errors="coerce"))
-            + np.square(pd.to_numeric(mpb["SubhaloSpin_z"], errors="coerce"))
-        )
-        mpb["spin_mag"] = np.where(np.isfinite(mpb["spin_mag"]), mpb["spin_mag"], 500.0)
-    else:
-        mpb["spin_mag"] = 500.0
-    if "logMh_msun_h" in mpb.columns:
-        mpb["logMh_msun_h"] = pd.to_numeric(mpb["logMh_msun_h"], errors="coerce")
-    if "Redshift" in mpb.columns:
-        mpb["Redshift"] = pd.to_numeric(mpb["Redshift"], errors="coerce")
-    return mpb
-
-
-def _load_final_gcs_table(path: Path, expected_len: int, expected_halo_ids: np.ndarray) -> pd.DataFrame:
-    """Load the merged finalGCs table and validate row ordering."""
-
-    columns = _read_comment_columns(path)
-    df = pd.read_csv(
-        path,
-        sep=r"\s+",
-        comment="#",
-        header=None,
-        engine="python",
-    )
-    df = df.iloc[:, : len(columns)].copy()
-    df.columns = columns[: df.shape[1]]
-    for col in df.columns:
-        df[col] = pd.to_numeric(df[col], errors="coerce")
-
-    if len(df) != expected_len:
-        raise ValueError(f"{path} has {len(df)} rows, expected {expected_len}")
-
-    halo_ids = df["halo_id_z0"].to_numpy(dtype=int)
-    if not np.array_equal(halo_ids, np.asarray(expected_halo_ids, dtype=int)):
-        raise ValueError(f"Row-order mismatch between {path} and the matching allcat_ns file")
-
-    expected_gc_index = np.empty(expected_len, dtype=int)
-    halo_ids_arr = np.asarray(expected_halo_ids, dtype=int)
-    for hid in np.unique(halo_ids_arr):
-        idx = np.where(halo_ids_arr == int(hid))[0]
-        expected_gc_index[idx] = np.arange(1, len(idx) + 1, dtype=int)
-    gc_index = df["gc_index_halo"].to_numpy(dtype=int)
-    if not np.array_equal(gc_index, expected_gc_index):
-        raise ValueError(f"GC index ordering mismatch between {path} and the matching allcat_ns file")
-
-    df["status"] = df["status"].astype(int)
-    df["halo_id_z0"] = df["halo_id_z0"].astype(int)
-    df["gc_index_halo"] = df["gc_index_halo"].astype(int)
-    if "M_GC_final" not in df.columns:
-        raise ValueError(f"{path} is missing required column M_GC_final")
-    if (df["M_GC_final"].dropna() < 0.0).any():
-        raise ValueError(f"{path} contains negative M_GC_final values")
-    df["M_GC_final"] = np.where(
-        np.isfinite(df["M_GC_final"]) & (df["M_GC_final"] > 0.0),
-        df["M_GC_final"],
-        0.0,
-    )
-    m_final = df["M_GC_final"].to_numpy(dtype=float)
-    log_m_final = np.full(len(m_final), np.nan, dtype=float)
-    positive = m_final > 0.0
-    log_m_final[positive] = np.log10(m_final[positive])
-    df["log10_M_GC_final"] = log_m_final
-    return df.reset_index(drop=True)
-
-
-def _load_halo_summary(path: Path) -> pd.DataFrame:
-    df = pd.read_csv(path)
-    for col in df.columns:
-        df[col] = pd.to_numeric(df[col], errors="coerce")
-    df["hid_z0"] = df["hid_z0"].astype(int)
-    return df.sort_values("hid_z0").reset_index(drop=True)
-
-
-_PRESENT_DAY_SMHM_INVERSE_CACHE: Tuple[np.ndarray, np.ndarray] | None = None
-
-
 def present_day_halo_mass_from_observed_stellar_mass(stellar_mass: np.ndarray | float) -> np.ndarray | float:
     global _PRESENT_DAY_SMHM_INVERSE_CACHE
     if _PRESENT_DAY_SMHM_INVERSE_CACHE is None:
@@ -503,65 +314,6 @@ def _population_from_threshold(feh: pd.Series, threshold: float) -> pd.Series:
     return pd.Series(np.where(feh.to_numpy(dtype=float) <= threshold, "blue", "red"), index=feh.index)
 
 
-def _download_file(url: str, destination: Path) -> None:
-    destination.parent.mkdir(parents=True, exist_ok=True)
-    last_error: subprocess.CalledProcessError | None = None
-    for _ in range(3):
-        try:
-            subprocess.run(
-                ["wget", "-c", "--tries=3", "--waitretry=2", "-O", str(destination), url],
-                check=True,
-            )
-            return
-        except subprocess.CalledProcessError as exc:
-            last_error = exc
-    if last_error is not None:
-        raise last_error
-
-
-def _ensure_choksi_supplement(obs_cache_dir: Path, overwrite: bool = False) -> Dict[str, Path]:
-    raw_zip = obs_cache_dir / "cgl18_supplemental_wayback.zip"
-    extract_dir = obs_cache_dir / "cgl18_supplemental_wayback"
-    normalized_dir = obs_cache_dir / "choksi_supplement"
-    data_path = normalized_dir / "data.txt"
-    model_zip_path = normalized_dir / "model.txt.zip"
-    model_path = normalized_dir / "model.txt"
-
-    if overwrite or not raw_zip.exists():
-        _download_file(CHOKSI_SUPP_WAYBACK_URL, raw_zip)
-
-    if overwrite or not (extract_dir / "cgl18_supplemental" / "data.txt").exists():
-        extract_dir.mkdir(parents=True, exist_ok=True)
-        with zipfile.ZipFile(raw_zip) as zf:
-            zf.extractall(extract_dir)
-
-    normalized_dir.mkdir(parents=True, exist_ok=True)
-    extracted_data = extract_dir / "cgl18_supplemental" / "data.txt"
-    extracted_model_zip = extract_dir / "cgl18_supplemental" / "model.txt.zip"
-    if overwrite or not data_path.exists():
-        shutil.copy2(extracted_data, data_path)
-    if overwrite or not model_zip_path.exists():
-        shutil.copy2(extracted_model_zip, model_zip_path)
-    if overwrite or not model_path.exists():
-        with zipfile.ZipFile(model_zip_path) as zf:
-            member = next(name for name in zf.namelist() if name.endswith("model.txt"))
-            with zf.open(member) as src, model_path.open("wb") as dst:
-                shutil.copyfileobj(src, dst)
-
-    return {"data": data_path, "model": model_path, "model_zip": model_zip_path}
-
-
-def _ensure_acsvcs_tables(obs_cache_dir: Path, overwrite: bool = False) -> Dict[str, Path]:
-    acsvcs_dir = obs_cache_dir / "acsvcs"
-    hosts_path = acsvcs_dir / "hosts_J_ApJS_164_334_acsvcs.tsv"
-    gc_path = acsvcs_dir / "gc_catalog_J_ApJS_180_54_table4.tsv"
-    if overwrite or not hosts_path.exists():
-        _download_file(ACSVCS_HOSTS_URL, hosts_path)
-    if overwrite or not gc_path.exists():
-        _download_file(ACSVCS_GC_URL, gc_path)
-    return {"hosts": hosts_path, "gc_catalog": gc_path}
-
-
 def _clean_tex_text(value: str) -> str:
     cleaned = value.strip()
     replacements = {
@@ -606,19 +358,6 @@ def _parse_asymmetric_value(value: str) -> Tuple[float, float, float]:
     if len(numbers) < 3:
         raise ValueError(f"Cannot parse asymmetric uncertainty from '{value}'")
     return float(numbers[0]), abs(float(numbers[2])), abs(float(numbers[1]))
-
-
-def _download_and_extract_arxiv_source(url: str, raw_path: Path, extract_dir: Path, overwrite: bool = False) -> None:
-    if overwrite or not raw_path.exists():
-        _download_file(url, raw_path)
-    marker = extract_dir / ".extracted"
-    if overwrite or not marker.exists():
-        if extract_dir.exists():
-            shutil.rmtree(extract_dir)
-        extract_dir.mkdir(parents=True, exist_ok=True)
-        with tarfile.open(raw_path, "r:*") as tar:
-            tar.extractall(extract_dir)
-        marker.write_text(f"{url}\n", encoding="utf-8")
 
 
 def _parse_deluxetable_rows(tex_text: str, caption_fragment: str) -> List[List[str]]:
@@ -670,206 +409,8 @@ def _read_text_flexible(path: Path) -> str:
     return path.read_text(encoding="utf-8", errors="ignore")
 
 
-def _ensure_vandenberg_2013_tables(obs_cache_dir: Path, overwrite: bool = False) -> Dict[str, Path]:
-    dataset_dir = obs_cache_dir / "vandenberg2013"
-    raw_path = dataset_dir / "1308.2257.tar.gz"
-    extract_dir = dataset_dir / "src"
-    csv_path = dataset_dir / "table2_gc_ages.csv"
-    tex_path = extract_dir / "ms.tex"
-
-    _download_and_extract_arxiv_source(VANDENBERG_2013_ARXIV_URL, raw_path, extract_dir, overwrite)
-    if overwrite or not csv_path.exists():
-        tex_text = _read_text_flexible(tex_path)
-        rows = _parse_deluxetable_rows(tex_text, r"\tablecaption{Ages and Other Properties of the Globular Cluster Sample")
-        parsed_rows: List[dict] = []
-        for row in rows:
-            ngc = _clean_tex_text(row[0])
-            name = _clean_tex_text(row[1])
-            feh = float(re.findall(r"[-+]?\d+(?:\.\d+)?", _clean_tex_text(row[2]))[0])
-            age_gyr, age_err_gyr = _parse_pm_value(row[3])
-            display_name = name if name else (f"NGC {ngc}" if ngc else "unknown")
-            parsed_rows.append(
-                {
-                    "ngc_id": ngc if ngc else "",
-                    "cluster": display_name,
-                    "feh": feh,
-                    "age_gyr": age_gyr,
-                    "age_err_gyr": age_err_gyr,
-                    "source_note": "VandenBerg et al. 2013 Table 2",
-                }
-            )
-        pd.DataFrame(parsed_rows).to_csv(csv_path, index=False)
-    return {"raw": raw_path, "tex": tex_path, "table2_csv": csv_path}
-
-
-def _ensure_leaman_2013_source(obs_cache_dir: Path, overwrite: bool = False) -> Dict[str, Path]:
-    dataset_dir = obs_cache_dir / "leaman2013"
-    raw_path = dataset_dir / "1309.0822.tar.gz"
-    extract_dir = dataset_dir / "src"
-    tex_path = extract_dir / "gcamraph.tex"
-    pdf_path = extract_dir / "cmdisohalo.pdf"
-    _download_and_extract_arxiv_source(LEAMAN_2013_ARXIV_URL, raw_path, extract_dir, overwrite)
-    return {"raw": raw_path, "tex": tex_path, "outer_halo_pdf": pdf_path}
-
-
-def _ensure_wagner_kaiser_2017_tables(obs_cache_dir: Path, overwrite: bool = False) -> Dict[str, Path]:
-    dataset_dir = obs_cache_dir / "wagner_kaiser2017"
-    raw_path = dataset_dir / "1707.01571.tar.gz"
-    extract_dir = dataset_dir / "src"
-    csv_path = dataset_dir / "lmc_gc_age_metallicity.csv"
-    tex_path = extract_dir / "LMCI.tex"
-
-    _download_and_extract_arxiv_source(WAGNER_KAISER_2017_ARXIV_URL, raw_path, extract_dir, overwrite)
-    if overwrite or not csv_path.exists():
-        tex_text = _read_text_flexible(tex_path)
-        feh_rows = _parse_tabular_rows(tex_text, r"\caption{Assumed metallicities for our target LMC clusters}")
-        age_rows = _parse_tabular_rows(tex_text, r"\caption{Relative ages for our LMC cluster sample}")
-
-        feh_map: Dict[str, dict] = {}
-        for row in feh_rows:
-            if "Cluster" in row[0]:
-                continue
-            cluster = _clean_tex_text(row[0]).replace(" ", "")
-            feh_center, feh_err = _parse_pm_value(row[4])
-            feh_map[cluster] = {"feh": feh_center, "feh_err": feh_err}
-
-        parsed_rows: List[dict] = []
-        for row in age_rows:
-            if "Cluster" in row[0]:
-                continue
-            cluster_display = _clean_tex_text(row[0])
-            cluster_key = cluster_display.replace(" ", "")
-            age_center, age_err_lo, age_err_hi = _parse_asymmetric_value(row[6])
-            parsed_rows.append(
-                {
-                    "cluster": cluster_display,
-                    "feh": feh_map[cluster_key]["feh"],
-                    "feh_err": feh_map[cluster_key]["feh_err"],
-                    "age_gyr": age_center,
-                    "age_err_lo_gyr": age_err_lo,
-                    "age_err_hi_gyr": age_err_hi,
-                    "source_note": "Wagner-Kaiser et al. 2017 Tables 1 and 2",
-                }
-            )
-        pd.DataFrame(parsed_rows).to_csv(csv_path, index=False)
-    return {"raw": raw_path, "tex": tex_path, "lmc_csv": csv_path}
-
-
-def _ensure_lamers_2017_tables(obs_cache_dir: Path, overwrite: bool = False) -> Dict[str, Path]:
-    dataset_dir = obs_cache_dir / "lamers2017"
-    raw_path = dataset_dir / "1706.00939.tar.gz"
-    extract_dir = dataset_dir / "src"
-    csv_path = dataset_dir / "table1_mdf_summary.csv"
-    tex_path = extract_dir / "Lamers-AA_2017_31062.tex"
-
-    _download_and_extract_arxiv_source(LAMERS_2017_ARXIV_URL, raw_path, extract_dir, overwrite)
-    if overwrite or not csv_path.exists():
-        tex_text = _read_text_flexible(tex_path)
-        start = tex_text.index(r"\begin{table*} \label{tbl:summary}")
-        end = tex_text.index(r"\end{tabular}", start)
-        block = tex_text[start:end]
-        parsed_rows: List[dict] = []
-        current_galaxy = ""
-        current_boundary = ""
-        for raw_line in block.splitlines():
-            stripped = raw_line.strip()
-            if not stripped or stripped.startswith("\\") or "&" not in stripped or not stripped.endswith(r"\\"):
-                continue
-            fields = [field.strip() for field in stripped[:-2].split("&")]
-            if len(fields) != 7:
-                continue
-            galaxy = _clean_tex_text(fields[0]) or current_galaxy
-            boundary = _clean_tex_text(fields[1]) or current_boundary
-            current_galaxy = galaxy
-            current_boundary = boundary
-            object_type = _clean_tex_text(fields[2])
-            if galaxy == "Galaxy" or object_type == "Objects":
-                continue
-            parsed_rows.append(
-                {
-                    "galaxy": galaxy,
-                    "boundary": boundary,
-                    "object_type": object_type,
-                    "inner_feh_lt_minus1": _clean_tex_text(fields[3]),
-                    "inner_feh_gt_minus1": _clean_tex_text(fields[4]),
-                    "outer_feh_lt_minus1": _clean_tex_text(fields[5]),
-                    "outer_feh_gt_minus1": _clean_tex_text(fields[6]),
-                    "source_note": "Lamers et al. 2017 Table 1",
-                }
-            )
-        pd.DataFrame(parsed_rows).to_csv(csv_path, index=False)
-    return {"raw": raw_path, "tex": tex_path, "summary_csv": csv_path}
-
-
-def ensure_obs_downloads(obs_cache_dir: Path = DEFAULT_OBS_CACHE_DIR) -> Dict[str, Path]:
-    """Download only the observation files that are reproducibly accessible here."""
-
-    obs_cache_dir.mkdir(parents=True, exist_ok=True)
-    paths: Dict[str, Path] = {}
-    paths.update({f"choksi_{key}": value for key, value in _ensure_choksi_supplement(obs_cache_dir, overwrite=False).items()})
-    paths.update({f"acsvcs_{key}": value for key, value in _ensure_acsvcs_tables(obs_cache_dir, overwrite=False).items()})
-    paths.update({f"vandenberg2013_{key}": value for key, value in _ensure_vandenberg_2013_tables(obs_cache_dir, overwrite=False).items()})
-    paths.update({f"leaman2013_{key}": value for key, value in _ensure_leaman_2013_source(obs_cache_dir, overwrite=False).items()})
-    paths.update({f"wagner2017_{key}": value for key, value in _ensure_wagner_kaiser_2017_tables(obs_cache_dir, overwrite=False).items()})
-    paths.update({f"lamers2017_{key}": value for key, value in _ensure_lamers_2017_tables(obs_cache_dir, overwrite=False).items()})
-    return paths
-
-
-def load_choksi_system_table(path: Path) -> pd.DataFrame:
-    rows: List[dict] = []
-    with path.open("r", encoding="utf-8") as fh:
-        for line in fh:
-            if line.startswith("#") or not line.strip():
-                continue
-            galaxy_id, log_sm, mean_feh, err_mean, sigma_feh, err_sigma, blue_peak, red_peak = line.split()[:8]
-            rows.append(
-                {
-                    "galaxyID": galaxy_id,
-                    "logSM": float(log_sm),
-                    "mean_feh": float(mean_feh),
-                    "err_mean": float(err_mean),
-                    "sigma_feh": float(sigma_feh),
-                    "err_sigma": float(err_sigma),
-                    "blue_peak": float(blue_peak),
-                    "red_peak": np.nan if float(red_peak) > 1000.0 else float(red_peak),
-                }
-            )
-    systems = pd.DataFrame(rows)
-    systems["dataset"] = np.select(
-        [
-            systems["galaxyID"].str.startswith("VCS"),
-            systems["galaxyID"].str.startswith("HST_BCG"),
-            systems["galaxyID"].isin(["MW", "M31"]),
-        ],
-        ["VCS", "HST_BCG", "LG"],
-        default="other",
-    )
-    systems["VCC"] = np.nan
-    vcs_mask = systems["dataset"] == "VCS"
-    systems.loc[vcs_mask, "VCC"] = (
-        systems.loc[vcs_mask, "galaxyID"]
-        .str.replace("VCS", "", regex=False)
-        .str.replace(".0", "", regex=False)
-        .astype(int)
-    )
-    systems["M_star_msun"] = np.power(10.0, systems["logSM"].to_numpy(dtype=float))
-    systems["M_halo_plot_msun"] = present_day_halo_mass_from_observed_stellar_mass(systems["M_star_msun"].to_numpy(dtype=float))
-    systems["logMh_plot"] = np.log10(np.clip(systems["M_halo_plot_msun"].to_numpy(dtype=float), 1.0e-30, None))
-    return systems
-
-
 def _read_vizier_tsv(path: Path) -> pd.DataFrame:
     return pd.read_csv(path, sep="\t", comment="#")
-
-
-def load_acsvcs_hosts(path: Path) -> pd.DataFrame:
-    hosts = _read_vizier_tsv(path)
-    for col in ["VCC", "BTmag", "E(B-V)", "Vsys"]:
-        if col in hosts.columns:
-            hosts[col] = pd.to_numeric(hosts[col], errors="coerce")
-    hosts = hosts.dropna(subset=["VCC"]).copy()
-    hosts["VCC"] = hosts["VCC"].astype(int)
-    return hosts
 
 
 def _vcs_color_to_feh(g_minus_z: np.ndarray) -> np.ndarray:
@@ -884,132 +425,6 @@ def _zmag_to_mass_proxy(zmag: np.ndarray) -> np.ndarray:
     abs_mag = zmag - VIRGO_DISTANCE_MODULUS
     lum = np.power(10.0, -0.4 * (abs_mag - ACS_SOLAR_MAG_Z))
     return GC_ML_Z * lum
-
-
-def load_acsvcs_gc_catalog(path: Path) -> pd.DataFrame:
-    gc = _read_vizier_tsv(path)
-    numeric_cols = ["VCC", "RAJ2000", "DEJ2000", "GDist", "zmag", "zamag", "gmag", "gamag", "rhz", "rhg", "pGC", "E(B-V)"]
-    for col in numeric_cols:
-        if col in gc.columns:
-            gc[col] = pd.to_numeric(gc[col], errors="coerce")
-    gc = gc.dropna(subset=["VCC"]).copy()
-    gc["VCC"] = gc["VCC"].astype(int)
-    g_use = np.where(np.isfinite(gc["gamag"]), gc["gamag"], gc["gmag"])
-    z_use = np.where(np.isfinite(gc["zamag"]), gc["zamag"], gc["zmag"])
-    gc["g_minus_z"] = g_use - z_use
-    gc["feh"] = _vcs_color_to_feh(gc["g_minus_z"].to_numpy(dtype=float))
-    gc["feh"] = np.where((gc["feh"] >= FEH_MIN) & (gc["feh"] <= FEH_MAX), gc["feh"], np.nan)
-    gc["m_gc_proxy_msun"] = _zmag_to_mass_proxy(z_use)
-    return gc
-
-
-def load_observations(obs_cache_dir: Path = DEFAULT_OBS_CACHE_DIR) -> ObsCatalog:
-    paths = ensure_obs_downloads(obs_cache_dir)
-    systems = load_choksi_system_table(paths["choksi_data"])
-    hosts = load_acsvcs_hosts(paths["acsvcs_hosts"])
-    gc = load_acsvcs_gc_catalog(paths["acsvcs_gc_catalog"])
-    vcs_systems = systems.loc[systems["dataset"] == "VCS"].copy()
-    vcs_systems["VCC"] = vcs_systems["VCC"].astype(int)
-    mw_age_metallicity = pd.read_csv(paths["vandenberg2013_table2_csv"])
-    lmc_age_metallicity = pd.read_csv(paths["wagner2017_lmc_csv"])
-    lamers_summary = pd.read_csv(paths["lamers2017_summary_csv"])
-    return ObsCatalog(
-        systems=systems,
-        vcs_systems=vcs_systems,
-        acsvcs_hosts=hosts,
-        acsvcs_gc=gc,
-        mw_age_metallicity=mw_age_metallicity,
-        lmc_age_metallicity=lmc_age_metallicity,
-        lamers_summary=lamers_summary,
-        obs_cache_dir=obs_cache_dir,
-    )
-
-
-def build_model_catalog(allcat_template_path: Path, mpb_path: Path, ns_value: float) -> ModelCatalog:
-    allcat_path = _build_ns_allcat_path(allcat_template_path, ns_value)
-    final_gcs_path = _find_final_gcs_file(allcat_path)
-    formed = load_allcat(allcat_path)
-    final_gcs = _load_final_gcs_table(final_gcs_path, len(formed), formed["hid_z0"].to_numpy(dtype=int))
-
-    keep_cols = [col for col in ["status", "M_GC_final", "log10_M_GC_final", "m_init_msun", "r_final_kpc"] if col in final_gcs.columns]
-    catalog = formed.join(final_gcs[keep_cols])
-    if "M_GC_final" not in catalog.columns:
-        raise ValueError(f"{final_gcs_path} is missing required column M_GC_final")
-    if "log10_M_GC_final" not in catalog.columns:
-        m_final = catalog["M_GC_final"].to_numpy(dtype=float)
-        log_m_final = np.full(len(m_final), np.nan, dtype=float)
-        positive = m_final > 0.0
-        log_m_final[positive] = np.log10(m_final[positive])
-        catalog["log10_M_GC_final"] = log_m_final
-    catalog["status"] = catalog["status"].fillna(0).astype(int)
-
-    survivors = catalog.loc[catalog["status"] == 1].copy().reset_index(drop=True)
-    split_threshold, _, _ = fit_metallicity_split(survivors["feh"].to_numpy(dtype=float))
-    survivors["population"] = _population_from_threshold(survivors["feh"], split_threshold)
-    survivors = survivors.loc[survivors["M_GC_final"].to_numpy(dtype=float) > 0.0].copy().reset_index(drop=True)
-    survivors["logM_final"] = np.log10(survivors["M_GC_final"].to_numpy(dtype=float))
-    survivors["t_form_gyr"] = np.array(
-        [Redshift2CosmicAge(float(value)) for value in survivors["zform"].to_numpy(dtype=float)],
-        dtype=float,
-    )
-    survivors["M_gas_form"] = gas_mass_from_stellar_halo(
-        np.power(10.0, survivors["logMstar_form"].to_numpy(dtype=float)),
-        np.power(10.0, survivors["logMh_form"].to_numpy(dtype=float)),
-        survivors["zform"].to_numpy(dtype=float),
-    )
-    survivors["logMgas_form"] = np.log10(np.clip(survivors["M_gas_form"].to_numpy(dtype=float), 1.0e-30, None))
-
-    halo_summary_path = allcat_path.parent / f"haloSummary_ns{_ns_tag(ns_value)}.csv"
-    halo_summary = _load_halo_summary(halo_summary_path)
-    mpb = load_mpb(mpb_path)
-    run_metadata = _load_run_metadata(allcat_template_path)
-    return ModelCatalog(
-        formed=formed,
-        catalog=catalog,
-        survivors=survivors,
-        halo_summary=halo_summary,
-        mpb=mpb,
-        allcat_path=allcat_path,
-        final_gcs_path=final_gcs_path,
-        run_metadata=run_metadata,
-        split_threshold=split_threshold,
-    )
-
-
-def load_choksi_paper_model(path: Path = CHOKSI_MODEL_PATH) -> PaperModelCatalog:
-    if not path.exists():
-        raise FileNotFoundError(f"Missing Choksi+2018 model catalog: {path}")
-    columns = [
-        "hid_z0",
-        "logMh_z0",
-        "logMstar_z0",
-        "logMh_form",
-        "logMstar_form",
-        "logM_final",
-        "logM_form",
-        "zform",
-        "cluster_age_gyr",
-        "feh",
-        "isMPB",
-    ]
-    survivors = pd.read_csv(path, sep=r"\s+", comment="#", header=None, names=columns, engine="python")
-    for col in columns:
-        survivors[col] = pd.to_numeric(survivors[col], errors="coerce")
-    survivors = survivors.dropna(subset=columns).copy()
-    survivors["hid_z0"] = survivors["hid_z0"].astype(int)
-    survivors["isMPB"] = survivors["isMPB"].astype(int)
-    survivors["M_GC_final"] = np.power(10.0, survivors["logM_final"].to_numpy(dtype=float))
-    survivors["M_gas_form"] = gas_mass_from_stellar_halo(
-        np.power(10.0, survivors["logMstar_form"].to_numpy(dtype=float)),
-        np.power(10.0, survivors["logMh_form"].to_numpy(dtype=float)),
-        survivors["zform"].to_numpy(dtype=float),
-    )
-    survivors["logMgas_form"] = np.log10(np.clip(survivors["M_gas_form"].to_numpy(dtype=float), 1.0e-30, None))
-    survivors["t_form_gyr"] = T_UNIVERSE_GYR - survivors["cluster_age_gyr"].to_numpy(dtype=float)
-    survivors["t_form_gyr"] = np.where(np.isfinite(survivors["t_form_gyr"]), survivors["t_form_gyr"], np.nan)
-    split_threshold, _, _ = fit_metallicity_split(survivors["feh"].to_numpy(dtype=float))
-    survivors["population"] = _population_from_threshold(survivors["feh"], split_threshold)
-    return PaperModelCatalog(survivors=survivors.reset_index(drop=True), split_threshold=split_threshold)
 
 
 def _build_halo_level_table_from_survivors(
@@ -2002,55 +1417,50 @@ def _parse_figures(value: str | None) -> List[int]:
     return sorted(set(figures))
 
 
-parser = argparse.ArgumentParser(description="Reproduce the Choksi+2018 figure suite from one local High-z SMBHs output directory.")
-parser.add_argument(
-    "--out_dir",
-    type=Path,
-    default=DEFAULT_OUT_DIR,
-    help="Model output directory containing the root allcat file, mpb_from_fixed_trees.csv, ns*/, and run_metadata.json.",
-)
-parser.add_argument(
-    "--plot_dir",
-    type=Path,
-    default=None,
-    help="Plot output directory. Defaults to <out_dir>/_plots_Choksi+2018.",
-)
-parser.add_argument("--ns-value", type=float, default=NS_VALUE_DEFAULT, help="N_s value to plot.")
-parser.add_argument("--figures", type=str, default=None, help="Optional comma-separated subset, e.g. 1,2,5.")
-parser.add_argument("--final-z", type=float, default=None, help="Optional final redshift override. Defaults to run_metadata.json when present.")
-args = parser.parse_args()
+def main() -> None:
+    parser = argparse.ArgumentParser(description="Reproduce the Choksi+2018 figure suite from one local High-z SMBHs output directory.")
+    parser.add_argument(
+        "--out_dir",
+        type=Path,
+        required=True,
+        help="Model output directory containing the root allcat file, mpb_from_fixed_trees.csv, ns*/, and run_metadata.json.",
+    )
+    parser.add_argument("--ns-value", type=float, default=NS_VALUE_DEFAULT, help="N_s value to plot.")
+    parser.add_argument("--figures", type=str, default=None, help="Optional comma-separated subset, e.g. 1,2,5.")
+    parser.add_argument("--final-z", type=float, default=None, help="Optional final redshift override. Defaults to run_metadata.json when present.")
+    args = parser.parse_args()
 
-out_dir = args.out_dir.resolve()
-allcat_template, mpb_path = _resolve_model_inputs_from_out_dir(out_dir)
-model_root = out_dir
-plot_dir = args.plot_dir.resolve() if args.plot_dir is not None else (out_dir / "_plots_Choksi+2018").resolve()
-plot_dir.mkdir(parents=True, exist_ok=True)
+    out_dir = args.out_dir.resolve()
+    plot_dir = default_plot_dir(out_dir, "Choksi+2018")
+    plot_dir.mkdir(parents=True, exist_ok=True)
 
-run_metadata = _load_run_metadata(allcat_template)
-final_redshift = float(args.final_z) if args.final_z is not None else float(run_metadata.get("final_redshift", 0.0))
-_ = final_redshift
+    _apply_plot_style()
+    observations = load_choksi_observations()
+    model_catalog = build_choksi_model(out_dir, args.ns_value)
+    paper_model = load_choksi_paper_model()
+    run_metadata = model_catalog.run_metadata
+    final_redshift = float(args.final_z) if args.final_z is not None else float(run_metadata.get("final_redshift", 0.0))
+    selected_figures = _parse_figures(args.figures)
 
-_apply_plot_style()
-observations = load_observations()
-model_catalog = build_model_catalog(allcat_template, mpb_path, args.ns_value)
-paper_model = load_choksi_paper_model()
-selected_figures = _parse_figures(args.figures)
+    figure_builders = {
+        1: lambda: build_figure_01(model_catalog, observations, paper_model),
+        2: lambda: build_figure_02(model_catalog, observations, paper_model),
+        3: lambda: build_figure_03(model_catalog, observations, paper_model),
+        4: lambda: build_figure_04(model_catalog, observations),
+        5: lambda: build_figure_05(model_catalog, observations, paper_model),
+        6: lambda: build_figure_06(model_catalog, paper_model),
+        7: lambda: build_figure_07(model_catalog, observations, paper_model),
+        8: lambda: build_figure_08(model_catalog, paper_model),
+        9: lambda: build_figure_09(model_catalog, observations, final_redshift, paper_model),
+        10: lambda: build_figure_10(model_catalog, observations),
+    }
 
-figure_builders = {
-    1: lambda: build_figure_01(model_catalog, observations, paper_model),
-    2: lambda: build_figure_02(model_catalog, observations, paper_model),
-    3: lambda: build_figure_03(model_catalog, observations, paper_model),
-    4: lambda: build_figure_04(model_catalog, observations),
-    5: lambda: build_figure_05(model_catalog, observations, paper_model),
-    6: lambda: build_figure_06(model_catalog, paper_model),
-    7: lambda: build_figure_07(model_catalog, observations, paper_model),
-    8: lambda: build_figure_08(model_catalog, paper_model),
-    9: lambda: build_figure_09(model_catalog, observations, final_redshift, paper_model),
-    10: lambda: build_figure_10(model_catalog, observations),
-}
+    for fig_num in selected_figures:
+        fig = figure_builders[fig_num]()
+        path = plot_dir / f"Fig.{fig_num:02d}_{FIGURE_STEMS[fig_num]}.pdf"
+        fig.savefig(path, dpi=STD_DPI, bbox_inches="tight")
+        plt.close(fig)
 
-for fig_num in selected_figures:
-    fig = figure_builders[fig_num]()
-    path = plot_dir / f"Fig.{fig_num:02d}_{FIGURE_STEMS[fig_num]}.pdf"
-    fig.savefig(path, dpi=STD_DPI, bbox_inches="tight")
-    plt.close(fig)
+
+if __name__ == "__main__":
+    main()

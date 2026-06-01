@@ -302,6 +302,8 @@ def drdt_DF_RK4(
     check_finite_positive(M_GC_1e5Msun, name="GC mass in 1e5 M☉ M_GC_1e5Msun")
     check_finite_positive(r_kpc, name="GC distance from the galactic centre in kpc r_kpc")
     check_finite_positive(dt_Gyr, name="Timestep in Gyr dt_Gyr")
+    if r_kpc <= tun.r_sink:
+        return None
 
     k1 = dt_Gyr * M_GC_1e5Msun / (0.45 * r_kpc * vc_kms(m_enclosed_current_1e5, r_kpc, rho_bg_current))
 
@@ -313,17 +315,17 @@ def drdt_DF_RK4(
         return M_GC_1e5Msun / (0.45 * rr * vc_kms(m_enclose, rr, rho_bg))
 
     r2 = r_kpc - 0.5 * k1
-    if r2 <= 0.0:
+    if r2 <= tun.r_sink:
         return None
     else:
         k2 = drdt_DF(r2) * dt_Gyr
         r3 = r_kpc - 0.5 * k2
-        if r3 <= 0.0:
+        if r3 <= tun.r_sink:
             return None
         else:
             k3 = drdt_DF(r3) * dt_Gyr
             r4 = r_kpc - k3
-            if r4 <= 0.0:
+            if r4 <= tun.r_sink:
                 return None
             else:
                 k4 = drdt_DF(r4) * dt_Gyr

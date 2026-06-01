@@ -49,7 +49,7 @@ Main workflow outputs and their meaning:
 
 ### Python GC-evolution workflow
 
-The original Python-plus-Fortran split has been replaced by an active Python evolution path centred on `src/evo.py`. Relative to `/home/subonan/Gao+2024`, the current workflow always uses the evolving-host background with analytical background-density evaluation and exposes timestep controls, the Sersic-index scan, the `--DF` dynamical-friction switch, the `--tidal_stripping` continuous-stripping switch, and a redshift-list interface for extra sunk-BH summary outputs directly through `my/run.py`, while keeping the formation stage tied to the Gao-style tree and GC catalogue logic. The physical simulation itself now always runs to `z=0`, and optional extra redshifts are reconstructed afterwards from the `z=0` evolution outputs. The current pipeline is also easier to inspect and compare because one command now rebuilds formation catalogues, runs halo-by-halo evolution, and merges outputs.
+The original Python-plus-Fortran split has been replaced by an active Python evolution path centred on `src/evo.py`. Relative to `/home/subonan/Gao+2024`, the current workflow always uses the evolving-host background with analytical background-density evaluation and exposes timestep controls, the Sersic-index scan, the `--DF` dynamical-friction switch, the `--tidal_stripping` continuous-stripping switch, and a redshift-list interface for extra central NSC/BH summary outputs directly through `my/run.py`, while keeping the formation stage tied to the Gao-style tree and GC catalogue logic. The physical simulation itself now always runs to `z=0`, and optional extra redshifts are reconstructed afterwards from the `z=0` evolution outputs. The current pipeline is also easier to inspect and compare because one command now rebuilds formation catalogues, runs halo-by-halo evolution, and merges outputs.
 
 ### IMBH extension
 
@@ -57,23 +57,25 @@ The main scientific extension beyond Gao+2024 is the IMBH path. `src/IMBH.py` ad
 
 ### Improved outputs and analysis support
 
-The output layout is now organized by `N_s`, with merged `finalGCs` and `depos` products, halo-summary tables, a new redshift-resolved halo-level sunk-BH summary, machine-readable run metadata, and four separate paper-style plotting entry points. `my/run.py` can now trigger these plot suites directly after the simulation through `--plot_Gao+2024`, `--plot_Choksi+2018`, `--plot_Neumayer+2020`, and `--plot_Kong+2026`. Compared with the original Gao layout, the emphasis here is on a cleaner batch workflow and outputs that are easier to audit, compare, and reuse in later SMBH-focused analysis.
+The output layout is now organized by `N_s`, with merged `finalGCs` and `depos` products, halo-summary tables, a redshift-resolved central NSC/BH summary, machine-readable run metadata, and four separate paper-style plotting entry points. `my/run.py` can now trigger these plot suites directly after the simulation through `--plot_Gao+2024`, `--plot_Choksi+2018`, `--plot_Neumayer+2020`, and `--plot_Kong+2026`. Compared with the original Gao layout, the emphasis here is on a cleaner batch workflow and outputs that are easier to audit, compare, and reuse in later SMBH-focused analysis.
 
 #### `plot/plot_Gao+2024.py`
 
-This is the maintained Gao+2024 reproduction script. It reads the top-level `allcat_s-...txt` template, resolves the per-`N_s` `ns*/` catalogs automatically, uses `mpb_from_fixed_trees.csv` for halo-history diagnostics, and writes its figures to `<output>/_plots_Gao+2024`. When `my/run.py` is given `--plot_Gao+2024`, it forwards the full `N_s` list, the top-level allcat template, and the output directory to this script.
+This is the maintained Gao+2024 reproduction script. It reads the finished model directory from `--out_dir`, resolves the top-level `allcat_s-...txt`, `mpb_from_fixed_trees.csv`, and per-`N_s` `ns*/` catalogues automatically, and writes its figures to `<out_dir>/_plots_Gao+2024`. When `my/run.py` is given `--plot_Gao+2024`, it forwards the full `N_s` list and the output directory to this script.
 
 #### `plot/plot_Choksi+2018.py`
 
-This script reproduces the Choksi, Gnedin & Li (2018) figure suite from one finished model output directory. It reads the local run products from `--out_dir`, uses the cached observational and supplemental comparison data under `data/Choksi+2018`, and writes its figures to `<output>/_plots_Choksi+2018`. In addition to the local model, it now overlays the published `Choksi+2018` supplemental survivor catalog where that comparison is directly available. When `my/run.py` is given `--plot_Choksi+2018`, it automatically uses `N_s = 2.0` if that value is present in the run, otherwise it uses the first requested `N_s`.
+This script reproduces the Choksi, Gnedin & Li (2018) figure suite from one finished model output directory. It reads the local run products from `--out_dir`, uses the cached observational and supplemental comparison data under `data/Choksi+2018`, and writes its figures to `<out_dir>/_plots_Choksi+2018`. In addition to the local model, it overlays the published `Choksi+2018` supplemental survivor catalogue where that comparison is directly available. When `my/run.py` is given `--plot_Choksi+2018`, it automatically uses `N_s = 2.0` if that value is present in the run, otherwise it uses the first requested `N_s`.
 
 #### `plot/plot_Neumayer+2020.py`
 
-This script builds the Neumayer et al. (2020) NSC comparison from one finished model output directory. It reads the deposited-mass profiles, final GC products, halo summaries, and cached observational compilations under `data/Neumayer+2020`, and writes its figures to `<output>/_plots_Neumayer+2020`. It requires split-style full-physics counterpart data for the early/late model split: `<out_dir>/run_metadata.json` identifies the tree-data parent, `<out_dir>/halo_tree_lookup.csv` connects selected output haloes to that tree set, `<tree_data_parent>/full_physics_counterparts_z0.csv` supplies counterpart properties and matching, and `<tree_data_parent>/neumayer2020_fig3_divider.json` supplies the late/early colour divider. When `my/run.py` is given `--plot_Neumayer+2020`, it uses the same automatic `N_s` choice as the Choksi plot suite.
+This script builds the Neumayer et al. (2020) NSC comparison from one finished model output directory. It reads the model products and cached observational compilations under `data/Neumayer+2020`, and writes its figures to `<out_dir>/_plots_Neumayer+2020`. It requires split-style full-physics counterpart data for the early/late model split: `<out_dir>/run_metadata.json` identifies the tree-data parent, `<out_dir>/halo_tree_lookup.csv` connects selected output haloes to that tree set, `<tree_data_parent>/full_physics_counterparts_z0.csv` supplies counterpart properties and matching, and `<tree_data_parent>/neumayer2020_fig3_divider.json` supplies the late/early colour divider. When `my/run.py` is given `--plot_Neumayer+2020`, it uses the same automatic `N_s` choice as the Choksi plot suite.
 
 #### `plot/plot_Kong+2026.py`
 
-This script now combines the IMBH seed diagnostics and the redshift-resolved sunk-BH summaries. It reads one per-`N_s` `allcat_ns*.txt` formation catalogue for the initial cluster mass-radius and surface-density-metallicity IMBH plots, then reads `haloSummaryByZ_ns*.csv` for the sunk-BH tracks. Fig. 4 uses the same-redshift MPB halo mass stored in that summary, converts it to stellar mass with the project SMHM helper, and does not reconstruct halo mass from the flattened `mpb_from_fixed_trees.csv` table. It writes six figures to `<output>/_plots_Kong+2026`. When `my/run.py` is given `--plot_Kong+2026`, it uses the same automatic `N_s` choice as the Choksi and Neumayer plot suites.
+This script combines the IMBH seed diagnostics and the redshift-resolved central NSC/BH summaries. It reads one per-`N_s` `allcat_ns*.txt` formation catalogue for the initial cluster mass-radius and surface-density-metallicity IMBH plots, then reads `haloSummaryByZ_ns*.csv` for the central tracks. Fig. 4 uses the same-redshift MPB halo mass stored in that summary, converts it to stellar mass with the project SMHM helper, and does not reconstruct halo mass from the flattened `mpb_from_fixed_trees.csv` table. Fig. 7 adds an individual sunk IMBH versus sunk GC stellar mass diagnostic from `finalGCs_ns*.dat`, including sunk IMBH wanderers at `M_GC_final = 0`. It writes seven figures to `<out_dir>/_plots_Kong+2026`. When `my/run.py` is given `--plot_Kong+2026`, it uses the same automatic `N_s` choice as the Choksi and Neumayer plot suites.
+
+The plotting helpers are split by responsibility: `plot/load_output.py` handles model-output paths, readers, validation, and derived model tables; `plot/load_obs.py` handles observational cache readers and explicit missing-cache errors; `plot/plot_common.py` contains small plotting-only utilities. Plotting does not download or rebuild observational caches automatically.
 
 ## Repository Layout
 
@@ -88,7 +90,10 @@ This script now combines the IMBH seed diagnostics and the redshift-resolved sun
 - `plot/plot_Gao+2024.py`: Gao+2024 figure reproduction script for the current output layout.
 - `plot/plot_Choksi+2018.py`: Choksi+2018 figure reproduction and comparison script.
 - `plot/plot_Neumayer+2020.py`: Neumayer+2020 NSC-scaling comparison script.
-- `plot/plot_Kong+2026.py`: IMBH seed diagnostics plus redshift-resolved sunk-BH plot script.
+- `plot/plot_Kong+2026.py`: IMBH seed diagnostics plus redshift-resolved central NSC/BH plot script.
+- `plot/load_output.py`: shared model-output path discovery, table readers, validation, and derived plotting tables.
+- `plot/load_obs.py`: shared observational cache readers with no automatic downloads or cache rebuilding.
+- `plot/plot_common.py`: shared plotting-only style, output-directory, figure-IO, binning, and axis helpers.
 - `papers/`: method papers and reference PDFs used for the project.
 - `plots/`: project figures and plotting artifacts kept in the repository.
 - `tex/`: manuscript and note material.
@@ -99,22 +104,13 @@ This script now combines the IMBH seed diagnostics and the redshift-resolved sun
 python ~/High-z_SMBH_Seeds/src/run.py --help
 nohup python3 ~/High-z_SMBH_Seeds/src/run.py \
   --tree-dir /lingshan/disk3/subonan/Illustris-1-Dark+TNG50-1-Dark/data/fixed_trees_large_spin_dark \
-  --clear-output 2 --output /lingshan/disk3/subonan/_outputs/High-z_SMBH_Seeds_Eddington0.0_ex-situNSC1_Mc7 \
-  --Eddington 0.01 --ex-situNSC 1 --lg_cut-off_mass 7.0 --p2 6.75 --p3 0.5 --ts-m 0.2 --ts-r 0.2 \
+  --clear-output 2 --output /lingshan/disk3/subonan/_outputs/High-z_SMBH_Seeds_Eddington0_ex-situ2_Mc7 \
+  --Eddington 0.0 --ex-situ 2 --lg_cut-off_mass 7.0 --p2 6.75 --p3 0.5 --ts-m 0.2 --ts-r 0.2 \
   --run-all 0 --n-halos 512 --log-mh-min 9.0 --log-mh-max 15.0 \
   --extra_out_z_list '1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0' --ns-values 2.0 \
   --jobs 32 --ns-jobs 1 \
   --plot_Choksi+2018 --plot_Neumayer+2020 --plot_Gao+2024 --plot_Kong+2026 \
-  > ~/run3.log 2>&1 &
-nohup python3 ~/High-z_SMBH_Seeds/src/run.py \
-  --tree-dir /lingshan/disk3/subonan/Illustris-1-Dark+TNG50-1-Dark/data/fixed_trees_large_spin_dark \
-  --clear-output 2 --output /lingshan/disk3/subonan/_outputs/High-z_SMBH_Seeds_Eddington0_ex-situNSC1_M31_Mc7 \
-  --Eddington 0.0 --ex-situNSC 1 --lg_cut-off_mass 7.0 --p2 6.75 --p3 0.5 --ts-m 0.2 --ts-r 0.2 \
-  --run-all 0 --n-halos 64 --log-mh-min 11.845 --log-mh-max 12.398 \
-  --extra_out_z_list '1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0' --ns-values 2.0 \
-  --jobs 32 --ns-jobs 1 \
-  --plot_Choksi+2018 --plot_Neumayer+2020 --plot_Gao+2024 --plot_Kong+2026 \
-  > ~/run1.log 2>&1 &
+  > ~/run0.log 2>&1 &
 ```
 
 Prefer running from the repository root because the project path contains spaces and the relative `my/run.py` entry point is the least error-prone form.
@@ -123,12 +119,12 @@ Prefer running from the repository root because the project path contains spaces
 - `--run-all 1` processes the full tree set, while `--run-all 0` activates the mass window and `--n-halos` selection.
 - `--jobs` controls halo-level parallelism inside one `N_s` run, and `--ns-jobs` controls how many `N_s` pipelines are run concurrently.
 - GC evolution now always uses the evolving host-halo background.
-- The physical simulation now always runs to `z=0`; `--extra_out_z_list` only controls extra halo-level sunk-BH summaries reconstructed at earlier redshifts.
-- `z=0` is always included automatically in the redshift-resolved sunk-BH outputs.
+- The physical simulation now always runs to `z=0`; `--extra_out_z_list` only controls extra halo-level central NSC/BH summaries reconstructed at earlier redshifts.
+- `z=0` is always included automatically in the redshift-resolved central NSC/BH outputs.
 - `--plot_Gao+2024` writes Gao-style figures under `<output>/_plots_Gao+2024/`.
 - `--plot_Choksi+2018` writes Choksi-style figures under `<output>/_plots_Choksi+2018/`.
 - `--plot_Neumayer+2020` writes the NSC scaling figures under `<output>/_plots_Neumayer+2020/`.
-- `--plot_Kong+2026` writes the IMBH seed diagnostics and redshift-resolved sunk-BH figures under `<output>/_plots_Kong+2026/`.
+- `--plot_Kong+2026` writes the IMBH seed diagnostics and redshift-resolved central NSC/BH figures under `<output>/_plots_Kong+2026/`.
 - Temporary work directories are created under the system temp area and removed automatically at the end of the run.
 - Each Sersic index writes to its own `ns*/` directory, while merged products stay at the output top level.
 - The main merged outputs are `finalGCs_all.dat`, `depos_all.dat`, `haloSummary_all.csv`, `haloSummaryByZ_all.csv`, `python_evo_summary.csv`, and `run_metadata.json`.
@@ -157,14 +153,14 @@ The active workflow no longer uses the legacy Gao `input.txt` interface. The mai
 ### Path and output control
 
 - `--tree-dir`: optional fixed-tree input directory; if omitted, the runner uses the bundled `data/fixed_trees_large_spin` inside this repository.
-- `--output`: output directory for the whole run.
+- Output-directory flag: destination directory for the whole run.
 - `--clear-output`: remove existing files in the output directory before writing fresh results.
 
 ### Formation-model parameters
 
 - `--p2`: GC formation-efficiency normalization in `M_GC = 3e-5 * p2 * M_gas / f_b`.
 - `--p3`: threshold in `((Delta M_h / M_h) / Delta t)` above which a formation event is triggered.
-- `--mpb-only`: if `1`, form GCs only on the main progenitor branch; if `0`, include all retained branches in the fixed tree.
+- MPB-only switch: if `1`, form GCs only on the main progenitor branch; if `0`, include all retained branches in the fixed tree.
 - `--lg_cut-off_mass`: `log10(M_c / Msun)` for the Schechter cutoff mass in the GC initial-mass function.
 - `--metal`: stellar mass-metallicity relation used at GC formation; choices are `Choksi+2018` and `Chen&Gnedin2024`.
 - `--accreted_baryon`: accreted-baryon fraction limiter used for the cold-gas mass; choices are `Muratov&Gnedin2010` and `Chen&Gnedin2023`.
@@ -186,9 +182,12 @@ The evolution solver now always uses the evolving-host background implementation
 - `--ts-r`: adaptive orbital-decay timestep factor.
 - `--DF`: if `1`, enable dynamical-friction orbital decay; if `0`, disable the radial-inspiral term while leaving stellar evolution, tidal stripping, and tidal tearing active.
 - `--tidal_stripping`: continuous tidal-stripping prescription. `Fragione+2019` keeps the current local-orbit rate; `Choksi+2018` uses a fixed `P = 0.5` Choksi-style disruption/stripping rate. Direct tidal tearing and stellar evolution are unchanged.
-- `--extra_out_z_list`: comma-separated extra redshifts for halo-level sunk-BH summaries. The simulation itself still runs to `z=0`, `z=0` is always included automatically, and halo selection remains tied to the descendant `z=0` host.
+- `--extra_out_z_list`: comma-separated extra redshifts for halo-level central NSC/BH summaries. The simulation itself still runs to `z=0`, `z=0` is always included automatically, and halo selection remains tied to the descendant `z=0` host.
 - `--IMBH`: if `1`, enable IMBH seeding in `src/main_spatial.py`; if `0`, write zero IMBH-related columns.
 - `--Eddington`: dimensionless Eddington ratio for uncapped growth of the stored central BH state only; IMBHs inside GCs and non-central wandering IMBHs remain non-accreting.
+- `--ex-situ`: tri-state ex-situ GC treatment. Mode `0` applies Gao+2024-style analytic survival/disruption to non-MPB GCs to `z = 0` while MPB GCs use the active dynamical NSC path. Mode `1` evolves satellite branches and releases surviving non-central GCs/wanderers at `0.5 Rvir`, but does not import satellite central NSC/BH masses. Mode `2` evolves satellite branches, releases surviving non-central GCs/wanderers, and imports satellite central NSC/BH masses at branch merger.
+- The former satellite-NSC boolean option has been removed; pass `--ex-situ 2` for the previous branch-import behaviour.
+- Mode `0` keeps the active `src/config.py` cosmology and time conversion, not the original Gao+2024 `smhm.py` cosmology. Non-MPB analytic survivors and wanderers keep `r_final_kpc = r_init_kpc`, and disrupted non-MPB IMBH hosts are retained as `status = -4` wanderers.
 - `--ns-values`: comma-separated list of Sersic indices to run.
 - `--jobs`: parallel halo-evolution workers per `N_s`.
 - `--ns-jobs`: concurrent `N_s` pipelines.
@@ -214,21 +213,15 @@ These are not exposed as `my/run.py` flags, but they still define the evolution 
 ```bash
 cd ~/High-z_SMBH_Seeds
 python3 plot/plot_Gao+2024.py \
-  --allcat <out_dir>/allcat_s-0_p2-6.75_p3-0.5.txt \
-  --mpb <out_dir>/mpb_from_fixed_trees.csv \
-  --ns-values 0.5,1.0,1.5,2.0,2.5,3.0,3.5,4.0 \
-  --output <out_dir>/_plots \
-  --gao-fig2-dir <gao_fig2_dir>
+  --out_dir <out_dir> \
+  --ns-values 0.5,1.0,1.5,2.0,2.5,3.0,3.5,4.0
 ```
 
-- `--allcat`: root allcat template path, or one per-`N_s` allcat file from which the script resolves the other `ns*/` tables.
-- `--mpb`: path to `mpb_from_fixed_trees.csv`.
+- `--out_dir`: one finished model output directory containing the root allcat template, `mpb_from_fixed_trees.csv`, `ns*/` products, and `run_metadata.json`.
 - `--ns-values`: set of Sersic indices to include in the figure suite.
-- `--output`: destination directory for figure PDFs and the manifest.
-- `--gao-fig2-dir`: optional Gao+2024 merged-output directory used for the Figure 2 comparison overlay.
 - `--no-observables`: optional switch to disable observational overlays.
 
-This script writes the Gao-style figure PDFs plus `figure_manifest.csv` in the requested output directory.
+This script writes the Gao-style figure PDFs under `<out_dir>/_plots_Gao+2024/`.
 
 ### `plot/plot_Choksi+2018.py`
 
@@ -239,12 +232,11 @@ python3 plot/plot_Choksi+2018.py \
 ```
 
 - `--out_dir`: one finished model output directory containing the root allcat template, `mpb_from_fixed_trees.csv`, and the `ns*/` products.
-- `--plot_dir`: optional override for the output directory. By default it writes to `<out_dir>/_plots_Choksi+2018`.
 - `--ns-value`: the single `N_s` value to compare against Choksi+2018 in this plot suite.
 - `--figures`: optional comma-separated subset, for example `1,3,6`.
 - `--final-z`: optional override for the final redshift if you want the age-based panels to ignore `run_metadata.json`.
 
-This script writes the Choksi-style figure PDFs under `_plots_Choksi+2018/`.
+This script writes the Choksi-style figure PDFs under `<out_dir>/_plots_Choksi+2018/`.
 
 ### `plot/plot_Neumayer+2020.py`
 
@@ -255,11 +247,10 @@ python3 plot/plot_Neumayer+2020.py \
 ```
 
 - `--out_dir`: one finished model output directory containing the allcat template, `ns*/` final GC tables, deposited-mass profiles, halo summaries, `run_metadata.json`, and `halo_tree_lookup.csv`.
-- `--plot_dir`: optional override for the output directory. By default it writes to `<out_dir>/_plots_Neumayer+2020`.
 - `--ns-value`: the single `N_s` value used to build the NSC proxy comparison.
 - Required split-style counterpart inputs are `<out_dir>/run_metadata.json`, `<out_dir>/halo_tree_lookup.csv`, `<tree_data_parent>/full_physics_counterparts_z0.csv`, and `<tree_data_parent>/neumayer2020_fig3_divider.json`, where `<tree_data_parent>` is inferred from `run_metadata.json`.
 
-This script writes `Fig.03_galaxy_demographics.pdf`, `Fig.12_nsc_scaling.pdf`, and `Fig.13_bh_nsc_mass_ratio.pdf` under `_plots_Neumayer+2020/`.
+This script writes `Fig.03_galaxy_demographics.pdf`, `Fig.12_nsc_scaling.pdf`, and `Fig.13_bh_nsc_mass_ratio.pdf` under `<out_dir>/_plots_Neumayer+2020/`.
 
 ### `plot/plot_Kong+2026.py`
 
@@ -270,11 +261,14 @@ python3 plot/plot_Kong+2026.py \
 ```
 
 - `--out_dir`: one finished model output directory containing `ns*/allcat_ns*.txt` for Fig. 1/2, plus `allcat_s-*.txt` and `ns*/haloSummaryByZ_ns*.csv` for the redshift-resolved figures.
-- `--plot_dir`: optional override for the output directory. By default it writes to `<out_dir>/_plots_Kong+2026`.
-- `--ns-value`: the single `N_s` value used for all six figures; Fig. 1/2 intentionally use only this per-`N_s` formation catalogue.
+- `--ns-value`: the single `N_s` value used for all seven figures; Fig. 1/2 intentionally use only this per-`N_s` formation catalogue.
 - `--mass-bin-width-dex`: optional log halo-mass bin width for the mean and standard-deviation tracks.
+- `--no-smhm-top-axis`: optional switch to omit the present-day SMHM top axis in Fig. 3.
+- `--no-cliff-observations`: optional switch to skip the cached Cliff Fig. 14 observational overlay in Fig. 4.
 
-This script writes `Fig.01_initial_cluster_mass_radius_imbh_seeds.pdf`, `Fig.02_initial_surface_density_metallicity_imbh_thresholds.pdf`, `Fig.03_sunk_bh_mass_vs_halo_mass.pdf`, `Fig.04_sunk_bh_mass_vs_stellar_mass_at_redshift.pdf`, `Fig.05_bh_mass_vs_nsc_mass_at_redshift.pdf`, and `Fig.06_sunk_bh_mass_histogram.pdf` under `_plots_Kong+2026/`.
+This script writes `Fig.01_initial_cluster_mass_radius_imbh_seeds.pdf`, `Fig.02_initial_surface_density_metallicity_imbh_thresholds.pdf`, `Fig.03_sunk_bh_mass_vs_halo_mass.pdf`, `Fig.04_Mbh~Mstar.pdf`, `Fig.05_Mbh~Mnsc.pdf`, `Fig.06_sunk_bh_mass_histogram.pdf`, and `Fig.07_sunkMimbh~sunkMgc.pdf` under `<out_dir>/_plots_Kong+2026/`.
+
+For all four plotting scripts, figure products always go to `<out_dir>/_plots_<suite>/`. Required observational cache files must already exist under `data/`; missing cache files now raise an explicit error instead of triggering a download or rebuild during plotting.
 
 ## Output Schema
 
@@ -317,7 +311,9 @@ Columns:
 - `ns`
 - `hid_z0`
 - `status`
-- `m_final_msun`
+- `M_GC_final`
+- `M_IMBH_init`
+- `M_IMBH_final`
 - `r_final_kpc`
 
 Status codes:
@@ -325,7 +321,7 @@ Status codes:
 - `-1`: exhausted to zero mass
 - `-2`: tidally torn apart
 - `-3`: sunk into the galaxy center
-- `-4`: surviving IMBH wanderer at the final simulated epoch
+- `-4`: non-central IMBH wanderer at the final simulated epoch, including disrupted non-MPB analytic IMBH hosts in `--ex-situ 0`
 - `-5`: IMBH wanderer sunk into the galaxy center
 
 #### `finalGCs_all.dat`
@@ -337,8 +333,7 @@ Columns:
 - `halo_id_z0`
 - `gc_index_halo`
 - `status`
-- `m_final_msun`
-- `log10_m_final_msun`
+- `M_GC_final`
 - `m_init_msun`
 - `lookback_time_final_gyr`
 - `lookback_time_init_gyr`
@@ -347,7 +342,10 @@ Columns:
 - `gc_radius_pc`
 - `sigma_h_msun_pc2`
 - `feh`
-- `imbh_mass_msun`
+- `M_IMBH_init`
+- `M_IMBH_final`
+
+`M_GC_final` is the final bound stellar mass outside the BH. For `--ex-situ 0` non-MPB analytic rows this is `max(M_GC_analytic_final - M_IMBH_init, 0)`.
 
 #### `depos_all.dat`
 
@@ -383,15 +381,18 @@ Columns:
 - `n_sunk`
 - `m_gc_init_total_msun`
 - `m_gc_final_total_msun`
-- `m_imbh_seed_total_msun`
-- `m_smbh_gc_sunk_msun`
-- `m_smbh_wanderer_sunk_msun`
-- `m_smbh_est_msun`
+- `M_IMBH_init_tot`
+- `M_IMBH_final_tot`
+- `M_NSC`
+- `M_SMBH_init`
+- `M_SMBH_final`
 - `ns`
+
+`M_IMBH_final_tot` is the `z = 0` total BH inventory: stored central BH mass plus non-sunk non-central IMBH masses.
 
 #### `haloSummaryByZ_all.csv`
 
-Long-format halo-level sunk-BH summary across all `N_s` runs and all requested output redshifts. Each row corresponds to one `(ns, hid_z0, z_out)` combination.
+Long-format halo-level central NSC/BH summary across all `N_s` runs and all requested output redshifts. Each row corresponds to one `(ns, hid_z0, z_out)` combination.
 
 Columns:
 - `hid_z0`
@@ -399,12 +400,13 @@ Columns:
 - `lookback_to_z0_gyr`
 - `halo_mass_available`
 - `logMh_z_msun`
-- `m_smbh_gc_sunk_msun`
-- `m_smbh_wanderer_sunk_msun`
-- `m_smbh_est_msun`
+- `M_NSC`
+- `M_SMBH_init`
+- `M_SMBH_final`
 - `ns`
 
 `logMh_z_msun` is the MPB halo mass at `z_out`, interpolated in linear halo mass versus cosmic time using the same monotonic MPB block convention as `src/evo.py`. `halo_mass_available` is `0` and `logMh_z_msun` is `NaN` when the requested redshift lies outside the available MPB history for that halo.
+`haloSummaryByZ` contains central quantities only. Non-central IMBH inventories are not redshift-resolved in this table; use `M_IMBH_final_tot` in `haloSummary` for the `z = 0` total BH inventory.
 
 #### `run_metadata.json`
 
@@ -421,6 +423,7 @@ Keys surfaced in the README:
 - `p2`
 - `p3`
 - `lg_cut_off_mass`
+- `ex_situ_mode`
 - `metal`
 - `accreted_baryon`
 - `eff_rad`
@@ -456,13 +459,52 @@ Halo-level summary for one `N_s`. It uses the same columns as `haloSummary_all.c
 
 #### `haloSummaryByZ_nsXpY.csv`
 
-Long-format halo-level sunk-BH summary for one `N_s`. It uses the same columns as `haloSummaryByZ_all.csv` except for the trailing `ns` column.
+Long-format halo-level central NSC/BH summary for one `N_s`. It uses the same columns as `haloSummaryByZ_all.csv` except for the trailing `ns` column.
 
 ### Plot outputs
 
 When the plot scripts are run, they write:
 
-- `_plots_Gao+2024/Fig.XX_*.pdf` and `_plots_Gao+2024/figure_manifest.csv`: Gao+2024 suite from `plot/plot_Gao+2024.py`.
+- `_plots_Gao+2024/Fig.XX_*.pdf`: Gao+2024 suite from `plot/plot_Gao+2024.py`.
 - `_plots_Choksi+2018/Fig.XX_*.pdf`: Choksi+2018 suite from `plot/plot_Choksi+2018.py`.
 - `_plots_Neumayer+2020/Fig.03_galaxy_demographics.pdf`, `_plots_Neumayer+2020/Fig.12_nsc_scaling.pdf`, and `_plots_Neumayer+2020/Fig.13_bh_nsc_mass_ratio.pdf`: Neumayer+2020 comparison from `plot/plot_Neumayer+2020.py`.
-- `_plots_Kong+2026/Fig.01_*.pdf` through `_plots_Kong+2026/Fig.06_*.pdf`: IMBH seed diagnostics and redshift-resolved sunk-BH summaries from `plot/plot_Kong+2026.py`.
+- `_plots_Kong+2026/Fig.01_*.pdf` through `_plots_Kong+2026/Fig.07_*.pdf`: IMBH seed diagnostics and redshift-resolved central NSC/BH summaries from `plot/plot_Kong+2026.py`.
+
+## Install McLuster
+
+https://github.com/lwang-astro/mcluster
+
+### Copy the repository and Build the basic version
+
+On a Linux/HPC machine with GCC:
+
+```bash
+cd McLuster_Wang+2019/
+make mcluster
+./mcluster -h
+```
+
+### Case A: cored NSC
+
+Use an EFF/Nuker-like profile with inner slope 0:
+
+```bash
+cd _ic/
+mcluster -N 100000 -P 3 -r 1.0 -c 10.0 -g 4.0 -g 0.0 -g 2.0 -Q 0.5 -C 3 -o NSCcore -f 0 -u 1
+python add2BHs.py NSCcore.txt NSCcoreM1e3M1e2r1.txt --m1 1.0e3 --m2 1.0e2 --r2 1.0
+python add2BHs.py NSCcore.txt NSCcoreM1e3M1e3r1.txt --m1 1.0e3 --m2 1.0e3 --r2 1.0
+python add2BHs.py NSCcore.txt NSCcoreM1e3M1e2r2.txt --m1 1.0e3 --m2 1.0e2 --r2 2.0
+python add2BHs.py NSCcore.txt NSCcoreM1e4M1e2r1.txt --m1 1.0e4 --m2 1.0e2 --r2 1.0
+```
+
+### Case B: Cuspy NSC
+
+```bash
+mcluster -N 100000 -P 3 -r 1.0 -c 10.0 -g 4.0 -g 1.0 -g 2.0 -Q 0.5 -C 3 -o NSCcusp -f 0 -u 1
+python add2BHs.py NSCcusp.txt NSCcuspM1e3M1e2r1.txt --m1 1.0e3 --m2 1.0e2 --r2 1.0
+```
+
+### Add 2 BHs
+
+`_ic/add2BHs.py`
+

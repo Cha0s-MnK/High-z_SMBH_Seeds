@@ -37,6 +37,7 @@ if str(SRC_DIR) not in sys.path:
     sys.path.insert(0, str(SRC_DIR))
 
 from config import STD_DPI  # noqa: E402
+from plot_common import plot_dir as default_plot_dir  # noqa: E402
 
 """Local MW/M31 NSC+SMBH constants for Gao+2023 plotting."""
 
@@ -71,23 +72,6 @@ ALLCAT_COLUMNS = [
 ]
 ALLCAT_OPTIONAL_RADIUS_COLUMN = "r_galaxy_kpc"
 RUN_METADATA_NAME = "run_metadata.json"
-DEFAULT_OUT_DIR = Path("/lingshan/disk3/subonan/_outputs/Gao+2023")
-DEFAULT_ALLCAT = DEFAULT_OUT_DIR / "allcat_s-0_p2-6.75_p3-0.5.txt"
-DEFAULT_MPB = DEFAULT_OUT_DIR / "mpb_from_fixed_trees.csv"
-DEFAULT_PLOT_DIR = DEFAULT_OUT_DIR / "_plots_Gao+2023"
-GAO_FIG2_ALLCAT_COLUMNS = [
-    "halo_id",
-    "logMh_z0",
-    "halo_id_form",
-    "logMh_form",
-    "logMstar_form",
-    "logMgas_form",
-    "logMcl_form",
-    "zform",
-    "feh",
-    "rGalaxy_kpc",
-]
-GAO_FIG2_NS_PATTERN = re.compile(r"haloSummary_ns([0-9]+(?:\.[0-9]+)?)\.csv$")
 LEGACY_DEFAULT_NS_VALUES = (0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0)
 
 
@@ -235,7 +219,7 @@ def _add_nsc_smbh_points_pc(ax: plt.Axes, obs: GalaxyObs, show_labels: bool = Tr
     )
 
 
-def _load_observational_overlays() -> Dict[str, object]:
+def _gao_observational_overlays() -> Dict[str, object]:
     """Return observational anchors used in Gao+2023 figure overlays.
 
     The points/curves below are compact digitized approximations from the
@@ -486,7 +470,7 @@ def _load_observational_overlays() -> Dict[str, object]:
     }
 
 
-def load_allcat(allcat_path: Path) -> pd.DataFrame:
+def read_allcat(allcat_path: Path) -> pd.DataFrame:
     """Load and standardize one allcat table."""
 
     raw = pd.read_csv(
@@ -532,112 +516,7 @@ def load_allcat(allcat_path: Path) -> pd.DataFrame:
     return gc
 
 
-def _gao_fig2_ns_label(ns_value: float) -> str:
-    """Return the Gao output label used in top-level filenames."""
-
-    return f"{float(ns_value):.1f}"
-
-
-def _discover_gao_fig2_ns_values(data_dir: Path) -> List[float]:
-    """Discover available N_s values from Gao halo-summary outputs."""
-
-    ns_values: List[float] = []
-    for path in data_dir.glob("haloSummary_ns*.csv"):
-        match = GAO_FIG2_NS_PATTERN.fullmatch(path.name)
-        if match is not None:
-            ns_values.append(float(match.group(1)))
-    ns_values = sorted(set(ns_values))
-    if len(ns_values) == 0:
-        raise FileNotFoundError(f"No Gao Figure 2 haloSummary_ns*.csv files found in {data_dir}")
-    return ns_values
-
-
-def _load_gao_fig2_halo_masses(allcat_path: Path) -> pd.Series:
-    """Load z=0 halo masses from Gao all_<Ns>.txt outputs."""
-
-    raw = pd.read_csv(
-        allcat_path,
-        sep=r"\s+",
-        comment="#",
-        header=None,
-        engine="python",
-    )
-    if raw.shape[1] < len(GAO_FIG2_ALLCAT_COLUMNS):
-        raise ValueError(
-            f"Gao allcat file has {raw.shape[1]} columns; expected at least {len(GAO_FIG2_ALLCAT_COLUMNS)}."
-        )
-    raw = raw.iloc[:, : len(GAO_FIG2_ALLCAT_COLUMNS)].copy()
-    raw.columns = GAO_FIG2_ALLCAT_COLUMNS
-    for col in ("halo_id", "logMh_z0"):
-        raw[col] = pd.to_numeric(raw[col], errors="coerce")
-    allcat = raw.dropna(subset=["halo_id", "logMh_z0"]).copy()
-    if allcat.empty:
-        raise ValueError(f"No valid Gao allcat rows found in {allcat_path}.")
-    allcat["halo_id"] = allcat["halo_id"].astype(int)
-    halo_mass = allcat.groupby("halo_id", sort=True)["logMh_z0"].first().astype(float)
-    return np.power(10.0, halo_mass)
-
-
-def _load_gao_fig2_ratio_table(data_dir: Path, ns_value: float) -> pd.DataFrame:
-    """Load one Gao per-halo M_GC/M_halo table for Figure 2."""
-
-    label = _gao_fig2_ns_label(ns_value)
-    summary_path = data_dir / f"haloSummary_ns{label}.csv"
-    allcat_path = data_dir / f"all_{label}.txt"
-    if not summary_path.exists():
-        raise FileNotFoundError(f"Missing Gao halo summary for N_s={label}: {summary_path}")
-    if not allcat_path.exists():
-        raise FileNotFoundError(f"Missing Gao allcat file for N_s={label}: {allcat_path}")
-
-    summary = pd.read_csv(summary_path)
-    required = ["halo_id", "sum_m_final_alive_msun", "gcevo_status", "gcevo_error"]
-    for col in required:
-        if col not in summary.columns:
-            raise ValueError(f"Missing required Gao Figure 2 column '{col}' in {summary_path}")
-    summary["halo_id"] = pd.to_numeric(summary["halo_id"], errors="coerce")
-    summary["sum_m_final_alive_msun"] = pd.to_numeric(summary["sum_m_final_alive_msun"], errors="coerce")
-    summary = summary.dropna(subset=["halo_id", "sum_m_final_alive_msun"]).copy()
-    summary["gcevo_status"] = summary["gcevo_status"].astype(str).str.strip().str.lower()
-    summary = summary.loc[summary["gcevo_status"] == "ok"].copy()
-    if summary.empty:
-        raise ValueError(
-            f"All Gao halos were filtered out for N_s={label} after applying gcevo_status == 'ok' "
-            f"to {summary_path}."
-        )
-    summary["halo_id"] = summary["halo_id"].astype(int)
-
-    halo_mass = _load_gao_fig2_halo_masses(allcat_path)
-    summary["m_halo_msun"] = summary["halo_id"].map(halo_mass)
-    if summary["m_halo_msun"].isna().any():
-        missing = summary.loc[summary["m_halo_msun"].isna(), "halo_id"].tolist()
-        raise ValueError(f"Missing Gao halo masses for halo IDs {missing} in {allcat_path}")
-
-    summary["ratio"] = summary["sum_m_final_alive_msun"] / summary["m_halo_msun"]
-    summary["ns"] = float(ns_value)
-    return summary.sort_values("halo_id").reset_index(drop=True)
-
-
-def _build_gao_fig2_summary(data_dir: Path) -> pd.DataFrame:
-    """Build Gao Figure 2 median and interquartile summary from merged outputs."""
-
-    rows: List[dict] = []
-    for ns_value in _discover_gao_fig2_ns_values(data_dir):
-        ratio_table = _load_gao_fig2_ratio_table(data_dir, ns_value)
-        ratios = ratio_table["ratio"].to_numpy(dtype=float)
-        q25, median, q75 = np.quantile(ratios, [0.25, 0.5, 0.75])
-        rows.append(
-            {
-                "ns": float(ns_value),
-                "n_halos": int(len(ratios)),
-                "q25": float(q25),
-                "median": float(median),
-                "q75": float(q75),
-            }
-        )
-    return pd.DataFrame(rows).sort_values("ns").reset_index(drop=True)
-
-
-def load_mpb(mpb_path: Path) -> pd.DataFrame:
+def read_mpb(mpb_path: Path) -> pd.DataFrame:
     """Load MPB table (full or topology schema) and add helper columns."""
 
     mpb = pd.read_csv(mpb_path)
@@ -668,11 +547,11 @@ def load_mpb(mpb_path: Path) -> pd.DataFrame:
     return mpb
 
 
-def load_inputs(allcat_path: Path, mpb_path: Path) -> Tuple[pd.DataFrame, pd.DataFrame]:
+def read_inputs(allcat_path: Path, mpb_path: Path) -> Tuple[pd.DataFrame, pd.DataFrame]:
     """Load and standardize GC catalog and MPB tables."""
 
-    gc = load_allcat(allcat_path)
-    mpb = load_mpb(mpb_path)
+    gc = read_allcat(allcat_path)
+    mpb = read_mpb(mpb_path)
     return gc, mpb
 
 
@@ -825,18 +704,7 @@ def _resolve_model_inputs_from_out_dir(out_dir: Path) -> Tuple[Path, Path]:
     return allcat_candidates[0].resolve(), mpb_path.resolve()
 
 
-def _looks_like_model_output_root(path: Path) -> bool:
-    """Heuristic used to catch accidental `--output <run_dir>` invocations."""
-
-    candidate = path.resolve()
-    if not candidate.exists() or not candidate.is_dir():
-        return False
-    if (candidate / "mpb_from_fixed_trees.csv").exists():
-        return True
-    return any(candidate.glob("allcat_s-*.txt"))
-
-
-def _load_run_metadata(allcat_path: Path) -> Dict[str, object]:
+def _read_run_metadata(allcat_path: Path) -> Dict[str, object]:
     """Load run metadata emitted by `my/run.py`, if present."""
 
     path = _model_output_root_from_allcat_path(allcat_path) / RUN_METADATA_NAME
@@ -868,7 +736,7 @@ def _resolve_reference_allcat_path(
     allcat_template_path: Path,
     ns_values: Sequence[float],
     *,
-    input_mode: str = "explicit --allcat",
+    input_mode: str = "out_dir",
 ) -> Path:
     """Pick one existing allcat path used as reference row ordering."""
 
@@ -925,7 +793,7 @@ def _read_comment_columns(path: Path) -> List[str]:
     raise ValueError(f"Cannot find header columns in {path}.")
 
 
-def _load_final_gcs_table(
+def _read_final_gcs_table(
     path: Path,
     expected_len: int,
     expected_halo_ids: np.ndarray,
@@ -972,7 +840,7 @@ def _load_final_gcs_table(
     return status, m_final, r_final
 
 
-def _load_halo_summary(path: Path) -> pd.DataFrame:
+def _read_halo_summary(path: Path) -> pd.DataFrame:
     """Load one per-N_s halo summary table."""
 
     df = pd.read_csv(path)
@@ -1005,7 +873,7 @@ def _find_deposit_file(allcat_ns_path: Path) -> Path | None:
     return path if path.exists() else None
 
 
-def _load_deposit_profile(allcat_ns_path: Path) -> DepositProfile | None:
+def _read_deposit_profile(allcat_ns_path: Path) -> DepositProfile | None:
     """Build a deposited-profile table from the merged per-`N_s` deposit file."""
 
     path = _find_deposit_file(allcat_ns_path)
@@ -1092,7 +960,7 @@ def simulate_models(
         if not allcat_ns_path.exists():
             raise FileNotFoundError(f"Missing N_s allcat file: {allcat_ns_path}")
 
-        gc_ns = load_allcat(allcat_ns_path)
+        gc_ns = read_allcat(allcat_ns_path)
         # Later figure panels compare different N_s values GC-by-GC, so the
         # catalogs must be in identical row order before we trust those joins.
         _assert_same_row_order(gc_ref=gc, gc_ns=gc_ns, ns_path=allcat_ns_path)
@@ -1101,7 +969,7 @@ def simulate_models(
         r_init = np.where(np.isfinite(r_init) & (r_init > 0), r_init, np.nan)
 
         final_gcs_path = _find_final_gcs_file(allcat_ns_path)
-        status, m_final, r_final = _load_final_gcs_table(
+        status, m_final, r_final = _read_final_gcs_table(
             final_gcs_path,
             expected_len=n_tot,
             expected_halo_ids=np.asarray(gc_ns["hid_z0"], dtype=int),
@@ -1109,9 +977,9 @@ def simulate_models(
         halo_summary_path = _find_halo_summary_file(allcat_ns_path)
         if halo_summary_path is None:
             raise FileNotFoundError(f"Missing haloSummary file for {allcat_ns_path.name}.")
-        halo_summary = _load_halo_summary(halo_summary_path)
+        halo_summary = _read_halo_summary(halo_summary_path)
 
-        deposit_profile = _load_deposit_profile(allcat_ns_path)
+        deposit_profile = _read_deposit_profile(allcat_ns_path)
 
         results[ns_key] = ModelResult(
             ns_value=ns_key,
@@ -1516,8 +1384,6 @@ def build_reproduction(
     seed: int = 7,
     include_observables: bool = True,
     final_redshift: float | None = None,
-    gao_fig2_dir: Path | None = None,
-    input_mode: str = "explicit --allcat",
 ) -> List[Path]:
     """Main reproduction entry point.
 
@@ -1530,19 +1396,18 @@ def build_reproduction(
     output_dir.mkdir(parents=True, exist_ok=True)
     _apply_plot_settings_from_data()
     ns_values = [float(v) for v in ns_values]
-    gao_fig2_dir = gao_fig2_dir.resolve() if gao_fig2_dir is not None else None
-    run_meta = _load_run_metadata(allcat_path)
+    run_meta = _read_run_metadata(allcat_path)
     if final_redshift is None:
         final_redshift = float(run_meta.get("final_redshift", 0.0))
     else:
         final_redshift = float(final_redshift)
 
-    allcat_ref_path = _resolve_reference_allcat_path(allcat_path, ns_values, input_mode=input_mode)
-    gc, mpb = load_inputs(allcat_path=allcat_ref_path, mpb_path=mpb_path)
+    allcat_ref_path = _resolve_reference_allcat_path(allcat_path, ns_values, input_mode="out_dir")
+    gc, mpb = read_inputs(allcat_path=allcat_ref_path, mpb_path=mpb_path)
     halo_meta = estimate_zhm(gc=gc, mpb=mpb, final_redshift=final_redshift)
     gc = gc.join(halo_meta[["z_hm"]], on="hid_z0")
     mw_obs, m31_obs = _get_mw_m31_observations()
-    obs_overlay = _load_observational_overlays() if include_observables else {}
+    obs_overlay = _gao_observational_overlays() if include_observables else {}
     if include_observables and final_redshift > 1.0e-12:
         print(
             "WARNING observational overlays are z=0 references while this run "
@@ -1612,25 +1477,6 @@ def build_reproduction(
         label="High-z-SMBHs",
         zorder=3,
     )
-    if gao_fig2_dir is not None:
-        gao_fig2_summary = _build_gao_fig2_summary(gao_fig2_dir)
-        gao_x = gao_fig2_summary["ns"].to_numpy(dtype=float)
-        gao_med = gao_fig2_summary["median"].to_numpy(dtype=float) / 1.0e-5
-        gao_q25 = gao_fig2_summary["q25"].to_numpy(dtype=float) / 1.0e-5
-        gao_q75 = gao_fig2_summary["q75"].to_numpy(dtype=float) / 1.0e-5
-        plt.errorbar(
-            gao_x,
-            gao_med,
-            yerr=[gao_med - gao_q25, gao_q75 - gao_med],
-            marker="o",
-            color="tab:orange",
-            mfc="white",
-            mec="tab:orange",
-            capsize=4,
-            lw=1.0,
-            label="Gao+2023",
-            zorder=2,
-        )
     if include_observables:
         ref_colors = {"S09": "blue", "G10": "red", "H14": "c", "H17": "green"}
         for label, ratio in obs_overlay["fig2_ratio_refs"].items():
@@ -1649,7 +1495,7 @@ def build_reproduction(
     plt.xticks([0, 1, 2, 3, 4])
     plt.yticks([1, 3, 5, 7, 9])
     plt.grid(True, alpha=0.2, linestyle=':', which='both')
-    if include_observables or (gao_fig2_dir is not None):
+    if include_observables:
         plt.legend(frameon=False, loc="upper left", ncol=2)
     save(2, "mgc_mhalo_ratio")
 
@@ -2130,7 +1976,7 @@ def _parse_ns_values_arg(text: str) -> List[float]:
 def _resolve_default_ns_values(allcat_path: Path) -> List[float]:
     """Default to run metadata when available, otherwise keep the legacy Gao grid."""
 
-    run_meta = _load_run_metadata(allcat_path)
+    run_meta = _read_run_metadata(allcat_path)
     ns_values = run_meta.get("ns_values")
     if isinstance(ns_values, list) and len(ns_values) > 0:
         return [float(value) for value in ns_values]
@@ -2144,34 +1990,11 @@ def main() -> None:
     parser.add_argument(
         "--out_dir",
         type=Path,
-        default=None,
+        required=True,
         help=(
             "Model output directory containing the root allcat file, mpb_from_fixed_trees.csv, "
             "ns*/, and run_metadata.json."
         ),
-    )
-    parser.add_argument(
-        "--allcat",
-        type=Path,
-        default=None,
-        help=(
-            "Root template allcat path or one per-N_s allcat path. "
-            "Use with --mpb for explicit manual input mode."
-        ),
-    )
-    parser.add_argument(
-        "--mpb",
-        type=Path,
-        default=None,
-        help="Path to MPB table CSV. Use with --allcat for explicit manual input mode.",
-    )
-    parser.add_argument(
-        "--plot_dir",
-        "--output",
-        dest="plot_dir",
-        type=Path,
-        default=None,
-        help="Plot output directory. Defaults to <out_dir>/_plots_Gao+2023 or the legacy Gao+2023 plot directory.",
     )
     parser.add_argument(
         "--ns-values",
@@ -2182,47 +2005,14 @@ def main() -> None:
     parser.add_argument("--seed", type=int, default=7, help="Random seed for stochastic scatter.")
     parser.add_argument("--final-z", "--final-redshift", dest="final_z", type=float, default=None)
     parser.add_argument(
-        "--gao-fig2-dir",
-        type=Path,
-        default=None,
-        help=(
-            "Optional Gao+2023 merged-output directory containing haloSummary_ns*.csv "
-            "and all_<Ns>.txt for a Figure 2 comparison overlay."
-        ),
-    )
-    parser.add_argument(
         "--no-observables",
         action="store_true",
         help="Disable observational overlays.",
     )
     args = parser.parse_args()
-    out_dir = args.out_dir.resolve() if args.out_dir is not None else None
-    plot_dir = args.plot_dir.resolve() if args.plot_dir is not None else None
-
-    input_mode = "legacy defaults"
-    if out_dir is not None:
-        allcat_path, mpb_path = _resolve_model_inputs_from_out_dir(out_dir)
-        if plot_dir is None:
-            plot_dir = (out_dir / "_plots_Gao+2023").resolve()
-        input_mode = "--out_dir"
-    elif args.allcat is not None or args.mpb is not None:
-        if args.allcat is None or args.mpb is None:
-            raise ValueError("Explicit manual input mode requires both --allcat and --mpb.")
-        allcat_path = args.allcat.resolve()
-        mpb_path = args.mpb.resolve()
-        if plot_dir is None:
-            plot_dir = DEFAULT_PLOT_DIR.resolve()
-        input_mode = "explicit --allcat/--mpb"
-    else:
-        if plot_dir is not None and _looks_like_model_output_root(plot_dir):
-            raise ValueError(
-                f"`--output` / `--plot_dir` now controls only the figure destination, but {plot_dir} "
-                "looks like a model output directory. Use `--out_dir <run_dir>` instead."
-            )
-        allcat_path = DEFAULT_ALLCAT.resolve()
-        mpb_path = DEFAULT_MPB.resolve()
-        if plot_dir is None:
-            plot_dir = DEFAULT_PLOT_DIR.resolve()
+    out_dir = args.out_dir.resolve()
+    allcat_path, mpb_path = _resolve_model_inputs_from_out_dir(out_dir)
+    plot_dir = default_plot_dir(out_dir, "Gao+2024")
     ns_values = _parse_ns_values_arg(args.ns_values) if args.ns_values is not None else _resolve_default_ns_values(allcat_path)
 
     figure_paths = build_reproduction(
@@ -2233,8 +2023,6 @@ def main() -> None:
         seed=args.seed,
         include_observables=not args.no_observables,
         final_redshift=args.final_z,
-        gao_fig2_dir=args.gao_fig2_dir,
-        input_mode=input_mode,
     )
     print(f"FIGURES_WRITTEN {len(figure_paths)}")
     print(f"OUTPUT_DIR {plot_dir}")

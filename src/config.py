@@ -88,6 +88,52 @@ def check_finite_positive(val, name="val"):
         raise ValueError(f"{name} must be finite and positive, but got {val}!")
     return val
 
+def fixed_tree_mpb_branch_id(log_mh, branch_id):
+    """Return the project MPB branch ID from fixed-tree rows.
+
+    This intentionally follows the Gao+2024 formation scripts and the
+    previous ``src/main.py`` behaviour: choose the branch ID at the first row
+    with maximum log10(M_h/Msun).
+    """
+
+    log_mh_arr = np.asarray(log_mh, dtype=float)
+    branch_raw = np.asarray(branch_id)
+    if log_mh_arr.ndim != 1 or branch_raw.ndim != 1:
+        raise ValueError("Fixed-tree MPB inputs must be one-dimensional arrays.")
+    if len(log_mh_arr) == 0:
+        raise ValueError("Cannot identify the MPB branch from empty fixed-tree arrays.")
+    if len(log_mh_arr) != len(branch_raw):
+        raise ValueError("Fixed-tree log_mh and branch_id arrays must have matching lengths.")
+    if np.any(~np.isfinite(log_mh_arr)):
+        raise ValueError("Fixed-tree log_mh values must be finite.")
+
+    branch_values = []
+    for value in branch_raw:
+        if isinstance(value, (int, np.integer)):
+            branch = int(value)
+        elif isinstance(value, str):
+            try:
+                branch = int(value)
+            except ValueError:
+                value_float = check_finite(float(value), name="fixed-tree branch ID")
+                if abs(value_float) > 2**53:
+                    raise ValueError("Large fixed-tree branch IDs must be read as integers, not float-like text.")
+                branch = int(round(value_float))
+                if abs(value_float - float(branch)) > 1.0e-6:
+                    raise ValueError(f"Fixed-tree branch ID is not integer-like: {value}")
+        else:
+            value_float = check_finite(float(value), name="fixed-tree branch ID")
+            if abs(value_float) > 2**53:
+                raise ValueError("Large fixed-tree branch IDs must be read as integers, not floats.")
+            branch = int(round(value_float))
+            if abs(value_float - float(branch)) > 1.0e-6:
+                raise ValueError(f"Fixed-tree branch ID is not integer-like: {value}")
+        if branch < 0:
+            raise ValueError(f"Fixed-tree branch ID must be non-negative; got {branch}")
+        branch_values.append(branch)
+
+    return int(branch_values[int(np.argmax(log_mh_arr))])
+
 def check_eddington_ratio(f_edd):
     return check_finite_non_negative(f_edd, name="Eddington ratio f_Edd")
 
@@ -477,7 +523,7 @@ def Sersic_coefs(N_S: float) -> Tuple[float, float]:
 
 # Gao-only effective-radius helpers used by the formation and evolution stages.
 
-def gao2023_birth_re_kpc(jsp: float, halomass_msun: float, redshift: float) -> float:
+def resolve_birth_re_kpc(halomass_msun: float, redshift: float, jsp: float) -> float:
     """Gao+2024 birth-radius scale in physical kpc."""
 
     j_kpc_kms = float(jsp) * H100
@@ -486,7 +532,7 @@ def gao2023_birth_re_kpc(jsp: float, halomass_msun: float, redshift: float) -> f
     re_kpc = j_kpc_kms / (20.0 * hz_km_s_kpc * rvir_kpc)
     return check_finite_positive(re_kpc, name="Gao+2024 birth effective radius in kpc")
 
-def gao2023_evolution_re_kpc(spin_norm: float, mhalo_1e9msun: float, t_l_gyr: float, tun) -> float:
+def resolve_background_re_kpc(mhalo_1e9msun: float, t_l_gyr: float, spin_norm: float, tun) -> float:
     """Gao+2024 analytical-background radius scale in physical kpc."""
 
     rvir_kpc = Rv_kpc(float(mhalo_1e9msun), float(t_l_gyr), tun)
@@ -495,23 +541,6 @@ def gao2023_evolution_re_kpc(spin_norm: float, mhalo_1e9msun: float, t_l_gyr: fl
     spin_parameter = float(spin_norm) / math.sqrt(2.0 * G * halo_mass_kg * rvir_m)
     re_kpc = spin_parameter * rvir_kpc / math.sqrt(2.0)
     return check_finite_positive(re_kpc, name="Gao+2024 evolution effective radius in kpc")
-
-def resolve_birth_re_kpc(
-    *,
-    halomass_msun: float,
-    redshift: float,
-    jsp: float,
-) -> float:
-    return gao2023_birth_re_kpc(jsp, halomass_msun, redshift)
-
-def resolve_background_re_kpc(
-    *,
-    mhalo_1e9msun: float,
-    t_l_gyr: float,
-    spin_norm: float,
-    tun,
-) -> float:
-    return gao2023_evolution_re_kpc(spin_norm, mhalo_1e9msun, t_l_gyr, tun)
 
 """
 Function-only IMBH seeding estimator for GC formation outputs.
