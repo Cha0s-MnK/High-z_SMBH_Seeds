@@ -1,0 +1,804 @@
+Article
+
+A direct black-hole mass measurement in a
+little red dot at high redshift
+
+https://doi.org/10.1038/s41586-026-10579-4                       Ignas Juodžbalis1,2 ✉, Cosimo Marconcini3,4, Francesco D’Eugenio1,2, Roberto Maiolino1,2,5,
+                                                                 Alessandro Marconi3,4, Hannah Übler6, Jan Scholtz1,2, Xihan Ji1,2, Gareth C. Jones1,2,
+Received: 30 August 2025
+                                                                 Michele Perna7, Santiago Arribas7, Jake S. Bennett8, Volker Bromm9, Andrew J. Bunker10,
+Accepted: 21 April 2026                                          Stefano Carniani11, Stéphane Charlot12, Giovanni Cresci4, Pratika Dayal13,14, Eiichi Egami15,
+                                                                 Andrew Fabian16, Kohei Inayoshi17, Yuki Isobe1,2,18, Lucy R. Ivey1,2, Sophie Koudmani19,20,
+Published online: 27 May 2026
+                                                                 Nicolas Laporte21, Boyuan Liu22, Jianwei Lyu15, Giovanni Mazzolari6, Stephanie Monty16,
+Open access                                                      Eleonora Parlanti11, Pablo G. Pérez-González7, Brant Robertson23, Raffaella Schneider24,
+                                                                 Debora Sijacki1,16, Sandro Tacchella1,2, Alessandro Trinca25, Rosa Valiante26, Marta Volonteri12,
+    Check for updates
+                                                                 Joris Witstok27,28 & Saiyang Zhang29,30
+
+
+
+                                                                 Recent discoveries of faint active galactic nuclei (AGN) at the redshift frontier
+                                                                 have revealed a plethora of broad Hα emitters with optically red continua, named
+                                                                 little red dots (LRDs)1, which comprise 15–30% of the high-redshift broad-line AGN
+                                                                 population2. Owing to their peculiar properties3–6, modelling LRDs with standard
+                                                                 AGN scenarios has proven challenging. In particular, the validity of single-epoch virial
+                                                                 mass estimates in determining the black-hole masses of LRDs has been called into
+                                                                 question, with some models claiming that masses might be overestimated by up
+                                                                 to two orders of magnitude7–10. Here we report a direct, dynamical black-hole mass
+                                                                 measurement in a strongly lensed LRD at a redshift of 7.04. The combination of
+                                                                 lensing with deep spectroscopic data reveals a rotation curve that is inconsistent
+                                                                 with a nuclear star cluster, yet can be well explained by Keplerian rotation around a
+                                                                 point mass of 50 million solar masses, consistent with virial black-hole mass estimates.
+                                                                 The Keplerian rotation leaves little room for any stellar component in a host galaxy,
+                                                                 as we conservatively infer MBH/M⁎ > 2 (where MBH is the black-hole mass and M⁎ is the
+                                                                 stellar mass). Such a ‘naked’ black hole, together with its near-pristine environment11,
+                                                                 indicates that this LRD is a massive black-hole seed caught in its earliest accretion
+                                                                 phase.
+
+
+
+Abell 2744−QSO1 (hereafter QSO1) is a strongly lensed, triply imaged                             variability4,15,16, thereby robustly identifying QSO1 as hosting an accreting
+system, first discovered in the James Webb Space Telescope ( JWST)                               black hole (BH). On the basis of virial relations using broad-line widths
+Near Infrared Camera imaging by ref. 12, whose redshift was con-                                 and luminosities, a BH mass of about 4 × 107 M⊙ was estimated4,13,15. How-
+firmed to be z = 7.04 through Near Infrared Spectrograph (NIRSpec)                               ever, these results rest on the assumption that ‘virial relations’17 that are
+prism spectroscopy13, which also revealed broad components in Hα                                 calibrated locally, are still applicable at z = 7. In this work, we provide a
+and Hβ lines. The compactness and a red optical (rest frame) slope                               direct BH mass measurement in the high-redshift Universe, indeed illus-
+together with a blue ultraviolet (rest frame) slope classify it as a typi-                       trating that virial BH mass calibrations apply to this prototypical LRD.
+cal ‘little red dot’ (LRD)2,14. Further observations clearly spectrally                             It is first interesting to note that, given the low narrow-line veloc-
+resolved the broad- and narrow-line emission, and also detected line                             ity dispersion in QSO115 (σN < 22 km s−1; Supplementary Information
+
+1
+ Kavli Institute for Cosmology, University of Cambridge, Cambridge, UK. 2Cavendish Laboratory, University of Cambridge, Cambridge, UK. 3Università di Firenze, Dipartimento di Fisica e
+Astronomia, Florence, Italy. 4INAF - Arcetri Astrophysical Observatory, Florence, Italy. 5Department of Physics and Astronomy, University College London, London, UK. 6Max-Planck-Institut
+für extraterrestrische Physik, Garching, Germany. 7Centro de Astrobiología (CAB), CSIC-INTA, Madrid, Spain. 8Center for Astrophysics ∣ Harvard & Smithsonian, Cambridge, MA, USA.
+9
+  Department of Astronomy, University of Texas at Austin, Austin, TX, USA. 10Department of Physics, University of Oxford, Oxford, UK. 11Scuola Normale Superiore, Pisa, Italy. 12Sorbonne
+Université, CNRS, Institut d’Astrophysique de Paris, Paris, France. 13Kapteyn Astronomical Institute, University of Groningen, Groningen, The Netherlands. 14Canadian Institute for Theoretical
+Astrophysics, University of Toronto, Toronto, Ontario, Canada. 15Steward Observatory, University of Arizona, Tucson, AZ, USA. 16Institute of Astronomy, University of Cambridge, Cambridge,
+UK. 17Kavli Institute for Astronomy and Astrophysics, Peking University, Beijing, China. 18Waseda Research Institute for Science and Engineering, Faculty of Science and Engineering, Waseda
+University, Tokyo, Japan. 19Centre for Astrophysics Research, Department of Physics, Astronomy and Mathematics, University of Hertfordshire, Hatfield, UK. 20St Catharine’s College,
+University of Cambridge, Cambridge, UK. 21Aix Marseille Université, CNRS, CNES, LAM (Laboratoire d’Astrophysique de Marseille), Marseille, France. 22Universität Heidelberg, Zentrum für
+Astronomie, Institut für Theoretische Astrophysik, Heidelberg, Germany. 23Department of Astronomy and Astrophysics, University of California, Santa Cruz, Santa Cruz, CA, USA.
+24
+  Dipartimento di Fisica, ‘Sapienza’ Università di Roma, Rome, Italy. 25Como Lake Center for Astrophysics, DiSAT, Università degli Studi dell’Insubria, Como, Italy. 26INAF/Osservatorio
+Astronomico di Roma, Monte Porzio Catone, Italy. 27Cosmic Dawn Center (DAWN), Copenhagen, Denmark. 28Niels Bohr Institute, University of Copenhagen, Copenhagen, Denmark.
+29
+  Department of Physics, University of Texas at Austin, Austin, TX, USA. 30Weinberg Institute for Theoretical Physics, Texas Center for Cosmology and Astroparticle Physics, University of
+Texas at Austin, Austin, TX, USA. ✉e-mail: ij284@cam.ac.uk
+
+
+
+                                                                                                                                          Nature | Vol 653 | 28 May 2026 | 1017
+Article
+                                                                                                          Velocity (km s–1)                              Velocity dispersion (km s–1)
+                                                              Flux                                         (first moment)                                    (second moment)
+
+                                          0.1                                                   0.1                               20               0.1                                  40
+
+                                                                             1.0                                                  15                                                    35
+
+
+
+
+                                                                                                      Slic
+                                           0                                                     0                                                  0
+
+
+
+
+                                Δy (″)
+
+
+
+
+                                                                                                                                         Δy (″)
+                                                                                      Δy (″)
+                  Data
+
+
+
+
+                                                                                                          e
+                                                                             0.9                                                  10                                                    30
+
+
+
+
+                                                                                                        orie
+                                                                                                            n
+                                                                                                          tatio
+                                         –0.1   3 centroid
+                                                                                               –0.1                               5               –0.1                                  25
+                                                                             0.8
+                                                   error             50 pc
+
+
+
+
+                                                                                                               n
+                                                                                                                                  0                                                     20
+                                                                             0.7
+                                          0.1                                                   0.1                                                0.1
+                 Keplerian                                                                                                        –5                                                    15
+                point mass                                                   0.6
+                  model                    0                                                     0                                –10               0                                   10
+                                Δy (″)
+
+
+
+
+                                                                                      Δy (″)
+
+
+
+
+                                                                                                                                         Δy (″)
+            log(MBH/M() = 7.7                                                0.5
+                2R = 1.17                                                                                                        –15                                                   5
+                                         –0.1                                0.4               –0.1                                               –0.1
+                                                                                                                                  –20                                                   0
+
+
+                                          0.1                                0.010              0.1                                                0.1                                  2
+                                                                                                                                  0.5
+                                                                             0.005                                                                                                      1
+                                           0                                                     0                                                  0
+                                Δy (″)
+
+
+
+
+                                                                                      Δy (″)
+
+
+
+
+                                                                                                                                         Δy (″)
+               Residuals                                                     0                                                    0                                                     0
+
+                                                                             –0.005                                                                                                     –1
+                                         –0.1                                                  –0.1                               –0.5            –0.1
+
+                                                                             –0.010                                                                                                     –2
+                                                –0.1           0      0.1                             –0.1           0      0.1                            –0.1       0        0.1
+                                                          Δx (″)                                                   Δx (″)                                           Δx (″)
+
+Fig. 1 | Hα narrow-line emission and moment maps of QSO1. The top row shows                             function and the inner red solid ellipse shows 3σ uncertainty of the centroids
+the observed integrated narrow Hα flux, and the first and second moments of                             of the velocity channels used for spectroastrometry. The green segment shows
+the flux distribution, which correspond to line-of-sight velocity and velocity                          the orientation of the integral-field-unit slices, approximatively parallel to the
+dispersion, respectively. The middle row shows the best-fit Keplerian MOKA3D                            rotation field, indicating that the latter cannot be a calibration artefact. The
+model to the Hα maps. The bottom row shows the residuals of the best-fit                                spatial scale is given by the black line in the top-left panel.
+model. The dashed green ellipse in the top-left panel shows the point spread
+
+
+
+
+section 1.1), the BH’s sphere of influence, assuming the mass estimated                                 which, coupled with the velocity, yields a spectroastrometric enclosed
+from the virial relations, has a radius of ≳270 pc, which should be resolv-                             mass in solar masses (Mspec /M⊙) of log(Mspec /M⊙) = 6.70−7.2 (Supple-
+able with JWST, owing to the gravitational lens shearing of about 3.5                                   mentary Information section 1.2). This is a lower limit, as the inclina-
+(ref. 13). However, we will not make any a priori assumptions about the                                 tion is unconstrained with this method. We have also leveraged
+BH mass in the following analysis.                                                                      spectroastrometry by splitting the line in finer velocity bins (lighter
+    We perform a detailed analysis of the spatial and kinematic infor-                                  violet markers in Fig. 2; Supplementary Information section 1.2)—in
+mation present in the current deep, high-resolution NIRSpec integral                                    this case, the signal-to-noise is lower, hence these points are less con-
+field spectroscopy data, by focusing on the narrow Hα emission. The                                     straining, but they clearly show evidence of a rapidly declining rotation
+line flux, line-of-sight velocity (first moment) and velocity dispersion                                curve.
+(second moment) maps are shown in Fig. 1 (top). Clearly, the narrow Hα                                     The spectroastrometric measurements above indicate a compact
+velocity field reveals a velocity gradient with an amplitude of approxi-                                and dense system. However, they alone cannot exclude a significant
+mately 10 km s−1.                                                                                       contribution of stars, gas or dark matter to the mass budget. We there-
+    The narrow-line emission is spatially extended on scales of up to                                   fore combine the spectroastrometric measurements with the large-
+approximately 200 pc, as found by ref. 11 (whereas the continuum is                                     scale rotation to construct a rotation curve for QSO1 (Fig. 2). We fit the
+unresolved13). We sample the rotation curve across 2 spatial bins cor-                                  data in Fig. 2 with (1) a point mass and (2) a compact, yet extended,
+responding to 100-pc and 150-pc distances from the rotation centre                                      mass distribution mimicking the (thoroughly studied) nuclear star
+(Methods). We do not bin velocities at distances closer to the centre, as                               cluster (NSC) of the Milky Way19. Details are given in Methods; however,
+these are affected by beam smearing with the velocities on the opposite                                 Fig. 2 shows that an extended Milky-Way-like NSC mass distribution is
+side, and require other techniques to be resolved (spectroastrometry                                    disfavoured (reduced chi-squared χR2 = 3.2 ) when compared with a
+and full three-dimensional (3D) analysis, discussed below). The binned                                  pure point mass (Keplerian) model ( χR2 = 1.0 ), with BH mass,
+velocities are shown as blue circles in Fig. 2.                                                         log(MBH/M⊙) = 6.75 ± 0.15. The evidence from kinematics alone corre-
+    The small size of the object makes it difficult to trace the inner parts                            sponds to >5σ preference for a point mass. Additional kinematic evi-
+of the rotation curve. However, given the high signal-to-noise on Hα,                                   dence ruling out the Milky Way NSC (and more extensive NSC cases)
+it is possible to recover kinematic information below the spatial reso-                                 are presented further below and in Methods, also through the full 3D
+lution beam through spectroastrometric techniques. In brief, spec-                                      kinematic fitting. Here we note that the implied NSC masses,
+troastrometry consists in identifying the centroid positions when                                       logM⁎(<Rc) = 6.52 and logM⁎(<100 pc) = 7.1, are considerably above the
+scanning spectroscopic channels of a line18, producing a map of aver-                                   stellar-mass limits derived from the mass-to-light ratio of the object
+age gas positions across a velocity range (Extended Data Fig. 1 and                                     (Supplementary Information section 1.8). In these tests, the NSC effec-
+Supplementary Information section 1.2). We find that the centroids of                                   tive radius Rc was fixed to 5 pc, as in the Milky Way’s NSC—if left free,
+the Hα emission in the +50 km s−1 and −50 km s−1 velocity channels are                                  the Rc collapses to 10−4 pc, effectively mimicking a point-mass. In Meth-
+separated by 24.9 ± 9.4 pc in the source plane (magenta crosses in Fig. 2).                             ods, we estimate an upper limit on Rc of 0.2 pc, which would make the
+Taking half of this separation gives a radius scale rspec = 12.5+4.7−4.7 pc ,                           putative NSC in QSO1 more than 1 dex more concentrated than the
+
+
+1018 | Nature | Vol 653 | 28 May 2026
+                                                                                                          Ref. 13 (Hβ)
+              Point mass, Keplerian (MBH = 106.75 M()     Spectroastrometry
+              NSC                                         Spectroastrometry, fine split                    Ref. 4 (Hβ)    Virial relations
+              Resolved kinematics
+                                                                                                          Ref. 15 (Hα)
+
+
+             60                                                                            Scattering cocoon scenario
+
+                                                                                                          Lbol method
+
+             40                                                                           This work, spectroastrometry
+                                                                                                                         Direct
+                                                                                                  This work, MOKA3D
+                                                                                                                           6.0               6.5          7.0      7.5   8.0
+             20
+                                                                                                                                                   log[MBH (M()]
+                                                                            2
+                                                                         R = 1.0
+v (km s–1)
+
+
+
+
+                                                                                          Fig. 3 | Summary of BH mass estimates for QSO1. Comparison between our
+              0                                                                           lower limit and MOKA3D direct measurements (green stars) with previous virial
+                                                                                          estimates (black circles)4,13,15, the scenarios assuming that the dominant
+                                                                                          broadening mechanism of the broad lines is due to electron scattering7 and the
+             –20                                                                          Lbol based estimates from ref. 36. The purple shaded region shows the 1σ
+                                 2                                                        uncertainty on the MOKA3D estimate.
+                                R = 3.2
+
+             –40
+                                                                                          (Methods), which is consistent with the lower limit obtained above.
+                                                                                          The Plummer sphere model can also provide a good fit ( χR2 = 1.60 );
+             –60                                                                          however, it does so by collapsing the sphere to a point mass with a
+                                                                                          best-fit scale radius Rp = 0+3 −0 pc (Methods), just as for the direct
+                   –150     –100       –50          0      50         100       150       one-dimensional rotation fitting discussed above. The NSC model does
+                                                 r (pc)                                   remain extended (Rc = 4 ± 2 pc) when fitted to the full two-dimensional
+                                                                                          kinematics; however, the considerable systematic residuals (Extended
+Fig. 2 | One-dimensional rotation curve of QSO1. Blue points are from the
+binned two-dimensional line-of-sight velocity field and the magenta crosses
+                                                                                          Data Fig. 3, bottom) and the much higher χR2 = 2.26, indicate that this
+are the spectroastrometry measurements with lighter violet markers showing                model is an inadequate fit to the data. Finally, we also robustly exclude
+spectroastrometry of a finer split line profile, discussed in Methods. Line-of-           kinematic contamination from outflows utilizing a combination of
+sight velocity is given by v, while r represents the distance from the dynamical          spectroastrometry and MOKA3D modelling (Supplementary Informa-
+centre. The solid black line indicates the Keplerian best fit with a point mass,          tion section 1.5).
+giving a BH mass of 5.6 × 106 M⊙ (which is a lower limit given that with this method         These results represent a direct, dynamical measurement of a BH
+the inclination is not constrained). The dot-dashed line is for an NSC (see text),        mass at z > 5 and in an LRD. An immediate implication is that alter-
+which results in a worse fit.                                                             native scenarios explaining this LRD without accreting BHs are
+                                                                                          essentially ruled out. In addition, we can investigate the reliability of
+                                                                                          single-epoch BH mass virial estimates out to the epoch of reioniza-
+densest nuclear clusters found in the local Universe, and also more                       tion, and specifically for LRDs. Figure 3 shows a comparison between
+concentrated than the densest star clusters found in the early universe                   our BH mass direct measurement and literature estimates obtained
+(Extended Data Fig. 2).                                                                   using the virial scaling relations, showing full consistency. However,
+   In addition to the NSC, in Methods we also test the Plummer                            the scenario in which the broad lines are produced by electron scat-
+sphere model20, which typically describes globular clusters, as                           tering7, while providing a good spectral fit to the broad lines (Sup-
+well as a nuclear dark-matter cusp, both of which run into the same                       plementary Fig. 8), underestimates the BH mass by nearly 2 dex
+problems as the NSC—fitting the data by collapsing to a point                             (Fig. 3).
+ mass.                                                                                       The resulting Eddington luminosity (LEdd) of the BH is 7.6 × 1045 erg s−1.
+   Therefore, the simplest and most direct interpretation of the rota-                    By using standard scaling relations between broad Hα and bolo-
+tion curve is a central point mass larger than log(MBH/M⊙) = 6.75 ± 0.15,                 metric luminosity (L)23, we infer that the BH is accreting well below
+consistent with the bare spectroastrometric estimate, and correspond-                     its Eddington limit, with L/LEdd ≈ 0.02. If the broad Hα to bolometric
+ing to a supermassive BH. Once again, as the inclination of the rota-                     luminosity relation is higher than estimated locally (for example,
+tion is unconstrained by this method, this mass estimate is a lower                       ref. 6), then this would imply L/LEdd ≈ 0.01 or lower, indicating that
+limit.                                                                                    the BH might be in a near-dormant state. For this reason, the BH
+   To examine the robustness of our conclusions against sources of                        mass estimates using bolometric luminosity (Lbol) with assumed
+systematic uncertainty, and without having to rely on spectroastrom-                      L/LEdd = 1, fail to match our dynamical measurement (Fig. 3). Yet, the
+etry, we re-analyse our data by constructing self-consistent kinematics                   BHs may still have experienced previous super-Eddington bursts, as
+models by using the MOKA3D framework21,22, which takes into account                       inferred by ref. 24 for another overmassive, dormant BH at a similar
+the detailed flux distribution of the kinematic tracers, inclination                      redshift.
+effects and smearing by the point spread function. The mass distribu-                        Finally, we note that the Keplerian rotation curve leaves little room
+tion models considered are the same as in the direct fitting above—the                    for any stellar component. Specifically, in Supplementary Information
+point mass, NSC and Plummer sphere. The model and residuals for the                       section 1.7, we conservatively derive a dynamical upper limit on the
+point-mass case are shown in Fig. 1, and the residuals in the cases of the                stellar mass in the host galaxy of M⁎ < 2 × 107 M⊙. To our knowledge, this
+NSC and the Plummer sphere are shown in Extended Data Fig. 3.                             upper limit makes QSO1 the most ‘naked’ massive BH ever found, with
+Through this independent analysis, we find that the best fitting model                    MBH/M⁎ > 2, and in line with the previous finding that this BH is hosted
+( χR2 = 1.17) is Keplerian rotation around a point mass of logM = 7.7 ± 0.3,              in an environment that is chemically nearly pristine11. This demon-
+when corrected for 52 ± 2° inclination estimated via the same method                      strates the possibility of BH primacy, that is, BHs forming and growing
+
+
+                                                                                                                                  Nature | Vol 653 | 28 May 2026 | 1019
+Article
+                10.0                                                                           1.    Matthee, J. et al. Little red dots: an abundant population of faint active galactic nuclei at
+                                                                        This work, z = 7.04          z ~ 5 revealed by the EIGER and FRESCO JWST surveys. Astrophys. J. 963, 129 (2024).
+                 9.5                                                    JWST AGN (2 < z < 9)   2.    Hainline, K. N. et al. An investigation into the selection and colors of little red dots and
+
+
+
+
+                                             1
+                                                                        Ref. 25                      active galactic nuclei. Astrophys. J. 979, 138 (2025).
+
+
+
+
+                                          =
+                                        /M
+                                          *
+                                                                        Ref. 37                3.    Ma, Y. et al. UNCOVER: 404 error–models not found for the triply imaged little red dot
+                 9.0
+
+
+
+
+                                     BH
+                                                                        Ref. 38
+
+
+
+
+                                  M
+
+
+
+
+                                                    1
+                                                                                                     A2744−QSO1. Astrophys. J. 981, 191 (2025).
+
+
+
+
+                                                  0.
+                                                                        Ref. 39
+
+
+
+
+                                                  =
+                                                                                               4.    Ji, X. et al. BlackTHUNDER—a non-stellar Balmer break in a black hole-dominated little red
+
+
+
+
+                                             /M
+                                                  *
+                 8.5                                                    UHZ1
+
+
+
+
+                                                             01
+                                                                                                     dot at z = 7.04. Mon. Not. R. Astron. Soc. 544, 3900–3935 (2025).
+
+
+
+
+                                             BH
+
+
+
+
+                                                           0.
+                                                                        GN-z11
+
+
+
+
+                                        M
+
+
+
+
+                                                           =
+                                                                                               5.    Juodžbalis, I. et al. JADES—the Rosetta stone of JWST-discovered AGN: deciphering the
+log[MBH (M()]
+
+
+
+
+                                                                        Ref. 42
+
+
+
+
+                                                      /M
+                                                           *
+                 8.0                                                                                 intriguing nature of early AGN. Mon. Not. R. Astron. Soc. 535, 853–873 (2024).
+
+
+
+
+                                                      BH
+                                                                        Ref. 44
+
+
+
+
+                                                  M
+                                                                        Ref. 43                6.    Maiolino, R. et al. JWST meets Chandra: a large population of Compton thick,
+                 7.5                                                    Ref. 45                      feedback-free, and X-ray weak AGN, with a sprinkle of SNe. Mon. Not. R. Astron. Soc. 538,
+                                                                                                     1921–1943 (2025).
+                 7.0                                                                           7.    Rusakov, V. et al. JWST’s little red dots: an emerging population of young, low-mass AGN
+
+
+
+
+                                                               l
+                                                             ca
+                                                           Lo
+                                                                                                     cocooned in dense ionized gas. Nature 649, 574–579 (2026).
+                 6.5                                                                           8.    Naidu, R. P. et al. A ‘black hole star’ reveals the remarkable gas-enshrouded hearts of the
+                                                                                                     little red dots. Preprint at https://arxiv.org/abs/2503.16596 (2025).
+                 6.0                                                                           9.    Lambrides, E. et al. The case for super-Eddington accretion: connecting weak X-ray and
+                                                                                                     UV line emission in JWST broad-line AGN during the first billion years. Nat. Astron. https://
+                                                                                                     doi.org/10.1038/s41550-026-02813-w (2026).
+                 5.5
+                       7   8        9                 10           11                          10.   Lupi, A., Trinca, A., Volonteri, M., Dotti, M. & Mazzucchelli, C. Size matters: are we
+                                                                                                     witnessing super-Eddington accretion in high-redshift black holes from JWST? Astron.
+                               log[M* (M()]
+                                                                                                     Astrophys. 689, A128 (2024).
+                                                                                               11.   Maiolino, R. et al. A black hole in a near-pristine galaxy 700 million years after the Big Bang.
+ Fig. 4 | Location of QSO1 on the MBH–M⁎ plane. QSO1 is indicated by the red
+                                                                                                     Mon. Not. R. Astron. Soc. 548, 1–19 (2026).
+ star. The remaining points represent measurements from other JWST                             12.   Furtak, L. J. et al. JWST UNCOVER: extremely red and compact object at zphot ~ 7.6 triply
+ observations of low-mass active galactic nuclei (AGN)25,37–42 and quasars43–45.                     imaged by A2744. Astrophys. J. 952, 142 (2023).
+ The solid green line shows the local scaling relation from ref. 17, with the scatter          13.   Furtak, L. J. et al. A high black-hole-to-host mass ratio in a lensed AGN in the early Universe.
+                                                                                                     Nature 628, 57–61 (2024).
+ indicated by shading. The other green lines indicate constant MBH/M⁎ ratios.
+                                                                                               14.   Kocevski, D. D. et al. The rise of faint, red AGN at z > 4: a sample of little red dots in the
+ With MBH/M⁎ > 2, QSO1 lies orders of magnitude above the local scaling relations                    JWST extragalactic legacy fields. Astrophys. J. 986, 126–156 (2025).
+ and is approximately 1 dex more overmassive than even the most extreme                        15.   D’Eugenio, F. et al. BlackTHUNDER strikes twice: Balmer-line absorption in an overmassive
+ sources found by JWST so far.                                                                       Little Red Dot at z = 7.04. Mon. Not. R. Astron. Soc. 547, 1–14 (2026).
+                                                                                               16.   Furtak, L. J. et al. Investigating photometric and spectroscopic variability in the multiply-
+                                                                                                     imaged little red dot A2744−QSO1. Astron. Astrophys. 698, A227 (2025).
+                                                                                               17.   Reines, A. E. & Volonteri, M. Relations between central black hole mass and total galaxy
+                                                                                                     stellar mass in the local universe. Astrophys. J. 813, 82 (2015).
+earlier than their host galaxy. The lower limit on the MBH/M⁎ ratio is
+                                                                                               18.   Gnerucci, A. et al. A dynamical mass estimator for high z galaxies based on
+three orders of magnitude higher than observed locally. Figure 4 shows                               spectroastrometry. Astron. Astrophys. 533, A124 (2011).
+how extreme QSO1 is on the MBH versus M⁎ diagram relative the local                            19.   Schödel, R. et al. Surface brightness profile of the Milky Way’s nuclear star cluster. Astron.
+                                                                                                     Astrophys. 566, A47 (2014).
+relation—located at the extreme tail of the overmassive BHs identified
+                                                                                               20.   Plummer, H. C. On the problem of distribution in globular star clusters. Mon. Not. R.
+by JWST in previous surveys25.                                                                       Astron. Soc. 71, 460–470 (1911).
+   The only scenarios that can account for such a system are those invok-                      21.   Marconcini, C. et al. MOKA3D: an innovative approach to 3D gas kinematic modelling. I.
+                                                                                                     Application to AGN ionised outflows. Astron. Astrophys. 677, A58 (2023).
+ing ‘heavy seeds’, such as direct-collapse BHs (resulting from the direct
+                                                                                               22.   Marconcini, C. et al. Evidence of the fast acceleration of AGN-driven winds at kiloparsec
+collapse of massive pristine clouds) or primordial BHs (formed in the                                scales. Nat. Astron. 9, 907–915 (2025).
+first second after the Big Bang)26–28.                                                         23.   Stern, J. & Laor, A. Type 1 AGN at low z—I. Emission properties. Mon. Not. R. Astron. Soc.
+                                                                                                     423, 600–631 (2012).
+   Yet, most direct-collapse BH scenarios would require a strong source
+                                                                                               24.   Juodžbalis, I. et al. A dormant overmassive black hole in the early Universe. Nature 636,
+of ultraviolet radiation in the vicinity, which is not seen (not even a                              594–597 (2024).
+post-starburst galaxy that might have produced ultraviolet radiation                           25.   Juodžbalis, I. et al. JADES: comprehensive census of broad-line AGN from reionization to
+                                                                                                     cosmic noon revealed by JWST. Mon. Not. R. Astron. Soc. 546, 1–38 (2026).
+in the past), although some scenarios may expect direct collapse in                            26.   Bromm, V. & Loeb, A. Formation of the first supermassive black holes. Astrophys. J. 596,
+different environments29. However, direct-collapse BH models suggest                                 34–46 (2003).
+that their early growth is limited by the baryon fraction in an atomi-                         27.   Natarajan, P. et al. First detection of an overmassive black hole galaxy UHZ1: evidence
+                                                                                                     for heavy black hole seed formation from direct collapse. Astrophys. J. 960, L1
+cally cooling halo30,31, placing an upper limit on the MBH/Mdyn ratio of                             (2024).
+approximately 0.1, that is, more than 1 dex lower than our inferred lower                      28.   Zhang, S. et al. How do massive primordial black holes impact the formation of the first
+limit.                                                                                               stars and galaxies? Astrophys. J. 987, 185 (2025).
+                                                                                               29.   Wise, J. H. et al. Formation of massive black holes in rapidly growing pre-galactic gas
+   However, some independent evidence for the primordial BH sce-                                     clouds. Nature 566, 85–88 (2019).
+nario comes from the very low metallicity of this system11. However,                           30.   Bromm, V. & Yoshida, N. The first galaxies. Annu. Rev. Astron. Astrophys. 49, 373–407
+the observed mass of 5 × 107 M⊙ is significantly higher than the pre-                                (2011).
+                                                                                               31.   Pacucci, F., Ferrara, A., Volonteri, M. & Dubus, G. Shining in the dark: the spectral
+ferred 106 M⊙ primordial BH mass scale given by the electron–positron                                evolution of the first black holes. Mon. Not. R. Astron. Soc. 454, 3771–3777 (2015).
+annihilation epoch in the ultra-early universe32 (but see also ref. 33);                       32.   Carr, B. & Kühnel, F. Primordial black holes as dark matter: recent developments. Annu.
+therefore, the observed mass would require either significant accre-                                 Rev. Nucl. Part. Sci. 70, 355–394 (2020).
+                                                                                               33.   Carr, B., Clesse, S., García-Bellido, J. & Kühnel, F. Cosmic conundra explained by thermal
+tion or rapid merging of primordial BHs, which may be linked to their                                history and primordial black holes. Phys. Dark Univ. 31, 100755 (2021).
+highly clustered nature34.                                                                     34.   Zhang, S., Bromm, V. & Liu, B. How do primordial black holes change the halo mass
+   Regardless of the specific model, the high mass in such a remote cos-                             function and structure? Astrophys. J. 975, 139 (2024).
+                                                                                               35.   Inayoshi, K. Little red dots as the very first activity of black hole growth. Astrophys. J. 988,
+mic epoch, the extremely high MBH/M⁎, together with the near-pristine                                L22 (2025).
+environment11, indicate that QSO1 is a massive BH seed caught in the                           36.   Greene, J. E. et al. What you see is what you get: empirically measured bolometric
+earliest phases of accretion35.                                                                      luminosities of little red dots. Astrophys. J. 996, 129 (2026).
+                                                                                               37.   Harikane, Y. et al. A JWST/NIRSpec first census of broad-line AGNs at z = 4–7: detection of
+                                                                                                     10 faint AGNs with MBH ~ 106–108M⊙ and their host galaxy properties. Astrophys. J. 959,
+                                                                                                     39–57 (2023).
+Online content                                                                                 38.   Übler, H. et al. GA-NIFS: a massive black hole in a low-metallicity AGN at z ~ 5.55 revealed
+                                                                                                     by JWST/NIRSpec IFS. Astron. Astrophys. 677, A145 (2023).
+Any methods, additional references, Nature Portfolio reporting summa-                          39.   Kokorev, V. et al. UNCOVER: a NIRSpec identification of a broad-line AGN at z = 8.50.
+ries, source data, extended data, supplementary information, acknowl-                                Astrophys. J. 957, L7 (2023).
+edgements, peer review information; details of author contributions                            40.   Goulding, A. D. et al. Redshift confirmation of an X-ray luminous AGN at z = 10.1. Astrophys.
+                                                                                                     J. 955, L24 (2023).
+and competing interests; and statements of data and code availability                          41.   Maiolino, R. et al. A small and vigorous black hole in the early Universe. Nature 627, 59–63
+are available at https://doi.org/10.1038/s41586-026-10579-4.                                         (2024).
+
+
+
+1020 | Nature | Vol 653 | 28 May 2026
+42. Carnall, A. C. et al. A massive quiescent galaxy at redshift 4.658. Nature 619, 716–719                         Open Access This article is licensed under a Creative Commons Attribution
+    (2023).                                                                                                         4.0 International License, which permits use, sharing, adaptation, distribution
+43. Yue, M. et al. EIGER. V. Characterizing the host galaxies of luminous quasars at z ≳ 6.                         and reproduction in any medium or format, as long as you give appropriate
+    Astrophys. J. 966, 176 (2024).                                                               credit to the original author(s) and the source, provide a link to the Creative Commons licence,
+44. Stone, M. A., Lyu, J., Rieke, G. H., Alberts, S. & Hainline, K. N. Undermassive host         and indicate if changes were made. The images or other third party material in this article are
+    galaxies of five z ~ 6 luminous quasars detected with JWST. Astrophys. J. 964, 90–104        included in the article's Creative Commons licence, unless indicated otherwise in a credit line
+    (2024).                                                                                      to the material. If material is not included in the article's Creative Commons licence and your
+45. Ding, X. et al. Detection of stellar light from quasar host galaxies at redshifts above 6.   intended use is not permitted by statutory regulation or exceeds the permitted use, you will
+    Nature 621, 51–55 (2023).                                                                    need to obtain permission directly from the copyright holder. To view a copy of this licence,
+                                                                                                 visit http://creativecommons.org/licenses/by/4.0/.
+Publisher’s note Springer Nature remains neutral with regard to jurisdictional claims in
+published maps and institutional affiliations.                                                   © The Author(s) 2026
+
+
+
+
+                                                                                                                                           Nature | Vol 653 | 28 May 2026 | 1021
+Article
+Methods                                                                      through the standard root mean square (rms) weighting scheme, do
+                                                                             not take into account the velocity field cross-correlation between spax-
+Conventions                                                                  els of each bin owing to beam smearing and hence are probably sig-
+Throughout this work we assume a flat Λ (dark energy) cold-dark-matter       nificantly underestimated. An a priori derivation of the covariance
+cosmology with matter density parameter Ωm = 0.315 and a Hubble              matrix is intractable as it would require fitting individual dithers, which
+constant H0 = 67.4 km s−1 Mpc−1 (ref. 46). All reported magnitudes are       have far too low signal to noise. We thus use an empirical approach—
+in the AB system. Following the lensing model of ref. 13, we adopt a flux    scaling the naive rms-derived errors until the optimal model in the
+magnification factor μ = 6.2 and a shear factor of 3.52 for our source       family of models fitted has χR2 = 1 . This yields an upper limit on the
+(image A of QSO1). Hence, 1 arcsec in the image plane corresponds to         possible errors as it assumes that the optimal model is the ground truth.
+1.52 physical kiloparsecs. For robustness tests, we use the Bayesian         Consequently, using this method, we can establish a lower limit on the
+information criterion (BIC), defined as BIC ≡ χ2 + klnn, where k is the      significance of the optimal model (which turns out to be a point mass)
+total number of model parameters and n is the number of points fit-          over other models considered.
+ted; a decrease in BIC, ΔBIC ≥ 5, between two models was required for           For the spectroastrometric data points, we use a flux weighted aver-
+robust preference of one over the other, although our main conclusions       age of the velocity channels, giving ⟨vsini⟩ = 51 ± 4 km s−1. The factor
+remain unchanged even if a stricter ΔBIC ≥ 10 threshold is adopted.          of sini is written to explicitly state that these are the projected values,
+                                                                             uncorrected for inclination.
+Data reduction                                                                  As the resultant rotation curve, shown in Fig. 2, is sparsely sampled,
+We use data from the BlackTHUNDER NIRSpec integral field unit survey,        we consider only simple one- or two-parameter models for fitting.
+focusing on the 7.3-hour exposures with the G395H grating, giving a          Model curves were constructed following a Keplerian prescription:
+nominal spectral resolution R = 3,700 at the wavelength of Hα15. The
+                                                                                                                GM (<R)
+NIRSpec integral field unit was centred on image A of QSO1 (right ascen-                               v(R) =                                        (1)
+sion 00:14:19.161; declination −30:24:05.664)12. A detailed description                                           R
+of the reduction procedures is available in refs. 4,15; however, a sum-      where G is the gravitational constant, R is the distance from the cen-
+mary is provided here for context.                                           tre and M(<R) is the mass enclosed within R. Our fiducial fit follows
+   The spectra were extracted following the procedures of ref. 47,           a point-mass assumption with M(<R) ≡ M ≡ constant , which yields
+but using version 1.17.1 of the JWST pipeline. At z = 7.04, the Hα line      log(M/M⊙) = 6.75 ± 0.05. We note that the uncertainty on this value
+falls just outside the nominal wavelength coverage; however, the             is purely a fitting error and could be underestimated; hence, we
+F290LP filter does not cut off longer wavelengths and the detector           re-estimate the error using bootstrap resampling, taking into account
+efficiency allows to recover Hα emission. We perform this recovery           the width of the velocity bins, and we estimate a more conservative
+by extrapolating the wavelength solution, flat-field curves and the          measurement error of 0.15 dex.
+grating-equation-derived line spread function (LSF) out of the nominal          To fit the curve with a compact stellar-mass distribution, we fit the
+range and towards the detector sensitivity limit of λ = 5.34 μm. The peak    data with an NSC model derived for the Milky Way by ref. 19 who find a
+of the Hα line of QSO1 falls on λ = 5.278 μm; hence, our modification        density profile following an R−2 power law in the central 5 pc and drop-
+readily recovers the entirety of Hα emission. Although flux calibrations     ping off as R−3. From this density profile, we construct the following
+beyond the nominal range may suffer inaccuracies, the primary interest       function for M(<R):
+of this work is a kinematics study; hence, our key kinematics results are
+                                                                                                   4πRA                      if R < Rc
+insensitive to flux calibrations. The BH mass measurements are more                                
+affected. However, the square-root dependence of the BH mass on                           M (<R) =                R                             (2)
+luminosity means that flux calibrations have to be wrong by an order                               4πRcA 1 + log  R      if R ≥ Rc
+                                                                                                                  c 
+of magnitude to significantly impact the measurements.
+   The nominal spaxel scale of the processed data was 0.05″; however,        where A is the parameter setting the overall normalization and Rc is the
+utilizing the large number of dithers, we are able to oversample the cube    radius at which the switch in the power-law profile occurs. It is impor-
+to a scale of 0.02″ per spaxel without incurring significant sampling        tant to note that this is different from the ‘effective radius’ Re of the
+artefacts. We choose the 0.02″ cube for the main kinematic and spec-         two-dimensional light distribution; in the case of the Milky Way NSC,
+troastrometric analysis, with the 0.05″ cube used to perform consist-        the Re is a factor of 0.84 smaller than Rc. We initially fit the NSC model
+ency checks, ensuring that our results are not pixel sampling artefacts.     fixing Rc to 5 pc, the same value as found by ref. 19. This fit is shown as
+                                                                             a dashed grey line in Fig. 2 and produces a considerably worse χR2 = 3.2
+Spectroastrometry of the rotation curve                                      than the point-mass (pure BH) fit with χR2 = 1.0. This corresponds to a
+To constrain the density profile of QSO1, we combine spectroastrometric      difference in the BIC of about 11, indicating robust preference for the
+measurements with resolved kinematics. The technical details of spaxe-       point-mass fit, particularly as our error rescaling procedure provides
+by-spaxel fitting and spectroastrometry are given in Supplementary           a lower limit on the significance of the preferred model. If Rc is allowed
+Information sections 1.1 and 1.2; here we summarize that we subtract the     to vary freely, then the NSC best-fit model gives Rc = 10−4 pc with
+broad Hα emission from the cube and create images of different velocity      M(<Rc) ≈ 106 M⊙, which would imply extreme stellar densities, in excess
+channels of narrow Hα for which centroids can be obtained at sub-point-      of 1017 M⊙ pc−3. Such densities are orders of magnitude above the dens-
+spread-function scales (provided a sufficient signal to noise48) and used    est stellar systems seen in the Universe and show that our NSC model
+to map dynamics below the nominal instrumental resolution49,50. The          effectively collapses to a point mass if Rc is not fixed. We estimate an
+fiducial spectroastrometric analysis utilizing two velocity channels for     upper limit on Rc by fitting a fixed value and lowering it until the differ-
+higher signal to noise is shown in Extended Data Fig. 1. However, as shown   ence in BIC between the best-fit and the fixed Rc model reduces below
+in Fig. 2, splitting the line into finer bins does not change our results.   5. This way we estimate Rc < 0.2 pc with M(<Rc) ≈ 106.2 M⊙; this limit is
+   We infer the outer parts of the rotation curve by binning the line-of-    over 1 dex below even the most compact NSC in this mass range in the
+sight velocity field (shown in Fig. 1) on scales >60 pc to avoid beam        local Universe51, as well as the dense star clusters found in the lensed
+smearing. This procedure resulted in 4 bins covering the negative and        Cosmic Gems arc by ref. 52, as illustrated in Extended Data Fig. 2. The
+positive sides of the rotation curve with ⟨vsini⟩ ≈ 10 km s−1 (where v is    upper limit on the NSC stellar mass is even lower if one adopts the den-
+the line-of-sight velocity and i is the inclination angle) with nominal      sity profile inferred for NSCs in other galaxies (ρ ∝ r−2)53. Hence, a point
+uncertainties of order 1 km s−1. However, these uncertainties, estimated     mass is needed to account for our observed dynamics.
+  In addition to the NSC model described above we consider the Plum-              parameter A from equation (2), which represents the overall normali-
+mer sphere20 model, frequently used to describe the density profiles of           zation of the NSC model; inclination of the disk (0° would be a face-on
+globular clusters. The enclosed mass function for the Plummer sphere              disk) or inclination of the outflow axis (0° outflow pointing towards the
+takes the following form:                                                         observer); effective radius of the density distribution (defined by equa-
+                                          R3                                      tions (3) and (2) for the Plummer sphere and NSC models, respectively);
+                       M (< R) = M0                                        (3)    intrinsic velocity for the outflow model; and the position angle of the
+                                      (R + RP 2)3/2
+                                        2
+                                                                                  kinematic configuration on the plane of the sky (measured clockwise
+where M0 is the total mass of the system and RP is the scale radius.              from the top of the image). As discussed in ref. 21, to remove the degen-
+Although this model performs similarly well to the point mass, it does            eracies that are present when deriving 3D structures from the observed
+so by fitting RP ≈ 10−4 pc and thus results in similar unphysically high          two-dimensional projections on sky, we minimized the numbers of
+stellar densities, as in the case of the NSC.                                     free parameters by considering pure circular motions with no radial
+   In addition to being excluded by the ΔBIC value, a Milky Way NSC-like          flows (except when testing the outflow scenario). For each potential
+density profile with Rc ≈ 5 pc produces a total stellar mass of 107.2 M⊙, which   mass distribution, we allowed the free parameters to vary in a wide
+is above constraints on the stellar mass derived from ultraviolet and             range with no a priori constraints. Then, we ran the fitting routine—
+optical emission as discussed in Supplementary Information section 1.8.           creating a 3D model cube with the same spatial and spectral binning
+   A remaining potential caveat of our analysis is that only isotropic            as the observed data for each set of parameters. We then extracted the
+velocity distributions were considered—velocity anisotropies could                integrated model spectrum and compared with the observed one. The
+steepen the radial velocity gradient of a diffuse mass component54,               optimal set of parameters for each model was derived following the
+increasing the allowable extended mass. However, the steepness of                 least-squares method of minimizing the distance between the observed
+the observed velocity gradient is such that any extended component                and the model data cubes. During this procedure, we convolve the
+collapses to a point when the scale radius is left free. Hence, it is unlikely    model cube with the point spread function and weight each fictitious
+that anisotropies of the underlying velocity field significantly skew             cloud in the 3D model cube by the observed flux in each spectral channel
+our results.                                                                      of each pixel to ensure that any mismatch between model and data is
+   Lastly, we explore what, if any, constraints on the dark-matter halo           solely due to assumptions on the underlying geometry and kinemat-
+surrounding the object can be obtained from our data. We thus fit the             ics. This procedure allows us to obtain a 3D model cube—identical to
+widely adopted Navarro–Frenk–White density profile55. The enclosed                the observed one in terms of spatial and spectral binning—from which
+mass for which is given by:                                                       we can compute moment maps to be compared with observations.
+                                   R + Rs    R                                In-depth descriptions of the principles being MOKA3D are provided in
+                M (<R) = 4πρ0Rs3 ln        −   ,                       (4)    refs. 21,22.
+                                   Rs  R + Rs                                     The comparison between the residuals of the different models is
+where ρ0 and Rs are the characteristic density and scale radius, respec-          given in Fig. 1 (for the point-mass case) and Extended Data Fig. 3 (for
+tively. However, as with the previous extended mass distributions, the            the NSC and for the Plummer sphere cases). As can be seen in the figures,
+above model collapses to a point with Rs ≈ 10−4 and ρ0 ≈ 1014 M⊙ pc−3, once       a point-mass profile is strongly preferred over any extended density
+more collapsing to a point mass and producing unrealistic densities.              profile. The Plummer sphere model, while leaving similar residuals to
+However, this does not imply that QSO1 resides outside of a dark-matter           a Keplerian curve, does so with a scale radius RP = 0+3   −0 pc (Extended
+halo. Instead, our attempts at reproducing the kinematics with an                 Data Fig. 3), essentially collapsing into a BH. The NSC model remains
+extended density profile imply that any extended mass component is                extended even when Rc is allowed to vary (best-fit Rc = 4 ± 2 pc). However,
+sub-dominant at the <200 pc scales probed by our measurements. We                 it leaves significant systematic residuals in both velocity and velocity
+attempt the above analysis using Hβ narrow or [O iii]. However, these             dispersion profiles, as shown in Extended Data Fig. 3.
+lines are too faint for constraining measurements.                                    As discussed in the following, very little velocity dispersion is
+                                                                                  included in the modelling (less than 7 km s−1, well below the instru-
+MOKA3D kinematics modelling                                                       mental resolution) as the velocity dispersion in each pixel can be very
+The measurements described above, although self-consistent,                       simply reproduced by correctly modelling the line profile in each spaxel
+do not fully take into account instrumental effects such as                       and weighting the model clouds against the observed flux; in other
+point-spread-function beam smearing and the emissivity distribu-                  words, the apparent velocity dispersion is mostly and fully recovered
+tion of the light tracers. In the simplified analysis above, we overcome          simply by the velocity field, beam smearing and brightness distribu-
+these issues by leveraging spectroastrometry. However, to check the               tion. In particular, a precise determination of the best-fit parameters
+robustness of our conclusions if such effects are accounted for, we inde-         via MOKA3D, combined with the innovative flux-weighting technique
+pendently refit the narrow-line cube with the MOKA3D framework21,22.              exploited by this model, guarantee to reproduce the observed moment
+MOKA3D is a 3D kinematic framework that can model conical out-                    maps at unprecedented detail, as demonstrated by refs. 56–58. Indeed,
+flows or disks by assuming spherical, conical or cylindrical geometries           by definition, moment maps are computed taking into account the flux
+respectively, with any irregular distribution of the emitting clouds              distribution along the velocity space, which is what makes MOKA3D
+within the velocity field. The 3D model is populated with a distribu-             so effective in reproducing them once the observed and model line
+tion of fictitious clouds that account for the observed emission. These           profile match. The crucial step of assigning the observed flux in each
+clouds are weighted according to the observed narrow Hα flux in each              spectral and spatial channel to the corresponding model clouds that
+spaxel and spectral channel of the data cube. As described in the follow-         belong to the same channel is what allows MOKA3D to reproduce the
+ing, the model clouds follow an analytical velocity field as a function           observed feature with such high accuracy, once the model parameters
+of the radius, whose parameters are fitted to reproduce the observed              are correctly inferred. It is important to stress that no flux distribution
+emission and kinematic features via least-squares minimization.                   is ever assumed by MOKA3D but instead is recovered from the data
+   As in the previous analysis, we consider three potential mass distribu-        via the weighting procedure and after the correct set of parameters is
+tions—a point mass, an NSC density profile and a Plummer sphere. For              unveiled. This allows MOKA3D to reproduce extremely irregular and
+each potential mass distribution, we parameterized the model clouds’              asymmetric features. Therefore, despite the set of best-fit parameters
+circular velocity following equations (1)–(3). The free parameters of             inferred with MOKA3D, any extended density profile is not the preferred
+each kinematic profile are listed in Extended Data Table 1, specifically:         parameterization to reproduce the observed features in each spaxel
+total mass (in the case of the Keplerian rotation, this is the point mass);       due to absence of model clouds with the necessary projected velocity.
+Article
+   To further clarify that the underlying MOKA3D kinematical model                                 51.   Georgiev, I. Y., Böker, T., Leigh, N., Lützgendorf, N. & Neumayer, N. Masses and scaling
+                                                                                                         relations for nuclear star clusters, and their co-existence with central black holes. Mon.
+does not intrinsically have asymmetries, Extended Data Fig. 4 shows the                                  Not. R. Astron. Soc. 457, 2122–2138 (2016).
+intrinsic unweighted kinematical model underlying the full weighted                                52.   Adamo, A. et al. Bound star clusters observed in a lensed galaxy 460 Myr after the Big
+model reported in Fig. 1. The asymmetric flux distribution (in the flux                                  Bang. Nature 632, 513–516 (2024).
+                                                                                                   53.   Pechetti, R. et al. Luminosity models and density profiles for nuclear star clusters for a
+map) and asymmetric kinematic features (for example, in the veloc-                                       nearby volume-limited sample of 29 galaxies. Astrophys. J. 900, 32 (2020).
+ity dispersion map) seen in Fig. 1 emerge only when MOKA3D weights                                 54.   Gebhardt, K., Rich, R. M. & Ho, L. C. An intermediate-mass black hole in the globular
+each emitting clouds to optimally reproduce the observed (irregular)                                     cluster G1: improved significance from new Keck and Hubble Space Telescope
+                                                                                                         observations. Astrophys. J. 634, 1093–1102 (2005).
+flux distribution.                                                                                 55.   Navarro, J. F., Frenk, C. S. & White, S. D. M. The structure of cold dark matter halos.
+   It is notable that the MOKA3D point-mass model gives log(MBH/M⊙) =                                    Astrophys. J. 462, 563 (1996).
+7.7 ± 0.3 with an inclination of 52° ± 2°, entirely consistent with the                            56.   Cresci, G. et al. Bubbles and outflows: the novel JWST/NIRSpec view of the z = 1.59
+                                                                                                         obscured quasar XID2028. Astron. Astrophys. 672, A128 (2023).
+lower limit obtained from the previous direct measurements. In fact,                               57.   Perna, M. et al. GA-NIFS: a galaxy-wide outflow in a Compton-thick
+the spectroastrometric mass estimate, when corrected for the inclina-                                    mini-broad-absorption-line quasar at z = 3.5 probed in emission and absorption. Astron.
+tion becomes consistent with the MOKA3D value to within 2σ (6.9–7.2                                      Astrophys. 694, A170 (2025).
+                                                                                                   58.   Ulivi, L. et al. Feedback and ionized gas outflows in four low-radio power AGN at z ~ 0.15.
+versus 7.7 ± 0.3).                                                                                       Astron. Astrophys. 685, A122 (2024).
+   To test whether the inclination estimate is robust, as well as to verify
+the presence of a rotating disk, we construct a non-parametric model                               Acknowledgements We thank P. Natarajan for comments. I.J. acknowledges support by the
+wherein the disk is split up into three distinct shells that are fitted with                       Huo Family Foundation through a P.C. Ho PhD Studentship. This work is based on observations
+independent inclinations. We find that this model fits the data well and                           made with the National Aeronautics and Space Administration (NASA)/European Space
+                                                                                                   Agency (ESA)/Canadian Space Agency (CSA) JWST. The data were obtained from the Mikulski
+produces shell inclinations of approximately 45 ± 10°, consistent with                             Archive for Space Telescopes at the STScI, which is operated by the Association of Universities
+each other and the value found by the parametric models (Extended                                  for Research in Astronomy, Inc., under NASA contract NAS 5-03127 for JWST. These
+Data Fig. 5). The fact that consistent results are obtained regardless                             observations are associated with programme PID 5015. R.M., F.D’E., J.S., I.J. and G.C.J.
+                                                                                                   acknowledge support from the Science and Technology Facilities Council (STFC), by the
+of the precise analytical procedure used indicates that our measure-                               European Research Council (ERC) through Advanced Grant 695671 ‘QUENCH’, by the UK
+ments are robust. In Supplementary Information sections 1.4 and 1.5,                               Research and Innovation (UKRI) Frontier Research grant RISEandFALL. R.M. also acknowledges
+we further consider, and rule out, contributions of outflows to the                                support from a Royal Society Research Professorship grant. S.A. acknowledges grant PID2021-
+                                                                                                   127718NB-I00 funded by the Spanish Ministry of Science and Innovation/State Agency of
+narrow-line kinematics.                                                                            Research (MICIN/AEI/ 10.13039/501100011033). H.Ü. acknowledges funding by the European
+   We also note that a diffuse, extended (exponential) disk-like mass                              Union (ERC APEX, 101164796). Views and opinions expressed are however those of the authors
+distribution (M ≈ 107 M⊙, Rs = 150 pc), while reproducing the large-scale                          only and do not necessarily reflect those of the European Union or the European Research
+                                                                                                   Council Executive Agency. Neither the European Union nor the granting authority can be held
+(r > 100 pc) kinematics, would predict a smoothly declining velocity                               responsible for them. A.J.B. acknowledges funding from the ‘FirstGalaxies’ Advanced Grant
+towards the centre, in stark contrast to the steep inner velocity slope                            from the European Research Council (ERC) under the European Union’s Horizon 2020 research
+of the one-dimensional curve, as illustrated in Extended Data Fig. 6.                              and innovation programme (grant agreement number 789056). S. Carniani acknowledges
+                                                                                                   support by European Union’s HE ERC Starting Grant No. 101040227 - WINGS. S.K. has been
+Likewise, MOKA3D gives substantial residuals for such an extended                                  supported by a Junior Research Fellowship from St Catharine’s College, Cambridge and a
+density profile (Extended Data Fig. 7).                                                            Research Fellowship from the Royal Commission for the Exhibition of 1851. R.S. acknowledges
+   We finally emphasize that the MOKA3D analysis is fully independ-                                support from the PRIN2022 MUR project 2022CB3PJ3 - First Light And Galaxy aSsembly
+                                                                                                   (FLAGS) funded by the European Union - Next Generation EU and from the EU-Recovery Fund
+ent of the spectroastrometry approach. Although both analyses use                                  PNRR - National Centre for HPC, Big Data and Quantum Computing. V.B., B.L. and S.Z.
+the same data cube as input, they are otherwise entirely separate                                  acknowledge the Texas Advanced Computing Center (TACC) for providing HPC resources
+                                                                                                   under allocation AST23026. D.S. acknowledges support from the STFC, grant code ST/
+approaches with spectroastrometry hinging on the simple approach
+                                                                                                   W000997/1. A.T. acknowledges support from the PRIN MUR project 2022935STW, funded by
+of centroiding different velocity channels, whereas MOKA3D                                         European Union - Next Generation EU, and from the INAF Fundamental Research 2023 Mini-
+self-consistently models the entire data cube.                                                     grant project ’Cosmic Archaeology with the first black hole seeds’. G.C. acknowledges support
+                                                                                                   from the INAF GO grant 2024 ‘A JWST/MIRI MIRACLE: MidIR Activity of Circumnuclear Line
+                                                                                                   Emission’. K.I. acknowledges support from the National Natural Science Foundation of China
+                                                                                                   (12573015, 1251101148, 12233001), the Beijing Natural Science Foundation (IS25003), and the
+Data availability                                                                                  China Manned Space Program (CMS-CSST-2025-A09). P.G.P.-G. acknowledges support from
+                                                                                                   grant PID2022-139567NB-I00 funded by Spanish Ministerio de Ciencia e Innovación MCIN/
+The data used in this study were obtained as part of JWST programme ID
+                                                                                                   AEI/10.13039/501100011033, FEDER Una manera de hacer Europa. M.P. acknowledges support
+5015, and are available from the Mikulski Archive for Space Telescopes                             through the grants PID2021-127718NB-I00, PID2024-159902NA-I00 and RYC2023-044853-I,
+(https://mast.stsci.edu/portal/Mashup/Clients/Mast/Portal.html) at                                 funded by the Spain Ministry of Science and Innovation/State Agency of Research MCIN/
+                                                                                                   AEI/10.13039/501100011033 and El Fondo Social Europeo Plus FSE+. R.V. acknowledges
+the Space Telescope Science Institute, which is operated by the Asso-
+                                                                                                   support from PRIN MUR ‘2022935STW’ funded by European Union - Next Generation EU,
+ciation of Universities for Research in Astronomy, Inc., under NASA                                Missione 4 Componente 2 CUP C53D23000950006 and from the Bando Ricerca
+contract NAS 5-03127 for JWST. The exact reduced data products used                                Fondamentale INAF 2023, Theory Grant ‘Theoretical models for Black Holes Archaeology. J.W.
+                                                                                                   acknowledges support from the Cosmic Dawn Center through the DAWN Fellowship.
+are available on Zenodo (https://zenodo.org/records/19402518).
+                                                                                                   The Cosmic Dawn Center (DAWN) is funded by the Danish National Research Foundation under
+                                                                                                   grant number 140. I.J. discloses support for the research of this work from the Huo Family
+                                                                                                   Foundation. The other authors declare no relevant funding.
+Code availability
+                                                                                                   Author contributions I.J. led the data analysis and writing of the paper with C.M. performing
+The MOKA3D code underpinning this study is available at https://github.                            independent verification of the results. Key contributions to the data analysis were provided
+com/cosimomarconcini/moka_3d. A simplified demo version capable                                    by F.D’E., R.M., A.M., H.Ü, J.S. and X.J. Observations were prepared and data reduced by F.D’E.,
+                                                                                                   H.Ü. and M.P. Theoretical interpretation of the data and discussion of the seeding models was
+of reproducing the main results is made available with the paper.
+                                                                                                   contributed by J.S.B., V.B., P.D., A.F., K.I., S.K., B.L., J.L., R.S., D.S., A.T., R.V., M.V. and S.Z. G.C.J.
+                                                                                                   provided the standard star data for the null test. S.M. verified the star cluster mass profile
+46. Planck Collaboration et al. Planck 2018 results. VI. Cosmological parameters. Astron.          models. S.A., A.J.B., S. Carniani, S. Charlot, G.C., E.E., Y.I., L.R.I., N.L., G.M., E.P., P.G.P.-G.,
+    Astrophys. 641, A6 (2020).                                                                     B.R., S.T. and J.W. provided comments on the paper and assisted in checking the validity of
+47. Perna, M. et al. GA-NIFS: the ultra-dense, interacting environment of a dual AGN at z ~ 3.3    the results.
+    revealed by JWST/NIRSpec IFS. Astron. Astrophys. 679, A89 (2023).
+48. Ivison, R. J. et al. The SCUBA Half Degree Extragalactic Survey—III. Identification of radio   Competing interests The authors declare no competing interests.
+    and mid-infrared counterparts to submillimetre galaxies. Mon. Not. R. Astron. Soc. 380,
+    199–228 (2007).                                                                                Additional information
+49. Beckers, J. M. Differential speckle interferometry. Opt. Acta 29, 361–362 (1982).              Supplementary information The online version contains supplementary material available at
+50. Aime, C., Borgnino, J., Lund, G. & Ricort, G. Imaging of multiple star systems using the       https://doi.org/10.1038/s41586-026-10579-4.
+    second probability density function. Mathematical description and numerical simulation.        Correspondence and requests for materials should be addressed to Ignas Juodžbalis.
+    In European Southern Observatory Conference and Workshop Proceedings Vol. 29,                  Peer review information Nature thanks the anonymous reviewers for their contribution to the
+    European Southern Observatory Conference and Workshop Proc. (ed. Merkle, F.) 249–256           peer review of this work. Peer reviewer reports are available.
+    (ESO, 1988).                                                                                   Reprints and permissions information is available at http://www.nature.com/reprints.
+Extended Data Fig. 1 | Spectroastrometry on the narrow line. Panel a -
+locations of the centroids of each velocity channel with the green line showing
+the PA of the IFU slicer. Panel b narrow Hα line profile extracted from
+a 0.1″ aperture (coinciding with the scales traced by our kinematics fits) with
+colored bars showing the velocity bins. While the line profile appears to show
+some evidence of a wing at ~ −150 km s−1, expanding the velocity channels to
+include it does not meaningfully alter the results.
+Article
+
+
+
+
+Extended Data Fig. 2 | Comparison between QSO1 and star cluster
+observations on the mass-radius plane. The upper limit on the size of a NSC in
+QSO1 is shown by a red star, illustrating that it is implausible when compared
+with local NSC (teal diamonds)51 and dense star clusters at z = 10 (salmon
+crosses)52. The black lines illustrate mass - radius scaling relations for Early and
+Late type galaxies derived by ref. 51 with grey shading indicating scatter. The
+value for QSO1 represent the maximal extent allowed by an NSC-only model.
+The upper limit on the radius is nearly an order of magnitude lower than both
+local and distant clusters at a similar mass range.
+Extended Data Fig. 3 | Residuals of the MOKA3D fit for the models with          of the Plummer Sphere model is effectively only slightly worse than that of a
+‘extended’ mass distribution. The Nuclear Star Cluster model gives residuals    point mass ( χR2 = 1.6 vs χR2 = 1.17); however, the best fit R p = 0+3
+                                                                                                                                                    −0 pc indicates that
+(and χR2) much larger than the point mass Keplerian rotation. The performance   this is simply because the model ends up reproducing a point mass.
+Article
+
+
+
+
+Extended Data Fig. 4 | Intrinsic, unweighted, MOKA3D model. From left to
+right - flux, velocity field and velocity dispersion. This model underlies the full
+weighted model shown in Fig. 1.
+Extended Data Fig. 5 | MOKA3D inclination constraints. Inclination value
+found by fitting parametric models, orange line with shading indicating 1σ
+uncertainty, compared to inclinations found from a non parametric disk model
+in three independent rings (black points). The non parametric model is internally
+consistent among the three independent rings and consistent with the
+parametric curves well within 1σ.
+Article
+
+
+
+
+Extended Data Fig. 6 | Spectroastrometric rotation curve with an
+exponential disc model. Same as Fig. 2 in the main text, except the dotted line
+illustrates the velocity field expected from an exponential disc with ~107 M ⊙ and
+R s = 150 pc. As shown here, such a model provides a considerably worse fit than
+the others considered.
+Extended Data Fig. 7 | MOKA3D residuals for an exponential disc. The disk was taken to have ~107 M ⊙ and R s = 150 pc. It can be seen that such a model does not
+reproduce the data as well as the fiducial point mass model.
+Article
+Extended Data Table 1 | MOKA3D free parameters and their
+best-fit values for the kinematic models explored
+
+
+
+
+From left to right: logarithmic mass (log(M )) of the mass distribution, normalization parameter
+of the NSC mass distribution (logA, see Eq. (2)), inclination of the model with respect to the
+line of sight, scale radius (R), radial outflow velocity (Vout), and position angle (PA), of either the
+rotation disc’s lines of nodes or of the outflow’s axis, on the plane of the sky.
+

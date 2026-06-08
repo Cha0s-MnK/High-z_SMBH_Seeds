@@ -1,0 +1,1020 @@
+                                               Detection of stellar light from quasar host galaxies at
+                                               redshifts above 6
+                                               Xuheng Ding1,2,* , Masafusa Onoue3,1,4,* , John D. Silverman1,2,5 , Yoshiki Matsuoka6 ,
+                                               Takuma Izumi7,8 , Michael A. Strauss9 , Knud Jahnke4 , Camryn L. Phillips9 , Junyao Li10 ,
+                                               Marta Volonteri11 , Zoltan Haiman12,13 , Irham Taufik Andika14,15 , Kentaro Aoki16 , Shunsuke
+                                               Baba17 , Rebekka Bieri18 , Sarah E. I. Bosman4 , Connor Bottrell1,2 , Anna-Christina Eilers19 ,
+                                               Seiji Fujimoto20 , Melanie Habouzit21,4 , Masatoshi Imanishi7,22 , Kohei Inayoshi3 , Kazushi
+                                               Iwasawa23,24 , Nobunari Kashikawa5,25 , Toshihiro Kawaguchi26 , Kotaro Kohno27,25 ,
+arXiv:2211.14329v2 [astro-ph.GA] 24 Jun 2023
+
+
+
+
+                                               Chien-Hsiu Lee28 , Alessandro Lupi29 , Jianwei Lyu30 , Tohru Nagao6 , Roderik Overzier31 ,
+                                               Jan-Torge Schindler32 , Malte Schramm33 , Kazuhiro Shimasaku5,25 , Yoshiki Toba7,34 , Benny
+                                               Trakhtenbrot35 , Maxime Trebitsch36 , Tommaso Treu37 , Hideki Umehata38,39 , Bram P.
+                                               Venemans32 , Marianne Vestergaard30,40 , Fabian Walter4 , Feige Wang30 , and Jinyi Yang30
+
+                                               1 Kavli  Institute for the Physics and Mathematics of the Universe (Kavli IPMU, WPI), The University of Tokyo, Chiba
+                                               277-8583, Japan
+                                               2 Center for Data-Driven Discovery, Kavli IPMU (WPI), UTIAS, The University of Tokyo, Kashiwa, Chiba 277-8583,
+
+                                               Japan
+                                               3 Kavli Institute for Astronomy and Astrophysics, Peking University, Beijing 100871, China
+                                               4 Max-Planck-Institut für Astronomie, Königstuhl 17, D-69117 Heidelberg, Germany
+                                               5 Department of Astronomy, School of Science, The University of Tokyo, 7-3-1 Hongo, Bunkyo-ku, Tokyo, 113-0033,
+
+                                               Japan
+                                               6 Research Center for Space and Cosmic Evolution, Ehime University, 2-5 Bunkyo-cho, Matsuyama, Ehime
+
+                                               790-8577, Japan
+                                               7 National Astronomical Observatory of Japan, Osawa, Mitaka, Tokyo 181-8588, Japan
+                                               8 Department of Physics, Graduate School of Science, Tokyo Metropolitan University, 1-1 Minami-Osawa, Hachioji,
+
+                                               Tokyo 192-0397, Japan
+                                               9 Department of Astrophysical Sciences, Princeton University, 4 Ivy Lane, Princeton, NJ 08544, USA
+                                               10 Department of Astronomy, University of Illinois at Urbana-Champaign, Urbana, IL, 61801, USA
+                                               11 Institut d’Astrophysique de Paris, CNRS, Sorbonne Université, UMR7095, 98bis bd Arago, 75014 Paris, France
+                                               12 Department of Astronomy, Columbia University, New York, NY 10027, USA
+                                               13 Department of Physics, Columbia University, New York, NY 10027, USA
+                                               14 Physik-Department, Technische Universität München, James-Franck-Str. 1, D-85748 Garching bei München,
+
+                                               Germany
+                                               15 Max-Planck-Institut für Astrophysik, Karl-Schwarzschild-Str. 1, D-85748 Garching bei München, Germany
+                                               16 Subaru Telescope, National Astronomical Observatory of Japan, 650 North A’ohoku Place, Hilo , Hawaii 96720
+
+                                               U.S.A.
+                                               17 Graduate School of Science and Engineering, Kagoshima University, 1-21-35 Korimoto, Kagoshima, Kagoshima
+
+                                               890-0065, Japan
+                                               18 Institute for Computational Science, University of Zurich, Wintherthurerstrasse 190, 8057 Zürich, Switzerland
+                                               19 MIT Kavli Institute for Astrophysics and Space Research, 77 Massachusetts Avenue, Cambridge, 02139,
+
+                                               Massachusetts, USA
+                                               20 Department of Astronomy, The University of Texas at Austin, Austin, TX 78712, USA
+                                               21 Zentrum für Astronomie der Universität Heidelberg (ITA), Albert-Ueberle-Str. 2, D-69120 Heidelberg, Germany
+                                               22 Department of Astronomy, School of Science, Graduate University for Advanced Studies (SOKENDAI), Mitaka,
+
+                                               Tokyo 181-8588, Japan
+                                               23 Institut de Ciències del Cosmos (ICCUB), Universitat de Barcelona (IEEC-UB), Martı́ i Franquès, 1, 08028
+
+                                               Barcelona, Spain
+                                               24 ICREA, Pg. Lluı́s Companys 23, 08010 Barcelona, Spain
+                                               25 Research Center for the Early Universe, Graduate School of Science, The University of Tokyo, 7-3-1 Hongo,
+
+                                               Bunkyo-ku, Tokyo 113-0033, Japan
+                                               26 Department of Economics, Management and Information Science, Onomichi City University, Hisayamada 1600-2,
+Onomichi, Hiroshima 722-8506, Japan
+27 Institute of Astronomy, Graduate School of Science, The University of Tokyo, 2-21-1 Osawa, Mitaka, Tokyo
+
+181-0015, Japan
+28 W. M. Keck Observatory, 65-1120 Mamalahoa Hwy, Kamuela, HI 96743, USA
+29 Dipartimento di Fisica “G. Occhialini”, Università degli Studi di Milano-Bicocca, Piazza della Scienza 3, I-20126
+
+Milano, Italy
+30 Steward Observatory, University of Arizona, 933 N. Cherry Avenue, Tucson AZ 85721, USA
+31 Observatório Nacional/MCTI, Rua General José Cristino, 77, São Cristóvão, Rio de Janeiro, RJ 20921-400, Brazil
+32 Leiden Observatory, Leiden University, PO Box 9513, 2300 RA Leiden, The Netherlands
+33 Universität Potsdam, Karl-Liebknecht-Str. 24/25, D-14476 Potsdam, Germany
+34 Academia Sinica Institute of Astronomy and Astrophysics, 11F Astronomy-Mathematics Building, AS/NTU, No.1,
+
+Section 4, Roosevelt Road, Taipei 10617, Taiwan
+35 School of Physics and Astronomy, Tel Aviv University, Tel Aviv 69978, Israel
+36 Kapteyn Astronomical Institute, University of Groningen, P.O. Box 800, 9700 AV Groningen, The Netherlands
+37 Department of Physics and Astronomy, University of California Los Angeles, CA, 90095, USA
+38 Institute for Advanced Research, Nagoya University, Furocho, Chikusa, Nagoya 464-8602, Japan
+39 Department of Physics, Graduate School of Science, Nagoya University, Furocho, Chikusa, Nagoya 464-8602,
+
+Japan
+40 DARK, Niels Bohr Institute, Jagtvej 155, 2200 Copenhagen N, Denmark
+* Corresponding author
+
+
+
+
+The detection of starlight from the host galaxies of quasars during the reionization epoch (z > 6)
+has been elusive, even with deep HST observations 1,2 . The current highest redshift quasar host
+detected 3 , at z = 4.5, required the magnifying effect of a foreground lensing galaxy. Low-luminosity
+quasars 4,5,6 from the Hyper Suprime-Cam Subaru Strategic Program (HSC-SSP) 7 mitigate the
+challenge of detecting their underlying, previously-undetected host galaxies. Here we report rest-
+frame optical images and spectroscopy of two HSC-SSP quasars at z > 6 with JWST. Using NIRCam
+imaging at 3.6µm and 1.5µm and subtracting the light from the unresolved quasars, we find that
+the host galaxies are massive (stellar masses of 13× and 3.4× 1010 M⊙ , respectively), compact, and
+disk-like. NIRSpec medium-resolution spectroscopy shows stellar absorption lines in the more
+massive quasar, confirming the detection of the host. Velocity-broadened gas in the vicinity of these
+quasars enables measurements of their black hole masses (1.4 × 109 and 2.0× 108 M⊙ , respectively).
+Their location in the black hole mass - stellar mass plane is consistent with the distribution at low
+redshift, suggesting that the relation between black holes and their host galaxies was already in
+place less than a billion years after the Big Bang.
+
+    The quasars J2236+0032 and J2255+0251 (coordinates listed in Extended Data Table 1) are at redshifts
+of 6.40 and 6.34. They have relatively low luminosity (M1450 = −23.87 and −23.66 mag, respectively),
+roughly 10 times less luminous than typical bright quasars at these redshifts 8,9,10 . Using JWST with
+NIRCam 11 , we observed J2236+0032 on November 6, 2022 and J2255+0251 on October 26, 2022. Images
+were taken in two broad-band filters (F356W and F150W) to detect their host galaxies at 3.56 and 1.50 µm,
+thus bracketing the rest-frame 4000 Å break, a characteristic feature of galaxy spectra which constrains
+the age of the stellar population. Total exposure times were approximately 3,100 seconds for each filter
+per target.
+    In Figure 1, we show a 24′′ ×24′′ region and zoomed-in cutouts of the JWST images centered on
+the quasars for both filters. As expected, both quasars are detected at high significance. The first
+quasar J2236+0032 (mF356W = 21.75 ± 0.02 mag, mF150W = 22.78 ± 0.02,) has no evidence of close
+neighbors. The second quasar J2255+0251 (mF356W = 22.20 ± 0.02 mag, mF150W = 23.03 ± 0.02) has
+
+                                                          2
+two neighboring sources (< 2.6′′ ) that do not have spectroscopic redshifts at this point; however, their
+detection in the HSC r- and i-bands suggests that both of them are at lower redshift than the central quasar.
+      The detection of an underlying host galaxy requires careful decomposition of the two-dimensional
+light distribution to separate the unresolved quasar from its host galaxy. We perform a two-component
+model fit of the rest-frame optical emission in a region of the NIRCam images centered on each target.
+We use the software galight 12 to identify stars from each image to model the two-dimensional (2D)
+point-spread function (PSF). We then model each quasar image in each filter as a sum of a point-like quasar
+and an extended host. The host galaxy was modeled using a 2D Sérsic profile 13 whose parameters include
+the position, size (Reff ), axis ratio, orientation, flux, and the radial profile/shape of the light distribution
+(i.e., Sérsic index), allowing a flexible description of the a priori unknown host galaxy shape. In Extended
+Data Table 1, we report the best-fit parameters and their uncertainties based on the dispersion resulting
+from different PSF models with different modeling techniques (see Methods).
+      As shown in Figure 2, we detect the host galaxies for both targets, which are visible after subtracting
+the quasar point-source model (third column). For J2236+0032, the quasar host is significantly detected
+in both filters (mF356W = 23.12 ± 0.20 mag; mF150W = 25.12 ± 0.29 mag). The inferred host-to-total flux
+ratios are 25.5 ± 4.4%, and 10.2 ± 2.8% with sizes (Reff ) of 0.7 ± 0.1 kpc and 0.5 ± 0.2 kpc for F356W
+and F150W, respectively. The light distribution is elongated in the same direction (i.e., NE–SW) in the
+two filters, suggesting a mildly inclined disk-like host. For this target, we fix the Sérsic index to 1 in both
+bands – corresponding to an exponential disk model – to avoid non-physical fits; this is supported by a
+subsequent fit to the host galaxy emission after subtracting the quasar (see Methods). For J2255+0251,
+the host galaxy is clearly detected in the F356W band (mF356W = 24.58 ± 0.30 mag) with a host-to-total
+flux ratio of 9.8 ± 2.6%. The host emission extends southeast (left) of the quasar’s location. The size of
+the host is inferred to be Reff = 1.5 ± 1.1 kpc with a Sérsic index of 1.5 ± 1.4, suggesting a more disk-like
+than spheroidal profile. The host galaxy is not detected in the F150W image, resulting in an upper limit
+of mF150W = 26.3 mag (see Methods). This upper limit provides an important constraint on the galaxy
+spectral energy distribution (SED). A non-detection is not surprising, given the low host-to-total flux ratio
+in the F356W band and the fact that galaxies are typically fainter blueward of the 4000 Å break. We
+use NIRSpec 14 observations to demonstrate that the contribution of extended line emission to the host
+photometry in F356W is minimal (See Methods).
+      Our two photometric bands lie on either side of the 4000 Å break, allowing us to quantify the
+contributions of young and relatively old stars, and thus to estimate the stellar masses of the two quasar
+host galaxies. We fit the SED of each host with a single stellar population, in which the stellar metallicity
+log Z/Z⊙ is constrained to the range [−1, −0.3], the stellar age is within the range [0.01, 0.84] Gyr (capped
+by the age of the universe at redshift 6.4), and the extinction Av is in the range of [0, 5.0] mag. With
+standard assumptions on the stellar Initial Mass Function (IMF), we find that J2236+0032 has a stellar mass
+of 1.3+2.0        11                                                   +7.6      10
+        −0.6 × 10 M⊙ , while J2255+0251 is less massive with 3.4−1.9 × 10 M⊙ . We use simulations and
+three different SED fitting codes to demonstrate that the results are robust, although further observations
+will lessen potential systematic errors in these mass estimates (see Methods for full details on our mass
+estimates and their uncertainties). Our host galaxies are among the highest stellar mass galaxies known at
+z ∼ 6 (ref. 15).
+      A rest-frame optical spectrum of each quasar was obtained by the NIRSpec instrument on JWST
+(Figure 3). These spectra cover 2.87–5.27 µm, or approximately 4000–7000 Å in the rest-frame, revealing
+strong emission lines including the Hβ +[O III] multiplet, Hα, and blended Fe II pseudo-continuum. The
+0.′′ 2-wide slit was fortuitously aligned along the major axis of the host galaxy of J2236+0032 (Figure 2).
+Remarkably, we serendipitously identify stellar absorption lines (Hγ, Hδ , and Hε) in J2236+0032. Thus
+the contribution of stellar light is confirmed both from the imaging and spectroscopy in this object. We
+
+                                                                                                           3/27
+use the velocity width of the broad Hβ emission line and the rest-frame 5100 Å continuum luminosity to
+estimate the mass of the central black hole, under the assumption that the high-velocity gas is governed
+by the gravity of the SMBH. Using a recipe calibrated in the local universe 16 and subtracting the stellar
+emission, we obtain virial masses of MBH = 1.4 × 109 M⊙ for J2236+0032, and MBH = 2.0 × 108 M⊙ for
+J2255+0251, respectively (see Methods).
+    Figure 4 shows the two z ∼ 6.4 quasars in the black hole mass – stellar mass plane (left panel), as
+well as the inferred underlying relation compared to the local relation (right panel). As is observed in the
+local universe, the quasar hosting the more massive black hole is hosted by the more massive galaxy. To
+evaluate their location in the MBH – M∗ plane relative to the local mass relation, we carry out a simulation,
+following ref. 17, that takes into account the selection effects for these two quasars in the HSC survey.
+For this purpose, we combine the quasar flux limits, the estimated BH mass and accretion rate functions
+at z ∼ 6, as well as uncertainty in our stellar mass estimates to predict the expected MBH for these two
+quasars – under the baseline assumption that the MBH –M∗ relation does not evolve between z = 6.4 and
+the present. In the left panel, the orange contours show the resulting bivariate probability distribution for
+the location of these two quasars, with the measured values overplotted in red. Our two z > 6 quasars
+fall within the probability distribution (orange contours) of this simulated z ∼ 6.4 sample and are thus
+consistent with no evolution of the MBH –M∗ relation from z ∼ 6.4 to z = 0, as shown for the inferred
+underlying relation in the right panel of Figure 4. With just two quasars, the probability distribution of the
+nominal evolution strength is broad as suggested by the width of these uncertainties (see also Extended
+Data Figure 6 in the Methods). However, ongoing JWST observations will give us a significantly larger
+sample, allowing us to better constrain models for the mutual evolution of the black hole and stellar
+populations in galaxies 18,19,20 .
+
+References
+ 1. Mechtley, M. et al. Near-infrared Imaging of a z = 6.42 Quasar Host Galaxy with the Hubble Space
+    Telescope Wide Field Camera 3. Astrophys. J.756, L38 (2012)
+ 2. Marshall, M. A. et al. Limits to Rest-frame Ultraviolet Emission from Far-infrared-luminous z ∼ 6
+    Quasar Hosts. Astrophys. J. 900, 21 (2020)
+ 3. Peng, C. Y. et al. Probing the coevolution of supermassive black holes and galaxies using gravitation-
+    ally lensed hosts. Astrophys. J. 649, 616-634 (2006)
+ 4. Matsuoka, Y. et al. Subaru High-z Exploration of Low-luminosity Quasars (SHELLQs). I. Discovery
+    of 15 Quasars and Bright Galaxies at 5.7 < z < 6.9. Astrophys. J. 828, 26 (2016)
+ 5. Matsuoka, Y. et al. Subaru High-z Exploration of Low-luminosity Quasars (SHELLQs). IV. Discovery
+    of 41 Quasars and Luminous Galaxies at 5.7 ≤ z ≤ 6.9. Astrophys. J. Suppl. Ser. 237, 5 (2018)
+ 6. Matsuoka, Y., et al. Subaru High-z Exploration of Low-luminosity Quasars (SHELLQs). XVI. 69
+    New Quasars at 5.8 ≤ z ≤ 7.0. Astrophys. J. Suppl. Ser. 259, 18 (2022)
+ 7. Aihara, H., et al. The Hyper Suprime-Cam SSP Survey: Overview and survey design. Publ. Astron.
+    Soc. Jpn 70, S4 (2018)
+ 8. Fan, X. et al.. A Survey of z > 5.8 Quasars in the Sloan Digital Sky Survey. I. Discovery of Three
+    New Quasars and the Spatial Density of Luminous Quasars at z~6. Astrophys. J. 122, 2833–2849
+    (2001)
+
+                                                                                                        4/27
+ 9. Bañados, E. et al. An 800-million-solar-mass black hole in a significantly neutral Universe at a redshift
+    of 7.5. Nature 553, 473–476 (2018)
+
+10. Fan, X., Banados, E., & Simcoe, R. A. Quasars and the Intergalactic Medium at Cosmic Dawn. arXiv
+    e-prints arXiv:2212.06907 (2022)
+
+11. Rieke, M. J., Kelly, D. & Horner, S. Overview of James Webb Space Telescope and NIRCam’s Role.
+    Cryogenic Optical Systems and Instruments XI. 5904, 1–8 (2005)
+
+12. Ding, X. et al. The Mass Relations between Supermassive Black Holes and Their Host Galaxies at
+    1 < z < 2 HST-WFC3. Astrophys. J. 888, 37 (2020)
+
+13. Sérsic, J. L. Boletin de la Asociacion Argentina de Astronomia La Plata Argentina, 6, 41-43 (1963)
+
+14. Jakobsen, P., et al. The Near-Infrared Spectrograph (NIRSpec) on the James Webb Space Telescope. I.
+    Overview of the instrument and its capabilities. Astron. Astrophys. 661, A80 (2022)
+
+15. Grazian, A., et al. The galaxy stellar mass function at 3.5 ≤z ≤ 7.5 in the CANDELS/UDS, GOODS-
+    South, and HUDF fields. Astron. Astrophys. 575, A96 (2015)
+
+16. Vestergaard, M., & Peterson, B. M. Determining Central Black Hole Masses in Distant Active
+    Galaxies and Quasars. II. Improved Optical and UV Scaling Relationships. Astrophys. J. 641, 689-709
+    (2006)
+
+17. Li, J., et al. On the Connection between Supermassive Black Holes and Galaxy Growth in the
+    Reionization Epoch. Astrophys. J. Lett. 931, L11 (2022)
+
+18. Habouzit, M., et al. Co-evolution of massive black holes and their host galaxies at high redshift:
+    discrepancies from six cosmological simulations and the key role of JWST. Mon. Not. R. Astron. Soc.
+    511, 3751-3767 (2022)
+
+19. Kormendy, J., & Ho, L. C. Coevolution (Or Not) of Supermassive Black Holes and Host Galaxies.
+    Annu. Rev. Astron. Astrophys. 51, 511-653 (2013)
+
+20. Inayoshi, K., et al. Rapid Growth of Seed Black Holes during Early Bulge Formation. Astrophys. J.
+    927, 237 (2022)
+
+21. Häring, N., & Rix, H.-W. On the Black Hole Mass-Bulge Mass Relation. Astrophys. J. Lett. 604,
+    L89-L92 (2004)
+
+22. Bennert, V. N., Auger, M. W., Treu, T., Woo, J.-H., & Malkan, M. A. A Local Baseline of the
+    Black Hole Mass Scaling Relations for Active Galaxies. I. Methodology and Results of Pilot Study.
+    Astrophys. J. 726, 59 (2011)
+
+
+
+
+                                                                                                        5/27
+Figures
+
+
+
+
+Figure 1. NIRCam images of the field around J2236+0032 and J2255+0251. Both JWST filters
+F356W (left panels) and F150W (right panels) are shown. The middle panels are zoomed-in regions of
+each image. One of the PSF stars used for 2D image decomposition is indicated in each quasar field.
+
+
+
+
+                                                                                               6/27
+                                                             J2236+0032
+               80   data                       model                      data point source normalized residual
+               60
+       F356W
+
+               40
+               20
+                    0.5"
+                0
+                10 4 10 3 10 2 10   1       10 4 10 3 10 2 10   1       10 4 10 3 10 2 10   1       5   0    5
+               80   data                       model                      data point source normalized residual
+               60
+       F150W
+
+
+
+
+               40
+               20
+                     0.5"
+                0
+                10 410 310 210      1       10 410 310 210      1       10 410 310 210      1       5   0    5
+                                                             J2255+0251
+               60   data                       model                      data point source normalized residual
+       F356W
+
+
+
+
+               40
+
+               20
+                    0.5"
+                0
+                10 4 10 3 10 2 10       1   10 4 10 3 10 2 10       1   10 4 10 3 10 2 10       1   5   0    5
+               80
+                    data                       model                      data point source normalized residual
+               60
+       F150W
+
+
+
+
+               40
+               20
+                      0.5"
+                0
+                10 410 310 210      1       10 410 310 210      1       10 410 310 210      1       5   0    5
+
+Figure 2. 2D decomposition into quasar and host-galaxy emission. Panels are as follows from left to
+right: quasar image (data), best-fit model (quasar + host galaxy), host galaxy only (data − model quasar
+point-source component), and normalized residual image, i.e., (data − model) / σ , where σ is the flux
+uncertainty of each pixel. The target name is above each row of panels and the filter is indicated on the left.
+The alignment of the NIRSpec slit (0.′′ 2 × 0.′′ 6) is shown in the left panel of the F356W image for each
+target. Pixel units are Mega-Janskys per steradian. A scale bar of 0.′′ 5 corresponds to 2.8 kpc at z ∼ 6.4.
+
+
+
+
+                                                                                                                  7/27
+Figure 3. NIRSpec rest-frame optical spectra of J2236+0032 and J2255+0251. For each quasar, the
+left panel shows the full spectrum while the top-right panels zoom in on the Hβ +[O III] λ λ 4960, 5008
+doublet. The flux density Fλ is in units of 10−20 erg cm−2 s−1 Å−1 . The data are shown in black with the
+errors per pixel in grey. The stellar absorption lines in J2236+0032 are identified in Hγ, Hδ and Hε,
+which are also presented in the inset zoom-in panel. Best-fit models of power-law continuum (blue), Fe II
+(green), broad Hβ (magenta), narrow Hβ + [O III] (orange thick line), and broad [O III] (orange thin line)
+are overplotted in the top-right panels. The sum of the continuum and emission line models is shown in
+red. The residuals are displayed in the bottom right panels.
+
+
+
+
+                                                                                                     8/27
+Figure 4. BH mass – stellar mass plane at z ∼ 6.4. Left: Observed locations of our two z ∼ 6.4 quasars
+marked in red. Orange contours (1–3σ levels) show the expected distribution of a mock quasar sample at
+z ∼ 6.4 for which the ratio MBH /M∗ of the intrinsic population does not evolve to z = 0. Right: The
+MBH –M∗ relation at z ∼ 6.4 (red solid line) inferred from our two quasars after accounting for selection
+effects. The shaded region represents the 68 % confidence interval, and the dashed line is the observed
+relation at z = 0 21,22 . Note that we assume a linear relationship between black hole mass and stellar mass
+in log-log space. The slope is fixed to the value observed at z = 0.
+
+
+
+
+                                                                                                       9/27
+Methods
+Cosmological model
+A standard concordance cosmology with H0 = 70 km s−1 Mpc−1 , Ωm = 0.30, and ΩΛ = 0.70 is adopted,
+which gives a scale of 5.63 kpc/′′ at z = 6.4. All magnitudes are presented in the AB system. Milky Way
+dust extinction is negligible at the near-infrared wavelengths of interest and is not corrected for.
+
+Target selection
+The two objects presented here are part of our Cycle 1 JWST program (Observation ID 1967; PI: M.Onoue)
+which targets 12 of the lowest-luminosity quasars at redshift 6.0 to 6.4 (ref. 23) discovered by the Hyper
+Suprime-Cam Subaru Strategic Program 7 , an optical wide-field survey using the 8.2-meter Subaru tele-
+scope. These quasars were spectroscopically confirmed by ground-based follow-up observations 4,5,6 . The
+quasars exhibit broad Lyα emission and strong intergalactic medium absorption blueward of Lyα. This
+deep survey, which is sensitive to quasars a factor of 10 less luminous than those discovered by shallower
+surveys such as the Sloan Digital Sky Survey (see Extended Data Figure 1).
+
+NIRCam Observations and data reduction
+The data presented in this paper were taken with Module B of the NIRCam instrument, which has a field
+of view of 2.2 × 2.2 square arcminutes. Total exposures of 3,100 seconds in the two filters (F356W and
+F150W) were obtained simultaneously. A 4 × 4 primary and sub-pixel dithering pattern was employed
+to mitigate cosmic ray hits and bad pixels in the detector and to ensure sub-pixel resampling during the
+stacking step. We used the INTRAMODULEBOX and STANDARD dithering patterns for the primary
+and sub-pixel dithers, respectively. We used the BRIGHT1 readout mode.
+    The data were processed using the standard procedures in JWST pipeline version 1.7.2. The pre-
+calibrated “Stage 2” image frames were downloaded from the MAST archive. These images have
+the pipeline parameter reference files jwst_1009.pmap for J2255+0251 and jwst_1011.pmap for
+J2236+0032, as registered in the JWST Calibration Reference Data System1 . For individual frames, global
+background light was first subtracted using the Background2D function of Photutils 24 . The archived
+images clearly have horizontal and vertical stripe noise patterns, known as “1/ f noise”. This 1/ f noise was
+subtracted by first masking bright objects, then collapsing the 2D images along each axis of the detectors
+and estimating the noise amplitudes by measuring sigma-clipped median values. These amplitudes were
+then subtracted from each row and column. The horizontal stripes were measured for each of the four
+detector amplifiers separately. These post-processed Stage 2 image frames were then aligned and stacked
+with inverse-variance weighting using the Stage 3 pipeline, keeping the original position angle of the
+detector for the purpose of building the PSF library. Both F356W and F150W images were resampled with
+a pixel scale a factor of two smaller than that of the detector, using the drizzling algorithm implemented in
+the Resample step of the pipeline. The final pixel scales for F356W and F150W are 0.′′ 0315 and 0.′′ 0153,
+respectively.
+
+2D image decomposition of quasar and host galaxy emission using galight
+Accurate decomposition of the image of a quasar into a central point source and an extended host galaxy
+requires a high-quality model for the PSF based on stars detected in the same image as the quasars.
+Space-based telescopes have a much sharper and more stable PSF than ground-based telescopes, and
+the Hubble Space Telescope (HST) has been used to measure quasar host galaxies to redshift up to z ∼ 2
+(ref. 12,25,26,27). However, HST’s ∼90-minute orbit means that it is continually passing between Earth’s
+   1 https://jwst-crds.stsci.edu
+
+
+
+                                                                                                      10/27
+shadow and direct sunlight, causing the telescope to expand and contract (“orbital breathing”) and giving
+rise to a time-dependent PSF. The difficulty of modeling the PSF has not allowed quasar host galaxies to
+be detected significantly beyond z ≳ 3 (ref. 1,2,28,29), where host starlight can be only measured through
+the SED fitting method 30 .
+     Here, we follow our tested strategy 12 , including the analysis of JWST images 32 , and build a PSF
+library by identifying all isolated, unsaturated stars of sufficient signal-to noise ratio (SNR) in our
+images. We identified 12|16 PSF stars in filter F150W|F356W for J2236+0032 and 9|5 PSF stars in
+filter F150W|F356W in the images for J2255+0251. We use our two-dimensional modeling software
+galight 12 to fit the quasar images with a model of a scaled PSF (the spatially unresolved point-like
+quasar) and a PSF-convolved 2D Sérsic profile (the host galaxy). galight is a python-based open-
+source package2 that utilizes the image modeling capabilities of lenstronomy 31 . It has been adopted
+for quasar decomposition of images by HST 12 , JWST 32 , and the HSC survey 33 . We adopt uniform priors
+for the effective radius Reff ∈ [0.′′ 03, 2.′′ 0] and the Sérsic index (n) ∈ [0.3, 9] of the host to avoid unphysical
+parameter inference. For J2255+0251, there is one nearby object which we fit simultaneously with a Sérsic
+profile, allowing us to correct for its effect on the host galaxy properties.
+     We obtain a weighted inference for the decomposition result as briefly described here. After subtracting
+the remaining local background, we use each PSF in our library in turn to fit the image. The performance
+of each PSF is determined by its best-fit χ 2 value. We select groups of two, three, and five PSFs from the
+library that have the top level χ 2 performance and then average them using psfr (Birrer et al. in prep).
+To optimize our modeling of the unresolved quasar emission, we consider both best-fit models using
+individual stars and average models based on the combined PSF stars described above. Thus, we add the
+three averaged PSFs as new members to the PSF library. We take the results from the five top-performing
+PSF models in the updated library. We determine our final result parameters by weighting their χ 2 values,
+as defined by ref. 12, Eq. (3)-(6). The uncertainties we quote are based on the dispersion in the host
+properties from these five different PSF models. Errors based on variation in the PSF models are often
+significantly larger than the formal fitting errors, as has been recently demonstrated using simulations and
+observations of quasars and their host galaxies 34 . The final inferred host filter magnitude, size, Sérsic
+index, and other fit parameters are presented in Extended Data Table 1. The images in Figure 2 are based
+on the PSF with the best performance. The sizes of our host galaxies are defined using the Sérsic effective
+radius Reff along the semi-major axis measured by galight.
+     The quasar host of J2236+0032 appears to be a compact galaxy. As a result, we find that the Sérsic n
+is poorly constrained, and the resulting host residual is point-like with an inferred Reff of 0.′′ 03 (the lower
+limit of the prior), indicating that the central PSF has not been fully removed. This model implies a stellar
+mass with an implausibly high value above 1011.8 M⊙ given the SED fitting described below. Thus, we
+refit this object, fixing n = 1 in both F356W and F150W. This gives a much-improved model. The host is
+quite elongated in F356W, suggesting that it is a disky edge-on galaxy. We also find a consistent position
+angle between F356W and F150W, as shown in Figure 2. Thus, for J2236+0032, we adopt the results with
+Sérsic n fixed to 1. We further directly fit the “data − quasar" residual image (i.e., host) with the Sérsic
+model and allow the Sérsic index to vary. When we do so, the inferred n is 1.55 with values of Reff and the
+host magnitude consistent with those with the n = 1 fit.
+     Since J2255+0251 has no clear host detection in the F150W band, we re-model the data and fix the
+host galaxy parameters (host Sérsic index, Reff , ellipticity, and position angle) to the values inferred from
+the F356W band, while allowing the central position and amplitude to vary. We still see no evidence for a
+host residual, but the model gives a formal host magnitude of 26.3 ± 0.2 mag. We quote these inferences
+   2 https://galight.readthedocs.io/en/latest/
+
+
+
+                                                                                                              11/27
+in Extended Data Table 1 and adopt a lower limit to the magnitude of 26.3 mag.
+
+Confirmation of our 2D decomposition using galfit
+In the fitting routine described above, the results are sensitive to the setting of certain parameters. For
+instance, a sub-pixel shift of the PSF is typically needed to optimally align with the position of the quasar.
+This interpolation within a pixel can result in modest variations in the allocation of flux between the
+quasar and its host galaxy. In galight, the parameter point_source_supersampling_factor
+controls this interpolation. For guidance here on the optimal setting, we compared our results with the
+decomposition from galfit 35 while implementing different supersampling factor values, i.e., 1 (no
+interpolation) and 2. The choice of supersampling factor had a greater impact on the F150W decomposi-
+tion than that on the F356W image. We found that the two codes are in close agreement when using a
+supersampling_factor of 2 as shown in Extended Data Figure 2 and reported in Extended Data
+Table 1. As a result, to account for the uncertainty associated with this setting, we report the averaged
+results obtained using both supersampling_factor values of 1 and 2, with uncertainties covered by
+these two settings.
+
+Tests of the robustness of the host galaxy properties
+We perform several sanity checks for our two quasars to confirm that the detections of their host galaxies
+are real. First, our final reduced data are co-added using 16 dithers. To check whether the apparent host is
+caused by a random ghost from any particular dither frame, we reanalyze the data using the first 8 and the
+second 8 dithers separately. We are able to detect the host from both halves of the data. To ensure that the
+apparent host galaxy flux is not dominated by a mismatched PSF core, we mask the quasar center (using a
+0.′′ 12 and 0.′′ 06 radius aperture for F356W and F150W, respectively) and redo the fit. Again, the host is
+well-detected.
+      To rule out the possibility that the residual emission (host galaxy) is an artifact of the chosen PSF stars,
+we selected the five top-performing PSF in the library, and identified twenty pairs from these. We then fit
+one PSF with the other without assuming any host component for all pairs. We performed this test for stars
+in the fields of J2236+0032 and J2255+0251 in both bands; residual images show no extended features
+in any case. This is illustrated for J2255+0251 in the F356W filter in the top panels of Extended Data
+Figure 3. We also fit galaxy + host models to pure PSF images, in which case the inferred host magnitudes
+were roughly two magnitudes fainter than the hosts detected around the quasars. In contrast, we clearly
+detect the quasar host when we use any of the five library PSFs and, using these stellar residual maps to
+measure the standard deviation, we display the maps of the host signal-to-noise ratio for all images of our
+two quasars in the bottom panels of Extended Data Figure 3.
+      We carried out three sets of simulations to further validate our host detections, including J2255+0251
+in the F356W filter and J2236+0032 in the F356W and F150W filters. In one realization of the simulation,
+we randomly select a PSF from the five top-ranked PSFs in the library, and add a Sérsic profile using the
+best-fit parameters from our model inference. We sample the resulting mock quasar+host image at the
+observed resolution and insert it into a random empty position in the JWST NIRCam data. We then model
+the images with the other four PSF stars, and select the result with the best performance. We repeated this
+simulation a hundred times to quantify the bias and standard deviation of the inferred values around the
+true values. We found that the key Sérsic parameters can be obtained accurately, with biases well below
+1σ in all quantities. For J2255+0251, the bias (obtained−truth) and scatter of the inferred host magnitude
+are −0.02±0.11. For J2236+0032, the magnitude bias and scatter are 0.01±0.14 and −0.13±0.16 for
+F356W and F150W, respectively. We present the distributions of the inferred host magnitudes in the
+simulations of J2255+0251 (F356W) in Extended Data Figure 4. We note that these simulation tests were
+
+                                                                                                           12/27
+conducted with point_source_supersampling_factor set to 1. The similar scatter distribution
+can be found when setting this parameter to 2.
+     Finally, we tested the fidelity of the host magnitude inference using a joint fit across the two bands. We
+fix the host galaxy parameters for J2236+0032 (where the host is detected in F150W), setting the Sérsic
+parameters to those inferred from F356W; we find a very similar host magnitude to the value when all
+parameters are allowed to vary: the changes in the inferred host magnitude are within 0.1 mag.
+
+Stellar mass of the host galaxy
+We use SED fitting to estimate the stellar masses of our two host galaxies at z ∼ 6.4 using the photometry
+and its uncertainty based on NIRCam imaging with two filters (F356W and F150W) which straddle the
+rest-frame 4000 Å break. The host galaxy of J2255+0251 is not detected in the F150W filter, thus we
+take 26.3 mag as a lower limit on the magnitude. We adopt a Chabrier IMF in our analysis to allow direct
+comparison with the local black hole - host galaxy mass relations (e.g., ref. 21,22). Contributions of
+nebular emission lines from the host galaxies are also allowed with a uniform log ionization parameter
+logU over the range [−3, −1]. Three key parameters define the shape of the SED template: age, metallicity,
+and dust attenuation (Av ). We adopt a uniform prior on the age over the range [0.01, 0.84] (in Gyr),
+extending to the age of the universe at z = 6.4. We adopt a uniform prior in metallicity log Z/Z⊙ over
+the range [−1, −0.3] following ref. 36,37. We assume an Av range of [0, 5.0] mag for both targets. For
+J2255+0251, the F150W band has an upper limit on the flux thus the constraint on Av is weaker; hence,
+we assume Av follows a log-normal distribution with a median value at 0.85 as supported by recent JWST
+observations of high-redshift galaxies 38 . A measurement of the Balmer decrement (i.e., the ratio of narrow
+Hα and Hβ in the spectrum) implies an attenuation Av =0.67±0.13 mag for the narrow-line region (Onoue
+et al., in prep), consistent with the median extinction value of our prior. We also note that for J2236+0032,
+the contribution of the host in the spectrum (Onoue et al., in prep) has a magnitude in close agreement
+with the NIRCam photometry, supporting our stellar mass estimate.
+    We use gsf 39 to perform the SED model fitting. This software generates a set of templates with
+a range of ages and metallicities according to the prior to fit a composite stellar population (CSP)-like
+star formation history. A random parameter sampling is performed through Markov-Chain Monte-Carlo
+(MCMC) to infer the probability distribution of the SED parameters. For J2236+0032 and J2255+0251,
+the inferred values of log M∗ are 11.12+0.40               +0.51
+                                           −0.27 and 10.53−0.37 (in units of M⊙ ), respectively, as shown in
+Extended Data Table 1. In Extended Data Figure 5, we present the best-fit SEDs of the two quasar hosts,
+in which the MCMC inference indicates that the stellar mass is mildly sensitive to age and metallicity but
+is more sensitive to Av . We also adopt the same configuration for the independent code Bagpipes 40
+and CIGALE 41 to perform SED fits; we find values of M∗ that change by 0.1 dex or less. The robust
+measurement of stellar mass is due to having photometry on both sides of the 4000 Å break, accurate
+spectroscopic redshifts, and a firm upper limit of the stellar age 0.84 Gyr, given the age of the universe at
+z = 6.4. Even so, we note that additional systematic uncertainties may be unaccounted for thus leading to
+greater uncertainty in the mass estimates than we have quoted.
+
+NIRSpec Observations and data reduction
+The NIRSpec Fixed-Slit data for the two quasars were obtained on October 30, 2022 for J2236+0032 and
+October 28, 2022 for J2255+0251. The targets were aligned onto the 0.′′ 2 × 3.′′ 2 S200A2 slit and observed
+with the medium-resolution (R ∼ 1000) G395M grating, which covers 2.87 – 5.27 µm in the observed
+frame. Total exposures of 1,970 seconds were obtained for each target.
+   The spectroscopic data were processed with the JWST pipeline version 1.8.5. Raw (uncal) data
+were downloaded from the MAST archive, which has the parameter reference files jwst_1027.pmap.
+
+                                                                                                        13/27
+The stage 1 calibration was performed with the default parameters but with the function to detect large
+cosmic-ray hits on the detector turned on during the Jump step. The 1/ f noise along the vertical direction
+was subtracted from the Stage 1 products using the same method as that for NIRCam images. Pixels
+of the science frames flagged as bad or saturated were masked based on the associated Data Quality
+frames. During the Stage 2 data processing, including flat-fielding and flux calibration, we use in-flight
+measurements of spectrophotometric standard stars (jwst_nirspec_fflat_0065.fits) to convert the detector
+signals into physical units. The signal loss due to the optical system and the finite width of the S200A2
+slit were corrected in the Pathloss step by applying built-in correction factors for a point source as a
+function of wavelength. The two-dimensional spectra at each dither position were then stacked using
+the Stage 3 pipeline. The pixel resampling scale was kept to the original pixel scale of the detector. A
+6-pixel-wide box-car aperture (0.′′ 6 wide) was employed to extract the one-dimensional spectrum from the
+stacked spectrum.
+
+Spectrum fitting
+We use a public code QSOFitMORE 42 (version 1.2.03 ) with custom modification to fit the NIRSpec
+rest-optical spectra of the two quasars. The continuum emission is fitted with two components: power-law
+emission from the accretion disk, and a pseudo-continuum from the forest of singly-ionized iron emission.
+QSOFitMORE uses an empirical iron template of ref. 43. The rest-frame 5100 Å monochromatic
+luminosity (L5100 ) is derived from the best-fit power-law continuum model with a power-law index of αλ
+(i.e., flux density Fλ ∝ λ αλ ).
+     Emission lines are modeled with a combination of one or more Gaussian profiles. J2236+0032 needs
+one broad component for Hβ , while the adjacent forbidden emission of [O III] λ λ 4960, 5008 requires
+one narrow component and another blueshifted broad component. The narrow [O III] doublet is forced to
+have the same line width without velocity offsets between the two. The [O III] redshifts of the two targets
+are derived from the peaks of the narrow [O III] components. The [O III] redshift of J2236+0032 agrees
+well with the location of the absorption lines we detect in Hγ, Hδ , and Hε (Figure 3). The Hβ +[O III] line
+profile as well as the continuum properties of J2236+0032 are reported in Extended Data Table 2. A full
+description of the fitting procedure and other emission line properties will be presented in Onoue et al. (in
+prep.).
+
+BH mass estimates
+The central black hole masses MBH of the two quasars are measured by the single-epoch method using
+broad Hβ emission lines. Assuming that the broad Hβ emission traces the kinematics of the gas orbiting
+in the vicinity of the SMBHs (the so-called broad-line-region), one can use the line width of Hβ as a proxy
+of the rotation velocity of the broad-line-region gas. There is also an empirical correlation between the
+rest-frame 5100 Å continuum luminosity (L5100 ) and the radius from the SMBH to the broad-line-region
+gas, which is observed by the reverberation mapping technique 44 . In this paper, we use the recipe provided
+by ref. 16 to estimate the black hole mass:
+                                           0.50                 2
+                                                     FWHMHβ
+                        
+                 6.91          L5100
+      MBH = 10                                                         M⊙ .                              (1)
+                            1044 erg s−1             103 km s−1
+
+   Based on the spectrum fitting results described above, we derive virial BH masses of MBH = (1.54 ±
+0.27) × 109 M⊙ for J2236+0032 and MBH = (2.02 ± 0.17) × 108 M⊙ for J2255+0251. Note that these
+   3 https://doi.org/10.5281/zenodo.4893646
+
+
+
+                                                                                                      14/27
+virial SMBH masses have intrinsic uncertainties of 0.4 dex 16 , which is not included in the error budget
+above. We report the derived BH properties in Extended Data Table 2.
+    We estimate the host galaxy contribution to the rest-optical continua of the NIRSpec spectra, using the
+decomposed host galaxy images in the NIRCam’s F356W filter. Referring to the relative position angle
+of the NIRCam and NIRSpec observations, we find that the stellar emission falling inside the 0.′′ 2 × 0.′′ 6
+extraction aperture is 21.8% (J2236+0032) and 4.8% (J2255+0251) with respect to the total emission.
+We interpret this as the fraction of the host starlight in the observed continuum emission in the NIRSpec
+G395M spectrum for each source, which allows us to correct the 5100 Å continuum luminosity to that from
+the quasar emission alone. Accordingly, the virial BH masses become MBH = (1.36 ± 0.15) × 109 M⊙
+for J2236+0032 and MBH = (1.97 ± 0.17) × 108 M⊙ for J2255+0251, respectively. These corrected BH
+properties are reported in Extended Data Table 2, and are adopted in Figure 4. This correction is more
+significant for J2236+0032, in which stellar absorption lines are detected (Figure 3).
+
+Emission from Hβ +[O III] in the hosts
+Our SED model allows for the inclusion of the Hβ +[O III] line emission that falls within the F365W filter
+(Extended Data Figure 5). However, if those lines were of high equivalent width in the hosts, they could
+affect the broad-band photometry used in the stellar mass inference, especially if the gas is ionized by
+the quasar 45,46 . To ensure that our NIRCam detection of extended host emission is not dominated by
+these lines, we directly compare the total flux of the Hβ +[O III] narrow lines seen in our spectra with the
+contribution from the host in the NIRCam image within the aperture of the spectral slit. For J2236+0032,
+narrow Hβ emission is not detected and the [O III] emission in NIRSpec contributes only ∼ 3% of the
+host galaxy light.
+    For J2255+0251, the narrow Hβ +[O III] emission is comparable to the host galaxy brightness measured
+in the F356W filter. Much of this emission may be coming from the narrow-line region of the quasar itself.
+To quantify the impact on the detection of the stellar continuum, we use the 2D NIRSpec spectroscopic
+data and fit a Gaussian to the unresolved spatial profile at each wavelength, allowing the centroid to
+vary linearly with wavelength, setting the width to be the same as the spatial PSF as measured from a
+publicly available reference star in the same spectroscopic configuration as our observations, and letting
+the amplitude be a free parameter. The best-fit Gaussian profile at each wavelength is then subtracted
+from the 2D spectrogram to reveal any spatially extended [O III] emission in the spectrum. A background
+region of equivalent size is subtracted from the extended emission region. We calculate the flux density of
+the extended emission in the F356W band and compare it to the flux density of the NIRCam host galaxy
+within the aperture of the NIRSpec slit on the sky. For J2255+0251, the [O III] extended emission has a
+magnitude of 27.6, which is 11% of the flux of the observed host galaxy within the slit aperture. Note that
+the measurement of the extended emission is based on the observational fact that the apparent minor axis
+of J2255+0251 is wider than the scale of the PSF in F356W (see Figure 2). We thus conclude that the
+majority of the narrow Hβ +[O III] emission in J2255+0251 comes from the unresolved quasar, which has
+been removed by our quasar decomposition. For J2236+0032, we use the same approach and find that the
+extended [O III] has a magnitude of 27.5 mag. The flux ratio between the extended [O III] and the host
+galaxy within the slit is ∼ 3%. No extended Hβ emission was detected in either target.
+
+Construction of mock quasar and host galaxy sample at z = 6.4
+We use the method described in ref. 17 to generate mock samples to assess the expected location of our
+two quasars in the black hole - stellar mass plane. We start with a large galaxy sample representative of
+the population at z ∼ 6 based on the stellar mass function 15 . We then assume that the ratio of black hole to
+host stellar mass and its dispersion are the same as the local values (i.e., no evolution). As an update on
+
+                                                                                                       15/27
+this procedure, we now use the BH Eddington rate distribution of ref. 47 to assign quasar luminosities.
+Observational uncertainty on M∗ and intrinsic uncertainty on MBH are incorporated with a selection on
+magnitude (−23.9 < M1450 < −23.8) is applied. The orange contours in Figure 4 show the resulting
+bivariate probability distribution in the stellar mass-black hole mass plane. We further generate samples
+for different evolution rates (MBH /M∗ ∝ (1 + z)γ ) in steps of 0.1 in γ and under the assumption that the
+dispersion is the same as the local value (ref. 17,48 demonstrates that the evolution rate and dispersion are
+degenerate). The probability distribution of γ is determined given our measurements of both MBH and M∗
+of our two quasars (Extended Data Figure 6); γ lies in the range −0.40 to +0.84 with 68% confidence.
+
+23. Matsuoka, Y., et al. Subaru High-z Exploration of Low-luminosity Quasars (SHELLQs). V. Quasar
+    Luminosity Function and Contribution to Cosmic Reionization at z = 6. Astrophys. J. 869, 150 (2018)
+
+24. Bradley, L., Sipőcz, B., Robitaille, T., et al. astropy/photutils: 1.4.0 Zenodo 6385735B (2022)
+
+25. Jahnke, K., et al. Ultraviolet Light from Young Stars in GEMS Quasar Host Galaxies at 1.8<z<2.75.
+    Astrophys. J. 614, 568-585 (2004)
+
+26. Mechtley, M., et al. Do the Most Massive Black Holes at z = 2. Grow via Major Mergers? Astrophys.
+    J. 830, 156 (2016)
+
+27. Marian, V., et al. Major Mergers Are Not the Dominant Trigger for High-accretion AGNs at z ∼ 2.
+    Astrophys. J. 882, 141 (2019)
+
+28. Glikman, E., et al. Major Mergers Host the Most-luminous Red Quasars at z ∼ 2: A Hubble Space
+    Telescope WFC3/IR Study. Astrophys. J. 806, 218 (2015)
+
+29. Chen, Y.-C., et al. A close quasar pair in a disk-disk galaxy merger at z = 2.17. Nature 616, 45-49
+    (2023)
+
+30. Dong, X. Y., & Wu, X.-B. Herschel Observed Stripe 82 Quasars and Their Host Galaxies: Connections
+    between AGN Activity and host Galaxy Star Formation. Astrophys. J. 824, 70 (2016)
+
+31. Birrer, S., et al. lenstronomy II: A gravitational lensing software ecosystem. The Journal of Open
+    Source Software 6, 3283 (2021)
+
+32. Ding, X., Silverman, J. D., & Onoue, M. Opening the Era of Quasar-host Studies at High Redshift
+    with JWST. Astrophys. J. Lett. 939, L28 (2022)
+
+33. Li, J., et al. The Sizes of Quasar Host Galaxies in the Hyper Suprime-Cam Subaru Strategic Program.
+    Astrophys. J. 918, 22 (2021)
+
+34. Zhuang, M.-Y., & Shen, Y. Characterization of JWST NIRCam PSFs and Implications for AGN+Host
+    Image Decomposition. arXiv e-prints arXiv:2304.13776 (2023)
+
+35. Peng, C. Y., Ho, L. C., Impey, C. D., & Rix, H.-W. Detailed Structural Decomposition of Galaxy
+    Images. Astron. J. 124, 266-293 (2002)
+
+36. Bouwens, R. J., et al. UV-continuum Slopes of >4000 z ∼ 4-8 Galaxies from the HUDF/XDF,
+    HUDF09, ERS, CANDELS-South, and CANDELS-North Fields. Astrophys. J. 793, 115 (2014)
+
+                                                                                                       16/27
+37. Ucci, G., et al. Astraeus - II. Quantifying the impact of cosmic variance during the Epoch of
+    Reionization. Mon. Not. R. Astron. Soc. 506, 202-214 (2021)
+38. Shapley, A. E., Sanders, R. L., Reddy, N. A., Topping, M. W., & Brammer, G. B. JWST/NIRSpec
+    Balmer-line Measurements of Star Formation and Dust Attenuation at z ∼ 3-6. arXiv e-prints
+    arXiv:2301.03241 (2023)
+39. Morishita, T., et al. Massive Dead Galaxies at z ∼ 2 with HST Grism Spectroscopy. I. Star Formation
+    Histories and Metallicity Enrichment. Astrophys. J. 877, 141 (2019)
+40. Carnall, A. C., McLure, R. J., Dunlop, J. S., & Davé, R. Inferring the star formation histories of
+    massive quiescent galaxies with BAGPIPES: evidence for multiple quenching mechanisms. Mon. Not.
+    R. Astron. Soc. 480, 4379-4401 (2018)
+41. Boquien, M., et al. CIGALE: a python Code Investigating GALaxy Emission. Astron. Astrophys. 622,
+    A103 (2019)
+42. Fu, Y. QSOFITMORE (version 1.2.0): a python package for fitting UV-optical spectra of quasars.
+    Zenodo.5810042 (2021)
+43. Boroson, T. A., & Green, R. F. The Emission-Line Properties of Low-Redshift Quasi-stellar Objects.
+    Astrophys. J. Suppl. Ser. 80, 109 (1992)
+44. Kaspi, S., et al. Reverberation Measurements for 17 Quasars and the Size-Mass-Luminosity Relations
+    in Active Galactic Nuclei. Astrophys. J. 533, 631-649 (2000)
+45. Kashino, D., et al. EIGER I. a large sample of [OIII]-emitting galaxies at 5.3 < z < 6.9 and direct
+    evidence for local reionization by galaxies. arXiv e-prints arXiv:2211.08254 (2022)
+46. Matthee, J., et al. EIGER II. first spectroscopic characterisation of the young stars and ionised gas
+    associated with strong Hβ and [OIII] line-emission in galaxies at z=5-7 with JWST. arXiv e-prints
+    arXiv:2211.08255 (2022)
+47. Wu, J., et al. Demographics of z ∼ 6 quasars in the black hole mass-luminosity plane. Mon. Not. R.
+    Astron. Soc. 517, 2659-2676 (2022)
+48. Li, J., et al. Synchronized Coevolution between Supermassive Black Holes and Galaxies over the Last
+    Seven Billion Years as Revealed by Hyper Suprime-Cam. Astrophys. J. 922, 142 (2021)
+
+
+Code Availability
+The JWST data were processed with the JWST calibration pipeline (https://jwst-pipeline.
+readthedocs.io). Public tools were used for data analysis: galight 12 , galfit 35 and PyQSOFit 42 .
+
+Data Availability
+The JWST data are available in the MAST and can be accessed via doi:10.17909/2z59-3v32 (JWST
+GO 1967) after a twelve-month exclusive access period. Reduced quasar NIRCam image cutouts are
+also available from the corresponding author upon request or at https://github.com/dartoon/
+publication/tree/main/SHELLQs_J2236_J2255_data.
+
+                                                                                                   17/27
+Acknowledgements
+We thank Takahiro Morishita and Lilan Yang for help with the gsf and Bagpipes packages. We thank
+Yuming Fu for his help on the use of QSOFitMORE. We thank Xiaohui Fan, Luis Ho, and Vardha Bennert
+for useful discussions.
+    This work is based on observations made with the NASA/ESA/CSA James Webb Space Telescope.
+The data were obtained from the Mikulski Archive for Space Telescopes at the Space Telescope Science
+Institute, which is operated by the Association of Universities for Research in Astronomy, Inc., under
+NASA contract NAS 5-03127 for JWST. These observations are associated with program #1967. Support
+for program #1967 was provided by NASA through a grant from the Space Telescope Science Institute,
+which is operated by the Association of Universities for Research in Astronomy, Inc., under NASA
+contract NAS 5-03127.
+    This paper is based on data collected at the Subaru Telescope and retrieved from the HSC data archive
+system, which is operated by the Subaru Telescope and Astronomy Data Center (ADC) at NAOJ. Data
+analysis was in part carried out with the cooperation of Center for Computational Astrophysics (CfCA),
+NAOJ. We are honored and grateful for the opportunity of observing the Universe from Maunakea, which
+has the cultural, historical and natural significance in Hawaii.
+    This work was supported by World Premier International Research Center Initiative (WPI), MEXT,
+Japan. XD, JS, YM, TI, KK, and HU are supported by the Japan Society for the Promotion of Science
+(JSPS) KAKENHI grant Nos. JP22K14071, JP18H01251, JP22H01262, JP17H04830, JP21H04494,
+JP20K14531, JP17H06130, JP20H01953. FW, SEIB, BT, JTS, and MO acknowledge support from
+the ERC grant Nos. 740246, 885301, 950533. MO and KI acknowledge support from the National
+Natural Science Foundation of China grant Nos. 12150410307 and 12073003. YM acknowledges support
+from the Mitsubishi Foundation grant No. 30140. SF acknowledges support from NASA through the
+NASA Hubble Fellowship grant HST-HF2-51505.001-A awarded by the STScI, which is operated by
+the Association of Universities for Research in Astronomy, Incorporated, under NASA contract NAS5-
+26555. ZH acknowledges support from NSF grant AST-2006176. KI acknowledges support by the
+Spanish MCIN under grant PID2019-105510GB-C33/AEI/10.13039/501100011033 AL acknowledges
+funding from MIUR under the grant PRIN 2017-MB8AEZ. BT acknowledges support from the Israel
+Science Foundation (grant No. 1849/19) and from the European Research Council (ERC) under the
+European Union’s Horizon 2020 research and innovation program (grant agreements No. 950533). MT
+acknowledges support from the NWO grant 0.16.VIDI.189.162 (“ODIN”). MV acknowledges support
+from the Independent Research Fund Denmark via grant number DFF 8021-00130.
+
+
+Author Contributions
+XD led the analysis of the quasar decomposition, simulation test, SED fitting, and preparation of the
+manuscript. MO reduced the NIRCam and NIRSpec data. He also led the spectroscopic data analysis
+and wrote relevant sections. We regard that these first two authors equally contributed to this work. JS
+contributed to the NIRCam data analysis and preparation of the manuscript. CP performed the NIRSpec
+2D spectroscopic analysis and evaluated the strength of the extended [O III] emission. JL constructed the
+mock quasar sample at z = 6.4, which was used to assess the redshift evolution of the black hole – stellar
+mass relation. MO, XD, JS, YM, TI, MS, and KJ led the project design and management, also developing
+the main interpretation of the results. All co-authors contributed to the discussion of the presented results
+and the preparation of the manuscript.
+
+
+
+                                                                                                      18/27
+Competing interests
+The authors declare no competing interests.
+
+Correspondence
+Correspondence and requests for materials should be addressed to X. Ding (xuheng.ding@ipmu.jp)
+and M. Onoue (onoue@pku.edu.cn).
+
+
+
+
+                                                                                        19/27
+Extended Data
+
+                                          J2236+0032                    J2255+0251
+          RA                              22 36 44.58                    22 55 38.04
+          Dec                            +00 32 56.90                   +02 51 26.60
+          Redshift                            6.40                           6.34
+          M1450 (mag)                        −23.8                          −23.9
+                                    F356W            F150W          F356W           F150W
+          Reff (′′ )             0.13±0.02         0.10±0.03      0.27±0.19            -
+          Reff (kpc)               0.7±0.1           0.5±0.2       1.5±1.1             -
+          Sérsic index            fixed as 1        fixed as 1     1.5±1.4             -
+          ellipticity (b/a)       0.39±0.02        0.34±0.11      0.61±0.09            -
+          PA (N to W)           −39.4◦ ±2.8◦ −48.8◦ ±25.5◦       26.0◦ ±11.6◦          -
+          flux ratio            25.5%±4.4% 10.2%±2.8%            9.8%±2.6%         < 3.8%
+          quasar mag             21.95±0.07       22.73±0.04     22.15±0.03 22.89±0.02
+          host mag               23.12±0.20       25.12±0.29     24.58±0.30         > 26.3
+          host mag (galfit)      23.10±0.07       24.95±0.10     24.27±0.06         > 26.7
+          host log M∗ (M⊙ )                      +0.40
+                                           11.12−0.27                           +0.51
+                                                                          10.53−0.37
+
+Extended Data Table 1. Summary of the quasar decomposition results. The photometry
+measurements are obtained using galight, where the top-performance PSFs are weighted with different
+point_source_supersampling_factor. We also present the host magnitudes inferred by
+galfit, combining results using top-performance PSFs. The RA and Dec are from the HSC
+measurements, consistent with JWST’s. The stellar masses are from gsf; we also find consistent results
+using the Bagpipes and CIGALE codes.
+
+
+
+
+                                                                                                20/27
+                                  J2236+0032        (corrected) J2255+0251    (corrected)
+      [O III] redshift            6.4039 ± 0.0009               6.333 ± 0.001
+      FHβ ,broad                  2.13 ± 0.10                   7.01 ± 0.09
+      FHβ ,narrow                                               0.36 ± 0.07
+      F[O III]λ 4960,core       0.07 ± 0.10                     0.26 ± 0.04
+      F[O III]λ 4960,wing       0.49 ± 0.14                     0.31 ± 0.02
+      F[O III]λ 5008,core       0.34 ± 0.13                     0.66 ± 0.09
+      F[O III]λ 5008,wing       0.96 ± 0.18                     1.36 ± 0.08
+      αλ                        −1.752 ± 0.003                  −1.75 ± 0.02
+                  45
+      L5100 (10 erg s )   −1    2.29 ± 0.02         1.79 ± 0.01 1.531 ± 0.008 1.458 ± 0.008
+                             −1
+      Hβ FWHMbroad (km s ) 6290 ± 560                           2520 ± 110
+      MBH (108 M⊙ )             15.4 ± 2.7          13.6 ± 1.5 2.02 ± 0.17    1.97 ± 0.17
+
+Extended Data Table 2. Spectroscopic properties and virial BH masses. The corrected values are
+based on the quasar continuum emission after subtracting the host galaxy light falling onto the NIRSpec
+fixed slit. Flux values are in units of 10−17 erg cm−2 s−1 .
+
+
+
+
+                                                                                                 21/27
+                                     30
+
+
+
+                                     28
+          Absolute Mag M1450 [mag]
+
+
+
+
+                                     26
+
+
+
+                                     24
+
+
+
+                                     22
+                                                                       z>5.8 QSOs
+                                                                       HSC-SSP
+                                                                       This Work
+                                     20   6.0   6.5              7.0           7.5
+                                                      Redshift
+Extended Data Figure 1. Distribution of known quasars at redshift z > 5.8. The y-axis indicates
+the absolute magnitudes at rest-frame 1450 Å. The two target quasars in this work are shown in red
+(J2236+0032 at z = 6.40, and J2255+0251 at z = 6.34), while other low-luminosity quasars from the
+HSC-SSP are shown in blue. The JWST 12 Cycle 1 targets in GO #1967 are highlighted with open circles.
+Other known quasars are shown in black.
+
+
+
+
+                                                                                               22/27
+           J2236 fit by galight, F356W100              J2236 fit by galfit, F356W 100
+           80 host mag 23.00                          80 host mag 23.07
+                                             10   1                                     10   1
+           60                                         60
+
+           40                                10   2
+                                                      40                                10   2
+
+
+           20                                10   3
+                                                      20                                10   3
+
+
+             0                               10   4     0                               10   4
+                 0   20   40    60    80                    0   20   40    60    80
+           J2236 fit by galight, F150W100              J2236 fit by galfit, F150W 100
+           80 host mag 25.01                          80 host mag 25.12
+                                             10   1                                     10   1
+           60                                         60
+
+           40                                10   2
+                                                      40                                10   2
+
+
+           20                                10   3
+                                                      20                                10   3
+
+
+             0                               10   4     0                               10   4
+                 0   20   40    60    80                    0   20   40    60    80
+
+Extended Data Figure 2. Quasar-subtracted images of J2236+0032 based on 2D decomposition by
+two independent codes. The inferred host magnitude from each code is indicated. For this comparison,
+the point_source_supersampling_factor is set to 2 for galight. The same PSF is used for
+this comparison. Coordinates are in pixel units; the pixel scales for F356W and F150W are 0.′′ 0315 and
+0.′′ 0153, respectively.
+
+
+
+
+                                                                                                 23/27
+       fit star 2 using 1   fit star 3 using 1   fit star 4 using 1   fit star 5 using 1   fit star 3 using 2
+
+
+
+      0.5"
+       fit star 4 using 2   fit star 5 using 2   fit star 4 using 3   fit star 5 using 3   fit star 5 using 4
+
+
+
+
+Extended Data Figure 3. Testing the effect of PSF star mismatch on the inferred presence of a
+host galaxy. Top: The residuals using the top five PSF star pairs for J2255+0251 in F356W (10 of 20 are
+shown) – we see no evidence for extended residual emission. Using these 20 PSF residual maps, the PSF
+mismatch standard deviation is calculated for each pixel. Bottom: Maps of host galaxy signal (i.e.,
+data−point-source model) divided by the standard deviation (as indicated by the color scale) for both
+targets in two filters. The host is clearly detected in all cases except for J2255+0251 in F150W.
+
+
+
+
+                                                                                                                24/27
+           30                                                             host galaxy added
+                                                                          host not added
+           25                                                             true value
+
+           20
+    Number
+
+
+
+
+           15
+           10
+             5
+             0 24.5      25.0      25.5      26.0      26.5      27.0      27.5      28.0
+                                      inferred magnitude
+Extended Data Figure 4. Distribution of the inferred host magnitude from simulations with and
+without a host present. When the host of J2255+0251 is added into the mock image in the simulations,
+the derived host magnitude distribution based on 100 realizations (dark orange) is consistent with the
+input true value, with an r.m.s. scatter of 0.12 mag. When the host light is not included in the mock image
+and we still fit the host light in our model, we infer host magnitudes with a broad distribution (tan
+histogram), centered two magnitudes fainter.
+
+
+
+
+                                                                                                     25/27
+Extended Data Figure 5. The SED inference using the host galaxy two-band photometry based on
+gsf. Top: The red data points with errors indicate the inferred host fluxes. The gray region represents the
+1σ range of variation in SED templates obtained through MCMC, while the black line represents the
+median SED template. The blue diamonds indicate the predictions using this median template. Bottom:
+The distribution of the host galaxy SED properties using MCMC inference.
+
+
+
+
+                                                                                                     26/27
+                 1.0
+
+                 0.8
+
+                 0.6
+           pdf
+
+
+
+
+                 0.4
+
+                 0.2
+
+                 0.0 1.5 1.0 0.5 0.0 0.5 1.0 1.5 2.0
+
+Extended Data Figure 6. Probability distribution of the evolution parameter based on
+observations of our two quasars. The evolution parameter γ is inferred as MBH /M∗ ∝ (1 + z)γ . The 68%
+confidence interval in γ lies between −0.40 and +0.84. The black dashed line indicates the 50 percentile
+position (+0.21).
+
+
+
+
+                                                                                                  27/27
+

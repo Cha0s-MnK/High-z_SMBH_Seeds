@@ -98,18 +98,7 @@ r_cut  = 20 pc
 Use an EFF/Nuker-like profile with a flat inner slope:
 
 ```bash
-./mcluster \
-  -N 100000 \
-  -f 0 \
-  -P 3 \
-  -r 1.0 \
-  -c 20.0 \
-  -g 4.0 -g 0.0 -g 2.0 \
-  -Q 0.5 \
-  -C 3 \
-  -u 1 \
-  -s 1001 \
-  -o nsc_core
+./mcluster -N 100000 -f 0 -P 3 -r 1.0 -c 20.0 -g 4.0 -g 0.0 -g 2.0 -Q 0.5 -C 3 -u 1 -s 1001 -o nsc_core
 ```
 
 Meaning:

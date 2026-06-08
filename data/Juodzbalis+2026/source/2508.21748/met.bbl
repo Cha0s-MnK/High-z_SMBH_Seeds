@@ -1,0 +1,85 @@
+\begin{thebibliography}{}
+\makeatletter
+\relax
+\def\mn@urlcharsother{\let\do\@makeother \do\$\do\&\do\#\do\^\do\_\do\%\do\~}
+\def\mn@doi{\begingroup\mn@urlcharsother \@ifnextchar [ {\mn@doi@} {\mn@doi@[]}}
+\def\mn@doi@[#1]#2{\def\@tempa{#1}\ifx\@tempa\@empty \href {http://dx.doi.org/#2} {doi:#2}\else \href {http://dx.doi.org/#2} {#1}\fi \endgroup}
+\def\mn@eprint#1#2{\mn@eprint@#1:#2::\@nil}
+\def\mn@eprint@arXiv#1{\href {http://arxiv.org/abs/#1} {{\tt arXiv:#1}}}
+\def\mn@eprint@dblp#1{\href {http://dblp.uni-trier.de/rec/bibtex/#1.xml} {dblp:#1}}
+\def\mn@eprint@#1:#2:#3:#4\@nil{\def\@tempa {#1}\def\@tempb {#2}\def\@tempc {#3}\ifx \@tempc \@empty \let \@tempc \@tempb \let \@tempb \@tempa \fi \ifx \@tempb \@empty \def\@tempb {arXiv}\fi \@ifundefined {mn@eprint@\@tempb}{\@tempb:\@tempc}{\expandafter \expandafter \csname mn@eprint@\@tempb\endcsname \expandafter{\@tempc}}}
+
+\bibitem[\protect\citeauthoryear{{Planck Collaboration} et~al.,}{{Planck Collaboration} et~al.}{2020}]{Planck2020}
+{Planck Collaboration} et~al., 2020. {Planck 2018 results. VI. Cosmological parameters}, \mn@doi [\aap] {10.1051/0004-6361/201833910}, \href {https://ui.adsabs.harvard.edu/abs/2020A&A...641A...6P} {641, A6}
+
+\bibitem[\protect\citeauthoryear{{Perna} et~al.,}{{Perna} et~al.}{2023}]{Perna+2023}
+{Perna} M.,  et~al., 2023. {GA-NIFS: The ultra-dense, interacting environment of a dual AGN at z {\ensuremath{\sim}} 3.3 revealed by JWST/NIRSpec IFS}, \mn@doi [\aap] {10.1051/0004-6361/202346649}, \href {https://ui.adsabs.harvard.edu/abs/2023A&A...679A..89P} {679, A89}
+
+\bibitem[\protect\citeauthoryear{{Foreman-Mackey}, {Hogg}, {Lang}  \& {Goodman}}{{Foreman-Mackey} et~al.}{2013}]{emcee}
+{Foreman-Mackey} D.,  {Hogg} D.~W.,  {Lang} D.,   {Goodman} J.,  2013. {emcee: The MCMC Hammer}, \mn@doi [\pasp] {10.1086/670067}, \href {https://ui.adsabs.harvard.edu/abs/2013PASP..125..306F} {125, 306}
+
+\bibitem[\protect\citeauthoryear{{Ivison} et~al.,}{{Ivison} et~al.}{2007}]{Ivison2007}
+{Ivison} R.~J.,  et~al., 2007. {The SCUBA HAlf Degree Extragalactic Survey - III. Identification of radio and mid-infrared counterparts to submillimetre galaxies}, \mn@doi [\mnras] {10.1111/j.1365-2966.2007.12044.x}, \href {https://ui.adsabs.harvard.edu/abs/2007MNRAS.380..199I} {380, 199}
+
+\bibitem[\protect\citeauthoryear{{Dalcanton} \& {Stilp}}{{Dalcanton} \& {Stilp}}{2010}]{Dalcanton2010}
+{Dalcanton} J.~J.,  {Stilp} A.~M.,  2010. {Pressure Support in Galaxy Disks: Impact on Rotation Curves and Dark Matter Density Profiles}, \mn@doi [\apj] {10.1088/0004-637X/721/1/547}, \href {https://ui.adsabs.harvard.edu/abs/2010ApJ...721..547D} {721, 547}
+
+\bibitem[\protect\citeauthoryear{{Beckers}}{{Beckers}}{1982}]{Beckers1982}
+{Beckers} J.~M.,  1982. {Differential speckle interferometry.}, \mn@doi [Optica Acta] {10.1080/713820871}, \href {https://ui.adsabs.harvard.edu/abs/1982AcOpt..29..361B} {29, 361}
+
+\bibitem[\protect\citeauthoryear{{Aime}, {Borgnino}, {Lund}  \& {Ricort}}{{Aime} et~al.}{1988}]{Aime1988}
+{Aime} C.,  {Borgnino} J.,  {Lund} G.,   {Ricort} G.,  1988. in {Merkle} F.,  ed.,  European Southern Observatory Conference and Workshop Proceedings Vol. 29, European Southern Observatory Conference and Workshop Proceedings. pp 249--256
+
+\bibitem[\protect\citeauthoryear{{Georgiev}, {B{\"o}ker}, {Leigh}, {L{\"u}tzgendorf}  \& {Neumayer}}{{Georgiev} et~al.}{2016}]{Georgiev2016}
+{Georgiev} I.~Y.,  {B{\"o}ker} T.,  {Leigh} N.,  {L{\"u}tzgendorf} N.,   {Neumayer} N.,  2016. {Masses and scaling relations for nuclear star clusters, and their co-existence with central black holes}, \mn@doi [\mnras] {10.1093/mnras/stw093}, \href {https://ui.adsabs.harvard.edu/abs/2016MNRAS.457.2122G} {457, 2122}
+
+\bibitem[\protect\citeauthoryear{{Adamo} et~al.,}{{Adamo} et~al.}{2024}]{Adamo2024}
+{Adamo} A.,  et~al., 2024. {Bound star clusters observed in a lensed galaxy 460 Myr after the Big Bang}, \mn@doi [\nat] {10.1038/s41586-024-07703-7}, \href {https://ui.adsabs.harvard.edu/abs/2024Natur.632..513A} {632, 513}
+
+\bibitem[\protect\citeauthoryear{{Pechetti} et~al.,}{{Pechetti} et~al.}{2020}]{Pechetti2020}
+{Pechetti} R.,  et~al., 2020. {Luminosity Models and Density Profiles for Nuclear Star Clusters for a Nearby Volume-limited Sample of 29 Galaxies}, \mn@doi [\apj] {10.3847/1538-4357/abaaa7}, \href {https://ui.adsabs.harvard.edu/abs/2020ApJ...900...32P} {900, 32}
+
+\bibitem[\protect\citeauthoryear{{Gebhardt}, {Rich}  \& {Ho}}{{Gebhardt} et~al.}{2005}]{Gebhardt2005}
+{Gebhardt} K.,  {Rich} R.~M.,   {Ho} L.~C.,  2005. {An Intermediate-Mass Black Hole in the Globular Cluster G1: Improved Significance from New Keck and Hubble Space Telescope Observations}, \mn@doi [\apj] {10.1086/497023}, \href {https://ui.adsabs.harvard.edu/abs/2005ApJ...634.1093G} {634, 1093}
+
+\bibitem[\protect\citeauthoryear{{Navarro}, {Frenk}  \& {White}}{{Navarro} et~al.}{1996}]{NFW_halo}
+{Navarro} J.~F.,  {Frenk} C.~S.,   {White} S. D.~M.,  1996. {The Structure of Cold Dark Matter Halos}, \mn@doi [\apj] {10.1086/177173}, \href {https://ui.adsabs.harvard.edu/abs/1996ApJ...462..563N} {462, 563}
+
+\bibitem[\protect\citeauthoryear{{Torralba} et~al.,}{{Torralba} et~al.}{2025}]{Torralba2025}
+{Torralba} A.,  et~al., 2025. {A weak Ly$\alpha$ halo for an extremely bright Little Red Dot. Indications of enshrouded SMBH growth}, \href {https://ui.adsabs.harvard.edu/abs/2025arXiv250509542T} {p. arXiv:2505.09542} \mn@eprint {arXiv} {2505.09542}
+
+\bibitem[\protect\citeauthoryear{{Simmonds} et~al.,}{{Simmonds} et~al.}{2024}]{Simmonds2024}
+{Simmonds} C.,  et~al., 2024. {Ionizing properties of galaxies in JADES for a stellar mass complete sample: resolving the cosmic ionizing photon budget crisis at the Epoch of Reionization}, \mn@doi [\mnras] {10.1093/mnras/stae2537}, \href {https://ui.adsabs.harvard.edu/abs/2024MNRAS.535.2998S} {535, 2998}
+
+\bibitem[\protect\citeauthoryear{{Laor}}{{Laor}}{2006}]{Laor2006}
+{Laor} A.,  2006. {Evidence for Line Broadening by Electron Scattering in the Broad-Line Region of NGC 4395}, \mn@doi [\apj] {10.1086/502798}, \href {https://ui.adsabs.harvard.edu/abs/2006ApJ...643..112L} {643, 112}
+
+\bibitem[\protect\citeauthoryear{Storn \& Price}{Storn \& Price}{1997}]{storn+price1997}
+Storn R.,  Price K.,  1997. Differential evolution--a simple and efficient heuristic for global optimization over continuous spaces, Journal of global optimization, 11, 341
+
+\bibitem[\protect\citeauthoryear{{Brazzini} et~al.,}{{Brazzini} et~al.}{2025}]{Brazzini2025}
+{Brazzini} M.,  et~al., 2025. {Ruling out dominant electron scattering in Little Red Dots' Rosetta Stone using multiple hydrogen lines}, \href {https://ui.adsabs.harvard.edu/abs/2025arXiv250708929B} {p. arXiv:2507.08929} \mn@eprint {arXiv} {2507.08929}
+
+\bibitem[\protect\citeauthoryear{{Miller} et~al.,}{{Miller} et~al.}{2025}]{Miller2025sizes}
+{Miller} T.~B.,  et~al., 2025. {JWST UNCOVERs the Optical Size{\textendash}Stellar Mass Relation at 4 < z < 8: Rapid Growth in the Sizes of Low-mass Galaxies in the First Billion Years of the Universe}, \mn@doi [\apj] {10.3847/1538-4357/ade438}, \href {https://ui.adsabs.harvard.edu/abs/2025ApJ...988..196M} {988, 196}
+
+\bibitem[\protect\citeauthoryear{{Saslaw}, {Valtonen}  \& {Aarseth}}{{Saslaw} et~al.}{1974}]{Saslaw1974}
+{Saslaw} W.~C.,  {Valtonen} M.~J.,   {Aarseth} S.~J.,  1974. {The Gravitational Slingshot and the Structure of Extragalactic Radio Sources}, \mn@doi [\apj] {10.1086/152870}, \href {https://ui.adsabs.harvard.edu/abs/1974ApJ...190..253S} {190, 253}
+
+\bibitem[\protect\citeauthoryear{{Volonteri}, {Madau}  \& {Haardt}}{{Volonteri} et~al.}{2003}]{Volonteri2003}
+{Volonteri} M.,  {Madau} P.,   {Haardt} F.,  2003. {The Formation of Galaxy Stellar Cores by the Hierarchical Merging of Supermassive Black Holes}, \mn@doi [\apj] {10.1086/376722}, \href {https://ui.adsabs.harvard.edu/abs/2003ApJ...593..661V} {593, 661}
+
+\bibitem[\protect\citeauthoryear{{Maiolino} et~al.,}{{Maiolino} et~al.}{2024}]{Maiolino2024}
+{Maiolino} R.,  et~al., 2024. {A small and vigorous black hole in the early Universe}, \mn@doi [\nat] {10.1038/s41586-024-07052-5}, \href {https://ui.adsabs.harvard.edu/abs/2024Natur.627...59M} {627, 59}
+
+\bibitem[\protect\citeauthoryear{{Chang}, {Gronke}, {Matthee}  \& {Mason}}{{Chang} et~al.}{2025}]{Chang2025}
+{Chang} S.-J.,  {Gronke} M.,  {Matthee} J.,   {Mason} C.,  2025. {Impact of Resonance, Raman, and Thomson Scattering on Hydrogen Line Formation in Little Red Dots}, \href {https://ui.adsabs.harvard.edu/abs/2025arXiv250808768C} {p. arXiv:2508.08768} \mn@eprint {arXiv} {2508.08768}
+
+\bibitem[\protect\citeauthoryear{{Ji} et~al.,}{{Ji} et~al.}{2025}]{Ji2025LRDlocal}
+{Ji} X.,  et~al., 2025. {Lord of LRDs: Insights into a ``Little Red Dot'' with a low-ionization spectrum at z = 0.1}, \href {https://ui.adsabs.harvard.edu/abs/2025arXiv250723774J} {p. arXiv:2507.23774} \mn@eprint {arXiv} {2507.23774}
+
+\bibitem[\protect\citeauthoryear{{Lin} et~al.,}{{Lin} et~al.}{2025}]{Lin2025LRDlocal}
+{Lin} X.,  et~al., 2025. {The Discovery of Little Red Dots in the Local Universe: Signatures of Cool Gas Envelopes}, \href {https://ui.adsabs.harvard.edu/abs/2025arXiv250710659L} {p. arXiv:2507.10659} \mn@eprint {arXiv} {2507.10659}
+
+\makeatother
+\end{thebibliography}

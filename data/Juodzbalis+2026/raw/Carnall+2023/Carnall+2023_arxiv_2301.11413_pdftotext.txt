@@ -1,0 +1,1221 @@
+                                                                  Springer Nature 2021 LATEX template
+
+arXiv:2301.11413v2 [astro-ph.GA] 26 May 2023
+
+
+                                                  A massive quiescent galaxy at redshift 4.658
+                                                     Adam C. Carnall1 , Ross J. McLure1 , James S. Dunlop1 , Derek J.
+                                                      McLeod1 , Vivienne Wild2 , Fergus Cullen1 , Dan Magee3 , Ryan
+                                                      Begley1 , Andrea Cimatti4,5 , Callum T. Donnan1 , Massissilia L.
+                                                           Hamadouche1 , Sophie M. Jewell1 and Sam Walker1
+                                                 1
+                                                   Institute for Astronomy, School of Physics & Astronomy, University of
+                                                          Edinburgh, Royal Observatory, Edinburgh, EH9 3HJ, UK.
+                                                     2
+                                                       School of Physics & Astronomy, University of St Andrews, North
+                                                                    Haugh, St Andrews, KY16 9SS, UK.
+                                                  3
+                                                    Department of Astronomy and Astrophysics, UCO/Lick Observatory,
+                                                           University of California, Santa Cruz, CA 95064, USA.
+                                                 4
+                                                   Department of Physics and Astronomy (DIFA), University of Bologna,
+                                                                  Via Gobetti 93/2, I-40129, Bologna, Italy.
+                                                    5
+                                                      INAF, Osservatorio di Astrofisica e Scienza dello Spazio, Via Piero
+                                                                    Gobetti 93/3, I-40129, Bologna, Italy.
+
+
+
+                                               The extremely rapid assembly of the earliest galaxies during the first
+                                               billion years of cosmic history is a major challenge for our under-
+                                               standing of galaxy formation physics [1–5]. The advent of JWST has
+                                               exacerbated this issue by confirming the existence of galaxies in sig-
+                                               nificant numbers as early as the first few hundred million years [6–8].
+                                               Perhaps even more surprisingly, in some galaxies, this initial highly
+                                               efficient star formation rapidly shuts down, or quenches, giving rise
+                                               to massive quiescent galaxies as little as 1.5 billion years after the
+                                               Big Bang [9, 10], however, due to their faintness and red colour,
+                                               it has proven extremely challenging to learn about these extreme
+                                               quiescent galaxies, or to confirm whether any exist at earlier times.
+                                               Here we report the spectroscopic confirmation of a massive quiescent
+                                               galaxy, GS-9209, at redshift, z = 4.658, just 1.25 billion years after
+                                               the Big Bang, using JWST NIRSpec. From these data we infer a
+                                               stellar mass of M∗ = 3.8 ± 0.2 × 1010 M⊙ , which formed over a ≃ 200
+                                               Myr period before this galaxy quenched its star formation activity
+                                               at z = 6.5+0.2
+                                                          −0.5 , when the Universe was ≃ 800 million years old. This
+                                               galaxy is both a likely descendent of the highest-redshift submil-
+                                               limetre galaxies and quasars, and a likely progenitor for the dense,
+                                               ancient cores of the most massive local galaxies.
+
+
+
+                                                                                    1
+                                        Springer Nature 2021 LATEX template
+
+
+ 2                     A massive quiescent galaxy at redshift 4.658
+
+                                                 Rest-frame Wavelength / m
+                                  0.4          0.5                                0.6              0.7             0.8
+                 1.5
+
+
+
+
+                                                           1
+                                                                            1.2                                        Fitted model
+
+
+
+
+                                                           erg s 1 cm 2 Å
+1
+
+
+
+
+                 1.2                                                        0.9
+erg s 1 cm 2 Å
+
+
+
+
+                                                                            0.6
+                 0.9                                                                                CaK
+
+
+
+
+                                                           19
+                                                                                          [O II] H H CaH    H           H
+                                                                            0.3
+
+
+
+
+                                                           f / 10
+                                                                                                       +
+                                                                                                      H
+                                                                              2.0                2.2             2.4                  2.6
+                 0.6                                                                                       / m
+19
+f / 10
+
+
+
+
+                 0.3
+                              F170LP + G235M
+                                                                                              F290LP + G395M
+                 0.0        2.0          2.5         3.0                            3.5             4.0           4.5                 5.0
+                                                 Observed Wavelength / m
+ Figure 1: JWST NIRSpec observations of GS-9209. Data were taken
+ on 16th November 2022, using the G235M and G395M gratings (R = 1000)
+ with integration times of 3 hours and 2 hours respectively, providing wave-
+ length coverage from λ = 1.7 − 5.1µm. The galaxy is at a redshift of
+ z = 4.6582 ± 0.0002, and exhibits extremely deep Balmer absorption lines.
+ The spectrum strongly resembles that of an A-type star, and is reminiscent
+ of lower-redshift post-starburst galaxies [40–42], clearly indicating this galaxy
+ experienced a significant, rapid drop in star-formation rate (SFR) within the
+ past few hundred million years. The spectral region from λ = 2.6 − 4.0µm,
+ containing Hβ and Hα, is shown at a larger scale in Figure 2.
+
+
+     During the past 5 years, several studies have identified GS-9209 as a candi-
+ date high-redshift massive quiescent galaxy [11, 12], based on its blue colours
+ at wavelengths, λ = 2 − 8 µm and non-detection at millimetre wavelengths
+ [13]. GS-9209 is also not detected in X-rays [14], at radio wavelengths [15],
+ or at λ = 24 µm [16]. The faint, red nature of the source (with magnitudes
+ HAB = 24.7 and KAB = 23.6) means that near-infrared spectroscopy with
+ ground-based instrumentation is prohibitively expensive. The JWST NIRSpec
+ data, shown in Figure 1, reveal a full suite of extremely deep Balmer absorp-
+ tion features, with a Hδ equivalent width (EW), as measured by the HδA Lick
+ index, of 7.9 ± 0.3 Å, comparable to the most extreme values observed in the
+ local Universe [17]. These spectral features strongly indicate this galaxy has
+ undergone a sharp decline in star-formation rate (SFR) during the preceding
+ few hundred Myr.
+     The spectrum exhibits only the merest suspicion of [O ii] 3727 Å and [O iii]
+ 4959Å, 5007 Å emission, and no apparent infilling of Hβ or any of the higher-
+ order Balmer absorption lines. However, as can be seen in Figure 2, both Hα
+ and [Nii] 6584 Å are clearly albeit weakly detected in emission, with Hα also
+ exhibiting an obvious broad component. This broad component, along with
+                                         Springer Nature 2021 LATEX template
+
+
+                                                        A massive quiescent galaxy at redshift 4.658                  3
+
+                                                          Rest-frame Wavelength / m
+                                 0.50                     0.55               0.60           0.65               0.70
+                 1.0
+                                                                                       Bagpipes full fitted model
+1
+
+
+
+
+                 0.8                                                                   Bagpipes AGN component
+erg s 1 cm 2 Å
+
+
+                                                                                       Narrow line model
+
+                 0.6
+                              [O III][O III] MgI Fe I
+                 0.4      H
+                                                                       NaD
+19
+
+
+
+
+                                                                                              H [N II]
+f / 10
+
+
+
+
+                 0.2      Observed fluxes
+                          Observed flux errors
+                 0.02.6        2.8                3.0            3.2         3.4      3.6                3.8        4.0
+                                                          Observed Wavelength / m
+ Figure 2: JWST NIRSpec observations of GS-9209: zoom in on Hβ
+ and Hα. Data are shown in blue, with their associated (1σ standard deviation)
+ uncertainties visible at the bottom in purple. The full Bagpipes fitted model is
+ shown in black, with the AGN component shown in red. The narrow Hα and
+ [N ii] lines were masked during the Bagpipes fitting process, and subsequently
+ fitted with Gaussian functions, shown in green. Key emission and absorption
+ features are also marked.
+
+
+ the relative strength of [N ii] compared with the narrow Hα line, indicate the
+ presence of an accreting supermassive black hole: an active galactic nucleus
+ (AGN). However, the extreme EWs of the observed Balmer absorption features
+ indicate that the continuum emission must be strongly dominated by the stellar
+ component.
+     To measure the stellar population properties of GS-9209, we perform full
+ spectrophotometric fitting using the Bagpipes code [18] (see Methods). Briefly,
+ we first mask the wavelengths corresponding to [O ii], [O iii], narrow Hα and
+ [N ii], due to likely AGN contributions. We then fit a 22-parameter model for
+ the stellar, dust, nebular and AGN components, as well as spectrophotometric
+ calibration, to the spectroscopic data in combination with multi-wavelength
+ photometry. Throughout the paper we report only statistical uncertainties on
+ fitted parameters. It should be noted however that systematic uncertainties in
+ galaxy spectral energy distribution analyses can be significantly larger [19–21].
+ We investigate the effect of our choice of star-formation history (SFH) model
+ in the Methods section.
+     The resulting posterior median model is shown in black in Figs 1 and 2. We
+ obtain a stellar mass of log10 (M∗ /M⊙ ) = 10.58±0.02, under the assumption of
+ a Kroupa initial mass function (IMF) [22]. We additionally recover a very low
+ level of dust attenuation, with AV = 0.02±0.02. The SFR we measure averaged
+ over the past 100 Myr is consistent with zero, with a very stringent upper
+ bound, though this is largely a result of our chosen SFH parameterisation [19].
+ We provide a detailed discussion of the SFR of GS-9209 in Methods.
+                                              Springer Nature 2021 LATEX template
+
+
+ 4                      A massive quiescent galaxy at redshift 4.658
+
+
+                          5         6
+                                         Redshift
+                                            8            12           30                           5         6
+                                                                                                                  Redshift
+                                                                                                                     8          12            30
+                                                                                            11.0
+                                                                                                                        Labbe et al. (2022)
+                          a                    SFRpeak = 490+680
+                                                               300 M yr
+                                                                         1                         b
+                  3.0
+                                                  tform = 0.76 ± 0.03 Gyr                   10.5
+log10(SFR/yr 1)
+
+
+
+
+                                                                           log10(M * /M )
+                  2.0
+                                                                                            10.0
+
+                  1.0                                                                        9.5
+                                                  1 2
+
+                  0.0 1.2     1.0       0.8    0.6     0.4      0.2        0.0               9.0 1.2   1.0       0.8   0.6    0.4     0.2          0.0
+                               Age of Universe / Gyr                                                    Age of Universe / Gyr
+ Figure 3: The star-formation rate and stellar mass of GS-9209 as a
+ function of time. Panel a shows the star-formation rate (SFR) as a func-
+ tion of time (the star-formation history). Panel b shows the stellar mass as a
+ function of time. The blue lines show the posterior medians, with the darker
+ and lighter shaded regions showing the 1σ and 2σ confidence intervals respec-
+ tively. We find a formation redshift, zform = 6.9 ± 0.2 and a quenching redshift,
+ zquench = 6.5+0.2
+                −0.5 . The sample of massive z ≃ 8 galaxy candidates from
+ JWST CEERS reported by [6] is also shown in the right panel, demonstrating
+ that these candidates are plausible progenitors for GS-9209. The uncertainties
+ shown on the red points are 1σ standard deviation values.
+
+
+     The SFH we recover is shown in Figure 3. We find that GS-9209 formed
+ its stellar population largely during a ≃ 200 Myr period, from around
+ 600 − 800 Myr after the Big Bang (z ≃ 7 − 8). We recover a mass-weighted
+ mean formation time, tform = 0.76 ± 0.03 Gyr after the Big Bang, corre-
+ sponding to a formation redshift, zform = 6.9 ± 0.2. This is the redshift at
+ which GS-9209 would have had half its current stellar mass, approximately
+ log10 (M∗ /M⊙ ) = 10.3. We find that GS-9209 quenched (which we define as
+ the time at which its sSFR fell below 0.2 divided by the Hubble time, e.g.,
+ [23]) at time tquench = 0.83+0.08
+                              −0.06 Gyr after the Big Bang, corresponding to a
+ quenching redshift, zquench = 6.5+0.2
+                                    −0.5 .
+     Our model predicts that the peak historical SFR for GS-9209 (at approx-
+ imately zform ) was within the range SFRpeak = 490+680 −300 M⊙ yr
+                                                                   −1
+                                                                      . This is
+ similar to the SFRs of bright submillimetre galaxies (SMGs). The number den-
+ sity of SMGs with SFR > 300 M⊙ yr−1 at 5 < z < 6 has been estimated to
+ be ≃ 3 × 10−6 Mpc−3 [24]. Extrapolation then suggests that the SMG number
+ density at z ≃ 7 is ≃ 1 × 10−6 Mpc−3 , which equates to ≃ 1 SMG at z ≃ 7
+ over the ≃ 400 square arcmin area from which GS-9209 and one other z > 4
+ quiescent galaxy were selected [12]. This broadly consistent number density
+ suggests it is entirely plausible that GS-9209 went through a SMG phase at
+ z ≃ 7, shortly before quenching.
+                    Springer Nature 2021 LATEX template
+
+
+                            A massive quiescent galaxy at redshift 4.658       5
+
+    In panel b of Figure 3, we show the positions of the massive, high-redshift
+galaxy candidates recently reported by [6] in the first imaging release from the
+JWST CEERS survey. The positions of these galaxies are broadly consistent
+with the SFH of GS-9209 at z ≃ 7 − 8. It should however be noted that,
+as previously discussed, GS-9209 was selected as one of only two robustly
+identified z > 4 massive quiescent galaxies in an area roughly 10 times the
+size of the initial CEERS imaging area [12]. It therefore seems unlikely that a
+large fraction of the candidates reported by [6] will evolve in a similar way to
+GS-9209 over the redshift interval from z ≃ 5 − 8.
+    From our Bagpipes full spectral fit, we measure an observed broad Hα
+flux of fHα, broad = 1.26 ± 0.08 × 10−17 = erg s−1 cm−2 and full width at
+half maximum (FWHM) of 10300 ± 700 km s−1 in the rest frame. This line
+width, whilst very broad, is consistent with rest-frame UV broad line widths
+measured for some z ≃ 6 quasars (e.g., [25, 26]).
+    As visualised in Figure 2, we fit Gaussian components to the narrow Hα
+and [N ii] lines following subtraction of our best-fitting Bagpipes model (see
+Methods). We obtain a Hα narrow-line flux of 1.58 ± 0.10 × 10−18 erg s−1
+cm−2 and a [N ii] flux of 1.56 ± 0.10 × 10−18 erg s−1 cm−2 , giving a line ratio
+of log10 ([N ii]/Hα) = −0.01 ± 0.04. This line ratio is significantly higher than
+would be expected as a result of ongoing star formation, and is consistent with
+excitation due to an AGN or shocks resulting from galactic outflows [27]. Such
+outflows are commonly observed in post-starburst galaxies at z ≳ 1 [28]. We
+discuss what can be learned about the star-formation rate of GS-9209 from
+the observed Hα flux in Methods.
+    We estimate the black-hole mass for GS-9209, M• , from our combined
+Hα flux and broad-line width, using the relation presented in Equation 6
+of [29], obtaining log10 (M• /M⊙ ) = 8.7 ± 0.1. From our Bagpipes full spec-
+tral fit, we infer a stellar velocity dispersion, σ = 247 ± 16 km s−1 for
+GS-9209, after correcting for the intrinsic dispersion of our template set,
+as well as instrumental dispersion. Given this measurement, the relationship
+between velocity dispersion and black-hole mass presented by [30] predicts
+log10 (M• /M⊙ ) = 8.9 ± 0.1.
+    Given the broad agreement between these estimators, it seems reasonable
+to conclude that GS-9209 contains a supermassive black hole with a mass of
+approximately half a billion to a billion Solar masses. It is interesting to note
+that this is ≃ 4−5 times the black-hole mass that would be expected given the
+stellar mass of the galaxy, assuming this is equivalent to the bulge mass. This
+is consistent with the observed increase in the average black-hole to bulge mass
+ratio for massive galaxies from 0 < z < 2 [31]. The large amount of historical
+AGN accretion implied by this significant black hole mass suggests that AGN
+feedback may have been responsible for quenching this galaxy [32].
+    GS-9209 is an extremely compact source, which is only marginally resolved
+in the highest-resolution available imaging data. We measure the size of GS-
+9209 using newly available JWST NIRCam F210M-band imaging, which has
+a FWHM of ≃ 0.07′′ (see Methods). Accounting for the AGN point-source
+                                Springer Nature 2021 LATEX template
+
+
+ 6                A massive quiescent galaxy at redshift 4.658
+
+                    RGB                F210M
+                                          DataData        Model
+                                                          Model           Residual
+                                                                          Residual
+              a                    b                  c               d
+1.5" x 1.5"
+
+
+
+
+ Figure 4: JWST NIRCam imaging of GS-9209. Each cutout image shows
+ an area of 1.5′′ × 1.5′′ . Panel a is a RGB image, constructed with F430M as
+ red, F210M as green and F182M as blue. Panel b shows the F210M image,
+ with our posterior median PetroFit model shown in Panel c. Panel d shows the
+ residuals between model and data, on the same colour scale as panels b and c.
+
+
+ contribution, we measure an effective radius, re = 0.033 ± 0.003′′ for the stellar
+ component of GS-9209, along with a Sérsic index, n = 2.3 ± 0.3. At z = 4.658,
+ this corresponds to re = 215 ± 20 parsecs. This is consistent with previous
+ measurements by the CANDELS/3DHST team [33], and is ≃ 0.7 dex below the
+ mean relationship between re and stellar mass for quiescent galaxies at z ≃ 1
+ [33, 34]. This is interesting given that post-starburst galaxies z ≃ 1 are known
+ to be more compact than is typical for the wider quiescent population [35]. We
+ calculate a stellar-mass surface density within re of log10 (Σeff /M⊙ kpc−2 ) =
+ 11.15 ± 0.08, consistent with the densest stellar systems in the Universe [36].
+ We show the F210M data for GS-9209, along with our posterior-median model
+ in Figure 4.
+     We estimate the dynamical mass using our size and velocity dispersion
+ measurements (e.g., [28]), obtaining a value of log10 (Mdyn /M⊙ ) = 10.3 ± 0.1.
+ This is ≃ 0.3 dex lower than the stellar mass we measure. As GS-9209 is only
+ marginally resolved, even in JWST imaging data, and due to the presence
+ of the AGN component, it is plausible that our measured re may be subject
+ to systematic uncertainties. Furthermore, since the pixel scale of NIRSpec is
+ 0.1′′ , our velocity dispersion measurement may not accurately represent the
+ central velocity dispersion, leading to an underestimated dynamical mass. It
+ should also be noted that the stellar mass we measure is strongly dependent
+ on our assumed IMF. A final, intriguing possibility would be a high level
+ of rotational support in GS-9209, as has been observed for quiescent galax-
+ ies at 2 < z < 3 [37]. Unfortunately, the extremely compact nature of the
+ source makes any attempt at resolved studies extremely challenging, even with
+ the JWST NIRSpec integral field unit. Resolved kinematics for this galaxy
+ would be a clear use case for the High Angular Resolution Monolithic Opti-
+ cal and Near-infrared Integral field spectrograph (HARMONI) planned for the
+ Extremely Large Telescope (ELT).
+     GS-9209 demonstrates unambiguously that massive galaxy formation was
+ already well underway within the first billion years of cosmic history and that
+ the earliest onset of galaxy quenching was no later than ≃ 800 Myr after
+ the Big Bang. Based on the properties we measure, GS-9209 seems likely to
+                     Springer Nature 2021 LATEX template
+
+
+                             A massive quiescent galaxy at redshift 4.658       7
+
+be associated with the most extreme galaxy populations currently known at
+z > 5, such as the highest-redshift submillimetre galaxies and quasars (e.g.,
+[26, 38, 39]). GS-9209 and similar objects (e.g., [8]) are also likely progenitors
+for the dense, ancient cores of the most massive galaxies in the local Universe.
+
+References
+ [1] Dunlop, J. et al. A 3.5-Gyr-old galaxy at redshift 1.55. Nature 381,
+     581–584 (1996).
+
+ [2] Cimatti, A. et al. Old galaxies in the young Universe. Nature 430,
+     184–187 (2004).
+
+ [3] Kriek, M. et al. A massive, quiescent, population II galaxy at a redshift
+     of 2.1. Nature 540, 248–251 (2016).
+
+ [4] Schreiber, C. et al. Near infrared spectroscopy and star-formation his-
+     tories of 3 < z < 4 quiescent galaxies. Astron. Astrophys. 618, A85
+     (2018).
+
+ [5] Girelli, G., Bolzonella, M. & Cimatti, A. Massive and old quiescent
+     galaxies at high redshift. Astron. Astrophys. 632, A80 (2019).
+
+ [6] Labbe, I. et al. A very early onset of massive galaxy formation. arXiv
+     e-prints arXiv:2207.12446 (2022).
+
+ [7] Donnan, C. T. et al. The evolution of the galaxy UV luminosity function
+     at redshifts z ≃ 8 − 15 from deep JWST and ground-based near-infrared
+     imaging. Mon. Not. R. Astron. Soc. 518, 6011–6040 (2023).
+
+ [8] Carnall, A. C. et al. A surprising abundance of massive quiescent galaxies
+     at 3 < z < 5 in the first data from JWST CEERS. Mon. Not. R. Astron.
+     Soc. 520, 3974–3985 (2023).
+
+ [9] Glazebrook, K. et al. A massive, quiescent galaxy at a redshift of 3.717.
+     Nature 544, 71–74 (2017).
+
+[10] Valentino, F. et al. Quiescent Galaxies 1.5 Billion Years after the Big
+     Bang and Their Progenitors. Astrophys. J. 889, 93 (2020).
+
+[11] Merlin, E. et al. Chasing passive galaxies in the early Universe: a critical
+     analysis in CANDELS GOODS-South. Mon. Not. R. Astron. Soc. 473,
+     2098–2123 (2018).
+
+[12] Carnall, A. C. et al. Timing the earliest quenching events with a robust
+     sample of massive quiescent galaxies at 2 < z < 5. Mon. Not. R. Astron.
+     Soc. 496, 695–707 (2020).
+                    Springer Nature 2021 LATEX template
+
+
+8    A massive quiescent galaxy at redshift 4.658
+
+[13] Santini, P. et al. Passive galaxies in the early Universe: ALMA confirma-
+     tion of z ∼ 3 − 5 candidates in the CANDELS GOODS-South field. Mon.
+     Not. R. Astron. Soc. 486, 560–569 (2019).
+
+[14] Luo, B. et al. The Chandra Deep Field-South Survey: 7 Ms Source
+     Catalogs. Astrophys. J. Suppl. Ser. 228, 2 (2017).
+
+[15] Bonzini, M. et al. The sub-mJy radio sky in the Extended Chandra
+     Deep Field-South: source population. Mon. Not. R. Astron. Soc. 436,
+     3759–3771 (2013).
+
+[16] Dunlop, J. et al. A Spitzer Public Legacy survey of the UKIDSS Ultra
+     Deep Survey. Spitzer Proposal (2007).
+
+[17] Kauffmann, G. et al. Stellar masses and star formation histories for 105
+     galaxies from the Sloan Digital Sky Survey. Mon. Not. R. Astron. Soc.
+     341, 33–53 (2003).
+
+[18] Carnall, A. C., McLure, R. J., Dunlop, J. S. & Davé, R. Inferring the
+     star formation histories of massive quiescent galaxies with BAGPIPES:
+     evidence for multiple quenching mechanisms. Mon. Not. R. Astron. Soc.
+     480, 4379–4401 (2018).
+
+[19] Carnall, A. C. et al. How to Measure Galaxy Star Formation Histories.
+     I. Parametric Models. Astrophys. J. 873, 44 (2019).
+
+[20] Leja, J., Carnall, A. C., Johnson, B. D., Conroy, C. & Speagle, J. S. How
+     to Measure Galaxy Star Formation Histories. II. Nonparametric Models.
+     Astrophys. J. 876, 3 (2019).
+
+[21] Pacifici, C. et al. The Art of Measuring Physical Parameters in Galaxies:
+     A Critical Assessment of Spectral Energy Distribution Fitting Techniques.
+     Astrophys. J. 944, 141 (2023).
+
+[22] Kroupa, P. On the variation of the initial mass function. Mon. Not. R.
+     Astron. Soc. 322, 231–246 (2001).
+
+[23] Pacifici, C. et al. The Evolution of Star Formation Histories of Quiescent
+     Galaxies. Astrophys. J. 832, 79 (2016).
+
+[24] Michalowski, M. J. et al. The SCUBA-2 Cosmology Legacy Survey: the
+     nature of bright submm galaxies from 2 deg2 of 850-µm imaging. Mon.
+     Not. R. Astron. Soc. 469, 492–515 (2017).
+
+[25] Chehade, B. et al. Two more, bright, z > 6 quasars from VST ATLAS
+     and WISE. Mon. Not. R. Astron. Soc. 478, 1649–1659 (2018).
+
+[26] Onoue, M. et al. Subaru High-z Exploration of Low-luminosity Quasars
+                    Springer Nature 2021 LATEX template
+
+
+                            A massive quiescent galaxy at redshift 4.658      9
+
+    (SHELLQs). VI. Black Hole Mass Measurements of Six Quasars at 6.1 ≤
+    z ≤ 6.7. Astrophys. J. 880, 77 (2019).
+
+[27] Kewley, L. J. et al. Theoretical Evolution of Optical Strong Lines across
+     Cosmic Time. Astrophys. J. 774, 100 (2013).
+
+[28] Maltby, D. T. et al. High-velocity outflows in massive post-starburst
+     galaxies at z > 1. Mon. Not. R. Astron. Soc. 2140 (2019).
+
+[29] Greene, J. E. & Ho, L. C. Estimating Black Hole Masses in Active
+     Galaxies Using the Hα Emission Line. Astrophys. J. 630, 122–129 (2005).
+
+[30] Kormendy, J. & Ho, L. C. Coevolution (Or Not) of Supermassive Black
+     Holes and Host Galaxies. Annu. Rev. Astron. Astrophys. 51, 511–653
+     (2013).
+
+[31] McLure, R. J., Jarvis, M. J., Targett, T. A., Dunlop, J. S. & Best, P. N.
+     On the evolution of the black hole: spheroid mass ratio. Mon. Not. R.
+     Astron. Soc. 368, 1395–1403 (2006).
+
+[32] Maiolino, R. et al. Evidence of strong quasar feedback in the early
+     Universe. Mon. Not. R. Astron. Soc. 425, L66–L70 (2012).
+
+[33] van der Wel, A. et al. 3D-HST+CANDELS: The Evolution of the Galaxy
+     Size-Mass Distribution since z = 3. Astrophys. J. 788, 28 (2014).
+
+[34] Hamadouche, M. L. et al. A combined VANDELS and LEGA-C study:
+     the evolution of quiescent galaxy size, stellar mass, and age from z = 0.6
+     to z = 1.3. Mon. Not. R. Astron. Soc. 512, 1262–1274 (2022).
+
+[35] Almaini, O. et al. Massive post-starburst galaxies at z > 1 are compact
+     proto-spheroids. Mon. Not. R. Astron. Soc. 472, 1401–1412 (2017).
+
+[36] Hopkins, P. F., Murray, N., Quataert, E. & Thompson, T. A. A maximum
+     stellar surface density in dense stellar systems. Mon. Not. R. Astron. Soc.
+     401, L19–L23 (2010).
+
+[37] Newman, A. B., Belli, S., Ellis, R. S. & Patel, S. G. Resolving Quiescent
+     Galaxies at z ≳ 2. II. Direct Measures of Rotational Support. Astrophys.
+     J. 862, 126 (2018).
+
+[38] Decarli, R. et al. Rapidly star-forming galaxies adjacent to quasars at
+     redshifts exceeding 6. Nature 545, 457–461 (2017).
+
+[39] Riechers, D. A. et al. Rise of the Titans: Gas Excitation and Feedback in
+     a Binary Hyperluminous Dusty Starburst Galaxy at z ∼ 6. Astrophys. J.
+     907, 62 (2021).
+                    Springer Nature 2021 LATEX template
+
+
+10    A massive quiescent galaxy at redshift 4.658
+
+[40] Goto, T. A catalogue of local E+A (post-starburst) galaxies selected from
+     the Sloan Digital Sky Survey Data Release 5. Mon. Not. R. Astron. Soc.
+     381, 187–193 (2007).
+
+[41] Wild, V. et al. Post-starburst galaxies: more than just an interesting
+     curiosity. Mon. Not. R. Astron. Soc. 395, 144–159 (2009).
+
+[42] Wild, V. et al. The star formation histories of z ∼ 1 post-starburst
+     galaxies. Mon. Not. R. Astron. Soc. 494, 529–548 (2020).
+                          Springer Nature 2021 LATEX template
+
+
+                                 A massive quiescent galaxy at redshift 4.658   11
+
+Methods
+Spectroscopic data and reduction
+The spectroscopic data shown in Figure 1 were taken on 16th November
+2022. The target was acquired directly via Wide Aperture Target Acquisition
+(WATA), meaning the object is extremely well centred. Spectroscopic observa-
+tions were taken through the NIRSpec fixed slit (S200A1), which has a width
+of 0.2′′ . Data were taken using the G235M and G395M gratings, providing an
+average spectral resolution of R = 1000. With each grating, a total of 5 inte-
+grations were taken at different dither positions along the slit. The readout
+pattern used was NRSIRS2, with 30 and 20 groups per integration for the two
+gratings respectively, providing total integration times of 3 hours and 2 hours
+respectively.
+    We reduce our NIRSpec data with the JWST Science Calibration Pipeline
+v1.8.4, using version 1017 of the JWST calibration reference data. To improve
+the spectrophotometric calibration of our data, we also reduce observations
+of the A-type standard star 2MASS J18083474+6927286 [43], taken as part
+of JWST commissioning programme 1128 (PI: Lützgendorf) [44] using the
+same instrument modes. We compare the resulting stellar spectrum against a
+spectral model for this star from the CALSPEC library [45] to construct a cal-
+ibration function, which we then apply to our observations of GS-9209. The
+resulting spectrophotometry is well matched with the available near-infrared
+photometric data, and the calibration polynomial we fit along with our Bag-
+pipes model only results in further calibration changes at the ≃ 10 per cent
+level. We additionally find that the uncertainties output by the pipeline are
+only moderately underestimated, with the errorbar expansion term in our Bag-
+pipes model resulting in an increase of 50 per cent to the pipeline-produced
+uncertainties, in agreement with other recent analyses1 .
+
+Photometric data reduction
+The majority of our photometric data are taken directly from the CANDELS
+GOODS South catalogue [46]. We supplement this with new JWST NIRCam
+photometric data taken as part of the Ultra Deep Field Medium-Band Survey
+[47] (Programme ID: 1963; PI: Williams). Data are available in the F182M,
+F210M, F430M, F460M and F480M bands. We reduce these data using the
+PRIMER Enhanced NIRCam Image-processing Library (PENCIL, e.g., [7]), a
+custom version of the JWST Science Calibration Pipeline (v1.8.0), and using
+version 1011 of the JWST calibration reference data. We measure photometric
+fluxes for GS-9209 in large, 1′′ -diameter apertures to ensure we measure the
+total flux in each band (the object is isolated, with no other sources within this
+radius, see Figure 4). We measure uncertainties as the standard deviation of
+flux values in the nearest 100 blank-sky apertures, masking out nearby objects
+(e.g., [48]).
+
+ 1
+     e.g., https://github.com/spacetelescope/jwst/issues/7362
+                    Springer Nature 2021 LATEX template
+
+
+12     A massive quiescent galaxy at redshift 4.658
+
+Bagpipes full spectral fitting
+We fit the available photometry in parallel with our new spectroscopic data
+using the Bagpipes code [18]. Our model has a total of 22 free parameters,
+describing the stellar, dust, nebular and AGN components of the spectrum.
+A full list of these parameters, along with their associated priors, is given
+in Extended Data Table 1. We fit our model to the data using the Multi-
+Nest nested sampling algorithm [49–51]. The full Bagpipes fit to our combined
+dataset, along with residuals, is shown in Extended Data Figure 1. Posterior
+percentiles for our fit to the data are given in Extended Data Table 2.
+    We use the 2016 updated version of the BC03 [52, 53] stellar population
+models, using the MILES stellar spectral library [54] and updated stellar evolu-
+tionary tracks [55, 56]. We assume a double-power-law star-formation-history
+model (e.g., [18, 19]). We allow the logarithm of the stellar metallicity, Z∗ to
+vary freely from log10 (Z∗ /Z⊙ ) = −2.45 to 0.55. These are the limits of the
+range spanned by the BC03 model grid relative to our adopted Solar metallicity
+value (Z⊙ = 0.0142 [57]).
+    We mask out the narrow emission lines in our spectrum during our Bag-
+pipes fitting due to likely AGN contributions, whereas Bagpipes is only capable
+of modelling emission lines from star-forming regions. We do however still
+include a nebular model in our Bagpipes fit to allow for the possibility of
+nebular continuum emission from star-forming regions. We assume a stellar-
+birth-cloud lifetime of 10 Myr, and vary the logarithm of the ionization
+parameter, U, from log10 (U ) = −4 to −2. We also allow the logarithm of the
+gas-phase metallicity, Zg , to vary freely from log10 (Zg /Z⊙ ) = −2.45 to 0.55.
+Because our eventual fitted model only includes an extremely small amount
+of star formation within the last 10 Myr for GS-9209, this nebular component
+makes a negligible contribution to the fitted model spectrum.
+    We model attenuation of the above components by dust using the model
+of [58, 59], which is parameterised as a power-law deviation from the Calzetti
+dust attenuation law [60], and also includes a Drude profile to model the 2175Å
+bump. We allow the V −band attenuation, AV to vary from 0 − 4 magnitudes.
+We further assume that attenuation is multiplied by an additional factor for
+all stars with ages below 10 Myr, and resulting nebular emission. This factor
+is commonly assumed to be 2, however we allow this to vary from 1 to 5.
+    We allow redshift to vary, using a narrow Gaussian prior with a mean of 4.66
+and standard deviation of 0.01. We additionally convolve the spectral model
+with a Gaussian kernel in velocity space, to account for velocity dispersion in
+our target galaxy. The width of this kernel is allowed to vary with a logarithmic
+prior across a range from 50 − 500 km s−1 . The resolution of our spectroscopic
+data is high enough that the total dispersion is dominated by stellar velocity
+dispersion within the target galaxy, which has a standard deviation of σ ≃ 250
+km s−1 , compared with the average instrumental dispersion of σ ≃ 128 km
+s−1 .
+                    Springer Nature 2021 LATEX template
+
+
+                           A massive quiescent galaxy at redshift 4.658      13
+
+    Separately from the above components, we also include a model for AGN
+continuum, broad Hα and Hβ emission. Following [61], we model AGN contin-
+uum emission with a broken power law, with two spectral indices and a break
+at λrest = 5000 Å in the rest frame. We vary the spectral index at λrest < 5000
+Å using a Gaussian prior with a mean value of αλ = −1.5 (αν = −0.5) and
+standard deviation of 0.5. We also vary the spectral index at λrest > 5000
+Å using a Gaussian prior with a mean value of αλ = 0.5 (αν = −2.5) and
+standard deviation of 0.5. We parameterise the normalisation of the AGN con-
+tinuum component using f5100 , the flux at rest-frame 5100 Å, which we allow
+to vary with a linear prior from 0 to 10−19 erg s−1 cm−2 Å−1 .
+    We model broad Hα with a Gaussian component, varying the normalisation
+from 0 to 2.5 × 10−17 erg s−1 cm−2 using a linear prior, and the velocity
+dispersion from 1000 − 5000 km s−1 in the rest frame using a logarithmic
+prior. We also include a broad Hβ component in the model, which has the
+same parameters as the broad Hα line, but with normalisation divided by the
+standard 2.86 ratio from Case B recombination theory. However, as shown in
+Figure 2, this Hβ model peaks at around the noise level in our spectrum, and
+the line is therefore plausible in not being obviously detected in the observed
+spectrum.
+    We include intergalactic medium (IGM) absorption using the model of
+[62]. To allow for imperfect spectrophotometric calibration of our spectroscopic
+data, we also include a second-order Chebyshev polynomial (e.g., [63–65]),
+which the above components of our combined model are all divided by before
+being compared with our spectroscopic data. We finally fit an additional white
+noise term, which multiplies the spectroscopic uncertainties from the JWST
+pipeline by a factor, a, which we vary with a logarithmic prior from 1 − 10.
+
+Investigation of alternative star-formation history models
+The functional forms used to model galaxy star-formation histories are well
+known to significantly affect physical parameter inferences [19–21], with the
+degree of systematic uncertainty highly dependent on the physical parameter
+of interest, the type of data, and the galaxy being studied. In this section,
+we test the dependence of our inferred formation and quenching times for
+GS-9209 on the SFH model used. We re-run our Bagpipes full-spectral-fitting
+analysis, substituting the double-power-law SFH model described above, firstly
+for the continuity non-parametric model [20], and secondly for a simple top-hat
+(constant) SFH model. For the continuity model, we use 8 time bins, with bin
+edges at 0, 10, 100, 200, 400, 600, 800, 1000 and 1260 Myr before observation.
+For the top-hat model, we vary the time at which star-formation turned on
+with a uniform prior between the Big Bang and time of observation. We vary
+the time at which star formation then stopped with a uniform prior from the
+time at which star formation turned on to the time of observation.
+    The results of these alternative fitting runs are shown in Extended Data
+Figure 2. This figure shows two alternative versions of Figure 3, with the
+continuity non-parametric model results shown in panels a and b, and the
+                    Springer Nature 2021 LATEX template
+
+
+14    A massive quiescent galaxy at redshift 4.658
+
+top-hat model results shown in panels c and d. The SFH posteriors shown,
+whilst varying in their detailed shapes, are in good overall agreement with our
+original double-power-law model. For the double-power-law model, we recover
+tform = 0.76 ± 0.03 Gyr and tquench = 0.83+0.08
+                                             −0.06 Gyr after the Big Bang. The
+values returned under the assumption of these other two models are consistent
+to within 1σ. For the continuity non-parametric model we recover tform =
+0.74+0.02                          +0.19
+     −0.03 Gyr and tquench = 0.86−0.01 Gyr. For the top-hat model we recover
+                                               +0.04
+tform = 0.74 ± 0.02 Gyr and tquench = 0.91−0.06      Gyr. Both of these models
+also produce stronger constraints on the peak historical SFR of GS-9209 at
+a lower level than the double-power-law model, though still consistent within
+1σ. We conclude that our key results are not strongly dependent on our choice
+of star-formation history model.
+
+AGN contribution and fitting of narrow emission lines
+From our Bagpipes full spectral fit, we recover an observed AGN continuum
+flux at rest-frame wavelength, λrest = 5100 Å of f5100 = 0.06 ± 0.01 × 10−19
+erg s−1 cm−2 Å−1 . This is approximately 7.5 per cent of the total observed
+flux from GS-9209 at λ = 2.9µm. We measure a power-law index for the AGN
+continuum emission of αλ = −0.5 ± 0.3 at λrest < 5000 Å, and αλ = 0.4 ± 0.3
+at λrest > 5000 Å. The AGN contribution to the continuum flux from GS-9209
+rises to ≃ 10 per cent at the blue end of our spectrum (λ = 1.7µm), and ≃ 20
+per cent at the red end (λ = 5µm). Just above the Lyman break at λ ≃ 7000 Å,
+the AGN contribution is ≃ 35 per cent of the observed flux.
+    Given our measured fHα, broad , which is more direct than our AGN con-
+tinuum measurement, the average relation for local AGN presented by [29]
+predicts f5100 to be ≃ 0.2 dex brighter than we measure. However, given the
+intrinsic scatter of 0.2 dex they report, our measured f5100 is only 1σ below
+the mean relation. The extreme equivalent widths of the observed Balmer
+absorption features firmly disfavour stronger AGN continuum emission.
+    We fit the narrow Hα and [N ii] lines in our spectrum as follows. We first
+subtract from our observed spectrum the posterior median Bagpipes model
+from our full spectral fitting. We then simultaneously fit Gaussian components
+to both lines, assuming the same velocity width for both, which is allowed to
+vary. This process is visualised in Figure 2. We also show the broad Hβ line in
+our AGN model, for which we assume the same width as broad Hα, as well as
+Case B recombination. It can be seen that the broad Hβ line peaks at around
+the noise level in our spectrum, and is hence too weak to be clearly observed
+in our data.
+
+The star-formation rate of GS-9209
+In this section we discuss the available observational indicators for the SFR
+of GS-9209. The commonly applied sSFR threshold for defining quiescent
+galaxies is sSFRthreshold = 0.2/tH , where tH is the age of the Universe [23].
+                     Springer Nature 2021 LATEX template
+
+
+                            A massive quiescent galaxy at redshift 4.658          15
+
+For GS-9209 at z = 4.658 and log10 (M∗ /M⊙ ) ≃ 10.6, this corresponds to
+log10 (sSFRthreshold /yr−1 ) ≃ −9.8, or SFRthreshold ≃ 6 M⊙ yr−1 .
+    In [66], the authors report that GS-9209 is undetected in ALMA band 6
+data, with a flux of −0.05±0.16 mJy/beam, from which they derive a 1σ upper
+limit on SFR of 41 M⊙ yr−1 . They also perform a stacking experiment, with
+stacked ALMA band 6 data for a sample of 20 objects selected as 3 < z < 5
+quiescent galaxies (including GS-9209) still yielding no detection, implying
+the average SFR for this sample is significantly below the individual-object
+detection limit. The extremely blue spectral shape of this object in the rest-
+frame red-optical to near-infrared (observed-frame 2−8 µm, see Extended Data
+Figure 1) is also consistent with no significant obscured star-forming or AGN
+component. Deeper ALMA data for this object would be of value for setting
+a more stringent direct upper bound on obscured star formation.
+    As discussed in the main text, the high [N ii]/Hα ratio in our observed spec-
+trum strongly suggests that this line emission is powered by AGN activity or
+shocks. However, if we assume all the narrow Hα emission is driven by ongo-
+ing star formation, neglecting dust attenuation we obtain SFR = 1.9 ± 0.1 M⊙
+yr−1 [67], corresponding to log10 (sSFR/yr−1 ) = −10.3 ± 0.1. Measurements
+of the average dust attenuation on Hα emission, AHα , are not yet available at
+z ≃ 5, however, from 0 < z < 2, stellar mass is found to be the most impor-
+tant factor in predicting the level of dust attenuation (e.g., [68, 69]), with little
+evolution observed across this redshift interval. At z ≃ 2.3, the average AHα
+for galaxies with log10 (M∗ /M⊙ ) ≃ 10.6 is 1.25 magnitudes [69], which would
+suggest that the SFR of GS-9209 is roughly 6 M⊙ yr−1 . However, given the
+multiple lines of evidence we uncover for a significant non-stellar component
+to the Hα line, combined with the fact that the extremely low stellar contin-
+uum AV implies the gas-phase attenuation is also low [70], it is likely that the
+sSFR of GS-9209 is considerably lower than the threshold normally applied
+for selecting quiescent galaxies.
+
+Size measurement from F210M-band imaging
+The CANDELS/3DHST team [33] measured an effective radius, re = 0.029 ±
+0.002′′ for GS-9209 in the HST F125W filter via Sérsic fitting, along with a
+Sérsic index, n = 6.0 ± 0.8. At z = 4.658, this corresponds to re = 189 ± 13
+parsecs. We update this measurement using the newly acquired JWST NIR-
+Cam F210M imaging data discussed above. We model the light distribution of
+GS-9209 using PetroFit [71]. We fit these PetroFit models to our data using
+the MultiNest nested sampling algorithm [49–51]. We use F210M in preference
+to the F182M band due to the smaller AGN contribution in F210M and the
+fact that it sits above the Balmer break, therefore being more representative
+of the stellar mass present rather than any ongoing star formation.
+    As our spectroscopic data contains strong evidence for an AGN, we fit both
+Sérsic and delta-function components simultaneously, convolved by an empir-
+ically estimated PSF, derived by stacking bright stars. In preliminary fitting,
+                     Springer Nature 2021 LATEX template
+
+
+16     A massive quiescent galaxy at redshift 4.658
+
+we find that the relative fluxes of these two components are entirely degen-
+erate with the Sérsic parameters. We therefore predict the AGN contribution
+to the flux in this band based on our full-spectral-fitting result, obtaining a
+value of 8 ± 1 per cent. We then impose this as a Gaussian prior on the rela-
+tive contributions from the Sérsic and delta function components. The 11 free
+parameters of our model are the overall flux normalisation, which we fit with a
+logarithmic prior, the effective radius, re , Sérsic index, n, ellipticity and posi-
+tion angle of the Sérsic component, the x and y centroids of both components,
+the position angle of the point spread function, and the fraction of light in the
+delta-function component, which we fit with a Gaussian prior with a mean of
+8 per cent and standard deviation of 1 per cent, based on our full spectral
+fitting result.
+     Deeper imaging data in the F200W or F277W bands (e.g., from the JWST
+Advanced Deep Extragalactic Survey; JADES) will provide a useful check on
+our size measurement for GS-9209, particularly given the lower AGN fraction
+in the F277W band.
+
+Data Availability
+The datasets analysed during the current study are available from the Mikulski
+Archive for Space Telescopes (MAST) repository at https://mast.stsci.edu.
+The spectrum for GS-9209 was observed under JWST Programme ID 2285
+(PI: Carnall). This programme has a 12-month proprietary period, and data
+will automatically become publicly available via MAST on 16th November
+2023. Reduced data products are available from the corresponding author upon
+request.
+
+Code Availability
+The Bagpipes code is publicly available at https://github.com/ACCarnall/
+bagpipes. The PetroFit code is publicly available at https://github.com/
+PetroFit/petrofit. The JWST data reduction pipeline is publicly available at
+https://github.com/spacetelescope/jwst.
+
+References
+[43] Gordon, K. D. et al. The James Webb Space Telescope Absolute Flux
+     Calibration. I. Program Design and Calibrator Stars. Astron. J. 163, 267
+     (2022).
+
+[44] Lützgendorf, N. et al. Astrometric and wavelength calibration of the NIR-
+     Spec instrument during commissioning using a model-based approach. In
+     Coyle, L. E., Matsuura, S. & Perrin, M. D. (eds.) Space Telescopes and
+     Instrumentation 2022: Optical, Infrared, and Millimeter Wave, vol. 12180
+     of Society of Photo-Optical Instrumentation Engineers (SPIE) Conference
+     Series, 121800Y (2022).
+                    Springer Nature 2021 LATEX template
+
+
+                          A massive quiescent galaxy at redshift 4.658      17
+
+[45] Bohlin, R. C., Gordon, K. D. & Tremblay, P. E. Techniques and Review
+     of Absolute Flux Calibration from the Ultraviolet to the Mid-Infrared.
+     PASP 126, 711 (2014).
+
+[46] Guo, Y. et al. CANDELS Multi-wavelength Catalogs: Source Detection
+     and Photometry in the GOODS-South Field. Astrophys. J. Suppl. Ser.
+     207, 24 (2013).
+
+[47] Williams, C. C. et al. JEMS: A deep medium-band imaging survey in the
+     Hubble Ultra-Deep Field with JWST NIRCam & NIRISS. arXiv e-prints
+     arXiv:2301.09780 (2023).
+
+[48] McLeod, D. J., McLure, R. J. & Dunlop, J. S. The z = 9-10 galaxy
+     population in the Hubble Frontier Fields and CLASH surveys: the z = 9
+     luminosity function and further evidence for a smooth decline in ultravio-
+     let luminosity density at z≥ 8. Mon. Not. R. Astron. Soc. 459, 3812–3824
+     (2016).
+
+[49] Skilling, J. Nested sampling for general bayesian computation. Bayesian
+     Anal. 1, 833–859 (2006).
+
+[50] Buchner, J. et al. X-ray spectral modelling of the AGN obscuring region
+     in the CDFS: Bayesian model selection and catalogue. Astron. Astrophys.
+     564, A125 (2014).
+
+[51] Feroz, F., Hobson, M. P., Cameron, E. & Pettitt, A. N. Importance
+     Nested Sampling and the MultiNest Algorithm. The Open Journal of
+     Astrophysics 2, 10 (2019).
+
+[52] Bruzual, G. & Charlot, S. Stellar population synthesis at the resolution
+     of 2003. Mon. Not. R. Astron. Soc. 344, 1000–1028 (2003).
+
+[53] Chevallard, J. & Charlot, S. Modelling and interpreting spectral energy
+     distributions of galaxies with BEAGLE. Mon. Not. R. Astron. Soc. 462,
+     1415–1443 (2016).
+
+[54] Sánchez-Blázquez, P. et al. Medium-resolution Isaac Newton Telescope
+     library of empirical spectra. Mon. Not. R. Astron. Soc. 371, 703–718
+     (2006).
+
+[55] Bressan, A. et al. PARSEC: stellar tracks and isochrones with the PAdova
+     and TRieste Stellar Evolution Code. Mon. Not. R. Astron. Soc. 427,
+     127–145 (2012).
+
+[56] Marigo, P., Bressan, A., Nanni, A., Girardi, L. & Pumo, M. L. Evolution
+     of thermally pulsing asymptotic giant branch stars - I. The COLIBRI
+     code. Mon. Not. R. Astron. Soc. 434, 488–526 (2013).
+                    Springer Nature 2021 LATEX template
+
+
+18     A massive quiescent galaxy at redshift 4.658
+
+[57] Asplund, M., Grevesse, N., Sauval, A. J. & Scott, P. The Chemical
+     Composition of the Sun. Annu. Rev. Astron. Astrophys. 47, 481–522
+     (2009).
+
+[58] Noll, S. et al. GMASS ultradeep spectroscopy of galaxies at z ∼ 2. IV.
+     The variety of dust populations. Astron. Astrophys. 499, 69–85 (2009).
+
+[59] Salim, S., Boquien, M. & Lee, J. C. Dust Attenuation Curves in the
+     Local Universe: Demographics and New Laws for Star-forming Galaxies
+     and High-redshift Analogs. Astrophys. J. 859, 11 (2018).
+
+[60] Calzetti, D. et al. The Dust Content and Opacity of Actively Star-forming
+     Galaxies. Astrophys. J. 533, 682–695 (2000).
+
+[61] Vanden Berk, D. E. et al. Composite Quasar Spectra from the Sloan
+     Digital Sky Survey. Astron. J. 122, 549–564 (2001).
+
+[62] Inoue, A. K., Shimizu, I., Iwata, I. & Tanaka, M. An updated analytic
+     model for attenuation by the intergalactic medium. Mon. Not. R. Astron.
+     Soc. 442, 1805–1820 (2014).
+
+[63] Carnall, A. C. et al. The VANDELS survey: the star-formation histories
+     of massive quiescent galaxies at 1.0 < z < 1.3. Mon. Not. R. Astron. Soc.
+     490, 417–439 (2019).
+
+[64] Johnson, B. D., Leja, J., Conroy, C. & Speagle, J. S. Stellar Population
+     Inference with Prospector. Astrophys. J. Suppl. Ser. 254, 22 (2021).
+
+[65] Carnall, A. C. et al. The Stellar Metallicities of Massive Quiescent Galax-
+     ies at 1.0 < z < 1.3 from KMOS + VANDELS. Astrophys. J. 929, 131
+     (2022).
+
+[66] Santini, P. et al. The emergence of passive galaxies in the early Universe.
+     Astron. Astrophys. 652, A30 (2021).
+
+[67] Kennicutt, R. C. & Evans, N. J. Star Formation in the Milky Way and
+     Nearby Galaxies. Annu. Rev. Astron. Astrophys. 50, 531–608 (2012).
+
+[68] Garn, T. & Best, P. N. Predicting dust extinction from the stellar mass
+     of a galaxy. Mon. Not. R. Astron. Soc. 409, 421–432 (2010).
+
+[69] Shapley, A. E. et al. The MOSFIRE Deep Evolution Field Survey: Impli-
+     cations of the Lack of Evolution in the Dust Attenuation-Mass Relation
+     to z 2. Astrophys. J. 926, 145 (2022).
+
+[70] Sanders, R. L. et al. The MOSDEF Survey: The Evolution of the Mass-
+     Metallicity Relation from z = 0 to z 3.3. Astrophys. J. 914, 19 (2021).
+                    Springer Nature 2021 LATEX template
+
+
+                          A massive quiescent galaxy at redshift 4.658     19
+
+[71] Geda, R. et al. PetroFit: A python package for computing petrosian radii
+     and fitting galaxy light profiles. Astron. J. 163, 202 (2022).
+
+Acknowledgements
+The authors would like to thank James Aird for helpful discussions. A. C.
+Carnall thanks the Leverhulme Trust for their support via a Leverhulme
+Early Career Fellowship. R. J. McLure, J. S. Dunlop, D. J. McLeod, V. Wild,
+R. Begley, C. T. Donnan and M. L. Hamadouche acknowledge the support
+of the Science and Technology Facilities Council. F. Cullen acknowledges
+support from a UKRI Frontier Research Guarantee Grant (grant reference
+EP/X021025/1). A. Cimatti acknowledges support from the grant PRIN
+MIUR 2017 - 20173ML3WW 001.
+
+Author Contributions
+ACC led the preparation of the observing proposal, reduction and analysis of
+the data, and preparation of the manuscript. RJM, JSD, VW, FC and AC
+provided advice and assistance with data reduction, analysis and interpreta-
+tion, as well as consulting on the preparation of the observing proposal. DJM,
+DM, RB and CTD reduced the JWST imaging data and prepared the empir-
+ical PSF. DJM, MLH and SMJ assisted with measurement of the size and
+morphology of GS-9209. SW assisted with selection of GS-9209 from the CAN-
+DELS catalogues prior to the observing proposal being submitted. All authors
+assisted with preparation of the final published manuscript.
+
+Author Information
+The authors declare that they have no competing financial interests. Corre-
+spondence and requests for materials should be addressed to ACC (email:
+adam.carnall@ed.ac.uk).
+Extended Data Table 1: The 22 free parameters of the Bagpipes model we fit to our spectroscopic and photometric data,
+                                                                                                                                       20
+
+along with their associated prior distributions. The upper limit on τ , tobs , is the age of the Universe as a function of redshift.
+Logarithmic priors are all applied in base ten. For parameters with Gaussian priors, the mean is µ and the standard deviation
+is σ.
+Component Parameter                               Symbol / Unit                Range               Prior         Hyper-parameters
+General     Redshift                              z                            (4.6, 4.7)          Gaussian      µ = 4.66 σ = 0.01
+            Stellar velocity dispersion           σ / km s−1                   (50, 500)           Logarithmic
+SFH         Total stellar mass formed             M∗ / M⊙                      (1, 1013 )          Logarithmic
+            Stellar metallicity                   Z∗ / Z⊙                      (0.00355, 3.55)     Logarithmic
+            Double-power-law falling slope        α                            (0.01, 1000)        Logarithmic
+            Double-power-law rising slope         β                            (0.01, 1000)        Logarithmic
+            Double-power-law turnover time        τ / Gyr                      (0.1, tobs )        Uniform
+Dust        V −band attenuation                   AV / mag                     (0, 4)              Uniform
+            Deviation from Calzetti slope         δ                            (−0.3, 0.3)         Gaussian      µ=0      σ = 0.1
+            Strength of 2175Å bump               B                            (0, 5)              Uniform
+            Attenuation ratio for birth clouds    ϵ                            (1, 5)              Uniform
+AGN         Power law slope (λ < 5000 Å)         αλ<5000Å                    (−2, 2)             Gaussian      µ = −1.5 σ = 0.5
+                                                                                                                                       A massive quiescent galaxy at redshift 4.658
+
+
+
+
+            Power law slope (λ > 5000 Å)         αλ>5000Å                    (−2, 2)             Gaussian      µ = 0.5 σ = 0.5
+            Hα broad-line flux                    fHα, broad / erg s−1 cm−2    (0, 2.5 × 10−17 )   Uniform
+                                                                                                                                                                                      Springer Nature 2021 LATEX template
+
+
+
+
+            Hα broad-line velocity dispersion     σHα, broad / km s−1          (1000, 5000)        Logarithmic
+            Continuum flux at λ = 5100 Å         f5100 / erg s−1 cm−2 Å−1    (0, 10−19 )         Uniform
+Nebular     Ionization parameter                  U                            (10−4 , 10−2 )      Logarithmic
+            Gas-phase metallicity                 Zg / Z⊙                      (0.00355, 3.55)     Logarithmic
+Calibration Zero order                            P0                           (0.75, 1.25)        Gaussian      µ=1      σ = 0.1
+            First order                           P1                           (−0.25, 0.25)       Gaussian      µ=0      σ = 0.1
+            Second order                          P2                           (−0.25, 0.25)       Gaussian      µ=0      σ = 0.1
+Noise       White noise scaling                   a                            (0.1, 10)           logarithmic
+                    Springer Nature 2021 LATEX template
+
+
+                           A massive quiescent galaxy at redshift 4.658       21
+
+
+
+
+Extended Data Table 2: Posterior percentiles for the 22 free parameters
+of the Bagpipes model we fit to our spectroscopic and photometric data. Full
+definitions of these parameters, along with their associated prior distributions,
+are given in Extended Data Table 1.
+ Parameter                    16th Percentile   50th percentile 84th Percentile
+ z                            4.6580            4.6582          4.6584
+ σ / km s−1                   256               269             283
+ log10 (M∗ / M⊙ )             10.81             10.83           10.85
+ Z∗ / Z⊙                      0.09              0.11            0.12
+ α                            42                155             511
+ β                            10                22              113
+ τ / Gyr                      0.71              0.75            0.79
+ AV / mag                     0.00              0.02            0.04
+ δ                            −0.05             0.00            0.05
+ B                            0.81              2.47            4.15
+ ϵ                            1.78              2.98            4.22
+ αλ<5000Å                    −0.79             −0.52           −0.27
+ αλ>5000Å                    0.14              0.40            0.72
+ fHα, broad / erg s−1 cm−2    2.8 × 10−20       3.4 × 10−20
+                                                                3.9 × 10−20
+ σHα, broad / km s−1          4100              4400            4700
+ f5100 / erg s−1 cm−2 Å−1    1.18 × 10−17      1.26 × 10−17    1.35 × 10−17
+ log10 (U )                   -3.65             -3.00           -2.37
+ Zg / Z⊙                      0.02              0.17            1.54
+ P0                           1.13              1.15            1.18
+ P1                           0.09              0.1             0.12
+ P2                           −0.08             −0.07           −0.06
+ a                            1.49              1.51            1.53
+                                     Springer Nature 2021 LATEX template
+
+
+ 22                    A massive quiescent galaxy at redshift 4.658
+
+
+
+
+                 1.2
+                         a
+1
+erg s 1 cm 2 Å
+
+
+
+
+                 0.9
+
+
+                 0.6
+19
+f / 10
+
+
+
+
+                 0.3
+
+
+                 0.0         2.0      2.5         3.0     3.5           4.0         4.5   5.0
+                   4
+ Residual /
+
+
+
+
+                   2
+                   0
+                   2
+                   4
+                             2.0      2.5         3.0     3.5           4.0         4.5   5.0
+                                              Observed Wavelength / m
+
+                 1.2
+                          b
+1
+erg s 1 cm 2 Å
+
+
+
+
+                 0.9
+
+                 0.6
+19
+
+
+
+
+                 0.3
+f / 10
+
+
+
+
+                 0.0
+                  4            0.5          1.0            2.0                4.0          8.0
+ Residual /
+
+
+
+
+                  2
+                  0
+                  2
+                  4
+                               0.5          1.0            2.0                4.0          8.0
+                                              Observed Wavelength / m
+ Extended Data Figure 1: Model fit to our full combined dataset. Panel a
+ shows our spectroscopic dataset in blue, with the full Bagpipes fitted model
+ shown in black, and residuals between model and data shown below in green.
+ Regions of our spectroscopic dataset masked during our Bagpipes fitting are
+ shaded gray. Panel b shows our photometric data, again in blue, with the full
+ model again shown in black, and residuals below marked with green crosses.
+                                            Springer Nature 2021 LATEX template
+
+
+                                                      A massive quiescent galaxy at redshift 4.658                                                     23
+
+
+
+
+                        5         6
+                                       Redshift
+                                          8             12           30                               5         6
+                                                                                                                     Redshift
+                                                                                                                        8          12            30
+                                                                                               11.0
+                                                                                                                           Labbe et al. (2022)
+                        a                    SFRpeak = 270+3040 M yr
+                                                                          1                           b
+                  3.0
+                                                tform = 0.74+0.02
+                                                              0.03 Gyr                         10.5
+log10(SFR/yr 1)
+
+
+
+
+                                                                              log10(M * /M )
+                  2.0
+                                                                                               10.0
+
+                  1.0                                   2
+                                                        1                                       9.5
+
+
+                  0.0 1.2   1.0       0.8    0.6      0.4      0.2        0.0                   9.0 1.2   1.0       0.8   0.6    0.4     0.2          0.0
+                             Age of Universe / Gyr                                                         Age of Universe / Gyr
+                        5         6
+                                       Redshift
+                                          8             12           30                               5         6
+                                                                                                                     Redshift
+                                                                                                                        8          12            30
+                                                                                               11.0
+                                                                                                                           Labbe et al. (2022)
+                        c                    SFRpeak = 190+9050 M yr
+                                                                      1                               d
+                  3.0
+                                                tform = 0.74 ± 0.02 Gyr                        10.5
+log10(SFR/yr 1)
+
+
+
+
+                                                                              log10(M * /M )
+
+
+
+
+                  2.0
+                                                                                               10.0
+
+                  1.0                                                                           9.5
+
+
+                  0.0 1.2   1.0       0.8    0.6      0.4      0.2        0.0                   9.0 1.2   1.0       0.8   0.6    0.4     0.2          0.0
+                             Age of Universe / Gyr                                                         Age of Universe / Gyr
+ Extended Data Figure 2: The star-formation rate and stellar mass of GS-
+ 9209 as a function of time under the assumption of different models. Panels a
+ and b show the star-formation rate and stellar mass respectively as a function
+ of time under the assumption of the continuity non-parametric SFH model [20]
+ (as an alternative to the double-power-law model used in the main analysis
+ and shown in Figure 3). Panels c and d again show the star-formation rate and
+ stellar mass respectively as a function of time, this time assuming a top-hat
+ SFH model. Consistent formation times are recovered using all three models.
+

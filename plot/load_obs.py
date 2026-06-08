@@ -30,12 +30,15 @@ from config import Mstar_SMHM  # noqa: E402
 CHOKSI_CACHE_DIR = PROJECT_ROOT / "data" / "Choksi+2018"
 NEUMAYER_CACHE_DIR = PROJECT_ROOT / "data" / "Neumayer+2020"
 CLIFF_CACHE_DIR = PROJECT_ROOT / "data" / "TheCliff+2026"
+JUODZBALIS_2026_CACHE_DIR = PROJECT_ROOT / "data" / "Juodzbalis+2026"
 if not CHOKSI_CACHE_DIR.is_dir():
     CHOKSI_CACHE_DIR = PROJECT_ROOT.parent / "data" / "Choksi+2018"
 if not NEUMAYER_CACHE_DIR.is_dir():
     NEUMAYER_CACHE_DIR = PROJECT_ROOT.parent / "data" / "Neumayer+2020"
 if not CLIFF_CACHE_DIR.is_dir():
     CLIFF_CACHE_DIR = PROJECT_ROOT.parent / "data" / "TheCliff+2026"
+if not JUODZBALIS_2026_CACHE_DIR.is_dir():
+    JUODZBALIS_2026_CACHE_DIR = PROJECT_ROOT.parent / "data" / "Juodzbalis+2026"
 
 FEH_MIN = -2.3
 FEH_MAX = 0.3
@@ -60,6 +63,7 @@ NEUMAYER_REQUIRED_CACHE_FILES = [
     NEUMAYER_CACHE_DIR / "original_nsc_review" / "bh_nsc_galmass.csv",
 ]
 CLIFF_OBS_PATH = CLIFF_CACHE_DIR / "cliff_fig14_mbh_mstar_points.csv"
+JUODZBALIS_2026_FIG4_OBS_PATH = JUODZBALIS_2026_CACHE_DIR / "juodzbalis2026_fig4_mbh_mstar_points.csv"
 
 
 @dataclass(frozen=True)
@@ -403,9 +407,60 @@ def _as_bool(value: object) -> bool:
     return str(value).strip().lower() in {"1", "true", "t", "yes", "y"}
 
 
+def _load_mbh_mstar_csv(path: Path, context: str, required_columns: list[str]) -> pd.DataFrame:
+    _require_paths([path], context)
+    table = pd.read_csv(path)
+    missing = [name for name in required_columns if name not in table.columns]
+    if missing:
+        raise ValueError(f"{path} is missing required columns: {missing}")
+
+    string_defaults = {
+        "sample": "",
+        "plot_group": "",
+        "marker": "o",
+        "color": "0.45",
+        "marker_edgecolor": "",
+        "legend_label": "",
+        "source_kind": "",
+        "source_note": "",
+    }
+    numeric_defaults = {"marker_edgewidth": np.nan, "marker_size": np.nan, "alpha": np.nan, "zorder": np.nan}
+    for column, default in string_defaults.items():
+        if column not in table.columns:
+            table[column] = default
+    for column, default in numeric_defaults.items():
+        if column not in table.columns:
+            table[column] = default
+
+    numeric_columns = [
+        "z",
+        "logMstar",
+        "logMstar_err_lo",
+        "logMstar_err_hi",
+        "logMBH",
+        "logMBH_err_lo",
+        "logMBH_err_hi",
+        "marker_edgewidth",
+        "marker_size",
+        "alpha",
+        "zorder",
+    ]
+    for column in numeric_columns:
+        table[column] = pd.to_numeric(table[column], errors="coerce")
+    for column in ["logMstar_upper_limit", "logMBH_upper_limit"]:
+        table[column] = table[column].map(_as_bool)
+    for column in ["name", "sample", "reference", "plot_group", "marker", "color", "marker_edgecolor", "legend_label", "source_kind", "source_note"]:
+        table[column] = table[column].fillna("").astype(str)
+
+    table["log10_stellar_mass"] = table["logMstar"]
+    table["log10_bh_mass"] = table["logMBH"]
+    table["stellar_mass_is_upper_limit"] = table["logMstar_upper_limit"]
+    table["bh_mass_is_upper_limit"] = table["logMBH_upper_limit"]
+    valid = np.isfinite(table["logMstar"].to_numpy(dtype=float)) & np.isfinite(table["logMBH"].to_numpy(dtype=float))
+    return table.loc[valid].copy()
+
+
 def load_cliff_fig14_observations() -> KongObs:
-    _require_paths([CLIFF_OBS_PATH], "The Cliff Fig.14")
-    table = pd.read_csv(CLIFF_OBS_PATH)
     required = [
         "name",
         "sample",
@@ -424,19 +479,35 @@ def load_cliff_fig14_observations() -> KongObs:
         "color",
         "source_note",
     ]
-    missing = [name for name in required if name not in table.columns]
-    if missing:
-        raise ValueError(f"{CLIFF_OBS_PATH} is missing required columns: {missing}")
-    numeric_columns = ["z", "logMstar", "logMstar_err_lo", "logMstar_err_hi", "logMBH", "logMBH_err_lo", "logMBH_err_hi"]
-    for column in numeric_columns:
-        table[column] = pd.to_numeric(table[column], errors="coerce")
-    for column in ["logMstar_upper_limit", "logMBH_upper_limit"]:
-        table[column] = table[column].map(_as_bool)
-    for column in ["name", "sample", "reference", "plot_group", "marker", "color", "source_note"]:
-        table[column] = table[column].fillna("").astype(str)
-    table["log10_stellar_mass"] = table["logMstar"]
-    table["log10_bh_mass"] = table["logMBH"]
-    table["stellar_mass_is_upper_limit"] = table["logMstar_upper_limit"]
-    table["bh_mass_is_upper_limit"] = table["logMBH_upper_limit"]
-    valid = np.isfinite(table["log10_stellar_mass"].to_numpy(dtype=float)) & np.isfinite(table["log10_bh_mass"].to_numpy(dtype=float))
-    return KongObs(table=table.loc[valid].copy(), source_path=CLIFF_OBS_PATH)
+    table = _load_mbh_mstar_csv(CLIFF_OBS_PATH, "The Cliff Fig.14", required)
+    return KongObs(table=table, source_path=CLIFF_OBS_PATH)
+
+
+def load_juodzbalis2026_fig4_observations() -> KongObs:
+    required = [
+        "name",
+        "sample",
+        "reference",
+        "z",
+        "logMstar",
+        "logMstar_err_lo",
+        "logMstar_err_hi",
+        "logMstar_upper_limit",
+        "logMBH",
+        "logMBH_err_lo",
+        "logMBH_err_hi",
+        "logMBH_upper_limit",
+        "plot_group",
+        "marker",
+        "color",
+        "marker_edgecolor",
+        "marker_edgewidth",
+        "marker_size",
+        "legend_label",
+        "alpha",
+        "zorder",
+        "source_kind",
+        "source_note",
+    ]
+    table = _load_mbh_mstar_csv(JUODZBALIS_2026_FIG4_OBS_PATH, "Juodzbalis+2026 Fig.4", required)
+    return KongObs(table=table, source_path=JUODZBALIS_2026_FIG4_OBS_PATH)

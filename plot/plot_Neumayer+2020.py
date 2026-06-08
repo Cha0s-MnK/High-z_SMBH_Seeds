@@ -54,7 +54,7 @@ SRC_DIR = PROJECT_ROOT / "src"
 if str(SRC_DIR) not in sys.path:
     sys.path.insert(0, str(SRC_DIR))
 
-from config import NSC_RADIUS_PC, STD_DPI  # noqa: E402
+from config import NSC_RAD_PC, STD_DPI  # noqa: E402
 from load_obs import (  # noqa: E402
     load_neumayer_fig03_observations,
     load_neumayer_fig13_observations,
@@ -698,7 +698,7 @@ def main() -> None:
     obs = load_neumayer_observations()
     fig03_obs = load_neumayer_fig03_observations()
     fig13_obs = load_neumayer_fig13_observations()
-    model = build_neumayer_model(out_dir, args.ns_value, NSC_RADIUS_PC)
+    model = build_neumayer_model(out_dir, args.ns_value, NSC_RAD_PC)
 
     fig03, summary03 = build_figure_03(model, fig03_obs)
     figure03_path = plot_dir / FIGURE_03_FILENAME

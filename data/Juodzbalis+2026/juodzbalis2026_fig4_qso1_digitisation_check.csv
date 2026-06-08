@@ -1,0 +1,2 @@
+name,text_logMstar,text_logMBH,digitised_logMstar,digitised_logMBH,delta_logMstar,delta_logMBH,adopted_value_source,note
+QSO1,7.30103,7.7,7.3999,7.7204,0.098904,0.020424,textual_conservative_upper_limit_and_MOKA3D_value,Digitised red-star centre is a consistency check. The processed plot uses Mstar < 2e7 M_sun and logMBH = 7.7 +/- 0.3 from the paper text.

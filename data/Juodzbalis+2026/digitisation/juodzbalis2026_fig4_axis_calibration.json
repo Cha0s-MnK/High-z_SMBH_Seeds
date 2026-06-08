@@ -1,0 +1,18 @@
+{
+  "figure_pdf": "data/Juodzbalis+2026/source/2508.21748/Figures/QSO1_Mbh_mstar.pdf",
+  "rendered_png": "data/Juodzbalis+2026/digitisation/juodzbalis2026_fig4_600dpi-1.png",
+  "render_dpi": 600,
+  "pixel_axes": {
+    "left": 405.5,
+    "right": 3458.5,
+    "top": 100.5,
+    "bottom": 1941.5
+  },
+  "log_axes": {
+    "logMstar_min": 6.5,
+    "logMstar_max": 11.5,
+    "logMBH_min": 5.5,
+    "logMBH_max": 10.0
+  },
+  "note": "Digitised from arXiv source figure Figures/QSO1_Mbh_mstar.pdf rendered at 600 dpi; axes calibrated to x=[6.5,11.5] and y=[5.5,10.0] using Matplotlib axes spines and visible integer tick labels."
+}

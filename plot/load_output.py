@@ -23,7 +23,7 @@ SRC_DIR = PROJECT_ROOT / "src"
 if str(SRC_DIR) not in sys.path:
     sys.path.insert(0, str(SRC_DIR))
 
-from config import Ez, H100, Mstar_SMHM, NSC_RADIUS_PC, Redshift2CosmicAge  # noqa: E402
+from config import Ez, H100, Mstar_SMHM, NSC_RAD_PC, Redshift2CosmicAge  # noqa: E402
 
 
 RUN_METADATA_NAME = "run_metadata.json"
@@ -109,6 +109,9 @@ HALO_SUMMARY_BY_Z_COLUMN_MAP = {
     "M_NSC": "nsc_mass_msun",
     "M_SMBH_init": "central_bh_mass_init_msun",
     "M_SMBH_final": "central_bh_mass_final_msun",
+    "z_depos_sampled": "deposit_sample_redshift",
+    "lookback_depos_sampled_gyr": "deposit_sample_lookback_gyr",
+    "depos_time_match_delta_gyr": "deposit_sample_time_delta_gyr",
     "ns": "sersic_n",
 }
 
@@ -443,7 +446,7 @@ def load_deposit_profile(path: Path) -> DepositProfile:
     if not Path(path).exists():
         raise FileNotFoundError(f"Missing deposit profile: {path}")
     table = read_headered_whitespace_table(path)
-    required = ["halo_id_z0", "r_inner_kpc", "r_outer_kpc", "m_depo_total_msun"]
+    required = ["halo_id_z0", "lookback_time_gyr", "r_inner_kpc", "r_outer_kpc", "m_star_with_evo_msun"]
     missing = [name for name in required if name not in table.columns]
     if missing:
         raise ValueError(f"{path} is missing required deposit columns: {missing}")
@@ -453,11 +456,13 @@ def load_deposit_profile(path: Path) -> DepositProfile:
     shell_mass: list[np.ndarray] = []
     cumulative: list[np.ndarray] = []
     for hid, group in table.groupby("halo_id_z0", sort=True):
-        ordered = group.sort_values("r_outer_kpc")
+        final_lookback = float(group["lookback_time_gyr"].min())
+        final_block = group[np.isclose(group["lookback_time_gyr"].to_numpy(dtype=float), final_lookback)]
+        ordered = final_block.sort_values("r_outer_kpc")
         halo_ids.append(int(hid))
         r_inner.append(ordered["r_inner_kpc"].to_numpy(dtype=float))
         r_outer.append(ordered["r_outer_kpc"].to_numpy(dtype=float))
-        shell = ordered["m_depo_total_msun"].to_numpy(dtype=float)
+        shell = ordered["m_star_with_evo_msun"].to_numpy(dtype=float)
         shell_mass.append(shell)
         cumulative.append(np.cumsum(shell))
     return DepositProfile(np.asarray(halo_ids, dtype=int), r_inner, r_outer, shell_mass, cumulative)
@@ -710,7 +715,7 @@ def load_choksi_paper_model(path: Path | None = None) -> ChoksiPaperModel:
     return ChoksiPaperModel(survivors=survivors.reset_index(drop=True), split_threshold=split_threshold)
 
 
-def build_neumayer_model(out_dir: Path, ns_value: float, nsc_radius_pc: float = NSC_RADIUS_PC) -> NeumayerModel:
+def build_neumayer_model(out_dir: Path, ns_value: float, nsc_radius_pc: float = NSC_RAD_PC) -> NeumayerModel:
     paths = output_paths(out_dir, ns_value)
     assert paths.ns_allcat is not None
     assert paths.halo_summary is not None

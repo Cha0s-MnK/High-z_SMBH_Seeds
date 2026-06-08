@@ -1,0 +1,1839 @@
+                                                   Draft version April 1, 2024
+                                                   Typeset using LATEX twocolumn style in AASTeX631
+
+
+
+
+                                                                   EIGER V. Characterizing the Host Galaxies of Luminous Quasars at z ≳ 6
+
+                                               Minghao Yue ,1 Anna–Christina Eilers ,1 Robert A. Simcoe ,1 Ruari Mackenzie ,2 Jorryt Matthee                               ,2, 3
+                                                        Daichi Kashino ,4, 5 Rongmon Bordoloi ,6 Simon J. Lilly ,2 and Rohan P. Naidu 1, ∗
+                                                           1 MIT    Kavli Institute for Astrophysics and Space Research, 77 Massachusetts Ave., Cambridge, MA 02139, USA
+                                                                         2 Department of Physics, ETH Zürich, Wolfgang-Pauli-Strasse 27, Zürich, 8093, Switzerland
+arXiv:2309.04614v2 [astro-ph.GA] 28 Mar 2024
+
+
+
+
+                                                                   3 Institute of Science and Technology Austria (IST Austria), Am Campus 1, Klosterneuburg, Austria
+                                                                        4 National Astronomical Observatory of Japan, 2-21-1 Osawa, Mitaka, Tokyo 181-8588, Japan
+                                                                                5 Institute for Advanced Research, Nagoya University, Nagoya 464-8601, Japan
+                                                                      6 Department of Physics, North Carolina State University, Raleigh, 27695, North Carolina, USA
+
+
+
+                                                                                                           ABSTRACT
+                                                          We report JWST/NIRCam measurements of quasar host galaxy emissions and supermassive black
+                                                        hole (SMBH) masses for six quasars at 5.9 < z < 7.1 in the Emission-line galaxies and Intergalactic
+                                                        Gas in the Epoch of Reionization (EIGER) project. We obtain deep NIRCam imaging in the F115W,
+                                                        F200W, and F356W bands, as well as F356W grism spectroscopy of the quasars. We use bright
+                                                        unsaturated stars to construct models of the point spread function (PSF) and estimate the errors of
+                                                        these PSFs. We then measure or constrain the fluxes and morphology of the quasar host galaxies
+                                                        by fitting the quasar images as a point source plus an exponential disk. We successfully detect the
+                                                        host galaxy of three quasars, which have host-to-quasar flux ratios of ∼ 1% − 5%. Spectral Energy
+                                                        Distribution (SED) fitting suggests that these quasar host galaxies have stellar masses of M∗ ≳ 1010 M⊙ .
+                                                        For quasars with host galaxy non-detections, we estimate the upper limits of their stellar masses. We
+                                                        use the grism spectra to measure the Hβ line profile and the continuum luminosity, then estimate the
+                                                        SMBH masses for the quasars. Our results indicate that the positive relation between SMBH masses
+                                                        and host galaxy stellar masses already exists at redshift z ≳ 6. The quasars in our sample show a high
+                                                        black hole to stellar mass ratio of MBH /M∗ ∼ 0.15, which is about ∼ 2 dex higher than local relations.
+                                                        We find that selection effects only contribute partially to the high MBH /M∗ ratios of high-redshift
+                                                        quasars. This result hints at a possible redshift evolution of the MBH − M∗ relation.
+
+
+                                                        Keywords: Quasars
+
+                                                                     1. INTRODUCTION                                  galactic nuclei (AGN) phases (e.g., Merloni & Heinz
+                                                 Supermassive black holes (SMBHs) are ubiquitously                    2008; Ciotti & Ostriker 2001; Ciotti et al. 2010; Fiore
+                                               found in the centers of galaxies (e.g., Kormendy & Geb-                et al. 2017). Specifically, AGN activities can produce
+                                               hardt 2001; Tremaine et al. 2002; Heckman & Best                       strong outflows and expel the cold gas content in their
+                                               2014). Observations of local galaxies have found tight                 host galaxies, quenching the star formation and also
+                                               correlations between SMBHs and the properties of their                 exhausting the gas supply to the SMBH (e.g., Fabian
+                                               host galaxies, such as stellar masses or velocity disper-              2012; Cicone et al. 2014; King & Pounds 2015). An-
+                                               sions, known as the MBH − M∗ and the MBH − σ re-                       other important feedback mechanism is that AGNs can
+                                               lations (e.g., Kormendy & Ho 2013). These relations                    inject energy into the galaxy haloes through radio jets,
+                                               suggest a strong co-evolution between SMBHs and their                  which prevents halo gas from cooling and thereby shut-
+                                               host galaxies, likely through feedback during the active               ting down both star-formation and BH accretion (e.g.,
+                                                                                                                      Fabian 2012; Heckman & Best 2014).
+                                                                                                                        Meanwhile, other mechanisms might also contribute
+                                               Corresponding author: Minghao Yue                                      to these observed relations. For example, SMBH ac-
+                                               myue@mit.edu                                                           cretion and galaxy star formation can be triggered
+                                               ∗   NHFP Hubble Fellow                                                 by the same process (e.g., galaxy mergers; Di Matteo
+2                                                      Yue et al.
+
+et al. 2005; Hopkins et al. 2008), producing a correlated     Although image decomposition has been successful for
+growth of the SMBH and its host galaxy (e.g., Croton          quasars at z ≲ 2 (e.g., Mechtley et al. 2016; Ding et al.
+2006; Storchi-Bergmann & Schnorr-Müller 2019). It has        2020; Chen et al. 2023), detecting quasar host galaxies
+also been proposed that the SMBH-host correlation is          at z ≳ 6 is much more challenging, given that the sur-
+a statistical effect resulting from the central limit the-    face brightness of extended objects scales with redshift
+orem (e.g., Peng 2007; Jahnke & Macciò 2011). Given          as (1 + z)−4 . Even with the sharp PSF of the Hub-
+the debate of the possible scenarios, the exact origins       ble Space Telescope (HST), previous studies have only
+of the MBH − M∗ and the MBH − σ are still unclear.            reached non-detections of quasar host galaxies at z ≳ 6
+One critical unresolved question is whether these cor-        (e.g., Marshall et al. 2020).
+relations are already established in the early universe          This situation was completely changed, however, by
+at very high redshifts or if they gradually take shape        the recent launch of the James Webb Space Telescope
+throughout cosmic time.                                       (JWST). With its 6.4−meter aperture and infrared cov-
+  In the past two decades, about 300 quasars at z > 6         erage, JWST provides even sharper PSF than the HST
+have been discovered, which indicates that SMBHs with         and is sensitive to the rest-frame optical emission of
+MBH ≳ 109 M⊙ already exist when the universe is less          high-redshift quasar host galaxies. An early study by
+than 1 Gyr old (e.g., Mortlock et al. 2011; Jiang et al.      Ding et al. (2023) reported the first detection of two
+2016; Matsuoka et al. 2018; Wang et al. 2019b; Yang           quasar host galaxies at z > 6 using NIRCam imag-
+et al. 2020; Wang et al. 2021; Bañados et al. 2023).         ing, indicating that the two quasar hosts are among the
+This quasar sample enables studies of SMBH-host co-           most massive galaxies at their redshifts (M∗ ≳ 1010 M⊙ ).
+evolution in the early universe. By measuring the prop-       Marshall et al. (2023) characterized the Hβ and [O iii]
+erties of these quasar host galaxies, we can characterize     emission lines of two quasar host galaxies at z ∼ 6.8 us-
+the MBH − M∗ and the MBH − σ relations at z ≳ 6. So           ing NIRSpec IFU, showing complicated structures and
+far, most of our knowledge about quasar host galaxies         kinematics of these galaxies. These exciting results mo-
+at z ≳ 6 comes from sub-millimeter (sub-mm) wave-             tivate us to increase the sample of high-redshift quasars
+lengths. Recent observations with the Atacama Large           with host galaxy measurements in rest-frame optical,
+Millimeter Array (ALMA) have shown that quasars at            which will set a critical step towards fully understand-
+z ≳ 6 are hosted by massive starburst galaxies (e.g.,         ing the co-evolution between SMBHs and galaxies in the
+Venemans et al. 2016; Decarli et al. 2018; Izumi et al.       early universe.
+2019; Yue et al. 2021). These quasar host galaxies               In this paper, we report the measurement of the host
+have sizes of ∼ 2 − 4 kpc in the sub-mm and show a            galaxy emission and SMBH properties for six luminous
+variety of morphologies and kinematics, ranging from          quasars at z ≳ 6, using deep NIRCam imaging and spec-
+rotation-dominated disks to dispersion-dominated irreg-       troscopy as part of the Emission-line galaxies and In-
+ular mergers (e.g., Venemans et al. 2020; Neeleman et al.     tergalactic Gas in the Epoch of Reionization (EIGER)
+2021).                                                        project. We use the images to measure the fluxes and
+  Nevertheless, one important missing piece in our            morphologies of the quasar host galaxies, and use the
+knowledge is the stellar component of high-redshift           grism spectra to measure the black hole masses for the
+quasar host galaxies. The MBH − M∗ and MBH − σ                quasars from the Hβ emission line. Based on these mea-
+relations of local galaxies describe the connection be-       surements, we discuss the implication of the quasar host
+tween the black holes and the stellar components of           galaxies on the MBH − M∗ relation in the reionization
+their host galaxies; however, ALMA observations trace         era.
+the emission from cold dust and gas, making it hard to           This paper is organized as follows. Section 2 de-
+make direct comparisons between the above mentioned           scribes the observations and data reduction. Section
+ALMA observations and the local relations. As lumi-           3 describes the PSF modeling and the image fitting
+nous quasars are usually several magnitudes brighter          method we use to detect the rest-frame optical emis-
+than their host galaxies in rest-frame optical, probing       sion of the quasar host galaxies. We present the grism
+the stellar emission of quasar host galaxies at z ≳ 6 is      spectra and the SMBH mass measurements of these
+extremely challenging. One viable way to measure the          quasars in Section 4 and discuss the co-evolution be-
+emission from quasar host galaxies is image decomposi-        tween high-redshift SMBHs and their host galaxies in
+tion, utilizing the fact that quasars appear to be point      Section 5. We discuss our results in Section 6, and sum-
+sources and their host galaxies are extended. This ap-        marize this paper in Section 7. Throughout this paper,
+proach requires sharp point spread functions (PSFs) to        we assume a flat ΛCDM cosmology with ΩM = 0.3 and
+disentangle the flux from the quasar and its host galaxy.
+                             Luminous Quasars and Their Host Galaxies at z ≳ 6                                       3
+
+H0 = 70 km s−1 kpc−1 . All magnitudes are AB magni-          papers. Previous EIGER papers presented JWST imag-
+tudes unless further specified.                              ing by combining all exposures in each field to form a
+                                                             final co-added image per filter. In this work, we only
+   2. OBSERVATIONS AND DATA REDUCTION
+                                                             combine images with the same filter, visit, and module.
+  The EIGER project (Proposal ID: 1243, PI: Lilly) is        This approach reduces the systematic uncertainties in
+a Guaranteed Time Observation (GTO) program tar-             PSF modeling and image fitting (Section 3) introduced
+geting six quasars at redshift 5.9 < z < 7.1, deliver-       by imperfect astrometric alignment between the visits.
+ing deep NIRCam imaging and wide-field slitless spec-        Working on individual visits separately also allows us to
+troscopy (WFSS) of these quasar fields. The informa-         estimate the systematic errors of the host galaxy mea-
+tion about these quasars is summarized in Table 1. This      surements by comparing the results of different visits. In
+Section briefly describes the observations, and we refer     addition, previous EIGER papers used a pixel scale of
+the readers to Kashino et al. (2023a), Matthee et al.        0.′′ 03 for the stacked F115W and F200W images, while
+(2023a), Eilers et al. (2023), and Bordoloi et al. (2023)    in this work, we use a pixel scale of 0.′′ 015 to improve
+for more information about the EIGER project.                the sampling of the PSFs.
+
+                                                                              2.2. NIRCam WFSS
+   We obtain NIRCam F115W, F200W, F356W imaging,
+and F356W grism spectroscopy of the quasars. The ob-            We obtain the NIRCam grism spectroscopy of the
+servations of each quasar contain four individual visits,    quasar fields using the grism “R” in the F356W filter.
+forming a mosaic that covers a field of view (FoV) of        This configuration gives an observed wavelength range
+3′ × 6′ around the quasar. See Kashino et al. (2023a) for    of 3.1µm < λ < 4.0µm, which covers the Hβ emission
+more information about the mosaic configuration. The         line at 5.8 < z < 7.2. The data was reduced using jwst
+central 40′′ × 40′′ around each quasar is covered by ev-     pipeline version 1.8.5. For each quasar, we first run the
+ery visits. We adopt the INTRAMODULEX primary                Detector1pipeline to obtain the *rate.fits files, then
+dither pattern and the 4-Point subpixel dither pattern       assign the world coordination system (WCS) informa-
+to improve the PSF sampling, cover detector gaps, and        tion to the exposures using the AssignWcsStep and ap-
+remove bad pixels. By the time of writing this paper, the    ply flat fielding using the FlatFieldStep. We remove
+observation of four quasars are completed, while we only     1/f noise and sky background variations by subtracting
+have two of the four visits yet for J159–02 and three vis-   the median value in each column. We then trace and
+its for J1030+0524. Our work presented here is based         extract the 2D spectra of the quasar from individual
+on these observations described above. The exposure          exposures using custom scripts utilizing the grismconf
+time per visit is 4,381s for the F115W imaging, 5,959s       module (see Kashino et al. 2023b, for more details). Fi-
+for the F200W imaging, 1,578s for the F356W imaging,         nally, we extract the spectra from all exposures using
+and 8,760s for the grism spectroscopy.                       optimal extraction (Horne 1986), and combine the ex-
+                                                             tracted 1D spectra using the coadd1d pipeline in the
+                 2.1. NIRCam Imaging                         PypeIt package (Prochaska et al. 2020).
+    The NIRCam images were reduced using the jwst
+pipeline version 1.8.4. We first run Detector1Pipeline         3. MEASURING THE EMISSION OF QUASAR
+to generate the rate files (*rate.fits), then run                                HOST GALAXIES
+Image2Pipeline to obtain calibrated images (*cal.fits).
+                                                                We use the NIRCam images to measure the flux and
+For astrometry, we first align the calibrated images to
+                                                             morphology of the quasar host galaxies. To do this, we
+each other using tweakwcs, then combine all the im-
+                                                             fit the images of a quasar as a point source for the AGN
+ages and calibrate the absolute astrometry to the Gaia
+                                                             plus an exponential disk for the host galaxy, and use
+DR2 catalog (Gaia Collaboration et al. 2018). We cor-
+                                                             the best-fit parameters of the exponential disk to infer
+rect the 1/f noise, mask snowballs, subtract the wisp
+                                                             properties of the quasar host galaxy.
+patterns, and remove cosmic rays for the images using
+custom codes (see Kashino et al. 2023a, for more de-
+tailed description). We then run Image3Pipeline to                        3.1. PSF Models and Errors
+stack images with the same visit and the same module.          We construct PSF models using bright and unsatu-
+We use a pixel size of 0.′′ 03 for the F356W images and      rated stars in the NIRCam images. This method has
+0.′′ 015 for the F115W and the F200W images.                 been found to provide accurate PSF models for quasar
+    There are some noticeable differences between the im-    host galaxy detection and outperforms webbpsf (e.g.,
+age reduction of this work and that of previous EIGER        Ding et al. 2022; Zhuang & Shen 2023). In this work, we
+      4                                                                             Yue et al.
+
+                                                            Table 1. The quasar sample of the EIGER project
+
+       Quasar                       RA                Dec           Redshift     M1450 1           Mg ii 2
+                                                                                              log MBH                           Reference3
+
+                             (hh:mm:ss.ss)       (dd:mm:ss.s)                     (mag)          (M⊙ )
+ J0100+2802                    01:00:13.02       +28:02:25.80         6.327       -29.02        10.1+0.2
+                                                                                                    −0.1     D’Odorico et al. (2023), Mazzucchelli et al. (2023)
+ J0148+0600                    01:48:37.64       +06:00:20.0          5.977       -27.08       9.58+0.08
+                                                                                                    −0.06    D’Odorico et al. (2023), Mazzucchelli et al. (2023)
+ J1030+0524                    10:30:27.11       +05:24:55.06         6.304       -26.99      9.27 ± 0.09    D’Odorico et al. (2023), Mazzucchelli et al. (2023)
+   J159–02                     10:36:54.19       -02:32:37.94         6.381       -26.47      9.49+0.049
+                                                                                                   −0.045       Bañados et al. (2016), Farina et al. (2022)
+ J1120+0641                    11:20:01.48       +06:41:24.3          7.085       -26.44      9.13 ± 0.01       Mortlock et al. (2011), Yang et al. (2021)
+ J1148+5251                    11:48:16.64       +52:51:50.3          6.422       -27.62      9.94 ± 0.02        Bañados et al. (2016), Shen et al. (2019)
+1 The absolute magnitude at rest-frame 1450Å.
+2 The SMBH masses calculated using the Mg ii broad emission line. The errors in the table only contain random errors; the systematic
+  errors of the black hole mass is about 0.4 dex.
+3 References for the quasar properties.
+
+
+
+
+                        F115W                   F115W                   F200W                    F200W                F356W               F356W
+                       Module A                Module B                Module A                 Module B             Module A            Module B
+                                                                                                                                                          10   2
+  PSF
+
+
+
+
+                                                                                                                                                          10   4
+
+
+
+                                                                                                                                                          10 6
+                                                                                                                                                          0.20
+  Relative Error
+
+
+
+
+                                                                                                                                                          0.15
+                                                                                                                                                          0.10
+                                                                                                                                                          0.05
+                                                                                                                                                          0.00
+      Figure 1. The PSFs and the relative error maps, estimated from isolated bright stars in the images. These cutouts have sizes
+      of 3′′ × 3′′ , and the integrated fluxes of the PSFs are normalized. The relative error is larger for brighter pixels, and the central
+      bright pixels have relative errors up to ∼ 30%.
+
+      use photutils1 to build effective PSFs, which uses the                                    as the PSF shapes of infrared detectors exhibit flux de-
+      algorithm described in Anderson & King (2000). The                                        pendence (e.g., the brighter-fatter effect; Plazas et al.
+      detailed approach is as follows.                                                          2018). We visually inspect all the PSF stars and reject
+        For each image, we first perform a source detection                                     those with close companions or bad pixels. We then
+      using the DAOphot algorithm (Stetson 1987), then select                                   use the EPSFBuilder class in the photutils package to
+      objects with magnitudes 18 < m < 21 in each filter and                                    build the empirical PSFs. Since the PSF of NIRCam
+      full-width half maxima (FWHMs) consistent with point                                      depends on the position on the focal plane (e.g., Zhuang
+      sources2 as PSF stars. The magnitude cut is determined                                    & Shen 2023), we construct the PSF models for module
+      to match the fluxes of the quasars and avoid saturation,                                  A and module B separately. We also notice that the
+                                                                                                number of suitable PSF stars in a single image is very
+              1
+                                                                                                limited (usually fewer than three), and some images do
+                   https://photutils.readthedocs.io/en/stable/index.html
+                                                                                                not have suitable PSF stars. We thus include PSF stars
+              2    The specific FWHM limits are (0.′′ 0569, 0.′′ 0695) for F115W,
+                   (0.′′ 0729, 0.′′ 0789) for F200W, and (0.′′ 128, 0.′′ 152) for the F356W     from all quasar fields and visits when fitting the PSF
+                   filter. These values correspond to the 3σ limits as measured by              models. The typical number of PSF stars available for
+                   Zhuang & Shen (2023)                                                         one filter and one module is ∼ 10 − 20.
+                                Luminous Quasars and Their Host Galaxies at z ≳ 6                                             5
+
+  It is worth noting that the PSF stars for the three              to the quasar. We use psfMC (Mechtley et al. 2016) to
+bands are selected independently. Specifically, a PSF              perform image fitting, which is a Python-based package
+star in one band might be too bright or too faint to be            explicitly designed for quasar host galaxy detections uti-
+selected as a PSF star in the other bands. As a result,            lizing the Markov chain Monte Carlo (MCMC) method.
+the number of PSF stars available for the three bands              We assign flat priors to all the free parameters, namely
+are different.                                                     the magnitudes and positions of the point sources and
+  The empirical PSF models described above represent               Sérsic profiles, the half-light major and minor radii and
+the average PSF of all the images. Limited by the num-             the position angle of the Sérsic profiles, the Sérsic index
+ber of PSF stars available, we are not able to model the           of the Sérsic profiles (except for the quasar host galaxy
+spatial and temporal variations of the PSFs. Instead,              which is forced to have n = 1), and the background level.
+we calculate the error maps of the PSF models, which                  We fix the Sérsic indices of the quasar host galaxies,
+estimate the possible differences between the PSF model            which can only be poorly constrained due to the errors of
+and the real PSF of the quasar image.                              the PSF models. The choice of n = 1 (i.e., exponential
+  Specifically, we first compute the differences between           disks) is based on the following motivations: (1) previ-
+the flux-normalized images of the PSF stars (denoted by            ous detections of high-redshift quasar host galaxies are
+Pi (x, y)) and the PSF model (denoted by P̄ (x, y)), then          consistent with exponential profiles (Ding et al. 2023);
+calculate the PSF error at pixel (x, y) as                         (2) high-resolution ALMA observations found that the
+                                                                   far-infrared emissions of quasar host galaxies have Sérsic
+                       N
+                  1 X                                              index n ≈ 1 (e.g., Yue et al. 2021). We will discuss more
+ ϵP (x, y)2 =             [Pi (x, y) − P̄ (x, y)]2 − σi (x, y)2    about this point at the end of this Section.
+              N −1 i
+                                                             (1)      It is worth noting that psfMC incorporates PSF error
+where σi (x, y) is the random noise (i.e., the ERR exten-          maps when evaluating the likelihood of an image model.
+sion of the images) of the i−th PSF star. In practice,             Specifically, the error of a pixel is calculated by combin-
+we perform sigma clipping with σlimit = 3 for each pixel           ing the PSF error and the random noise of the image,
+in order to reduce the impact of outliers. The error map           i.e.,
+gives the standard deviation of the pixels in the PSF                            ϵ2all (x, y) = FP2 ϵ2P (x, y) + σ 2 (x, y)  (2)
+models and is added to the noise map in the image fit-             where ϵall (x, y) stands for the combined error at pixel
+ting (Section 3.2).                                                (x, y), FP is the flux of the PSF, ϵP (x, y) is the PSF error
+   The final product of the PSF modeling step contains             at pixel (x, y) (described in Section 3.1), and σ(x, y) is
+six PSFs (three filters times two modules). The PSFs               the random noise of the pixel. By including the PSF
+have sizes of 3′′ × 3′′ and have the same pixel size as the        error map in the total error, we assign lower weights
+images. Figure 1 shows the PSF models and their rela-              to pixels with large PSF uncertainties and reduce their
+tive error maps. There is a general trend that brighter            impact on the fitting result. This combined error map
+pixels have larger relative errors; the central pixels of          also helps us to distinguish quasar host galaxy emissions
+the PSFs have relative errors up to ∼ 30%. The mean                from PSF inaccuracies in the PSF-subtracted images.
+relative errors of the PSFs within radii of 3×FWHM are               For each quasar, we first fit its F356W images to deter-
+0.204, 0.158, and 0.136 for the F115W, the F200W, and              mine whether the host galaxy is detected and to measure
+the F356W bands. This result is consistent with the                the morphology of the host galaxy. This choice is made
+finding in Zhuang & Shen (2023), who suggested that                based on two considerations. First, long-wavelength
+the errors of NIRCam PSF decrease toward long wave-                NIRCam filters exhibit smaller spatial variation, i.e.,
+lengths.                                                           NIRCam PSFs are more stable at longer wavelengths,
+   All PSF models, the PSF star lists, and the code to             as we discuss in Section 3.1. Second, the flux ratio be-
+construct the effective PSF with error maps will be made           tween the host galaxy and the quasar (FG /FQ ) increases
+available online upon publication.                                 towards longer wavelength (Marshall et al. 2021). The
+                                                                   reason is twofold: (1) quasars have blue continua in the
+                     3.2. Image Fitting                            rest-frame optical; (2) the F356W filter probes wave-
+   We use a point source component to describe the                 lengths longer than the 4000Å-break for z ∼ 6 − 7
+quasar and an exponential profile (i.e., a Sérsic profile         galaxies. As we will later show in this Section, the
+with index n = 1) to describe the quasar host galaxy.              quasars with host galaxy detections in our sample have
+We also add a constant background component to model               (FG /FQ )F356W ∼ 1 − 3 × (FG /FQ )F200W .
+imperfect background subtraction and add additional                  We fit the F356W images from individual visits sepa-
+Sérsic profiles when there are other bright galaxies close        rately, and determine the best-fit parameters and their
+6                                                        Yue et al.
+
+errors by computing the median and standard deviation           leaving these parameters free will return non-detections
+of the MCMC samples from all the visits. We also fit            of quasar host galaxies in most cases, due to the fainter
+the images using a single PSF plus a sky background to          quasar host galaxies and the stronger PSF errors at
+evaluate the improvement in reduced χ2 by including a           short wavelengths. Other observations of high-redshift
+host galaxy component in the model. Specifically, we            quasars find that the morphology of quasar host galax-
+use the relative improvement of the reduced χ2 ,                ies is consistent in the SW and LW bands (Ding et al.
+                                                                2023). As such, we determine that fixing the host galaxy
+                ∆χ2ν   χ2ν (1p) − χ2ν (1p1e)                    morphology and position to the best-fit F356W values
+                     =                                  (3)
+                χ2ν          χ2ν (1p1e)                         is the best approach based on our data.
+                                                                   We demonstrate how we validate the host galaxy de-
+where χ2ν (1p) is the reduced χ2 for the single-PSF model,
+                                                                tections and estimate the uncertainties of host galaxy
+and χ2ν (1p1e) represents the reduced χ2 where the expo-
+                                                                properties in Figure 2. The left panel of Figure 2 shows
+nential disk component is added to the model. A quasar
+                                                                the PSF-subtracted F356W image of J0148+0600 from
+host galaxy is considered to be detected in the F356W
+                                                                individual visits. We emphasize that the quasar is lo-
+band if the fitting result meets the following criteria:
+                                                                cated in module A (B) in visits 1 and 2 (3 and 4), and
+    1. The error of the quasar host galaxy’s magnitude          we model the PSF of module A and module B inde-
+       is smaller than 0.3 (i.e., a detection with > 3σ         pendently. As such, the similar patterns in the PSF-
+       significance);                                           subtracted images from individual visits strongly indi-
+                                                                cate that the host galaxy detection is reliable. The right
+    2. The half-light radius satisfies Re,maj < 0.′′ 9 and      panel of Figure 2 shows the host galaxy fluxes measured
+       Re,min > 0.′′ 1;                                         from the four visits. The histograms represent the pos-
+    3. The axis ratio satisfies 0.3 < Re,min /Re,maj < 1;       terior distributions from MCMC, and the inter-visit dif-
+                                                                ferences reflect the systematic errors of image fitting.
+    4. All visits have ∆χ2ν /χ2ν > 0.1.                         We estimate the uncertainties of the host galaxy mag-
+                                                                nitude by computing the standard deviation of MCMC
+   Here, criterion (1) ensures that the host galaxy is con-
+                                                                samples from all the visits, which takes into account
+sistently detected in all visits; criterion (2) ensures that
+                                                                both random errors and systematic errors. In this case,
+the best-fit host galaxy has a reasonable size and is un-
+                                                                the standard deviation of the host galaxy magnitude is
+likely to be confused with the PSF component or the
+                                                                ∆m = 0.07, and the host galaxy is successfully detected.
+background component; criterion (3) further excludes
+some false detections caused by PSF inaccuracies; crite-
+rion (4) ensures that the quasar’s image is significantly
+                                                                  Our image fitting procedure takes advantage of the
+different from a single PSF. We will discuss why we
+                                                                multi-band, multi-visit observations of the EIGER
+adopt these criteria in Appendix A with more details.
+                                                                project. The uncertainties of quasar host galaxy mea-
+   For quasars with successful host galaxy detections in
+                                                                surements are dominated by systematic errors of the
+the F356W band, we fit the F200W and the F115W im-
+                                                                PSF model instead of random photon noise. Fitting the
+ages by fixing the position and the morphology of the
+                                                                four visits individually allows us to validate the result
+host galaxy to the best-fit values from the F356W im-
+                                                                and estimate the systematic uncertainties by comparing
+ages. Again, we fit the images from different visits sep-
+                                                                the output of all the visits.
+arately, and estimate the best-fit parameters and their
+                                                                  Figure 3 to 7 present the results of the image fitting.
+errors using the median and the standard deviation of
+                                                                We summarize the best-fit parameters in Table 2. The
+the MCMC samples from all the visits. We report a
+                                                                PSF-subtracted images of these quasars exhibit a vari-
+host galaxy detection in the F200W or the F115W band
+                                                                ety of features. We successfully detect the host galaxy
+if the quasar has ∆χ2ν /χ2ν > 0.07 and has a host galaxy
+                                                                of J0148+0600 in all the three bands, as well as J159–02
+magnitude error smaller than 0.3 mag. For quasars with
+                                                                and J1120+0641 in the F356W and the F200W bands.
+non-detections in the F356W band, we fit their F200W
+                                                                J159–02 and J1120+0641 have ∆χ2ν /χ2ν ∼ 0.05 in the
+and F115W images as a point source plus a constant
+                                                                F115W band, which do not satisfy the reduced χ2 cri-
+background.
+                                                                terion; nevertheless, we still report tentative detections
+   We notice that the morphology and positions of quasar
+                                                                for their host galaxies in the F115W band because the
+host galaxies might be wavelength-dependent. Fixing
+                                                                magnitude errors are smaller than 0.3 mag. The flux
+the morphology and positions of quasar host galaxies
+                                                                ratios between the host galaxies and the quasars range
+when fitting the F200W and the F115W band images
+                                                                from ∼ 1% − 5%.
+might introduce additional systematic errors. However,
+                                            Luminous Quasars and Their Host Galaxies at z ≳ 6                                                                                 7
+
+                           J0148+0600 F356W                                                                J0148+0600 F356W, mHost = 22.61 ± 0.07
+                                                                                                                                                         Visit 1 (Module a)
+              Visit 1                  Visit 2                                                      35                                                   Visit 2 (Module a)
+                                                                101                                                                                      Visit 3 (Module b)
+                                                                                                    30                                                   Visit 4 (Module b)
+
+
+
+
+                                                                           Posterior Distribution
+                                                                100                                 25
+
+                                                                                                    20
+                                                                10    1
+              Visit 3                  Visit 4                                                      15
+
+                                                                                                    10
+                                                                10    2
+
+                                                                                                    5
+                               E                                10    3
+                                                                                                    0
+               0.6"                N                                                                        22.55     22.60        22.65      22.70          22.75
+                                                                                                                       Host Galaxy Magnitude
+          Figure 2. Fitting the F356W images of J0148+0600 from four visits. This Figure illustrates how we validate the detections
+          of host galaxies. Left: the PSF-subtracted images, which show consistent shapes and brightness across the visits. Right: the
+          MCMC posterior distribution of the host galaxy magnitudes. The small inter-visit differences reflect the systematic uncertainties
+          of the host galaxy flux measurements. We take the median of all the MCMC samples from all four visits as the best-fit host
+          galaxy magnitude, and estimate its uncertainty by computing the standard deviation of all the MCMC samples.
+
+
+                                                        Table 2. The Results of Image Fitting
+
+   Quasar             mQSO             mQSO            mQSO                      mhost  1                       mhost           mhost          Re,circ               e2            PA3
+                       F115W            F200W           F356W                     F115W                          F200W           F356W
+
+                                                                                                                                                (′′ )                              (deg)
+ J0148+0600     19.522 ± 0.003     18.912 ± 0.001   19.109 ± 0.003         23.48 ± 0.24                      23.51 ± 0.15     22.61 ± 0.07   0.39 ± 0.02      0.37 ± 0.04         106 ± 1
+   J159–02      20.146 ± 0.003     19.680 ± 0.002   19.543 ± 0.003        (24.83 ± 0.06)                     24.82 ± 0.23     23.98 ± 0.16   0.48 ± 0.03      0.27 ± 0.05         132 ± 5
+ J1120+0641     20.366 ± 0.003     19.886 ± 0.002   19.632 ± 0.003        (24.78 ± 0.12)                     24.43 ± 0.10     24.45 ± 0.20   0.32 ± 0.02      0.57 ± 0.12          86 ± 5
+ J0100+2802      17.87 ± 0.01      17.275 ± 0.003   17.172 ± 0.001               -                                 -                -             -                -                  -
+ J1030+0524     19.969 ± 0.003     19.514 ± 0.001   19.415 ± 0.003               -                                 -                -             -                -                  -
+ J1148+5251     19.140 ± 0.001     18.782 ± 0.001   18.782 ± 0.002               -                                 -                -             -                -                  -
+1 The F115W magnitudes of the host galaxies for J159–02 and J1120+0641 are tentative detections. See section 3.2 and Appendix A more details.
+2 The ellipticity is defined as e = 1 − R
+                                          e,min /Re,max .
+
+3 The position angle is defined as the angle between the major axis and the north vector, with counter-clockwise being positive.
+
+Note—The image fitting results of the quasars. The top three rows summarize the three quasars with host galaxy detections, and the bottom
+ three rows give quasars with non-detections of the host galaxies. All errors are 1 − σ errors.
+
+
+
+
+            The “(Image-PSF)/Error” maps clearly show the im-                                            on how we validate the host galaxy detections and why
+          pact of the PSF error. Pixels that have large PSF errors                                       we adopt the detection criteria in Appendix A.
+          (mainly those at central regions and on PSF spikes) are                                           The host galaxies of J1030+0524 and J1148+5251
+          assigned lower weights in image fitting, and their influ-                                      are not detected according to the detection criteria de-
+          ence on the fitting results is suppressed. The regions                                         scribed above. However, the PSF-subtracted images of
+          where the PSF errors are small exhibit significant host                                        the two quasars clearly show extended emissions around
+          galaxy emissions compared to the noise level, confirming                                       the quasar, which might be tidal tails of a recent merger
+          that the host galaxy signal is real and is not a result of                                     or the diffuse [O iii] emission from galactic-scale out-
+          PSF inaccuracies. We leave a more detailed discussion                                          flows. The analysis of J0100 + 2802 has already been
+8                                                         Yue et al.
+
+reported in Eilers et al. (2023), and we refer the readers       normalization of the SED. All other parameters remain
+to Eilers et al. (2023) for more details. As a quick sum-        largely unconstrained.
+mary, J0100+2802 is saturated in all the images due to             We first perform the SED fitting for the detected
+its extreme brightness, and we do not detect the host            quasar host galaxies. Figure 8 shows the best-fit SEDs,
+galaxy or any extended emission in its PSF-subtracted            and Table 3 summarizes the physical parameters of the
+images.                                                          quasar host galaxies. The quasar host galaxies detected
+   We also try to fit the images without fixing the Sérsic      in this work have stellar masses of M∗ ≳ 1010 M⊙ , which
+index of the host galaxy. We find that the Sérsic indices       are among the most massive galaxies at z ≳ 6. We also
+of the host galaxies are poorly constrained. Specifically,       plot the tentative F115W detections of the host galaxies
+the posterior distribution of the indices spans a wide           of J159–02 and J1120+0641 for reference, but do not
+range at 0.3 ≲ n ≲ 4, with estimated errors σn ≳ 1.              include them in the SED fitting. The F115W fluxes of
+We notice that the best-fit host galaxy magnitudes of            J159–02 is consistent with the best-fit SED model, while
+the Sérsic profiles are similar to the exponential disk         the F115W flux of J1120+0641 is ∼ 2σ lower than the
+models (with differences of ≲ 0.3 mag). This systematic          SED model.
+uncertainty is much smaller than the errors of the stellar         For the quasars with only non-detections of their
+mass estimates (∼ 0.3dex, see Section 3.3) and has no            host galaxies, we estimate the upper limits of their
+major influence on the main conclusions of this work.            host galaxy stellar masses. Specifically, we set conser-
+   We provide more information about individual                  vative lower limits of the host galaxy magnitudes as
+quasars in Section 6.1.                                          mhost = mQSO + 3.5 in the F356W band, then scale
+                                                                 the best-fit host galaxy SED model of J0148+0600 to
+                                                                 match this magnitude and take the corresponding stel-
+                     3.3. SED fitting                            lar masses as upper limits. This choice is made because
+                                                                 J0148+0600 has ∆m = mhost − mQSO = 3.5 in the
+  One of the main goals of this work is to character-
+                                                                 F356W band and has a significant host galaxy detec-
+ize the position of luminous high-redshift quasars on
+                                                                 tion. We note that the three quasars with host galaxy
+the MBH − M∗ plot. To measure the stellar masses of
+                                                                 non-detections have F356W magnitudes similar to or
+the quasar host galaxies, we perform SED fitting for
+                                                                 brighter than J0148+0600; if the host galaxies of these
+these galaxies using Prospector (Johnson et al. 2021),
+                                                                 quasars have ∆mF356W = 3.5, we expect that the host
+with nebular emission treatments based on Cloudy (see
+                                                                 galaxies should be detected at significance levels similar
+Byler et al. 2017, for details). Since we only report
+                                                                 to or higher than J0148+0600. The stellar mass up-
+tentative detections for the host galaxies of J159–02
+                                                                 per limits of these quasar host galaxies are also listed in
+and J1120+0641 in the F115W band, we only take the
+                                                                 Table 3, which have M∗ ∼ 1010.5 − 1011.5 M⊙ .
+F356W and the F200W magnitudes as the input of the
+SED fitting for these two quasars.
+  We assume a delayed-τ model for the star forma-
+                                                                   Since we only have two or three photometric points
+tion history (SFH), i.e., SFR(t) ∝ te−t/τ . We use a
+                                                                 available, we are not able to adopt more complicated
+Chabrier initial mass function (Chabrier 2003) and as-
+                                                                 star formation histories (e.g., a non-parametric star for-
+sume a dust attenuation following the Calzetti et al.
+                                                                 mation history) in the SED fitting. We also notice that
+(2000) law. The free parameters and their priors of
+                                                                 the F356W fluxes of the quasar host galaxies contain
+this SED model include: (1) the stellar mass M∗ with
+                                                                 both stellar continuum and the Hβ and [O iii] nebu-
+a log-uniform prior at [108 M⊙ , 1012 M⊙ ]; (2) the stellar
+                                                                 lae lines. Since we do not have the nebulae line fluxes,
+metallicity log(Z/Z⊙ ) with a uniform prior at [−2, 0.2];
+                                                                 we leave all emission-line-related parameters free to ac-
+(3) the starting time of the star formation tage with a
+                                                                 count for this systematic uncertainty. Future observa-
+uniform prior at [0, t(z)], where t(z) is the age of the uni-
+                                                                 tions with NIRSpec IFU will provide the fluxes of these
+verse at the quasar’s redshift; (4) the exponential decay
+                                                                 nebulae lines, which will allow us to use more com-
+timescale τ with a uniform prior at [0.01Myr, 20Myr];
+                                                                 plicated star formation histories and improve the ac-
+(5) the dust attenuation (quantified as the optical depth
+                                                                 curacy of the estimated stellar masses (e.g., Marshall
+at 5500Å, τ5500 ) with a uniform prior at [0, 2]; (6) the
+                                                                 et al. 2023). It is also possible to measure the ex-
+gas-phase metallicity log(Zg /Z⊙ ) with a uniform prior
+                                                                 tended line emissions from quasar host galaxies using
+at [−2, 0.5]; and (7) the ionization parameter log U with
+                                                                 the two-dimensional grism spectra of the quasar. How-
+a uniform prior at [−3, 1]. With only two or three pho-
+                                                                 ever, such measurements require careful analysis of the
+tometric points for the SED fitting, we are only able
+to constrain the stellar masses, which roughly give the
+                                                  Luminous Quasars and Their Host Galaxies at z ≳ 6                                                                         9
+
+                                                                             J0148+0600
+               Image                           Host Model             Image-PSF             Image-PSF-Host             (Image-PSF)/Error     10
+                                                                                                                                                      Residual/Error   10
+                                     102                    101                   101                        101       Masked S/N = 104.44
+                                     101                    100                   100                        100                             5                         5
+F356W
+
+
+
+
+                                     100                    10    1               10    1                    10    1                         0                         0
+                                     10    1                10    2               10    2                    10    2
+                       E                                                                                                                         5                         5
+        0.6"                       N 10    2                10    3               10    3                    10    3
+                                                                                                                                              10                        10
+                                                                                                                                             10                        10
+                                                                                                                       Masked S/N = 45.79
+                                     102                    101                   101                        101                             5                         5
+F200W
+
+
+
+
+                                     101                    100                   100                        100
+                                                                                                                                             0                         0
+                                     100                    10    1               10    1                    10    1
+                       E                                                                                                                         5                         5
+        0.6"                   N 10        1                10    2               10    2                    10    2
+
+                                                                                                                                              10                        10
+                                                                                                                                             10                        10
+                                                                                                                       Masked S/N = 43.52
+                                     102                    101                   101                        101
+                                                                                                                                             5                         5
+                                     101                    100                   100                        100
+F115W
+
+
+
+
+                                                                                                                                             0                         0
+                                     100                    10    1               10    1                    10    1
+
+                       E             10    1                10    2               10    2                    10    2                             5                         5
+        0.6"                   N
+                                                                                                                                                 10                        10
+
+Figure 3. The image fitting results of J0148+0600. From left to right: the original NIRCam image, the host galaxy model, the
+PSF-subtracted image, the residual image, the PSF-subtracted image divided by the composite error, and the residual image
+divided by the composite error. We obtain these images by combining images from all the visits. We detect the host galaxy in
+all three bands. The dashed ellipses mark the apertures corresponding to twice of the half-light radii, and the dashed circles
+mark the central regions with radii of 2 × FWHMPSF . The “masked S/N” quoted here are the S/N of the host galaxy signal
+within the ellipse (excluding the central regions); see Appendix A for more details. J0148+0600 have two close companions,
+which are modeled as Sérsic profiles when fitting the images. Note that (1) the compisite error is a combination of random
+noises and PSF errors (see Equation 2); (2) the “Host Model” images include the two close companions of the quasar.
+
+
+                                                                             J1120+0641
+               Image                 102
+                                               Host Model   101
+                                                                      Image-PSF   101
+                                                                                            Image-PSF-Host   101
+                                                                                                                       (Image-PSF)/Error     10
+                                                                                                                                                      Residual/Error   10
+                                                                                                                       Masked S/N = 30.24
+                                     101                    100                   100                        100                             5                         5
+F356W
+
+
+
+
+                                     100                    10    1               10    1                    10    1
+                                                                                                                                             0                         0
+                           N         10    1                10    2               10    2                    10    2
+                                                                                                                                                 5                         5
+        0.6"                         10    2                10    3               10    3                    10    3
+                               E                                                                                                              10                        10
+                                                                                                                                             10                        10
+                                     102                    101                   101                        101
+                                                                                                                       Masked S/N = 48.09
+                                                                                                                                             5                         5
+                                     101                    100                   100                        100
+F200W
+
+
+
+
+                                     100                    10    1               10    1                    10    1                         0                         0
+                           N                                                                                                                     5                         5
+                                     10    1                10    2               10    2                    10    2
+        0.6"                   E     10    2                10    3               10    3                    10    3
+                                                                                                                                              10                        10
+                                                                                                                                             10                        10
+                                     102                    101                   101                        101       Masked S/N = 31.96
+                                     101                    100                   100                        100                             5                         5
+F115W
+
+
+
+
+                                     100                    10    1               10    1                    10    1                         0                         0
+                           N         10    1                10    2               10    2                    10    2
+                                                                                                                                                 5                         5
+        0.6"                   E     10    2                10    3               10    3                    10    3
+                                                                                                                                                 10                        10
+
+Figure 4. Same as Figure 3, but for J1120+0641. We detect the host galaxy in the F356W and the F200W band, and report
+a tentative detection in the F115W band. The PSF-subtracted images show consistent shapes in all three bands. We note
+that we exclude the F356W image from visit 4 due to a large number of bad pixels around the quasar. The host galaxy of
+J1120+0641 is about 0.′′ 5 away from the quasar, and the PSF-subtracted images exhibit irregular shapes. These features suggest
+that J1120+0641 might be hosted by an on-going merger. See Section 6.1.5 for more details.
+10                                                                                     Yue et al.
+
+
+                                                                                      J159-02
+               Image           102
+                                          Host Model        101
+                                                                          Image-PSF       101
+                                                                                                    Image-PSF-Host     101
+                                                                                                                                 (Image-PSF)/Error       10
+                                                                                                                                                                  Residual/Error   10
+                                                                                                                                 Masked S/N = 27.87
+                               101                          100                           100                          100                               5                         5
+F356W
+
+
+
+
+                               100                          10    1                       10    1                      10    1
+                                                                                                                                                         0                         0
+                       E       10    1                      10    2                       10    2                      10    2
+                                                                                                                                                             5                         5
+        0.6"               N 10      2                      10    3                       10    3                      10    3
+                                                                                                                                                          10                        10
+                                                                                                                                                         10                        10
+                                                                                                                                 Masked S/N = 21.80
+                               102                          101                           101                          101
+                                                                                                                                                         5                         5
+                               101                          100                           100                          100
+F200W
+
+
+
+
+                                                                                                                                                         0                         0
+                               100                          10    1                       10    1                      10    1
+
+                       E                                    10                            10                           10                                    5                         5
+                               10    1                            2                             2                            2
+        0.6"               N
+                               10    2                      10    3                       10    3                      10    3                            10                        10
+                                                                                                                                                         10                        10
+                               102                          101                           101                          101       Masked S/N = 14.94
+                                                                                                                                                         5                         5
+                               101                          100                           100                          100
+F115W
+
+
+
+
+                               100                          10    1                       10    1                      10    1                           0                         0
+                       E       10    1                      10    2                       10    2                      10    2                               5                         5
+        0.6"               N 10      2                      10    3                       10    3                      10    3
+                                                                                                                                                             10                        10
+
+Figure 5. Same as Figure 3, but for J159-02. We detect the host galaxy in the F356W and the F200W band, and report a
+tentative detection in the F115W band. J159-02 has one close companion. Note that we only have two visits for J159-02 when
+writing this paper. See Section 6.1.4 for more details.
+
+
+
+
+                                                                                     J1030+0524
+                                                        Image                         Image-PSF                     Residual/Error              10
+                                                                           102                            101
+                                                                           101                            100                                   5
+                                         F356W
+
+
+
+
+                                                                           100                            10    1
+                                                                                                                                                0
+                                                                  E        10    1                        10    2
+                                                                                                                                                    5
+                                                 0.6"                 N    10    2                        10    3
+
+                                                                                                                                                1010
+                                                                           102                            101
+                                                                                                                                                5
+                                                                           101                            100
+                                         F200W
+
+
+
+
+                                                                                                                                                0
+                                                                           100                            10    1
+                                                                  E                                                                                 5
+                                                                           10    1                        10    2
+                                                 0.6"                 N
+                                                                                                                                                1010
+                                                                           102                            101
+                                                                                                                                                5
+                                                                           101                            100
+                                         F115W
+
+
+
+
+                                                                           100                            10    1                               0
+                                                                  E        10    1                        10    2                                   5
+                                                 0.6"                 N    10    2                        10    3
+                                                                                                                                                    10
+
+Figure 6. The image fitting results of J1030+0524. From left to right: the original image, the PSF-subtracted residual, the
+residual normalized by the image error. We do not detect the host galaxy according to the criteria in Section 2.1. The PSF-
+subtracted images exhibit extended emissions around the quasar, which might be tidal tails of a recent galaxy merger. Note
+that we only have three visits for J1030+0524 when writing this paper.
+                                                   Luminous Quasars and Their Host Galaxies at z ≳ 6                                                                                               11
+
+                                                                                           J1148+5251
+                                                           Image                               Image-PSF                      Residual/Error               10
+                                                                               102                                 101
+                                                                               101                                 100                                     5
+
+
+
+
+                                           F356W
+                                                                               100                                 10    1
+                                                                                                                                                           0
+                                                                               10    1                             10    2
+                                                                   N                                                                                           5
+                                                    0.6"                 E     10 2                                10 3
+                                                                               103                                 102                                     1010
+                                                                               102                                 101                                     5
+                                           F200W
+
+                                                                               101                                 100
+                                                                                                                                                           0
+                                                                               100                                 10    1
+                                                                   N                                                                                           5
+                                                    0.6"                       10    1                             10    2
+                                                                         E
+                                                                                                                                                           1010
+                                                                               102                                 101                                     5
+                                           F115W
+
+
+
+
+                                                                               101                                 100
+                                                                                                                                                           0
+                                                                               100                                 10    1
+                                                                   N                                                                                           5
+                                                    0.6"                       10    1                             10    2
+                                                                         E                                                                                     10
+
+Figure 7. Same as Figure 6, but for J1148+5251. We do not detect the host galaxy according to the criteria in Section 2.1.
+The F356W image exhibits diffused emission extending from the lower left to the upper right corner, which is not seen in the
+other two bands. This feature might be [O iii] emission around the quasar. We also see several close companions around the
+quasar that are detected in all three bands. Note that the central pixels in the F356W band are saturated.
+
+
+                                   J0148+0600                                                         J159-02                                                            J1120+0641
+
+                         Prospector Model
+           101
+                         NIRCam Imaging
+Fν [µJy]
+
+
+
+
+                                                                         100                                                             100
+
+
+
+
+           100
+
+                 1.0   1.5   2.0     2.5     3.0     3.5    4.0    4.5         1.0       1.5    2.0   2.5    3.0   3.5       4.0   4.5         1.0   1.5           2.0     2.5   3.0   3.5   4.0   4.5
+
+
+                                                                                     Wavelengths [micron]
+
+Figure 8. Fitting the SEDs of the quasar host galaxies. The solid red dots represent the F200W and the F356W magnitudes
+of the quasar host galaxies. The black line shows the median modeled spectra generated using prospector, and the shaded
+area gives the 1σ error. For comparison, we also show the F115W magnitudes of the host galaxies of J159–02 and J1120+0641
+in open circles, which are not used when fitting their SEDs. The SED fitting enables constraints on the stellar masses of the
+quasar host galaxies.
+
+two-dimensional grism data, which is beyond the scope                                                       roughly match the redshift and luminosity range of the
+of this paper.                                                                                              quasar host galaxies. These mock galaxies have stellar
+  Finally, we perform a sanity check of the stellar mass                                                    masses of 109.2 M⊙ −1010.7 M⊙ (95% confidence interval),
+estimates by comparing our results with mock galaxies                                                       with a median of 109.96 M⊙ . These numbers are close to
+in UniverseMachine Data Release 1 (Behroozi et al.                                                          the stellar mass estimates for the quasar host galaxies
+2020). We select mock galaxies with redshifts 6 < z <                                                       in this work.
+7 and UV magnitudes −23 < MUV < −21.5, which
+12                                                       Yue et al.
+
+                               Table 3. The properties of the quasars and their host galaxies
+
+             Quasar      FWHMHβ           log L5100     log MBH 1     λEdd     log M∗ 2       host 3
+                                                                                             MUV              Re,circ
+
+                          (km s−1 )       (erg s−1 )      (M⊙ )                  (M⊙ )       (mag)            (kpc)
+          J0148+0600      7828+485
+                              −480     46.390+0.001
+                                             −0.002     9.892+0.053
+                                                             −0.055    0.23   10.64+0.22
+                                                                                   −0.24   −22.81+0.48
+                                                                                                 −0.39    2.23 ± 0.11
+            J159–02       3493+29
+                              −20      46.199+0.001
+                                             −0.001     9.096+0.007
+                                                             −0.005    0.93   10.14+0.34
+                                                                                   −0.36   −21.68+0.54
+                                                                                                 −0.42    2.64 ± 0.16
+          J1120+0641      3337+95
+                              −111     46.246+0.016
+                                             −0.028     9.076+0.029
+                                                             −0.030    1.08    9.81+0.23
+                                                                                   −0.31   −22.63+0.17
+                                                                                                 −0.13    1.66 ± 0.10
+          J0100+2802      6045+22
+                              −20     47.1776+0.0003
+                                             −0.0004   10.062+0.003
+                                                             −0.003    0.96      < 11.58    > −24.90           -
+          J1030+0524      3669+16
+                              −14      46.295+0.001
+                                             −0.001     9.187+0.004
+                                                             −0.003    0.94      < 10.65    > −22.59           -
+          J1148+5251      5370+81
+                              −68      46.541+0.002
+                                             −0.002     9.640+0.012
+                                                             −0.010    0.59      < 10.93    > −23.28           -
+         1 The errors listed in the Table are random errors from MCMC. The systematic errors of log M         is ∼ 0.3dex
+                                                                                                         BH
+           is dominated by the scatter of the empirical relation (Equation 4).
+         2 The errors are estimated from prospector posterior distributions. For quasars with non-detections, the
+           upper limits correspond to ∆mF356W = 3.5 (Section 3.3).
+         3 The absolute magnitude at rest-frame 1500Å from SED fitting.
+
+         Note— All errors are 1 − σ errors.
+
+
+
+
+  4. BLACK HOLE MASS ESTIMATES FOR THE                              and power-law index of the continuum, as well as the
+                         QUASARS                                    fluxes, redshifts, and widths of the emission lines. We
+  We calculate the black hole masses using the single-              adopt flat priors for all these parameters. We further fix
+epoch virial estimator (e.g., Shen & Liu 2012). This                the flux ratio between the [O iii]4959 and the [O iii]5007
+method uses the FWHM of broad emission lines to                     lines to be 1 : 3 (Storey & Zeippen 2000) and require
+estimate the velocity of the broad line region (BLR)                that the two lines have the same redshifts and widths for
+clouds, and uses the continuum luminosity as a proxy                both Gaussian components. The wavelength ranges to
+of the distance from the BLR to the SMBH based on                   be fitted depend on the redshift of the quasars; specif-
+the luminosity-radius relation (e.g., Kaspi et al. 2005).           ically, we fit the window 3.20µm < λ < 3.85µm for
+Specifically, the SMBH mass can be calculated using the             J0148+0600, 3.40µm < λ < 4.05µm for J1120+0641,
+following relation:                                                 and 3.30µm < λ < 3.95µm for all the other quasars.
+                                                                    For J1120+0641, the Hγ line is redshifted to the wave-
+                                b               c
+                                                                    length window, and the [O iii] lines fall on the edge of the
+                
+   MBH                FWHM               λLλ
+         = 10a                                        (4)           transmission curve. We thus add the Hγ line to the flux
+    M⊙            1, 000 km s−1      1044 erg s−1
+                                                                    model and fix the [O iii] redshift to ensure a successful
+In this work, we use the NIRCam grism spectroscopy                  fit.
+to measure the FWHM of their Hβ emission lines and                     Figure 9 shows the spectra and the best-fit flux mod-
+estimate the black hole masses accordingly. We use the              els of the quasars. We measure the FWHM of the Hβ
+empirical relation suggested by Vestergaard & Peterson              line and the continuum luminosity at rest-frame 5100Å
+(2006), which gives a = 6.91, b = 2, and c = 0.5.                   (L5100 = λLλ (5100Å), and calculate the SMBH masses
+                                                                    using Equation 4. We also estimate the bolometric lumi-
+                  4.1. Spectral Fitting
+                                                                    nosities of the quasars using L5100 assuming a bolomet-
+  We run MCMC to fit the spectra of the quasars to                  ric correction of 9.26 (Runnoe et al. 2012), and compute
+measure the profile of the Hβ lines. The flux model                 the Eddington ratios of the quasars. These results are
+contains the following components: (1) a continuum de-              listed in Table 3, and all the data will be available online
+scribed by a single power law; (2) the iron emission lines          after the paper is accepted for publication.
+described using the template from Park et al. (2022);                  The [O iii] line profiles have been used to indicate pos-
+(3) the Hβ and [O iii]λλ4959, 5007 emission lines. All              sible outflows driven by the quasars (e.g., Yang et al.
+the emission lines are fitted as two Gaussian compo-                2023). The quasars in the EIGER sample exhibit a va-
+nents to model the complex broad line profiles seen in              riety of [O iii] line profiles. J0100+2802, J0148+0600,
+high-redshift quasars (e.g., Yang et al. 2023). The pa-             J1030+0524, and J159-02 exhibit two broad [O iii] com-
+rameters of the spectral model include the amplitude
+                            Luminous Quasars and Their Host Galaxies at z ≳ 6                                              13
+
+ponents, while J1148+5251 only has one broad [O iii]        Figure3 . For the high-redshift quasar sample, there is a
+component. The [O iii] lines of J1120+0641 are red-         clear trend that more massive galaxies host larger black
+shifted to the edge of the F356W filter and cannot be       holes, indicating that the correlation between SMBHs
+well-measured. This work focuses on the Hβ-based black      and their host galaxies already exists at z ≳ 6. Mean-
+hole masses, and we leave more detailed analysis of the     while, the luminous quasars in the EIGER sample have
+[O iii] emission lines to future studies.                   MBH /M∗ ∼ 0.15, which is ∼ 2 dex higher than the lo-
+                                                            cal MBH − M∗ relation. The quasars with only non-
+                                                            detections of their host galaxies also lie above the lo-
+    4.2. Comparison of Different Black Hole Mass            cal relation according to the upper limits of their stel-
+                       Indicators                           lar masses. This comparison suggests that SMBHs in
+   Previous studies have suggested that Hβ is a more re-    luminous quasars might have experienced early growth
+liable SMBH mass indicator compared to other broad          compared to their host galaxies’ star formation (e.g.,
+emission lines (e.g., Shen & Liu 2012). However, the Hβ     Volonteri 2012).
+line of z ≳ 6 objects is not observable with ground-based      Several previous studies have also used JWST NIR-
+facilities due to atmospheric absorption, and previous      Cam imaging to measure the stellar masses of high-
+studies of z ≳ 6 quasars have been using the Mg ii line     redshift quasars and AGNs. Stone et al. (2023a) re-
+to measure the SMBH masses. The infrared coverage of        ported NIRCam observations of a sub-Eddington quasar
+JWST makes it possible to probe the rest-frame opti-        at z = 6.25, which also has an overmassive black hole
+cal emission lines from high-redshift quasars. By ana-      compared to local galaxies. Ding et al. (2023) measured
+lyzing the NIRCam grism spectroscopy of eight quasars       the host galaxy fluxes of two low-luminosity quasars at ∼
+at z > 6, Yang et al. (2023) showed that Mg ii-based        6.3, which have small black holes (MBH ∼ 108 −109 M⊙ )
+SMBH masses are systematically higher than the Hβ-          and massive host galaxies (M∗ ≳ 1010.5 M⊙ ). Ding et al.
+based SMBH masses. It is thus important to investi-         (2023) argued that the two quasar host galaxies are con-
+gate the differences between the SMBH mass estimates        sistent with the local MBH −M∗ relation after correcting
+of high-redshift quasars indicated by different emission    for the selection effects.
+lines.                                                         Recent JWST observations have revealed a popula-
+   Figure 10 shows the comparison between the Mg ii-        tion of faint broad line AGNs at z ≳ 4 (also known as
+based and the Hβ-based SMBH mass estimates for the          the “little red dots”, e.g., Kocevski et al. 2023; Matthee
+six quasars in this work. We also include z > 6 quasars     et al. 2023b; Maiolino et al. 2023). Harikane et al. (2023)
+from Yang et al. (2023) and SDSS quasars from Wu &          analyzed a sample of low-luminosity AGNs at 4 < z < 7,
+Shen (2022) for comparison. Given the systematic un-        which have relatively lower MBH /M∗ ∼ 0.01. The
+certainties of the BH mass estimators (∼ 0.3dex), the       broad-line AGN at z = 8.679 reported by Larson et al.
+Mg ii-based and the Hβ-based SMBH masses agree with         (2023) have MBH /M∗ ≈ 0.3%. However, Furtak et al.
+each other. The EIGER quasars have a mean value of          (2023) reported a low-luminosity AGN at z = 7.0451
+log MBH, Hβ − log MBH, Mg ii = −0.093; this result is in    with MBH /M∗ ≳ 3%. These results show the large di-
+line with Yang et al. (2023), who reported a mean value     versity of high-redshift SMBHs and their host galaxies,
+of log MBH, Hβ − log MBH, Mg ii = −0.13 for their z ≳ 6.5   which might have experienced a variety of growth histo-
+quasar sample. These results suggest that the Mg ii-        ries.
+based BH masses of high-redshift quasars may be sys-           Some previous studies have used phenomenological
+tematically larger by ∼ 0.1dex than their Hβ-based BH       approach to understand the redshift evolution of the
+masses.                                                     MBH − M∗ relation. For example, Caplar et al. (2018)
+                                                            developed an analytical method to derive the MBH −M∗
+                                                            relation that matches the observed star formation rate
+5. THE SMBH-HOST GALAXY COEVOLUTION IN                      density and quasar luminosity function, who suggested
+               THE REIONIZATION ERA                         that the BH-to-host mass ratio should be larger at
+                                                            higher redshift, following an evolution of MBH /M∗ ∝
+  With the host galaxy stellar masses measured in Sec-
+                                                            (1 + z)2.5 . Pacucci et al. (2023) showed that low-
+tion 3 and the black hole masses measured in Section
+4, we now characterize the position of z ≳ 6 luminous
+quasars on the MBH − M∗ plot. Figure 11 illustrates           3   Stone et al. (2023b) also measured the stellar masses of
+the positions of the EIGER quasars on the MBH − M∗                J1120+0641 and J1148+5251. Their results are consistent with
+                                                                  our measurements or upper limits. For these two objects, we use
+plot. We also include other high-redshift quasar host             the MBH and M∗ evaluated in this work.
+galaxies and local galaxies from the literature in this
+14                                                                                            Yue et al.
+
+                                                                J0100+2802                                                        J0148+0600
+                                      16                                                                 4.0
+                                                               Hβ       [O III]                                           Hβ      [O III]
+                                      14                                                                 3.5
+
+                                      12                                                                 3.0
+
+                                      10                                                                 2.5
+
+                                       8                                                                 2.0
+                                                Model
+                                       6        Power Law                                                1.5
+
+                                       4        FeII                                                     1.0
+                                                [O III]
+                                       2                                                                 0.5
+                                                Hβ
+                                       0                                                                 0.0
+                                      33000    34000   35000        36000    37000    38000   39000       32000   33000   34000     35000     36000    37000   38000
+
+                                                                J1030+0524                                                          J159-02
+                                      3.5
+                                                               Hβ      [O III]
+     Flux [10−18 erg s−1 cm−2 Å ]
+
+
+
+
+                                                                                                                                   Hβ       [O III]
+  −1
+
+
+
+
+                                                                                                         2.5
+                                      3.0
+
+                                      2.5                                                                2.0
+
+                                      2.0
+                                                                                                         1.5
+
+                                      1.5
+                                                                                                         1.0
+                                      1.0
+
+                                                                                                         0.5
+                                      0.5
+
+                                      0.0                                                                0.0
+                                       33000   34000   35000        36000    37000    38000   39000       33000   34000   35000     36000     37000    38000   39000
+
+                                                                J1120+0641                                                        J1148+5251
+                                     2.00
+                                               Hγ                           Hγ          Hβ     [O III]   4.0                         Hβ      [O III]
+                                     1.75
+                                                                                                         3.5
+                                     1.50
+                                                                                                         3.0
+                                     1.25
+                                                                                                         2.5
+                                     1.00
+                                                                                                         2.0
+                                     0.75                                                                1.5
+                                     0.50                                                                1.0
+
+                                     0.25                                                                0.5
+
+                                     0.00                                                                0.0
+                                       34000   35000   36000        37000    38000    39000   40000       33000   34000   35000     36000     37000    38000   39000
+
+                                                                                 Observed Wavelength [Angstrom]
+
+Figure 9. The NIRCam grism spectra of the six quasars in our sample and the best-fit models. We fit the quasar spectra as
+a continuum power law (gray) plus iron emission lines (orange), the Hβ lines (blue), the [O iii] lines (green), and the Hγ lines
+(magenta) for J1120+0641. We use the widths of the Hβ lines to measure the mass of the SMBHs.
+
+luminosity AGNs at 4 < z < 7 recently discovered by                                                      local SMBH mass–bulge mass relations, and the SMBH
+JWST violate the local MBH − M∗ relation by 3σ. In                                                       mass distributions of high-redshift bright quasars. This
+contrast, Zhang et al. (2023a) showed that the MBH −M∗                                                   comparison again shows that it is not a trivial task to
+only evolves mildly at z < 10 using the empirical model                                                  correctly characterize the high-redshift MBH − M∗ rela-
+Trinity, which was designed to match observables in-                                                     tion.
+cluding quasar luminosity functions, quasar probability                                                    The stellar masses of the high-redshift quasar host
+distribution functions, active black hole mass functions,                                                galaxies still have large uncertainties. One of the main
+                                                Luminous Quasars and Their Host Galaxies at z ≳ 6                                  15
+                    10.5
+                                                                           et al. (2023) found that the two z ∼ 6.4 quasars in their
+                                EIGER (this work)
+                                                                           sample are consistent with no redshift evolution of the
+                                Yang+23                                    MBH − M∗ relation. In contrast, Stone et al. (2023a)
+                    10.0                                                   argued that the large MBH /M∗ values of high-redshift
+                                                                           quasars can only be partially explained by selection ef-
+                                                                           fects.
+log(MBH,MgII /M )
+
+
+
+
+                     9.5                                                     The EIGER quasars are among the most luminous
+                                                                           quasars at z ≳ 6 (e.g., Fan et al. 2022) and are thus sub-
+                                                                           ject to significant selection bias. We follow the method
+                                                                           described in Li et al. (2022) to estimate the impact of the
+                     9.0
+                                                                           selection bias on our results. To do this, we first gener-
+                                                                           ate a sample of mock galaxies by randomly drawing M∗
+                                                                           values from the z ∼ 6 stellar mass function suggested by
+                     8.5
+                                                                           Song et al. (2016). We then assign a MBH to each mock
+                                                                           galaxy following the low-redshift MBH − M∗ relation in
+                                                                           Zhuang & Ho (2023):
+                     8.0
+                       8.0       8.5      9.0        9.5     10.0   10.5
+                                                                                   log MBH = 1.49 log(M∗ /1011 M⊙ ) + 7.81        (5)
+                                        log(MBH,Hβ /M )
+                                                                           with a scatter of 0.51 dex. We further assume that the
+Figure 10. Comparison between the Mg ii-based and the
+                                                                           Eddington ratios of these SMBHs follow the distribution
+Hβ-based SMBH masses. We also include the quasars at
+z > 6.5 from Yang et al. (2023) and the SDSS DR16 quasars
+                                                                           of z ∼ 4.75 AGNs measured by Kelly & Shen (2013). We
+(Wu & Shen 2022) for comparison. Both the EIGER quasars                    convert the bolometric luminosities of these SMBHs to
+and the quasars from Yang et al. (2023) have Mg ii-based                   L5100 using the bolometric correction in Runnoe et al.
+BH masses that are larger than their Hβ-based BH masses.                   (2012). In addition, we add random errors of 0.3 dex
+Note that the errorbars represent the random errors from                   to MBH and 0.5 dex to M∗ , which mimic the measure-
+spectral fitting; the systematic uncertainties of BH masses                ment errors of these properties (i.e., the scatters of the
+are ∼ 0.3dex.                                                              single-epoch Virial black hole mass estimator and the
+                                                                           systematic error in SED fitting).
+reasons is that we only have two or three photomet-                           Since the quasars in our sample have L5100 >
+ric points for the SED fitting. By improving the PSF                       1046 erg s−1 , we focus on mock galaxies in this lumi-
+models for image fitting, it should be possible to im-                     nosity range. The result is shown in Figure 12. The
+prove the accuracy of the host galaxy flux measurements                    solid and filled contours represent low-redshift AGNs
+and include more photometric points for the SED fit-                       and mock high-redshift quasars, respectively. Due to se-
+ting. Future observations with NIRSpec IFU will pro-                       lection bias, high-redshift mock quasars have MBH /M∗
+vide emission line fluxes (like the [O iii] line) of the                   ratios that are ∼ 1dex higher than the local relation.
+quasar host galaxies (e.g., Marshall et al. 2023), which                   Individual EIGER quasars locate outside the 68% con-
+will put stronger constraints on the stellar masses and                    fidency contour but fall inside the 95% confidency con-
+other properties of the quasar hosts.                                      tour. Nevertheless, the MBH /M∗ ratios of the entire
+                                                                           EIGER sample are still ∼ 1dex higher than the median
+                             5.1. Estimating the Selection Bias            of the mock quasars. This comparison disfavors the hy-
+   It is worth noticing that selection effects can lead to                 pothesis that the overmassive black holes seen in high-
+apparent overmassive black holes in flux-limited sam-                      redshift quasars are purely due to selection effects, and
+ples of quasars (Lauer et al. 2007). Specifically, quasars                 hints at a possible redshift evolution of the MBH /M∗ ra-
+with larger SMBHs are generally more luminous and                          tio. This result is consistent with Pacucci et al. (2023),
+are more likely to be detected in flux-limited surveys.                    who previously inferred a significant redshift evolution
+Zhang et al. (2023a) showed that, for luminous AGNs                        of the MBH − M∗ relation based on the high-redshift
+with Lbol > 1046 erg s−1 and M∗ ∼ 1010 M⊙ , this selec-                    faint AGNs discovered by JWST.
+tion effect leads to a SMBH sample that is ∼ 1dex more                        The high-redshift quasars in Stone et al. (2023b) have
+massive than the true MBH − M∗ relation. However, it                       similar MBH /M∗ ratios to the EIGER quasars, while
+is still unclear how to quantify this selection effect and                 the two z ∼ 6.3 quasars reported by Ding et al. (2023)
+unveil the intrinsic redshift evolution of the MBH − M∗                    are consistent with the mock quasars. However, we no-
+relation. Following the method in Li et al. (2022), Ding                   tice that the quasars in Ding et al. (2023) are fainter
+16                                                                       Yue et al.
+
+
+
+                                 11             Ding+23
+                                                EIGER (This Work)
+                                                High-z Faint AGN
+                                 10
+                                                Kormendy+13 (Mbulge )
+                                                Reines+15
+                                  9             Stone+23
+                    logMBH(M )
+
+
+
+                                  8
+
+
+                                  7
+
+
+                                  6
+                                                      3
+                                                  +1
+                                                dy              15
+                                  5        en                 s+
+                                        rm                ine
+                                      Ko               R e
+                                  7               8                  9           10             11            12
+                                                                         logM∗(M )
+Figure 11. The MBH − M∗ relation. The filled and open red circles represent EIGER quasars with host galaxy detections and
+non-detections, respectively. For the EIGER quasars, we use a typical SMBH mass error of 0.3 dex and use stellar mass errors
+from the prospector models. We include high-redshift quasars from Ding et al. (2023) and Stone et al. (2023b), low-luminosity
+AGNs from Harikane et al. (2023) and Maiolino et al. (2023), and low-redshift galaxies from Kormendy & Ho (2013) and Reines
+& Volonteri (2015) for comparison. EIGER quasars have MBH /M∗ ∼ 0.15, which is ∼ 2dex larger than the low-redshift relations.
+Note that the Kormendy & Ho (2013) relation uses bulge masses instead of total stellar masses and is located on the left side
+of the Reines & Volonteri (2015) relation.
+
+(L5100 ∼ 1045 erg s−1 ) and thus have less severe selec-                       J0100+2802 is saturated in all three bands in EIGER
+tion biases compared to the luminous quasars in our                            imaging, and we are not able to detect its host galaxy.
+sample.                                                                        ALMA observations have suggested that the host galaxy
+  Finally, we note that the EIGER quasars are not se-                          of J0100+2802 is a starburst galaxy with a star forma-
+lected to be a flux-limited sample. The mock catalog                           tion rate of ∼ 850M⊙ /yr (Wang et al. 2019a), which
+method in this subsection can only provide a rough es-                         exhibit clumpy structures (Fujimoto et al. 2020).
+timate of the selection effect. Accurate characterization                         Eilers et al. (2023) reported the NIRCam observa-
+of the selection bias requires a more uniformly selected                       tions and ground-based spectroscopy of J0100+2802,
+sample and a more careful analysis (see, e.g., Pacucci                         who showed that the images of this quasar are well-
+et al. 2023; Zhang et al. 2023a,b, for relevant discus-                        described by a point source, and the C iv, Mg ii, and
+sions), which is beyond the scope of this work. Figure                         Hβ emission lines give consistent estimated BH masses.
+12 demonstrates the need for a larger sample of high-                          We note that the data used in this work was produced
+redshift quasars with more accurate MBH and M∗ mea-                            by a later version of the jwst pipeline compared to Eil-
+surements.                                                                     ers et al. (2023). The spectral fitting of this work is also
+                                                                               slightly different from that of Eilers et al. (2023); we fix
+                    6. DISCUSSION                                              the line ratios and profiles of the [O iii] doublet in the
+            6.1. Notes on Individual Objects                                   spectral fitting, while Eilers et al. (2023) left all emission
+                                                                               line parameters free. Consequently, the spectral proper-
+                   6.1.1. J0100+2802
+                                                                               ties reported in this work are slightly different from that
+  J0100+2802 (z = 6.31) is a hyperluminous quasar dis-                         in Eilers et al. (2023).
+covered by Wu et al. (2015). Due to its high luminosity,
+                                         Luminous Quasars and Their Host Galaxies at z ≳ 6                                              17
+
+                                                  Low-z AGN
+                                                                                J159–02 (z = 6.381) was initially reported by Bañados
+              11       EIGER (This Work)
+                       Ding+23                    Mock High-z Quasar          et al. (2016). The best-fit image model suggests a
+                       Stone+23                                               regular-shaped host galaxy with large radii. The PSF-
+              10                                                              subtracted image shows a projected companion galaxy.
+                                                                              By the time of writing this paper, J159–02 has only been
+                                                                              observed by two visits, where the quasar is located on
+ logMBH(M )
+
+
+
+
+               9
+                                                                              module A.
+               8
+                                                                                                  6.1.5. J1120+0641
+
+               7                                                                J1120+0641 (z = 7.08) was initially reported in
+                                                                              Mortlock et al. (2011). The PSF-subtracted images of
+                                                                              J1120+0641 show irregular features, suggesting that the
+               6
+                                                                              quasar might have experienced a recent galaxy merger.
+                                                                              We also notice that the quasar is ∼ 0.′′ 5 away (about 3.9
+               5
+               8.5   9.0   9.5    10.0   10.5   11.0   11.5   12.0     12.5   kpc at z = 7.08) from the center of the host galaxy.
+                                     logM∗(M )                                  Venemans et al. (2017) reported the high-resolution
+                                                                              ALMA observation of J1120+0641. The sub-mm con-
+Figure 12. Evaluating the selection bias of the luminous                      tinuum of J1120+0641 has a deconvolved FWHM of
+quasar sample. The black contours represent the distribution
+                                                                              1.24 kpc × 0.83 kpc, which is much smaller than the
+of low-redshift AGNs in Zhuang & Ho (2023). The filled
+contours represent the sample of mock quasars at z ∼ 6                        near-IR emission as revealed by NIRCam imaging. This
+with L5100 > 1046 erg s−1 , following the method described                    result indicates that the sub-mm emission and the rest-
+in Li et al. (2022). From inside to outside, the contours                     frame optical emission come from different regions in
+contain 68% and 95% of objects (corresponding to 1σ and                       the quasar host galaxy. Venemans et al. (2017) esti-
+2σ levels). Due to the selection bias, the mock quasar sample                 mated the dynamical mass (Mdyn < 4.3 × 1010 M⊙ ),
+lies above the low-redshift MBH − M∗ relation. Nevertheless,                  dust mass (Mdust ∼ (0.8 − 4) × 108 M⊙ ), and gas mass
+the quasars in this work still have larger MBH /M∗ compared
+                                                                              (Mgas ≲ 2×1010 M⊙ ) of the quasar host. These numbers
+to the median of the mock quasar sample.
+                                                                              are in line with the SMBH mass (MBH = 1.2 × 109 M⊙ )
+                                                                              and the stellar mass (M∗ = 5.6 × 109 M⊙ ) estimated in
+                             6.1.2. J0148+0600                                this work.
+   J0148+0600 (z = 5.977) was initially discovered by                           We notice that the Venemans et al. (2017) also re-
+Jiang et al. (2015). This quasar is known for the large                       ported an offset of ∼ 0.′′ 5 between the quasar (measured
+Gunn-Peterson trough in its spectruum (e.g., Becker                           by ground-based imaging) and the host galaxy (mea-
+et al. 2015) The PSF-subtracted images of J0148+0600                          sured by ALMA). Specifically, the sub-mm emission lo-
+(Figure 3) indicate that its host galaxy has a regular                        cates 0.′′ 22 west and 0.′′ 49 south from the optical quasar.
+elliptical shape. J0148+0600 has two projected com-                           This offset is roughly consistent with our result (see Fig-
+panions in the north and the south directions, and it is                      ure 4). We note that, due to the limited spatial resolu-
+unclear whether these two objects are associated with                         tion and astrometric accuracy, Venemans et al. (2017)
+the quasar.                                                                   were not able to confirm this offset with sufficient sig-
+                                                                              nificance.
+                             6.1.3. J1030+0524                                  Bosman et al. (2023) reported the JWST Mid-Infrared
+  J1030+0524 (z = 6.304) was initially reported by Fan                        Instrument (MIRI) spectrum of J1120+0641, which
+et al. (2001). The image fitting process returns a non-                       covers observed wavelengths 4.9 < λobs < 27.9 µm.
+detection of the quasar host galaxy according to the cri-                     Bosman et al. (2023) reported an Hα-based BH mass
+teria in Section 3.2. Nevertheless, the PSF-subtracted                        of 1.5 × 109 M⊙ , consistent with the Hβ-based results
+images clearly show extended emissions around the                             within scatters. Bosman et al. (2023) also found a red-
+quasar, which have consistent shapes in all three bands.                      shifted Hα core component (∆v = −315 ± 37 km s−1 ),
+These features look like tidal tails and suggest a recent                     which was interpreted as a possible sign of a recoiling
+galaxy merging event. Note that we only got the data                          black hole by the authors. This scenario is in accor-
+from three visits for J1030+0524 by the time of writing                       dance with the offset between the quasar and the host
+this paper.                                                                   galaxy emission.
+
+                                 6.1.4. J159–02                                                   6.1.6. J1148+5251
+18                                                      Yue et al.
+
+  J1148+5251 (z = 6.42) was initially reported by Fan         band PSF of these objects should have different shapes.
+et al. (2003). The image fitting procedure returns a non-     To investigate this effect, we use webbpsf to generate
+detection of the host galaxy. Nevertheless, the PSF-          two PSFs corresponding to two types of SEDs: (1) an
+subtracted image in the F356W band exhibit diffused           M dwarf from the stellar spectrum library by Castelli
+emission extending from the northeast to the southwest        & Kurucz (2003); (2) a quasar at z = 6 with the Van-
+of the quasar. We notice that this emission is absent         den Berk et al. (2001) spectral template. For both the
+in the F200W and the F115W images, which suggests             F356W and the F200W band, the differences between
+that the emission might be dominated by Hβ or [O iii]         the two PSFs have similar levels to the PSF error maps
+nebular lines.                                                described in Section 3.1. We thus expect that the im-
+                                                              pact of SED differences should be comparable to that
+6.2. Systematic Errors and Possible Improvements of           of PSF error maps. The uncertainties introduced by
+                the Image Fitting Method                      the PSF error maps can be estimated by the MCMC
+                                                              samples from a single visit, which introduces an error of
+   Measuring the host galaxies of luminous quasars is a
+                                                              σm,host ∼ 0.02 for the host galaxy magnitude measure-
+challenging task. Given the strong fluxes of the quasars,
+                                                              ments. This value is much smaller than the magnitude
+optimal PSF modeling and image fitting are needed to
+                                                              errors we report in Table 2, which are dominated by the
+reveal the emission from the quasar host galaxies. In
+                                                              inter-visit systematic uncertainties.
+this Section, we discuss the PSF modeling and image
+                                                                 It is still unclear what is the optimal way to model
+fitting methods in previous studies and this work, as
+                                                              the PSF of NIRCam. In particular, the PSF of NIRCam
+well as possible improvements to these methods.
+                                                              depends on the position on the detector, the flux of the
+   We first consider the method to build PSF models. Al-
+                                                              source, and the time of the observation. These effects
+though recent JWST observations of quasar host galax-
+                                                              are ignored in this work due to the limited number of
+ies have been using bright stars to construct PSF mod-
+                                                              PSF stars available, and we leave the detailed analysis
+els, the exact methods adopted by these studies have
+                                                              of these effects to future studies.
+some noticeable differences. For example, Ding et al.
+                                                                 We now consider the method for image fitting. Most
+(2023) identified bright stars in the quasar’s image, then
+                                                              studies of quasar host galaxies (including this work) uses
+chose the best five stars that give the smallest χ2 in the
+                                                              a point source plus a Sérsic profile to describe the im-
+image fitting as PSFs. Stone et al. (2023a) explicitly ob-
+                                                              age of quasars. The specific setting for the Sérsic pro-
+tained images of a bright star and use the images as PSF,
+                                                              files varies between the studies. Ding et al. (2023) left
+instead of using stars in the quasar’s image. Zhuang &
+                                                              all Sérsic parameters free, Zhuang & Shen (2023) fixed
+Shen (2023) tested three tools for PSF modeling, in-
+                                                              the center of the host galaxy to the quasar’s position,
+cluding SWarp (Bertin et al. 2002), PSFEx (Bertin 2011),
+                                                              and this work fix the Sérsic index of the host galaxy to
+and photutils. Zhuang & Shen (2023) suggested that
+                                                              be n = 1 (i.e., an exponential disk). Studies based on
+PSFEx had the best performance, and that host galax-
+                                                              ground-based imaging have used one-dimensional profile
+ies with FG /FQ ∼ 10% can be securely detected with
+                                                              fitting, which is a powerful tool for low-redshift quasar
+sufficient imaging depth.
+                                                              host galaxies (e.g., Matsuoka et al. 2014; Yue et al.
+   In this work, we use photutils to construct PSF mod-
+                                                              2018).
+els, where we gather stars from all quasar fields and all
+                                                                 The result of this work demonstrates the limitation
+visits as PSF stars. The key feature of this work is that
+                                                              of the existing image fitting method. Several quasars
+we estimate error maps of PSF models and add these
+                                                              in the EIGER sample show irregular emissions in their
+errors into image fitting. We suggest that this step is
+                                                              PSF-subtracted images. For these quasars, a regular
+critical and should be included in similar studies in the
+                                                              Sérsic profile might not give the correct description of
+future. Specifically, if we only consider random noises
+                                                              the host galaxy. It is thus desirable to develop image fit-
+when fitting the quasar images, the inaccuracies of the
+                                                              ting methods that can describe irregular galaxy shapes.
+PSF models will have a substantial effect on the fitting
+                                                              Additionally, we suggest that the position of the host
+result and will bias the estimated host galaxy fluxes. By
+                                                              galaxy should be left free instead of fixed to the quasar’s
+including the PSF error maps in image fitting, we give
+                                                              position since some quasars show large offsets from their
+lower weights to pixels that have larger PSF uncertain-
+                                                              host galaxies (like J1120+0641).
+ties and make the resulting host galaxy measurements
+                                                                 Using the bluetides simulation (Feng et al. 2016), Mar-
+less biased.
+                                                              shall et al. (2021) estimated that the detection limit
+   Another systematic error is the SED mismatch be-
+                                                              of high-redshift quasar host galaxies is FG /FQ ∼ 1%
+tween the quasars and the PSF stars. Since quasars
+                                                              for NIRCam (assuming an exposure time of 10 ks).
+and stars have different SEDs in the near-IR, the broad-
+                            Luminous Quasars and Their Host Galaxies at z ≳ 6                                            19
+
+This work successfully detects quasar host galaxies that               redshift galaxies with similar stellar masses. This
+have FG /FQ ∼ 1% with exposure times of ∼ 1.6 ks                       comparison suggests that high-redshift quasars
+for the F356W imaging. With improved PSF models                        might have experienced early SMBH growth com-
+in the future, it is possible to achieve detection limits              pared to the star formation of their host galax-
+of FG /FQ ≲ 1%, allowing us to measure quasars with                    ies. Selection bias also contributes to the high
+fainter host galaxies.                                                 MBH /M∗ ratios of luminous quasars. However, the
+                                                                       MBH /M∗ ratios of EIGER quasars are larger than
+                   7. CONCLUSION                                       the mock luminous quasar sample even after the
+  We present NIRCam observations of six quasars at                     selection bias is considered, hinting at a possible
+z ≳ 6 observed by the EIGER project. We use NIR-                       redshift evolution of the MBH − M∗ relation.
+Cam imaging to measure the host galaxy emissions of
+the quasars, where we fit the quasar images as a point               The EIGER quasars are among the most luminous
+source plus an exponential disk. We construct PSF mod-            quasars at z ≳ 6. The detection of their host galaxies
+els and their error maps using bright stars in the images,        illustrates the promising potential for JWST to build a
+and run MCMC to perform image fitting to estimate                 large sample of high-redshift quasars with host galaxy
+the fluxes of the quasar host galaxies. We use NIRCam             detections in the near-IR. The PSF models of NIRCam
+grism spectra to measure the profile of the broad Hβ              will be improved by future observations and analyses,
+emission lines and calculate the SMBH masses of the               which will enable more accurate characterization of the
+quasars. The main results of this work are as follows:            high-redshift MBH −M∗ relation. Meanwhile, JWST ob-
+                                                                  servations have discovered several AGNs at even higher
+   1. We detect the host galaxy of J0148+0600 in all the          redshifts (e.g., Furtak et al. 2023; Goulding et al. 2023;
+      three bands, as well as the host galaxies of J159–          Larson et al. 2023; Kokorev et al. 2023). Follow-up anal-
+      02 and J1120+0641 in the F200W and the F356W                ysis of these AGNs will characterize the co-evolution of
+      bands. We report tentative detections for the host          SMBHs and their host galaxies at even earlier cosmic
+      galaxies of J159–02 and J1120+0641 in the F115W             times, approaching the origin of the MBH − M∗ relation
+      band. These quasars have host-to-quasar flux ra-            that already has its shape at z ∼ 6.
+      tios of ∼ 1% − 5%. SED fitting shows that these
+      quasar host galaxies have M∗ ≳ 1010 M⊙ .               1    We thank the referee for the valuable comments on
+   2. We report non-detections for the host galaxies of      2    this paper. We thank John Silverman, Madeline Mar-
+      J0100+2802, J1030+0524, and J1148+5251. We             3    shall, Ming-Yang Zhuang, Weizhe Liu and Jinyi Yang
+      also estimate the upper limits of the fluxes and       4    for inspiring discussions and suggestions. DK thanks
+      stellar masses of their host galaxies. The PSF-        5    the support from JSPS KAKENHI Grant Number
+      subtracted image of J1030+0524 and J1148+5251          6    JP21K13956. This work is based on observations made
+      show diffused emissions around the quasar, which       7    with the NASA/ESA/CSA James Webb Space Tele-
+      might come from the tidal tails of the ongoing         8    scope. The data were obtained from the Mikulski
+      galaxy merger or extended [O iii] emissions around     9    Archive for Space Telescopes at the Space Telescope
+      the quasar.                                            10   Science Institute, which is operated by the Association
+                                                             11   of Universities for Research in Astronomy, Inc., under
+   3. We compute the black hole masses of the six            12   NASA contract NAS 5-03127 for JWST. These observa-
+      quasars using their Hβ emission lines. The Hβ-         13   tions are associated with program ID #1243.
+      based black hole masses of these quasars are
+      slightly smaller than the Mg ii-based ones by ∼
+      0.1dex, which is consistent with the results by               Facilities: JWST(NIRCam)
+      Yang et al. (2023).
+                                                                    Software: astropy (Astropy Collaboration et al.
+   4. The quasars in the EIGER sample have                        2013, 2018), psfMC(Mechtley 2014), webbpsf(Perrin
+      MBH /M∗ ∼ 0.15, which is ∼ 2 dex larger than low-           et al. 2014), jwst
+
+                                                      APPENDIX
+20                                                                                        Yue et al.
+                          F356W χ2ν Test                                                  F200W χ2ν Test                                                  F115W χ2ν Test
+           14                                                              16                                                              20
+                   Field Stars            J0148+0600: 2.198                                               J0148+0600: 0.183                                               J0148+0600: 0.107
+           12                                                              14
+                                          J159-02: 0.357                                                  J159-02: 0.152                                                  J159-02: 0.057
+                                                                                                                                           16
+                                          J1120+0641: 0.145                12                             J1120+0641: 0.135                                               J1120+0641: 0.043
+           10
+                                                                           10
+ Numbers
+
+
+
+
+                                                                 Numbers
+
+
+
+
+                                                                                                                                 Numbers
+                                                                                                                                           12
+            8
+                                                                            8
+            6
+                                                                            6                                                               8
+
+            4
+                                                                            4
+                                                                                                                                            4
+            2                                                               2
+
+            0                                                               0                                                               0
+           −0.05   0.00      0.05      0.10      0.15     0.20             −0.05   0.00      0.05      0.10      0.15     0.20             −0.05   0.00      0.05      0.10      0.15     0.20
+                   [χ2ν (1p) − χ2ν (1p1e)]/χ2ν (1p1e)                              [χ2ν (1p) − χ2ν (1p1e)]/χ2ν (1p1e)                              [χ2ν (1p) − χ2ν (1p1e)]/χ2ν (1p1e)
+
+Figure 13. Testing the reduced χ2 of the quasars and stars. The histograms present the distribution of ∆χ2ν /χ2ν (Equation 3),
+and the black dashed line marks the criterion for successful host galaxy detection. The ∆χ2ν /χ2ν of the quasars with host galaxy
+detection, averaged over all visits, are listed in red text. In the F356W and the F200W bands, all three quasars have ∆χ2ν that
+are much higher than the PSF stars. In the F115W band, only J0148+0600 passes the detection criteria in the F115W band,
+and J159–02 and J1120+0641 have ∆χ2ν that are similar to some stars.
+
+
+                                       A. VALIDATING THE QUASAR HOST GALAXY DETECTIONS
+   Given the small flux ratios between the detected host galaxies and the quasars, we need to ensure that the detected
+quasar host galaxy emissions are real and are not results of PSF model inaccuracies. We perform this test by running
+the image fitting procedure on the PSF stars selected in Section 3.1. For each PSF star, we first build a new empirical
+PSF model by excluding the star from the PSF star list, then fit the star as a point source plus an exponential disk and
+a sky background. If the PSF models are accurate, we will get non-detections for the exponential disk components.
+In reality, we may get positive fluxes for the exponential disk components due to the inaccuracies of the PSF models,
+according to which we can examine whether the quasar host galaxy detections we report are reliable.
+   We first examine the reduced χ2 values for stars and quasars. The result is shown in Figure 13. Quasars have
+significantly higher ∆χ2ν /χ2ν values than stars. Specifically, all stars have ∆χ2ν /χ2ν < 0.1 in the F356W band and
+∆χ2ν /χ2ν < 0.07 in the F200W and the F115W band; in contrast, the three quasars with host galaxy detections have
+χ2ν /χ2ν > 0.1 in the F356W and F200W bands. The differences in ∆χ2ν /χ2ν between stars and quasars are smaller in
+the F115W band. Figure 13 suggests that the host galaxy detections for the three quasars are real at least in the
+F356W and the F200W bands. These results also explain why we adopt the ∆χ2ν /χ2ν criteria in Section 3.2.
+   Another useful indicator of the quasar host galaxy detections is the signal-to-noise ratio (S/N ). For each quasar, we
+evaluate the S/N of the host galaxy signal within an ellipse aperture that corresponds to two times the half-light radii.
+The dashed ellipses in Figure 3 to 5 mark these apertures. We notice that, due to the contribution of the PSF errors,
+the noises at central pixels are much larger than the noises at larger radii and can even be larger than the total flux
+of the host galaxy. Meanwhile, the “(Image-PSF)/Error” columns in Figure 3 to 5 show that the host galaxy signal
+is significant at larger radii where the PSF errors are smaller. Based on this consideration, when evaluating the S/N
+of quasar host galaxies, we exclude the central regions with r < 2 × FWHMPSF where the PSF errors are high. The
+dashed circles in Figure 3 to 5 represent the masked central regions. We then compute the signal (S) and noise (N )
+in the aperture:
+                                          X                           sX
+                                     S=       I(x, y) − P (x, y), N =       ϵall (x, y)2                            (A1)
+                                                                 (x,y)                                           (x,y)
+
+
+where I(x, y) is the original image, P (x, y) is the best-fit PSF component, and ϵall (x, y) is the composite noise map
+(Equation 2). The S/N of these quasar host galaxies are presented in Figure 3 to Figure 5; these quasar host galaxy
+detections have S/N > 10, which again confirms that the host galaxy signals cannot be explained by PSF errors.
+  We further examine the best-fit parameters of the exponential disk component for the stars. The result of the
+experiment is shown in Figure 14. Again, we note that the three bands have distinct PSF star samples due to the
+magnitude requirements (Section 3.1); in particular, there is no overlap between the PSF stars for the F356W band and
+the F200W band. The open black circles mark stars where the best-fit exponential profile does not satisfy the radii-
+related criteria (criteria (2) and (3) in Section 3.2), for which our image fitting method would report non-detections
+of the host galaxies. The solid circles mark stars that satisfy the radii-related criteria. Note that we do not apply
+                                                              Luminous Quasars and Their Host Galaxies at z ≳ 6                                                                            21
+
+                                                F356W                                                    F200W                                               F115W
+                   1.0
+                                    Stars, Good Re
+                                    Stars, Bad Re
+                   0.8
+                                    Quasars
+Re,circ [arcsec]
+
+
+
+
+                   0.6
+
+                                              J159-02                                                             J159-02                                    J159-02
+                   0.4     J0148+0600                                                                J0148+0600                                      J0148+0600
+                                               J1120+0641                                           J1120+0641                                        J1120+0641
+
+                   0.2
+
+
+
+                     2.5      3.0       3.5   4.0       4.5    5.0   5.5   6.0   2.5   3.0    3.5      4.0   4.5       5.0   5.5   6.0   2.5   3.0   3.5   4.0     4.5   5.0   5.5   6.0
+
+
+                                                                                             mhost − mPSF
+Figure 14. Testing the host galaxy detection reliability using field stars. We fit the stars as a PSF plus an exponential disk
+and a background component, following the same method we used for quasar image fitting. Open circles mark stars that do not
+satisfy the radii-related criteria, filled black circles mark stars that pass the radii-related detection criteria, and the red circles
+represent the quasars with host galaxy detections. Most stars in the F356W and the F200W band fail to pass the radii-related
+criteria, while some stars in the F115W band pass the radii-related detection criteria and have mhost − mPSF similar to the real
+quasars. This Figure demonstrates the reason why we adopt the radii-related detection criteria for the quasar host galaxies.
+
+
+criterion (1) to the stars because most stars were only observed by one visit, meaning that we cannot estimate the
+inter-visit systematic uncertainties for the stars.
+  For the majority of stars, the best-fit exponential profiles have either a very large radii (mimicking a sky background),
+a very small radii (mimicking a point source), or a small axis ratio (mimicking the PSF residual, especially on the
+spikes). As a result, most (> 90%) PSF stars in the F356W band and the F200W band fail to pass criteria (2) and
+(3) and thus return non-detections of the host galaxy component. This result explains why we adopt these criteria in
+Section 3.2. We also notice that stars in the F356W and F200W bands that pass criteria (2) and (3) have faint best-fit
+exponential profiles (∆m = mexp − mPSF ≳ 5, where mexp stands for the best-fit magnitude of the exponential disk
+component). Meanwhile, some stars in the F115W band return an exponential disk component that is ∼ 3.5 − 4.5
+magnitudes fainter than the point source component. By visually inspecting their PSF-subtracted images, we find
+that these stars have strong PSF wings and spikes, which mimic the extended exponential disk. This result is also
+consistent with the finding in Section 3.1 and in Zhuang & Shen (2023), i.e., the PSF spatial variations are stronger
+in bluer bands.
+  The red circles in Figure 14 represent the quasar host galaxies detected in Section 3.2. These quasars pass criteria
+(2) and (3) in the F356W band, indicating that the host galaxy detections are not results of PSF inaccuracies. Another
+piece of evidence for the host galaxy detections is the consistent results from individual visits. Figure 2 presents the
+images of J0148+0600 as an example. For the other two quasars, we also find that the PSF-subtracted images from
+individual visits show similar patterns and that the best-fit host galaxy magnitudes from different visits are consistent
+within ≲ 0.3 magnitudes.
+  We notice that a few stars in the F115W band return ∆m and Re values similar to the quasar host galaxies, meaning
+that it is possible that PSF inaccuracies contribute significantly to the F115W fluxes of the quasar host galaxies. This
+result is consistent with our finding in Section 3.2 that the PSF errors are larger in the F115W band. Furthermore,
+J1120+0641 and J159-02 fail to pass the ∆χ2ν criteria in the F115W band. We thus exclude the F115W magnitudes
+in the SED fitting for these two quasar host galaxies.
+  The next question is whether the reported quasar host galaxy properties (i.e., magnitudes and radii) and their
+errors are reliable. We answer this question using mock observations. For each quasar, we generate a set of mock
+images by adding an exponential profile to the PSF star images. We scale the images and the error maps of the PSF
+stars to match the total flux of the quasar, and use the best-fit parameters of the quasar host galaxy to generate the
+exponential profile. We notice that the errors of image fitting can be large for stars that are much fainter than the
+quasar. To mitigate this effect, we only use stars that have |mstar − mquasar | < 1 to generate mock observations. The
+22                                                                                                                                  Yue et al.
+                                     J0148+0600 F356W                                                                               J159-02 F356W                                                                       J1120+0641 F356W
+                0.46                                                                                           1.00
+                                                                                Mock                                                                                Mock                           0.50                                                             Mock
+                0.44                                                            Quasar                         0.90                                                 Quasar                         0.45                                                             Quasar
+                0.42                                                                                           0.80                                                                                0.40
+  Re [arcsec]
+
+
+
+
+                                                                                                 Re [arcsec]
+
+
+
+
+                                                                                                                                                                                     Re [arcsec]
+                                                                                                               0.70                                                                                0.35
+                0.40
+                                                                                                               0.60                                                                                0.30
+                0.38
+                                                                                                               0.50                                                                                0.25
+                0.36
+                                                                                                               0.40                                                                                0.20
+                0.34
+                                                                                                               0.30                                                                                0.15
+                0.32                                                                                           0.20                                                                                0.10
+                               22.2           22.4           22.6          22.8          23.0                                23.5       24.0          24.5           25.0                                     23.5       24.0        24.5      25.0          25.5     26.0
+                                        Host Magnitude                                                                               Host Magnitude                                                                        Host Magnitude
+                                     J0148+0600 F200W                                                                               J159-02 F200W                                                                       J1120+0641 F200W
+           18                                                                                             27
+                                                                                                                                                                                              28
+           16                                                                                             24
+
+                                                                                                          21                                                                                  24
+           14
+
+           12                                                                                             18                                                                                  20
+ Numbers
+
+
+
+
+                                                                                                Numbers
+
+
+
+
+                                                                                                                                                                                    Numbers
+           10                                                                                             15                                                                                  16
+                8                                                                                         12
+                                                                                                                                                                                              12
+                6                                                                                              9
+                                                                                                                                                                                                   8
+                4                                                                                              6
+
+                2                                                                                              3                                                                                   4
+
+                0                                                                                              0                                                                                   0
+                       23.2           23.3          23.4          23.5          23.6                                  24.4   24.6     24.8     25.0          25.2    25.4    25.6                       24.20        24.25   24.30     24.35       24.40     24.45    24.50
+                                         Host Magnitude                                                                             Host Magnitude                                                                           Host Magnitude
+                                     J0148+0600 F115W                                                                               J159-02 F115W                                                                       J1120+0641 F115W
+                                                                                                                                                                                              24
+                                                                                                          16
+           18                                                                                                                                                                                 21
+                                                                                                          14
+           15                                                                                                                                                                                 18
+                                                                                                          12
+ Numbers
+
+
+
+
+                                                                                                Numbers
+
+
+
+
+                                                                                                                                                                                    Numbers
+                                                                                                                                                                                              15
+           12                                                                                             10
+                                                                                                                                                                                              12
+                9                                                                                              8
+                                                                                                                                                                                                   9
+                                                                                                               6
+                6
+                                                                                                               4                                                                                   6
+                3                                                                                                                                                                                  3
+                                                                                                               2
+
+                0                                                                                              0                                                                                   0
+                              23.0           23.2          23.4          23.6          23.8                        24.2      24.4       24.6          24.8          25.0                               24.5          24.6       24.7        24.8           24.9      25.0
+                                         Host Magnitude                                                                             Host Magnitude                                                                           Host Magnitude
+
+Figure 15. Testing the reliability of the reported quasar host galaxies and radii. See text for details about mock observation
+generation. Top panel: the F356W band test, where the morphology and positions of the exponential profile are left free. Each
+black dot represents one realization, and the red dot represents the real observations on the quasar (which is also the input value
+to generate mock observations). Middle and Bottom: the F200W and the F115W band test, where the morphology and positions
+of the exponential profile are fixed to the input values. The histograms represent the realizations of mock observations, and
+the red line and the shaded area represent the best-fit host galaxy magnitude and its error from real observations on quasars.
+The mock observations give exponential profile magnitudes that are consistent with the input value (except for J159–02 in the
+F115W band, which we report as a tentative detection). This test validates the quasar host galaxy magnitudes and their errors
+we report in this work.
+
+
+only exception is J0148+0600 in the F200W and F115W bands, where we adopt −1 < mstar − mquasar < 2 to include
+sufficient numbers of stars.
+  We then run image fitting for the mock images to examine whether we can recover the input host galaxy parameters.
+Following the method used for the quasars, we leave the exponential disk morphology free when fitting the F356W
+images, and keep the morphology fixed to the true value when fitting the F200W and the F115W images. We mimic the
+multiple visits to the quasars by randomly drawing mock observations. Specifically, for one realization, we randomly
+select N mock observations (where N is the number of visits), then compute the median and the standard deviation
+of the host galaxy parameters among these observations as the best-fit values and their errors. We generate 100
+realizations for each quasar and each band.
+                               Luminous Quasars and Their Host Galaxies at z ≳ 6                                            23
+
+  Figure 15 presents the results of this test. In the top panel, we examine the best-fit exponential profile magnitudes
+and radii from mock F356W observations. Each gray point represents one realization, and the red point represents
+the real observation of the quasar (which is also the input parameter to generate mock observations). The best-fit
+exponential profile magnitudes of the mock observations are consistent with the input values within the errors, and
+the radii of the exponential profiles can be recovered with an accuracy of ≲ 50%. In the bottom two panels, we show
+the best-fit exponential profile magnitudes for the mock observations in the F200W and the F115W bands. Note that
+the morphology of the exponential profile is fixed when fitting these two bands. In most cases, the best-fit exponential
+profile magnitudes from mock observations are consistent with the input value within errors, except for J159–02 in the
+F115W band, which we report as a tentative detection. These results indicate that the host galaxy magnitudes and
+their errors reported in this work are reliable.
+  To summarize, the host galaxy detections of J0148+0600, J159–02, and J1120+0641 are reliable and cannot be
+explained by PSF inaccuracies. We report host galaxy detections for J0148+0600 in all three bands. For J159–02 and
+J1120+0641, we report host galaxy detections in the F356W and the F200W bands, as well as tentative detections in
+the F115W band. Mock observations show that the reported host galaxy magnitudes and their errors are accurate,
+validating our image fitting method.
+
+
+                                                           REFERENCES
+Anderson, J., & King, I. R. 2000, PASP, 112, 1360,                Calzetti, D., Armus, L., Bohlin, R. C., et al. 2000, ApJ,
+ doi: 10.1086/316632                                                533, 682, doi: 10.1086/308692
+Astropy Collaboration, Robitaille, T. P., Tollerud, E. J.,        Caplar, N., Lilly, S. J., & Trakhtenbrot, B. 2018, ApJ, 867,
+  et al. 2013, A&A, 558, A33,                                       148, doi: 10.3847/1538-4357/aae691
+  doi: 10.1051/0004-6361/201322068                                Castelli, F., & Kurucz, R. L. 2003, in Modelling of Stellar
+Astropy Collaboration, Price-Whelan, A. M., Sipőcz, B. M.,         Atmospheres, ed. N. Piskunov, W. W. Weiss, & D. F.
+  et al. 2018, AJ, 156, 123, doi: 10.3847/1538-3881/aabc4f          Gray, Vol. 210, A20,
+Bañados, E., Venemans, B. P., Decarli, R., et al. 2016,            doi: 10.48550/arXiv.astro-ph/0405087
+  ApJS, 227, 11, doi: 10.3847/0067-0049/227/1/11                  Chabrier, G. 2003, PASP, 115, 763, doi: 10.1086/376392
+Bañados, E., Schindler, J.-T., Venemans, B. P., et al. 2023,     Chen, Y.-C., Liu, X., Foord, A., et al. 2023, Nature, 616,
+  ApJS, 265, 29, doi: 10.3847/1538-4365/acb3c7                      45, doi: 10.1038/s41586-023-05766-6
+                                                                  Cicone, C., Maiolino, R., Sturm, E., et al. 2014, A&A, 562,
+Becker, G. D., Bolton, J. S., Madau, P., et al. 2015,
+                                                                    A21, doi: 10.1051/0004-6361/201322464
+  MNRAS, 447, 3402, doi: 10.1093/mnras/stu2646
+                                                                  Ciotti, L., & Ostriker, J. P. 2001, ApJ, 551, 131,
+Behroozi, P., Conroy, C., Wechsler, R. H., et al. 2020,
+                                                                    doi: 10.1086/320053
+  MNRAS, 499, 5702, doi: 10.1093/mnras/staa3164
+                                                                  Ciotti, L., Ostriker, J. P., & Proga, D. 2010, ApJ, 717, 708,
+Bertin, E. 2011, in Astronomical Society of the Pacific
+                                                                    doi: 10.1088/0004-637X/717/2/708
+  Conference Series, Vol. 442, Astronomical Data Analysis
+                                                                  Croton, D. J. 2006, MNRAS, 369, 1808,
+  Software and Systems XX, ed. I. N. Evans,
+                                                                    doi: 10.1111/j.1365-2966.2006.10429.x
+  A. Accomazzi, D. J. Mink, & A. H. Rots, 435
+                                                                  Decarli, R., Walter, F., Venemans, B. P., et al. 2018, ApJ,
+Bertin, E., Mellier, Y., Radovich, M., et al. 2002, in
+                                                                    854, 97, doi: 10.3847/1538-4357/aaa5aa
+  Astronomical Society of the Pacific Conference Series,
+                                                                  Di Matteo, T., Springel, V., & Hernquist, L. 2005, Nature,
+  Vol. 281, Astronomical Data Analysis Software and                 433, 604, doi: 10.1038/nature03335
+  Systems XI, ed. D. A. Bohlender, D. Durand, & T. H.             Ding, X., Silverman, J. D., & Onoue, M. 2022, ApJL, 939,
+  Handley, 228                                                      L28, doi: 10.3847/2041-8213/ac9c02
+Bordoloi, R., Simcoe, R. A., Matthee, J., et al. 2023, arXiv      Ding, X., Silverman, J., Treu, T., et al. 2020, ApJ, 888, 37,
+  e-prints, arXiv:2307.01273,                                       doi: 10.3847/1538-4357/ab5b90
+  doi: 10.48550/arXiv.2307.01273                                  Ding, X., Onoue, M., Silverman, J. D., et al. 2023, Nature,
+Bosman, S. E. I., Álvarez-Márquez, J., Colina, L., et al.         621, 51, doi: 10.1038/s41586-023-06345-5
+  2023, arXiv e-prints, arXiv:2307.14414,                         D’Odorico, V., Bañados, E., Becker, G. D., et al. 2023,
+  doi: 10.48550/arXiv.2307.14414                                    MNRAS, 523, 1399, doi: 10.1093/mnras/stad1468
+Byler, N., Dalcanton, J. J., Conroy, C., & Johnson, B. D.         Eilers, A.-C., Simcoe, R. A., Yue, M., et al. 2023, ApJ, 950,
+  2017, ApJ, 840, 44, doi: 10.3847/1538-4357/aa6c66                 68, doi: 10.3847/1538-4357/acd776
+24                                                            Yue et al.
+
+Fabian, A. C. 2012, ARA&A, 50, 455,                                 King, A., & Pounds, K. 2015, ARA&A, 53, 115,
+  doi: 10.1146/annurev-astro-081811-125521                            doi: 10.1146/annurev-astro-082214-122316
+Fan, X., Banados, E., & Simcoe, R. A. 2022, arXiv e-prints,         Kocevski, D. D., Onoue, M., Inayoshi, K., et al. 2023, arXiv
+  arXiv:2212.06907, doi: 10.48550/arXiv.2212.06907                   e-prints, arXiv:2302.00012,
+Fan, X., Narayanan, V. K., Lupton, R. H., et al. 2001, AJ,           doi: 10.48550/arXiv.2302.00012
+  122, 2833, doi: 10.1086/324111                                    Kokorev, V., Fujimoto, S., Labbe, I., et al. 2023, arXiv
+Fan, X., Strauss, M. A., Schneider, D. P., et al. 2003, AJ,          e-prints, arXiv:2308.11610,
+  125, 1649, doi: 10.1086/368246                                     doi: 10.48550/arXiv.2308.11610
+Farina, E. P., Schindler, J.-T., Walter, F., et al. 2022, ApJ,      Kormendy, J., & Gebhardt, K. 2001, in American Institute
+  941, 106, doi: 10.3847/1538-4357/ac9626                            of Physics Conference Series, Vol. 586, 20th Texas
+Feng, Y., Di-Matteo, T., Croft, R. A., et al. 2016, MNRAS,           Symposium on relativistic astrophysics, ed. J. C. Wheeler
+  455, 2778, doi: 10.1093/mnras/stv2484                              & H. Martel, 363–381, doi: 10.1063/1.1419581
+Fiore, F., Feruglio, C., Shankar, F., et al. 2017, A&A, 601,        Kormendy, J., & Ho, L. C. 2013, ARA&A, 51, 511,
+  A143, doi: 10.1051/0004-6361/201629478                             doi: 10.1146/annurev-astro-082708-101811
+Fujimoto, S., Oguri, M., Nagao, T., Izumi, T., & Ouchi, M.          Larson, R. L., Finkelstein, S. L., Kocevski, D. D., et al.
+  2020, ApJ, 891, 64, doi: 10.3847/1538-4357/ab718c                   2023, arXiv e-prints, arXiv:2303.08918,
+Furtak, L. J., Labbé, I., Zitrin, A., et al. 2023, arXiv             doi: 10.48550/arXiv.2303.08918
+  e-prints, arXiv:2308.05735,                                       Lauer, T. R., Tremaine, S., Richstone, D., & Faber, S. M.
+  doi: 10.48550/arXiv.2308.05735                                      2007, ApJ, 670, 249, doi: 10.1086/522083
+Gaia Collaboration, Brown, A. G. A., Vallenari, A., et al.          Li, J., Silverman, J. D., Izumi, T., et al. 2022, ApJL, 931,
+ 2018, A&A, 616, A1, doi: 10.1051/0004-6361/201833051                 L11, doi: 10.3847/2041-8213/ac6de8
+Goulding, A. D., Greene, J. E., Setton, D. J., et al. 2023,         Maiolino, R., Scholtz, J., Curtis-Lake, E., et al. 2023, arXiv
+ arXiv e-prints, arXiv:2308.02750,                                   e-prints, arXiv:2308.01230,
+ doi: 10.48550/arXiv.2308.02750                                      doi: 10.48550/arXiv.2308.01230
+Harikane, Y., Zhang, Y., Nakajima, K., et al. 2023, arXiv           Marshall, M. A., Wyithe, J. S. B., Windhorst, R. A., et al.
+  e-prints, arXiv:2303.11946,                                        2021, MNRAS, 506, 1209, doi: 10.1093/mnras/stab1763
+  doi: 10.48550/arXiv.2303.11946                                    Marshall, M. A., Mechtley, M., Windhorst, R. A., et al.
+Heckman, T. M., & Best, P. N. 2014, ARA&A, 52, 589,                  2020, ApJ, 900, 21, doi: 10.3847/1538-4357/abaa4c
+  doi: 10.1146/annurev-astro-081913-035722                          Marshall, M. A., Perna, M., Willott, C. J., et al. 2023,
+Hopkins, P. F., Hernquist, L., Cox, T. J., & Kereš, D. 2008,        arXiv e-prints, arXiv:2302.04795,
+  ApJS, 175, 356, doi: 10.1086/524362                                doi: 10.48550/arXiv.2302.04795
+Horne, K. 1986, PASP, 98, 609, doi: 10.1086/131801                  Matsuoka, Y., Strauss, M. A., Price, Ted N., I., &
+Izumi, T., Onoue, M., Matsuoka, Y., et al. 2019, PASJ, 71,           DiDonato, M. S. 2014, ApJ, 780, 162,
+  111, doi: 10.1093/pasj/psz096                                      doi: 10.1088/0004-637X/780/2/162
+Jahnke, K., & Macciò, A. V. 2011, ApJ, 734, 92,                    Matsuoka, Y., Iwasawa, K., Onoue, M., et al. 2018, ApJS,
+  doi: 10.1088/0004-637X/734/2/92                                    237, 5, doi: 10.3847/1538-4365/aac724
+Jiang, L., McGreer, I. D., Fan, X., et al. 2015, AJ, 149, 188,      Matthee, J., Mackenzie, R., Simcoe, R. A., et al. 2023a,
+  doi: 10.1088/0004-6256/149/6/188                                   ApJ, 950, 67, doi: 10.3847/1538-4357/acc846
+—. 2016, ApJ, 833, 222, doi: 10.3847/1538-4357/833/2/222            Matthee, J., Naidu, R. P., Brammer, G., et al. 2023b, arXiv
+Johnson, B. D., Leja, J., Conroy, C., & Speagle, J. S. 2021,         e-prints, arXiv:2306.05448,
+  ApJS, 254, 22, doi: 10.3847/1538-4365/abef67                       doi: 10.48550/arXiv.2306.05448
+Kashino, D., Lilly, S. J., Matthee, J., et al. 2023a, ApJ,          Mazzucchelli, C., Bischetti, M., D’Odorico, V., et al. 2023,
+ 950, 66, doi: 10.3847/1538-4357/acc588                              arXiv e-prints, arXiv:2306.16474.
+Kashino, D., Lilly, S. J., Simcoe, R. A., et al. 2023b,              https://arxiv.org/abs/2306.16474
+ Nature, 617, 261, doi: 10.1038/s41586-023-05901-3                  Mechtley, M. 2014, PhD thesis, Arizona State University
+Kaspi, S., Maoz, D., Netzer, H., et al. 2005, ApJ, 629, 61,         Mechtley, M., Jahnke, K., Windhorst, R. A., et al. 2016,
+ doi: 10.1086/431275                                                 ApJ, 830, 156, doi: 10.3847/0004-637X/830/2/156
+Kelly, B. C., & Shen, Y. 2013, ApJ, 764, 45,                        Merloni, A., & Heinz, S. 2008, MNRAS, 388, 1011,
+  doi: 10.1088/0004-637X/764/1/45                                    doi: 10.1111/j.1365-2966.2008.13472.x
+                              Luminous Quasars and Their Host Galaxies at z ≳ 6                                          25
+
+Mortlock, D. J., Warren, S. J., Venemans, B. P., et al. 2011,   Storey, P. J., & Zeippen, C. J. 2000, MNRAS, 312, 813,
+ Nature, 474, 616, doi: 10.1038/nature10159                       doi: 10.1046/j.1365-8711.2000.03184.x
+Neeleman, M., Novak, M., Venemans, B. P., et al. 2021,          Tremaine, S., Gebhardt, K., Bender, R., et al. 2002, ApJ,
+  ApJ, 911, 141, doi: 10.3847/1538-4357/abe70f                    574, 740, doi: 10.1086/341002
+Pacucci, F., Nguyen, B., Carniani, S., Maiolino, R., & Fan,     Vanden Berk, D. E., Richards, G. T., Bauer, A., et al. 2001,
+  X. 2023, arXiv e-prints, arXiv:2308.12331,                      AJ, 122, 549, doi: 10.1086/321167
+  doi: 10.48550/arXiv.2308.12331                                Venemans, B. P., Walter, F., Zschaechner, L., et al. 2016,
+Park, D., Barth, A. J., Ho, L. C., & Laor, A. 2022, ApJS,         ApJ, 816, 37, doi: 10.3847/0004-637X/816/1/37
+  258, 38, doi: 10.3847/1538-4365/ac3f3e                        Venemans, B. P., Walter, F., Decarli, R., et al. 2017, ApJ,
+Peng, C. Y. 2007, ApJ, 671, 1098, doi: 10.1086/522774             837, 146, doi: 10.3847/1538-4357/aa62ac
+Perrin, M. D., Sivaramakrishnan, A., Lajoie, C.-P., et al.      Venemans, B. P., Walter, F., Neeleman, M., et al. 2020,
+  2014, in Society of Photo-Optical Instrumentation               ApJ, 904, 130, doi: 10.3847/1538-4357/abc563
+  Engineers (SPIE) Conference Series, Vol. 9143, Space          Vestergaard, M., & Peterson, B. M. 2006, ApJ, 641, 689,
+                                                                  doi: 10.1086/500572
+  Telescopes and Instrumentation 2014: Optical, Infrared,
+                                                                Volonteri, M. 2012, Science, 337, 544,
+  and Millimeter Wave, ed. J. Oschmann, Jacobus M.,
+                                                                  doi: 10.1126/science.1220843
+  M. Clampin, G. G. Fazio, & H. A. MacEwen, 91433X,
+                                                                Wang, F., Wang, R., Fan, X., et al. 2019a, ApJ, 880, 2,
+  doi: 10.1117/12.2056689
+                                                                  doi: 10.3847/1538-4357/ab2717
+Plazas, A. A., Shapiro, C., Smith, R., Huff, E., & Rhodes, J.
+                                                                Wang, F., Yang, J., Fan, X., et al. 2019b, ApJ, 884, 30,
+  2018, PASP, 130, 065004, doi: 10.1088/1538-3873/aab820
+                                                                  doi: 10.3847/1538-4357/ab2be5
+Prochaska, J. X., Hennawi, J. F., Westfall, K. B., et al.
+                                                                —. 2021, ApJL, 907, L1, doi: 10.3847/2041-8213/abd8c6
+  2020, Journal of Open Source Software, 5, 2308,
+                                                                Wu, Q., & Shen, Y. 2022, ApJS, 263, 42,
+  doi: 10.21105/joss.02308
+                                                                  doi: 10.3847/1538-4365/ac9ead
+Reines, A. E., & Volonteri, M. 2015, ApJ, 813, 82,              Wu, X.-B., Wang, F., Fan, X., et al. 2015, Nature, 518, 512,
+  doi: 10.1088/0004-637X/813/2/82                                 doi: 10.1038/nature14241
+Runnoe, J. C., Brotherton, M. S., & Shang, Z. 2012,             Yang, J., Wang, F., Fan, X., et al. 2020, ApJL, 897, L14,
+ MNRAS, 422, 478, doi: 10.1111/j.1365-2966.2012.20620.x           doi: 10.3847/2041-8213/ab9c26
+Shen, Y., & Liu, X. 2012, ApJ, 753, 125,                        —. 2021, ApJ, 923, 262, doi: 10.3847/1538-4357/ac2b32
+  doi: 10.1088/0004-637X/753/2/125                              —. 2023, arXiv e-prints, arXiv:2304.09888,
+Shen, Y., Wu, J., Jiang, L., et al. 2019, ApJ, 873, 35,           doi: 10.48550/arXiv.2304.09888
+  doi: 10.3847/1538-4357/ab03d9                                 Yue, M., Jiang, L., Shen, Y., et al. 2018, ApJ, 863, 21,
+Song, M., Finkelstein, S. L., Ashby, M. L. N., et al. 2016,       doi: 10.3847/1538-4357/aacf04
+  ApJ, 825, 5, doi: 10.3847/0004-637X/825/1/5                   Yue, M., Yang, J., Fan, X., et al. 2021, ApJ, 917, 99,
+Stetson, P. B. 1987, PASP, 99, 191, doi: 10.1086/131977           doi: 10.3847/1538-4357/ac0af4
+Stone, M., Lyu, J., Rieke, G. H., & Alberts, S. 2023a, arXiv    Zhang, H., Behroozi, P., Volonteri, M., et al. 2023a,
+  e-prints, arXiv:2308.00047,                                     MNRAS, 523, L69, doi: 10.1093/mnrasl/slad060
+  doi: 10.48550/arXiv.2308.00047                                —. 2023b, arXiv e-prints, arXiv:2309.07210,
+Stone, M. A., Lyu, J., Rieke, G. H., Alberts, S., & Hainline,     doi: 10.48550/arXiv.2309.07210
+  K. N. 2023b, arXiv e-prints, arXiv:2310.18395,                Zhuang, M.-Y., & Ho, L. C. 2023, Nature Astronomy, 7,
+                                                                  1376, doi: 10.1038/s41550-023-02051-4
+  doi: 10.48550/arXiv.2310.18395
+                                                                Zhuang, M.-Y., & Shen, Y. 2023, arXiv e-prints,
+Storchi-Bergmann, T., & Schnorr-Müller, A. 2019, Nature
+                                                                  arXiv:2304.13776, doi: 10.48550/arXiv.2304.13776
+  Astronomy, 3, 48, doi: 10.1038/s41550-018-0611-0
+

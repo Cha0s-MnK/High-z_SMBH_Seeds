@@ -1,0 +1,154 @@
+\begin{thebibliography}{}
+\makeatletter
+\relax
+\def\mn@urlcharsother{\let\do\@makeother \do\$\do\&\do\#\do\^\do\_\do\%\do\~}
+\def\mn@doi{\begingroup\mn@urlcharsother \@ifnextchar [ {\mn@doi@} {\mn@doi@[]}}
+\def\mn@doi@[#1]#2{\def\@tempa{#1}\ifx\@tempa\@empty \href {http://dx.doi.org/#2} {doi:#2}\else \href {http://dx.doi.org/#2} {#1}\fi \endgroup}
+\def\mn@eprint#1#2{\mn@eprint@#1:#2::\@nil}
+\def\mn@eprint@arXiv#1{\href {http://arxiv.org/abs/#1} {{\tt arXiv:#1}}}
+\def\mn@eprint@dblp#1{\href {http://dblp.uni-trier.de/rec/bibtex/#1.xml} {dblp:#1}}
+\def\mn@eprint@#1:#2:#3:#4\@nil{\def\@tempa {#1}\def\@tempb {#2}\def\@tempc {#3}\ifx \@tempc \@empty \let \@tempc \@tempb \let \@tempb \@tempa \fi \ifx \@tempb \@empty \def\@tempb {arXiv}\fi \@ifundefined {mn@eprint@\@tempb}{\@tempb:\@tempc}{\expandafter \expandafter \csname mn@eprint@\@tempb\endcsname \expandafter{\@tempc}}}
+
+\bibitem[\protect\citeauthoryear{{Matthee} et~al.,}{{Matthee} et~al.}{2024}]{Matthee2024}
+{Matthee} J.,  et~al., 2024. {Little Red Dots: An Abundant Population of Faint Active Galactic Nuclei at z {\ensuremath{\sim}} 5 Revealed by the EIGER and FRESCO JWST Surveys}, \mn@doi [\apj] {10.3847/1538-4357/ad2345}, \href {https://ui.adsabs.harvard.edu/abs/2024ApJ...963..129M} {963, 129}
+
+\bibitem[\protect\citeauthoryear{{Hainline} et~al.,}{{Hainline} et~al.}{2025}]{Hainline2025}
+{Hainline} K.~N.,  et~al., 2025. {An Investigation into the Selection and Colors of Little Red Dots and Active Galactic Nuclei}, \mn@doi [\apj] {10.3847/1538-4357/ad9920}, \href {https://ui.adsabs.harvard.edu/abs/2025ApJ...979..138H} {979, 138}
+
+\bibitem[\protect\citeauthoryear{{Ma} et~al.,}{{Ma} et~al.}{2025}]{Ma2025}
+{Ma} Y.,  et~al., 2025. {UNCOVER: 404 Error{\textemdash}Models Not Found for the Triply Imaged Little Red Dot A2744-QSO1}, \mn@doi [\apj] {10.3847/1538-4357/ada613}, \href {https://ui.adsabs.harvard.edu/abs/2025ApJ...981..191M} {981, 191}
+
+\bibitem[\protect\citeauthoryear{{Ji} et~al.,}{{Ji} et~al.}{2025}]{Ji2025}
+{Ji} X.,  et~al., 2025. {BlackTHUNDER -- A non-stellar Balmer break in a black hole-dominated little red dot at $z=7.04$}, \href {https://ui.adsabs.harvard.edu/abs/2025arXiv250113082J} {p. arXiv:2501.13082} \mn@eprint {arXiv} {2501.13082}
+
+\bibitem[\protect\citeauthoryear{{Juod{\v{z}}balis} et~al.,}{{Juod{\v{z}}balis} et~al.}{2024}]{Juodzbalis2024b}
+{Juod{\v{z}}balis} I.,  et~al., 2024. {JADES - the Rosetta stone of JWST-discovered AGN: deciphering the intriguing nature of early AGN}, \mn@doi [\mnras] {10.1093/mnras/stae2367}, \href {https://ui.adsabs.harvard.edu/abs/2024MNRAS.535..853J} {535, 853}
+
+\bibitem[\protect\citeauthoryear{{Maiolino} et~al.,}{{Maiolino} et~al.}{2024}]{Maiolino_xray_weak}
+{Maiolino} R.,  et~al., 2024. {JWST meets Chandra: a large population of Compton thick, feedback-free, and X-ray weak AGN, with a sprinkle of SNe}, \href {https://ui.adsabs.harvard.edu/abs/2024arXiv240500504M} {p. arXiv:2405.00504} \mn@eprint {arXiv} {2405.00504}
+
+\bibitem[\protect\citeauthoryear{{Rusakov} et~al.,}{{Rusakov} et~al.}{2025}]{Rusakov2025}
+{Rusakov} V.,  et~al., 2025. {JWST's little red dots: an emerging population of young, low-mass AGN cocooned in dense ionized gas}, \href {https://ui.adsabs.harvard.edu/abs/2025arXiv250316595R} {p. arXiv:2503.16595} \mn@eprint {arXiv} {2503.16595}
+
+\bibitem[\protect\citeauthoryear{{Naidu} et~al.,}{{Naidu} et~al.}{2025}]{Naidu2025}
+{Naidu} R.~P.,  et~al., 2025. {A ``Black Hole Star'' Reveals the Remarkable Gas-Enshrouded Hearts of the Little Red Dots}, \href {https://ui.adsabs.harvard.edu/abs/2025arXiv250316596N} {p. arXiv:2503.16596} \mn@eprint {arXiv} {2503.16596}
+
+\bibitem[\protect\citeauthoryear{{Lambrides} et~al.,}{{Lambrides} et~al.}{2024}]{Lambrides2024}
+{Lambrides} E.,  et~al., 2024. {The Case for Super-Eddington Accretion: Connecting Weak X-ray and UV Line Emission in JWST Broad-Line AGN During the First Gyr of Cosmic Time}, \href {https://ui.adsabs.harvard.edu/abs/2024arXiv240913047L} {p. arXiv:2409.13047} \mn@eprint {arXiv} {2409.13047}
+
+\bibitem[\protect\citeauthoryear{{Lupi}, {Trinca}, {Volonteri}, {Dotti}  \& {Mazzucchelli}}{{Lupi} et~al.}{2024}]{Lupi2024}
+{Lupi} A.,  {Trinca} A.,  {Volonteri} M.,  {Dotti} M.,   {Mazzucchelli} C.,  2024. {Size matters: are we witnessing super-Eddington accretion in high-redshift black holes from JWST?}, \mn@doi [\aap] {10.1051/0004-6361/202451249}, \href {https://ui.adsabs.harvard.edu/abs/2024A&A...689A.128L} {689, A128}
+
+\bibitem[\protect\citeauthoryear{{Baggen} et~al.,}{{Baggen} et~al.}{2024}]{Baggen2024}
+{Baggen} J. F.~W.,  et~al., 2024. {The Small Sizes and High Implied Densities of ``Little Red Dots'' with Balmer Breaks Could Explain Their Broad Emission Lines without an Active Galactic Nucleus}, \mn@doi [\apjl] {10.3847/2041-8213/ad90b8}, \href {https://ui.adsabs.harvard.edu/abs/2024ApJ...977L..13B} {977, L13}
+
+\bibitem[\protect\citeauthoryear{{Maiolino} et~al.,}{{Maiolino} et~al.}{2025}]{Maiolino2025}
+{Maiolino} R.,  et~al., 2025. {A black hole in a near-pristine galaxy 700 million years after the Big Bang}, \href {https://ui.adsabs.harvard.edu/abs/2025arXiv250522567M} {p. arXiv:2505.22567} \mn@eprint {arXiv} {2505.22567}
+
+\bibitem[\protect\citeauthoryear{{Furtak} et~al.,}{{Furtak} et~al.}{2023}]{Furtak2023}
+{Furtak} L.~J.,  et~al., 2023. {JWST UNCOVER: Extremely Red and Compact Object at z $_{phot} \sim$ 7.6 Triply Imaged by A2744}, \mn@doi [\apj] {10.3847/1538-4357/acdc9d}, \href {https://ui.adsabs.harvard.edu/abs/2023ApJ...952..142F} {952, 142}
+
+\bibitem[\protect\citeauthoryear{{Furtak} et~al.,}{{Furtak} et~al.}{2024}]{Furtak2023_AGN}
+{Furtak} L.~J.,  et~al., 2024. {A high black-hole-to-host mass ratio in a lensed AGN in the early Universe}, \mn@doi [\nat] {10.1038/s41586-024-07184-8}, \href {https://ui.adsabs.harvard.edu/abs/2024Natur.628...57F} {628, 57}
+
+\bibitem[\protect\citeauthoryear{{Greene} et~al.,}{{Greene} et~al.}{2024}]{Greene2024}
+{Greene} J.~E.,  et~al., 2024. {UNCOVER Spectroscopy Confirms the Surprising Ubiquity of Active Galactic Nuclei in Red Sources at z > 5}, \mn@doi [\apj] {10.3847/1538-4357/ad1e5f}, \href {https://ui.adsabs.harvard.edu/abs/2024ApJ...964...39G} {964, 39}
+
+\bibitem[\protect\citeauthoryear{{Kocevski} et~al.,}{{Kocevski} et~al.}{2024}]{Kocevski2024}
+{Kocevski} D.~D.,  et~al., 2024. {The Rise of Faint, Red AGN at $z>4$: A Sample of Little Red Dots in the JWST Extragalactic Legacy Fields}, \href {https://ui.adsabs.harvard.edu/abs/2024arXiv240403576K} {p. arXiv:2404.03576} \mn@eprint {arXiv} {2404.03576}
+
+\bibitem[\protect\citeauthoryear{{D'Eugenio} et~al.,}{{D'Eugenio} et~al.}{2025}]{DEugenio2025}
+{D'Eugenio} F.,  et~al., 2025. {BlackTHUNDER strikes twice: rest-frame Balmer-line absorption and high Eddington accretion rate in a Little Red Dot at $z=7.04$}, \href {https://ui.adsabs.harvard.edu/abs/2025arXiv250311752D} {p. arXiv:2503.11752} \mn@eprint {arXiv} {2503.11752}
+
+\bibitem[\protect\citeauthoryear{{Furtak} et~al.,}{{Furtak} et~al.}{2025}]{Furtak2025variab}
+{Furtak} L.~J.,  et~al., 2025. {Investigating photometric and spectroscopic variability in the multiply-imaged Little Red Dot A2744-QSO1}, \href {https://ui.adsabs.harvard.edu/abs/2025arXiv250207875F} {p. arXiv:2502.07875} \mn@eprint {arXiv} {2502.07875}
+
+\bibitem[\protect\citeauthoryear{{Reines} \& {Volonteri}}{{Reines} \& {Volonteri}}{2015}]{VolonteriBHmass}
+{Reines} A.~E.,  {Volonteri} M.,  2015. {Relations between Central Black Hole Mass and Total Galaxy Stellar Mass in the Local Universe}, \mn@doi [\apj] {10.1088/0004-637X/813/2/82}, \href {https://ui.adsabs.harvard.edu/abs/2015ApJ...813...82R} {813, 82}
+
+\bibitem[\protect\citeauthoryear{{Abuter} et~al.,}{{Abuter} et~al.}{2024}]{Abuter2024}
+{Abuter} R.,  et~al., 2024. {A dynamical measure of the black hole mass in a quasar 11 billion years ago}, \mn@doi [\nat] {10.1038/s41586-024-07053-4}, \href {https://ui.adsabs.harvard.edu/abs/2024Natur.627..281A} {627, 281}
+
+\bibitem[\protect\citeauthoryear{{Gnerucci} et~al.,}{{Gnerucci} et~al.}{2011}]{Gnerucci2011}
+{Gnerucci} A.,  et~al., 2011. {A dynamical mass estimator for high z galaxies based on spectroastrometry}, \mn@doi [\aap] {10.1051/0004-6361/201117277}, \href {https://ui.adsabs.harvard.edu/abs/2011A&A...533A.124G} {533, A124}
+
+\bibitem[\protect\citeauthoryear{{Sch{\"o}del} et~al.,}{{Sch{\"o}del} et~al.}{2014}]{Schodel2014}
+{Sch{\"o}del} R.,  et~al., 2014. {Surface brightness profile of the Milky Way's nuclear star cluster}, \mn@doi [\aap] {10.1051/0004-6361/201423481}, \href {https://ui.adsabs.harvard.edu/abs/2014A&A...566A..47S} {566, A47}
+
+\bibitem[\protect\citeauthoryear{{Plummer}}{{Plummer}}{1911}]{Plummer1911}
+{Plummer} H.~C.,  1911. {On the problem of distribution in globular star clusters}, \mn@doi [\mnras] {10.1093/mnras/71.5.460}, \href {https://ui.adsabs.harvard.edu/abs/1911MNRAS..71..460P} {71, 460}
+
+\bibitem[\protect\citeauthoryear{{Marconcini} et~al.,}{{Marconcini} et~al.}{2023}]{Marconcini2023}
+{Marconcini} C.,  et~al., 2023. {MOKA$^{3D}$: An innovative approach to 3D gas kinematic modelling. I. Application to AGN ionised outflows}, \mn@doi [\aap] {10.1051/0004-6361/202346821}, \href {https://ui.adsabs.harvard.edu/abs/2023A&A...677A..58M} {677, A58}
+
+\bibitem[\protect\citeauthoryear{{Marconcini} et~al.,}{{Marconcini} et~al.}{2025}]{Marconcini2025}
+{Marconcini} C.,  et~al., 2025. {Evidence of the fast acceleration of AGN-driven winds at kiloparsec scales}, \mn@doi [Nature Astronomy] {10.1038/s41550-025-02518-6}, \href {https://ui.adsabs.harvard.edu/abs/2025NatAs...9..907M} {9, 907}
+
+\bibitem[\protect\citeauthoryear{{Stern} \& {Laor}}{{Stern} \& {Laor}}{2012}]{SternLbol}
+{Stern} J.,  {Laor} A.,  2012. {Type 1 AGN at low z- I. Emission properties}, \mn@doi [\mnras] {10.1111/j.1365-2966.2012.20901.x}, \href {https://ui.adsabs.harvard.edu/abs/2012MNRAS.423..600S} {423, 600}
+
+\bibitem[\protect\citeauthoryear{{Juod{\v{z}}balis} et~al.,}{{Juod{\v{z}}balis} et~al.}{2024}]{Juodzbalis2024}
+{Juod{\v{z}}balis} I.,  et~al., 2024. {A dormant overmassive black hole in the early Universe}, \mn@doi [\nat] {10.1038/s41586-024-08210-5}, \href {https://ui.adsabs.harvard.edu/abs/2024Natur.636..594J} {636, 594}
+
+\bibitem[\protect\citeauthoryear{{Juod{\v{z}}balis} et~al.,}{{Juod{\v{z}}balis} et~al.}{2025}]{Juodzbalis2025}
+{Juod{\v{z}}balis} I.,  et~al., 2025. {JADES: comprehensive census of broad-line AGN from Reionization to Cosmic Noon revealed by JWST}, \href {https://ui.adsabs.harvard.edu/abs/2025arXiv250403551J} {p. arXiv:2504.03551} \mn@eprint {arXiv} {2504.03551}
+
+\bibitem[\protect\citeauthoryear{{Bromm} \& {Loeb}}{{Bromm} \& {Loeb}}{2003}]{BL2003_DCBH}
+{Bromm} V.,  {Loeb} A.,  2003. {Formation of the First Supermassive Black Holes}, \mn@doi [\apj] {10.1086/377529}, \href {https://ui.adsabs.harvard.edu/abs/2003ApJ...596...34B} {596, 34}
+
+\bibitem[\protect\citeauthoryear{{Natarajan} et~al.,}{{Natarajan} et~al.}{2024}]{Natarajan2024}
+{Natarajan} P.,  et~al., 2024. {First Detection of an Overmassive Black Hole Galaxy UHZ1: Evidence for Heavy Black Hole Seed Formation from Direct Collapse}, \mn@doi [\apjl] {10.3847/2041-8213/ad0e76}, \href {https://ui.adsabs.harvard.edu/abs/2024ApJ...960L...1N} {960, L1}
+
+\bibitem[\protect\citeauthoryear{{Zhang} et~al.,}{{Zhang} et~al.}{2025}]{Zhang2025_PBH}
+{Zhang} S.,  et~al., 2025. {How do Massive Primordial Black Holes Impact the Formation of the First Stars and Galaxies?}, \mn@doi [\apj] {10.3847/1538-4357/adddb4}, \href {https://ui.adsabs.harvard.edu/abs/2025ApJ...987..185Z} {987, 185}
+
+\bibitem[\protect\citeauthoryear{{Wise} et~al.,}{{Wise} et~al.}{2019}]{Wise2019}
+{Wise} J.~H.,  et~al., 2019. {Formation of massive black holes in rapidly growing pre-galactic gas clouds}, \mn@doi [\nat] {10.1038/s41586-019-0873-4}, \href {https://ui.adsabs.harvard.edu/abs/2019Natur.566...85W} {566, 85}
+
+\bibitem[\protect\citeauthoryear{{Bromm} \& {Yoshida}}{{Bromm} \& {Yoshida}}{2011}]{BrommYoshida2011_Review}
+{Bromm} V.,  {Yoshida} N.,  2011. {The First Galaxies}, \mn@doi [\araa] {10.1146/annurev-astro-081710-102608}, \href {https://ui.adsabs.harvard.edu/abs/2011ARA&A..49..373B} {49, 373}
+
+\bibitem[\protect\citeauthoryear{{Pacucci}, {Ferrara}, {Volonteri}  \& {Dubus}}{{Pacucci} et~al.}{2015}]{Pacucci2015_DCBH}
+{Pacucci} F.,  {Ferrara} A.,  {Volonteri} M.,   {Dubus} G.,  2015. {Shining in the dark: the spectral evolution of the first black holes}, \mn@doi [\mnras] {10.1093/mnras/stv2196}, \href {https://ui.adsabs.harvard.edu/abs/2015MNRAS.454.3771P} {454, 3771}
+
+\bibitem[\protect\citeauthoryear{{Carr} \& {K{\"u}hnel}}{{Carr} \& {K{\"u}hnel}}{2020}]{Carr2020}
+{Carr} B.,  {K{\"u}hnel} F.,  2020. {Primordial Black Holes as Dark Matter: Recent Developments}, \mn@doi [Annual Review of Nuclear and Particle Science] {10.1146/annurev-nucl-050520-125911}, \href {https://ui.adsabs.harvard.edu/abs/2020ARNPS..70..355C} {70, 355}
+
+\bibitem[\protect\citeauthoryear{{Zhang}, {Bromm}  \& {Liu}}{{Zhang} et~al.}{2024}]{Zhang2024_BiasedPBH}
+{Zhang} S.,  {Bromm} V.,   {Liu} B.,  2024. {How Do Primordial Black Holes Change the Halo Mass Function and Structure?}, \mn@doi [\apj] {10.3847/1538-4357/ad7b0d}, \href {https://ui.adsabs.harvard.edu/abs/2024ApJ...975..139Z} {975, 139}
+
+\bibitem[\protect\citeauthoryear{{Qin}, {Kumar}, {Natarajan}  \& {Weiner}}{{Qin} et~al.}{2025}]{Qin2025_NQPH}
+{Qin} W.,  {Kumar} S.,  {Natarajan} P.,   {Weiner} N.,  2025. {Not-quite-primordial black holes}, \href {https://ui.adsabs.harvard.edu/abs/2025arXiv250613858Q} {p. arXiv:2506.13858} \mn@eprint {arXiv} {2506.13858}
+
+\bibitem[\protect\citeauthoryear{{Inayoshi}}{{Inayoshi}}{2025}]{Inayoshi2025_firstBHs}
+{Inayoshi} K.,  2025. {Little Red Dots as the Very First Activity of Black Hole Growth}, \href {https://ui.adsabs.harvard.edu/abs/2025arXiv250305537I} {p. arXiv:2503.05537} \mn@eprint {arXiv} {2503.05537}
+
+\bibitem[\protect\citeauthoryear{{Harikane} et~al.,}{{Harikane} et~al.}{2023}]{Harikane_AGN}
+{Harikane} Y.,  et~al., 2023. {A JWST/NIRSpec First Census of Broad-Line AGNs at z=4-7: Detection of 10 Faint AGNs with M\_BH\raisebox{-0.5ex}\textasciitilde10\^6-10\^8 M\_sun and Their Host Galaxy Properties}, \href {https://ui.adsabs.harvard.edu/abs/2023arXiv230311946H} {p. arXiv:2303.11946} \mn@eprint {arXiv} {2303.11946}
+
+\bibitem[\protect\citeauthoryear{{{\"U}bler} et~al.,}{{{\"U}bler} et~al.}{2023}]{Ubler2023}
+{{\"U}bler} H.,  et~al., 2023. {GA-NIFS: A massive black hole in a low-metallicity AGN at z {\ensuremath{\sim}} 5.55 revealed by JWST/NIRSpec IFS}, \mn@doi [\aap] {10.1051/0004-6361/202346137}, \href {https://ui.adsabs.harvard.edu/abs/2023A&A...677A.145U} {677, A145}
+
+\bibitem[\protect\citeauthoryear{{Kokorev} et~al.,}{{Kokorev} et~al.}{2023}]{Kokorev2023_AGN}
+{Kokorev} V.,  et~al., 2023. {UNCOVER: A NIRSpec Identification of a Broad-line AGN at z = 8.50}, \mn@doi [\apjl] {10.3847/2041-8213/ad037a}, \href {https://ui.adsabs.harvard.edu/abs/2023ApJ...957L...7K} {957, L7}
+
+\bibitem[\protect\citeauthoryear{{Goulding} et~al.,}{{Goulding} et~al.}{2023}]{Goulding2023_AGN}
+{Goulding} A.~D.,  et~al., 2023. {UNCOVER: The Growth of the First Massive Black Holes from JWST/NIRSpec-Spectroscopic Redshift Confirmation of an X-Ray Luminous AGN at z = 10.1}, \mn@doi [\apjl] {10.3847/2041-8213/acf7c5}, \href {https://ui.adsabs.harvard.edu/abs/2023ApJ...955L..24G} {955, L24}
+
+\bibitem[\protect\citeauthoryear{{Maiolino} et~al.,}{{Maiolino} et~al.}{2024}]{Maiolino24_GN-z11}
+{Maiolino} R.,  et~al., 2024. {A small and vigorous black hole in the early Universe}, \mn@doi [\nat] {10.1038/s41586-024-07052-5}, \href {https://ui.adsabs.harvard.edu/abs/2024Natur.627...59M} {627, 59}
+
+\bibitem[\protect\citeauthoryear{{Carnall} et~al.,}{{Carnall} et~al.}{2023}]{Carnall2023}
+{Carnall} A.~C.,  et~al., 2023. {A massive quiescent galaxy at redshift 4.658}, \mn@doi [\nat] {10.1038/s41586-023-06158-6}, \href {https://ui.adsabs.harvard.edu/abs/2023Natur.619..716C} {619, 716}
+
+\bibitem[\protect\citeauthoryear{{Yue} et~al.,}{{Yue} et~al.}{2024}]{Yue2024_QSO}
+{Yue} M.,  et~al., 2024. {EIGER. V. Characterizing the Host Galaxies of Luminous Quasars at z {\ensuremath{\gtrsim}} 6}, \mn@doi [\apj] {10.3847/1538-4357/ad3914}, \href {https://ui.adsabs.harvard.edu/abs/2024ApJ...966..176Y} {966, 176}
+
+\bibitem[\protect\citeauthoryear{{Stone}, {Lyu}, {Rieke}, {Alberts}  \& {Hainline}}{{Stone} et~al.}{2023}]{Stone2023_QSO}
+{Stone} M.~A.,  {Lyu} J.,  {Rieke} G.~H.,  {Alberts} S.,   {Hainline} K.~N.,  2023. {Undermassive Host Galaxies of Five z\raisebox{-0.5ex}\textasciitilde6 Luminous Quasars Detected with JWST}, \href {https://ui.adsabs.harvard.edu/abs/2023arXiv231018395S} {p. arXiv:2310.18395} \mn@eprint {arXiv} {2310.18395}
+
+\bibitem[\protect\citeauthoryear{{Ding} et~al.,}{{Ding} et~al.}{2023}]{Ding2023_QSO}
+{Ding} X.,  et~al., 2023. {Detection of stellar light from quasar host galaxies at redshifts above 6}, \mn@doi [\nat] {10.1038/s41586-023-06345-5}, \href {https://ui.adsabs.harvard.edu/abs/2023Natur.621...51D} {621, 51}
+
+\makeatother
+\end{thebibliography}

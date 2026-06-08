@@ -844,7 +844,7 @@ def _read_halo_summary(path: Path) -> pd.DataFrame:
     """Load one per-N_s halo summary table."""
 
     df = pd.read_csv(path)
-    required = ["hid_z0", "M_IMBH_init_tot", "M_SMBH_final", "M_NSC", "n_sunk"]
+    required = ["hid_z0", "M_IMBH_final_tot", "M_SMBH_final", "M_NSC", "n_sunk"]
     for col in required:
         if col not in df.columns:
             raise ValueError(f"Missing required column '{col}' in {path}.")
@@ -881,7 +881,7 @@ def _read_deposit_profile(allcat_ns_path: Path) -> DepositProfile | None:
         return None
 
     arr = np.asarray(np.loadtxt(path, ndmin=2), dtype=float)
-    if arr.ndim != 2 or arr.shape[1] < 6:
+    if arr.ndim != 2 or arr.shape[1] < 8:
         raise ValueError(f"Unexpected combined deposit-file shape in {path}: {arr.shape}")
 
     halo_ids: List[int] = []
@@ -895,7 +895,7 @@ def _read_deposit_profile(allcat_ns_path: Path) -> DepositProfile | None:
         halo_block = arr[arr[:, 0].astype(int) == hid]
         if len(halo_block) == 0:
             continue
-        last_time = float(halo_block[-1, 1])
+        last_time = float(np.min(halo_block[:, 1]))
         # Each deposit file stores one full radial profile per coarse time
         # block. For the figure suite we want only the final z=0 profile.
         block = halo_block[np.isclose(halo_block[:, 1], last_time)]
@@ -907,7 +907,7 @@ def _read_deposit_profile(allcat_ns_path: Path) -> DepositProfile | None:
         halo_ids.append(hid)
         r_inner_rows.append(np.asarray(block[:, 3], dtype=float))
         r_outer_rows.append(np.asarray(block[:, 4], dtype=float))
-        shell = np.asarray(block[:, 5], dtype=float)
+        shell = np.asarray(block[:, 7], dtype=float)
         shell_rows.append(shell)
         cum_rows.append(np.cumsum(shell))
 
@@ -1114,7 +1114,6 @@ def _deposit_mean_profile(
     *,
     grid_kpc: np.ndarray | None = None,
     halo_ids: np.ndarray | None = None,
-    nsc_mass_by_halo: pd.Series | None = None,
 ) -> Tuple[np.ndarray, np.ndarray]:
     """Average deposited cumulative profile for a halo subset.
 
@@ -1145,8 +1144,6 @@ def _deposit_mean_profile(
         # Deposit tables are already cumulative in radius, so only a 1D radial
         # interpolation is needed before taking the halo-average profile.
         prof[jj] = np.interp(grid, radii, cum, left=0.0, right=cum[-1])
-        if nsc_mass_by_halo is not None:
-            prof[jj] += float(nsc_mass_by_halo.get(int(profile.halo_ids[ii]), 0.0))
     return grid, np.mean(prof, axis=0)
 
 
@@ -1343,14 +1340,14 @@ def _halo_level_table(
     out = pd.DataFrame(rows).set_index("hid_z0").sort_index()
     if model.halo_summary is not None and len(model.halo_summary) > 0:
         hs = model.halo_summary[
-            ["hid_z0", "M_IMBH_init_tot", "M_SMBH_final", "M_NSC", "n_sunk"]
+            ["hid_z0", "M_IMBH_final_tot", "M_SMBH_final", "M_NSC", "n_sunk"]
         ].copy()
         hs["hid_z0"] = hs["hid_z0"].astype(int)
         hs = hs.set_index("hid_z0").sort_index()
         out = out.join(
             hs.rename(
                 columns={
-                    "M_IMBH_init_tot": "M_bh_total",
+                    "M_IMBH_final_tot": "M_bh_total",
                     "M_SMBH_final": "M_smbh",
                     "M_NSC": "M_nsc",
                 }
@@ -1696,13 +1693,9 @@ def build_reproduction(
             r_grid_pc,
         )
         if model.deposit_profile is not None:
-            # Newer outputs split terminal NSC transfers from the radial
-            # deposit table, so include M_NSC in the enclosed stellar mass.
-            nsc_mass_by_halo = model.halo_summary.set_index("hid_z0")["M_NSC"]
             r_dep_kpc, c_final = _deposit_mean_profile(
                 model.deposit_profile,
                 grid_kpc=r_grid_pc / 1000.0,
-                nsc_mass_by_halo=nsc_mass_by_halo,
             )
             r_dep_pc = 1000.0 * r_dep_kpc
         else:
@@ -1796,7 +1789,6 @@ def build_reproduction(
     bg_lw = 0.45
     bg_alpha = 0.10
     mass_form_all = gc["M_form"].to_numpy(dtype=float)
-    nsc_mass_by_halo_ref = model_ref.halo_summary.set_index("hid_z0")["M_NSC"]
     for hid in np.unique(halo_ids):
         hmask = halo_ids == hid
         c_init_h = _cumulative_profile(
@@ -1817,7 +1809,6 @@ def build_reproduction(
             if len(radii) == 0 or len(cum) == 0:
                 continue
             c_dep_h = np.interp(grid_kpc, radii, cum, left=0.0, right=cum[-1])
-            c_dep_h = c_dep_h + float(nsc_mass_by_halo_ref.get(int(hid), 0.0))
             ax.plot(r_grid_pc, c_dep_h, "-", lw=bg_lw, color=bg_dep_color, alpha=bg_alpha, zorder=1)
     else:
         final_mask_all = _final_survivor_mask(model_ref)
@@ -1844,7 +1835,6 @@ def build_reproduction(
                 model_ref.deposit_profile,
                 grid_kpc=r_grid_pc / 1000.0,
                 halo_ids=hid_sel,
-                nsc_mass_by_halo=nsc_mass_by_halo_ref,
             )
             r_dep_pc = 1000.0 * r_dep_kpc
         else:

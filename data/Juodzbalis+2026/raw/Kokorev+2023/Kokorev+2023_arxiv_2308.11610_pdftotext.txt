@@ -1,0 +1,848 @@
+                                                  Draft version October 17, 2023
+                                                  Typeset using LATEX twocolumn style in AASTeX63
+
+
+
+
+                                                                   UNCOVER: A NIRSpec Identification of a Broad Line AGN at z = 8.50
+                                                     Vasily Kokorev,1 Seiji Fujimoto,2, 3 Ivo Labbe,4 Jenny E. Greene,5 Rachel Bezanson,6 Pratika Dayal,1
+                                                 Erica J. Nelson,7 Hakim Atek,8 Gabriel Brammer,3 Karina I. Caputi,1, 3 Iryna Chemerynska,8 Sam E. Cutler,9
+                                                   Robert Feldmann,10 Yoshinobu Fudamoto,11, 12 Lukas J. Furtak,13 Andy D. Goulding,5 Anna de Graaff,14
+                                                     Joel Leja,15, 16, 17 Danilo Marchesini,18 Tim B. Miller,19, 20 Themiya Nanayakkara,4 Pascal A. Oesch,21, 3
+                                                            Richard Pan,18 Sedona H. Price,6 David J. Setton,6 Renske Smit,22 Mauro Stefanon,23, 24
+arXiv:2308.11610v4 [astro-ph.GA] 15 Oct 2023
+
+
+
+
+                                                   Bingjie Wang (王冰洁),15, 16, 17 John R. Weaver,9 Katherine E. Whitaker,9, 3 Christina C. Williams,25, 26 and
+                                                                                                     Adi Zitrin13
+                                                                   1 Kapteyn          Astronomical Institute, University of Groningen, 9700 AV Groningen, The Netherlands
+                                                                       2 Department           of Astronomy, The University of Texas at Austin, Austin, TX 78712, USA
+                                                   3 Cosmic Dawn Center (DAWN), Niels Bohr Institute, University of Copenhagen, Jagtvej 128, København N, DK-2200, Denmark
+                                                            4 Centre for Astrophysics and Supercomputing, Swinburne University of Technology, Melbourne, VIC 3122, Australia
+                                                                          5 Department of Astrophysical Sciences, Princeton University, 4 Ivy Lane, Princeton, NJ 08544
+                                                               6 Department of Physics and Astronomy and PITT PACC, University of Pittsburgh, Pittsburgh, PA 15260, USA
+                                                                    7 Department for Astrophysical and Planetary Science, University of Colorado, Boulder, CO 80309, USA
+                                                                 8 Institut d’Astrophysique de Paris, CNRS, Sorbonne Université, 98bis Boulevard Arago, 75014, Paris, France
+                                                                                  9 Department of Astronomy, University of Massachusetts, Amherst, MA 01003, USA
+                                                                             10 Institute for Computational Science, University of Zurich, Zurich, CH-8057, Switzerland
+                                                    11 Waseda Research Institute for Science and Engineering, Faculty of Science and Engineering, Waseda University, 3-4-1 Okubo,
+
+                                                                                                             Shinjuku, Tokyo 169-8555, Japan
+                                                                                12 National Astronomical Observatory of Japan, 2-21-1, Osawa, Mitaka, Tokyo, Japan
+                                                                      13 Physics Department, Ben-Gurion University of the Negev, P.O. Box 653, Be’er-Sheva 84105, Israel
+                                                                                 14 Max-Planck-Institut für Astronomie, Königstuhl 17, D-69117, Heidelberg, Germany
+                                                             15 Department of Astronomy & Astrophysics, The Pennsylvania State University, University Park, PA 16802, USA
+                                                           16 Institute for Computational & Data Sciences, The Pennsylvania State University, University Park, PA 16802, USA
+                                                              17 Institute for Gravitation and the Cosmos, The Pennsylvania State University, University Park, PA 16802, USA
+                                                                                       18 Department of Physics & Astronomy, Tufts University, MA 02155, USA
+                                                                                       19 Department of Astronomy, Yale University, New Haven, CT 06511, USA
+                                                     20 Center for Interdisciplinary Exploration and Research in Astrophysics (CIERA) and Department of Physics and Astronomy,
+
+                                                                                          Northwestern University, 1800 Sherman Ave, Evanston IL 60201, USA
+                                                                         21 Department of Astronomy, University of Geneva, Chemin Pegasi 51, 1290 Versoix, Switzerland
+                                                               22 Astrophysics Research Institute, Liverpool John Moores University, 146 Brownlow Hill, Liverpool L3 5RF, UK
+                                                       23 Departament d’Astronomia i Astrofı̀sica, Universitat de València, C. Dr. Moliner 50, E-46100 Burjassot, València, Spain
+                                               24 Unidad Asociada CSIC ”Grupo de Astrofı́sica Extragaláctica y Cosmologı́a” (Instituto de Fı́sica de Cantabria - Universitat de València)
+                                                            25 NSF’s National Optical-Infrared Astronomy Research Laboratory, 950 N. Cherry Avenue, Tucson, AZ 85719, USA
+                                                                       26 Steward Observatory, University of Arizona, 933 North Cherry Avenue, Tucson, AZ 85721, USA
+
+
+
+                                                                                             (Received n/a; Revised n/a; Accepted n/a)
+
+                                                                                                         Submitted to ApJL
+
+                                                                                                             ABSTRACT
+                                                           Deep observations with JWST have revealed an emerging population of red point-like sources that
+                                                         could provide a link between the postulated supermassive black hole seeds and observed quasars.
+                                                         In this work we present a JWST /NIRSpec spectrum from the JWST Cycle 1 UNCOVER Treasury
+                                                         survey, of a massive accreting black hole at z = 8.50, displaying a clear broad-line component as
+                                                         inferred from the Hβ line with FWHM = 3439 ± 413 km s−1 , typical of the broad line region of an
+                                                         active galactic nucleus (AGN). The AGN nature of this object is further supported by high ionization,
+
+
+                                                Corresponding author: Vasily Kokorev
+                                                kokorev@astro.rug.nl
+2                                                   Kokorev et al.
+
+        as inferred from emission lines, and a point-source morphology. We compute the black hole mass of
+        log10 (MBH /M⊙ ) = 8.17 ± 0.42, and a bolometric luminosity of Lbol ∼ 6.6 × 1045 erg s−1 . These values
+        imply that our object is accreting at ∼ 40% of the Eddington limit. Detailed modeling of the spectral
+        energy distribution in the optical and near-infrared, together with constraints from ALMA, indicate
+        an upper limit on the stellar mass of log10 (M∗ /M⊙ ) < 8.7, which would lead to an unprecedented
+        ratio of black hole to host mass of at least ∼ 30%. This is orders of magnitude higher compared to
+        the local QSOs, but is consistent with recent AGN studies at high redshift with JWST. This finding
+        suggests that a non-negligible fraction of supermassive black holes either started out from massive
+        seeds and/or grew at a super-Eddington rate at high redshift. Given the predicted number densities
+        of high-z faint AGN, future NIRSpec observations of larger samples will allow us to further investigate
+        the galaxy-black hole co-evolution in the early Universe.
+
+        Keywords: Active galactic nuclei (16), High-redshift galaxies (734), Early universe (435)
+
+                 1. INTRODUCTION                              2023). In common across these selections are extremely
+   Over the past decades, observations have established       red rest-frame optical colors, flat fλ UV continuum and
+a sample of more than 200 bright active galactic nuclei       generally a very compact morphology. When spectra are
+(AGN) at z > 6, powered by accretion onto massive             available, broad Balmer series lines, such as Hα or Hβ
+black holes (e.g. Fan et al. 2001; Kashikawa et al. 2015;     are a tell-tale sign of ongoing accretion. While these are
+Matsuoka et al. 2018). Lying well within the first billion    UV-faint, they span a large range of bolometric lumi-
+years, many of these black holes are massive (∼ 108−10        nosities Lbol ∼ 1043 − 1046 erg s−1 and black hole (BH)
+M⊙ ; Bañados et al. 2018; Inayoshi et al. 2020) with the     masses MBH ∼ 106 − 108 M⊙ , with some of them be-
+heaviest black hole having a mass of about 1.6×109 only       ing strongly dust obscured, up to AV ∼ 3 (Furtak et al.
+700 million years after the Big Bang (Wang et al. 2021).      2023a). In addition, recently Labbé et al. (2023a,b) pre-
+The presence of such super massive black holes (SMBHs)        sented a large photometrically selected sample of AGN
+is extremely hard to reconcile with black hole formation      in the UNCOVER Cycle I JWST program. These have
+and growth scenarios since they require extremely mas-        been modeled with a composite SED model, which con-
+sive seeds (of ∼ 1300 M⊙ ) to form shortly after the          sists of a dust-reddened Type I AGN, plus an additional
+Big Bang and then continuously and rapidly accrete gas        UV component, attributed to either the scattered light
+at the Eddington rate (a physical limit at which out-         or star formation. The unique finding present across all
+ward radiation pressure balances inward gravitational         of these works are the high number densities of reddened
+force). One possible solution to explain the presence of      QSOs, suggesting than a non-negligible fraction of BH
+such SMBHs lies in invoking super-Eddington accretion         growth at these epochs is taking place behind a thick
+rates (e.g. Haiman & Loeb 2001; Alexander & Natara-           veil of dust.
+jan 2014) to drive the growth of low mass black hole             In this work we report a secure detection of the broad-
+seeds (∼ 100 M⊙ ) formed from the first (metal-free           line AGN emission at z = 8.50. The point source host-
+Population III) stars (Madau & Rees 2001). Another            ing the AGN was first identified as one of the “little
+possible solution is to start from massive seeds which        red-dots” (Greene et al. 2023; Labbé et al. 2023b) in
+includes “nuclear clusters” of 102−4 M⊙ from the col-         the UNCOVER NIRCam sample. Here we report the
+lapse or coalescence of massive stars in compact stellar      results from JW ST /NIRSpec Micro-Shutter Assembly
+clusters (Omukai et al. 2008; Schleicher et al. 2022) or      (MSA) observations of this source in the UNCOVER
+even heavier “direct collapse black hole seeds” of > 103      field (PIs: I. Labbé, R. Bezanson; Bezanson et al. 2022).
+M⊙ from the collapse of pristine gas in early halos (Rees     The exquisite high S/N NIRSpec spectrum allows us to
+1984; Loeb & Rasio 1994).                                     resolve a multitude of lines, including Hβ and [OIII] λλ
+   Observations with the James Webb Space Telescope           4959,5007 Å, and clearly demonstrate the presence of
+(JWST) have started to discover previously missing UV-        the broad line emission in Hβ. The [OIII] λλ 4959,5007
+faint AGN. These have been identified through a combi-        Å lines however only display narrow emission, which
+nation of broad and high ionization lines (Furtak et al.      in conjunction with a near point-like morphology and
+2023a; Goulding et al. 2023; Harikane et al. 2023; Ko-        presence of highly ionized gas provide strong evidence
+cevski et al. 2023; Larson et al. 2023; Maiolino et al.       for AGN activity in our source. A clear broad line (BL)
+2023a,b; Übler et al. 2023) or from color and morphol-       emission in Hβ would make our source the highest red-
+ogy (Barro et al. 2023; Matthee et al. 2023; Yang et al.
+                                               UNCOVER z=8.5 AGN                                                             3
+                                                              .
+shift BL AGN with a secure (S/N> 10) Balmer BL iden-                                  Table 1. Source Properties†
+tification to date (see also Larson et al. 2023).
+   Throughout this work we assume a flat ΛCDM cos-
+mology with Ωm,0 = 0.3, ΩΛ,0 = 0.7 and H0 = 70 km                                  R.A.                      3.640408
+s−1 Mpc−1 , and a Chabrier (2003) initial mass function                             Dec                    −30.386438
+(IMF) between 0.1 − 100 M⊙ . All magnitudes are ex-                                zspec                  8.502 ± 0.003
+pressed in the AB system (Oke 1974).                                              zphot 1                    9.0 ± 0.3
+           2. OBSERVATIONS AND DATA                                                  µ                      1.33 ± 0.02
+                                                                           AV (Hβ/Hγ) [mag]                   2.1+1.1
+                                                                                                                 −1.0
+                  2.1. NIRSpec Setup
+                                                                         AV (continuum) [mag]                  ∼ 1.9
+  Initially identified as a potential high-z AGN candi-                      log10 (M∗ /M⊙ )                   < 8.7
+date via the broad and medium band NIRCam photom-                        FWHMnarrow [km s−1 ]                203 ± 154
+etry (Weaver et al. 2023; Labbé et al. 2023a,b), UN-                     FWHMbroad [km s−1 ]               3439 ± 413
+COVER ID: 204661 is located at R.A. = 3.640408◦ , Dec                    log10 (MBH /M⊙ ) (Hβ)              8.17 ± 0.42
+= -30.386438◦ . The target was observed for a total of                  log10 (MBH /M⊙ ) (L5100 )           8.01 ± 0.40
+2.7 hours with the low-resolution PRISM on July 31                             Lbol [erg s−1 ]          (6.6 ± 3.1) × 1045
+2023, as a part of the MSA follow-up program of the
+                                                                               Lyα EW0 [Å]                   240±30
+UNCOVER JWST field, Abell 2744 (Bezanson et al.                        †
+                                                                           Corrected for the lensing magnification.
+2022). These observations employed a 2-POINT-WITH-                     1   From the latest UNCOVER v3.0.1 catalog
+NIRCam-SIZE2 dither pattern and a 3 shutter slitlet
+nod pattern at an aperture angle of ∼44.0◦ . We show
+the positions of these slits overlaid on a 2.′′ 0 cutout of
+our source in Figure 1. For further details of the obser-
+                                                              which include, but are not necessarily limited to the
+vational setup see Bezanson et al. (2022) and Price et
+                                                              path-loss correction, calibration uncertainty3 , the astro-
+al. (2023, in prep).
+                                                              metric slit position uncertainty, the location and extent
+      2.2. PRISM Data Reduction and Calibration               of the source within a slitlet, and finally source self-
+  The UNCOVER micro-shutter array (MSA) spectra               subtraction when correcting for the local background
+were reduced by using the msaexp (v0.6.10, Brammer            effects. To account for these potential calibration issues
+2022), starting from the level 2 data products obtained       and to determine a total slitloss correction, we perform
+from MAST2 . The pipeline applies corrections to the          an additional flux rescaling by convolving the extracted
+1/f noise, identifies artifacts (e.g. “snowballs”) in the     1D spectrum with all the broad/medium band NIRCam
+calibrated files, as well as removes bias in individual ex-   filters and compare our flux densities to the total pho-
+posures by computing a simple median (e.g. see Rigby          tometry presented in Weaver et al. (2023). The wave-
+et al. 2023). Additional parts of the JWST reduction          length dependent linear correction is then computed by
+pipeline are used to set the slit WCS, perform slit-          fitting a first order polynomial. A complete description
+level flat-fielding and compute the path-loss corrections.    of the data reduction and flux calibration will be pre-
+Each of the 2D slits are then extracted and drizzled onto     sented in Price et al. (2023, in prep.).
+a common pixel grid. The local background subtrac-                                    3. DATA ANALYSIS
+tion is performed by using the shifted, stacked 2D spec-
+tra. To obtain the final 1D spectrum, msaexp performs                              3.1. Spectroscopic Redshift
+an adaptive optimal extraction of the background sub-           In order to compute the spectroscopic redshift, we use
+tracted 2D trace by fitting a Gaussian model where the        msaexp to fit sets of Gaussian continuum splines and
+center and width are allowed to vary (e.g., Horne 1986),      emission lines templates to our spectrum. As an in-
+a similar procedure was used in Goulding et al. (2023)        put parameter, we set nsplines=11 and allow to search
+and Wang et al. (2023).                                       for the minimal χ2 value across the a wide range of
+  It is important to note that the absolute normaliza-        0.1 ≥ z ≥ 20. As indicated in Figure 1, a clear Lyman
+tion of the spectrum can be affected by many factors,         break and several emission lines are clearly present in
+                                                              our spectrum, which results in an unambiguous redshift
+  1 Corresponds to the MSA ID, taken from internal UNCOVER
+    catalog v2.2.1                                                3   Can be of the order of 10-20%: https://jwst-docs.stsci.edu/
+  2 Available from: http://dx.doi.org/10.17909/8k5c-xr27
+                                                                      jwst-near-infrared-spectrograph
+4                                                     Kokorev et al.
+
+
+
+
+Figure 1. Top: JWST /NIRCam 1.′′ 5 stamps and the RGB color image comprised of the F277W, F356W and F444W bands.
+The MSA slitlet layout is highlighted in white. An unambiguous point-like morphology of ID: 20466 can be observed in all
+filters. On each panel we show total magnitudes, with 1σ uncertainty, as presented in the UNCOVER photometric catalog of
+Weaver et al. (2023). Middle: 2D MSA PRISM spectrum produced by msaexp. We optimally scaled the trace to highlight
+all the significant line detections. Bottom: A collapsed 1D spectrum of our source. We show the data in black, while the
+uncertainty on the spectrum is in red. Assuming the best-fit msaexp zspec = 8.502 ± 0.003 we show the positions of all the
+prominent emission with significant (> 3σ) detections as solid vertical lines. Emission for which we only obtain an upper limit
+are shown with dashed lines.
+
+of zspec = 8.502 ± 0.003. This closely matches the initial            The spectrum of our object presented in Figure 1
+redshift estimate of zphot ∼ 9 obtained by fitting the             shows a clear broad component present in the Hβ emis-
+broad and medium band NIRCam data (Weaver et al.                   sion line when contrasted to the narrower profiles of
+2023) with eazy (Brammer et al. 2008).                             the adjacent [OIII] λλ4959,5007 Å lines. To evaluate
+  For the analysis presented in this work, we used an              the potential significance of this broad feature we per-
+updated version (v1.1) of the Furtak et al. (2023b) an-            form a combined Gaussian fit to the entire line com-
+alytic strong lens model of the cluster. This new model            plex. For the two [OIII] lines we only consider a sin-
+includes one additional multiple image system in the               gle narrow component, while the Hβ is fit with both
+northern substructure, and more importantly, an addi-              narrow and broad models. We allow the velocities
+tional spectroscopic redshift in the north-western sub-            of the narrow and broad components to vary between
+structure from new VLT/MUSE observations of the                    50 − 500 and 1000 − 5000 km s−1 , respectively. In our
+cluster (Bergamini et al. 2023). Together with our se-             fitting, we assume that the width of the narrow com-
+cure zspec for the source, we recover a magnification of           ponent for all three lines is the same, and a fixed ratio
+µ = 1.33 ± 0.02.                                                   [OIII]5007 /[OIII]4959 = 3 (Storey & Zeippen 2000). In
+                                                                   addition to that, we also model the local continuum with
+            3.2. Broad Line AGN Emission
+                                                 UNCOVER z=8.5 AGN                                                          5
+
+
+
+
+Figure 2. Top: Best fit narrow (blue) and broad (green) line Gaussian components fit to the Hβ, [OIII] 4959,5007 line complex.
+A dual fit to the Hβ is necessary to account for both the broad (FWHM∼ 3400 km s−1 ) and narrow (FWHM∼ 200 km s−1 )
+components. The combined fit is shown as a dashed maroon line. The error spectrum is shown as a dashed red line. Bottom
+Left: A zoom in on the Hβ line. Bottom Right: A fit to the blended Hγ (red) and auroral [OIII]4364 (blue) lines. As before,
+the combined fit is shown as a dashed maroon line.
+
+a first order polynomial. We fix the redshift to the one          function, we additionally convolve our model with Gaus-
+obtained from msaexp.                                             sian of variable resolution (de Graaff et al. 2023; Isobe
+  We initialize the fit by first creating a set of models on      et al. 2023). The best fit is then found via non-linear
+the over-sampled wavelength grid. To mimic the vari-              least squares χ2 minimization.
+able resolution of the PRISM, we interpolate our model              From our fit we securely confirm the presence of a dis-
+onto a variable step grid, while making sure that the to-         tinct broad component in Hβ, with a FWHM= 3439 ±
+tal integrated flux is preserved. Early NIRSpec/MSA re-           413 km s−1 . We measure the width of the narrow com-
+sults (de Graaff et al. 2023) have shown that the spectral        ponent to be 203 ± 154 km s−1 . In Figure 2 we show
+resolution of a point-like source falling within a slitlet is     the best fit model to the entire line complex, with the
+higher, compared to a uniformly illuminated slit, some-           narrow and broad components highlighted in blue and
+times up to a factor of two. We therefore conservatively          green, respectively. The flux of the broad component
+increase the nominal spectral resolution by a factor of           was measured to be ∼ 2 higher than that of the narrow
+1.7. To take into account the effects of the line spread          component.
+6                                                   Kokorev et al.
+
+   Emission lines in AGN are typically separated into        the joint template fitting procedure described in Labbé
+permitted (e.g., Lyman and Balmer series of hydrogen)        et al. (2023b), fixing the redshift at zzspec = 8.502.
+and (semi-) forbidden lines (e.g., [OIII]). The distinc-     Briefly, the Labbé et al. method employs a custom
+tion between the two classes is thought to arise from        fitting procedure which combines dust-obscured stellar
+two physically distinct regions around an actively ac-       population models from FSPS (Conroy et al. 2009) with
+creting black hole (see Osterbrock 1978; Vanden Berk         empirical AGN models based on composite optical/near-
+et al. 2001), the parsec scale broad-line region (BLR)       infrared spectra of SDSS quasars (Vanden Berk et al.
+and the kiloparsec-scale narrow-line region (NLR). We        2001; Glikman et al. 2006). To fit the stellar popu-
+find significant line broadening present in the Hβ line,     lation we utilize three independent FSPS models: a
+strongly hinting that some of the Hβ emission originates     dust-free and dust obscured star forming components
+from the BLR of a Type 1 AGN. While broad emission           together with an old quiescent component. A constant
+line features can also be an indicator of large-scale out-   SFH is assumed for the star forming components, while
+flows, if such a scenario was indeed the case, a similar     the quiescent part uses an exponentially declining SFH
+broadening would be present in the forbidden [OIII] lines    with τ = 1 Myr. These templates are reddened by
+(Amorı́n et al. 2012; Hogarth et al. 2020). We do not        AV = 0 − 5 using a Calzetti (2001) attenuation law and
+however find any evidence of that, on the contrary, the      RV = 3.1. The attenuated AGN light is re-emitted in
+measured width of the narrow component is too low to         the mid-to-far infrared and modeled with the CLUMPY
+be consistent with an outflow.                               torus models (Nenkova et al. 2008a,b) as included with
+                                                             FSPS. The far-infrared dust emission associated with
+                3.3. Balmer Decrement
+                                                             dust-obscured star formation is based in a set of Draine
+   The ratio between observed fluxes of Balmer series        et al. (2007) templates employed within FSPS. NIR-
+lines can be used to determine the dust extinction. For      Spec observations are simulated using the published line
+this purpose we will use the Hβ/Hγ ratio. As shown           spread function, increased by a factor 1.4 to account for
+in the bottom right panel of Figure 1, the Hγ line is        a fact that this is a point source. For a full description of
+blended with the [OIII]4364 . We however can use the         the fitting procedure, assumptions and potential caveats
+prior information from the fit to the Hβ+[OIII]4959,5007     please refer to Appendix A in Labbé et al. (2023b).
+complex and fix the narrow line widths to ∼ 203 km/s.           With these models we fit the NIRCam spectroscopy,
+Similarly to Hβ, the Hγ line would also contain a BLR        all available NIRCam broad and medium band photome-
+component. However, the S/N of the broad component           try, plus the point source flux from ALMA Band 6 at 1.2
+in Hγ is too low to reliably perform a double component      mm (Fujimoto et al. 2023a,b) extracted using the NIR-
+fit. Due to this we assume that the primary contribu-        Cam location as a prior. No flux is detected in ALMA to
+tion to the total Hγ flux is coming from the NLR, and        (< 70 µJy, 2σ), which strongly limits the contribution
+compute the Balmer decrement by only considering ra-         of massive star formation (see Labbé et al. 2013).
+tio between the narrow component of the Hβ line and             Three types of model fits are performed: AGN-only,
+our derived Hγ flux. In this case we ensure that both        AGN+stars, stars-only. The AGN-only model fits a sep-
+line fluxes are obtained by integrating similar velocity     arate unreddened blue and reddened AGN template.
+ranges. From this calculation we find Hβ/Hγ = 3.2+0.7
+                                                   −0.5 .    Two templates are needed because of the remarkable
+   To compute the AV we adopt the Small Magellanic           dichotomy that the SEDs of typical “litte red dots” dis-
+Cloud (SMC) reddening law (Gordon et al. 2003), which        play, where the SED at 1 − 2 µm (1000 - 1000 Å rest)
+has been found to match well the dust attenuation in         is blue (fλ ∝ λ−2 ) while the SED at 3 − 5 µm (3100 -
+high-z galaxies (Capak et al. 2015; Reddy et al. 2015,       5200 Å rest) is red (fλ ∝ λ0−2 ).
+2018) and reddened quasars (e.g. see Hopkins et al.             The best-fit blue component is only ∼ 1% of the
+2004). Given Case B recombination, the intrinsic ra-         bolometric luminosity of the red component, consistent
+tio between the lines is (Hβ/Hγ)int =2.14 (Osterbrock        with being scattered AGN light. The absence of clearly
+1989). We find that the observed line ratio implies a        detectable broad UV lines (e.g., CIV, MgII) is consis-
+                               +1.1
+high attenuation of AV = 2.1−1.0    .                        tent with expectations from the blue SDSS QSO tem-
+                 3.4. Template Fitting                       plate given the simulated NIRSpec PRISM resolution
+                                                             and depth. The best-fit dust attenuation is AV ∼ 1.9,
+  While it is likely that the contribution from the host
+                                                             when converted from Calzetti (2001) to the SMC law
+galaxy to the total flux is small, as indicated by the
+                                                             with RV = 2.7, consistent with estimates based on
+mostly point-source like morphology of the source, ob-
+                                                             the Balmer Decrement. Secondly, joint AGN+stars fit
+taining an upper limit on the M∗ can still yield some cru-
+                                                             are performed. These should yield the most realistic
+cial clues regarding the nature of our source. We follow
+                                               UNCOVER z=8.5 AGN                                                        7
+
+constraint on the stellar mass from an underlying host        [NeIII] λλ3869,3968. In this section, we outline the
+galaxy. From these joint fits we derive an upper limit        methods and underlying assumptions employed to de-
+on the stellar mass of log10 (M∗ /M⊙ ) < 8.3 based on the     termine the final flux of each line. All measured line
+95% percentile of the posterior distribution of the mass      fluxes can be found in Table 2.
+of the stellar components. The stellar mass is primarily         The Lyα is fit with a single Gaussian model, where the
+constrained by the combination of red NIRCam colors           FWHM is allowed to vary. Using this fit we extract both
+and the ALMA non-detection, which limits the amount           the line intensity and the rest-frame equivalent width
+of cold dust emission. We also note that evolved stellar      (EW0 ), with the latter being measured at 240±30 Å.
+populations are not seen in our spectrum, due to a lack          In our spectrum we identify the MgII λλ2796,2804
+of a Balmer break. As such the red continuum will most        doublet feature. It is expected that, similarly to Hβ,
+likely correspond to the dusty star formation, therefore      this permitted transition will contain both the narrow
+allowing ALMA to further constrain the shape of our           and broad components. However, the spectral resolu-
+SED (see Labbé et al. 2023b for further details). To de-     tion of PRISM at the observed wavelength of MgII does
+rive an upper limit on the stellar mass, we assume that       not allow us to securely separate the lines and perform
+all emission originates from stars. For the stars-only fit    a multiple component fit. We therefore fit the doublet
+we find log10 (M∗ /M⊙ ) < 8.7 based on the 95% of the         with a single Gaussian model, where the FWHM is al-
+posterior on the total stellar mass. We adopt this as a       lowed to vary.
+conservative upper limit on the M∗ .                             The [NeIII] λλ3869,3968 lines are nicely separated in
+   As an additional test, we hypothesize what could be        our spectrum as seen in Figure 1. As discussed previ-
+the maximum amount of the M∗ present in this object if        ously, the emission from the forbidden lines is generally
+we assume a more evolved stellar population and ignore        expected to arise from the NLR (Vanden Berk et al.
+the observed shape of the SED. For this we use a dust         2001), as such we fix the FWHM of [NeIII] to be the
+free model based on the exponentially declining SFH           same as that of the [OIII] λλ4959,5007.
+(τ = 1 Myr), that has formed 300 Myr ago at z ∼ 15.              In addition to the detected lines, we also report a 3σ
+This is then scaled directly to the depth of our NIRCam       upper limit for the low S/N (< 3) [OII] λλ3727,3729
+images at the position of 20466 (Weaver et al. 2023).         doublet and Hδ.
+The resultant limit is then log10 (M∗ /M⊙ ) < 9.3. We
+note however that such a model is not consistent with                          3.6. Size Measurement
+the photometry or the spectrum.
+                                                                As can be seen in Figure 1, the source is very compact
+   Finally, it is also possible to envision that the AGN
+                                                              and is just barely resolved in our imaging. We mea-
+can be embedded within an extremely dusty galaxy,
+                                                              sure the effective radius in all available JWST bands
+which surrounds the object and yet remains completely
+                                                              using GALFIT (Peng et al. 2002, 2010), accounting for
+JWST -dark, due to dust obscuration and low surface
+                                                              the effect of the empirically measured (Weaver et al.
+brightness. The implications of such dusty galaxies ex-
+                                                              2023) point spread function. The light is modeled with
+isting at high-z have been briefly explored in Kokorev
+                                                              a Sérsic profile with the center, brightness, effective ra-
+et al. (2023), who present an overview of a highly ob-
+                                                              dius, Sérsic index, and axis ratio as free parameters.
+scured (AV ∼ 4) galaxy at z = 2.58. By adapting the
+                                                              From the best-fits we find that the measured sizes in
+full UV to sub-mm SED from Kokorev et al. and scal-
+                                                              short wavelength bands (F115W, F150W, F200W) are
+ing it to our ALMA photometry, we compute a stellar
+                                                              comparable to the ones at the long wavelength (F277W,
+mass limit of log10 (M∗ /M⊙ ) < 9.5. This might be an
+                                                              F356W, F410M, F444W) and range from 0.′′ 035 to 0.′′ 04,
+overestimate, because the low redshift has a best-fit stel-
+                                                              which is consistent with or even smaller than the FWHM
+lar age of 0.53 Gyr, implying that all mass is formed at
+                                                              of the NIRCam PSF for those bands. The consistency
+z = 50, which is not realistic. While definitive evidence
+                                                              of sizes across all bands, coupled with a pure PSF fit be-
+for a significant presence of dust in galaxies only 500 Myr
+                                                              ing sufficient to describe the light from 20466 provides a
+after the Big Bang is still lacking, deeper NIRCam ob-
+                                                              further evidence of high degree of central concentration
+servations of lensed fields could assist in uncovering the
+                                                              in our object. Finally, we derive the physical effective
+diffuse and dusty host galaxies surrounding reddened
+                                                              radius to be 165±20 pc, when corrected for the lensing
+AGN.
+                                                              magnification.
+
+               3.5. Other Emission Lines
+                                                                                    4. RESULTS
+  Beyond the lines discussed in earlier sections, our spec-
+                                                                                4.1. AGN Properties
+trum reveals emissions from Lyα, the MgII doublet, and
+    8                                                                          Kokorev et al.
+
+                                                                                                      5.0
+                    9
+
+
+
+
+                                                                                                                                             +20
+                                                                                                                                        olls
+                    8                01                                                               4.5
+
+
+
+
+                                                                                                                  S04590 - Katz+23 Nich
+                                  =0.
+    log10(MBH/M )
+
+
+
+                              L edd
+                        L bol/
+
+
+
+
+                                                                                        log10(Te/K)
+                    7                 0.1
+                                   =
+
+
+
+
+                                                                                                                                                              Dust Corrected
+                            l/L edd                                                                   4.0
+                        L bo
+                    6
+
+
+
+
+                                                                                                                                                   Observed
+                                       0
+                                  dd
+                                    =1.                     Furtak+23
+                             /L e                           Larson+23
+                        L bol                               GNz11
+                    5                                       Matsuoka+19
+                                                            JWST z=4-8 QSOs
+                                                                                                      3.5
+                                                            Kokorev+23, This Work
+                                                                                                            0.0             0.1       0.2       0.3                            0.4
+                            1044                  1045       1046                                                           [OIII]4364/[OIII]5007
+                                                Lbol [erg/s]
+                                                                                        Figure 4. The electron temperature (Te ) as a function of
+Figure 3. Derived MBH and Lbol compared to the other                                    [OIII]4364 /[OIII]5007 (RO3) ratio. In black we present mod-
+high-z quasars. Our source is shown as a red star. Two                                  els from Nicholls et al. (2020) for different electron densities
+high-z AGN candidates, CEERS 1019 at z = 8.7 (Larson                                    ranging from 1 to 104 , the dynamic range does not allow to
+et al. 2023) and GNz11 at z = 10.6 (Maiolino et al. 2023a)                              distinguish between different lines however. We show our
+are shown as open diamond and circle, respectively. JWST                                observed line ratio in maroon, and in blue after the dust cor-
+detected AGN at z > 4 are shown as blue squares (Ko-                                    rection. The z = 8.5 source displaying extreme RO3 from
+cevski et al. 2023; Harikane et al. 2023; Maiolino et al. 2023b;                        Katz et al. (2023) is shown with a dashed green line. The
+Matthee et al. 2023). The cyan square shows the triply lensed                           shaded envelopes show the 1σ uncertainty. The extremely
+quasar from Furtak et al. (2023a). A massive, bright z = 7.07                           high line ratio we find, is indicative of AGN dominated ion-
+QSO from Matsuoka et al. (2019) is shown as an orange                                   ization.
+square. The dashed lines show the bolometric luminosities
+with the Eddington ratios of Lbol /Ledd = 0.01, 0.1 and 1.0.
+                                                                                           Reverberation mapping of quasars has revealed a cor-
+                                                                                        relation between the distance to the BLR in AGN and
+                                                                                        the width of the Hβ line (e.g. Kaspi et al. 2000; Greene
+.                                                                                       & Ho 2005), which allows for the black hole mass to be
+                                  Table 2. Measured Line Fluxes                         estimated from single-epoch measurements. Using the
+                                                                                        standard relations presented in Greene & Ho (2005) we
+                    Line                    λrest [Å]   Flux [10−20 erg s−1 cm−2 ]
+                                                                                        compute the black-hole mass (MBH ) from both the lu-
+         Lyα         1215.4                                     414.1 ± 85.2            minosity and the width of the broad component of the
+        MgII      2796.5,2803.1                                  62.5 ± 15.1            Hβ line and the rest-frame L5100 luminosity of the con-
+        [OII]     3727.0,3729.9                                   15.2 ± 8.0            tinuum.
+      [NeIII]        3869.9                                      62.2 ± 15.4               Using our best fit models for lines and the contin-
+      [NeIII]        3968.6                                       38.9 ± 9.2            uum and accounting for the effects of lensing and dust
+         Hδ          4102.9                                      12.2 ± 6.5             obscuration, we find log10 (MBH,Hβ /M⊙ ) = 8.17 ± 0.42
+Hγ (narrow+broad)    4341.7                                      24.6 ± 3.1             and log10 (MBH,5100 /M⊙ ) = 8.01 ± 0.40. The uncertain-
+       [OIII]        4364.4                                       83.0 ± 7.2            ties in this case are primarily dominated by the scatter
+   Hβ (narrow)       4862.7                                      78.6 ± 5.9             (∼ 0.3 dex) in the virial relation used to derive the mass,
+    Hβ (broad)       4862.7                                     232.6 ± 17.3            rather than the errors on the measurements themselves
+       [OIII]        4959.5                                      136.7 ± 3.0            (e.g. see Kollmeier et al. 2006). From the fact that both
+       [OIII]        5007.2                                     412.6 ± 11.3            methods return a consistent result we can conclude that
+                                                                                        the rest-frame 5100 Å luminosity of 20466 is almost en-
+                                                                                        tirely dominated by the light from the AGN. This allows
+                                                                                        us to further justify the assumptions made when mod-
+                                                  UNCOVER z=8.5 AGN                                                         9
+
+                                                                 difference in the derived BH mass. This suggests that
+                10                   Furtak+23
+                                     Larson+23                   CEERS 1019 and 20466 might have followed vastly dif-
+                                     GNz11                       ferent evolutionary scenarios. On the other hand, we
+                 9                   JWST z=4-8 QSOs
+                                     This Work
+                                                                 find similar (within 1σ) mass and luminosity when com-
+                                                                 pared to a z = 7.07 quasar presented in Matsuoka et al.
+log10(MBH/M )
+
+
+
+                                                                 (2019).
+                 8
+                                                                                4.2. Ionization Mechanisms
+                 7                                                  In this section we briefly explore the ratios between
+                                                                 the measured emission lines to investigate the potential
+                 6                                               ionization mechanisms in our source. We observe an
+                                                                 unusually high ratio between the auroral [OIII]4364 line
+                                    Greene+16 z=0                and [OIII]5007 (RO3) of 0.32. In Figure 4 we explore the
+                 5                  Reines+15 z=0                typical “allowed” RO3 for a range of electron tempera-
+                                    Pacucci+23, high-z           tures Te and densities ne from the models presented in
+                     8      9        10                11        Nicholls et al. (2020), alongside our observed and dust
+                          log10(M*/M )                           corrected RO3. When compared to the models, our ob-
+                                                                 ject appears to be a significant outlier, regardless of the
+Figure 5. Black hole to stellar mass relation. The color         adopted Te and ne values. Extreme values of RO3 have
+coding is the same as in Figure 3. The solid and dashed black    already been reported in recent JWST spectra, for ex-
+lines show best fits to the z = 0 AGN samples from Reines        ample a z = 8.5 galaxy presented in Katz et al. (2023)
+& Volonteri (2015) and Greene et al. (2016), respectively.       shows RO3 of 0.048, when corrected for dust. Elevated
+The high-z trend from Pacucci et al. (2023) is shown as a
+                                                                 RO3 are not new and have been discussed in the con-
+dashed maroon line. Only an upper limit on M∗ is available
+for our source and the triply lensed quasar from Furtak et al.
+                                                                 text of low-z Seyfert galaxies (e.g. Koski & Osterbrock
+(2023a).                                                         1976; Osterbrock 1978; Ferland & Netzer 1983; Dopita
+                                                                 & Sutherland 1995; Nagao et al. 2001; Baskin & Laor
+                                                                 2005; Binette et al. 2022). In fact, the photoionization
+eling the spectrum in Section 3.4. We adopt the MBH              models of Baskin & Laor (2005) suggest that it is possi-
+derived from Hβ line luminosity as our final result.             ble to reach the required densities and temperatures to
+   In addition to the mass, the broad Hβ can be used to          produce extreme RO3 within the NLR around an AGN.
+compute the bolometric luminosity (Lbol ) of the AGN.               In addition we can investigate our source in
+Typically Lbol is computed from the luminosity of Hα,            the context of the often utilized “OHNO” di-
+which we lack. However we can assume a broad-line in-            agnostic, which compares the [OIII]5007 /Hβ and
+trinsic ratio of Hα/Hβ ∼ 3.06 (Dong et al. 2008), and            [NeIII]3869 /[OII]3727,3729 ratios. This diagnostic has
+use it in conjunction with Lbol = 3.06 × 130 × LHβ               been used at low and high-z to ascertain whether
+(Richards et al. 2006; Stern & Laor 2012). Assuming              the ionization is powered purely by star formation
+that the dust attenuation within NLR and BLR are                 or by an AGN (Backhaus et al. 2022; Cleri et al.
+similar, we correct the Hβ luminosity for dust atten-            2022; Larson et al. 2023). After dust correction, we
+uation and magnification effects, thus obtaining Lbol =          find log10 ([OIII]5007 /Hβ)∼ 0.68 and a lower limit of
+(6.6 ± 3.1) × 1045 erg s−1 . These results suggest that our      log10 ([NeIII]3870 /[OII])> 0.15. These line ratios, while
+object is accreting at ∼ 40 % of the Eddington rate, with        not as high as reported in other z > 8 AGN candidates
+Lbol /Ledd ∼ 0.4, suggesting a sub-Eddington accretion           (Larson et al. 2023), are still indicative of high ionization
+scenario. All of the estimated parameters are presented          in 20466.
+in Table 1.
+   In Figure 3 we show the estimated MBH and Lbol for                4.3. Massive Accreting Black Hole at z = 8.50
+our object. The mass exceeding 108 M⊙ , and luminosity              With all the information in hand, we would like to
+brighter than 5×1045 erg s−1 , indicate that our source is       remark on the most probable nature of our source. The
+more massive and luminous than the majority of quasars           spectrum of 20466 shows a clear broad line component
+at z ∼ 4 − 8 range identified with JWST (Furtak et al.           present in the Hβ line. With a confidence level of
+2023a; Harikane et al. 2023; Kocevski et al. 2023). The          13.4σ we estimate the FWHM of the broad profile to
+object presented in Larson et al. (2023) at z ∼ 8.7 is           be ∼ 3440 km s−1 . The adjacent [OIII] lines are well
+only ∼ 20 Myr younger, however shows an almost 1 dex             fit with a much narrower Gaussian (∼ 200 km s−1 ),
+10                                                           Kokorev et al.
+
+                                                                  Redshift
+                               18       14 12                10     9      8               7                  6
+                            QSOs z=6-7 (Inayoshi+20,Maiolino+23)
+                            QSOs z>7 (Fan+22)
+                  10        Larson+23
+                            GNz11
+                            Furtak+23
+                            Goulding+23
+  log10(MBH/M )
+
+
+
+
+                   8        Kokorev+23, This Work
+                                                ing   ton
+                                          )-Edd
+                   6                4   M
+                                 (1 0
+                         DC B H
+                                               d in gton
+                                             d
+                                          )-E
+                   4             ( 1 0 0M
+                             lar
+                         Stel
+                   0.1        0.2       0.3        0.4         0.5 0.6 0.7                      0.8        0.9         1.0
+                                                            Cosmic Age [Gyr]
+Figure 6. Black hole mass versus cosmic age. The red star shows the result presented in this work. The dark blue squares and
+violet diamonds show the results for z = 6 − 7 and z > 7 QSOs respectively, as presented in Inayoshi et al. (2020); Maiolino
+et al. (2023b) and Fan et al. (2022). Triply lensed z = 7 QSO from Furtak et al. (2023a) is shown as a cyan square. A tentative
+MBH range for UHZ1 at z = 10.1 from Goulding et al. (2023) is shown as a blue circle. Two high-z AGN candidates, namely
+z = 8.7 AGN from CEERS (Larson et al. 2023) and GNz11 at z = 10.6 (Maiolino et al. 2023a) are shown as open diamond
+and circle, respectively. Dashed lines show analytical models of blackhole mass accretion at an Eddington rate starting from a
+stellar seed (maroon) and a direct collapse (DCBH) model (black).
+
+
+ruling out potential outflows (e.g. see Chisholm et al.               at z = 4 − 5, as well as those recently identified at high-
+2015. This leads us to conclude that broad Hβ emission                z. We find an extremely high ratio of black hole to host
+most likely originates within a BLR of an AGN. Fur-                   mass of at least ∼ 30%, which is orders of magnitude
+thermore, we note high ionization present in our source,              higher compared to the local QSOs, and also elevated
+as indicated by the extreme RO3 ratio as well as the                  when compared to other massive AGN at high-z. Pre-
+“OHNO” diagnostic. These values are difficult to rec-                 dictions from “direct collapse black hole” (DCBH) for-
+oncile with photoionization by young stars alone, high-               mation models suggest that this ratio can indeed be high
+lighting the strong ionizing nature of this source. Com-              close to the seeding epoch (Natarajan 2011; Natarajan
+bining the above with a near point-like source morphol-               et al. 2017), compared to the local values. Moreover,
+ogy observed across all NIRCam bands leads us to con-                 reaching high MBH /M∗ from light seeds would require
+clude that 20466 is a massive and luminous Type - 1                   growing the MBH without also growing the galaxy mass,
+AGN, observed just 580 Myr after the Big Bang.                        which does not seem feasible. This gives us a first hint
+                                                                      regarding the potential formation and accretion mecha-
+                  5. DISCUSSION AND CONCLUSION                        nisms of our source.
+              5.1. Black Hole Formation Mechanisms                      We further explore this in Figure 6 which presents the
+                                                                      MBH as a function of cosmic age for our AGN, alongside
+  A significant unresolved question which remains to be
+                                                                      previous measurements for high-z QSOs. It is possible
+answered, is how these supermassive black holes come
+                                                                      to explain the existence of these SMBH via the super-
+to be. In Figure 5 we present the MBH vs an upper limit
+                                                                      Eddington accretion rates (e.g. Haiman & Loeb 2001;
+on the M∗ , derived from the template fitting, compared
+                                                                      Alexander & Natarajan 2014) in low mass black hole
+to the relations for QSOs at z ∼ 0, JWST detected AGN
+                                              UNCOVER z=8.5 AGN                                                     11
+
+seeds (∼ 100 M⊙ ), formed from the Population III stars      do not, however, find any evidence which can support
+(Madau & Rees 2001). Another possible solution is to         this. By examining the RO3 and the “OHNO” line di-
+start from heavy DCBH seeds ∼ 103−5 M⊙ from the col-         agnostic, we find values which are consistent with high
+lapse of pristine gas in early halos (e.g. Rees 1984; Loeb   ionization present in the source. These findings, com-
+& Rasio 1994). In this work we consider both options,        pounded by near point source morphology, lead us to
+starting with low (100 M⊙ ) and high (104 M⊙ ) mass          deduce that the underlying cause behind the extended
+seeds at z ∼ 50, we explore different accretion rates re-    broad-line region can only be attributed to the AGN
+quired to grow a black hole to 108 M⊙ by z = 8.5. In         activity.
+Figure 6 we show that the observed MBH can be repro-            From the flux and FWHM of the Hβ we compute the
+duced by continuous Eddington accretion driven growth        black hole mass of log10 (MBH /M⊙ ) = 8.17 ± 0.42 and
+in a DCBH seed at 104 M⊙ , with the Eddington lim-           a luminosity of Lbol = 6.6 ± 3.1 erg s−1 , suggesting an
+ited stellar mass seed scenario being unlikely. Further-     accretion rate at ∼ 40% of the Eddington limit. We
+more, it would be difficult to explain a radical change      also find that the MBH derived from the Hβ is consis-
+in MBH /M∗ over these early times, which would naively       tent to the one computed from rest-frame 5100 Å con-
+mean that the high black hole to galaxy ratio that we        tinuum within one standard deviation, potentially indi-
+find also favors heavy seeds. Alternatively, simulations     cating that the spectrum of this object is strongly, or
+show that it is also possible to grow an SMBH via super-     almost entirely dominated by the AGN emission.
+Eddington accretion onto a stellar mass seed (Jeon et al.       Finally, we explore multiple scenarios which can lead
+2012; Massonneau et al. 2023), however the feasibility of    to a presence of such massive BH by z=8.50. We find
+such extreme accretion modes is yet to be conclusively       that the BH mass can not be reproduced by Eddington-
+determined.                                                  limited accretion from a stellar seed, unless super-
+   Recent detection and NIRSpec observations of an X-        Eddington regimes can be achieved. It is worth noting
+ray quasar at z = 10.07 - UHZ-1 (Bogdan et al. 2023;         that this would require a gas rich disk providing ma-
+Goulding et al. 2023) find a MBH /M∗ ∼ 5 − 100%, com-        terial for accretion while remaining unaffected by BH
+parable to the ratio we derive in this work. MSA ID          feedback. Even in our models that start at z = 50,
+20466 and UHZ-1 are located in the same field, in a rel-     this SMBH would need to grow at sustained rates for
+atively small area, which suggests that black holes that     > 400 Myr, all the while remaining in a super-Eddington
+form from direct collapse could be more common than          regime, which is beyond physically plausible scenarios.
+previously thought and some early overmassive SMBHs          On the other hand, such a mass can also be attained via
+may indeed originate from heavy seeds (Eilers et al.         Eddington accretion driven growth for DCBH (∼ 104
+2023; Natarajan et al. 2023; Pacucci et al. 2023; Stone      M⊙ ) seeds. A direct collapse model would then also be
+et al. 2023).                                                able to potentially explain the extreme BH to host ratio
+   However, we note that the elevated MBH to host stel-      of least ∼ 30 % found in our source.
+lar mass trends, might not manifest when using the              While their formation pathways are still largely un-
+dynamical mass of the galaxy instead. A recent work          certain, the high number of AGN detected with JWST
+by Maiolino et al. (2023b) finds little deviation between    at high-z, given the relatively small areas covered so
+MBH -Mdyn relation in z > 4 broad line AGN and that of       far, implies that extremely massive SMBH are already
+local QSOs. This in return might imply that the black        in place at z > 7, just ∼ 700 Myr after the Big Bang
+hole formation is more strongly connected with the mass      (Wang et al. 2021; Furtak et al. 2023a; Goulding et al.
+assembly itself, rather than star formation in the host      2023; Greene et al. 2023; Larson et al. 2023; Pacucci
+galaxy.                                                      et al. 2023). The clues of high black hole to stellar mass
+                                                             ratios, exceeding several tens of percent, will allow us
+                  5.2. Final Remarks                         to place stronger constraints on the sizes of BH seeds
+                                                             and accretion modes required to produce such massive
+   Using the NIRSpec/PRISM and NIRCam data from
+                                                             objects (Bogdan et al. 2023; Goulding et al. 2023). In-
+JWST UNCOVER survey we present the discovery of
+                                                             terestingly, the Lyα line is clearly detected from 20466
+an actively accreting SMBH at z = 8.502 ± 0.003. The
+                                                             despite its heavily dusty nature, and 20466 turns out
+spectrum of our object shows an unambiguous (> 10σ)
+                                                             to reside in a huge ionized bubble with a radius of 7.6
+broad-line component present in the Hβ line, exhibit-
+                                                             proper Mpc (Fujimoto et al. 2023c). These results may
+ing a FWHM of ∼ 3400 km s−1 . Although comparable
+                                                             indicate that the recent abundant AGN population iden-
+velocities could potentially stem from large scale out-
+                                                             tified with JWST provides a non-negligible contribution
+flows, a corresponding broadening effect should mani-
+                                                             of ionizing flux to cosmic reionization. It is also possi-
+fest in the adjacent [OIII]4959 and [OIII]5007 lines. We
+12                                                       Kokorev et al.
+
+ble that these AGN are residing in galaxy overdensities,         number 2020-16B. YF further acknowledges support
+which may have reionized the Universe earlier in their           from support from JSPS KAKENHI Grant Number
+environments. The identification of 20466, along with            JP23K13149.      MS acknowledges support from the
+similar massive quasars at high-z, suggests we still lack        CIDEGENT/2021/059 grant, from project PID2019-
+a comprehensive understanding of AGN and host galaxy             109592GB-I00/AEI/10.13039/501100011033 from the
+co-evolution in the early Universe, which we only re-            Spanish Ministerio de Ciencia e Innovación - Agencia
+cently started exploring with JWST.                              Estatal de Investigación. MST also acknowledges the
+                                                                 financial support from the MCIN with funding from
+                                                                 the European Union NextGenerationEU and General-
+                                                                 itat Valenciana in the call Programa de Planes Com-
+                                                                 plementarios de I+D+i (PRTR 2022) Project (VAL-
+                ACKNOWLEDGMENTS
+                                                                 JPAS), reference ASFAE/2022/025. This work is based
+  We thank the anonymous referee for a number of                 on observations made with the NASA/ESA/CSA James
+constructive suggestions, which helped to improve this           Webb Space Telescope. The data were obtained from
+manuscript. We thank Darach Watson and Maxime                    the Mikulski Archive for Space Telescopes at the Space
+Trebitsch for insightful discussions on black hole physics.      Telescope Science Institute, which is operated by the As-
+We are also grateful to Katriona Gould for helpful dis-          sociation of Universities for Research in Astronomy, Inc.,
+cussions about msaexp. We would like to thank Alex               under NASA contract NAS 5-03127 for JWST. These
+Pope for useful discussion regarding dusty star for-             observations are associated with program JWST-GO-
+mation. VK and KIC acknowledge funding from the                  2561. Support for program JWST-GO-2561 was pro-
+Dutch Research Council (NWO) through the award of                vided by NASA through a grant from the Space Tele-
+the Vici Grant VI.C.212.036. AZ acknowledges sup-                scope Science Institute, which is operated by the Asso-
+port by Grant No. 2020750 from the United States-                ciation of Universities for Research in Astronomy, Inc.,
+Israel Binational Science Foundation (BSF) and Grant             under NASA contract NAS 5-03127. This work has
+No. 2109066 from the United States National Science              received funding from the Swiss State Secretariat for
+Foundation (NSF), and by the Ministry of Science &               Education, Research and Innovation (SERI) under con-
+Technology, Israel. IL acknowledges support by the               tract number MB22.00072, as well as from the Swiss Na-
+Australian Research Council through Future Fellowship            tional Science Foundation (SNSF) through project grant
+FT220100798.                                                     200020 207349. The Cosmic Dawn Center (DAWN) is
+  PD acknowledges support from the Dutch Research                funded by the Danish National Research Foundation un-
+Council (NWO) through the award of the VIDI Grant                der grant No. 140. The work of CCW is supported by
+016.VIDI.189.162 (“ODIN”) and the European Commis-               NOIRLab, which is managed by the Association of Uni-
+sion’s and University of Groningen’s CO-FUND Ros-                versities for Research in Astronomy (AURA) under a
+alind Franklin program. H.A. and IC acknowledge                  cooperative agreement with the National Science Foun-
+support from CNES, focused on the JWST mission,                  dation.
+and the Programme National Cosmology and Galax-
+ies (PNCG) of CNRS/INSU with INP and IN2P3, co-
+                                                                   Software: EAZY (Brammer et al. 2008), FSPS (Con-
+                                                                 roy et al. 2009), GALFIT (Peng et al. 2002, 2010), grizli
+funded by CEA and CNES. RP and DM acknowledge
+                                                                 (Brammer 2023), msaexp (Brammer 2022).
+support from JWST-GO-02561.013-A. YF acknowledge
+support from NAOJ ALMA Scientific Research Grant                   Facilities: JWST, ALMA
+
+                                                         REFERENCES
+Alexander, T., & Natarajan, P. 2014, Science, 345, 1330,         Barro, G., Perez-Gonzalez, P. G., Kocevski, D. D., et al.
+  doi: 10.1126/science.1251053                                     2023, arXiv e-prints, arXiv:2305.14418,
+Amorı́n, R., Pérez-Montero, E., Vı́lchez, J. M., &
+                                                                   doi: 10.48550/arXiv.2305.14418
+  Papaderos, P. 2012, ApJ, 749, 185,
+  doi: 10.1088/0004-637X/749/2/185                               Baskin, A., & Laor, A. 2005, MNRAS, 358, 1043,
+Bañados, E., Carilli, C., Walter, F., et al. 2018, ApJL, 861,     doi: 10.1111/j.1365-2966.2005.08841.x
+  L14, doi: 10.3847/2041-8213/aac511
+                                                                 Bergamini, P., Acebron, A., Grillo, C., et al. 2023, ApJ,
+Backhaus, B. E., Trump, J. R., Cleri, N. J., et al. 2022,
+  ApJ, 926, 161, doi: 10.3847/1538-4357/ac3919                     952, 84, doi: 10.3847/1538-4357/acd643
+                                                  UNCOVER z=8.5 AGN                                                             13
+
+Bezanson, R., Labbe, I., Whitaker, K. E., et al. 2022, arXiv      Fujimoto, S., Wang, B., Weaver, J., et al. 2023c, arXiv
+  e-prints, arXiv:2212.04026.                                       e-prints, arXiv:2308.11609,
+  https://arxiv.org/abs/2212.04026                                  doi: 10.48550/arXiv.2308.11609
+Binette, L., Villar Martı́n, M., Magris C., G., et al. 2022,      Furtak, L. J., Labbé, I., Zitrin, A., et al. 2023a, arXiv
+  RMxAA, 58, 133,                                                   e-prints, arXiv:2308.05735.
+  doi: 10.22201/ia.01851101p.2022.58.01.11                          https://arxiv.org/abs/2308.05735
+Bogdan, A., Goulding, A., Natarajan, P., et al. 2023, arXiv       Furtak, L. J., Zitrin, A., Weaver, J. R., et al. 2023b,
+  e-prints, arXiv:2305.15458,                                       MNRAS, 523, 4568, doi: 10.1093/mnras/stad1627
+  doi: 10.48550/arXiv.2305.15458                                  Glikman, E., Helfand, D. J., & White, R. L. 2006, ApJ,
+Brammer, G. 2022, msaexp: NIRSpec analyis tools, 0.3,               640, 579, doi: 10.1086/500098
+  doi: 10.5281/zenodo.7299500                                     Gordon, K. D., Clayton, G. C., Misselt, K. A., Landolt,
+Brammer, G. 2023, grizli, 1.8.2, Zenodo, Zenodo,                   A. U., & Wolff, M. J. 2003, ApJ, 594, 279,
+  doi: 10.5281/zenodo.7712834                                      doi: 10.1086/376774
+Brammer, G. B., van Dokkum, P. G., & Coppi, P. 2008,              Goulding, A. D., Greene, J. E., Setton, D. J., et al. 2023,
+  ApJ, 686, 1503, doi: 10.1086/591786                              arXiv e-prints, arXiv:2308.02750,
+Calzetti, D. 2001, PASP, 113, 1449, doi: 10.1086/324269            doi: 10.48550/arXiv.2308.02750
+                                                                  Greene, J. E., & Ho, L. C. 2005, ApJ, 630, 122,
+Capak, P. L., Carilli, C., Jones, G., et al. 2015, Nature, 522,
+                                                                    doi: 10.1086/431897
+  455, doi: 10.1038/nature14500
+                                                                  Greene, J. E., Seth, A., Kim, M., et al. 2016, ApJL, 826,
+Chabrier, G. 2003, PASP, 115, 763, doi: 10.1086/376392
+                                                                    L32, doi: 10.3847/2041-8205/826/2/L32
+Chisholm, J., Tremonti, C. A., Leitherer, C., et al. 2015,
+                                                                  Greene, J. E., Labbe, I., Goulding, A. D., et al. 2023, arXiv
+  ApJ, 811, 149, doi: 10.1088/0004-637X/811/2/149
+                                                                    e-prints, arXiv:2309.05714,
+Cleri, N. J., Trump, J. R., Backhaus, B. E., et al. 2022,
+                                                                    doi: 10.48550/arXiv.2309.05714
+  ApJ, 929, 3, doi: 10.3847/1538-4357/ac5a4c
+                                                                  Haiman, Z., & Loeb, A. 2001, ApJ, 552, 459,
+Conroy, C., Gunn, J. E., & White, M. 2009, ApJ, 699, 486,
+                                                                    doi: 10.1086/320586
+  doi: 10.1088/0004-637X/699/1/486
+                                                                  Harikane, Y., Zhang, Y., Nakajima, K., et al. 2023, arXiv
+de Graaff, A., Rix, H.-W., Carniani, S., et al. 2023, arXiv
+                                                                    e-prints, arXiv:2303.11946,
+  e-prints, arXiv:2308.09742,
+                                                                    doi: 10.48550/arXiv.2303.11946
+  doi: 10.48550/arXiv.2308.09742
+                                                                  Hogarth, L., Amorı́n, R., Vı́lchez, J. M., et al. 2020,
+Dong, X., Wang, T., Wang, J., et al. 2008, MNRAS, 383,
+                                                                    MNRAS, 494, 3541, doi: 10.1093/mnras/staa851
+ 581, doi: 10.1111/j.1365-2966.2007.12560.x
+                                                                  Hopkins, P. F., Strauss, M. A., Hall, P. B., et al. 2004, AJ,
+Dopita, M. A., & Sutherland, R. S. 1995, ApJ, 455, 468,             128, 1112, doi: 10.1086/423291
+ doi: 10.1086/176596
+                                                                  Horne, K. 1986, PASP, 98, 609, doi: 10.1086/131801
+Draine, B. T., Dale, D. A., Bendo, G., et al. 2007, ApJ,          Inayoshi, K., Visbal, E., & Haiman, Z. 2020, ARA&A, 58,
+  663, 866, doi: 10.1086/518306                                     27, doi: 10.1146/annurev-astro-120419-014455
+Eilers, A.-C., Simcoe, R. A., Yue, M., et al. 2023, ApJ, 950,     Isobe, Y., Ouchi, M., Nakajima, K., et al. 2023, arXiv
+  68, doi: 10.3847/1538-4357/acd776                                 e-prints, arXiv:2301.06811,
+Fan, X., Banados, E., & Simcoe, R. A. 2022, arXiv e-prints,         doi: 10.48550/arXiv.2301.06811
+  arXiv:2212.06907, doi: 10.48550/arXiv.2212.06907                Jeon, M., Pawlik, A. H., Greif, T. H., et al. 2012, ApJ, 754,
+Fan, X., Narayanan, V. K., Lupton, R. H., et al. 2001, AJ,          34, doi: 10.1088/0004-637X/754/1/34
+  122, 2833, doi: 10.1086/324111                                  Kashikawa, N., Ishizaki, Y., Willott, C. J., et al. 2015, ApJ,
+Ferland, G. J., & Netzer, H. 1983, ApJ, 264, 105,                  798, 28, doi: 10.1088/0004-637X/798/1/28
+  doi: 10.1086/160577                                             Kaspi, S., Smith, P. S., Netzer, H., et al. 2000, ApJ, 533,
+Fujimoto, S., Kohno, K., Ouchi, M., et al. 2023a, arXiv            631, doi: 10.1086/308704
+  e-prints, arXiv:2303.01658,                                     Katz, H., Saxena, A., Cameron, A. J., et al. 2023, MNRAS,
+  doi: 10.48550/arXiv.2303.01658                                   518, 592, doi: 10.1093/mnras/stac2657
+Fujimoto, S., Bezanson, R., Labbe, I., et al. 2023b, arXiv        Kocevski, D. D., Onoue, M., Inayoshi, K., et al. 2023, arXiv
+  e-prints, arXiv:2309.07834,                                      e-prints, arXiv:2302.00012,
+  doi: 10.48550/arXiv.2309.07834                                   doi: 10.48550/arXiv.2302.00012
+14                                                          Kokorev et al.
+
+Kokorev, V., Jin, S., Magdis, G. E., et al. 2023, ApJL, 945,        Nenkova, M., Sirocky, M. M., Nikutta, R., Ivezić, Ž., &
+  L25, doi: 10.3847/2041-8213/acbd9d                                  Elitzur, M. 2008b, ApJ, 685, 160, doi: 10.1086/590483
+Kollmeier, J. A., Onken, C. A., Kochanek, C. S., et al.             Nicholls, D. C., Kewley, L. J., & Sutherland, R. S. 2020,
+  2006, ApJ, 648, 128, doi: 10.1086/505646                            PASP, 132, 033001, doi: 10.1088/1538-3873/ab6818
+Koski, A. T., & Osterbrock, D. E. 1976, ApJL, 203, L49,             Oke, J. B. 1974, ApJS, 27, 21, doi: 10.1086/190287
+  doi: 10.1086/182017                                               Omukai, K., Schneider, R., & Haiman, Z. 2008, ApJ, 686,
+Labbé, I., Oesch, P. A., Bouwens, R. J., et al. 2013, ApJL,          801, doi: 10.1086/591636
+                                                                    Osterbrock, D. E. 1978, PhyS, 17, 285,
+  777, L19, doi: 10.1088/2041-8205/777/2/L19
+                                                                      doi: 10.1088/0031-8949/17/3/024
+Labbé, I., van Dokkum, P., Nelson, E., et al. 2023a, Nature,
+                                                                    —. 1989, Astrophysics of gaseous nebulae and active
+  616, 266, doi: 10.1038/s41586-023-05786-2
+                                                                      galactic nuclei
+Labbé, I., Greene, J. E., Bezanson, R., et al. 2023b, arXiv
+                                                                    Pacucci, F., Nguyen, B., Carniani, S., Maiolino, R., & Fan,
+  e-prints, arXiv:2306.07320,                                         X. 2023, arXiv e-prints, arXiv:2308.12331,
+  doi: 10.48550/arXiv.2306.07320                                      doi: 10.48550/arXiv.2308.12331
+Larson, R. L., Finkelstein, S. L., Kocevski, D. D., et al.          Peng, C. Y., Ho, L. C., Impey, C. D., & Rix, H.-W. 2002,
+  2023, arXiv e-prints, arXiv:2303.08918,                             AJ, 124, 266, doi: 10.1086/340952
+  doi: 10.48550/arXiv.2303.08918                                    —. 2010, AJ, 139, 2097, doi: 10.1088/0004-6256/139/6/2097
+Loeb, A., & Rasio, F. A. 1994, ApJ, 432, 52,                        Reddy, N. A., Kriek, M., Shapley, A. E., et al. 2015, ApJ,
+  doi: 10.1086/174548                                                 806, 259, doi: 10.1088/0004-637X/806/2/259
+Madau, P., & Rees, M. J. 2001, ApJL, 551, L27,                      Reddy, N. A., Oesch, P. A., Bouwens, R. J., et al. 2018,
+  doi: 10.1086/319848                                                 ApJ, 853, 56, doi: 10.3847/1538-4357/aaa3e7
+                                                                    Rees, M. J. 1984, ARA&A, 22, 471,
+Maiolino, R., Scholtz, J., Witstok, J., et al. 2023a, arXiv
+                                                                      doi: 10.1146/annurev.aa.22.090184.002351
+  e-prints, arXiv:2305.12492,
+                                                                    Reines, A. E., & Volonteri, M. 2015, ApJ, 813, 82,
+  doi: 10.48550/arXiv.2305.12492
+                                                                      doi: 10.1088/0004-637X/813/2/82
+Maiolino, R., Scholtz, J., Curtis-Lake, E., et al. 2023b,
+                                                                    Richards, G. T., Strauss, M. A., Fan, X., et al. 2006, AJ,
+  arXiv e-prints, arXiv:2308.01230,
+                                                                      131, 2766, doi: 10.1086/503559
+  doi: 10.48550/arXiv.2308.01230                                    Rigby, J., Perrin, M., McElwain, M., et al. 2023, PASP,
+Massonneau, W., Volonteri, M., Dubois, Y., & Beckmann,                135, 048001, doi: 10.1088/1538-3873/acb293
+  R. S. 2023, A&A, 670, A180,                                       Schleicher, D. R. G., Reinoso, B., Latif, M., et al. 2022,
+  doi: 10.1051/0004-6361/202243170                                    MNRAS, 512, 6192, doi: 10.1093/mnras/stac926
+Matsuoka, Y., Strauss, M. A., Kashikawa, N., et al. 2018,           Stern, J., & Laor, A. 2012, MNRAS, 423, 600,
+  ApJ, 869, 150, doi: 10.3847/1538-4357/aaee7a                        doi: 10.1111/j.1365-2966.2012.20901.x
+Matsuoka, Y., Onoue, M., Kashikawa, N., et al. 2019,                Stone, M. A., Lyu, J., Rieke, G. H., & Alberts, S. 2023,
+  ApJL, 872, L2, doi: 10.3847/2041-8213/ab0216                        ApJ, 953, 180, doi: 10.3847/1538-4357/acebe0
+Matthee, J., Naidu, R. P., Brammer, G., et al. 2023, arXiv          Storey, P. J., & Zeippen, C. J. 2000, MNRAS, 312, 813,
+                                                                      doi: 10.1046/j.1365-8711.2000.03184.x
+  e-prints, arXiv:2306.05448,
+                                                                    Übler, H., Maiolino, R., Curtis-Lake, E., et al. 2023, arXiv
+  doi: 10.48550/arXiv.2306.05448
+                                                                      e-prints, arXiv:2302.06647,
+Nagao, T., Murayama, T., & Taniguchi, Y. 2001, ApJ, 546,
+                                                                      doi: 10.48550/arXiv.2302.06647
+  744, doi: 10.1086/318300
+                                                                    Vanden Berk, D. E., Richards, G. T., Bauer, A., et al. 2001,
+Natarajan, P. 2011, Bulletin of the Astronomical Society of           AJ, 122, 549, doi: 10.1086/321167
+  India, 39, 145, doi: 10.48550/arXiv.1104.4797                     Wang, B., Fujimoto, S., Labbe, I., et al. 2023, arXiv
+Natarajan, P., Pacucci, F., Ferrara, A., et al. 2017, ApJ,            e-prints, arXiv:2308.03745,
+  838, 117, doi: 10.3847/1538-4357/aa6330                             doi: 10.48550/arXiv.2308.03745
+Natarajan, P., Pacucci, F., Ricarte, A., et al. 2023, arXiv         Wang, L., Gao, F., Best, P. N., et al. 2021, A&A, 648, A8,
+  e-prints, arXiv:2308.02654,                                         doi: 10.1051/0004-6361/202038811
+  doi: 10.48550/arXiv.2308.02654                                    Weaver, J. R., Cutler, S. E., Pan, R., et al. 2023, arXiv
+Nenkova, M., Sirocky, M. M., Ivezić, Ž., & Elitzur, M.              e-prints, arXiv:2301.02671,
+  2008a, ApJ, 685, 147, doi: 10.1086/590482                           doi: 10.48550/arXiv.2301.02671
+                                                                    Yang, G., Caputi, K. I., Papovich, C., et al. 2023, ApJL,
+                                                                      950, L5, doi: 10.3847/2041-8213/acd639
+

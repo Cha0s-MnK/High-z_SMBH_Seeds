@@ -1,0 +1,1144 @@
+                                               Astronomy & Astrophysics manuscript no. GS_3073                                                                                    ©ESO 2023
+                                               June 22, 2023
+
+
+
+
+                                               GA-NIFS: A massive black hole in a low-metallicity AGN at z ∼ 5.55
+                                                               revealed by JWST/NIRSpec IFS
+                                               Hannah Übler1, 2⋆ , Roberto Maiolino1, 2, 3 , Emma Curtis-Lake4 , Pablo G. Pérez-González5 , Mirko Curti6, 1, 2 , Michele
+                                                 Perna5 , Santiago Arribas5 , Stéphane Charlot7 , Madeline A. Marshall8, 9 , Francesco D’Eugenio1, 2 , Jan Scholtz1, 2 ,
+                                               Andrew Bunker10 , Stefano Carniani11 , Pierre Ferruit12 , Peter Jakobsen13, 14 , Hans-Walter Rix15 , Bruno Rodríguez Del
+                                               Pino5 , Chris J. Willott8 , Torsten Böker16 , Giovanni Cresci17 , Gareth C. Jones10 , Nimisha Kumari18 , and Tim Rawle16
+
+                                                       1
+                                                           Kavli Institute for Cosmology, University of Cambridge, Madingley Road, Cambridge, CB3 0HA, UK
+                                                       2
+                                                           Cavendish Laboratory, University of Cambridge, 19 JJ Thomson Avenue, Cambridge, CB3 0HE, UK
+arXiv:2302.06647v2 [astro-ph.GA] 21 Jun 2023
+
+
+
+
+                                                       3
+                                                           Department of Physics and Astronomy, University College London, Gower Street, London WC1E 6BT, UK
+                                                       4
+                                                           Centre for Astrophysics Research, Department of Physics, Astronomy and Mathematics, University of Hertfordshire, Hatfield,
+                                                           AL10 9AB, UK
+                                                       5
+                                                           Centro de Astrobiología (CAB), CSIC-INTA, Ctra. de Ajalvir km 4, Torrejón de Ardoz, E-28850, Madrid, Spain
+                                                       6
+                                                           European Southern Observatory, Karl-Schwarzschild-Straße 2, 85748, Garching, Germany
+                                                       7
+                                                           Sorbonne Université, CNRS, UMR 7095, Institut d’Astrophysique de Paris, 98 bis bd Arago, 75014 Paris, France
+                                                       8
+                                                           National Research Council of Canada, Herzberg Astronomy & Astrophysics Research Centre, 5071 West Saanich Road, Victoria,
+                                                           BC V9E 2E7, Canada
+                                                       9
+                                                           ARC Centre of Excellence for All Sky Astrophysics in 3 Dimensions (ASTRO 3D), Australia
+                                                      10
+                                                           University of Oxford, Department of Physics, Denys Wilkinson Building, Keble Road, Oxford OX13RH, UK
+                                                      11
+                                                           Scuola Normale Superiore, Piazza dei Cavalieri 7, I-56126 Pisa, Italy
+                                                      12
+                                                           European Space Agency, ESAC, Villanueva de la Cañada, E-28692 Madrid, Spain
+                                                      13
+                                                           Cosmic Dawn Center (DAWN), Copenhagen, Denmark
+                                                      14
+                                                           Niels Bohr Institute, University of Copenhagen, Jagtvej 128, DK-2200, Copenhagen, Denmark
+                                                      15
+                                                           Max-Planck-Institut für Astronomie, Königstuhl 17, 69117, Heidelberg, Germany
+                                                      16
+                                                           European Space Agency, c/o STScI, 3700 San Martin Drive, Baltimore, MD 21218, USA
+                                                      17
+                                                           INAF - Osservatorio Astrofisco di Arcetri, largo E. Fermi 5, 50127 Firenze, Italy
+                                                      18
+                                                           AURA for the European Space Agency, Space Telescope Science Institute, Baltimore, Maryland, USA
+
+                                                     June 22, 2023
+
+                                                                                                                 ABSTRACT
+
+                                                     We present JWST/NIRSpec Integral Field Spectrograph rest-frame optical data of the compact z = 5.55 galaxy GS_3073. Its prominent
+                                                     broad components in several hydrogen and helium lines (while absent in the forbidden lines), and the detection of a large equivalent
+                                                     width of He iiλ4686, EW(He ii) ∼ 20Å, unambiguously identify it as an active galactic nucleus (AGN). We measure a gas-phase
+                                                     metallicity of Zgas /Z⊙ ∼ 0.21+0.08
+                                                                                   −0.04 , lower than what has been inferred for both more luminous AGN at similar redshift and lower
+                                                     redshift AGN. We empirically show that classical emission line ratio diagnostic diagrams cannot be used to distinguish between the
+                                                     primary ionisation source (AGN or star formation) for such low-metallicity systems, whereas different diagnostic diagrams involving
+                                                     He iiλ4686 prove very useful, independent of metallicity. We measure the central black hole mass to be log(MBH /M⊙ ) ∼ 8.2 ± 0.4
+                                                     based on the luminosity and width of the broad line region of the Hα emission. While this places GS_3073 at the lower end of known
+                                                     high-redshift black hole masses, it still appears to be over-massive compared to its host galaxy properties. We detect an outflow with
+                                                     projected velocity ≳ 700 km/s and infer an ionised gas mass outflow rate of about 100 M⊙ /yr, suggesting that GS_3073 is able to
+                                                     enrich the intergalactic medium with metals one billion years after the Big Bang.
+                                                     Key words. galaxies: active – galaxies: high-redshift – galaxies: supermassive black holes – ISM: abundances
+
+
+
+                                               1. Introduction                                                           photoionization from an active galactic nucleus (AGN), or pos-
+                                                                                                                         sibly other ionization sources such as shocks and evolved stars.
+                                               Emission line ratio diagnostics are a key tool to measure physical        Through multi-object spectrographs such as KMOS (Sharples
+                                               conditions in the interstellar medium (ISM). At z = 0, this has           et al. 2004, 2013) or MOSFIRE (McLean et al. 2010, 2012), the
+                                               led to the development of rest-frame optical diagnostics such as          extension of these classifications up to z ∼ 3 became possible
+                                               [O iii]λ5007/Hβ vs. [N ii]λ6584/Hα (the so-called BPT diagram;            (e.g. Kewley et al. 2013b; Steidel et al. 2014; Strom et al. 2017;
+                                               Baldwin et al. 1981), [O iii]λ5007/Hβ vs. [S ii]λλ6717, 6731/Hα           Curti et al. 2020a; Runco et al. 2022).
+                                               and [O iii]λ5007/Hβ vs. [O i]λ6300/Hα (Veilleux & Osterbrock                  At z ∼ 0, the hard ionising radiation from AGN accre-
+                                               1987), which are commonly used to identify whether the pri-               tion discs (generally accompanied by a high ionisation param-
+                                               mary ionisation source in the ISM is from star formation (SF),            eter U) increases both [N ii]/Hα and [O iii]/Hβ ratios with re-
+                                                                                                                         spect to galaxies dominated by star formation (e.g. Kewley et al.
+                                                ⋆
+                                                    E-mail: hu215@cam.ac.uk                                              2001; Kauffmann et al. 2003). However, with increasing redshift,
+                                                                                                                                                                    Article number, page 1 of 17
+                                                  A&A proofs: manuscript no. GS_3073
+
+also star-forming galaxies (SFGs) tend to move to higher values        black hole mass, host galaxy dynamical mass, outflow proper-
+of [O iii]/Hβ and/or [N ii]/Hα, possibly as a consequence of α-        ties, and physical conditions in Section 4. We discuss our results
+enhanced stellar populations which result in a harder radiation        regarding emission line ratio diagnostic diagrams, early black
+field, variations in the nitrogen abundance, higher electron den-      holes, their feedback and enrichment in Section 5, and we con-
+sities, or a higher ionisation parameter influenced by the SF his-     clude in Section 6.
+tory (e.g. Brinchmann et al. 2008b; Kewley et al. 2013a; Steidel           Throughout, we adopt a Chabrier (2003) initial mass func-
+et al. 2014; Masters et al. 2016; Hirschmann et al. 2017; Kashino      tion (0.1 − 100M⊙ ) and a flat ΛCDM cosmology with H0 =
+et al. 2017; Strom et al. 2017; Topping et al. 2020; Curti et al.      70 km s−1 Mpc−1 , ΩΛ = 0.7, and Ωm = 0.3. The wavelengths
+2022; Hayden-Pawson et al. 2022; Runco et al. 2022). The sit-          of emission lines are quoted in rest-frame, if not specified other-
+uation may change more dramatically at higher redshift due to          wise.
+the steadily decreasing metallicity of the ISM, which can re-
+sult in SFGs changing their location on the line ratio diagnostic
+diagrams (e.g. Kewley et al. 2013a; Feltre et al. 2016; Gutkin         2. Data
+et al. 2016; Hirschmann et al. 2017, 2019, 2022; Nakajima &
+                                                                       2.1. Ancillary data and previous studies
+Maiolino 2022) as is indeed observed in recent JWST data at
+z ∼ 6 − 9 (Curti et al. 2023; Sanders et al. 2023; Cameron et al.      Multi-wavelength observations of GS_3073 (R.A. 3h 32m 18.93s ,
+2023).                                                                 Dec. −27◦ 53′ 2.96′′ ) are available thanks to the wide imaging
+     At z > 3, the rest-frame optical emission line properties of      coverage of the GOODS-South field, and spectral energy dis-
+AGN and SFGs and their location on diagnostic diagrams have            tribution (SED) fitting including photometry from U to radio
+essentially been unexplored so far, due to the technical difficul-     bands has been performed by several groups (e.g. Stark et al.
+ties of accessing the relevant redshifted lines at z>3. However,       2007; Wiklind et al. 2008; Raiter et al. 2010; Vanzella et al.
+models expect that their properties should change strongly, pri-       2010; Faisst et al. 2020; Barchiesi et al. 2022). While initial re-
+marily because of the lower metallicity at such early epochs (e.g.     sults favoured a massive galaxy with an old stellar population,
+Groves et al. 2006; Feltre et al. 2016; Hirschmann et al. 2019;        later work reported evidence for two stellar populations, includ-
+Nakajima & Maiolino 2022). JWST now enables access to the              ing a younger one, with a total stellar mass of log(M⋆ /M⊙ ) ∼
+main rest-frame optical lines up to z ∼ 7, and exploring the loca-     10.5 − 10.7, and a star formation rate of SFR ∼ 30 − 120M⊙ /yr.
+tion of z > 3 AGN and SFGs in the classical lines ratio diagnostic     With our new data, we will show that these estimates require
+diagrams is of great importance for our understanding of the role      some revision.
+of ionising sources in early galaxies.                                     Spectroscopic observations in the rest-frame UV with
+     Another area in which JWST is expected to enable major            FORS2 and VIMOS (Le Fèvre et al. 2003) have found evi-
+progress is the evolution of the scaling relations between su-         dence for a galactic wind traced by Lyα, and for the presence
+permassive black holes (SMBHs) and their host galaxies. Past           of several high-ionisation species such as O viλ1032, N vλ1240,
+studies have shown that at high redshift (z ≳ 6) SMBHs tend to         and N iv]λλ1483, 1486 (Raiter et al. 2010; Vanzella et al. 2010;
+be over-massive relative to their host galaxies, when compared         Grazian et al. 2020; Barchiesi et al. 2022). In addition, GS_3073
+with local relations, by even more than one order of magnitude         has been detected in [C ii]158µm without continuum detection
+(e.g. Bongiorno et al. 2014; Wang et al. 2016; Shao et al. 2017;       within the ALPINE survey (Le Fèvre et al. 2020; Faisst et al.
+Venemans et al. 2017; Decarli et al. 2018; Izumi et al. 2021).         2020; Béthermin et al. 2020; Barchiesi et al. 2022).
+However, it has been suggested that these results might be due             GS_3073 is compact in all observations, with size estimates
+to luminous quasars residing in the tail end of the black hole         in the range 0.08 − 0.18 kpc from galfit fitting (Vanzella et al.
+mass (MBH ) – host mass (Mgalaxy ) distribution. Indeed, similar       2010; van der Wel et al. 2012). Other structural parameters are
+studies with lower-luminosity quasars have found MBH /Mgalaxy          constrained through galfit fits to the H−band (F160W) data as
+ratios more consistent with the local relation (Willott et al. 2015,   follows: Sérsic index nS = 8.00±1.86, axis ratio q = 0.71±0.08,
+2017; Izumi et al. 2018). JWST offers the possibility of exploring     and position angle PA= 75.07◦ ± 10.79◦ , however with a low-
+such relations in even lower luminosity AGN at 3 < z < 9 and           quality flag (van der Wel et al. 2012).
+therefore to test these scenarios.
+     In this paper, we use data from the JWST/NIRSpec In-
+tegral Field Spectrograph (IFS; Jakobsen et al. 2022; Böker            2.2. JWST/NIRSpec IFS observations of GS_3073
+et al. 2022) of the galaxy GS_3073 at z = 5.55, within the             GS_3073 has been observed as part of the NIRSpec IFS GTO
+NIRSpec IFS GTO programme. This source is located in the               program “Galaxy Assembly with NIRSpec IFS” (GA-NIFS), un-
+CANDELS/GOODS-S field (Koekemoer et al. 2011), and has                 der program 1216 (PI: Nora Lützgendorf). The target was ob-
+also been referred to as GDS J033218.92-275302.7 (Vanzella             served on September 25th 2022, with a medium cycling pat-
+et al. 2010). It showed indications for the presence of an AGN         tern of eight dithers and a total integration time of 5 h with the
+in previous spectroscopic studies of its UV light, through de-         high-resolution grating/filter pair G395H/F290LP (spectral res-
+tection of very high ionisation lines such as N vλ1240 and             olution R ∼ 1900 − 3600; Jakobsen et al. 2022). In addition,
+O viλ1032, 1038 (see Vanzella et al. 2010; Grazian et al. 2020).       PRISM/CLEAR observations with a medium cycling pattern of
+However, it was not selected for its potential AGN signatures in       eight dithers and a total integration time of 1.1 h were taken
+our survey, being undetected in deep Chandra X−ray observa-            (spectral resolution R ∼ 30 − 330).
+tions (2 Ms observations as discussed by Vanzella et al. 2010;             Raw data files were downloaded from the MAST archive
+see also Grazian et al. 2020 for deeper 7 Ms observations). In         and subsequently processed with the JWST Science Calibration
+addition to confirming its AGN nature, the data shed light on          pipeline1 version 1.8.4 under CRDS context jwst_1014.pmap.
+its physical conditions and the power source of its ionised gas        We made several modifications to the default reduction steps
+emission. We describe the target GS_3073 and our JWST obser-
+vations in Section 2. In Section 3 we discuss the emission line        1
+                                                                         https://jwst-pipeline.readthedocs.io/en/stable/
+features and spectral fitting. We describe our measurements of         jwst/introduction.html
+
+Article number, page 2 of 17
+           Hannah Übler et al.: GA-NIFS: A massive black hole in a low-metallicity AGN at z ∼ 5.55 revealed by JWST/NIRSpec IFS
+
+
+
+
+Fig. 1. Integrated spectrum extracted from the central three by three spaxels in the wavelength range 2.86µm < λ < 4.85µm with flux in linear scale
+(top) and log scale (bottom). Several emission lines are present and indicated by vertical lines at the top. We detect seven He i lines, He iiλ4686, Hβ,
+[O iii]λλ4959, 5007, Hα, [N ii]λλ6548, 6583, and [S ii]λλ6716, 6731. We also report the detection of [Ar iv]λ4711, [Ar iv]λ4740 and [Ar iii]λ7136
+(note that [Ar iv]λ4711 is blended with He iλ4713). The redshifted auroral line [O iii]λ4363 is only partly covered by the spectral band of our
+observation with the G395H grating. [O i]λ6003 falls into the detector gap masked here in the region 4.06µm < λ < 4.14µm. BLR components are
+present in Hβ, Hα, He ii, and the He i lines. In addition, an outflow component is present, best visible in the broadened, asymmetric line base of the
+[O iii] doublet. We indicate the positions of possible coronal lines [Fe xvi], [Ca v], [Fe xiii], [Fe v], of the auroral line [N ii]λ5755, and of another
+line at λ ∼ 7167.5Å the position of which is consistent with Si i, as grey dotted vertical lines in the bottom panel.
+
+
+to increase data quality, which are described in detail by Perna              used an official patch to correct a known bug2 . The main analysis
+et al. (2023) and which we briefly summarize here. Count-rate                 in this paper is based on the combined R2700 cube with a pixel
+frames were corrected for 1/ f noise through a polynomial fit.                scale of 0.1′′ . We used spaxels away from the central source and
+Outliers were flagged on the individual 2-d exposures, using an               free of emission features to perform a background subtraction.
+algorithm similar to lacosmic (van Dokkum 2001). Because the                      We use the same steps to reduce the R100 data, though here
+point-spread function (PSF) is under-sampled in the spatial di-               we explore cube combinations with smaller pixel scales (down to
+rection across IFU slices, we calculated the derivative of the                0.03′′ ) for a sharper view of the source morphology particularly
+count-rate maps only along the dispersion direction. The deriva-              in the bluest wavelengths (see Appendix B). A more detailed
+tive was then normalised by the local flux (or by 3 times the                 analysis of the lower-resolution data will be presented in future
+rms noise, whichever was highest), and we rejected the 98th per-              work.
+centile of the resulting distribution (see F. D’Eugenio et al. 2023
+for details). In place of performing the default pipeline steps
+flat_field and photom during Stage 2, we performed an external                3. Analysis
+flux calibration after Stage 3 by utilising the commissioning ob-             3.1. Detection of a BLR and outflow component
+servations of a standard star (program 1128, ‘Spectrophotomet-
+ric Sensitivity and Absolute Flux Calibration’, PI: Nora Lützgen-             In Figure 1 we show the integrated G395H spectrum extracted
+dorf; observation 9), reduced under the same CRDS context (see                by summing the spectra from the central three by three spax-
+also e.g. Cresci et al. 2023; Veilleux et al. 2023). Uncertainties            els (0.3′′ × 0.3′′ , or 1.8 kpc ×1.8 kpc), which should encompass
+related to the flux calibration are expected to be of the order of            the nuclear emission, in the wavelength range 2.86µm < λ <
+a few percent (see Böker et al. 2023; Perna et al. 2023). The fi-             4.86µm. Here, and for the fitting described in Section 3.2, we cal-
+nal cube was combined using the ‘drizzle’ method, for which we                culated an initial noise spectrum by adding the errors in quadra-
+                                                                              2
+                                                                                  https://github.com/spacetelescope/jwst/pull/7306
+
+                                                                                                                          Article number, page 3 of 17
+                                                  A&A proofs: manuscript no. GS_3073
+
+ture, i.e. assuming uncorrelated noise between adjacent spaxels        Table 1. Emission line properties of GS_3073 as constrained through
+based on the error extension in the data cube (‘ERR’). This noise      our best fit (Section 3.2). Uncertainties are calculated from the for-
+                                                                       mal best fit to the R2700 data. Quoted FWHM are corrected for
+spectrum was then re-scaled with a measurement of the standard         the wavelength-dependent instrumental resolution at the line position.
+deviation in the integrated spectrum in regions free of line emis-     FWHM and velocities are expressed in units of km/s, and line fluxes are
+sion to take into account correlations due to the non-negligible       expressed in units of 10−18 erg/s/cm2 .
+size of the PSF relative to the spaxel size. This increases the
+noise by about a factor of three (grey error bars in Figure 1).         Measurement                                   Value
+    Several emission lines are present in the G395H spectrum.           FWHMHα,narrow                              195.2 ± 1.7
+We note the prominent, very broad component in all permit-              FWHMHβ,narrow                              224.7 ± 0.6
+ted lines in the spectrum: Hβ, Hα, He ii and seven He i lines.          FWHMHα,outflow                            716.6 ± 12.0
+These broad components of the permitted lines, and the fact that        FWHMHβ,outflow a                         1306.7 ± 23.7
+they are not present in the forbidden lines, unambiguously reveal       FWHMHα,BLR                               3370.4 ± 41.4
+the presence of a Broad Line Region (BLR) around an accret-             ∆vHα,narrow,outflow                         76.8 ± 2.5
+ing black hole. The fact that these lines are significantly fainter     ∆vHβ,narrow,outflow                        100.6 ± 4.3
+than their narrow counterparts implies a type 1.8 classification of     FHα,narrow                                38.71 ± 0.43
+this AGN (e.g. Blandford et al. 1990; Whittle 1992). We report          FHα,outflow                               23.59 ± 0.76
+the detection of high-ionisation [Ar iv] and [Ar iii]. With grey        FHα,BLR                                   37.22 ± 0.95
+dotted vertical lines we indicate the theoretical positions of sev-
+                                                                        FHβ,narrow                                16.04 ± 0.26
+eral coronal lines, of the auroral line [N ii]λ5755, and of another
+                                                                        FHβ,outflow                                5.21 ± 0.35
+emission line at λ ∼ 7167.5Å, potentially Si i.
+                                                                        FHβ,BLR                                    9.61 ± 0.48
+    In addition, the base of the [O iii] doublet reveals the pres-
+                                                                        FHe II,narrow                              0.93 ± 0.09
+ence of a slightly redshifted broad wing (but much narrower than
+                                                                        FHe II,outflow                             2.38 ± 0.32
+the BLR permitted components), which we assume to trace a
+                                                                        FHe II,BLR                                 1.61 ± 0.47
+galactic outflow. For a clearer distinction from the BLR and nar-
+row line components, we will call this broad wing the ‘outflow’         EW(HeIInarrow+outflow ) [Å]               20.42 ± 3.09
+component.                                                              F[O III]λ5007,narrow                     135.94 ± 0.41
+                                                                        F[O III]λ5007,outflow                      7.69 ± 0.14
+                                                                        F[N II]λ6584,narrow                        1.07 ± 0.11
+3.2. Fitting of the integrated G395H spectrum                           F[N II]λ6584,outflow                       1.88 ± 0.25
+                                                                        F[S II]λ6717+λ6731,narrow                  0.42 ± 0.08
+We fit the full spectrum shown in Figure 1: we include a nar-
+row line component tracing the emission from the host galaxy            T e,[O III] [K]b                           14163+1339
+                                                                                                                          −1439
+(both from the narrow line region and any star formation) for
+                                                                        a
+                                                                          FWHMHβ,outflow = FWHM[O III],outflow
+                                                                        b
+all lines, a broader line component tracing the outflow emission          T e,[O III] is constrained from the narrow line ratio of
+for all lines, and a BLR component for the hydrogen and helium          [O iii]λ4363/([O iii]λ4959+[O iii]λ5007). We emphasize that the
+lines, tracing the high-density gas in the BLR of the AGN. We           [O iii]λ4363 emission is only partially covered by our spectrum,
+estimate the continuum through a first-order polynomial, inde-          but the fit is constrained though the line positions and widths of
+pendently for the two spectral regions separated by the detector        other high-S /N lines.
+gap around 4.1µm. For the full fit, we tie the relative velocities
+for all narrow and BLR lines together, and we fix the velocity
+of the outflow components relative to the narrow components.           lowed ranges of 0.44 < [S ii]λ6716/[S ii]λ6731 < 1.45 and
+The velocity widths of all BLR components are tied, assuming           0.12 < [Ar iv]λ4711/[Ar iv]λ4740 < 1.37 (for T e = 104 K; see
+that these emission components originate from the same region.         Proxauf et al. 2014, for [Ar iv]). We show a zoom-in of our best
+We note that this is likely a simplification as different species      fit in Figure 2. Narrow, outflow, and BLR lines are indicated in
+may be stratified in the BLR (Peterson & Wandel 1999), but this        green, orange, and purple, and the full fit is shown in blue.
+approach allows us to better model the BLR components of the                We report emission line properties as constrained through
+faint helium lines. For the narrow and outflow lines, we tie the       our best fit and used in Sections 4 and 5 in Table 1. In addition,
+velocity widths separately around Hα and around [O iii]. This          we briefly discuss line fluxes of He i in Appendix A. We use the
+allows us to account to first order for the different spectral reso-   BLR components to measure the central black hole mass in Sec-
+lutions around these main line complexes, while still constrain-       tion 4.1, and the outflow line components to constrain outflow
+ing, where possible, the different components of fainter emis-         properties in Section 4.3. In our discussion of line ratio diagnos-
+sion lines. We have also performed fits tying the line widths in       tics in Sections 5.1 and 5.2 we quote values based on narrow and
+velocity taking into account specifically the linearly wavelength-     outflow line components.
+dependent spectral resolution of the G395H grating. Overall, this
+gives very similar results in terms of black hole mass estimates       3.3. Kinematic maps
+and narrow line ratios, however, we clearly achieve a better fit to
+the narrow [N ii]λ6584 emission with our fiducial approach. The        We derive maps of projected flux, velocity, and velocity disper-
+line widths of the outflow components are most affected by this        sion for the narrow [O iii] and Hα lines, and for the outflow com-
+choice (see Table 1).                                                  ponent as traced by [O iii] from multi-component Gaussian fits
+     The fit is further constrained through atomic physics             to the continuum-subtracted emission. Specifically, to derive the
+(e.g. Osterbrock & Ferland 2006): the intensity ratio of the           2d maps we fit the emission in each spaxel separately around
+[O iii] doublet is fixed to [O iii]λ5007/[O iii]λ4959 = 2.98,          [O iii] and around Hα. We use two components for [O iii], one
+and the intensity ratio of the [N ii] doublet is fixed to              for the narrow line emission and one for the broader component
+[N ii]λ6584/[N ii]λ6548 = 2.94. We verify that the [S ii]              which we interpret as an outflow. The amplitude, width and line
+and [Ar iv] doublet ratios are within the physically al-               centroid of both components are free to vary in these fits. For
+Article number, page 4 of 17
+           Hannah Übler et al.: GA-NIFS: A massive black hole in a low-metallicity AGN at z ∼ 5.55 revealed by JWST/NIRSpec IFS
+
+
+
+
+Fig. 2. Zoom-in on the integrated spectrum extracted from the central three by three spaxels including our best fit (blue) with individual components
+for the emission lines (narrow: green, outflow: orange, BLR: purple) for the wavelength range including He iiλ4686, [Ar iv]λ4711, He iλ4713,
+[Ar iv]λ4740, Hβ, He iλ4922, [O iii]λ4959, and [O iii]λ5007 (left) and the wavelength range including [N ii]λ6548, Hα, [N ii]λ6584, He iλ6678,
+[S ii]λ6716, and [S ii]λ6731 (right). The bottom panels show the residuals, res. = data – best fit. Note that for some of the weaker lines no BLR
+or outflow component is preferred by the fit. We further note a faint flux excess red-wards of [O iii]λ5007 that is undetected in individual spaxels,
+potentially suggesting some higher velocity (nuclear) outflow components not captured by our fiducial fit.
+
+
+the fit of the Hα complex we also use two components, one for               Table 2. Measurements of central black hole mass, host galaxy dynam-
+the narrow line emission and one for the BLR emission. While                ical mass, and outflow properties (see Section 4).
+we fix the line centroid of the BLR emission to the narow line
+emission, the amplitude and width of both components are free                Measurement                                      Value
+to vary. This simplified approach (i.e. without explicitly account-          log(MBH /M⊙ )Hα                                8.2 ± 0.4
+ing for an outflow component or [N ii] emission around Hα) al-               log(Lbol /(erg/s))                           ∼ 45.2 − 46.2
+lows us to fit the lower−S /N spectra from individual spaxels and            log(LEdd /(erg/s))                            46.3 ± 0.4
+in particular at larger distances from the source centre. How-               λEdd                                          ∼ 0.1 − 1.6
+ever we emphasize that the narrow Hα centroid and width are                  log(Mdyn /M⊙ )                                  9.4+0.7
+                                                                                                                                −0.2
+still well constrained due to the outflow and BLR emission be-               vout,Hα = ⟨voutflow ⟩ + 2σoutflow [km/s]       685 ± 11
+ing much fainter. We visually inspect the fits to each spaxel and            Ṁout,ion [M⊙ /yr]                              98 ± 2
+create masks accordingly. The resulting maps are shown in Fig-               ηion                                            6.1+5.0
+                                                                                                                                −2.9
+ure 3.
+     A velocity gradient of ∆v ∼ 70 km/s roughly along the
+North-South direction is visible in both the narrow [O iii] and
+Hα components, which may be interpreted as rotation. There is                   The outflow is visible in the nuclear region, with positive and
+a small offset between the integrated [O iii] and Hα line cen-              negative velocities measured from V10 and V90 of up to |600-
+troids of about 8 km/s, much lower than the spectral resolution             700| km/s (with respect to the systemic velocity of the galaxy;
+of our data. Note that we find a kinematic position angle of about          see bottom middle and right panels in Figure 3).
+PAkin ∼ −15◦ , perpendicular to the morphological PA= 75◦ (see
+Section 2.1). However, we also note that this compact source
+is barely resolved in the combined cube with 0.1′′ pixel scale,
+as indicated by the point-spread function (PSF) intensity profile           4. Results
+imprinted on our line maps (see Figure 3).
+     Going to a smaller plate scale and bluer wavelengths in the            Physical properties derived from our best fit to the fiducial spec-
+R100 data, we do see some evidence for structure in the main                trum integrated over the central three by three spaxels are re-
+galaxy, and possibly even for two faint companions (see Ap-                 ported in Table 2. We describe our measurements here.
+pendix B). There is a region of higher positive velocities visible
+in both the Hα and [O iii] maps in the East-South-East direction.
+It is conceivable that this kinematic feature is related to one of          4.1. Black hole properties
+these faint tentative companion galaxies.
+     The velocity dispersion maps are relatively featureless, but           We find a Hα/Hβ flux ratio of 3.87 ± 0.22 for the BLR compo-
+we see elevated dispersions in the central region of the galaxy in          nents. For QSOs, intrinsic Hα/Hβ ratios of 3 − 10 are routinely
+both the Hα and [O iii] maps. This is expected for the observed             observed (e.g. Osterbrock 1977, 1981), and therefore no correc-
+kinematics of a rotating disc that are affected by beam-smearing            tion for extinction is performed. If the BLR Hα luminosity were
+particularly in the centre. We do not see an increase in dispersion         underestimated due to the presence of dust, the black hole mass
+toward the region of higher velocities in the East-South-East.              calculated below would correspond to a lower limit.
+                                                                                                                        Article number, page 5 of 17
+                                                        A&A proofs: manuscript no. GS_3073
+
+
+
+
+Fig. 3. Top and middle row: projected maps of flux (left), velocity (middle), and velocity dispersion corrected for instrumental resolution (right) as
+measured from the narrow [Oiii] component (top) and the narrow Hα component (middle) tracing the host galaxy kinematics. Bottom: projected
+maps of flux (left), V10, the velocity at the 10th percentile of the emission-line profile (middle), and V90, the velocity at the 90th percentile (right),
+from the outflow [Oiii] component. North is up and East is to the left. The spaxel size is 0.1′′ . A bar in the first column indicates 1′′ , corresponding
+to roughly 6 kpc at the source redshift. The highest projected velocities are found in the East-South-East region in both the narrow Hα and [O iii]
+velocity maps, and are possibly related to an ongoing interaction with a faint companion (see Appendix B). Apart from this region, a velocity
+gradient of ∆v ∼ 70 km/s along the North-North-West to South-South-East direction is visible in both the narrow [Oiii] and Hα, possibly indicative
+of rotation. There is a small offset between the integrated [Oiii] and Hα line centroids of about 8 km/s. We find elevated velocity dispersions in the
+galaxy centre, as expected for observations of a rotating disc affected by beam-smearing. The outflow is visible in the nuclear region, with positive
+and negative velocities respectively the systemic velocity of |600-700| km/s.
+
+
+    Assuming that the gas in the BLR is virialized, we calculate              We measure a black hole mass of log(MBH /M⊙ ) = 8.2 ± 0.4
+the central black hole mass from the spectral properties of the Hα            (Table 2).
+BLR region following the calibration by Reines et al. (2013):3                     We verify that using a larger aperture (while constraining the
+                                                                              BLR width to the best fit from the fiducial higher signal-to-noise
+                                                                              spectrum) does not change our results on the black hole mass sig-
+                                                                              nificantly: by integrating the spectrum over the central 1.15′′ we
+        !
+    MBH
+log       = log(ϵ) + 6.57                                                     find log(MBH /M⊙ ) = 8.3±0.4. This indicates that the BLR emis-
+    M⊙
+                                 !                      !                     sion is nearly fully encompassed by the central three by three
+                         LHα                  FWHMHα                          spaxels.
+          + 0.47 log               + 2.06 log             (1)
+                      1042 erg/s               103 km/s                            Using alternatively the calibrations by Greene & Ho (2005)
+                                                                              utilising the Hα BLR emission, the Hβ BLR emission, and
+(their Equation 5; see also Greene & Ho 2005), where ϵ is a                   the L5100 luminosity, and again accounting for the scatter of
+scaling factor depending on the structure, kinematics, and orien-             the local virial relations, we find log(MBH /M⊙ ) = 8.0 ± 0.4,
+tation of the BLR, of the order of ∼ 1, and reported in the range             log(MBH /M⊙ ) = 7.9 ± 0.4, and log(MBH /M⊙ ) = 8.2 ± 0.4, re-
+0.75 − 1.4 (Onken et al. 2004; Reines et al. 2013). Following                 spectively, consistent with the estimate using the calibration by
+Reines & Volonteri (2015), we therefore assume ϵ = 1.075 ±                    Reines et al. (2013).
+0.325. The luminosity LHα and FWHMHα and their uncertain-                          We use different calibrations to estimate the bolometric lu-
+ties are measured from our best-fit BLR component. In addition,               minosity Lbol of GS_3073.4 First, assuming that the narrow line
+we account for the statistical uncertainty on ϵ as based on local             emission is dominated by the AGN, we calculate the Lbol from
+MBH − σ⋆ relations by adding 0.4 dex in quadrature to our error               the narrow line luminosities of Hβ and [O iii] following Equa-
+budget (e.g. Ho & Kim 2014), which dominates the uncertainty.                 tion 1 by Netzer (2009). This gives log(Lbol /(erg/s)) = 46.2, and
+                                                                              likely represents an upper limit. If instead we use Equation 25
+3
+   We remind the reader that this calibration has not yet been thoroughly
+                                                                               4
+tested at high redshift, because rest-frame optical lines were not acces-        Again, we caution that these calibrations are all based on data from
+sible at z>4 before the launch of JWST.                                       low-redshift AGN in the Sloan Digital Sky Survey (SDSS).
+
+Article number, page 6 of 17
+          Hannah Übler et al.: GA-NIFS: A massive black hole in a low-metallicity AGN at z ∼ 5.55 revealed by JWST/NIRSpec IFS
+
+by Dalla Bontà et al. (2020) to estimate Lbol from the Hβ BLR          emission line contributions. We find strong emission lines that
+luminosity, we get log(Lbol /(erg/s)) = 45.3. We find a similar        would significantly contaminate the 3.6 and 4.5 µm Spitzer
+value of log(Lbol /(erg/s)) = 45.2 ± 0.4 when calculating Lbol us-     IRAC (Infra-Red Array Camera) fluxes, the rest-frame optical
+ing Equation 6 by Stern & Laor (2012) utilising the Hα BLR             constraints closest to the Balmer-break region (and therefore
+luminosity.                                                            most important for stellar mass estimates). If not accounted for
+    Using our black hole mass estimate from the Hα BLR                 properly, they could lead to over-estimates of the stellar mass.
+(Eq. 1), the Eddington luminosity is log(LEdd /(erg/s)) =              We used the R100 spectrum to provide an updated stellar mass
+4πGMBH mp c/σT = 46.3 ± 0.4, where G is the gravitational con-         estimate based on the continuum emission. We see no strong
+stant, mp the proton mass, c the speed of light, and cT the Thom-      Balmer-break in the spectrum, and cannot rule out significant
+son scattering cross-section. Depending on which bolometric lu-        contribution, or even dominance of the continuum light from the
+minosity and which black hole mass estimate we adopt, we find          accretion disc surrounding the black hole. Under the assump-
+Eddington ratios in the range λEdd = Lbol /LEdd = 0.1 − 1.6 (Ta-       tion that the continuum light is dominated by the host galaxy,
+ble 2).                                                                we fit the continuum in the region 2.73 − 5.30µm, using beagle
+                                                                       (Chevallard & Charlot 2016) while fully masking the emission
+                                                                       lines (which have multiple physical contributions). Using a con-
+4.2. Host galaxy dynamical mass                                        stant star-formation history (SFH) we find a stellar mass estimate
+GS_3073 is very compact and barely resolved in our IFU ob-             of log(M⋆ /M⊙ ) ∼ 9.52 ± 0.13, where the uncertainties denote
+servations (see also discussion by Vanzella et al. 2010). We es-       the 1σ credible interval. We find a similar stellar mass estimate
+timate its dynamical mass by means of the integrated narrow            when fitting to the full spectrum (rest-frame UV to optical) with
+component line width (corrected for instrumental broadening)           a delayed SFH with last 10 Myr of constant star formation al-
+as follows:                                                            lowed to vary independently. This estimate is consistent within
+                                                                       the uncertainties with our dynamical mass estimate, and we use
+                                                                       it as a fiducial value for the stellar mass of GS_3073.
+                  σ2 Re                                                     In Figure 4 we compare our black hole mass measurement
+Mdyn = K(n)K(q)         ,                                       (2)
+                   G                                                   as a function of host galaxy stellar mass and host galaxy dy-
+                                                                       namical mass to various literature compilations and relations,
+    where K(n) = 8.87 − 0.831n + 0.0241n2 with Sérsic in-              locally and at high redshift. Reines & Volonteri (2015) provide
+dex n following Cappellari et al. (2006), K(q) = [0.87 +               a compilation of local AGN for which the black hole mass has
+0.38e−3.71(1−q) ]2 with axis ratio q following van der Wel et al.      been measured from Hα BLR components with the same cali-
+(2022), and Re is the effective radius. In this calibration, σ is      bration that we use for our MBH measurement (in addition, some
+the integrated stellar velocity dispersion. Bezanson et al. (2018)     local data points come from reverberation mapping). The black
+show that galaxies with low integrated ionised gas velocity dis-       hole of GS_3073 is more massive by more than two orders of
+persion tend to underestimate the integrated stellar velocity dis-     magnitude compared to the best-fit relation to the local sample,
+persion (their Figure 4b). We take this into account with a cor-       and more massive than all local Broad Line AGN by Reines &
+rection of ∆ log(σ/(km/s)) = +0.1 to our measured narrow line          Volonteri (2015). We also show two data points from Kocevski
+dispersion (σHα,narrow = 83 km/s).                                     et al. (2023) at z ∼ 5.2 and z ∼ 5.6 (see also Onoue et al.
+    Adopting structural parameters n = 8, q = 0.71, and Re =           2023). For consistency with our measurement and the z = 0
+0.18 kpc from Sérsic fits to the H−band photometry by van der          data, we re-calculate the black hole masses based on Eq. 1. This
+Wel et al. (2012), we find log(Mdyn /M⊙ ) ∼ 9.2. Since a Sérsic        re-calibration results in an increase of the black hole mass by
+index of n = 8 is at the edge of the explored parameter space in       ∼ 0.2 dex, relative to what is quoted by the authors (following
+the fits by van der Wel et al. (2012), likely biased by the presence   the discussion in that paper, we assume AV = 4 for the higher
+of the AGN at the centre of the galaxy, we adopt n = 4 to de-          mass source). These two sources appear more consistent with
+rive a fiducial dynamical mass, leading to log(Mdyn /M⊙ ) ∼ 9.4.       the local BLR population, but since their stellar mass estimates
+We find similar values when we adopt the calibration between           are upper limits, also these black holes could be overly massive.
+inclination-corrected integrated line widths and disc velocities            At high redshift, existing black hole mass measure-
+by Wisnioski et al. (2018) together with their equation 3, namely      ments are primarily obtained from luminous quasars (QSOs;
+log(Mdyn /M⊙ ) ∼ 8.9, or when we attempt to replace the inte-          log(Lbol /(erg/s)) ∼ 46.5 − 48) for which stellar mass estimates
+grated ionised gas velocity dispersion with v2rms = v2obs + σ2obs ,    are not available. In the right panel of Figure 4 we compare the
+namely log(Mdyn /M⊙ ) ∼ 9.3, where vobs is half the inclination-       black hole mass of GS_3073 as a function of host galaxy dy-
+corrected, maximum observed velocity gradient, and σobs is the         namical mass to z ≥ 6 QSOs compiled by Izumi et al. (2021)
+average observed velocity dispersion of individual spaxels in the      (see also their figure 13), including data by Willott et al. (2010);
+outer region of the galaxy (both uncorrected for beam-smearing;        De Rosa et al. (2014); Kashikawa et al. (2015); Venemans et al.
+see Figure 3). A large uncertainty in these calculations stems         (2015); Bañados et al. (2016); Jiang et al. (2016); Shao et al.
+from the structural parameters of GS_3073. Overall, if we vary         (2017); Mazzucchelli et al. (2017); Decarli et al. (2018). Our
+the size between 0.11 and 0.9 kpc, we find dynamical mass              galaxy sits at the lower end of the QSO MBH distribution (see
+estimates in the range 9.2 < log(Mdyn /M⊙ ) < 10.1 (see Ta-            also the compilations by Willott et al. 2017; Pensabene et al.
+ble 2), and if we vary additionally the Sérsic index between           2020). Similar to several of the measurements compiled by
+0.5 and 8 (see values reported by Vanzella et al. 2010), we find       Izumi et al. (2021), GS_3073 appears to sit above the local
+9.0 < log(Mdyn /M⊙ ) < 10.3.                                           MBH − Mbulge relation constrained by Kormendy & Ho (2013).
+    We note that previous literature estimates on the total stel-      However, we note that the comparison of the high−z dynami-
+lar mass from SED fitting for GS_3073 are larger than our              cal mass measurements to the local bulge mass measurements,
+dynamical mass estimate, with the most recent estimate being           constrained from elliptical and S/S0 galaxies, is not straight for-
+log(M⋆ /M⊙ ) ∼ 10.6 (Barchiesi et al. 2022). The literature es-        ward. As discussed by Reines & Volonteri (2015), even when
+timates are based on broad-band photometry that had unknown            accounting for differences in the IMF assumptions and when as-
+                                                                                                               Article number, page 7 of 17
+                                                        A&A proofs: manuscript no. GS_3073
+
+
+
+
+                          Reines+15                                                                  Kormendy+13
+                          local MBH-Mstar                                                            local MBH-Mbulge
+                          Reines+15                                                                  Izumi+21
+                          local BLR or RM AGN                                                        z³6 QSOs
+                          Kocevski+23
+                          z=5-6 AGN
+
+                     GS_3073                                                                     GS_3073
+                      z=5.55                                                                      z=5.55
+
+
+
+
+Fig. 4. Central black hole mass MBH as a function of host galaxy stellar mass Mstar (left) and host galaxy dynamical mass Mdyn (right) for GS_3073
+(filled blue star) and literature compilations. In the left panel, we compare our galaxy to local AGN by Reines & Volonteri (2015) for which the
+black hole mass has been determined from a broad line region or from reverberation mapping (red circles, with representative error bar in grey).
+The black line with shaded region shows the best fit with uncertainties to this data by Reines & Volonteri (2015), with the dashed lines indicating
+intrinsic scatter plus measurement uncertainties. As teal diamonds we show two data points by Kocevski et al. (2023), for which we calculate the
+black hole mass based on Eq. 1 for consistency with our measurement and the z = 0 data. In the right panel, we compare our galaxy to z ≥ 6
+QSOs by Izumi et al. (2021) (green diamonds). For our dynamical mass estimate, we adopt Sérsic index nS = 4 and effective radius Re = 0.18 kpc,
+and indicate uncertainties by varying Re between 0.11 and 0.9 kpc. The black line shows the local MBH − Mbulge relation with uncertainties and
+intrinsic scatter by Kormendy & Ho (2013). The black hole of GS_3073 is at the lower end of the MBH − Mdyn distribution when compared to the
+measurements by Izumi et al. (2021), but still appears over-massive for its host galaxy dynamical mass compared to the local relation by Kormendy
+& Ho (2013). Considering the MBH − Mstar relation, the black hole of GS_3073 is much more massive compared to local broad line AGN with a
+similar host galaxy stellar mass.
+
+
+suming that the bulge dynamical mass corresponds to the total                      For the calculation of outflow properties such as the mass
+stellar mass, the slope and normalisation of the z = 0 relations               outflow rate Ṁout,ion and mass loading factor ηion = Ṁout,ion /SFR,
+differ (see also discussion by Kormendy & Ho 2013).                            we use our measurements from the Hα outflow component, but
+                                                                               note that they may correspond to lower limits given the higher
+                                                                               velocity emission seen for the [O iii] outflow. We adopt a simple
+4.3. Outflow properties based on the integrated spectrum
+                                                                               model to estimate Ṁout,ion from the Hα outflow component, as-
+Faint but clearly detected wings, different than the BLR, are                  suming a photo-ionised, constant velocity (vout ), spherical out-
+seen in most of the strong emission lines in the integrated spec-              flow of extent Rout , following Genzel et al. (2011); Newman
+trum extracted from the central three by three spaxel of GS_3073               et al. (2012); Förster Schreiber et al. (2019); Davies et al. (2019,
+(see Figure 2), which we interpret as tracing an outflow (in line              2020); Cresci et al. (2023):
+with other outflow indications by Vanzella et al. 2010; Grazian
+et al. 2020). The outflow emission appears almost symmetric,                                 1.36mH
+                                                                               Ṁout,ion =
+but slightly redshifted, suggesting that the majority of the out-                              γHα
+flow is pointing away from the observer (see also Vanzella et al.                                LHα,outflow 1000cm−3    vout    1kpc M⊙
+2010; Grazian et al. 2020). We measure the maximum pro-                                       × 42                                       ,          (3)
+jected outflow velocity as vout = ⟨voutflow ⟩ + 2σoutflow , where                               10 erg s−1 ne,outflow 1000km s−1 Rout yr
+σoutflow is corrected for instrumental resolution (e.g. Genzel et al.          where 1.36mH is the effective nucleon mass for a 10 per cent he-
+2011; Davies et al. 2019). At the position of [O iii] we measure               lium fraction, γHα = 3.56 × 10−25 erg/cm3 /s is the Hα emissivity
+vout = 1211 ± 20 km/s, while at the position of Hα we measure                  at T = 104 K, ne,outflow is the electron density in the outflow, and
+vout = 685 ± 11 km/s (see description of fitting model in Sec-                 LHα,outflow is the Hα luminosity of the outflow component.
+tion 3.2). At the [O iii] position, we note an even more extended,                 The [S ii] lines are comparatively weak for GS_3073, and
+faint redshifted wing in emission that is not captured by our best-            no outflow line component in the [S ii] doublet is preferred
+fitting model (see left panel of Figure 2). The velocity separation
+of this emission reaches roughly 3100 km/s, suggesting a more                  by about one third (e.g. Rupke et al. 2005; Veilleux et al. 2005; Arribas
+complex and vigorous outflow.5                                                 et al. 2014). In light of the high-velocity [O iii] emission seen in the
+                                                                               integrated spectrum, we continue our discussion of outflow properties
+5
+   Another common definition of maximum projected outflow velocity,            with vout as defined in the main text. See also Förster Schreiber et al.
+vout,2 = ⟨voutflow ⟩+FWHMoutflow /2, gives outflow velocities that are lower   (2019); Davies et al. (2020) for other definitions of vout .
+
+Article number, page 8 of 17
+          Hannah Übler et al.: GA-NIFS: A massive black hole in a low-metallicity AGN at z ∼ 5.55 revealed by JWST/NIRSpec IFS
+
+by our best fit. From the narrow component fit we infer
+F[S II]λ6716 /F[S II]λ6731 = 0.69 ± 0.28, corresponding to an electron
+density of ne,[S II] ∼ 1869/cm3 for T = 104 K, using the calibra-
+tion by Sanders et al. (2016). Alternatively, we can measure the
+electron density in the narrow and outflow component also from
+the [Ar iv]λλ4711, 4740 ratio (e.g. Proxauf et al. 2014). How-
+ever, in our case the [Ar iv]λ4711 line is blended with He iλ4713,
+making this measurement uncertain (see Figure 2). We cannot
+easily constrain the outflow component ratio, but report a den-
+sity of ne,[Ar IV] = 3032/cm3 based on the narrow component
+ratio, in line with this emission originating from higher density
+regions.
+    For the density of the outflow component, since this is un-
+constrained by our data, we follow Förster Schreiber et al. (2019)
+in assuming ne,outflow = 1000/cm3 (their fiducial value for AGN-
+driven outflows; see also e.g. Perna et al. 2017; Kakkad et al.
+2018). With LHα,outflow = 12.4 × 1042 erg/s and adopting Rout =
+Re ∼ 0.18 kpc, we find Ṁout,ion ∼ 98 ± 2 M⊙ /yr. This is compa-
+rable to AGN with strong ionised outflows at 1 < z < 3 (Förster
+Schreiber et al. 2019). It is reasonable to assume that the total
+mass loss due to outflows is larger, since we are only probing
+the warm ionised gas phase with our measurements. Rupke et al.
+(2017) and Fluetsch et al. (2019) have studied the relation be-
+tween MBH and Ṁout from various gas phases in local galaxies.
+For GS_3073 we find a mass outflow rate that is about twice as             Fig. 5. GS_3073 in the mass-metallicity plane (blue star). The z ∼ 0.08
+                                                                           relation based on SDSS data by Curti et al. (2020a) is shown as grey
+high as their best-fit relations, however well within the spread of
+                                                                           shading with the best fit in black. The red and yellow dash-dotted lines
+individual measurements.                                                   show the best-fit relations at z ∼ 2.3 and z ∼ 3.3, respectively, by
+    We can further estimate the mass loading factor ηion =                 Sanders et al. (2021) based on data from the MOSDEF survey (Kriek
+Ṁout,ion /SFR. The literature SFR estimates from SED fitting for          et al. 2015). The dashed green line shows the best-fit relation obtained
+GS_3073 vary in the range SFR∼ 30 − 410M⊙ /yr (Barro et al.                by Nakajima et al. (2023) based on a compilation of early JWST data
+2019; Faisst et al. 2020). From the [C ii]λ158µm luminosity,               at redshifts 4 < z < 10. GS_3073 at z = 5.55, although being slightly
+Barchiesi et al. (2022) derive SFR[CII] = 16+14  −7 M⊙ /yr. Since the
+                                                                           more massive, is compatible with the extrapolation of this relation.
+Hα narrow line flux likely has a strong AGN contribution, we in-
+stead use the SFR[CII] .6 From this we derive ηion ∼ 6.1+5.0 −2.9 . This
+suggests the AGN in GS_3073 is powerful enough to expel more               of the electron density within a range of 102 -104 /cm3 . Follow-
+mass from the galaxy than is currently consumed by star forma-             ing Dors et al. (2020), assuming that the narrow line emission
+tion, in particular when considering the addition of cold and hot          is dominated by AGN excitation, the measured T e corresponds
+gas likely entrenched in the outflow.                                      to a metallicity of about 0.2 Z⊙ , or 12 + log(O++ /H)= 8.00+0.12
+                                                                                                                                       −0.09 .
+                                                                                                                                               7
+
+    We caution that the estimates of both Ṁout,ion and ηion are un-       By itself, this corresponds to a lower limit due to the unknown
+certain due to the substantial uncertainties regarding the ionised         contribution of the other ionic species to the total oxygen abun-
+gas density and outflow geometry.                                          dance.
+                                                                               However, in our R100 observations of GS_3073 we cover
+                                                                           the wavelength range λ = 0.6 − 5.3µm which includes the
+4.4. Electron temperature and metallicity                                  [O ii]λλ3727, 3730 doublet (see Appendix C). Together with our
+                                                                           R2700 data,8 this allows us to constrain the full O/H abun-
+Our observations cover part of the auroral [O iii]λ4363 emission           dance. We measure the [O ii]λλ3727, 3730 flux from an aperture
+line, which can be used in conjunction with [O iii]λλ4959, 5007            which gives [O iii]λλ4959, 5007 flux consistent within 3 percent
+to measure the electron temperature and gas phase metallicity              of our measurement from the R2700 data. We find the contribu-
+(e.g. Izotov et al. 2006; Curti et al. 2017; and Maiolino & Man-           tion from O+ /H to be minor: exploiting the [O ii]λλ3727, 3730
+nucci 2019 for a review). Although [O iii]λ4363 is only partly             flux, and following the prescriptions from Dors et al. (2020)
+covered in our R2700 data, we can still perform a simultaneous             to account for the temperature of the low-ionisation region in
+fit with the other emission lines in our spectrum by fixing the rel-       Seyfert galaxies, we derive a total oxygen abundance of 12 +
+ative line position and the line widths to [O iii]λ5007. While ten-        log(O/H)= 8.02+0.13                             +0.08
+                                                                                             −0.10 , corresponding to 0.21−0.04 per cent so-
+tative, this gives an electron temperature of T e ≈ 14163+1339−1439 K      lar metallicity. We note that the contribution to the total abun-
+based on the narrow line ratio [O iii]λ4363/[O iii]λλ4959, 5007.           dance from even higher ionisation states of Oxygen is expected
+For this calculation, we assume an electron density of 103 /cm3 ,          to be fully negligible, as the ionisation correction factor (ICF)
+consistent within the uncertainties with our best-fit value based          computed on the basis of the He+ and He++ abundances is
+on the [S ii] doublet, and corresponding to the same value we              ICF(O)=N(He+ +He++ )/N(He+ )= 1.017 (Torres-Peimbert & Pe-
+adopt for the calculations of outflow properties (Section 4.3).            imbert 1977; Izotov et al. 1994). As shown in Figure 5, this
+We note however that T e,[OIII] , i.e. the electron temperature of the
+high-ionisation zone, is relatively insensitive to the exact value          7
+                                                                              We use solar metallicity Z⊙ = 0.014 and 12 + log(O/H)= 8.69 (As-
+                                                                           plund et al. 2009).
+6                                                                           8
+   However, we can use the narrow Hα flux to derive an upper limit of         We use the R2700 data to measure the line fluxes of [O iii]λ4363
+60M⊙ /yr on the SFR and a lower limit of 1.6 on the ionised gas mass       and [O iii]λλ4959, 5007 because [O iii]λ4363 is blended with Hγ in the
+loading factor, consistent with the estimates from [C ii].                 lower-resolution data.
+
+                                                                                                                     Article number, page 9 of 17
+                                                       A&A proofs: manuscript no. GS_3073
+
+
+
+
+                                                           z=0                                                                      z=0
+                                                           AGN                                                                      AGN
+
+                                                                                              SFGs
+                      GS_3073 narrow            z=0                                              AGN/DCBHs
+                      GS_3073 narrow+outflow    SFGs
+                                                                                            Zgas     log(U)
+                      GS_3073 outflow
+                                                                                            0.001      -0.5
+                      SDSS
+                                                                                                                             z=0
+                                                                                            0.0014     -1.0
+                                                                                                                             SFGs
+                      Hviding+22 BLAGN                                                      0.0028     -1.5   a
+                                                                                            0.007      -2.0       -1.2
+                      Kauffmann+03                                                                     -2.5       -1.6
+                                                                                            0.014
+                      Kewley+01                                                             0.028      -3.0       -2.0
+
+
+
+
+Fig. 6. [O iii]λ5007/Hβ vs. [N ii]λ6584/Hα (left) and [O iii]λ5007/Hβ vs. [S ii]λλ6717, 6731/Hα (right) diagnostic diagrams. The position of
+GS_3073 is indicated as filled green (purple, blue) stars as constrained by its narrow (outflow, narrow+outflow) line ratios. Local galaxies from
+SDSS (Abazajian et al. 2009) are indicated by the grey shading with contours encompassing 98, 80, 50 per cent of the sample. The red contours
+encompass 95, 80, 50 per cent of SDSS broad line AGN as classified by Hviding et al. (2022). The dashed line indicates the demarcation by
+Kauffmann et al. (2003) between galaxies primarily ionised by SF (left) and AGN (right). The dotted lines by Kewley et al. (2001) include more
+extreme starbursts or composite objects among the star-forming galaxies to the left. The thin colored symbols (stars, crosses, triangles) show model
+grids for AGN and direct collapse black holes (DCBHs) by Nakajima & Maiolino (2022) for an accretion disc temperature of T bb = 2 × 105 K,
+power law indices to constrain the slope between the optical and X−ray bands (α = −1.2, −1.6, −2.0, corresponding to stars, crosses, triangles),
+ionisation parameters (−3.0 < log U < −0.5 indicated by increasing symbol size), and gas phase metallicities (Zgas = 0.001 − 0.028, teal to red
+colors). A gas density of 103 /cm3 is assumed. Grey symbols show models with lower T bb . Open circles show model grids for galaxies using
+BPASS SEDs (Eldridge et al. 2017; Stanway & Eldridge 2018), with binary evolution based on a Kroupa (2001) IMF with an upper mass cut of
+300M⊙ , and a stellar age of 10 Myr (see Nakajima & Maiolino 2022 for details). Here, the dark to light colors indicate stellar metallicities in the
+range Z⋆ = 0.0006 − 0.0084. In these diagrams, GS_3073 has line ratios compatible with being either a low-metallicity AGN or a low-metallicity
+SFG corresponding to these theoretical models, despite being located within the classical SFG regime.
+
+
+places our galaxy well below the gas-phase mass-metallicity re-            [N ii]/Hα and [S ii]/Hα line ratios place our source into the star-
+lations measured from z = 0 to z ∼ 3 (Curti et al. 2020b; Sanders          forming regime of the classical z = 0 line ratio diagnostic dia-
+et al. 2021), and in line with the relation inferred for star-forming      grams.
+galaxies at 4 < z < 10 by Nakajima et al. (2023).                              Theoretical models do predict that AGN in the early Uni-
+                                                                           verse might populate the ‘star-forming’ regime of the classical
+5. Discussion                                                              line ratio diagnostics, to the left of the z = 0 AGN branch,
+                                                                           mainly due to their lower metallicities. This is shown in Fig-
+5.1. An AGN in the SFG regime of the classical line ratio                  ure 6 through thin stars, crosses, and triangles which represent
+     diagnostic diagrams                                                   model predictions by Nakajima & Maiolino (2022) for AGNs
+An important result of our work is that low metallicities in the           with varying metallicities, ionisation parameters, and power law
+early Universe blur the differences in classical diagnostic line ra-       indices (see also e.g. Groves et al. 2006; Kewley et al. 2013a;
+tios between galaxies that are primarily ionised by SF vs. AGN             Feltre et al. 2016; Gutkin et al. 2016; Hirschmann et al. 2017,
+activity. This can be appreciated in Figure 6, where we show               2019; and see Hirschmann et al. 2022 for a study post-processing
+the placement of our galaxy in the line ratio diagnostic dia-              cosmological simulations). Models with an accretion disc tem-
+grams [O iii]/Hβ vs. [N ii]/Hα (left; Baldwin et al. 1981) and             perature of T bb = 2 × 105 K are shown in color, while models
+[O iii]/Hβ vs. [S ii]λλ6717, 6731/Hα (right; Veilleux & Oster-             with T bb = 5 × 104 K and T bb = 1 × 105 K are shown as grey
+brock 1987). Our source (filled green, purple, and blue stars for          symbols.
+narrow, outflow, and narrow+outflow line ratios, respectively)                 However, if we consider theoretical model predictions for
+has an [N ii]/Hα ratio which is lower than for the majority of lo-         early galaxies with massive stars, indicated by blue/purple cir-
+cal SFGs, and well separated from the local AGN branch. The                cles in Figure 6, they are also in agreement with the location of
+[N ii]/Hα and [S ii]/Hα narrow line ratios of GS_3073 are also             GS_3073. These models suggest that the classical line ratio di-
+much lower than those of massive SFGs at 1 < z < 3, while the              agnostic diagrams alone cannot be used to distinguish SFGs and
+[O iii]/Hβ ratio is above average (e.g. Steidel et al. 2014; Strom         AGN in the early Universe. Our data demonstrate that high−z
+et al. 2017; Curti et al. 2020a; Topping et al. 2020; see Maiolino         AGN can indeed populate the ‘star-forming’ regime of the clas-
+& Mannucci 2019 for a review). Despite being an AGN, the low               sical line ratio diagnostics (see also Kocevski et al. 2023).
+Article number, page 10 of 17
+          Hannah Übler et al.: GA-NIFS: A massive black hole in a low-metallicity AGN at z ∼ 5.55 revealed by JWST/NIRSpec IFS
+
+
+
+
+                                                 Pop III regime                                 Tozzi+23 HeII AGN
+                                                                                               Shirazi+12
+
+
+
+
+                                                                  5
+                                                      Tbb=2´10 K
+                                                                  5
+                                                      Tbb=1´10 K
+                                                                                                                           z=0    z=0
+                                                                  4
+                                                      Tbb=5´10 K                                                           SFGs   AGN
+
+
+
+
+Fig. 7. EW(He iiλ4686) vs. He iiλ4686/Hβ(left) and He iiλ4686/Hβ vs. [N ii]λ6584/Hα (right) diagnostic diagrams. Symbols are the same as in
+Figure 6: thin stars, crosses and triangles show evolved AGN and DCBHs, circles show evolved SFGs, and the position of GS_3073 is indicated
+by the large filled stars (green: narrow, blue: narrow+outflow, purple: outflow). In the left panel, lines of constant T bb = 5 × 104 K, 1 × 105 K,
+2 × 105 K corresponding to dashed, dash-triple-dotted, and dash-dotted lines. In the left panel, the dotted region in the top right indicates the
+regime expected for Pop iii stars. In the right panel, narrow-line ratios from local He ii-selected AGN by Tozzi et al. (2023) are indicated by the
+grey shading with contours encompassing 94, 80, 50 per cent of the sample. The dotted line indicates the demarcation by Shirazi & Brinchmann
+(2012) separating SFGs (left) from AGN (right) at z = 0. In the EW(He iiλ4686) vs. He iiλ4686/Hβ diagram, GS_3073 is compatible with an
+AGN with a hot accretion disc, and clearly separated from SFGs. This is also the case for the He iiλ4686/Hβ vs. [N ii]λ6584/Hα diagnostic (right),
+although the locally constrained demarcation line by Shirazi & Brinchmann (2012) appears to evolve with redshift, if we consider the location of
+model predictions particularly for AGNs with α = −2.0 (thin triangles).
+
+
+    We note that also some low-metallicity, low−z AGN are                  & Brinchmann 2012; Bär et al. 2017; Nakajima & Maiolino
+found in the star-forming region of the classical line ratio diag-         2022).9
+nostic diagrams, although typically with higher [N ii]/Hα ratios               In Figure 7 we show the placement of our source in two
+(> 0.1) than our source (but see also e.g. Simmonds et al. 2016;           diagnostic diagrams utilising He iiλ4686. In the left panel, we
+Cann et al. 2020; Burke et al. 2021). This can be appreciated              show the equivalent width EW(He iiλ4686) as a function of
+through the location of z ≲ 0.3 AGN with broad Balmer lines by             He iiλ4686/Hβ. This diagram provides constraints on the shape
+Hviding et al. (2022), indicated by red contours in the left panel         of the ionising spectrum and the temperature of the accretion
+of Figure 6 (see also e.g. Shirazi & Brinchmann 2012; Kawasaki             disc: the presence of He iiλ4686 with an ionisation potential of
+et al. 2017; Keel et al. 2019).                                            54.4 eV requires sources of hard ionising radiation. Its equiv-
+                                                                           alent width increases with increasing fraction of highly ionis-
+    Since we know that GS_3073 is an AGN, and we have an                   ing photons over non-ionising photons, and has therefore been
+estimate of its gas phase metallicity from the narrow line ratios          promoted as an indicator of Population iii stars (their proposed
+(Section 4.4), we can use this information together with the the-          location is indicated by the dotted grey box). He iiλ4686/Hβ ef-
+oretical model predictions to further constrain the ionisation pa-         fectively constrains the shape of the ionising spectrum through
+rameter, U, and the power law index of the energy slope between            the ratio of ionising photons with E > 54.4 eV to E > 13.6 eV.
+the optical and X−ray bands, α. Based on our measurement of                    The location of GS_3073 (filled green, purple, blue stars for
+Zgas /Z⊙ = 0.21, we focus on models with Zgas = 0.0028 (20 per             the narrow, outflow, narrow+outflow line ratios) in this diagram
+cent solar; yellow-green symbols by Nakajima & Maiolino 2022               is better reproduced by models using a high accretion disc tem-
+in Figure 6) in the BPT diagram (left panel), in which our mea-            perature of T bb = 2 × 105 K (symbols connected by the dash-
+sured line ratios have the highest S /N. We find that our BPT nar-         dotted line), possibly indicating an even higher temperature. A
+row line ratios are consistent with log(U) = −2.0 and α = −1.2.
+                                                                           9
+                                                                              He iiλ4686 emission can also be associated with Wolf-Rayet stars,
+                                                                           however in this case is blended with lines such as N iiiλ4640 to form
+5.2. Using He iiλ4686 to discriminate SFGs from AGN                        the so-called ‘blue bump’ at λ = 4600 − 4680Å, which is not seen in
+                                                                           GS_3073 (e.g. Brinchmann et al. 2008a). Other sources of He iiλ4686
+                                                                           have been proposed including X−ray binaries and fast shocks to explain
+To account for the unique conditions in the early Universe, al-            observations in some low-redshift, low-metallicity star-forming dwarf
+ternative diagnostic diagrams have been proposed to separate               galaxies (e.g. Thuan & Izotov 2005; Kehrig et al. 2015; Schaerer et al.
+SFGs from AGN. Several of them rely on the properties of the               2019; Umeda et al. 2022). However, for GS_3073 the AGN nature of
+He iiλ4686 emission we also detect in our galaxy (e.g. Shirazi             the ionising radiation is unambiguous through the detection of the BLR.
+
+                                                                                                                    Article number, page 11 of 17
+                                                  A&A proofs: manuscript no. GS_3073
+
+high temperature of the accretion disc is generally associated        5.4. AGN feedback and enrichment of the intergalactic
+with smaller black holes, and in line with the fact that the black         medium
+hole in this AGN is smaller than most black holes inferred for
+more luminous quasars at similar redshift. Both the high equiva-      Theoretical work suggests that AGN feedback is crucial in
+lent width of He iiλ4686 and the high He iiλ4686/Hβ ratio clearly     quenching galaxies with host galaxy masses close to the
+separate our galaxy from model predictions of galaxies without        Schechter mass (log(Mstar /M⊙ ) ∼ 11; e.g. Di Matteo et al. 2005;
+an AGN (blue/purple circles).                                         Croton et al. 2006; Bower et al. 2006; Hopkins et al. 2006;
+                                                                      Cattaneo et al. 2006; Somerville et al. 2008), and this is sup-
+    The situation is similar for the line ratio diagnostic in the     ported by observational evidence (e.g. Veilleux et al. 2005; Mc-
+right panel of Figure 7, originally suggested by Shirazi &            Namara & Nulsen 2007; Fabian 2012; Genzel et al. 2014; Harri-
+Brinchmann (2012) to distinguish more clearly sources primar-         son et al. 2014, 2016; Heckman & Best 2014; Förster Schreiber
+ily ionised by SF vs. AGN in the local Universe. Here we also         et al. 2014, 2019). Its impact has also been demonstrated empiri-
+show as grey shading z = 0 data by Tozzi et al. (2023), who           cally (e.g. Penny et al. 2018; Manzano-King et al. 2019; Mezcua
+selected AGN-dominated spaxels (with > 50% of He iiλ4686              et al. 2019; Liu et al. 2020; Davis et al. 2022) and theoretically
+flux excited by the AGN) from MaNGA galaxies (Bundy et al.            (e.g. Koudmani et al. 2019, 2021) for galaxies with much lower
+2015). Note that the authors subtract any BLR emission before         masses.
+measuring the line ratios. Similar to the BPT diagram, local              In Figure 8 we compare the mass outflow rate (left) and ki-
+He iiλ4686-selected AGN have higher [N ii]/Hα ratios compared         netic power Pk = 0.5 Ṁout v2out (right) measured from the fit to
+to GS_3073. Considering the Nakajima & Maiolino (2022)                the spectrum of GS_3073 integrated over the central three by
+model predictions for early SFGs (circles) and AGN (other small       three spaxels (Figure 2, Section 4.3) as a function of AGN bolo-
+colored symbols), the separation between these still prevails at      metric luminosity to local and lower redshift sources (z < 3.5)
+high redshift, even though the demarcation line might evolve          by Fiore et al. (2017), and to two z ∼ 6.8 QSOs by Marshall
+over time as suggested by the placement of the model predic-          et al. (2023). The outflow energetics of GS_3073 are consistent
+tions compared to the z = 0 data.                                     with the scalings derived from the lower−z data, suggesting that
+    While the classical line ratio diagnostic diagrams cannot         the driving mechanisms in z > 5 AGN do not differ strongly
+help to identify the primary ionisation source for low-metallicity    from their lower−z counterparts. Interestingly, the kinetic power
+galaxies (see Section 5.1), the placement of GS_3073 in the           is only ∼ 0.1−1.0% of the radiative luminosity of the AGN. This
+He iiλ4686 diagnostics discussed here with respect to theoreti-       is generally considered as an indication of the outflow being little
+cal predictions suggests that those can be used instead.              effective in depositing energy into the ISM and therefore not pro-
+                                                                      viding major feedback onto the galaxy, at least not in the direct
+                                                                      ejective mode. As predicted by many theoretical models (e.g.
+5.3. Massive black holes in the early Universe
+                                                                      Gabor & Bournaud 2014; Roos et al. 2015; Bower et al. 2017;
+Our measurement of log(MBH /M⊙ ) ∼ 8.2 from the Hα broad              Nelson et al. 2019; Zinger et al. 2020), while the ionised outflow
+line region is among the few measured ‘lower mass’ black holes        may have little impact on the ISM (possibly because of poor cou-
+at z > 5 (see also Kocevski et al. 2023). Still, the black hole of    pling), it can potentially escape into the circum-galactic medium
+GS_3073 appears overly massive compared to local scaling rela-        (CGM). Thus it may contribute to its heating, hence suppressing
+tions by Reines & Volonteri (2015) and Kormendy & Ho (2013),          fresh gas accretion and possibly resulting in delayed feedback in
+and compared to theoretical model predictions (e.g. Trinca et al.     the form of starvation.
+2023, based on the 2µm flux; priv. comm.), similar to other black         We emphasize that the quantities discussed here and shown
+hole mass measurements at higher redshift.                            in Figure 8 are subject to substantial uncertainties. As mentioned
+    If black holes at higher redshift are comparatively more mas-     in Section 4.3, the unknown electron density of the outflowing
+sive, this could suggest a more rapid growth of black holes in the    material and the uncertain outflow geometry hamper a robust es-
+early Universe, fuelled by larger gas fractions, or more efficient    timate of Ṁout,ion and Pk,ion . As a reference, for Ṁout,ion and Pk,ion
+accretion. Higher accretion rates could plausibly be achieved         we indicate in Figure 8 by arrows how much they would change
+in systems with a higher density. This idea is encapsulated in        if ne , Rout , or vout would be different by factors 1/5, 5, and 2/3,
+the analytical model by Chen et al. (2020), where at fixed stel-      respectively. Changes in these quantities, e.g. because of a differ-
+lar mass smaller SFGs host more massive black holes due to            ent definition of the outflow velocity, or a different assumption
+higher central densities. Assuming our fiducial Re = 0.18 kpc         on the gas density in or the extent of the outflow dominate the
+and log(M⋆ /M⊙ ) = 9.52, their MBH − Re − Mstar relation (their       uncertainties (see Section 4.3). For the uncertainty on Lbol , we
+equation C12) predicts a black hole mass of log(MBH /M⊙ ) ∼ 7.0.      indicate 0.5 dex, motivated by the range of values derived for
+This prediction is above the local MBH − Mstar relation (see Fig-     GS_3073, and the estimate by Fiore et al. (2017).
+ure 4) in line with our findings, but still lower than our measure-       We measure relatively large projected outflow velocities and
+ment of log(MBH /M⊙ ) ∼ 8.2.                                          estimate a high mass loading factor for GS_3073 based on our fit
+                                                                      to the integrated spectrum over the central three by three spaxels
+    Interestingly, overmassive black holes are also found in a        (Figure 2, Section 4.3). At the same time, we infer a relatively
+comparable region of the MBH − M⋆ parameter space in some             low dynamical mass for our galaxy (Section 4.2). This suggests
+z ≲ 1 dwarf galaxy AGN (e.g. Burke et al. 2022; Mezcua et al.         that indeed a substantial fraction of the material expelled by the
+2023; Siudek et al. 2023). These galaxies may evolve onto the         outflow could escape the potential well of the galaxy to enrich
+local Mbulge − MBH relation by z = 0 (Mezcua et al. 2023).            the CGM and even inter-galactic medium (IGM).
+Larger black hole masses at earlier times are also predicted by           To quantify this, we estimate the escape velocity at radius r
+some cosmological simulations, while others show the opposite         assuming an isothermal sphere following Arribas et al. (2014) as
+trend (see Habouzit et al. 2021, 2022). Consolidating a picture of
+high−z black holes masses in relation to their host galaxy prop-
+                                                                                   2MdynG[1 + ln(rmax /r)]
+                                                                               r
+erties over a wide range in masses could therefore serve as a
+powerful discriminant of feedback implementations.                    vesc ≈                               ,                               (4)
+                                                                                            3r
+Article number, page 12 of 17
+           Hannah Übler et al.: GA-NIFS: A massive black hole in a low-metallicity AGN at z ∼ 5.55 revealed by JWST/NIRSpec IFS
+
+
+
+
+                   Fiore+17 0<z<3.5
+                   Marshall+23 z~6.8 QSOs
+                   GS_3073 z=5.55
+
+                                                                                                     l
+                                                                                             L bo
+                                                                                           =
+                                                                                          PK
+                                                                                                                    l
+                                                                                                          L bo
+                                                                                                     %
+                                                                                                10
+                                                                                              =
+                                                                                          P   K
+
+                                                                                                             l
+                                                                                                         L bo
+                                                                                                1%
+                                                                                              =
+                                                                                          P   K
+                                                                                                                        l
+                                                                                                           L bo
+                                                                                                   1 %
+                                                                                                0.
+                                                             1/5 x ne                         =                                                1/5 x ne
+                                                                                          P   K
+                                                                                                                            l
+                                                                                                                L       bo
+                                                                                                         %
+                                                                                                  01
+                                                             2/3 x vout                         0.                                             2/3 x vout
+                                                                                              =
+                                                                                          P   K
+                                                                                                                                               5 x Rout
+                                                             5 x Rout
+
+
+
+
+Fig. 8. Mass outflow rate Ṁout,ion (left) and kinetic power Pk,ion (right) of the warm ionised gas phase as a function of AGN bolometric luminosity
+Lbol . Grey circles show ionised gas outflows at 0 < z < 3.5 by Fiore et al. (2017), the green stars show two z ∼ 6.8 QSOs from the GA-IFS GTO
+program by Marshall et al. (2023), and the blue stars show the range of bolometric luminosities inferred for GS_3073 as discussed in Section 4.1.
+Here, we have scaled the measurements by Fiore et al. (2017) and Marshall et al. (2023) to correspond to an electron density in the outflow of
+ne = 1000/cm3 , as assumed in this work. For Lbol we indicate a representative error bar of 0.5 dex, and for Ṁout,ion and Pk,ion we indicate how much
+they would change if ne , Rout , or vout would be different by factors 1/5, 5, and 2/3, respectively (see main text for details). The dashed line in the
+left panel is a linear fit in logarithmic scales to the data by Fiore et al. (2017). The dashed lines in the right panel show constant ratios of Pk and
+Lbol . The outflow energetics of GS_3073 in relation to the bolometric AGN luminosity are consistent with lower−z scaling relations, suggesting
+that the driving mechanisms in z > 5 AGN do not differ from their lower−z counterparts.
+
+
+where rmax is the truncation or halo radius. Evaluating at r =               on the high spectral resolution spectrum (G395H, R ∼ 2700)
+Re = 0.18 kpc, with rmax = 100r, we find vesc ∼ 390 km/s. Com-               obtained with 5 h on-source, while we have also used a shorter
+paring this to our measured outflow velocity of vout = 685 km/s,             exposure (1 h) prism spectrum (R ∼ 100). The high resolution
+with some material reaching velocities of few 1000 km/s as                   spectrum has revealed about 20 rest-frame optical nebular emis-
+based on the outflow [Oiii] component, this indicates that in-               sion lines, some of which are detected with very high S /N, and
+deed a sizable fraction of the outflowing gas could escape the               another 14 lines/doublets are visible in the prism spectrum. The
+galaxy’s potential well. From the distribution of outflow veloci-            main results of our analysis are:
+ties in our best-fit outflow components, we find that about 5 − 20
+per cent of the emitting ionised gas has velocities in excess of               – Permitted lines, such as Hα, Hβ, He i and He ii, are charac-
+vesc ∼ 390 km/s, when considering both the components around                     terized by a broad component (not observed in the forbidden
+Hα and around [Oiii]. This suggests that at least 6 − 20M⊙ /yr of                lines) which can be unambiguously interpreted as tracing the
+warm ionised gas could escape the galaxy potential if feedback                   Broad Line Region (BLR) around an accreting supermassive
+would sustain the measured outflow velocities and mass outflow                   black hole, and clearly identifying this as a (type 1.8) AGN.
+rates. This material could thus contribute to metal enrichment of              – From the narrow line ratios, we measure a gas phase metal-
+the IGM at this early time in cosmic history.                                    licity of Zgas /Z⊙ ∼ 0.21, lower than what has been inferred
+    We note that this estimate likely represents a lower limit                   for both more luminous AGN at similar redshift and lower−z
+for two reasons: firstly, the measured outflow velocities are pro-               AGN.
+jected, i.e. intrinsic outflow velocities will be even larger. Sec-            – We empirically show that classical line ratio diagnostics
+ondly, we do not account for gas phases other than warm ionised                  (Baldwin et al. 1981; Veilleux & Osterbrock 1987) cannot
+gas plausibly entrenched in the outflow; in particular we ex-                    be used to distinguish between the primary ionisation source
+pect contributions from cold (molecular and neutral) gas, that                   (AGN or SF) for such low-metallicity systems, whereas dif-
+are likely dominating the outflow mass budget (see e.g. Rupke                    ferent diagnostic diagrams involving He iiλ4686 prove use-
+& Veilleux 2013; Herrera-Camus et al. 2019; Roberts-Borsani                      ful.
+2020; Fluetsch et al. 2021; Avery et al. 2022; Baron et al. 2022;              – We measure the central black hole mass of GS_3073 to be
+Cresci et al. 2023).                                                             log(MBH /M⊙ ) ∼ 8.2. While this places our galaxy at the
+                                                                                 lower end of known high−z black hole masses, it still ap-
+                                                                                 pears to be over-massive compared to its host galaxy proper-
+6. Conclusions and outlook
+                                                                                 ties such as stellar mass or dynamical mass.
+We have presented deep JWST/NIRSpec integral field spec-                       – We detect an outflow with velocity vout = 685 km/s and
+troscopy of the galaxy GS_3073 at z = 5.55. We have focused                      a mass outflow rate of about 100M⊙ /yr, suggesting that
+                                                                                                                                Article number, page 13 of 17
+                                                  A&A proofs: manuscript no. GS_3073
+
+    GS_3073 is able to enrich the intergalactic medium with           (ASTRO 3D), through project number CE170100013. MP ac-
+    metals one billion years after the Big Bang.                      knowledges support from the Programa Atracción de Talento de
+                                                                      la Comunidad de Madrid via grant 2018-T2/TIC-11715. PGP-
+     Additional JWST data, especially spectroscopic surveys with      G acknowledges support from Spanish Ministerio de Ciencia e
+the MSA, will certainly discover more AGN like the one pre-           Innovación MCIN/AEI/10.13039/501100011033 through grant
+sented in this paper and will allow an assessment of the AGN and      PGC2018-093499-B-I00. RM acknowledges funding from a re-
+black hole census in the early Universe. It will also be possible     search professorship from the Royal Society. S.C acknowledges
+to study the impact of early AGN feedback on the first massive        support from the European Union (ERC, WINGS, 101040227).
+galaxies, especially with IFS follow-up observations.                 The Cosmic Dawn Center (DAWN) is funded by the Danish
+     Our paper has highlighted that the detection of AGN can-         National Research Foundation under grant no.140. This work
+not rely entirely on the classical diagnostics diagrams that have     has made use of the Rainbow Cosmological Surveys Database,
+been developed and used locally and at intermediate redshifts         which is operated by the Centro de Astrobiología (CAB), CSIC-
+(z ∼ 1 − 3). Other techniques have to be adopted, and the de-         INTA, partnered with the University of California Observatories
+tection of broad components of the permitted lines (not accom-        at Santa Cruz (UCO/Lick, UCSC).
+panied by similar components on the forbidden lines) provide
+a clear and unambiguous way to identify accreting black holes.
+We note that this method requires a spectral resolution of at least   References
+R > 500 in order to properly identify and disentangle broad           Abazajian, K. N., Adelman-McCarthy, J. K., Agüeros, M. A., et al. 2009, ApJS,
+and narrow components. Within this context, NIRSpec’s Prism              182, 543
+is borderline for this methodology, even in its reddest part, where   Arribas, S., Colina, L., Bellocchi, E., Maiolino, R., & Villar-Martín, M. 2014,
+                                                                         A&A, 568, A14
+its spectral resolution reaches R ∼ 300. The medium-resolution        Asplund, M., Grevesse, N., Sauval, A. J., & Scott, P. 2009, ARA&A, 47, 481
+gratings are optimally suited for the detection of broad compo-       Avery, C. R., Wuyts, S., Förster Schreiber, N. M., et al. 2022, MNRAS, 511,
+nents. The high-resolution gratings, such as the one adopted in          4223
+this paper, are excellent for the detailed modelling of the line      Bañados, E., Venemans, B. P., Decarli, R., et al. 2016, ApJS, 227, 11
+                                                                      Baldwin, J. A., Phillips, M. M., & Terlevich, R. 1981, PASP, 93, 5
+profile when the S /N is very high, but it may miss broad wings       Bär, R. E., Weigel, A. K., Sartori, L. F., et al. 2017, MNRAS, 466, 2879
+in the noise in the case of lower-S /N spectra.                       Barchiesi, L., Dessauges-Zavadsky, M., Vignali, C., et al. 2022, arXiv e-prints,
+                                                                         arXiv:2212.00038
+                                                                      Baron, D., Netzer, H., Lutz, D., Prochaska, J. X., & Davies, R. I. 2022, MNRAS,
+Acknowledgements                                                         509, 4457
+                                                                      Barro, G., Pérez-González, P. G., Cava, A., et al. 2019, ApJS, 243, 22
+We are grateful to the anonymous referee for a constructive re-       Benjamin, R. A., Skillman, E. D., & Smits, D. P. 1999, ApJ, 514, 307
+port that helped to improve the quality of this manuscript. We        Béthermin, M., Fudamoto, Y., Ginolfi, M., et al. 2020, A&A, 643, A2
+                                                                      Bezanson, R., van der Wel, A., Straatman, C., et al. 2018, ApJ, 868, L36
+thank Takuma Izumi for sharing their compilation of black hole        Blandford, R. D., Netzer, H., Woltjer, L., Courvoisier, T. J.-L., & Mayor, M.
+and dynamical masses of z ≳ 6 QSOs published by Izumi                    1990, Active Galactic Nuclei
+et al. (2019, 2021). We thank Kimihiko Nakajima for providing         Böker, T., Arribas, S., Lützgendorf, N., et al. 2022, A&A, 661, A82
+the theoretical model grids published by Nakajima & Maiolino          Böker, T., Beck, T. L., Birkmann, S. M., et al. 2023, PASP, 135, 038001
+                                                                      Bongiorno, A., Maiolino, R., Brusa, M., et al. 2014, MNRAS, 443, 2077
+(2022). We thank Raphael Erik Hviding for sharing BPT line ra-        Bower, R. G., Benson, A. J., Malbon, R., et al. 2006, MNRAS, 370, 645
+tios of their local broad line AGN sample published by Hviding        Bower, R. G., Schaye, J., Frenk, C. S., et al. 2017, MNRAS, 465, 32
+et al. (2022). We thank Giulia Tozzi for sharing emission line        Brinchmann, J., Kunth, D., & Durret, F. 2008a, A&A, 485, 657
+                                                                      Brinchmann, J., Pettini, M., & Charlot, S. 2008b, MNRAS, 385, 769
+ratios of their local He ii-selected AGN published by Tozzi et al.    Bundy, K., Bershady, M. A., Law, D. R., et al. 2015, ApJ, 798, 7
+(2023). We acknowledge the JADES team for prompting a closer          Burke, C. J., Liu, X., Chen, Y.-C., Shen, Y., & Guo, H. 2021, MNRAS, 504, 543
+investigation of the source morphology in our R100 NIRSpec-           Burke, C. J., Liu, X., Shen, Y., et al. 2022, MNRAS, 516, 2736
+IFS data. We are grateful to Raffaella Schneider, Alessandro          Cameron, A. J., Saxena, A., Bunker, A. J., et al. 2023, arXiv e-prints,
+                                                                         arXiv:2302.04298
+Trinca, Giulia Tozzi, and Stijn Wuyts for discussing various as-      Cann, J. M., Satyapal, S., Bohn, T., et al. 2020, ApJ, 895, 147
+pects of this work, and to Sandy Faber, Rachel Bezanson, and          Cappellari, M., Bacon, R., Bureau, M., et al. 2006, MNRAS, 366, 1126
+William Keel for valuable input. We thank Taro Shimizu, Mar           Cattaneo, A., Dekel, A., Devriendt, J., Guiderdoni, B., & Blaizot, J. 2006, MN-
+Mezcua, and Masafusa Onoue for helpful comments on an ear-               RAS, 370, 1651
+                                                                      Chabrier, G. 2003, Publications of the Astronomical Society of the Pacific, 115,
+lier version of this manuscript. AB, GCJ acknowledge fund-               763
+ing from the “FirstGalaxie” Advanced Grant from the Euro-             Chen, Z., Faber, S. M., Koo, D. C., et al. 2020, ApJ, 897, 102
+pean Research Council (ERC) under the European Union’s Hori-          Chevallard, J. & Charlot, S. 2016, MNRAS, 462, 1415
+zon 2020 research and innovation programme (Grant agreement           Cresci, G., Tozzi, G., Perna, M., et al. 2023, arXiv e-prints, arXiv:2301.11060
+                                                                      Croton, D. J., Springel, V., White, S. D. M., et al. 2006, MNRAS, 365, 11
+No. 789056). FDE, RM, JS acknowledge support by the Sci-              Curti, M., Cresci, G., Mannucci, F., et al. 2017, MNRAS, 465, 1384
+ence and Technology Facilities Council (STFC), from the ERC           Curti, M., D’Eugenio, F., Carniani, S., et al. 2023, MNRAS, 518, 425
+Advanced Grant 695671 “QUENCH”. BRP, MP, SA acknowl-                  Curti, M., Hayden-Pawson, C., Maiolino, R., et al. 2022, MNRAS, 512, 4136
+edge support from the research project PID2021-127718NB-              Curti, M., Maiolino, R., Cirasuolo, M., et al. 2020a, MNRAS, 492, 821
+                                                                      Curti, M., Mannucci, F., Cresci, G., & Maiolino, R. 2020b, MNRAS, 491, 944
+I00 of the Spanish Ministry of Science and Innovation/State           Dalla Bontà, E., Peterson, B. M., Bentz, M. C., et al. 2020, ApJ, 903, 112
+Agency of Research (MICIN/AEI). GC acknowledges the sup-              Davies, R. L., Förster Schreiber, N. M., Lutz, D., et al. 2020, ApJ, 894, 28
+port of the INAF Large Grant 2022 “The metal circle: a new            Davies, R. L., Förster Schreiber, N. M., Übler, H., et al. 2019, ApJ, 873, 122
+sharp view of the baryon cycle up to Cosmic Dawn with the             Davis, F., Kaviraj, S., Hardcastle, M. J., et al. 2022, MNRAS, 511, 4109
+                                                                      De Rosa, G., Venemans, B. P., Decarli, R., et al. 2014, ApJ, 790, 145
+latest generation IFU facilities”. HÜ gratefully acknowledges         Decarli, R., Walter, F., Venemans, B. P., et al. 2018, ApJ, 854, 97
+support by the Isaac Newton Trust and by the Kavli Founda-            Del Zanna, G. & Storey, P. J. 2022, MNRAS, 513, 1198
+tion through a Newton-Kavli Junior Fellowship. MAM acknowl-           Di Matteo, T., Springel, V., & Hernquist, L. 2005, Nature, 433, 604
+                                                                      Dors, O. L., Freitas-Lemes, P., Amôres, E. B., et al. 2020, MNRAS, 492, 468
+edges the support of a National Research Council of Canada            Eldridge, J. J., Stanway, E. R., Xiao, L., et al. 2017, PASA, 34, e058
+Plaskett Fellowship, and the Australian Research Council Cen-         Fabian, A. C. 2012, ARA&A, 50, 455
+tre of Excellence for All Sky Astrophysics in 3 Dimensions            Faisst, A. L., Schaerer, D., Lemaux, B. C., et al. 2020, ApJS, 247, 61
+
+Article number, page 14 of 17
+            Hannah Übler et al.: GA-NIFS: A massive black hole in a low-metallicity AGN at z ∼ 5.55 revealed by JWST/NIRSpec IFS
+
+Feltre, A., Charlot, S., & Gutkin, J. 2016, MNRAS, 456, 3354                            Mezcua, M., Suh, H., & Civano, F. 2019, MNRAS, 488, 685
+Fiore, F., Feruglio, C., Shankar, F., et al. 2017, A&A, 601, A143                       Nakajima, K. & Maiolino, R. 2022, MNRAS, 513, 5134
+Fluetsch, A., Maiolino, R., Carniani, S., et al. 2021, MNRAS, 505, 5753                 Nakajima, K., Ouchi, M., Isobe, Y., et al. 2023, arXiv e-prints, arXiv:2301.12825
+Fluetsch, A., Maiolino, R., Carniani, S., et al. 2019, MNRAS, 483, 4586                 Nelson, D., Pillepich, A., Springel, V., et al. 2019, MNRAS, 490, 3234
+Förster Schreiber, N. M., Genzel, R., Newman, S. F., et al. 2014, ApJ, 787, 38          Netzer, H. 2009, MNRAS, 399, 1907
+Förster Schreiber, N. M., Übler, H., Davies, R. L., et al. 2019, ApJ, 875, 21           Newman, S. F., Shapiro Griffin, K., Genzel, R., et al. 2012, ApJ, 752, 111
+Gabor, J. M. & Bournaud, F. 2014, MNRAS, 441, 1615                                      Onken, C. A., Ferrarese, L., Merritt, D., et al. 2004, ApJ, 615, 645
+Genzel, R., Förster Schreiber, N. M., Rosario, D., et al. 2014, ApJ, 796, 7             Onoue, M., Inayoshi, K., Ding, X., et al. 2023, ApJ, 942, L17
+Genzel, R., Newman, S., Jones, T., et al. 2011, ApJ, 733, 101                           Osterbrock, D. E. 1977, ApJ, 215, 733
+Grazian, A., Giallongo, E., Fiore, F., et al. 2020, ApJ, 897, 94                        Osterbrock, D. E. 1981, ApJ, 249, 462
+Greene, J. E. & Ho, L. C. 2005, ApJ, 630, 122                                           Osterbrock, D. E. & Ferland, G. J. 2006, Astrophysics of gaseous nebulae and
+Groves, B. A., Heckman, T. M., & Kauffmann, G. 2006, MNRAS, 371, 1559                      active galactic nuclei
+Gutkin, J., Charlot, S., & Bruzual, G. 2016, MNRAS, 462, 1757                           Penny, S. J., Masters, K. L., Smethurst, R., et al. 2018, MNRAS, 476, 979
+Habouzit, M., Li, Y., Somerville, R. S., et al. 2021, MNRAS, 503, 1940                  Pensabene, A., Carniani, S., Perna, M., et al. 2020, A&A, 637, A84
+Habouzit, M., Onoue, M., Bañados, E., et al. 2022, MNRAS, 511, 3751                     Perna, M., Arribas, S., Marshall, M., et al. 2023, arXiv e-prints,
+Harrison, C. M., Alexander, D. M., Mullaney, J. R., et al. 2016, MNRAS, 456,               arXiv:2304.06756
+   1195                                                                                 Perna, M., Arribas, S., Pereira Santaella, M., et al. 2021, A&A, 646, A101
+Harrison, C. M., Alexander, D. M., Mullaney, J. R., & Swinbank, A. M. 2014,
+                                                                                        Perna, M., Lanzuisi, G., Brusa, M., Cresci, G., & Mignoli, M. 2017, A&A, 606,
+   MNRAS, 441, 3306
+                                                                                           A96
+Hayden-Pawson, C., Curti, M., Maiolino, R., et al. 2022, MNRAS, 512, 2867
+                                                                                        Peterson, B. M. & Wandel, A. 1999, ApJ, 521, L95
+Heckman, T. M. & Best, P. N. 2014, ARA&A, 52, 589
+                                                                                        Proxauf, B., Öttl, S., & Kimeswenger, S. 2014, A&A, 561, A10
+Herrera-Camus, R., Tacconi, L., Genzel, R., et al. 2019, ApJ, 871, 37
+Hirschmann, M., Charlot, S., Feltre, A., et al. 2022, arXiv e-prints,                   Raiter, A., Fosbury, R. A. E., & Teimoorinia, H. 2010, A&A, 510, A109
+   arXiv:2212.02522                                                                     Reines, A. E., Greene, J. E., & Geha, M. 2013, ApJ, 775, 116
+Hirschmann, M., Charlot, S., Feltre, A., et al. 2017, MNRAS, 472, 2468                  Reines, A. E. & Volonteri, M. 2015, ApJ, 813, 82
+Hirschmann, M., Charlot, S., Feltre, A., et al. 2019, MNRAS, 487, 333                   Roberts-Borsani, G. W. 2020, MNRAS, 494, 4266
+Ho, L. C. & Kim, M. 2014, ApJ, 789, 17                                                  Roos, O., Juneau, S., Bournaud, F., & Gabor, J. M. 2015, ApJ, 800, 19
+Hopkins, P. F., Hernquist, L., Cox, T. J., et al. 2006, ApJS, 163, 1                    Runco, J. N., Reddy, N. A., Shapley, A. E., et al. 2022, MNRAS, 513, 3871
+Hviding, R. E., Hainline, K. N., Rieke, M., et al. 2022, AJ, 163, 224                   Rupke, D. S., Veilleux, S., & Sanders, D. B. 2005, ApJS, 160, 115
+Izotov, Y. I., Stasińska, G., Meynet, G., Guseva, N. G., & Thuan, T. X. 2006,          Rupke, D. S. N., Gültekin, K., & Veilleux, S. 2017, ApJ, 850, 40
+   A&A, 448, 955                                                                        Rupke, D. S. N. & Veilleux, S. 2013, ApJ, 768, 75
+Izotov, Y. I., Thuan, T. X., & Lipovetsky, V. A. 1994, ApJ, 435, 647                    Sanders, R. L., Shapley, A. E., Jones, T., et al. 2021, ApJ, 914, 19
+Izumi, T., Matsuoka, Y., Fujimoto, S., et al. 2021, ApJ, 914, 36                        Sanders, R. L., Shapley, A. E., Kriek, M., et al. 2016, ApJ, 825, L23
+Izumi, T., Onoue, M., Matsuoka, Y., et al. 2019, PASJ, 71, 111                          Sanders, R. L., Shapley, A. E., Topping, M. W., Reddy, N. A., & Brammer, G. B.
+Izumi, T., Onoue, M., Shirakata, H., et al. 2018, PASJ, 70, 36                             2023, arXiv e-prints, arXiv:2301.06696
+Jakobsen, P., Ferruit, P., Alves de Oliveira, C., et al. 2022, A&A, 661, A80            Schaerer, D., Fragos, T., & Izotov, Y. I. 2019, A&A, 622, L10
+Jiang, L., McGreer, I. D., Fan, X., et al. 2016, ApJ, 833, 222                          Shao, Y., Wang, R., Jones, G. C., et al. 2017, ApJ, 845, 138
+Kakkad, D., Groves, B., Dopita, M., et al. 2018, A&A, 618, A6                           Sharples, R., Bender, R., Agudo Berbel, A., et al. 2013, The Messenger, 151, 21
+Kashikawa, N., Ishizaki, Y., Willott, C. J., et al. 2015, ApJ, 798, 28                  Sharples, R. M., Bender, R., Lehnert, M. D., et al. 2004, in Society of Photo-
+Kashino, D., Silverman, J. D., Sanders, D., et al. 2017, ApJ, 835, 88                      Optical Instrumentation Engineers (SPIE) Conference Series, Vol. 5492,
+Kauffmann, G., Heckman, T. M., Tremonti, C., et al. 2003, MNRAS, 346, 1055                 Ground-based Instrumentation for Astronomy, ed. A. F. M. Moorwood &
+Kawasaki, K., Nagao, T., Toba, Y., Terao, K., & Matsuoka, K. 2017, ApJ, 842,               M. Iye, 1179–1186
+   44                                                                                   Shirazi, M. & Brinchmann, J. 2012, MNRAS, 421, 1043
+Keel, W. C., Bennert, V. N., Pancoast, A., et al. 2019, MNRAS, 483, 4847                Simmonds, C., Bauer, F. E., Thuan, T. X., et al. 2016, A&A, 596, A64
+Kehrig, C., Vílchez, J. M., Pérez-Montero, E., et al. 2015, ApJ, 801, L28               Siudek, M., Mezcua, M., & Krywult, J. 2023, MNRAS, 518, 724
+Kewley, L. J., Dopita, M. A., Leitherer, C., et al. 2013a, ApJ, 774, 100                Smits, D. P. 1996, MNRAS, 278, 683
+Kewley, L. J., Dopita, M. A., Sutherland, R. S., Heisler, C. A., & Trevena, J.          Somerville, R. S., Barden, M., Rix, H.-W., et al. 2008, ApJ, 672, 776
+   2001, ApJ, 556, 121                                                                  Stanway, E. R. & Eldridge, J. J. 2018, MNRAS, 479, 75
+Kewley, L. J., Maier, C., Yabe, K., et al. 2013b, ApJ, 774, L10                         Stark, D. P., Bunker, A. J., Ellis, R. S., Eyles, L. P., & Lacy, M. 2007, ApJ, 659,
+Kocevski, D. D., Onoue, M., Inayoshi, K., et al. 2023, arXiv e-prints,                     84
+   arXiv:2302.00012                                                                     Steidel, C. C., Rudie, G. C., Strom, A. L., et al. 2014, ApJ, 795, 165
+Koekemoer, A. M., Faber, S. M., Ferguson, H. C., et al. 2011, ApJS, 197, 36             Stern, J. & Laor, A. 2012, MNRAS, 423, 600
+Kormendy, J. & Ho, L. C. 2013, ARA&A, 51, 511                                           Strom, A. L., Steidel, C. C., Rudie, G. C., et al. 2017, ApJ, 836, 164
+Koudmani, S., Henden, N. A., & Sijacki, D. 2021, MNRAS, 503, 3568                       Thuan, T. X. & Izotov, Y. I. 2005, ApJS, 161, 240
+Koudmani, S., Sijacki, D., Bourne, M. A., & Smith, M. C. 2019, MNRAS, 484,              Topping, M. W., Shapley, A. E., Reddy, N. A., et al. 2020, MNRAS, 495, 4430
+   2047                                                                                 Torres-Peimbert, S. & Peimbert, M. 1977, Rev. Mexicana Astron. Astrofis., 2,
+Kriek, M., Shapley, A. E., Reddy, N. A., et al. 2015, ApJS, 218, 15                        181
+Kroupa, P. 2001, MNRAS, 322, 231                                                        Tozzi, G., Maiolino, R., Cresci, G., et al. 2023, MNRAS, 521, 1264
+Le Fèvre, O., Béthermin, M., Faisst, A., et al. 2020, A&A, 643, A1
+                                                                                        Trinca, A., Schneider, R., Maiolino, R., et al. 2023, MNRAS, 519, 4753
+Le Fèvre, O., Saisse, M., Mancini, D., et al. 2003, in Society of Photo-Optical
+                                                                                        Umeda, H., Ouchi, M., Nakajima, K., et al. 2022, ApJ, 930, 37
+   Instrumentation Engineers (SPIE) Conference Series, Vol. 4841, Instrument
+                                                                                        van der Wel, A., Bell, E. F., Häussler, B., et al. 2012, ApJS, 203, 24
+   Design and Performance for Optical/Infrared Ground-based Telescopes, ed.
+                                                                                        van der Wel, A., van Houdt, J., Bezanson, R., et al. 2022, ApJ, 936, 9
+   M. Iye & A. F. M. Moorwood, 1670–1681
+                                                                                        van Dokkum, P. G. 2001, PASP, 113, 1420
+Liu, W., Veilleux, S., Canalizo, G., et al. 2020, ApJ, 905, 166
+                                                                                        Vanzella, E., Grazian, A., Hayes, M., et al. 2010, A&A, 513, A20
+Maiolino, R. & Mannucci, F. 2019, A&A Rev., 27, 3
+Manzano-King, C. M., Canalizo, G., & Sales, L. V. 2019, ApJ, 884, 54                    Veilleux, S., Cecil, G., & Bland-Hawthorn, J. 2005, ARA&A, 43, 769
+Marshall, M. A., Perna, M., Willott, C. J., et al. 2023, arXiv e-prints,                Veilleux, S., Liu, W., Vayner, A., et al. 2023, arXiv e-prints, arXiv:2303.08952
+   arXiv:2302.04795                                                                     Veilleux, S. & Osterbrock, D. E. 1987, ApJS, 63, 295
+Masters, D., Faisst, A., & Capak, P. 2016, ApJ, 828, 18                                 Venemans, B. P., Bañados, E., Decarli, R., et al. 2015, ApJ, 801, L11
+Mazzucchelli, C., Bañados, E., Venemans, B. P., et al. 2017, ApJ, 849, 91               Venemans, B. P., Walter, F., Decarli, R., et al. 2017, ApJ, 837, 146
+McLean, I. S., Steidel, C. C., Epps, H., et al. 2010, in Society of Photo-Optical In-   Véron-Cetty, M. P., Joly, M., & Véron, P. 2004, A&A, 417, 515
+   strumentation Engineers (SPIE) Conference Series, Vol. 7735, Ground-based            Wang, R., Wu, X.-B., Neri, R., et al. 2016, ApJ, 830, 53
+   and Airborne Instrumentation for Astronomy III, ed. I. S. McLean, S. K. Ram-         Whittle, M. 1992, ApJS, 79, 49
+   say, & H. Takami, 77351E                                                             Wiklind, T., Dickinson, M., Ferguson, H. C., et al. 2008, ApJ, 676, 781
+McLean, I. S., Steidel, C. C., Epps, H. W., et al. 2012, in Society of Photo-Optical    Willott, C. J., Albert, L., Arzoumanian, D., et al. 2010, AJ, 140, 546
+   Instrumentation Engineers (SPIE) Conference Series, Vol. 8446, Ground-               Willott, C. J., Bergeron, J., & Omont, A. 2015, ApJ, 801, 123
+   based and Airborne Instrumentation for Astronomy IV, ed. I. S. McLean, S. K.         Willott, C. J., Bergeron, J., & Omont, A. 2017, ApJ, 850, 108
+   Ramsay, & H. Takami, 84460J                                                          Wisnioski, E., Mendel, J. T., Förster Schreiber, N. M., et al. 2018, ApJ, 855, 97
+McNamara, B. R. & Nulsen, P. E. J. 2007, ARA&A, 45, 117                                 Zinger, E., Pillepich, A., Nelson, D., et al. 2020, MNRAS, 499, 768
+Mezcua, M., Siudek, M., Suh, H., et al. 2023, ApJ, 943, L5
+
+                                                                                                                                       Article number, page 15 of 17
+                                                       A&A proofs: manuscript no. GS_3073
+
+Table A.1. Total (narrow+outflow+BLR) emission line fluxes of the
+He i lines detected in the integrated spectrum of GS_3073 as constrained
+through our best fit (Section 3.2), normalised to He iλ4471.
+
+ Line                                Flux/FHe Iλ4471
+ He iλ4471                                1.00
+ He iλ4713a                             0.6 ± 0.2
+ He iλ4922                              0.9 ± 0.4
+ He iλ5876                             10.1 ± 2.6
+ He iλ6678                              5.4 ± 1.4
+ He iλ7065                             12.5 ± 3.2
+ He iλ7281                              1.3 ± 0.5
+ a
+   Blended with [Ar iv]λ4711.                                              Fig. B.1. Image from the R100 data cube combined with a pixel scale
+                                                                           of 0.03′′ in the wavelength range 1µm < λ < 1.25µm. North is up and
+                                                                           East is to the left. In addition to the bright central source, faint emission
+Appendix A: Line fluxes of He i                                            is detected in the East and North-West, either associated with the AGN
+                                                                           host galaxy GS_3073, or low-mass companions.
+In Table A.1 we report total (narrow+outflow+BLR) line fluxes
+of the seven He i lines detected in the integrated spectrum
+of GS_3073 (see Figure 1), normalised to the total line flux
+of He iλ4471. We have verified that choosing a larger aper-
+ture would not significantly modify the line ratios. We note
+that He iλ4713 is uncertain due to blending with [Ar iv]λ4711.
+He iλ7065 is particularly strong compared to theoretical predic-
+tions (e.g. Smits 1996; Benjamin et al. 1999; Del Zanna & Storey
+2022), which is also seen in some other data sets (see e.g. Ben-
+jamin et al. 1999). Knowledge of relative He i intensities may
+be useful in reproducing more complex spectra of type 1 AGN
+showing prominent Fe ii emission in addition to He i (see e.g.
+Véron-Cetty et al. 2004; Perna et al. 2021).
+
+
+Appendix B: Environment of GS_3073 at ∼ 1µm
+In Figure B.1 we show a log-scale map based on the R100 data,
+summing the flux in the observed wavelength range 1µm < λ <
+1.25µm. In addition to the central core of GS_3073, two regions
+of faint emission become apparent in the East and North-West.
+The faint flux to the East could arguably be associated with a
+low-mass companion, coincident with a kinematically distinct
+region of high narrow line velocities (see top centre and middle
+centre panels in Figure 3). To the North-West there is no distinct
+kinematic feature visible in our spatially-resolved maps, but the
+[O iii] outflow velocities are more redshifted in this region. It
+is conceivable that we are actually picking up emission from a
+faint companion. We note that Grazian et al. (2020) speculate
+that the [C ii] emission associated with GS_3073 (Le Fèvre et al.
+2020; Barchiesi et al. 2022) could indicate an ongoing merger
+with a dusty companion, possibly fuelling the AGN activity of
+GS_3073.
+
+
+Appendix C: Integrated PRISM spectrum
+In Figure C.1 we show the PRISM spectrum integrated over the
+central 24 spaxels, flux-matched to the integrated G395H spec-
+trum discussed in the main text, with flux in log scale. In addi-
+tion to the emission lines detected in the G395H spectrum and
+discussed in the main text, we indicate the positions of another
+14 emission lines (or emission line doublets). These additional
+lines cover the range from Lyα to Hγ.
+
+
+
+
+Article number, page 16 of 17
+           Hannah Übler et al.: GA-NIFS: A massive black hole in a low-metallicity AGN at z ∼ 5.55 revealed by JWST/NIRSpec IFS
+
+
+
+
+Fig. C.1. Integrated spectrum of the PRISM data extracted from a circular aperture containing the central 24 spaxels, flux-matched to the integrated
+G395H spectrum discussed in the main text, with flux in log scale. We indicate the positions of another 14 emission lines (or emission line doublets),
+in addition to what is discussed in the main text based on the G395H spectrum.
+
+
+
+
+                                                                                                                       Article number, page 17 of 17
+

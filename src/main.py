@@ -79,8 +79,8 @@ def _build_arg_parser():
         default=0,
         help=(
             "ex-situ GC treatment: 0 Gao+2024-style analytic survival for non-MPB GCs; "
-            "1 branch evolution without importing satellite central NSC/BH masses; "
-            "2 branch evolution with satellite central NSC/BH import"
+            "1 branch evolution without importing satellite central BH or sunk-stellar deposits; "
+            "2 branch evolution with satellite central BH and fixed-bin-1 sunk-stellar deposit import"
         ),
     )
     return parser
@@ -547,34 +547,81 @@ def loadTree(tree_path):
     branch_id = []
     redshift = []
     spin_norm = []
-    short_row_count = 0
+    schema = "float, int, int, int, int, float, float, float, float"
 
     with Path(tree_path).open("r", encoding = "utf-8") as handle:
-        for line_no, line in enumerate(handle):
-            if(line_no == 0):
+        for line_no, line in enumerate(handle, start = 1):
+            if(line_no == 1):
                 continue
-            cols = line.split()
+            row_text = line.rstrip("\n")
+            stripped = row_text.strip()
+            if((not stripped) or stripped.startswith("#") or stripped.lower().startswith("logmh")):
+                continue
+            cols = stripped.split()
             if(len(cols) < 9):
-                short_row_count += 1
+                warnings.warn(
+                    "Malformed fixed-tree row in "
+                    + str(tree_path)
+                    + " at physical line "
+                    + str(line_no)
+                    + ": found "
+                    + str(len(cols))
+                    + " column(s), expected at least 9; row="
+                    + row_text,
+                    RuntimeWarning,
+                    stacklevel = 2,
+                )
                 continue
-            log_mh.append(float(cols[0]))
-            first_prog_id.append(int(cols[1]))
-            subhalo_id.append(int(cols[2]))
-            branch_id.append(int(cols[3]))
-            redshift.append(float(cols[5]))
-            sx = float(cols[6])
-            sy = float(cols[7])
-            sz = float(cols[8])
+            if(len(cols) > 9):
+                warnings.warn(
+                    "Fixed-tree row in "
+                    + str(tree_path)
+                    + " at physical line "
+                    + str(line_no)
+                    + " has "
+                    + str(len(cols))
+                    + " column(s); using the first 9 columns; row="
+                    + row_text,
+                    RuntimeWarning,
+                    stacklevel = 2,
+                )
+            try:
+                parsed = [
+                    float(cols[0]),
+                    int(cols[1]),
+                    int(cols[2]),
+                    int(cols[3]),
+                    int(cols[4]),
+                    float(cols[5]),
+                    float(cols[6]),
+                    float(cols[7]),
+                    float(cols[8]),
+                ]
+            except ValueError as exc:
+                warnings.warn(
+                    "Malformed fixed-tree row in "
+                    + str(tree_path)
+                    + " at physical line "
+                    + str(line_no)
+                    + ": expected first 9 columns as "
+                    + schema
+                    + "; parser error="
+                    + str(exc)
+                    + "; row="
+                    + row_text,
+                    RuntimeWarning,
+                    stacklevel = 2,
+                )
+                continue
+            log_mh.append(parsed[0])
+            first_prog_id.append(parsed[1])
+            subhalo_id.append(parsed[2])
+            branch_id.append(parsed[3])
+            redshift.append(parsed[5])
+            sx = parsed[6]
+            sy = parsed[7]
+            sz = parsed[8]
             spin_norm.append(float(np.sqrt(sx * sx + sy * sy + sz * sz)))
-
-    if(short_row_count > 0):
-        warnings.warn(
-            "Skipped "
-            + str(short_row_count)
-            + " short fixed-tree row(s) with fewer than 9 columns in "
-            + str(tree_path),
-            RuntimeWarning,
-        )
 
     if(len(log_mh) == 0):
         empty_float = np.array([], dtype = float)

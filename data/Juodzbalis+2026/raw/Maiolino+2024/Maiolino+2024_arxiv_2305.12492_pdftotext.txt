@@ -1,0 +1,2002 @@
+arXiv:2305.12492v2 [astro-ph.GA] 17 Jan 2024
+
+
+
+                                               A small and vigorous black hole in the early
+                                                                Universe
+                                                        Roberto Maiolino1,2,3*, Jan Scholtz1,2 , Joris
+                                               Witstok1,2 , Stefano Carniani4 , Francesco D’Eugenio1,2 , Anna
+                                                de Graaff5 , Hannah Übler1,2 , Sandro Tacchella1,2 , Emma
+                                               Curtis-Lake6 , Santiago Arribas7 , Andrew Bunker8 , Stéphane
+                                                 Charlot9 , Jacopo Chevallard8 , Mirko Curti10 , Tobias J.
+                                                  Looser1,2 , Michael V. Maseda11 , Tim Rawle12 , Bruno
+                                                      Rodrı́guez Del Pino7 , Chris J. Willott13 , Eiichi
+                                                  Egami14 , Daniel Eisenstein15 , Kevin Hainline14 , Brant
+                                                Robertson16 , Christina C. Williams17 , Christopher N. A.
+                                               Willmer14 , William M. Baker1,2 , Kristan Boyett18,19 , Christa
+                                                       DeCoursey14 , Andrew C. Fabian20 , Jakob M.
+                                                   Helton14 , Zhiyuan Ji14 , Gareth C. Jones8 , Nimisha
+                                                  Kumari21 , Nicolas Laporte1,2 , Erica Nelson22 , Michele
+                                               Perna7 , Lester Sandles1,2 , Irene Shivaei14 and Fengwu Sun14
+                                                   1 Kavli Institute for Cosmology, University of Cambridge,
+                                                         Madingley Road, Cambridge, CB3 OHA, UK.
+                                                  2 Cavendish Laboratory - Astrophysics Group, University of
+
+                                               Cambridge, 19 JJ Thomson Avenue, Cambridge, CB3 OHE, UK.
+                                                  3 Department of Physics and Astronomy, University College
+
+                                                       London, Gower Street, London WC1E 6BT, UK.
+                                               4 Scuola Normale Superiore, Piazza dei Cavalieri 7, I-56126 Pisa,
+
+                                                                               Italy.
+                                                5 Max-Planck-Institut für Astronomie, Königstuhl 17, D-69117,
+
+                                                                       Heidelberg, Germany.
+                                                  6 Centre for Astrophysics Research, Department of Physics,
+
+                                                   Astronomy and Mathematics, University of Hertfordshire,
+                                                                     Hatfield AL10 9AB, UK.
+                                                7 Centro de Astrobiologı́a (CAB), CSIC–INTA, Cra. de Ajalvir
+
+                                                       Km. 4, 28850- Torrejón de Ardoz, Madrid, Spain.
+
+
+
+                                                                              1
+2     A small and vigorous black hole in the early Universe
+
+    8 Department     of Physics, University of Oxford, Denys Wilkinson
+                 Building, Keble Road, Oxford OX1 3RH, UK.
+              9 Sorbonne Université, CNRS, UMR 7095, Institut
+
+     d’Astrophysique de Paris, 98 bis bd Arago, 75014 Paris, France.
+    10 European Southern Observatory, Karl-Schwarzschild-Strasse 2,
+
+                           85748 Garching, Germany.
+     11 Department of Astronomy, University of Wisconsin-Madison,
+
+                 475 N. Charter St., Madison, WI 53706 USA.
+       12 European Space Agency, Space Telescope Science Institute,
+
+                            Baltimore, Maryland, US.
+    13 NRC Herzberg, 5071 West Saanich Rd, Victoria, BC V9E 2E7,
+
+                                    Canada.
+        14 Steward Observatory University of Arizona 933 N. Cherry
+
+                        Avenue Tucson AZ 85721, USA.
+     15 Center for Astrophysics - Harvard & Smithsonian, 60 Garden
+
+                        St., Cambridge MA 02138 USA.
+        16 Department of Astronomy and Astrophysics, University of
+
+    California, Santa Cruz, 1156 High Street, Santa Cruz, CA 95064,
+                                      USA.
+           17 NSF’s National Optical-Infrared Astronomy Research
+
+    Laboratory, 950 North Cherry Avenue, Tucson, AZ 85719, USA.
+       18 School of Physics, University of Melbourne, Parkville 3010,
+
+                                 VIC, Australia.
+         19 ARC Centre of Excellence for All Sky Astrophysics in 3
+
+            Dimensions (ASTRO 3D), Melbourne, VIC, Australia.
+      20 Institute of Astronomy, University of Cambridge, Madingley
+
+                       Road, Cambridge CB3 0HA, UK.
+      21 AURA for European Space Agency, Space Telescope Science
+
+      Institute, 3700 San Martin Drive, Baltimore, MD 21210, USA.
+           22 Department for Astrophysical and Planetary Science,
+
+               University of Colorado, Boulder, CO 80309, USA.
+
+
+        *Corresponding author(s). E-mail(s): rm665@cam.ac.uk;
+
+
+                                    Abstract
+      Multiple theories have been proposed to describe the formation of black
+      hole seeds in the early Universe and to explain the emergence of very
+      massive black holes observed in the first billion years after Big Bang
+      [1–3]. Models consider different seeding and accretion scenarios [4–7],
+      which require the detection and characterisation of black holes in the
+                   A small and vigorous black hole in the early Universe          3
+
+     first few hundred million years after Big Bang to be validated. Here
+     we present an extensive analysis of the JWST-NIRSpec spectrum of
+     GN-z11, an exceptionally luminous galaxy at z=10.6, revealing the detec-
+     tion of the [NeIV]λ2423 and CII*λ1335 transitions (typical of Active
+     Galactic Nuclei, AGN), as well as semi-forbidden nebular lines trac-
+     ing gas densities higher than 109 cm−3 , typical of the Broad Line
+     Region of AGN. These spectral features indicate that GN-z11 hosts an
+     accreting black hole. The spectrum also reveals a deep and blueshifted
+     CIVλ1549 absorption trough, tracing an outflow with velocity 800 −
+     1000 km s−1 , likely driven by the AGN. Assuming local virial rela-
+     tions, we derive a black hole mass of log (MBH /M⊙ ) = 6.2 ± 0.3,
+     accreting at about 5 times the Eddington rate. These properties are
+     consistent with both heavy seeds scenarios, or scenarios envisaging inter-
+     mediate/light seeds experiencing episodic super-Eddington phases. Our
+     finding naturally explains the high luminosity of GN-z11 and can also
+     provide an explanation for its exceptionally high nitrogen abundance.
+
+
+
+
+GN-z11 was recently observed with JWST. The analysis of the NIRCam images
+revealed an unresolved nuclear component and a disk-like component with a
+few 100 pc radius [8]. A first NIRSpec spectrum was presented in [9] who found
+it to be consistent with star formation, although the presence of an AGN was
+not excluded. Here we explore the latter scenario by using a deeper spectrum
+of GN-z11.
+4     A small and vigorous black hole in the early Universe
+
+                                                  observed wavelength ( m)                                                                           observed wavelength ( m)
+                                         2.79       2.80         2.81          2.82     2.83   2.84                                       2.015 2.020 2.025 2.030 2.035 2.040 2.045
+                                0.10                                                                                         0.25
+                                0.08 a)     [NeIV] (2422)                [NeIV] (2424)                                                     b)        NIII] (1748)        NIII] (1749)
+
+         erg s 1 cm 2A 1]
+
+
+
+
+                                                                                                       erg s 1 cm 2A 1]
+                                                                                                                             0.20
+                                0.06
+                                                                                                                             0.15                                               NIII] (1752)
+                                0.04
+                                0.02                                                                                         0.10                 NIII] (1746)                      NIII] (1754)
+                                0.00
+                                                                                                                             0.05
+         19
+
+
+
+
+                                                                                                       19
+                                0.02
+         F [10
+
+
+
+
+                                                                                                       F [10
+                                                                                                                             0.00
+                                0.04
+                                0.06
+                                  2400           2410          2420        2430         2440    2450                         0.051735             1740      1745        1750      1755     1760       1765
+                                                  rest-frame wavelength (Å)                                                                          rest-frame wavelength (Å)
+                                                  observed wavelength ( m)                                                                           observed wavelength ( m)
+                                          1.70      1.71         1.72          1.73     1.74   1.75                                        1.77      1.78        1.79    1.80      1.81    1.82       1.83
+                                                                                                                                   2.5
+                                 0.4 c)            NIV] (1483)             NIV] (1486)                                                                 CIV (1548)          CIV (1550)
+                                                                                                                                   2.0 d)
+             erg s 1 cm 2A 1]
+
+
+
+
+                                 0.3
+
+
+
+
+                                                                                                                 F (normalized)
+                                                                                                                                   1.5
+                                 0.2
+                                                                                                                                   1.0
+                                 0.1
+             19
+
+
+
+
+                                                                                                                                   0.5
+             F [10
+
+
+
+
+                                 0.0
+                                                                                                                                   0.0
+                                 0.1
+                                  1460           1470          1480        1490         1500    1510                                1520        1530        1540        1550      1560         1570    1580
+                                                  rest-frame wavelength (Å)                                                                          rest-frame wavelength (Å)
+                                                  observed wavelength ( m)                                                                           observed wavelength ( m)
+                                         1.53           1.54            1.55          1.56     1.57                                      1.975 1.980 1.985 1.990 1.995 2.000 2.005 2.010
+                                0.30
+                                0.25 e)                    CII(1334)       CII*(1335)                                                      f)
+         erg s 1 cm 2A 1]
+
+
+
+
+                                                                                                                erg s 1 cm 2A 1]
+
+
+
+
+                                                                                                                                   0.8
+                                0.20
+                                0.15                                                                                               0.6                                          NIV(1718)
+                                                                                                                                                                                WR prediction
+                                0.10
+                                                                                                                                   0.4
+                                0.05
+         19
+
+
+
+
+                                                                                                                 19
+
+
+
+
+                                0.00                                                                                               0.2
+         F [10
+
+
+
+
+                                                                                                                F [10
+
+
+
+
+                                0.05
+                                                                                                                                   0.0
+                                0.10
+                                  1315 1320 1325 1330 1335 1340 1345 1350 1355                                                      1700 1705 1710 1715 1720 1725 1730 1735
+                                                   rest-frame wavelength (Å)                                                                          rest-frame wavelength (Å)
+
+Fig. 1 Zoom in of the spectra of GN-z11 around specific spectral features of interest, along
+with their single/multiple Gaussian models (see Methods). Dashed lines indicate the rest-
+frame wavelengths of the lines at z=10.603. a) [NeIV]λλ2422,2424 doublet; b) NIII] multiplet,
+illustrating the detection of the resolved NIII]λ1754 emission; c) NIV] doublet, showing the
+absence of [NIV]λ1483 despite the strong NIV]λ1486; d) CIV blueshifted absorption trough
+and redshifted resonant emission, compared with the CIV P-Cygni profile observed in low-
+metallicity, young star-forming galaxies (stack: orange dashed line; most extreme case: orange
+dotted line), showing inconsistency with the latter. e) CII/CII∗ λλ1334,1335 doublet (seen in
+                                                     ¯
+emission, without P-Cygni, only in type 1 AGN); f) expected flux of the NIV1718 line in the
+case that NIV]1486 was associated with WR stars. In panels a, b, c, e, and f the continuum
+is subtracted, while in panel d the continuum is normalised to one. The grey dotted lines
+indicate the noise level (1 σ).
+
+
+
+    Fig.1a shows the detection of the [NeIV]λλ2422,2424 doublet. As NeIV
+requires photons more energetic than 63.5 eV, this line is an unambiguous AGN
+tracer [10–12] and not seen in star forming galaxies, not even those hosting
+Wolf-Rayet stars [13].
+    We also detect CII∗ λ1335 emission (Fig.1e). This line is commonly observed
+in AGN [14–16]. In star forming galaxies this line is generally totally unde-
+tected; when detected, is extremely faint and always associated with deep
+CIIλ1334 resonant absorption [17], not seen in GN-z11.
+                                                   A small and vigorous black hole in the early Universe     5
+
+
+                                                                          AGN               Star formation
+                                                       Zneb = 0.1Z        TAGN = 105 K      t * = 106 Myr
+                                                       Zneb = 1Z          TAGN = 106 K      t * = 107 Myr
+                                                                                            t * = 108 Myr
+           N III] 1754.0 Å/N III] [N IV] 1483 Å/
+                                   N IV] 1486 Å
+                                                                                     3       2     1
+                                                                                         log10 U
+                                                   1     ISM regime                          BLR regime
+
+
+                                                        GN-z11 (3 )
+                                        0
+                                      0.3
+                                                        GN-z11
+                                                       1
+                                      0.2              2
+                                                       3       ISM
+                                                                 regime
+                                      0.1                                                    BLR regime
+
+                                                           100 104 106 108 1010 1012
+                                                                   nH (cm 3)
+Fig. 2 Flux ratios of density-sensitive nitrogen lines as a function of hydrogen gas den-
+sity, nH . A large range of Cloudy models (see Methods) are compared with the values
+observed in GN-z11. Models with metal-poor (Zneb = 0.1 Z⊙ ) and metal-rich (Zneb = 1 Z⊙ )
+gas are shown with solid lines and dashed lines, respectively, (color-coded according to the
+ionization parameter U ) in the scenario where either an AGN (filled symbols demarcat-
+ing different black body temperatures for the accretion disc, TAGN ) or stellar populations
+(open markers for various ages, t∗ ) is responsible for the incident radiation field. Top:
+[NIV]λ1483/NIV]λ1486 flux ratio. Bottom: ratio of NIII]λ1754 to total flux of the multi-
+plet. The black dashed lines and blue shaded regions (in decreasing darkness for 1σ, 2σ, and
+3σ confidence level as indicated) show the observed fractional contribution of NIII]λ1754
+and upper limit on [NIV]λ1483/NIV]λ1486 obtained for GN-z11, indicating that the gas
+emitting these lines has high density (nH ≳ 109 cm−3 at 3σ). The light green shaded areas
+highlight the range of densities typical of the Broad Line Regions (BLRs), while the gray
+shaded regions highlight the range of densities typical of the ionized ISM.
+
+
+    The [NIV]λ1483, NIV]λ1486 doublet is very sensitive to the gas den-
+sity (while being insensitive to ionization parameter, metallicity and shape
+of the ionizing spectrum). Fig.1c shows the detection of the semi-forbidden
+NIV]λ1486 line (critical density 4.7 × 109 cm−3 ) and the non-detection of the
+forbidden [NIV]λ1483 line (critical density 1.5 × 105 cm−3 ), which indicate
+densities much higher than 105 cm−3 . Specifically, the various photoionization
+6     A small and vigorous black hole in the early Universe
+
+models shown in Fig. 2a (see Methods for details) illustrate that the upper
+limit on the doublet ratio requires densities ≳ 106 cm−3 , which are incom-
+patible with the densities of the ionized interstellar medium (ISM) that are
+typically in the range 10 − 103 cm−3 , and only rarely approach a few times
+104 cm−3 [18].
+    Even stronger constraints come from the NIII] multiplet (Fig.1b). This
+is contributed primarily by four semi-forbidden lines at 1748.6Å, 1749.7Å,
+1752.2Å and 1754.0Å (and the much weaker 1746.8Å). All of these have high
+critical densities (> 109 cm−3 ), but the 1748.6Å and 1754.0Å transitions have
+the highest critical density of 1010 cm−3 (note that atomic physics requires
+fixed flux ratios F1754 /F1748 = 1.05 and F1746 /F1752 = 0.14, see Methods). The
+1754.0Å line is well resolved from the rest of the multiplet, and its intensity is
+well constrained to be 0.25±0.04 of the total intensity of the multiplet. Such a
+high ratio can only be achieved when both the 1749.7Å and 1752.2Å transitions
+are suppressed relative to the 1748.6Å and 1754.0Å because of the very high
+density. As illustrated in Fig.2b, when compared with the expectations from
+a wide range of photoionization models, the observed ratio requires a density
+higher than 109 cm−3 at 3σ (higher than 1010 cm−3 at 2σ). Such high densities
+are completely inconsistent with any HII regions in any star-forming galaxy,
+but are fully in the realm of the Broad Line Regions (BLRs) of AGN, which
+are indeed characterized by extremely high densities (∼ 109 − 1015 cm−3 ).
+    Therefore, the most plausible explanation is that GN-z11 hosts an AGN
+and that these semi-forbidden lines observed in its spectrum are mostly emitted
+by the associated BLR.
+    It may appear puzzling that the spectrum of GN-z11 does not seem to
+show the typical ‘broad lines’ seen in type 1 quasars and AGN, with widths of
+thousands km s−1 . However, the width of the broad lines scales quadratically
+with the black hole mass, hence in the case of ‘small’ black holes the broadening
+is expected to be significantly smaller. Moreover, there are classes of type 1
+AGN that have broad lines with widths <1,000 km s−1 : these are the so-called
+Narrow Line Seyfert 1 (NLSy1), whose permitted lines are broader than their
+forbidden lines, but not by a large factor, and in many cases reaching a width
+of only a few 100 km s−1 [19], and which are indeed inferred to have small
+black holes (∼ 106 M⊙ ) [20]. This seems to be the case of GN-z11, whose semi-
+forbidden (NIII], NIV]) and permitted lines (MgII) all have widths between
+430 km s−1 and 470 km s−1 , while [NeIII] has a significantly narrower width
+(340±30 km s−1 ), hence coming from the host galaxy (either from HII regions
+or from the Narrow Line Region of the AGN). We note that the intepretation
+of some permitted and semi-forbidden lines, such as the Balmer lines and CIII]
+is made complex by the fact that these are also generally contributed to by
+the ISM photoionized by star formation in the host galaxy.
+    The spectrum of GN-z11 also reveals a deep (EWrest ∼5Å) and blueshifted
+absorption trough of the CIVλλ1548,1550 doublet (Fig.1d). Deep CIV absorp-
+tion is sometimes observed in young stellar populations, but the depth observed
+in GN-z11 would require high metallicities, typically solar or super-solar [21].
+                  A small and vigorous black hole in the early Universe       7
+
+This is in contrast with the metallicity inferred from the nebular lines of GN-
+z11 (Z ≈ 0.1Z⊙ ) [9]. To illustrate more quantitatively the inconsistency with
+the stellar-wind origin, the orange dashed line in Figure 1d shows the stacked
+spectrum of local galaxies with metallicity around the value inferred for GN-
+z11, resampled to the NIRSpec grating resolution: the stellar trough is much
+shallower than observed in GN-z11 and with a completely different shape.
+Aside from the stellar origin, such a deep CIV absorption is seen also in lower
+redshift star forming galaxies and associated with galactic outflows [22]. How-
+ever, in those cases the outflow velocities are only of a few 100 km s−1 (see
+Methods), while in the case of GN-z11 the CIV trough traces a much faster
+outflow of ∼ 800 − 1000 km s−1 . A more plausible explanation of the deep
+blueshifted trough of CIV is that GN-z11 is a Broad Absorption Line (BAL)
+quasar, which are indeed characterised by deep absorption of blueshifted CIV
+by up to several thousands km s−1 . Actually, GN-z11 would fit in the ‘mini-
+BAL’ category, with velocities between 500 and 2000 km s−1 , more common
+in lower luminosity AGN, or in the “Narrow” (∼1,000 km/s) Absorption Line
+(NAL) quasars category [23]. The spectrum also shows a clear CIV redshifted
+emission, which is likely tracing the receding component of the outflow. Indeed,
+since CIV is a resonant line, this is the counterpart of the redshifted Lyα
+identified by [9] (consistent shift and width).
+    Summarizing, the detection of [NeIV] and CII∗ , the extremely high gas den-
+sity matching those of the AGN BLRs, and the presence of a deep, blueshifted
+absorption trough of CIV tracing a high velocity outflow, are all consistent
+with the scenario in which GN-z11 hosts an accreting black hole, i.e. an AGN,
+specifically what would be called NLSy1 and (mini-)BAL/NAL AGN.
+    In the Methods we also discuss other diagnostics, such as the ratio of UV
+transitions (e.g. CIII]/CIV, CIII]/HeII) and the upper limits on high ionization
+lines (NVλλ1238,1242 and [NeV]λ3426), are fully consistent with the AGN
+scenario.
+    Some works have suggested that GN-z11 may host a population of WR
+stars [24]. The HeIIλ1640 line shows a potentially broad profile, as illustrated
+in Fig.5c of the Methods (although the wings are mostly in the noise). This,
+if confirmed, could come from the inner region of the BLR but could also
+trace the presence of a WR population. However, various other features are
+inconsistent with a major contribution from WR stars. Specifically, in the case
+of WR stars the NIVλλ1483,1486 doublet, if present, is always accompanied
+by an even stronger NIVλ1718 line, with a prominent P-Cygni profile, which
+is not seen at high confidence in the spectrum of GN-z11 [13] (Fig.1f); [NeIV]
+and CII∗ are never seen associated with WR stars [13]; when present, the NIII]
+multiplet has a much weaker λ1754 component [18]. Therefore, if WR stars
+are present in GN-z11, then they must co-exist with the AGN and are unlikely
+to play a dominant role in the excitation of the observed nebular lines.
+    Assuming local virial relations, the black hole mass can be estimated from
+the line widths and continuum luminosity. As discussed in the Methods, we
+8           A small and vigorous black hole in the early Universe
+
+                                      Age of the Universe [Myr]
+                                200           300    400 500 600 700 800900
+                  10    GN-z11
+                        z 6 7 QSOs
+                        Simulations
+                        B23 - Heavy seed
+                   8    Z23 - Interm. seed
+    logMBH [M ]
+
+
+                        S23 - Heavy seed
+                        S23 - Light seed
+
+                   6                                               0.1 Eddington
+                                                                  Direct Collapse
+                              ton                                 Black Holes
+                                                on
+                   4   Edding                  ngt                   Star Clusters
+                                              ddi
+                                         er-E
+
+
+                                                                Stellar Remnants
+                                       Sup
+
+
+
+                   2
+                          20                 15 1312 11 10 9 8 7                      6
+                                                Redshift
+Fig. 3 Black hole mass as a function of redshift (on a logarithmic scale) and age of the
+Universe. The black hole mass inferred for GN-z11 is shown with the large golden symbol.
+The red shaded region indicates the evolution expected in the case of super-Eddington
+accretion at the level inferred for GN-z11. The darker blue shaded region shows the black
+hole mass evolution assuming Eddington-limited accretion, while the lighter blue shaded
+region shows the case of evolution in the case of sub-Eddington accretion (between 0.1 and
+1 the Eddington rate). The horizontal gray shaded regions indicate the range of black hole
+seeds expected by different scenarios. Solid and dashed lines indicate the evolutionary tracks
+of various simulations and models [7, 25, 26] that can reproduce the GN-z11 BH mass, with
+different seeding and accretion rate assumptions, as detailed in the Methods. The small gray
+symbols indicate the black holes measured in quasars at z∼6–7.5 [1, 2] (whose representative
+1σ errorbar is shown in the top-left), most of which can originate from a progenitor like the
+black hole in GN-z11.
+
+
+estimate a BH mass of about 1.6 × 106 M⊙ . In the Methods we also discuss
+potential uncertainties and caveats in the determination of the BH.
+    We infer a bolometric luminosity of the AGN of 1045 erg/s (see Methods),
+which is a factor of ∼5 higher than the Eddington limit (with an uncertainty
+of a factor of 2). Super-Eddington accretion is generally inferred for NLSy1’s
+and is one of the scenarios proposed to rapidly grow supermassive black holes
+in the early Universe [4, 26].
+    Fig.3 shows how the black hole mass in GN-z11 would have evolved at ear-
+lier cosmic epochs if accreting at the Eddington rate, or at the super-Eddington
+rate estimated at the time of observation. For comparison, the gray shaded
+areas show the range of possible black hole seeds scenarios: black holes result-
+ing from the direct collapse of primordial clouds into seeds with masses in the
+range ∼ 104 − 106 M⊙ , the so-called Direct Collapse Black Holes (DCBHs);
+rapid merging of stars and black holes in dense, nuclear star clusters; accre-
+tion onto Population III black hole seeds or even normal stellar remnants
+                     A small and vigorous black hole in the early Universe               9
+
+[1, 4–6, 27]. Many of these semianalytical models and cosmological simulations
+could reproduce the mass of GN-z11 at z=10.6 [7, 26, 28, 29]. The solid and
+dashed lines show the evolutionary tracks for some of them (described more
+extensively in the Methods). These can be broadly divided in models assum-
+ing heavy seeds (DCBH), whose accretion is limited to the Eddington rate,
+and intermediate mass (stellar clusters) or light (stellar remnants) seeds expe-
+riencing episodes of super-Eddington accretion. It is interesting to also note
+that GN-z11 evolving at sub-Eddington rate can easily result into the super-
+massive black holes (107 − 109 M⊙ ) observed in quasars at z=6-7, as indeed
+predicted by many models.
+    However, it is possible that the local/low-z scaling relations do not apply
+for AGN at such early epochs. If we disregard the local virial relations and
+instead assume that the black hole in GN-z11 is accreting at the Eddington
+rate, then the black hole mass would be 107 M⊙ . A black hole with this mass
+is more difficult to account for, but achievable in models assuming heavy seeds
+and episodes of super-Eddington accretion [7, 28, 29].
+
+
+                     Local R15
+                10   QSOs z 6.5 (dyn. ) I19
+                     JWST z 4 8
+                 9   GN z11
+  logMBH [M ]
+
+
+
+
+                 8
+                 7
+                 6
+                 5
+                     8            9             10            11             12
+                                       logMstar [M ]
+Fig. 4 Black hole versus stellar mass diagram, showing the location of GN-z11 (large
+golden symbol), compared to local galaxies as indicated by the small red symbols and their
+best-fit relation (black solid line and uncertainty traced by the gray shaded region) [30].
+The grey symbols show the values estimated for quasars at z∼ 6 − 7 [31], although in these
+cases the galaxy mass is inferred from dynamical tracers. The blue symbols are AGN at z>4
+for which the black hole and galaxy stellar mass has been measured with JWST data (see
+Methods) using the same calibration as [30] for consistency.
+
+
+    Taking the stellar mass of the extended disk-like component measured by
+[8] (M⋆ = 8 × 108 M⊙ ), it is possible to locate GN-z11 on the MBH − Mstar
+relation. As illustrated in Fig.4, GN-z11 is placed above the local relation,
+10     A small and vigorous black hole in the early Universe
+
+although marginally consistent within the scatter. Interestingly, an early evo-
+lution above the local MBH − Mstar relation is what is expected from models
+invoking DCBHs and/or super-Eddington accretion [4, 26, 27].
+    We note that the exceptionally high nitrogen abundance inferred for GN-
+z11 (specifically, high N/O) [9] becomes much less problematic in the AGN
+scenario. To begin with, several ‘nitrogen-loud’ AGN have already been found
+both at low and high-redshifts (including NLSy1) [32–35]. So GN-z11 is not a
+very peculiar system in this context. Secondly, the mass of the BLR in AGN
+is very small [36]:
+                                                            −1
+                                   LHγ                   n
+               MBLR = 1.8                                   −3
+                                                                   M⊙
+                                1042 erg/s        1010   cm
+
+Specifically, the Hγ luminosity observed in GN-z11 (LHγ = 1.7 × 1042 erg/s,
+even assuming the extreme case it is not contributed by the NLR and HII
+regions) implies a mass of the BLR of only a few solar masses. It would take just
+one or two supernovae to enrich such a small mass to solar/super-solar metal-
+licity, especially within the small physical region associated with the BLR (∼
+10−2 pc for GN-z11) [37]. These could be supernovae from supermassive stel-
+lar progenitors, with high nitrogen yields [38]. However, even without invoking
+exotic scenarios, given the accelerated metal enrichment of such a small, cen-
+tral region, it is also possible that secondary, recycled nitrogen production can
+occur within a timescale of a few tens Myr (especially given the very fast cool-
+ing times at such high densities, which allow star formation to quickly occur
+out of cooled SN ejecta).
+     We finally discuss our results within the context of the recent JWST find-
+ings of an excess of exceptionally luminous galaxies at high redshift. GN-z11 is
+the first of such hyperluminous galaxies at high-z to be spectroscopically con-
+firmed, and for which such a detailed spectroscopic analysis has been feasible.
+The AGN scenario revealed by our analysis provides a natural explanation for
+the exceptional lumionsity of GN-z11. If this is representative of the broader
+class of luminous galaxies discovered at high-z, then it would greatly alleviate
+the tension with models and simulations.
+                  A small and vigorous black hole in the early Universe         11
+
+1 Methods
+1.1 Observations and Data Processing
+The data presented in this paper are part of the JADES survey [39] and, specif-
+ically, obtained through programme ID 1181 (P.I.: D. Eisenstein). GN-z11 was
+observed in two epochs, the first one on UT 5 and 7 February 2023, and the
+second one on UT 4 and 5 May 2023. The February observations were already
+presented in [9]. We refer to that paper for a detailed description. Briefly, the
+spectroscopic data were obtained with four different configurations of the NIR-
+Spec micro-shutter array (MSA) [40–42], using a 3-shutter nodding pattern.
+Four different dispersers were used to cover the 0.6-5.3 micron wavelength
+range: the low-resolution prism mode (exposure time of 6200 sec), and three
+medium-resolution gratings (3100 sec each), which provide a nominal spectral
+resolution of R∼1000 for a uniformly-illuminated slit [40]. However, the highly
+compact light profile of GN-z11, with respect to the width of the slit, results in
+a significantly higher effective resolution. To estimate the effective resolution,
+we forward model the morphology of GN-z11 through the NIRSpec instrument
+for the grating dispersers, finding that the resolution ranges between 1100 and
+2100. Four MSA configurations were used (two pointing and two dither posi-
+tions). The May observations were similar, but in this case they consisted in
+three consecutive dithers (with three different MSA configurations), each with
+three nods, resulting into an on-source exposure of 2.7 hours for the prism,
+each of the three medium resolution gratings and also with the high resolution
+grating G395H/290LP. Unfortunately, at the location of GN-z11 on the MSA
+the latter spectrum is heavily truncated at wavelengths longer than 4.1µm,
+hence all strong optical emission lines are not observed with this grating.
+    By combining the two sets of observations, the total exposure time is 9.6
+hours with the prism and 6.15 hours with each of the medium resolution
+gratings.
+    The data processing is also described in [9], and we refer to that paper for
+a detailed discussion. Here we only mention that we used the pipeline devel-
+oped by the ESA NIRSpec Science Operations Team and the NIRSpec GTO
+Team. Most of the processing steps in the pipeline adopt the same algorithms
+used in the JWST Science Calibration Pipeline [43]. Differently from the offi-
+cial pipeline, the final 1D combined spectra are obtained by combining the
+1D individual spectra rather than performing the extraction process in the
+combined 2D spectra. This step guarantees that the final 1D spectra are well
+flux calibrated for slit-losses. In the combination process, we also applied a
+3σ-clipping algorithm and excluded bad pixels based on the data quality files
+provided by the pipeline. The extraction of 1D spectra in the individual expo-
+sures is also optimized on the basis of science. In this paper, we adopt a 3-pixels
+(0.3′′ ) extraction along the slit, as it improves the S/N of the spectrum (for
+point sources). Finally, the GTO pipeline provides spectra beyond the nomi-
+nal wavelength range for the spectral configuration G140M/F070LP by taking
+12       A small and vigorous black hole in the early Universe
+
+into account the transmission filter throughput in the flux calibration process-
+ing step. The extended spectra cover the wavelength range of 1.27 µm – 1.84
+µm.
+    Moreover, here we combine the grating spectra in their overlapping ranges,
+which increases the S/N in those regions. The combined spectra in these regions
+were resampled to 8Å around the NIV doublet, not to affect resolution, and to
+12Å around the CIV, as in this case higher S/N is required on the continuum
+to properly trace the CIV absorption.
+    In the paper we adopt the flat λCDM cosmology from Planck18 with H0
+= 67.4 km/s/Mpc and Ωm = 0.315 [44].
+
+1.2 Emission line fitting
+Emission lines were fitted by using one or multiple Gaussian lines and a simple
+power law for continuum subtraction. The best-fit parameters for the contin-
+uum and Gaussian components were found using the MCMC algorithm to
+estimate the uncertainties. For the purposes of this paper, each line in the rest-
+frame UV was fitted independently, except for doublets or multiplets, whose
+line widths were forced to the same value (but see discussion below for the
+CIII] doublet) and the relative wavelength separation of the doublet/multi-
+plet was forced to the nominal rest-frame wavelength. The absolute velocity
+of each line (or group of lines in the case of doublets and multiplets) was not
+constrained to the exact redshift given in [9], in order to both allow for small
+wavelength calibration uncertainties associated with the positional uncertain-
+ties of the target within the shutter1 (Jakobsen, priv. comm.) and also to allow
+for small velocity shifts between different lines, which are common in AGN,
+and especially in the BLR. We restricted our fitting to the lines of interest for
+this paper.
+    Table.1 provides the list of the fitted emission line widths and fluxes and
+Fig. 5 shows the additional fitted lines not shown in the main text.
+    In the case of the NIII] multiplet, the 1748.6Å and 1754.0Å transitions
+come from the same upper level, hence their flux ratio is fixed by the associ-
+ated Einstein coefficients, specifically F1754 /F1748 = 1.05. Similarly, 1746.8Å
+and 1752.2Å come from the same upper level and their flux ratio is fixed to
+F1746 /F1752 = 0.14. The inferred line widths are deconvolved from the line
+spread function as inferred for the GN-z11 light profile.
+    For the CIII]1906,1908 doublet it is not possible to resolve the two com-
+ponents; attempting to fit it with two components makes the fit degenerate
+between width and intensity of the two components. The additional caveat
+of this CIII] doublet is that it is also commonly seen in normal star-forming
+galaxies and in the NLR of AGN, so it can also have a contribution from the
+host galaxy, as for the [NeIII] emission. Indeed, [45] use IFS spectroscopy to
+
+   1
+     The uncertainties in the target acquisition may result in the target being offset by up to ∼ 0.05′′
+relative to the nominal position, which is used by the pipeline for the wavelength solution. Such
+unknown offset would introduce a wavelength offset by up to 0.5 spectral pixel, which corresponds
+to a different velocity offsets (given the wavelength-dependent resolution) in different regions of
+the spectrum.
+                 A small and vigorous black hole in the early Universe        13
+
+reveal that the CIII] emission is resolved on scales of several 100 pc. As a con-
+sequence we do not include the (spectrally) unresolved CIII] in our analysis,
+as it does not provide constraints on either the BLR nor the host galaxy. In
+Tab.1 we report the total flux and width using a single Gaussian. However,
+for sake of completeness, we report that by fitting two components with sep-
+arate FWHM, accounting for the NLR and BLR, gives CIII]λ1906/λ1908 of
+0.62+1.00
+     −0.37 for the narrow components, with FWHMs of 314±120 kms
+                                                                         −1
+                                                                            (con-
+                                                   −1
+sistent with the [NeIII] width), and 560±80 kms for the CIII]λ1908 broad
+component (consistent with the NIV] width).
+    The [OII]3726,3729 doublet would potentially be an additional forbidden
+line, detected in the observed wavelength range, which could be used to con-
+strain the velocity dispersion in the host galaxy. However, unfortunately, the
+doublet is unresolved. Attempting to fit it (by forcing the two components to
+have the same width) results in a FWHM of 365±55 kms−1 and a flux ratio
+       +0.31
+of 0.62−0.21 .
+
+1.3 CIV absorption and emission
+In this section, we provide some additional details on the CIV absorption. As
+mentioned in the text, CIV P-Cygni profiles with a significant CIV blueshifted
+trough are seen associated with atmospheres of young, hot stars. Yet, the
+depth of this feature is a strong function of metallicity [21], and the deep
+trough observed in GN-z11 would require stars with solar or even super-
+solar metallicities, completely inconsistent with the much lower metallicity
+inferred for GN-z11. To illustrate the inconsistency with the pure stellar ori-
+gin, we have stacked 11 UV spectra from the CLASSY HST survey [17], with
+metallicity around the value inferred for GN-z11 by [9] (Z = 0.1 Z⊙ ), specifi-
+cally 7.4<12+log(O/H)<7.9. We were conservative by excluding galaxies with
+strong CIV emission. We also excluded one WR galaxy, as we discuss that the
+spectrum cannot be dominated by WR stars (see text and section 1.5). The
+continuum of the spectra were normalized to one by using a simple linear fit in
+the spectral ranges 1410–1480Å and 1560–1600Å, consistent with the analysis
+of the spectrum of GN-z11 in the same spectral region (Fig.1d). The resulting
+stacked spectrum is shown with a dashed, orange line in Fig.1d, and illustrates
+inconsistency with the trough seen in GN-z11. To be conservative, in Fig.1d
+we also show the case of the most extreme spectrum among the 11 selected,
+the one with the deepest CIV absorption. While the wings of the stellar winds
+can extend out to 2000 km/s, the profile and depth observed trough at these
+metallicities is inconsistent with the observed trough in GN-z11 at 5σ.
+    The blueshifted CIV trough (and redshifted emission) therefore is not a P-
+Cygni feature associated with stellar (atmosphere) winds. Rather, it is tracing
+a galactic outflow, as observed in lower redshift starbursts (e.g. [22]) and in
+(mini-)BAL/NAL AGN [23, 46–50]. The determination of the velocity requires
+knowledge of the exact wavelength of the redshifted, rest-frame CIV transi-
+tion. Unfortunately there are small wavelength uncertainties associated with
+each grating due to the uncertainties of the location of the sources within the
+14                          A small and vigorous black hole in the early Universe
+
+                                                            observed wavelength ( m)                                                                                observed wavelength ( m)
+                               3.20                 3.22             3.24           3.26          3.28                                                      1.87 1.88 1.89 1.90 1.91 1.92 1.93 1.94
+     erg s 1 cm 2A 1]       0.08                                                                                                                0.15
+
+
+
+
+                                                                                                                        erg s 1 cm 2A 1]
+                                      a)                     MgII (2796)            MgII (2804)                                                        b)                                  HeII (1640)
+                            0.06                                                                                                                0.10
+                            0.04                                                                                                                0.05
+                            0.02                                                                                                                0.00
+     19
+
+
+
+
+                                                                                                                        19
+                            0.00
+                                                                                                                                                0.05
+     F [10
+
+
+
+
+                                                                                                                        F [10
+                            0.02
+                                2760 2770 2780 2790 2800 2810 2820 2830 2840                                                                    0.10      1610      1620       1630     1640     1650     1660     1670
+                                                            rest-frame wavelength (Å)                                                                               rest-frame wavelength (Å)
+                                                            observed wavelength ( m)                                                                                observed wavelength ( m)
+                                 1.41          1.42             1.43         1.44        1.45      1.46                                            2.18      2.19       2.20     2.21     2.22     2.23     2.24
+                                                                                                                                                0.25
+         erg s 1 cm 2A 1]
+
+
+
+
+                                                                                                                             erg s 1 cm 2A 1]
+                                0.3          c)
+                                                                                                                                                0.20 d)
+                                                                            NV (1238)
+                                                                            NV (1242)
+
+
+                                                                                                                                                                        CIII] (1906)     CIII] (1908)
+                                                                                                    SiII(1260)
+                                                                                                    SiII(1264)
+                                0.2          Ly (1215)
+                                                                                                                                                0.15
+                                0.1
+                                                                                                                                                0.10
+                                0.0
+                                                                                                                                                0.05
+         19
+
+
+
+
+                                                                                                                              19
+                                0.1
+         F [10
+
+
+
+
+                                                                                                                             F [10
+                                                                                                                                                0.00
+                                0.2     1220                 1230          1240          1250        1260                                          1880          1890       1900        1910     1920      1930
+                                                            rest-frame wavelength (Å)                                                                                rest-frame wavelength (Å)
+
+                            0.20
+                                      e)
+                                                                                                         [NeIII] 3968
+             erg s 1 cm 2A 1]
+
+
+                                             [NeIII] 3869
+
+
+                                                                   HeI 3889 +
+
+
+
+
+                            0.15
+                                                                                                                                                             H                                     H
+                                                                   H8 3889
+
+
+
+
+                            0.10
+
+                            0.05
+             19
+
+
+
+
+                            0.00
+             F [10
+
+
+
+
+                            0.05           3850             3875       3900       3925      3950          3975                        4075             4100         4125                 4325     4350      4375
+                                                                                                     rest-frame wavelength (Å)
+Fig. 5 Zoom in on the additional emission lines fitted. a) CIII]λ1906,1908 doublet. As the
+doublet is unresolved, the fit turns out degenerate between line width and fluxes of the two
+components; moreover it is also contributed to by star formation in the host galaxy (see
+text for details); b) MgIIλ2796,2804 doublet; c) HeIIλ1640; d) Lyα, NVλ1238,1242 dou-
+blet (undetected) and SiIIλ1260,1264 (undetected), corrected for the Lyα damping wing; e)
+[NeIII]λ3869 profile compared with the Balmer lines Hδ and Hγ. In all panels, the contin-
+uum is subtracted. The black dotted lines indicate the noise level.
+
+
+shutter, as discussed above. In this specific case we calibrate the velocity shift
+based on the NIV line, which is in the same gratings and has similar ionisation
+potential as CIV. The outflow “velocity” is also subject to different definitions.
+The centroid of the through relative to the mean of the two CIV transitions
+gives a velocity of –790 km/s. If we consider the blue edge of the trough relative
+to the bluest of the two transitions (CIVλ1548.19) then we obtain a velocity of
+–1040 km/s. These velocities are significantly higher than those inferred from
+the CIV absorption in starburst-driven outflows [22, 51], but in the range of
+BAL quasars which can span from 500 km s−1 to several thousands km s−1
+[23, 46–50, 52, 53].
+    The classification boundary between “mini-BAL” and “NAL” AGN in not
+sharp, with different authors giving different definitions in terms of width
+                    A small and vigorous black hole in the early Universe                  15
+
+Table 1 Measured fluxes and FWHM of the emission lines used in this work.
+Emission line               λ0                       Flux               Doublet-Multiplet      FWHM
+                             Å          (×10−19 ) ergs s−1 cm−2              ratios           km s−1
+NV                      1239+1243                   <3.5 a
+
+[NIV]                     1483.32                   < 1.6a
+CII*                       1335                    5.6+1.27
+                                                      −1.26                                    380 ± 80
+NIV]                      1486.50                 10.4+1.8
+                                                       −1.6                                    470 ± 50
+CIV](emission)            1550.77                  3.2+0.9
+                                                      −0.8
+HeII                      1640.50                  6.0+1.4
+                                                      −1.3                                   1200 ± 380
+NIII]                 multiplet-total             10.3+2.1
+                                                       −1.3                                   430 ± 80b
+                      1746.82c /total                                       0.02+0.01
+                                                                                −0.01
+                      1748.64d /total                                       0.24+0.05
+                                                                                −0.05
+                       1749.67/total                                        0.37+0.06
+                                                                                −0.06
+                      1752.16c /total                                       0.14+0.06
+                                                                                −0.06
+                      1753.99d /total                                       0.25+0.04
+                                                                                −0.04
+CIII]                   1906+1908                  9.9+0.9
+                                                      −0.9                                    610 ± 60e
+MgII                    2796+2804                  4.6+0.6
+                                                      −0.6                                    430 ± 65f
+                                                                                +0.67
+                        2796/2804                                           1.36−0.42
+[NeV]                     3426.86                   < 1.5a
+[NeIV]              2424+2422 (fit)g               2.9+0.85
+                                                      −0.76                                   380 ± 110
+                    2424+2422 (int)   g           3.14+0.65
+                                                      −0.65
+[OII]                   3727+3729                 7.72+1.40
+                                                      −1.30                                    368 ± 50
+                        3729/3727                                           0.59+0.30
+                                                                                −0.21
+[NeIII]                   3869.68                   10+0.7
+                                                      −0.7                                     340 ± 30
+HeI+H8                    3889.73                  3.7+0.76
+                                                      −0.75                                    360 ± 50
+Hδ                        4101.73                 5.1+0.9
+                                                      −0.75                                    410 ± 70
+Hγ                        4340.47                  9.2+2.9
+                                                      −2.8                                     360 ± 80
+  Notes: a 3σ upper limit (in the case of NV is the upper limit on the sum of the doublet);
+b the four components of the multiplet are forced to have the same width in the fit; c as the
+
+   components λ1746.82 and λ1752.16 come from the same level, their fluxes are forced to
+   have the ratio given by their Einstein’s coefficients, i.e. 1746.82/1752.16=0.146; d as the
+   components λ1748.64 and λ1753.99 come from the same level, their fluxes are forced to
+   have the ratio given by their Einstein’s coefficients, i.e. 1753.99/1748.64=1.05; e for the
+   CIII] doublet is totally blended and is here fitted with a single Gaussian (see text for a
+  more complex, but uncertain decomposition); f the two components of the MgII doublet
+ are forced to have the same width; g in the case of the [NeIV] doublet, as it is a key line,
+we provide both the result from MCMC fitting, assuming a single Gaussian (first line) and
+                    also by simply taking the integrated flux (second line).
+
+
+and/or blueshift of the absorption [23, 46–50]. Here simply give a generic
+classification as mini-BAL/NAL without aiming at a more specific category.
+    It should be noted that some past works have reported some rare starburst
+galaxies showing outflows with high velocities, even in excess of 1000 km/s
+[54–57]. However, these outflows are traced by lower ionization transitions
+(MgII absorption and [OIII] emission). More importantly, a close inspection
+of those cases reveal that each of them show some AGN signature ([NeV]
+emission and/or broad MgII emission and/or broad Hβ emission and/or X-
+ray emission and/or located in the AGN or composite region of diagnostic
+diagrams); therefore, although the AGN contribution to the bolometric lumi-
+nosity of these galaxies may be arguable (also taking into account the variable
+16     A small and vigorous black hole in the early Universe
+
+nature of AGN), it is likely that the high velocity outflows seen in these rare
+cases is actually driven by the AGN that they host.
+   Finally, it should be noted that the CIV absorption trough goes nearly to
+zero (as in many BAL QSOs), which would imply total covering factor of the
+emitting source by the outflowing ionized gas along our line of sight. However,
+the errors leave scope for a contribution of 30% of the emission potentially not
+covered by the CIV absorption, which can be associated with the extended
+host galaxy. Yet, if higher S/N data confirms the CIV trough going to zero, this
+would imply that the outflow has an extent covering also the host galaxy, i.e.
+∼400 pc, which would be fully consistent with recent findings of BAL outflows
+extending on scales of up to several kpc [58–62].
+   Given that CIV is a resonant line, the observed redshifted emission is also
+tracing the CIV counterpart of the redshifted Lyα emission seen in [9]. i.e. the
+receiding side of the outflow.
+   We finally note that the spectrum between Lyα and the NV doublet show
+the tenative signature of a NV blueshifted trough (Fig.5d), which would be
+associated with the highly ionized outflow, but it requires additional data to
+be confirmed.
+
+1.4 Constraints from other emission lines and diagnostics
+Although the paper focuses on a few lines discussed in the main text, in this
+section we also discuss other emission lines that have either lower S/N, more
+severe blending, or whose upper (or lower) limits give line ratios that are fully
+consistent with the AGN scenario.
+
+1.4.1 MgII and CIII]
+The MgII2796,2804 doublet is well resolved with the grating and in principle a
+good tracer of gas density in the range between 109 and 1014 cm−3 . However,
+the observed ratio, 1.36+0.67
+                          −0.42 , is so uncertain to be consistent both with the low
+density regime (ratio of ∼1) and the high density regime (ratio of ∼2). More-
+over, even if additional data allows constraining the MgII doublet ratio more
+tightly, these are resonant transitions, which are therefore strongly sensitive
+to the optical depth and radiative transfer effects [63].
+    The CIII]λλ1907,1909 doublet would also be a good density tracer, as the
+ratio of its two components is primarily sensitive to the gas density and changes
+strongly between 104 and 106 cm−3 (with the blue component λ1907 going
+to zero at high densities), similar to the NIV] doublet. However, as discussed
+above, the two components are unresolved with the grating, and we cannot
+obtain reliable constraints on the gas density nor on the line widths. Even more
+importantly, CIII] emission is commonly seen also in star forming galaxies and
+in the NLR of AGN, so it may partially come also from the low density ISM
+of the host galaxy, as it is the case for [NeIII]. Indeed, as already mentioned,
+recent IFS observations show CIII] to be resolved on scales of several 100 pc
+[45]. It is interesting that when fitted with narrow and broad components, as
+                                   A small and vigorous black hole in the early Universe   17
+
+discussed in the previous section, the narrow component gives widths formally
+consistent with the [NeIII], while the broad component is consistent with the
+NIV width.
+
+1.4.2 NV and NeV
+Additional transitions from species requiring ionizing photon energy higher
+than about 60 eV, such as NV and NeV (in addition to NeIV seen in GN-z11),
+are often seen as evidence for the presence of an AGN. Yet, conversely, their
+absence should not be necessarily seen as evidence for the absence of an AGN,
+as often these lines are weak even in AGN and remain undetected if the S/N is
+not high enough [64–66]. Moreover, the intensity of these lines varies strongly
+from case to case.
+
+                          101
+
+
+
+                          100
+       NV 1240/CIV 1550
+
+
+
+
+                          10   1
+
+
+
+
+                          10   2
+
+                                                                    Type 1 AGN - K04
+                                                                    Type 2 AGN - N06
+                                                                    GNz11
+                          10   3
+                                   10   2      10   1        100           101
+                                                    NV 1240/HeII 1640
+Fig. 6 NV/CIV versus NV/HeII flux ratio diagram for GN-z11 (golden circle) compared
+with the ratios observed for the broad lines of type 1 AGN (purple stars, [64]) and for the
+NLR of type 2 AGN (red squares, [65]), illustrating that the non-detection of NV for GN-
+z11 is not constraining and consistent with the AGN scenario.
+
+
+    With the prism it is not possible to assess the presence of NV because
+it is blended with Lya and its damping wing. Regarding the gratings, the
+G140M band, where NV is redshifted, is the least sensitive of the three medium
+resolution spectra. Although there is a hint of the NV doublet (Fig.5, a 2σ
+integrated signal) we obviously do not quote it as a tentative detection. The
+18     A small and vigorous black hole in the early Universe
+
+inferred upper limit on the NV emission is not very constraining, but the
+important aspect in the context of this paper is that it is still fully consistent
+with the presence of an AGN. We demonstrate this in Fig.6, where the upper
+limits on the NV/CIV and NV/HeII ratios for GN-z11 are compared with a
+sample of the broad lines in type 1 AGN [64] and also with a sample of the
+NLR in type 2 AGN [65], and clearly illustrating that the non-detection of NV
+is fully consistent with the AGN scenario.
+    It is interesting also to compare NV with NIV, as this ratio is not depen-
+dent on the nitrogen abundance, although NIV is detected (or reported) less
+frequently in AGN. In the well studied type 1.8 AGN at z=5.5, GS-3073
+[16, 34, 67], the NV is five times fainter than NIV, which would be totally
+undetected in our spectrum. In the type 1 quasars explored by [68] the NIV
+broad line is very strong, while NV is undetected, with an upper limit that is
+about ten times lower than the NIV flux.
+    NeV is also not detected, neither in the grating nor in the prism spectrum.
+The upper limit on the NeV/NeIII ratio is about 0.2. However, [66] has shown
+that AGN models can have NeV/NeIII as low as 10−2 − 10−4 . Hence also the
+non-detection of NeV is not constraining about the presence of an AGN.
+    Finally, we note that AGN accreting at super-Eddington rates have a lower
+energy cutoff, hence are less likely to emit hard photons that can produce
+highly ionised species, such as NV and NeV.
+
+1.4.3 HeII and CIV
+HeII is detected in the prism and, more marginally, in the grating (Fig.5).
+    As already discussed, CIV is clearly detected in the grating, but with a
+P-Cygni profile, hence its flux is a lower limit because of self-absorption.
+    The interpretation of these limits using photoionization models is very
+much model-dependent. We illustrate this in Fig. 7a-b. Specifically, Fig. 7a,
+as in [9], shows the location of GN-z11 on the CIII]/CIV versus HeII/CIII]
+diagram and where the red-squared and blue-starred symbols show the location
+of models from [10] and [69] for the the NLR of AGNs and for star forming
+galaxies, respectively, and in a range of about ±0.3 (see legend) dex of the
+metallicity inferred by [9] for GN-z11. Clearly, GN-z11 can be consistent with
+both AGN and star forming models.
+    Fig.7b shows the same diagram where we instead plot the models from
+[70], in the same (low) metallicity range for both AGN and SF galaxies.
+Clearly, in this case GN-z11 is much more consistent with the AGN models
+and inconsistent with the models for star forming galaxies.
+    Yet, if the permitted and semi-forbidden lines of GN-z11 are coming from
+the BLR, as argued in this paper, then neither of the models above actually
+apply, as they are developed for the low density environments of the NLR and
+HII regions. It is therefore more instructive to compare with the line ratios
+observed in the BLR of type 1 AGN. These are taken from the compilation of
+[64] and shown with purple-circles in Fig. 7c. Clearly, the line ratios observed
+                                               A small and vigorous black hole in the early Universe                                                          19
+                               Z = 0.033 0.26 Z Type 2 AGN - Mod. F16      Z = 0.05 0.2 Z Type 2 AGN - Mod. NM22
+                               Z = 0.033 0.26 Z SFG - Mod. G16             Z = 0.05 0.2 Z SFG - Mod. NM22            Type 1 AGN - Obs. K04   Starbursts - Obs. M23
+                               GNz11                                       GNz11                                     Type 2 AGN - Obs. N06   GNz11
+CIII] 1908/CIV 1550
+
+                      101
+
+                      100
+
+                      10   1                    a                                            b                                          c
+                           10  2          100  102                      10 2          100   102                    10 2           100  102
+                              CIII] 1908/HeII 1640                         CIII] 1908/HeII 1640                       CIII] 1908/HeII 1640
+    Fig. 7 CIII]/CIV versus CIII]/HeII flux ratio diagrams for GN-z11 (golden circle) compared
+    with: a) the AGN-NLR models (red squares) by [10] and SF galaxies (blue stars) by [69]
+    (left) and with b) the AGN-NLR models (red squares) and SF models (blue triangles) by [70]
+    (centre). All models have been chosen in a low metallicity range, around the value inferred
+    by [9] for GN-z11. c) Comparison of GN-z11 with the ratios observed for the broad lines
+    of type 1 AGN (purple circles, [64]), narrow lines of type 2 AGN (red squares, [65]), and
+    starburst galaxies (blue stars, [18])
+                                                                                       .
+
+    in GN-z11 are fully consistent with the broad lines of type 1 AGN. For com-
+    pleteness, in the same panel we also plot the ratios observed for the NLR of
+    type 2 AGN, compiled by [65] (mostly overlapping with the ratios observed for
+    the broad lines), and the star forming galaxies from the CLASSY survey [18].
+
+    1.5 The WR scenario
+    In this section we discuss the scenario recently proposed that GN-z11 may be
+    similar to local WR galaxies [24].
+        The HeII marginal detection shows a potentially broad profile (∼ 1000
+    km/s, although the broad wings are mostly in the noise), which may be asso-
+    ciated with the inner BLR, but also may resemble the broad HeII profile
+    characteristic of WR stars. Therefore, there might be a contribution from WR
+    stars and, specifically, WN stars, given the strong nitrogen lines.
+        However, there are various spectral features that cannot be accounted for
+    in the WN scenario.
+        WN stars are also characterised by very strong NIVλ1718 resonant emis-
+    sion, stronger than the NIVλ1486, and typically with a prominent P-Cygni
+    profile [13]. In GN-z11, despite the very strong NIVλ1486, there is no trace
+    of the NIVλ1718 line. Fig.1f shows the spectrum of GN-z11 at the expected
+    location of NIVλ1718 and where the shaded red region shows the expected
+    intensity of the line, based on the strength of the NIVλ1486 line. Clearly, the
+    GN-z11 spectrum is totally inconsitent with the presence of the NIVλ1718 WR
+    signature.
+        Additionally, neither [NeIV]λ2424 nor CII∗ λ1335 are ever seen associated
+    with the WR population [13].
+20      A small and vigorous black hole in the early Universe
+
+Table 2 Features observed in GN-z11 versus possible energy sources.
+
+                                                     Source
+                               AGN               Wolf-Rayets          Nuclear
+ Feature                       (NLSy1)                                Starburst
+                                                                      (without WR)
+ Gas density > 109 cm−3        Consistent        Inconsistent         Inconsistent
+ (from NIII & NIV lines)
+ NeIV detection                Consistent        Inconsistent         Inconsistent
+ CII∗   detection              Consistent        Inconsistent         Inconsistent
+ HeII broad                    Consistent        Consistent           Inconsistent
+ NeIV(1718)/NeIV(1485)<10 Consistent             Inconsistent         Consistent
+ Vwind > 800km/s               Consistent        Inconsistent         Inconsistent
+ UV-opt. cont. slope = 2.3     Consistent        Consistent           Consistent
+ X-ray upper limit             Consistent        Consistent           Consistent
+ CIII]/CIV vs CIII]/HeII       Consistent        Consistent           Consistent
+ NV upper limit                Consistent        Consistent           Consistent
+
+
+    Finally, even if WN show prominent NIII] emission, the strength of the
+λ1754 component of the multiplet is much fainter in WR galaxies such as
+Mrk966 [17], and consistent with densities typical of the ISM.
+    Summarising, although WR stars might be present in GN-z11, they are
+unlikely to dominate the excitation of most nebular lines.
+    Table 2 summarises more schematically the observational features consis-
+tent or inconsistent with the AGN scenario, the WR scenario, and a compact
+starburst without WR stars.
+
+1.6 Photoionization modelling
+We used the Cloudy photoionization code [71] to explore the effect of varying
+physical conditions on some emission line ratios constrained by JWST/NIR-
+Spec. The primary goal is to explore the ratios of emission lines within a
+given doublet or multiplet, hence lines of the same ion (specifically NIII and
+NIV) that are effectively insensitive to the chemical abundance and ionization
+parameter, while sensitive to density and only with secondary dependence on
+temperature. For this reason, the details of the photoionization models are
+not as critical as when exploring other line ratios. We considered a nebula of
+constant pressure in plane-parallel geometry. However, we have verified that
+other scenarios, such as a cloud with constant density, do not impact our find-
+ings. For completeness, we considered both AGN and stellar templates for
+the shape of the incident radiation field. Its normalization is set by the ion-
+ization parameter, defined as U ≡ ΦH /(nH c) where ΦH is the surface flux
+of hydrogen-ionizing photons at the illuminated face of the nebula, nH is the
+number density of hydrogen, and c is the speed of light. The hydrogen density
+                 A small and vigorous black hole in the early Universe         21
+
+and ionization parameter were varied in logarithmic steps of 1, respectively
+from nH = 1 cm−3 up to nH = 1014 cm−3 , and starting at log10 U = −3 and
+ending at log10 U = −1 [e.g. 10, 69, 70].
+    In the AGN scenario, we adopted the multi-component continuum template
+implemented in Cloudy, consisting of a black body and a power-law, varying
+the black body temperature (TAGN = 106 K and 107 K) while fixing the power-
+law slope to α = −1.4 (note that this is the slope undelying the black body at
+energies above the Ly-edge) and leaving other optional parameters as default.
+For the AGN models, we considered gas-phase metallicities of Zneb = 0.1 Z⊙
+and Zneb = 1 Z⊙ . The star-forming models, on the other hand, are restricted to
+Zneb = 0.1 Z⊙ , since the hard ionising spectra of metal-poor stars are essential
+to form sufficient triply ionised nitrogen (requiring 47.5 eV), whose presence
+in GN-z11 is evidenced by the strong NIV emission (EWNIV 1486 = 9.0 ± 1.1 Å;
+[9]), while metal rich stars would not produce enough hard ionizing photons
+to make the NIV line visible. In the star-formation scenario, we employed
+stellar population synthesis models including binary stars generated by bpass
+v2.1 [72] for a single burst of star formation (with varying ages, t∗ /Myr ∈
+{1, 10, 100}), assuming the same metallicity as the gas (i.e. Z∗ = Zneb =
+0.1 Z⊙ ) and a [73] initial mass function (IMF) that ranges in stellar mass from
+1 M⊙ to 100 M⊙ . Both in the AGN and star-formation cases, calculations are
+run until a neutral hydrogen column density of NHI = 1021 cm−2 is reached
+to ensure that in all models the nebula is matter bounded; we note, however,
+that the highly ionised nitrogen lines are produced in the very inner part of the
+cloud, such that the boundary conditions do not significantly affect our results.
+In total, this results in a parameter grid of 15 different densities, 3 ionization
+parameters, 3 temperatures or stellar ages, 2 or 1 metallicities for the AGN and
+star-formation models respectively, or a total of 15 × 3 × (3 × 2 + 3 × 1) = 405
+possible model configurations.
+    The relevant nitrogen line ratios for all of these (except for 8 cases where
+Cloudy reported a failure) are shown in Fig. 2, from which we conclude that
+they are consistent between the AGN and star-formation scenario, and their
+density dependence is largely independent of ionization parameter, metallicity,
+or the precise shape of the incident radiation field (i.e. AGN or star formation
+and the corresponding parameter TAGN or t∗ ).
+    At high densities, the NIVλ1483/NIVλ1486 ratio approaches zero (nH ≳
+106 cm−3 ), while NIII]λ1754 plateaus at a fractional contribution to the multi-
+plet of ∼ 0.23 at higher densities still (nH ≳ 1010 cm−3 ), both pointing towards
+the presence of a broad line region in GN-z11 given the observed values.
+    Finally, to increase the readibility of Fig.2 we have separated the AGN and
+Star Forming models in two separate panels in Fig.8.
+
+1.7 Continuum shape
+If GN-z11 is a type 1 AGN, then we should be directly seeing the light from
+the accretion disc. In the case that the accretion disc dominates, the UV-to-
+optical continuum should follow a simple power-law in the form Fλ ∝ λβ with
+22                    A small and vigorous black hole in the early Universe
+
+                                                           AGN                                    Star formation
+                                                           TAGN = 105 K                           t * = 106 Myr
+                               1.5                         TAGN = 106 K                           t * = 107 Myr
+ [N IV] 1483 Å/
+  N IV] 1486 Å
+                                                                                                  t * = 108 Myr
+                               1.0   ISM regime           BLR regime      ISM regime               BLR regime
+
+                               0.5
+                               0.0
+                                         Zneb = 0.1Z
+                               0.3
+      N III] 1754.0 Å/N III]
+
+
+
+
+                                         Zneb = 1Z
+                                                                                           3       2     1
+                                                                                               log10 U
+
+                               0.2
+                                           ISM                                  ISM
+                                             regime                               regime
+                               0.1                        BLR regime                               BLR regime
+
+                                       100 104 106 108 1010 1012            100 104 106 108 1010 1012
+                                               nH (cm 3)                            nH (cm 3)
+Fig. 8 Same as Fig.2 but where we have separated the photoionization models for AGN
+(left) and Star Forming galaxies (right).
+
+
+β = −7/3 ≈ −2.33 [74], as indeed observed in type 1 AGN, and NLSy1 [75, 76],
+modulo the UV turnover whose wavelength increases with black hole mass and
+also modulo effects of dust reddening, which often makes the spectrum redder.
+    In the case of GN-z11 the spectrum is contributed to also by the underlying
+galaxy identified by [8] in the NIRCam images. This component is significantly
+fainter than the nuclear point-like component. It is difficult to quantitatively
+establish its contribution to the spectrum, because part of the light may fall
+outside the shutter, and in a different fraction in the four dither/pointing posi-
+tions, and not easy to reconstruct because of the slight positional uncertainties
+discussed above. In Fig.9a we show the contribution from the galactic compo-
+nent (dotted-orange line) to the spectrum, assuming that the entire light of the
+galaxy is captured by the spectrum, corresponding to about 1/3 of the flux,
+and using the spectral template inferred by [8] for the extended component.
+    The additional component to take into account is the nebular continuum
+associated with the BLR (as well as any other ionized gas in the host galaxy).
+The BLR typically has a low covering factor [77], therefore the nebular con-
+tinuum is not expected to be strong, but its contribution must be quantified.
+In most physical conditions typical of the ionized gas in the BLR, NLR or HII
+regions, the nebular continuum is linked to the intensity of the Balmer lines.
+We have estimated the nebular emission using a Cloudy model with metallicity
+of 0.1 Z⊙ and a density of 106 cm−3 (between the BLR and ISM origin sce-
+narios) and normalized to have the same Hγ flux as observed in the spectrum
+of GN-z11. The nebular spectrum does not change drastically as a function of
+density, except obviously for the emission of the forbidden and semi-forbidden
+                                       A small and vigorous black hole in the early Universe                                               23
+
+                                            rest    [Å]                                                    rest   [Å]
+                                    2000           3000       4000                   1200 1500        2000               3000       4000
+                          2.0                                 data
+                                                              nebular
+ F [10 20ergs 1cm 2A 1]
+
+
+                                                              host galaxy   100
+                          1.5
+
+                          1.0                                               10   1
+
+
+                          0.5                                                            data-neb-gal
+                                                                                         lines-free data
+                                                                                         power-law fit (slope=-2.26±0.10)
+                          0.0                                               10   2       accretion disc (slope=-2.33)
+                                2          3              4           5                           2                  3          4      5
+                                           obs     [ m]                                                   obs     [ m]
+Fig. 9 Left: Observed prism spectrum of GN-z11 (black solid) compared with the (maxi-
+mum) contribution from the host galaxy of the AGN as inferred by [8] (orange dotted), and
+the nebular emission inferred from a simple Cloudy model (purple dashed) normalized to
+the Hγ flux not included in the galaxy model. Right: GN-z11 spectrum subtracted of the
+galactic and nebular continua, in a log-log scale, whose regions not affected by emission lines
+(solid black) have been fitted with a simple powerlaw (red-dashed) resulting into a slope of
+−2.26 ± 0.10, consistent with the slope expected for an accretion disc (−2.33, dotted green
+line).
+
+
+lines; however, our focus is on the nebular continuum, so we ignore the mis-
+match of the emission lines, as a detailed photoionization modelling of their
+flux is beyond the scope of this paper. We note that the nebular continuum
+is also included in the model spectrum fit to the extended component by [8];
+therefore, not to include it twice, we have measured the Hγ flux in the [8]
+spectrum and normalized the Cloudy nebular spectrum only to the Hγ flux
+obtained by the difference of the observed value and the flux in the [8] model
+spectrum. The resulting nebular spectrum is shown with a dashed purple line
+in Fig.9a; once again, the mismatch of the emission lines should be disregarded,
+as the goal is not to reproduce them with the Cloudy model.
+    Fig.9b shows again the observed spectrum, in log-log scale, where the galac-
+tic and nebular components have been subtracted. Although the noise is large,
+especially at long wavelengths, also as a consequence of the model subtraction
+procedure, the resulting spectrum is well fitted by a simple powerlaw, in the
+parts not affected by emission lines. The best-fitting slope is –2.26±0.10, hence
+consistent with the continuum expected from an accretion disc. Note that this
+is not evidence in support of the presence of an AGN, as also young galax-
+ies may have power-law shapes, it is only meant to show consistency with the
+AGN scenario.
+    We finally note that, although with large scatter, the UV spectrum of AGN
+often shows a FeII hump between ∼2300Å and ∼3100Å [78–82]. The prism
+spectrum of GN-z11 does not show an obvious FeII bump, although a more
+detailed analysis and modelling is required to assess the presence or absence
+of such a bump, which is deferred to a separate paper. However, we note that
+at such early epochs there is little time for the ISM to be enriched with iron
+24     A small and vigorous black hole in the early Universe
+
+through the SNIa channel [83], so a weak or absent FeII bump would not be
+unexpected.
+
+1.8 Variability
+The luminosity of AGN can be variable, from a few percent to a factor of a few,
+on short (days) and long (years) timescales. We have investigated the possible
+presence of variability. Before the recent NIRCam images obtained in February
+2023 [8], deep photometric observations were obtained with HST about ten
+years earlier [84, 85], corresponding to about one year in the rest frame of
+GN-z11. Most of the HST photometric datapoints have errorbars that are too
+large to be useful for constraining variability. However, the photometric point
+reported in [84] with the F160W filter has a relatively well constrained value:
+150±10 nJy, within an aperture of 0.35′′ . NIRCam does not have the same
+filter, however, the photometry obtained in the F150W filter can be used and
+transposed to the F160W filter by using the NIRSpec prism spectrum. After
+extracting photometry from a 0.35′′ aperture (as in [84]), and extrapolating
+with the NIRSpec spectrum, we obtain a F160W equivalent photometry of
+141±2 nJy, which is consistent with the HST previous photometry within
+1σ. If we consider that about 30% of the flux is diluted by the host galaxy,
+the comparison of the photometry between the two epochs would indicate a
+variability of 10% at only 1σ. This is certainly not a detection of variability,
+but it is consistent with the range of variability amplitudes observed in NLSy1
+and, more broadly, in type 1 AGN [86].
+
+1.9 X-ray emission
+GN-z11 is not detected in X-rays. Flux limits are obtained from the Chandra
+Deep Field North which was a 2 Ms observation performed in 2002 (see [87] for
+final results). Their sensitivity map gives a point source limit in the Soft (0.5-2
+keV), Hard (2-7 keV) and Full (0.5-7 keV) bands of 1.54 × 10−17 , 7.9 × 10−17
+and 4.9×10−17 erg cm−2 s−1 . Source detection requires a no-source probability
+P<0.004. The tightest limit in the Soft Band translates to a restframe 5.8-23.2
+keV luminosity limit at z=10.6 of 2.2×1043 erg s−1 . Assuming a typical NLS1
+photon index of 2.3 means that LX (2-10 keV) is less than 3 × 1043 erg s−1 .
+    The Bolometric Correction for NLS1 in the 2-10 keV band, BCX , is about
+100 [88]. There is a significant systematic uncertainty here due to the unseen
+flux in the FUV where the emission is expected to peak (see Fig.3 in [89]).
+Moreover the 2-10 keV flux entirely orginates from the corona, the early devel-
+opment of which and possible dependence on black hole spin are unknown
+([90] cautions against using his X-ray BC values for NLS1). Proceeding with
+BCX = 100 means that the Chandra upper limit is almost 3 times above the
+luminosity inferred from the JWST flux at 1400Å. We predict a conservative
+SB flux of 5 × 10−18 erg cm−2 s−1 . This would be detectable in about 1 Ms
+with the candidate NASA Probe mission AXIS. The coronal emission from
+                     A small and vigorous black hole in the early Universe                        25
+
+local NLS1s is highly variable and the above BC represents a mean value (note
+that the intrinsic disc flux seen in the UV is much less variable, e,g, [89]).
+
+1.10 BH mass estimate
+For the vast majority of high redshift AGN the black hole masses are inferred
+using single-epoch measurements and the so-called virial relations, i.e. rela-
+tions between the black hole mass, the width of the lines of the BLR and
+the continuum or line luminosity [e.g. 91–98]. These relations are calibrated
+on nearby AGN, using either reverberation mapping techniques and/or direct
+dynamical measurements of the black hole. The black hole mass scales about
+as the square power of the width of the BLR lines and about as the square
+root power of the luminosity, with a proportionality constant that depends on
+the specific waveband (or line) for the luminosity estimation.
+     The most accurate virial relations would be those using Hα and Hβ. In
+our case Hγ could be used as a proxy. However, as discussed, the Balmer lines
+are likely contributed to by the star formation in the host galaxy, hence not
+reliable to trace the black hole mass.
+     The CIII] doublet is also sometimes used to infer the black hole mass.
+However, this is not well resolved and, as for the case of the Balmer lines, this
+is likely contaminated by the ISM and star formation in the host galaxy.
+     MgII is often used. In our case the MgII doublet is clearly detected, but
+the S/N is fairly low for the measurement of the width (Fig.5). If we take the
+width resulting from the fit and the relation provided by [99]:
+                                                                                         
+               MBH                              (λLλ )3000Å                     FWHMMgII
+     log                 = 6.86 + 0.5 log                          + 2 log
+               M⊙                                1044 erg/s                       103 kms/s
+
+    then we get a black hole mass of 1.4 × 106 M⊙ . However, given the low
+S/N on the MgII doublet, we prefer to use as representative width of the BLR
+lines the profile of the high S/N and isolated NIV line. If we adopt this width
+into the equation above, we obtain a black hole mass of 1.6 × 106 M⊙ . The
+uncertainty is totally dominated by the scatter in the virial scaling relation,
+which is about 0.3 dex [100].
+    Additionally, there are various other systematic uncertainties and caveats
+that can affect the black hole mass estimate. To begin with, it is not obvious
+that the local virial relations apply at high redshift. The main issue is whether
+the dependence of the BLR radius on luminosity, evolves with reshift or not.
+The most plausible scenario is that the square root dependence of the BLR
+radius from luminosity is primarily set by the dust sublimation radius. [101]
+argue that, given the extremely high densities in the nuclear region of AGN
+(hence high optical thickness even at very low dust-to-gas ratios), unless the
+nuclear region is totally devoid of dust, the same RBLR −L relation is unlikely to
+evolve with redshift. More problematic is assessing whether the virial relations
+depend on the accretion rate or not. On the one hand, [102] argue that the effect
+of radiation pressure is to reduce the effective gravitational force on the clouds
+26     A small and vigorous black hole in the early Universe
+
+of the BLR; the net result is that the standard virial relations applied to BHs
+accreting close to the Eddington rate could underestimate the BH mass by a
+factor of several. On the other hand, reverberation mapping of AGN accreting
+at super-Eddington have revealed that in these cases the size of the BLR is a
+factor of several, and up to an order of magnitude, smaller than expected from
+the RBLR − L relation for sub-Eddington AGN ([103] and references therein),
+which would imply that the standard virial relations over-estimate, by a factor
+of several, the BH masses in AGN accreting at super-Eddington. Overall, it is
+possible that the radiation pressure effect and the offset from the RBLR − L
+relation might cancel each other out. However, currently it is not really possible
+to provide an accurate assessment on how much AGN accreting at or beyond
+the Eddintgon rate might deviate from the standard virial relations.
+    Finally, the BH masses from other JWST studies at z∼4–8 [34, 97, 101,
+104, 105] are shown in Fig.4. These are based on the Hα or Hβ width and flux.
+We clarify that these are re-estimated by using the same calibrations used in
+[30] for local galaxies.
+
+1.11 AGN bolometric luminosity estimate
+We derive the bolometric luminosity of the AGN by using the continuum lumi-
+nosity at λrest = 1400Å and the luminosity-dependent bolometric correction
+given by [90]:
+                                                      −0.1
+                         Lbol             (λLλ )1400Å
+                                   =7
+                      (λLλ )1400Å         1042 erg/s
+We also assume, as discussed in the previous sections, that 30% of the contin-
+uum flux at this wavelength is due to the underlying galactic component ([8])
+and that, therefore, the AGN continuum luminosity at this wavelength is 0.7
+of the observed value. We infer a bolometric luminosity of 1.08 × 1045 erg/s.
+The resulting ratio between bolometric and Eddington luminosity is 5.5, also
+affected by an uncertainty of a factor of at least 2, coming from the uncertainty
+on the black hole mass.
+
+1.12 Comparison with cosmological and hydrodynamical
+     simulations
+There is a vast literature discussing the formation of early black holes and
+on how they evolve in the first billion year, by using hydrodynamical and
+cosmological simulations, as well as semi-analytical models. The production
+and elaboration of models in this area have recently seen surge with the goal of
+specifically interpreting the results from JWST. It is beyond the scope of this
+paper to provide an exhaustive description of the assumptions and results of
+the several models and simulations. However, in this section we briefly discuss
+that many of them can explain the properties of GN-z11, and provide some
+possible constraints on the seeding scenarios.
+   We start by considering the results obtained by [7] from the FABLE hydro-
+dynamical, cosmological simulation, in which they focused on largest halo at
+                 A small and vigorous black hole in the early Universe        27
+
+z=6 (with a virial mass M200 = 6.9 × 1012 M⊙ of the Millennium box). The
+latter may appear an extreme choice, however we note that GN-z11 does live
+in an overdense region and likely at the core of a protocluster [8, 106]. In the
+FABLE simulation the BH seed has a mass of 105 M⊙ at z=13. The accre-
+tion rate is capped to Eddington and uses the Bondi-Hoyle-Littleton-based
+formalism; however, as small scale, non-isotropic accretion is unresolved in the
+simulation, FABLE, like Illustris, uses a Bondi-Hoyle-Littleton rate boosted by
+a factor of 100. Feedback energy in FABLE scales as 10 per cent of the available
+accretion energy, Ė = ϵṀ c2 , where ϵ = 0.1 is the radiative efficiency of the
+accretion flow. At high redshifts, this is primarily injected as thermal energy
+in the vicinity of the black hole, with a duty cycle of 25 Myr. We overplot the
+fiducial model in [7] in Fig.3 (orange solid line, labelled as B23), illustrating
+that this can easily reproduce the mass of the BH in GN-z11 at z=10.6.
+    In order to explain the most massive BHs observed at z∼ 6 − 7, [7] also
+explore the scenario of earlier seeding (z=18) and allowing the BH to accrete
+at up to two times the Eddington limit; in this case the model could explain
+a BH nearly 5 times more massive than GN-z11 at z=10.6.
+    [25] explored the early evolution of black holes using the TRINITY cosmo-
+logical empirical model [107], which is based on halo statistics from N-body
+simulations and incorporating empirical galactic scaling relations. They specif-
+ically explore the case of GN-z11. They illustrate that its mass and BH to
+stellar mass ratio can be explained by their model starting with an interme-
+diate mass seed of a few times 103 seeded at z=15, accreting on average at
+sub-Eddington rates, but intermittently also at super-Eddington. Their track
+is shown with a solid-teal line in Fig.3 (labelled as Z23).
+    Recently, [26] have explored the properties of GN-z11 within the context of
+the semi-analytical model CAT. They find that the BH mass of GN-z11 and
+its location on the MBH − Mstar diagram can be interpreted both in terms of
+light seeds (at z=20-23) that can have super-Eddington accretion phases, or
+Eddington-limited heavy seeds formed at z=14-16. Out of their various tracks,
+Fig.3 shows only two samples of their tracks, in the case of a light (red-solid)
+and a heavy seed (red-dashed), which can both reproduce the mass of GN-z11
+at z=10.6 (labelled as S23). In both cases the semi-analytical model can also
+reproduce the black hole to stellar mass observed in GN-z11.
+    [27] have suggested that the detectability of accreting BHs at high redshift
+by JWST implies that these are likely originating from heavy seeds. Specifi-
+cally, their models can reproduce the mass of GN-z11 at z=10.6 but only with
+seeds that are several times 105 M⊙ , already in place before z=14. GN-z11
+would fall in this category and the tracks obtained by [27] would also explain
+the BH/stellar mass ratio observed in GN-z11.
+    Other studies have proposed other scenarios, envisanging different seeding
+mechanisms, at different redshifts, and with different assumptions about the
+accretion and merging rates, and which are capable of reproducing the BH
+mass of GN-z11 by z=10.6, and generally also its BH-to-stellar mass ratio
+[28, 29, 108, 109].
+28     A small and vigorous black hole in the early Universe
+
+    Summarizing, the properties of the BH in GN-z11 can be explained
+with different assumptions, which can be broadly grouped in heavy seeds
+accreting at sub-Eddington rates, or intermediate/light seeds experiencing
+super-Eddington phases and/or modelled with a boosted Bondi accretion.
+    More statistics on objects like GN-z11 is required to discriminate between
+different scenarios. For the time being GN-z11 remains the most luminous
+object at z>10 in all HST Deep fields (including CANDLES and Frontier
+Fields). Hopefully, JWST observations on larger areas (e.g. in Cosmos-WEB)
+will find more AGN at z>10 similar to GN-z11. For the time being, as discussed
+in the text, it is interesting to note that models and simulations were expecting
+a few accreting black holes with masses in the range 106 − 107 M⊙ at 10<z<11
+in the JADES Medium-Deep survey in the GOODS fields [27, 110]. Therefore,
+the discovery of a 2 × 106 M⊙ black hole in GN-z11 is not unexpected, and a
+few more might be present (probably accreting at a lower rate) in the GOODS
+fields.
+
+1.13 GN-z11 and its large scale environment
+We have shown that the high Nitrogen enrichment of GN-z11 is likely restricted
+to the BLR, whose small mass and compact size has probably undergone very
+rapid chemical enrichment, requiring only a few SNe.
+    We note that the high chemical enrichment of GN-z11 is not in contrast
+with the recent claim of pristine gas in the halo of GN-z11 [45]. Indeed, these
+claims are on totally different scales, with the pristine gas found several kpc
+away from GN-z11, while the high chemical enrichment is estimated to be
+in the nucleus of GN-z11. Regarding the claim of pristine gas in the halo
+of GN-z11, models expect that high-z massive galaxies may host pockets of
+pristine gas in their haloes, even down to z∼3 [111, 112].
+
+
+Acknowledgments. This paper benefited from suggestions and discussions
+with several colleagues, in particular: G. Risaliti, A. Marconi, J. Bennett, S.
+Koudmani, D. Sijacki, R. Schneider, M. Volonteri, R. Valiante, A. Trinca, D.
+Berg, R. Ellis, J. Dunlop, M. Pettini, H. Katz, W.N. Brandt and R. Tripodi.
+FDE, JS, LS, RM and TJL acknowledge support by the Science and Tech-
+nology Facilities Council (STFC) and by the ERC through Advanced Grant
+695671 ”QUENCH”. RM also acknowledges funding from a research profes-
+sorship from the Royal Society. AJB, GCJ and JC acknowledge funding from
+the ”FirstGalaxies” Advanced Grant from the European Research Council
+(ERC) under the European Union’s Horizon 2020 research and innovation pro-
+gramme (Grant agreement No. 789056). BER acknowledges support from the
+NIRCam Science Team contract to the University of Arizona, NAS5-02015.
+BRP, MP and SA acknowledge support from Grant PID2021-127718NB-I00
+funded by the Spanish Ministry of Science and Innovation/State Agency of
+Research (MICIN/AEI/ 10.13039/501100011033). MP also acknowledges sup-
+port from the Programa Atraccion de Talento de la Comunidad de Madrid via
+                 A small and vigorous black hole in the early Universe      29
+
+grant 2018-T2/TIC-11715. CNAW, EE and FS acknowledge a JWST/NIR-
+Cam contract to the University of Arizona NAS5-02015. DJE is supported
+as a Simons Investigator and by JWST/NIRCam contract to the University
+of Arizona, NAS5-02015. ECL acknowledges support of an STFC Webb Fel-
+lowship (ST/W001438/1). HÜ gratefully acknowledges support by the Isaac
+Newton Trust and by the Kavli Foundation through a Newton-Kavli Junior
+Fellowship. JW acknowledges support from the ERC Advanced Grant 695671,
+“QUENCH”, and the Foundation MERAC. SC acknowledges support by
+European Union’s HE ERC Starting Grant No. 101040227 - WINGS. The
+research of CCW is supported by NOIRLab, which is managed by the Associ-
+ation of Universities for Research in Astronomy (AURA) under a cooperative
+agreement with the National Science Foundation. This research is supported
+in part by the Australian Research Council Centre of Excellence for All
+Sky Astrophysics in 3 Dimensions (ASTRO 3D), through project number
+CE170100013.
+Author contributions. RM, JS, JW, SC, FDE, AdG, HÜ, and ST con-
+tributed to the writing of the paper, methods and creation of figures. All
+authors have contributed to the interpretation of the results. NK, BRdP con-
+tributed to the design, construction and commissioning of NIRSpec. SAr, SCa,
+MC, JW, MP, and BRdP contributed to the NIRSpec data reduction and to
+the development of the NIRSpec pipeline. SAr contributed to the design and
+optimisation of the MSA configurations. AJB, CNAW, ECL, KB, and HÜ
+contributed to the selection, prioritisation and visual inspection of the tar-
+gets. SCh, JC, ECL, RM, JW, FDE, TJL, MC, AdG, and LS contributed
+to analysis of the spectroscopic data, including redshift determination and
+spectral modelling. FDE, TJL, MC, BRdP, RM, SA, and JS contributed to
+the development of the tools for the spectroscopic data analysis, visualisation
+and fitting. CW contributed to the design of the spectroscopic observations
+and MSA configurations. CNAW, CW, DJE, RM, and SAr contributed to the
+design of the JADES survey. EE, KNH, and CCW contributed to the design,
+construction, and commissioning of NIRCam. BER, DJE, IS, ST, CNAW, and
+ZJ contributed to the JADES imaging data reduction. BER contributed to the
+JADES imaging data visualisation.
+Data Availability. The electronic version of the processed data used to
+produce the figures (including the 1D and 2D spectrum of GN-z11) is available
+at the JADAES web site https://jades-survey.github.io/.
+    The NIRSpec raw data can be accessed at the JWST archive
+http://archive.stsci.edu.
+Author Information. The authors declare that they have no compet-
+ing financial interests. Correspondence and requests for materials should be
+addressed to R.M. (email: rm665@cam.ac.uk).
+30   A small and vigorous black hole in the early Universe
+
+References
+ [1] Inayoshi, K., Visbal, E. & Haiman, Z. The Assembly of the First Massive
+     Black Holes. ARA&A 58, 27–97 (2020) .
+
+ [2] Fan, X., Banados, E. & Simcoe, R. A. Quasars and the intergalactic
+     medium at cosmic dawn.
+
+ [3] Volonteri, M., Habouzit, M. & Colpi, M. What if young z ¿ 9 JWST
+     galaxies hosted massive black holes? MNRAS 521 (1), 241–250 (2023) .
+
+ [4] Trinca, A. et al. The low-end of the black hole mass function at cosmic
+     dawn 511 (1), 616–640 (2022) .
+
+ [5] Banik, N., Tan, J. C. & Monaco, P. The formation of supermassive
+     black holes from Population III.1 seeds. I. Cosmic formation histories
+     and clustering properties. MNRAS 483 (3), 3592–3606 (2019) .
+
+ [6] Singh, J., Monaco, P. & Tan, J. C. The formation of supermassive black
+     holes from Population III.1 seeds. II. Evolution to the local universe.
+     MNRAS 525 (1), 969–982 (2023) .
+
+ [7] Bennett, J. S., Sijacki, D., Costa, T., Laporte, N. & Witten, C. The
+     growth of the gargantuan black holes powering high-redshift quasars
+     and their impact on the formation of early galaxies and protoclusters.
+     MNRAS 527 (1), 1033–1054 (2024) .
+
+ [8] Tacchella, S. et al. JWST NIRCam + NIRSpec: interstellar medium
+     and stellar populations of young galaxies with rising star formation and
+     evolving gas reservoirs. MNRAS 522 (4), 6236–6249 (2023) .
+
+ [9] Bunker, A. J. et al. JADES NIRSpec Spectroscopy of GN-z11: Lyman-
+     α emission and possible enhanced nitrogen abundance in a z = 10.60
+     luminous galaxy. A&A 677, A88 (2023) .
+
+[10] Feltre, A., Charlot, S. & Gutkin, J. Nuclear activity versus star for-
+     mation: emission-line diagnostics at ultraviolet and optical wavelengths.
+     MNRAS 456 (3), 3354–3374 (2016) .
+
+[11] Terao, K. et al. Multiline Assessment of Narrow-line Regions in z 3 Radio
+     Galaxies. ApJ 929 (1), 51 (2022) .
+
+[12] Le Fèvre, O. et al. The VIMOS Ultra-Deep Survey: evidence for AGN
+     feedback in galaxies with CIII]-λ1908 Å emission 10.8 to 12.5 Gyr ago.
+     A&A 625, A51 (2019) .
+
+[13] Hainich, R. et al. The Wolf-Rayet stars in the Large Magellanic Cloud.
+     A comprehensive analysis of the WN class. A&A 565, A27 (2014) .
+                A small and vigorous black hole in the early Universe      31
+
+[14] Vanden Berk, D. E. et al. Composite Quasar Spectra from the Sloan
+     Digital Sky Survey. AJ 122 (2), 549–564 (2001) .
+
+[15] Wu, Q. & Shen, Y. A Catalog of Quasar Properties from Sloan Digital
+     Sky Survey Data Release 16. ApJS 263 (2), 42 (2022) .
+
+[16] Grazian, A. et al. On the AGN Nature of Two UV-bright Sources at zspec
+     ∼ 5.5 in the CANDELS Fields: An Update on the AGN Space Density
+     at M1450 ∼ -22.5. ApJ 897 (1), 94 (2020) .
+
+[17] Berg, D. A. et al. The COS Legacy Archive Spectroscopy Survey
+     (CLASSY) Treasury Atlas. ApJS 261 (2), 31 (2022) .
+
+[18] Mingozzi, M. et al. CLASSY IV. exploring UV diagnostics of the inter-
+     stellar medium in local high-z analogs at the dawn of the JWST era.
+     ApJ 939, 110 (2022) .
+
+[19] Osterbrock, D. E. & Pogge, R. W. The spectra of narrow-line Seyfert 1
+     galaxies. ApJ 297, 166–176 (1985) .
+
+[20] Mathur, S., Fields, D., Peterson, B. M. & Grupe, D. Supermassive
+     Black Holes, Pseudobulges, and the Narrow-line Seyfert 1 Galaxies. ApJ
+     754 (2), 146 (2012) .
+
+[21] Leitherer, C., Tremonti, C. A., Heckman, T. M. & Calzetti, D. An Ultra-
+     violet Spectroscopic Atlas of Local Starbursts and Star-forming Galaxies:
+     The Legacy of FOS and GHRS. AJ 141 (2), 37 (2011) .
+
+[22] Du, X., Shapley, A. E., Martin, C. L. & Coil, A. L. The Kinematics of
+     C IV in Star-forming Galaxies at z ≈ 1.2. ApJ 829 (2), 64 (2016) .
+
+[23] Elvis, M. A Structure for Quasars. ApJ 545 (1), 63–76 (2000) .
+
+[24] Senchyna, P., Plat, A., Stark, D. P. & Rudie, G. C. GN-z11 in context:
+     possible signatures of globular cluster precursors at redshift 10. arXiv
+     e-prints arXiv:2303.04179 (2023) .
+
+[25] Zhang, H. et al. TRINITY IV: Predictions for Supermassive Black Holes
+     at zrsim7. arXiv e-prints arXiv:2309.07210 (2023) .
+
+[26] Schneider, R. et al. Are we surprised to find SMBHs with JWST at z ≥
+     9? MNRAS 526 (3), 3250–3261 (2023) .
+
+[27] Volonteri, M., Habouzit, M. & Colpi, M. What if young z ¿ 9 JWST
+     galaxies hosted massive black holes? MNRAS 521 (1), 241–250 (2023) .
+
+[28] Zhu, Q. et al. The formation of the first quasars: the black hole seeds,
+     accretion, and feedback models. MNRAS 514 (4), 5583–5606 (2022) .
+32   A small and vigorous black hole in the early Universe
+
+[29] Bhowmick, A. K. et al. Probing the z ≳ 6 quasars in a universe with
+     IllustrisTNG physics: impact of gas-based black hole seeding models.
+     MNRAS 516 (1), 138–157 (2022) .
+
+[30] Reines, A. E. & Volonteri, M. Relations between Central Black Hole
+     Mass and Total Galaxy Stellar Mass in the Local Universe. ApJ 813 (2),
+     82 (2015) .
+
+[31] Izumi, T. et al. Subaru high-z exploration of low-luminosity quasars
+     (SHELLQs). VIII. a less biased view of the early co-evolution of black
+     holes and host galaxies 71, 111 .
+
+[32] Matsuoka, K. et al. Chemical enrichment and accretion of nitrogen-loud
+     quasars. A&A 608, A90 (2017) .
+
+[33] Koptelova, E. & Hwang, C.-Y. Dense nitrogen-enriched circumnuclear
+     region of the new high-redshift quasar ULAS J0816+2134 at z=7.46.
+     arXiv e-prints arXiv:2212.05862 (2022) .
+
+[34] Übler, H. et al. GA-NIFS: A massive black hole in a low-metallicity AGN
+     at z ∼ 5.55 revealed by JWST/NIRSpec IFS. A&A 677, A145 (2023) .
+
+[35] Jiang, L., Fan, X. & Vestergaard, M. A Sample of Quasars with Strong
+     Nitrogen Emission Lines from the Sloan Digital Sky Survey. ApJ 679 (2),
+     962–966 (2008) .
+
+[36] Osterbrock, D. E. & Ferland, G. J. Astrophysics of gaseous nebulae and
+     active galactic nuclei (2006).
+
+[37] Mandal, A. K. et al. Estimation of the size and structure of the broad line
+     region using Bayesian approach. MNRAS 502 (2), 2140–2157 (2021) .
+
+[38] Volpato, G. et al. A Study of Primordial Very Massive Star Evolution.
+     ApJ 944 (1), 40 (2023) .
+
+[39] Eisenstein, D. J. et al. Overview of the JWST Advanced Deep Extra-
+     galactic Survey (JADES). arXiv e-prints arXiv:2306.02465 (2023)
+     .
+
+[40] Jakobsen, P. et al. The Near-Infrared Spectrograph (NIRSpec) on the
+     James Webb Space Telescope. I. Overview of the instrument and its
+     capabilities. A&A 661, A80 (2022) .
+
+[41] Ferruit, P. et al. The Near-Infrared Spectrograph (NIRSpec) on the
+     James Webb Space Telescope. II. Multi-object spectroscopy (MOS).
+     A&A 661, A81 (2022) .
+                A small and vigorous black hole in the early Universe          33
+
+[42] Böker, T. et al. In-orbit Performance of the Near-infrared Spectrograph
+     NIRSpec on the James Webb Space Telescope. PASP 135 (1045), 038001
+     (2023) .
+
+[43] Bushouse, H. et al. JWST Calibration Pipeline (2023) .
+
+[44] Planck Collaboration et al. Planck 2018 results. VI. Cosmological
+     parameters. A&A 641, A6 (2020) .
+
+[45] Maiolino, R. et al. JWST-JADES. Possible Population III signatures at
+     z=10.6 in the halo of GN-z11. arXiv e-prints arXiv:2306.00953 (2023) .
+
+[46] Laha, S. et al. Ionized outflows from active galactic nuclei as the essential
+     elements of feedback. Nature Astronomy 5, 13–24 (2021) .
+
+[47] Rodrı́guez Hidalgo, P. High velocity outflows in quasars. Ph.D. thesis,
+     University of Florida (2009).
+
+[48] Hamann, F. & Sabra, B. Richards, G. T. & Hall, P. B. (eds) The
+     Diverse Nature of Intrinsic Absorbers in AGNs. (eds Richards, G. T. &
+     Hall, P. B.) AGN Physics with the Sloan Digital Sky Survey, Vol. 311 of
+     Astronomical Society of the Pacific Conference Series, 203 (2004).
+
+[49] Chen, Z.-F. & Pan, D.-S. Collective Properties of Quasar Narrow
+     Associated Absorption Lines. ApJ 848 (2), 79 (2017) .
+
+[50] Byun, D., Arav, N. & Hall, P. B. The Farthest Quasar Mini-Broad
+     Absorption Line Outflow from Its Central Source: Very Large Tele-
+     scope/UVES Observation of SDSS J0242+0049. ApJ 927 (2), 176 (2022)
+     .
+
+[51] Pettini, M. et al. New Observations of the Interstellar Medium in the
+     Lyman Break Galaxy MS 1512-cB58. ApJ 569 (2), 742–757 (2002) .
+
+[52] Bischetti, M. et al. Suppression of black-hole growth by strong outflows
+     at redshifts 5.8-6.6. Nature 605 (7909), 244–247 (2022) .
+
+[53] Maiolino, R. et al. Extreme gas properties in the most distant quasars.
+     A&A 420, 889–897 (2004) .
+
+[54] Diamond-Stanic, A. M. et al. High-velocity Outflows without AGN Feed-
+     back: Eddington-limited Star Formation in Compact Massive Galaxies.
+     ApJ 755 (2), L26 (2012) .
+
+[55] Diamond-Stanic, A. M. et al. Compact Starburst Galaxies with Fast
+     Outflows: Central Escape Velocities and Stellar Mass Surface Densities
+     from Multiband Hubble Space Telescope Imaging. ApJ 912 (1), 11
+     (2021) .
+34   A small and vigorous black hole in the early Universe
+
+[56] Sell, P. H. et al. Massive compact galaxies with high-velocity out-
+     flows: morphological analysis and constraints on AGN activity. MNRAS
+     441 (4), 3417–3443 (2014) .
+
+[57] Perrotta, S. et al. Physical Properties of Massive Compact Starburst
+     Galaxies with Extreme Outflows. ApJ 923 (2), 275 (2021) .
+
+[58] Arav, N. et al. Evidence that 50% of BALQSO Outflows Are Situated
+     at Least 100 pc from the Central Source. ApJ 857 (1), 60 (2018) .
+
+[59] Xu, X., Arav, N., Miller, T. & Benn, C. VLT/X-Shooter Survey of BAL
+     Quasars: Large Distance Scale and AGN Feedback. ApJ 876 (2), 105
+     (2019) .
+
+[60] Byun, D., Arav, N. & Hall, P. B. The Farthest Quasar Mini-Broad
+     Absorption Line Outflow from Its Central Source: Very Large Tele-
+     scope/UVES Observation of SDSS J0242+0049. ApJ 927 (2), 176 (2022)
+     .
+
+[61] Walker, A., Arav, N. & Byun, D. High mass flow rate in a BAL outflow
+     of quasar SDSS J1130 + 0411. MNRAS 516 (3), 3778–3785 (2022) .
+
+[62] Arav, N. et al. Evidence that 50% of BALQSO Outflows Are Situated
+     at Least 100 pc from the Central Source. ApJ 857 (1), 60 (2018) .
+
+[63] Chisholm, J., Prochaska, J. X., Schaerer, D., Gazagnes, S. & Henry,
+     A. Optically thin spatially resolved Mg II emission maps the escape of
+     ionizing photons. MNRAS 498 (2), 2554–2574 (2020) .
+
+[64] Kuraszkiewicz, J. K. et al. Emission Line Properties of Active Galac-
+     tic Nuclei from a Post-COSTAR Hubble Space Telescope Faint Object
+     Spectrograph Spectral Atlas. ApJS 150 (1), 165–180 (2004) .
+
+[65] Nagao, T., Maiolino, R. & Marconi, A. Gas metallicity in the narrow-
+     line regions of high-redshift active galactic nuclei. A&A 447 (3), 863–876
+     (2006) .
+
+[66] Cleri, N. J. et al. Using [Ne V]/[Ne III] to Understand the Nature of
+     Extreme-Ionization Galaxies. arXiv e-prints arXiv:2301.07745 (2023) .
+
+[67] Vanzella, E. et al. The unusual N IV] -emitter galaxy GDS J033218.92-
+     275302.7: star formation or AGN-driven winds from a massive galaxy at
+     z = 5.56. A&A 513, A20 (2010) .
+
+[68] Glikman, E., Djorgovski, S. G., Stern, D., Bogosavljević, M. & Maha-
+     bal, A. Discovery of Two Spectroscopically Peculiar, Low-Luminosity
+     Quasars at z˜4. ApJ 663 (2), L73–L76 (2007) .
+                A small and vigorous black hole in the early Universe      35
+
+[69] Gutkin, J., Charlot, S. & Bruzual, G. Modelling the nebular emission
+     from primeval to present-day star-forming galaxies. MNRAS 462 (2),
+     1757–1774 (2016) .
+
+[70] Nakajima, K. & Maiolino, R. Diagnostics for PopIII galaxies and direct
+     collapse black holes in the early universe. MNRAS 513 (4), 5134–5147
+     (2022) .
+
+[71] Ferland, G. J. et al. The 2017 Release Cloudy. Rev. Mex. Astron.
+     Astrofis. 53, 385–438 (2017) .
+
+[72] Eldridge, J. J. et al. Binary Population and Spectral Synthesis Version
+     2.1: Construction, Observational Verification, and New Results. Publ.
+     Astron. Soc. Australia 34, e058 (2017) .
+
+[73] Salpeter, E. E. The Luminosity Function and Stellar Evolution. ApJ
+     121, 161 (1955) .
+
+[74] Shakura, N. I. & Sunyaev, R. A. Black holes in binary systems.
+     Observational appearance. A&A 24, 337–355 (1973) .
+
+[75] Capellupo, D. M., Netzer, H., Lira, P., Trakhtenbrot, B. & Mejı́a-
+     Restrepo, J. Active galactic nuclei at z ∼ 1.5 - I. Spectral energy
+     distribution and accretion discs. MNRAS 446 (4), 3427–3446 (2015) .
+
+[76] Leighly, K. M. & Moore, J. R. Hubble Space Telescope STIS Ultra-
+     violet Spectral Evidence of Outflow in Extreme Narrow-Line Seyfert 1
+     Galaxies. I. Data and Analysis. ApJ 611 (1), 107–124 (2004) .
+
+[77] Maiolino, R., Salvati, M., Marconi, A. & Antonucci, R. R. J. The Ly-
+     edge paradox and the need for obscured QSOs. A&A 375, 25–29 (2001)
+     .
+
+[78] Maiolino, R., Juarez, Y., Mujica, R., Nagar, N. M. & Oliva, E. Early
+     Star Formation Traced by the Highest Redshift Quasars. ApJ 596 (2),
+     L155–L158 (2003) .
+
+[79] De Rosa, G. et al. Evidence for Non-evolving Fe II/Mg II Ratios in
+     Rapidly Accreting z ˜6 QSOs. ApJ 739 (2), 56 (2011) .
+
+[80] Mazzucchelli, C. et al. Physical Properties of 15 Quasars at z ≳ 6.5. ApJ
+     849 (2), 91 (2017) .
+
+[81] Shin, J., Nagao, T., Woo, J.-H. & Le, H. A. N. The Fe II/Mg II Flux
+     Ratio of Low-luminosity Quasars at z ∼ 3. ApJ 874 (1), 22 (2019) .
+
+[82] Sameshima, H. et al. Mg II and Fe II Fluxes of Luminous Quasars at z ∼
+     2.7 and the Evaluation of the Baldwin Effect in the Flux-to-abundance
+36   A small and vigorous black hole in the early Universe
+
+     Conversion Method for Quasars. ApJ 904 (2), 162 (2020) .
+
+[83] Maiolino, R. & Mannucci, F. De re metallica: the cosmic chemical
+     evolution of galaxies. A&ARv 27 (1), 3 (2019) .
+
+[84] Oesch, P. A. et al. The Most Luminous z ˜9-10 Galaxy Candidates Yet
+     Found: The Luminosity Function, Cosmic Star-formation Rate, and the
+     First Mass Density Estimate at 500 Myr. ApJ 786 (2), 108 (2014) .
+
+[85] Oesch, P. A. et al. A remarkably luminous galaxy at z=11.1 measured
+     with hubble space telescope grism spectroscopy. ApJ 819, 129 (2016) .
+
+[86] Ai, Y. L. et al. A Comparative Study of Optical/Ultraviolet Variability
+     of Narrow-line Seyfert 1 and Broad-line Seyfert 1 Active Galactic Nuclei.
+     AJ 145 (4), 90 (2013) .
+
+[87] Xue, Y. Q. et al. The 2 Ms Chandra Deep Field-North Survey and the 250
+     ks Extended Chandra Deep Field-South Survey: Improved Point-source
+     Catalogs. ApJS 224 (2), 15 (2016) .
+
+[88] Vasudevan, R. V. & Fabian, A. C. Piecing together the X-ray back-
+     ground: bolometric corrections for active galactic nuclei. MNRAS
+     381 (3), 1235–1251 (2007) .
+
+[89] Buisson, D. J. K., Fabian, A. C. & Lohfink, A. M. Coronal tempera-
+     tures of the AGN ESO 103-035 and IGR 2124.7+5058 from NuSTAR
+     observations. MNRAS 481 (4), 4419–4426 (2018) .
+
+[90] Netzer, H. Bolometric correction factors for active galactic nuclei.
+     MNRAS 488 (4), 5185–5191 (2019) .
+
+[91] Willott, C. J. et al. Eddington-limited Accretion and the Black Hole
+     Mass Function at Redshift 6. AJ 140 (2), 546–560 (2010) .
+
+[92] Trakhtenbrot, B., Netzer, H., Lira, P. & Shemmer, O. Black Hole Mass
+     and Growth Rate at z ˜= 4.8: A Short Episode of Fast Growth Followed
+     by Short Duty Cycle Activity. ApJ 730 (1), 7 (2011) .
+
+[93] Shen, Y. et al. A Catalog of Quasar Properties from Sloan Digital Sky
+     Survey Data Release 7. ApJS 194 (2), 45 (2011) .
+
+[94] Shen, Y. et al. Gemini GNIRS Near-infrared Spectroscopy of 50 Quasars
+     at z ≳ 5.7. ApJ 873 (1), 35 (2019) .
+
+[95] Pensabene, A. et al. The ALMA view of the high-redshift relation
+     between supermassive black holes and their host galaxies. A&A 637,
+     A84 (2020) .
+                 A small and vigorous black hole in the early Universe        37
+
+ [96] Izumi, T. et al. Subaru high-z exploration of low-luminosity quasars
+      (SHELLQs). XIII. large-scale feedback and star formation in a low-
+      luminosity quasar at z = 7.07 on the local black hole to host mass
+      relation. ApJ 914, 36 (2021) .
+
+ [97] Harikane, Y. et al. JWST/NIRSpec First Census of Broad-Line AGNs
+      at z=4-7: Detection of 10 Faint AGNs with M BH˜106̂-107̂ M sun and
+      Their Host Galaxy Properties. arXiv e-prints arXiv:2303.11946 (2023) .
+
+ [98] Mezcua, M. et al. Overmassive Black Holes in Dwarf Galaxies Out to z
+      0.9 in the VIPERS Survey. ApJ 943 (1), L5 (2023) .
+
+ [99] Vestergaard, M. & Osmer, P. S. Mass Functions of the Active Black
+      Holes in Distant Quasars from the Large Bright Quasar Survey, the
+      Bright Quasar Survey, and the Color-selected Sample of the SDSS Fall
+      Equatorial Stripe. ApJ 699 (1), 800–816 (2009) .
+
+[100] Kormendy, J. & Ho, L. C. Coevolution (Or Not) of Supermassive Black
+      Holes and Host Galaxies. ARA&A 51 (1), 511–653 (2013) .
+
+[101] Maiolino, R. et al. JADES. The diverse population of infant Black
+      Holes at 4¡z¡11: merging, tiny, poor, but mighty. arXiv e-prints
+      arXiv:2308.01230 (2023) .
+
+[102] Marconi, A. et al. The Effect of Radiation Pressure on Virial Black Hole
+      Mass Estimates and the Case of Narrow-Line Seyfert 1 Galaxies. ApJ
+      678 (2), 693–700 (2008) .
+
+[103] Khatu, V. C. et al. Supermassive Black Holes with High Accretion Rates
+      in Active Galactic Nuclei. XIII. Ultraviolet Time Lag of Hβ Emission in
+      Mrk 142. arXiv e-prints arXiv:2309.13418 (2023) .
+
+[104] Kocevski, D. D. et al. Hidden Little Monsters: Spectroscopic Identifi-
+      cation of Low-Mass, Broad-Line AGN at z > 5 with CEERS. arXiv
+      e-prints arXiv:2302.00012 (2023) .
+
+[105] Ding, X. et al. First detections of stellar light from quasar host galaxies
+      at z ¿ 6. arXiv e-prints arXiv:2211.14329 (2022) .
+
+[106] Scholtz, J. et al. GN-z11: The environment of an AGN at z =10.603.
+      arXiv e-prints arXiv:2306.09142 (2023) .
+
+[107] Zhang, H. et al. TRINITY I: self-consistently modelling the dark matter
+      halo-galaxy-supermassive black hole connection from z = 0-10. MNRAS
+      518 (2), 2123–2163 (2023) .
+38     A small and vigorous black hole in the early Universe
+
+[108] Smidt, J., Whalen, D. J., Johnson, J. L., Surace, M. & Li, H. Radiation
+      Hydrodynamical Simulations of the First Quasars. ApJ 865 (2), 126
+      (2018) .
+
+[109] Trinca, A. et al. The low-end of the black hole mass function at cosmic
+      dawn. MNRAS 511 (1), 616–640 (2022) .
+
+[110] Trinca, A. et al. Seeking the growth of the first black hole seeds with
+      JWST. MNRAS 519 (3), 4753–4764 (2023) .
+
+[111] Liu, B. & Bromm, V. When did Population III star formation end?
+      MNRAS 497 (3), 2839–2854 (2020) .
+
+[112] Venditti, A. et al. A needle in a haystack? Catching Population III stars
+      in the epoch of reionization: I. Population III star-forming environments.
+      MNRAS 522 (3), 3809–3830 (2023) .
+

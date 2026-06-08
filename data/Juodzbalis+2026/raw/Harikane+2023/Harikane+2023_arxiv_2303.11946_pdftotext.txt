@@ -1,0 +1,1811 @@
+                                                 Draft version October 31, 2023
+                                                 Typeset using LATEX twocolumn style in AASTeX63
+
+
+
+
+                                                                  A JWST/NIRSpec First Census of Broad-Line AGNs at z = 4 − 7:
+                                                       Detection of 10 Faint AGNs with MBH ∼ 106 − 108 M⊙ and Their Host Galaxy Properties
+                                                    Yuichi Harikane,1 Yechi Zhang,1, 2 Kimihiko Nakajima,3 Masami Ouchi,3, 1, 4 Yuki Isobe,1, 5 Yoshiaki Ono,1
+                                                                              Shun Hatano,3, 6 Yi Xu,1, 2 and Hiroya Umeda1, 5
+                                                        1 Institute  for Cosmic Ray Research, The University of Tokyo, 5-1-5 Kashiwanoha, Kashiwa, Chiba 277-8582, Japan
+                                                  2 Department
+arXiv:2303.11946v3 [astro-ph.GA] 29 Oct 2023
+
+
+
+
+                                                                 of Astronomy, Graduate School of Science, The University of Tokyo, 7-3-1 Hongo, Bunkyo, Tokyo 113-0033, Japan
+                                                                      3 National Astronomical Observatory of Japan, 2-21-1 Osawa, Mitaka, Tokyo 181-8588, Japan
+                                                   4 Kavli Institute for the Physics and Mathematics of the Universe (WPI), University of Tokyo, Kashiwa, Chiba 277-8583, Japan
+                                                     5 Department of Physics, Graduate School of Science, The University of Tokyo, 7-3-1 Hongo, Bunkyo, Tokyo 113-0033, Japan
+                                                 6 Department of Astronomical Science, The Graduate University for Advanced Studies, SOKENDAI, 2-21-1 Osawa, Mitaka, Tokyo,
+
+                                                                                                            181-8588, Japan
+
+                                                                                              (Accepted for Publication in ApJ)
+
+                                                                                                         ABSTRACT
+                                                           We present a first statistical sample of faint type-1 AGNs at z > 4 identified by JWST/NIRSpec deep
+                                                        spectroscopy. Among the 185 galaxies at zspec = 3.8 − 8.9 confirmed with NIRSpec, our systematic
+                                                        search for broad-line emission reveals 10 type-1 AGNs at z = 4.015 − 6.936 whose broad component
+                                                        is only seen in the permitted Hα line and not in the forbidden [Oiii]λ5007 line that is detected with
+                                                        greater significance than Hα. The broad Hα line widths of FWHM ≃ 1000 − 6000 km s−1 suggest
+                                                        that the AGNs have low-mass black holes with MBH ∼ 106 − 108 M⊙ , remarkably lower than those
+                                                        of low-luminosity quasars previously identified at z > 4 with ground-based telescopes. JWST and
+                                                        HST high-resolution images reveal that the majority of them show extended morphologies indicating
+                                                        significant contribution to the total lights from their host galaxies, except for three compact objects two
+                                                        of which show red SEDs, probably in a transition phase from faint AGNs to low luminosity quasars.
+                                                        Careful AGN-host decomposition analyses show that their host’s stellar masses are systematically
+                                                        lower than the local relation between the black hole mass and the stellar mass, implying a fast black
+                                                        hole growth consistent with predictions from theoretical simulations. A high fraction of the broad-line
+                                                        AGNs (∼ 5%), higher than z ∼ 0, indicates that a number density of such faint AGNs is higher than
+                                                        an extrapolation of the quasar luminosity function, implying a large population of AGNs in the early
+                                                        universe. Such faint AGNs contribute to cosmic reionization, while the total contribution is not large,
+                                                        up to ∼ 50% at z ∼ 6, because of their faint nature.
+
+                                                        Keywords: galaxies: formation — galaxies: evolution — galaxies: high-redshift
+
+                                                                      1. INTRODUCTION                               as the galaxy-SMBH coevolution. Although the under-
+                                                 It has been known for over two decades that the                    lying physical mechanisms are still under debate, the-
+                                               mass of supermassive black holes (SMBHs) at z ∼ 0                    oretical models suggest that feedback of active galac-
+                                               are tightly correlated with the bulge properties of their            tic nuclei (AGNs) connected to galaxy’s merger histo-
+                                               host galaxies, such as velocity dispersion and bulge mass            ries play an important role (e.g., Granato et al. 2004;
+                                               (e.g., Magorrian et al. 1998; Gebhardt et al. 2000; Kor-             Di Matteo et al. 2005; Hopkins et al. 2006; Li et al.
+                                               mendy & Ho 2013; Reines & Volonteri 2015). This tight                2007). Since theoretical models usually make predic-
+                                               correlation indicates the strong connection between the              tions for the time evolution of the systems (e.g., Anglés-
+                                               growth of central SMBHs and their host galaxies, known               Alcázar et al. 2017; Toyouchi et al. 2021; Valentini et al.
+                                                                                                                    2021; Zhu et al. 2022; Habouzit et al. 2022; Trinca et al.
+                                                                                                                    2022; Inayoshi et al. 2022; Hu et al. 2022; Zhang et al.
+                                               hari@icrr.u-tokyo.ac.jp                                              2023a,b), observations of both SMBHs and their host
+                                                                                                                    galaxies over cosmic time are essential to test and/or
+2                                                   Harikane et al.
+
+refine our current understandings of their build-up (e.g.,   moto et al. 2023; Kokorev et al. 2023; Labbe et al. 2023;
+Gallerani et al. 2017; Valiante et al. 2017).                Maiolino et al. 2023; Matthee et al. 2023 for studies that
+   Observations of AGNs at the high-redshift universe        appeared after our initial submission of this paper).
+are thus crucial to understanding the evolution of the          Motivated by these recent JWST findings of high
+SMBH growth in cosmic history, but previous obser-           redshift AGNs, we systematically search for broad-line
+vations have been limited to bright quasars identified       AGNs at z > 4 using the JWST/NIRSpec spectroscopic
+in surveys with ground-based telescopes (e.g., Bañados      data presented in Nakajima et al. (2023). Our sample of
+et al. 2016; Shen et al. 2019, see Inayoshi et al. 2020      low-luminosity AGNs with low-mass SMBHs allows us
+for a review) including the most distant quasars at          to obtain the first statistical view on the physical prop-
+z > 7.5 (Bañados et al. 2018; Yang et al. 2020; Wang        erties of faint AGNs and their host galaxies at z > 4 such
+et al. 2021). Recent surveys using 4-8 m-class telescopes    as black hole masses, Eddington ratios, number densi-
+including the Subaru/Hyper Suprime-Cam survey (Ai-           ties, host’s stellar mass, and morphologies, crucial to
+hara et al. 2018) are finding low-luminosity quasars at      understand the galaxy-SMBH co-evolution in the early
+z ∼ 4 − 7 (e.g., Willott et al. 2010b; Kashikawa et al.      universe and implication for cosmic reionization. More-
+2015; Matsuoka et al. 2016; Onoue et al. 2017; Akiyama       over, the black hole masses of our low-luminosity AGNs
+et al. 2018; Niida et al. 2020), but these low-luminosity    can be directly compared with AGNs at z ∼ 0, allow-
+quasars have moderately massive black hole masses with       ing us to understand the redshift evolution over cosmic
+MBH ∼ 108 − 109 M⊙ compared to AGNs found in the             time.
+local universe (e.g., Liu et al. 2019). Although inten-         This paper is organized as follows. Section 2 presents
+sive spectroscopic observations targeting high redshift      the JWST and HST observational data sets used in this
+galaxies at z ≳ 7 have identified high ionization emission   study. In Section 3 we explain our systematic sample
+lines indicative of AGN activity (e.g., Tilvi et al. 2016;   selection and the final AGN sample. We show our main
+Laporte et al. 2017; Mainali et al. 2018), the physical      results in Section 4 and discuss the contribution to cos-
+properties of their central SMBHs are unclear.               mic reionization and the nature of our AGNs in Section
+   The James Webb Space Telescope (JWST) was                 5. Section 6 summarizes our findings. Throughout this
+launched at the end of 2021 and started its operation        paper, we use the Planck cosmological parameter sets
+in early 2022. JWST observations are now beginning           of the TT, TE, EE+lowP+lensing+BAO result (Planck
+to improve our understanding of the connection be-           Collaboration et al. 2020): Ωm = 0.3111, ΩΛ = 0.6899,
+tween high redshift AGNs and their host galaxies, es-        Ωb = 0.0489, h = 0.6766, and σ8 = 0.8102. All magni-
+pecially in the low-luminosity and low-mass regimes.         tudes are in the AB system (Oke & Gunn 1983).
+JWST/NIRCam deep and high-resolution images allow
+us to detect stellar lights from host galaxies of low-                 2. OBSERVATIONAL DATASET
+luminosity quasars at z ∼ 6 (Ding et al. 2022), and to                    2.1. JWST/NIRSpec Spectra
+identify the least-massive black hole candidate at z ∼ 5
+                                                               We use JWST/NIRSpec datasets reduced in Naka-
+(Onoue et al. 2023) and a triply-lensed red-quasar can-
+                                                             jima et al. (2023). Here we briefly describe the observa-
+didate at z ∼ 8 (Furtak et al. 2022). JWST/NIRSpec
+                                                             tions and the data reduction. Please see Nakajima et al.
+deep-spectroscopic observations have confirmed the can-
+                                                             (2023) for details.
+didate in Onoue et al. (2023) at zspec = 5.2 by detecting
+                                                               The data sets used in this study were obtained in the
+a broad Hα emission line that indicates a black hole
+                                                             Early Release Observations (EROs; Pontoppidan et al.
+mass of MBH ∼ 107 M⊙ , with an additional finding
+                                                             2022) targeting the SMACS 0723 lensing cluster field
+of a red AGN at zspec = 5.6 (Kocevski et al. 2023).
+                                                             (ERO-2736) and the Early Release Science (ERS) obser-
+NIRSpec spectroscopy has also identified a supermassive
+                                                             vations of GLASS (ERS-1324, PI: T. Treu; Treu et al.
+black hole in a quiescent galaxy at z = 4.658 (Carnall
+                                                             2022) and the Cosmic Evolution Early Release Science
+et al. 2023). NIRSpec IFU observations have revealed
+                                                             (CEERS; ERS-1345, PI: S. Finkelstein; Finkelstein et al.
+broad Hα and Hβ emission lines in a galaxy at z = 5.55
+                                                             2022b). The ERO data were taken in the medium res-
+(Übler et al. 2023), which is interpreted as a type 1.8
+                                                             olution (R ∼ 1000) filter-grating pairs F170LP-G235M
+AGN with a black hole mass of MBH ∼ 108 M⊙ . Very
+                                                             and F290LP-G395M covering the wavelength ranges of
+recently, Larson et al. (2023) have reported a broad Hβ
+                                                             1.7 − 3.1 and 2.9 − 5.1 µm, respectively. The total expo-
+emission line in a galaxy at zspec = 8.7, suggesting a
+                                                             sure time of the ERO data is 4.86 hours for each filter-
+SMBH whose mass is MBH ∼ 107 M⊙ 570 Myrs after
+                                                             grating pair. The GLASS data were taken with high
+the Big Bang (see also Bogdan et al. 2023; Goulding
+                                                             resolution (R ∼ 2700) filter-grating pairs of F100LP-
+et al. 2023; Greene et al. 2023; Furtak et al. 2023; Fuji-
+                                                             G140H, F170LP-G235H, and F290LP-G395H covering
+                                       JWST/NIRSpec Faint AGNs at z = 4 − 7                                            3
+
+the wavelength ranges of 1.0 − 1.6, 1.7 − 3.1 and 2.9 − 5.1    same manner as Harikane et al. (2023) using the JWST
+µm, respectively. The total exposure time of the GLASS         pipeline version 1.8.5 with the CRDS context file of
+data is 4.9 hours for each filter-grating pair. CEERS          jwst 1027.pmap.
+data were taken with the Prism (R ∼ 100) that covers
+                                                                        3. BROAD-LINE AGN SELECTION
+0.6 − 5.3 and medium-resolution filter-grating pairs of
+F100LP-G140M, F170LP-G235M, and F290LP-G395M                                 3.1. Emission Line Fitting
+covering the wavelength ranges of 1.0 − 1.6, 1.7 − 3.1            From 185 galaxies at zspec = 3.8 − 8.9 in Naka-
+and 2.9 − 5.1 µm, respectively. The total exposure             jima et al. (2023), we search for broad-line AGNs
+time of the CEERS data is 0.86 hours for each filter-          that show broad permitted lines such as Hα and Hβ.
+grating pair. These data were reduced in Nakajima              We fit rest-frame optical emission lines such as Hβ,
+et al. (2023) with the JWST pipeline version 1.8.5 with        [Oiii]λλ4959,5007, Hα, and [Nii]λλ6548,6584. We use
+the Calibration Reference Data System (CRDS) context           the line spread functions made from spectra of a plane-
+file of jwst 1028.pmap or jwst 1027.pmap with addi-            tary nebula in Isobe et al. (2023) for spectra taken with
+tional processes improving the flux calibration, noise es-     medium and high-resolution gratings. For spectra taken
+timate, and the composition. Reduced spectra are cor-          with the Prism, we use the FWHM measured in Isobe
+rected for slit loss (see Nakajima et al. 2023 for details).   et al. (2023) from the planetary nebula’s spectra assum-
+Finally, we obtain NIRSpec spectra of a total of 185           ing a Gaussian profile because Prism’s line spread func-
+galaxies at zspec = 3.8 − 8.9.                                 tion made from the spectra is severely contaminated by
+ 2.2. JWST/NIRCam and HST/ACS&WFC3 Images                      nearby lines due to its low resolution.
+                                                                  First, we fit the Hβ and [OIII]λλ4959,5007 lines with
+  For the GLASS field, we use the JWST/NIRCam and
+                                                               an assumed line ratio of f[OIII]5007 /f[OIII]4959 = 2.98
+HST/ACS&WFC3 images produced by the Ultradeep
+                                                               that is taken from theoretical calculations (Storey &
+NIRSpec and NIRCam ObserVations before the Epoch
+                                                               Zeippen 2000). Initially, we fit the emission lines
+of Reionization (UNCOVER) team.1 In the GLASS
+                                                               with a single component. Most sources can be fit-
+NIRSpec field around the center of the Abell 2744
+                                                               ted with a single component whose line width is nar-
+lensing cluster, the JWST/NIRCam images were taken
+                                                               row (FWHM < 500 km s−1 ), but some sources show
+in the F115W, F150W, F200W, F277W, F356W, and
+                                                               a weak moderately broad component in [Oiii]λ5007
+F444W bands in the UNCOVER program (GO-2561,
+                                                               that may be due to outflow based on visual inspec-
+PIs: I. Labbe and R. Bezanson; Bezanson et al. 2022),
+                                                               tion (see Zhang et al. 2023c for statistics). For such
+and the HST/ACS and WCS3 images were taken in the
+                                                               sources, we simultaneously fit the [OIII]λλ4959,5007
+F435W, F606W, F814W, F105W, F125W, F140W, and
+                                                               with the narrow (FWHMnarrow < 500 km s−1 ) and
+F160W-bands in the Hubble Frontier Field program (PI:
+                                                               outflow (FWHMoutflow > FWHMnarrow ) components.
+J. Lotz; Lotz et al. 2017) and the Beyond Ultra-deep
+                                                               Then we fit the Hα and [Nii]λλ6548,6584 emission
+Frontier Fields And Legacy Observations (BUFFALO)
+                                                               line with an assume line ratio of f[NII]6584 /f[NII]6548 =
+program (PI: C. Steinhardt; Steinhardt et al. 2020).
+                                                               2.94. We find that the [Nii] and most of the Hα
+  For the CEERS field, we use the JWST/NIRCam
+                                                               lines can be fitted with a single narrow component
+and HST/ACS&WFC3 official images produced by the
+                                                               (FWHM < 500 km s−1 ), but some sources show a broad
+CEERS team (version 0.5; Bagley et al. 2022).2 In the
+                                                               component in Hα. For such sources, we simultane-
+CEERS field, the JWST/NIRCam images were taken in
+                                                               ously fit the narrow (FWHMnarrow < 500 km s−1 ) and
+the F115W, F150W, F200W, F277W, F356W, F410M,
+                                                               broad (FWHMbroad > 500 km s−1 ) components for Hα,
+and F444W bands in the CEERS program, and the
+                                                               and the narrow components for [Nii]λλ6548,6584. For
+HST/ACS and WCS3 images were taken in the F606W,
+                                                               sources showing the outflow components in the [Oiii]
+F814W, F105W, F125W, F140W, and F160W-bands in
+                                                               line, we add an outflow component (FWHMnarrow <
+the Cosmic Assembly Near-infrared Deep Extragalactic
+                                                               FWHMoutflow < FWHMbroad ) in Hα.
+Legacy Survey (CANDELS; Grogin et al. 2011; Koeke-
+moer et al. 2011, see also Finkelstein et al. 2022a).                           3.2. Selection Criteria
+For part of the CEERS field where the official images            Based on these fitting results, we select type 1 AGNs
+are not available (i.e., fields whose data were taken in       showing broad emission only in a permitted line (i.e.,
+December 2022), we reduced the NIRCam data in the              Hα and/or Hβ). We select sources that show
+                                                                  1. broad (FWHM > 1000 km s−1 ) and significant
+  1   https://jwst-uncover.github.io                                 (SNR > 5) permitted Hα and/or Hβ emission line,
+  2   https://ceers.github.io                                        and
+4                                                         Harikane et al.
+
+    2. narrow (FWHM < 700 km s−1 ) forbidden [Oiii]                CEERS 1670, respectively, and our measured broad
+       and [Nii] emission lines, even if an outflow com-           line widths are consistent with those of Kocevski et al.
+       ponent is seen.                                             (2023) within 1 − 2σ. These 10 galaxies show significant
+                                                                   broad-line emission only in a permitted line (Hα), and
+Here we evaluate the signal-to-noise ratio of the broad
+                                                                   their forbidden lines, especially [Oiii]λ5007, which is
+line using the ratio of the total broad-line flux to the
+                                                                   detected with a signal-to-noise ratio higher than Hα,
+error from our fitting results in Section 3.1. For galaxies
+                                                                   are well fitted with narrow (FWHM < 500 km s−1 )
+at z ≲ 7 whose Hα line is detected, we select galaxies
+                                                                   components. GLASS 160133 and GLASS 150029 show
+with the following criteria:
+                                                                   outflow component whose line width is FWHM = 540
+ (FWHMHα,broad > 1000 km s−1 ) ∧                            (1)    and 140 km s−1 in [Oiii]λ5007, respectively. We eval-
+                                                                   uate the fittings using the Akaike Information Crite-
+ (SNRHα,broad > 5) ∧                                        (2)
+                                                                   rion (AIC; Akaike 1974), which is defined by AIC =
+                                      −1
+ (FWHM[OIII],narrow < 700 km s             )∧               (3)    −2logL + 2k, where L is the maximum likefood and k
+                              −1
+ ((FWHM[NII] < 700 km s            ) ∨ (SNR[NII]6584 < 2)) ∧       is the number of free parameters. As shown in Table 1,
+                                                           (4)     all of the selected objects are well fitted with the broad
+ [(FWHM[OIII],outflow < 700 km s−1 ) ∨                      (5)    component rather than without the broad component
+                                                                   with ∆AIC > 20. These properties are consistent with
+ (SNR[OIII],outflow < 2)] ∧                                 (6)
+                                                                   the fact that they are broad-line type-1 AGNs.
+                                     −1
+ [(FWHMHα,outflow < 700 km s              )∨                (7)       Figure 4 shows the UV magnitudes and redshifts of
+ (SNRHα,outflow < 2)].                                      (8)    our selected AGNs. Our selected AGNs are typically
+                                                                   faint with a UV magnitude of −22 ≲ MUV ≲ −17 mag,
+For galaxies at z ≳ 7 whose Hα line is not detected                much fainter than the low-luminosity quasars found
+but Hβ is detected, we select galaxies with the following          in ground-based observations at similar redshifts (e.g.,
+criteria:                                                          Akiyama et al. 2018; Niida et al. 2020; Matsuoka et al.
+                                                                   2018). None of our AGNs is selected as X-ray AGNs
+         (FWHMHβ,broad > 1000 km s−1 ) ∧                    (9)
+                                                                   in Giallongo et al. (2019), probably because their X-
+         (SNRHβ,broad > 5) ∧                               (10)    ray emission is too faint to be detected with current
+                                                −1
+         (FWHM[OIII],narrow < 700 km s               )∧    (11)    X-ray observations. Our AGNs are widely distributed
+                                                −1                 in the UV magnitude and redshift space and are not
+         [(FWHM[OIII],outflow < 700 km s             )∨    (12)
+         (SNR[OIII],outflow < 2)] ∧                        (13)    biased compared to the star-forming galaxy sample in
+                                                                   Nakajima et al. (2023), except for a possible gap in
+         [(FWHMHβ,outflow < 700 km s−1 ) ∨                 (14)    −21 < MUV < −20 mag probably due to the small
+         (SNRHβ,outflow < 2)].                             (15)    sample size. Since we have found 10 AGNs in the sam-
+                                                                   ple of 185 galaxies at z > 3.8, about 5% of the galaxies
+We choose the threshold value of > 1000 km s−1 for the
+                                                                   at z = 4−7 with −22 ≲ MUV ≲ −17 mag are broad-line
+definition of the broad line made by an AGN, because
+                                                                   type-1 AGNs, which is higher than z ∼ 0 galaxies, as dis-
+such a high-velocity component is seen in AGNs (e.g.,
+                                                                   cussed in Section 4.6. Note that this value, “5%”, should
+Vanden Berk et al. 2001; Reines & Volonteri 2015) but
+                                                                   be taken with caution, because the observed AGN frac-
+not seen in star-forming galaxies (typically FWHM <
+                                                                   tion depends on the sensitivity (see discussion in Section
+400 km s−1 , e.g., Freeman et al. 2019; Swinbank et al.
+                                                                   4.6) and the selection function for the parent spectro-
+2019; Xu et al. 2022). This threshold value is also used
+                                                                   scopic sample that could be very complex.
+in Stern & Laor (2012), and is more stringent than those
+                                                                      There are two other galaxies showing a broad permit-
+used in other studies at z ∼ 0 (e.g., Reines & Volonteri
+                                                                   ted line but not selected due to their inefficient signal-
+2015; Liu et al. 2019).
+                                                                   to-noise ratio. CEERS 01465 at zspec = 5.269 shows
+                 3.3. Our AGN Sample                               a possible broad Hα emission line with an FWHM of
+                                                                   3603+1136
+                                                                        −291 km s
+                                                                                    −1
+                                                                                       , but the signal-to-noise ratio of the
+  Using the selection criteria above, we select a total
+                                                                   broad line is ∼ 4, lower than the threshold value of our
+of 10 galaxies that show broad Hα emission lines. Fig-
+                                                                   selection criteria. The other galaxy is CEERS 01019 at
+ures 1-3 show NIRSpec spectra of the selected galax-
+                                                                   zspec = 8.679, which was first confirmed spectroscop-
+ies, and Table 1 summarizes the physical properties
+                                                                   ically with Lyα by Zitrin et al. (2015). This galaxy
+derived in Nakajima et al. (2023). CEERS 00746
+                                                                   was reported to show a 4.3σ Nvλ1243 whose ioniza-
+and CEERS 02782 were already reported as broad-line
+                                                                   tion potential is 77 eV (Mainali et al. 2018), and re-
+AGNs in Kocevski et al. (2023) as CEERS 3210 and
+                                                                                                         JWST/NIRSpec Faint AGNs at z = 4 − 7                                                                                                                                                                                                  5
+
+
+
+
+                                                                                                                                                                                                                                                             fλ [10 −19 erg s −1 cm −2 Å −1 ]
+                                                                                                                                                                                            5
+                                         1
+           fλ [10 −19 erg s −1 cm −2 Å −1 ]
+
+
+
+
+                                                                                                                                                              fλ [10 −19 erg s −1 cm −2 Å −1 ]
+                                                                                                                                                                                            4
+
+                                                                                                                                                                                            3                                                                                              1.0
+
+                                                                                                                                                                                            2
+
+                                                                                                                                                                                            1
+
+                                         0                                                                                                                                                  0
+                                                               2.6                         2.7                          2.8                                                                      3.55                   3.60                   3.65                                                    3.55             3.60                 3.65
+                                                                                    Wavelength [µm]                                                                                                            Wavelength [µm]                                                                                 Wavelength [µm]
+
+                                                                                                                                                                                                                                                                                    10.0
+
+                                                                                                                                                                                      10
+
+
+
+
+                                                                                                                                                                                                                                                      fλ [10 −19 erg s −1 cm −2 Å −1 ]
+                                   30
+   fλ [10 −19 erg s −1 cm −2 Å −1 ]
+
+
+
+
+                                                                                                                                                      fλ [10 −19 erg s −1 cm −2 Å −1 ]
+                                   20                                                                                                                                                                                                                                                      1.0
+
+
+                                   10
+
+
+                                         0                                                                                                                                                  0                                                                                              0.1
+                                                 2.43       2.44     2.45    2.46      2.47      2.48    2.49      2.50       2.51      2.52                                              3.27          3.28       3.29        3.30          3.31                                               3.27      3.28     3.29        3.30      3.31
+                                                                                    Wavelength [µm]                                                                                                            Wavelength [µm]                                                                                 Wavelength [µm]
+
+
+
+
+                                                                                                                                                                                                                                                             fλ [10 −19 erg s −1 cm −2 Å −1 ]
+                                                                                                                                                                                            5
+   fλ [10 −19 erg s −1 cm −2 Å −1 ]
+
+
+
+
+                                                                                                                                                              fλ [10 −19 erg s −1 cm −2 Å −1 ]
+
+
+
+
+                                                                                                                                                                                            4                                                                                              1.0
+                                   10                                                                                                                                                       3
+
+                                                                                                                                                                                            2
+
+                                                                                                                                                                                            1
+                                                                                                                                                                                                                                                                                           0.1
+                                         0                                                                                                                                                  0
+                                              2.70   2.71     2.72    2.73   2.74      2.75      2.76   2.77     2.78     2.79   2.80       2.81                                                    3.65         3.66      3.67       3.68                                                               3.65    3.66      3.67       3.68
+                                                                                    Wavelength [µm]                                                                                                            Wavelength [µm]                                                                                 Wavelength [µm]
+                                                                                                                                                                                                                                                      fλ [10 −19 erg s −1 cm −2 Å −1 ]
+fλ [10 −19 erg s −1 cm −2 Å −1 ]
+
+
+
+
+                                                                                                                                                   fλ [10 −19 erg s −1 cm −2 Å −1 ]
+
+
+
+
+                              0.2                                                                                                                                                0.2
+                                                                                                                                                                                                                                                                                    0.10
+
+
+                              0.1                                                                                                                                                0.1
+
+
+
+                              0.0                                                                                                                                                0.0
+                                                            3.20                    3.25                  3.30                       3.35                                                          4.30                 4.35            4.40                                                            4.30            4.35           4.40
+                                                                                    Wavelength [µm]                                                                                                            Wavelength [µm]                                                                                 Wavelength [µm]
+
+  Figure 1. NIRSpec spectra of CEERS 01244, GLASS 160133, GLASS 150029, and CEERS 00746. For each object, the left
+  and middle panels show spectra around Hβ+[Oiii]λλ4959,5007 and Hα+[Nii]λλ6548,6584, respectively. The 2D and 1D spectra
+  are shown in the top and bottom panels, respectively. The red dashed line with the shaded region shows the best-fit broad-line
+  component (FWHM > 1000 km s−1 ) and other red dashed lines show the best-fit narrow components (FWHM < 500 km s−1 ).
+  For GLASS 160133 and GLASS 150029, we also show the outflow components with FWHM ≲ 500 km s−1 . The right panels
+  show the spectra around Hα+[Nii]λλ6548,6584 with the logarithmic scale. The broad-line components only seen in Hα, which
+  are detected with a higher signal-to-noise ratio than [Oiii]λ5007, indicates that these objects are type-1 AGNs.
+          6                                                                                                                         Harikane et al.
+
+
+
+                                                                                                                                                                                                                                                                    10.0
+
+
+                                                                                                                                                                                    7
+
+
+
+
+                                                                                                                                                                                                                                      fλ [10 −19 erg s −1 cm −2 Å −1 ]
+   fλ [10 −19 erg s −1 cm −2 Å −1 ]
+
+
+
+
+                                                                                                                                                      fλ [10 −19 erg s −1 cm −2 Å −1 ]
+                                                                                                                                                                                    6
+                                                                                                                                                                                    5
+                                                                                                                                                                                                                                                                           1.0
+                                   10                                                                                                                                               4
+                                                                                                                                                                                    3
+                                                                                                                                                                                    2
+                                                                                                                                                                                    1
+                                                                                                                                                                                                                                                                           0.1
+                                         0                                                                                                                                          0
+                                                            2.65                       2.70                         2.75                                                                 3.55                 3.60             3.65                                              3.55                 3.60            3.65
+                                                                                    Wavelength [µm]                                                                                                    Wavelength [µm]                                                                     Wavelength [µm]
+
+
+                              0.3                                                                                                                                        0.6
+
+
+
+
+                                                                                                                                                                                                                                      fλ [10 −19 erg s −1 cm −2 Å −1 ]
+fλ [10 −19 erg s −1 cm −2 Å −1 ]
+
+
+
+
+                                                                                                                                           fλ [10 −19 erg s −1 cm −2 Å −1 ]
+                                                                                                                                                                         0.5
+
+                              0.2                                                                                                                                        0.4
+                                                                                                                                                                                                                                                                    0.10
+                                                                                                                                                                         0.3
+
+                              0.1                                                                                                                                        0.2
+
+                                                                                                                                                                         0.1
+
+                              0.0                                                                                                                                        0.0                                                                                        0.01
+                                                 3.20                     3.25                 3.30                   3.35                                                                             4.35           4.40                                                                     4.35          4.40
+                                                                                    Wavelength [µm]                                                                                                    Wavelength [µm]                                                                     Wavelength [µm]
+
+
+                                         4
+
+
+
+
+                                                                                                                                                                                                                                             fλ [10 −19 erg s −1 cm −2 Å −1 ]
+           fλ [10 −19 erg s −1 cm −2 Å −1 ]
+
+
+
+
+                                                                                                                                                      fλ [10 −19 erg s −1 cm −2 Å −1 ]
+
+
+
+
+                                                                                                                                                                                                                                                                           1.0
+                                         3
+                                                                                                                                                                                    2
+
+                                         2
+                                                                                                                                                                                    1
+                                         1
+                                                                                                                                                                                                                                                                           0.1
+                                         0                                                                                                                                          0
+                                                     3.00                    3.05                     3.10                   3.15                                                           4.05              4.10            4.15                                                 4.05               4.10           4.15
+                                                                                    Wavelength [µm]                                                                                                    Wavelength [µm]                                                                     Wavelength [µm]
+
+
+                                         9
+                                                                                                                                                                                                                                             fλ [10 −19 erg s −1 cm −2 Å −1 ]
+
+
+
+
+                                         8
+           fλ [10 −19 erg s −1 cm −2 Å −1 ]
+
+
+
+
+                                                                                                                                                      fλ [10 −19 erg s −1 cm −2 Å −1 ]
+
+
+
+
+                                         7                                                                                                                                          3                                                                                      1.0
+                                         6
+                                         5                                                                                                                                          2
+                                         4
+                                         3
+                                                                                                                                                                                    1
+                                         2                                                                                                                                                                                                                                 0.1
+                                         1
+                                         0                                                                                                                                          0
+                                              3.35                 3.40                 3.45                 3.50                   3.55                                                        4.55           4.60          4.65                                                       4.55          4.60          4.65
+                                                                                    Wavelength [µm]                                                                                                    Wavelength [µm]                                                                     Wavelength [µm]
+
+                                                        Figure 2. Same as Figure 1 but for CEERS 01665, CEERS 00672, CEERS 02782, and CEERS 00397.
+                                                                                       JWST/NIRSpec Faint AGNs at z = 4 − 7                                                                                                                                        7
+
+
+
+
+                                                                                                                                                                                             fλ [10 −19 erg s −1 cm −2 Å −1 ]
+                                                                                                                                                0.2
+           fλ [10 −19 erg s −1 cm −2 Å −1 ]
+
+
+
+
+                                                                                                                  fλ [10 −19 erg s −1 cm −2 Å −1 ]
+                                                                                                                                                                                                                           0.10
+
+                                         1
+
+                                                                                                                                                0.1
+
+
+
+
+                                         0                                                                                                      0.0                                                                        0.01
+                                              3.80            3.85         3.90            3.95           4.00                                         5.0     5.1   5.2    5.3     5.4                                            5.0   5.1   5.2     5.3   5.4
+                                                                         Wavelength [µm]                                                                        Wavelength [µm]                                                          Wavelength [µm]
+
+
+                              0.9
+
+
+
+
+                                                                                                                                                                                             fλ [10 −19 erg s −1 cm −2 Å −1 ]
+                                                                                                                                                0.3
+                              0.8
+fλ [10 −19 erg s −1 cm −2 Å −1 ]
+
+
+
+
+                                                                                                                  fλ [10 −19 erg s −1 cm −2 Å −1 ]
+                              0.7
+                              0.6                                                                                                               0.2                                                                        0.10
+                              0.5
+                              0.4
+                              0.3                                                                                                               0.1
+                              0.2
+                              0.1
+                              0.0                                                                                                               0.0
+                                                       2.65                 2.70                   2.75                                               3.55           3.60            3.65                                         3.55         3.60           3.65
+                                                                         Wavelength [µm]                                                                        Wavelength [µm]                                                          Wavelength [µm]
+                                                                          Figure 3. Same as Figure 1 but for CEERS 00717 and CEERS 01236.
+
+                                                                                   Table 1. Physical Properties of Our Faint Type-1 AGNs
+
+                                                     Name               R.A.               Decl.          zspec   MUV                                        12 + log(O/H)        E(B − V)                          SNRHα,broad                 ∆AIC#
+
+                                                                                                                  (mag)                                                            (mag)
+                                                                                             Our Final Broad-Line AGN Sample
+                                     CEERS 01244                     14:20:57.76   +53:02:09.8 4.478 −19.50+0.18
+                                                                                                              −0.18    7.67+0.20
+                                                                                                                            −0.23                                                   0.00                                          37.3            789.8
+                                                                                                              +0.08
+                                     GLASS 160133                    00:14:19.27   −30:25:27.8 4.015 −18.94−0.09       7.95+0.06
+                                                                                                                            −0.05                                                   0.16                                          32.5           2022.4
+                                     GLASS 150029                    00:14:18.52   −30:25:21.3 4.583 −19.20+0.10
+                                                                                                              −1.08    7.70 +0.09
+                                                                                                                            −0.08                                                   0.17                                          18.1            431.1
+                                     CEERS 00746†                    14:19:14.19                              +0.33
+                                                                                   +52:52:06.5 5.624 −17.82−0.61       8.29+0.24
+                                                                                                                            −0.22                                                   1.38                                          17.3            210.5
+                                     CEERS 01665                     14:20:42.77   +53:03:33.7 4.483 −21.66+0.07
+                                                                                                              −0.07    8.05+0.19
+                                                                                                                            −0.19                                                   0.42                                          11.6            132.0
+                                     CEERS 00672                     14:19:33.52   +52:49:58.7 5.666 −16.71+0.31
+                                                                                                              −1.16    8.57+0.30
+                                                                                                                            −0.23                                                   0.80                                          11.6             51.9
+                                     CEERS 02782†                    14:19:17.63   +52:49:49.0 5.241 −19.50+0.12
+                                                                                                              −0.00    7.51 +0.16
+                                                                                                                            −0.16                                                   0.28                                          11.2             78.6
+                                                                                                              +0.17
+                                     CEERS 00397                     14:19:20.69   +52:52:57.7 6.000 −21.23−0.24       7.87+0.14
+                                                                                                                            −0.14                                                   0.19                                          6.2             51.2
+                                     CEERS 00717                     14:20:19.54   +52:58:19.9 6.936 −21.49+0.12
+                                                                                                              −0.12    7.87+0.17
+                                                                                                                            −0.18                                                   0.00                                          6.1             23.9
+                                     CEERS 01236                     14:20:34.87   +52:58:02.2 4.484 −19.61+0.27
+                                                                                                              −0.23    7.55+0.29
+                                                                                                                            −0.28                                                   0.00                                          5.9             23.3
+                                                                                       Other Possible Candidates with SNRbroad < 5
+                                     CEERS 01465                     14:19:33.12   +52:53:17.7 5.274 −19.72+1.81
+                                                                                                              −0.45    8.25+0.23
+                                                                                                                            −0.22                                                   0.00                                           4.4                ···
+                                     CEERS 01019∗                    14:20:08.49   +52:53:26.4 8.681 −22.44+0.45
+                                                                                                              −0.17    8.04+0.17
+                                                                                                                            −0.17                                                   0.00                                        3.1(Hβ)∗              ···
+                         Note—The name, spectroscopic redshift (zspec ), UV magnitude (MUV ), metallicity (12 + log(O/H)), and extinction
+                          (E(B − V)) are taken from Nakajima et al. (2023).
+                          †
+                            CEERS 00746 and CEERS 02782 are reported as CEERS 3210 and CEERS 1670, respectively, in Kocevski et al. (2023).
+                          ∗
+                            CEERS 01019 is reported as CEERS 1019 in Larson et al. (2023). The signal-to-noise ratio of the broad Hβ line instead
+                          of Hα is presented.
+                          #
+                             Difference between AIC values for the fittings without the broad component and with the broad component.
+    8                                                  Harikane et al.
+                  22                                             Schreiber et al. 2014; Genzel et al. 2014). One remain-
+                                                                 ing possibility is a strong low-metallicity outflow whose
+                  21                                             metallicity and ionization parameter are tuned to show
+                                                                 a broad component only in Hα, but such outflow is
+MUV(AGN + Host)
+
+
+                                                                 not observed even in low-metallicity galaxies (Xu et al.
+                  20                                             2022). Given these comparisons, it is reasonable to inter-
+                                                                 pret that our selected galaxies harbor broad-line type-1
+                  19                                             AGNs.
+
+                                                                     4. PHYSICAL PROPERTIES OF OUR AGNS
+                  18
+                                                                                     4.1. Morphology
+
+                  17     z =4-7 AGNs (This work)
+                                                                    Figure 5 shows snapshots of our selected AGNs, and
+                         Red AGNs (This work)                    Figure 6 present their false color images. Remark-
+                         z >3.8 Galaxies                         ably, the selected AGNs have a variety of morpholo-
+                  16 4                5            6     7       gies, including not only compact point sources but also
+                                    Redshift zspec               extended sources. CEERS 00746, CEERS 00672, and
+                                                                 CEERS 02782 show compact morphologies consistent
+                                                                 with the point-spread function (PSF). Among these
+ Figure 4. UV magnitude and spectroscopic redshifts of           three sources, CEERS 00746 (CEERS 3210 in Kocevski
+ our selected broad-line AGNs (the diamonds). The magenta        et al. 2023) and CEERS 00672 show red spectral-energy
+ diamonds are red AGNs (E(B − V) > 0.5) and the red di-          distributions (SEDs) and large dust attenuation esti-
+ amonds are other AGNs identified in this study. The gray
+                                                                 mated from the Balmer decrement as presented in Sec-
+ circles show star-forming galaxies in Nakajima et al. (2023).
+                                                                 tion 4.2, indicating that these two sources are dusty red
+                                                                 AGNs. The remaining seven AGNs show extended mor-
+ cently, Larson et al. (2023) report a broad Hβ emis-            phologies, different from the ones reported in Kocevski
+ sion line with FWHM = 1196 ± 349 km s−1 with ∼ 2σ               et al. (2023). Such a high fraction (70%) of extended
+ (3.53/1.51 = 2.3), indicating that this galaxy is an AGN.       morphologies indicates that the total lights of the faint
+ Our analysis also shows a similar broad Hβ line with            AGNs with −22 ≲ MUV ≲ −17 mag are partly domi-
+ FWHM = 1664+475  −302 km s
+                            −1
+                                with ∼ 3σ, consistent with       nated by their host galaxies like Seyfert galaxies, which
+ the results in Larson et al. (2023). Although these two         is discussed in Section 5.2 (see also Bowler et al. 2021).
+ galaxies are good candidates for broad-line AGNs, we do         Interestingly, many AGNs show clumpy morphologies
+ not include them in our final sample due to the moderate        that may indicate merger activity, which is consistent
+ signal-to-noise ratio of the broad line.                        with a scenario in which a merger triggers the AGN ac-
+    Broad emission lines are sometimes interpreted as            tivity (Hopkins et al. 2006).
+ mergers or outflows, but the observed broad emission
+ lines in our AGNs seen only in Hα are not likely made by                         4.2. Dust Attenuation
+ mergers or outflows. Merging galaxies show broad emis-
+                                                                   We evaluate the dust attenuation of our selected
+ sion lines both in the permitted and forbidden lines and
+                                                                 AGNs using the color excess, E(B − V), estimated from
+ the emission lines are decomposed with two or more nar-
+                                                                 the Balmer decrement in Nakajima et al. (2023) assum-
+ row components, typically with FWHM < 500 km s−1
+                                                                 ing the Calzetti et al. (2000) dust extinction law. Fig-
+ (e.g., Hashimoto et al. 2019; Romano et al. 2021), dif-
+                                                                 ure 7 shows the dust attenuation of our AGNs as func-
+ ferent from the broad (FWHM > 1000 km s−1 ) sin-
+                                                                 tions of the redshift and the UV magnitude. Most of
+ gle component only seen in Hα in our AGNs. Galax-
+                                                                 our AGNs have negligible or moderate dust attenua-
+ ies with strong outflows also show broad emission lines,
+                                                                 tion with E(B − V) = 0.0 − 0.5, except for two sources,
+ but such broad lines are usually seen in both permitted
+                                                                 CEERS 00746 and CEERS 00672 with E(B − V) = 1.4
+ and forbidden lines (e.g., Freeman et al. 2019; Xu et al.
+                                                                 and 0.8, respectively. CEERS 00746 was previously
+ 2022). Moreover, the line width of the broad line in star-
+                                                                 reported as a red AGN in Kocevski et al. (2023),
+ forming galaxies is typically FWHM ∼ 300−500 km s−1 ,
+                                                                 and we have newly found an additional red AGN,
+ not larger than 1000 km s−1 . Type-2 AGNs some-
+                                                                 CEERS 00672, at z = 5.666. The two AGNs show
+ times show broad emission lines due to outflows with
+                                                                 red SEDs as shown in Figure 8, consistent with the
+ FWHM > 1000 km s−1 , but this broad component is
+                                                                 high dust attenuation inferred from the Balmer decre-
+ again seen in both [Oiii] and Hα lines (e.g., Förster
+                                                                 ment. These findings indicate that the NIRSpec-selected
+                                        JWST/NIRSpec Faint AGNs at z = 4 − 7                                             9
+         1.00
+         0.75
+         0.50
+         0.25
+         0.000.0     0.2          0.4     0.6         0.8   1.0
+         1.00
+         0.75
+         0.50
+         0.25
+         0.000.0                  0.2                 0.4               0.6              0.8                 1.0
+         1.00
+         0.75
+         0.50
+         0.25
+         0.000.0                  0.2                 0.4               0.6              0.8                 1.0
+         1.00
+         0.75
+         0.50
+         0.25
+         0.000.0                  0.2                 0.4               0.6              0.8                 1.0
+         1.00
+         0.75
+         0.50
+         0.25
+         0.000.0     0.2          0.4     0.6         0.8   1.0
+         1.00
+         0.75
+         0.50
+         0.25
+         0.000.0                  0.2                 0.4               0.6              0.8                 1.0
+         1.00
+         0.75
+         0.50
+         0.25
+         0.000.0                  0.2                 0.4               0.6              0.8                 1.0
+         1.00
+         0.75
+         0.50
+         0.25
+         0.000.0                  0.2                 0.4               0.6              0.8                 1.0
+         1.00
+         0.75
+         0.50
+         0.25
+         0.000.0     0.2          0.4     0.6         0.8   1.0
+         1.00
+         0.75
+         0.50
+         0.25
+         0.000.0            0.2                 0.4               0.6           0.8              1.0
+
+Figure 5. 3′′ × 3′′ images of our faint type-1 AGNs. The HST/ACS F606W, F814W, and the JWST/NIRCam F115W,
+F150W, F200W, F277W, F356W, and F444W images are shown. For objects whose NIRCam images are not available, we
+instead show the HST/WFC3 F125W and F160W images. The NIRSpec MSA aperture is shown with the blue rectangle in
+the longest wavelength band. More than half of the sources show extended morphologies, indicating that the total lights are
+significantly contributed from their host galaxies.
+10                                                 Harikane et al.
+
+
+
+
+Figure 6.     False color stamps of our faint AGNs. We use JWST/NIRCam F115W, F200W, and F356W images, while
+HST/ACS F814W and HST/WFC3 F125W and F160W are used for the objects whose NIRCam images are not available. Each
+thumbnail is 2′′ ×2′′ in size.
+
+
+
+
+     1.5                                              6          1.5                                                   6
+            z =4-7 AGNs (This work)                                                          z =4-7 AGNs (This work)
+            Red AGNs (This work)                                                             Red AGNs (This work)
+            z >3.8 Galaxies                                                                  z >3.8 Galaxies
+                                                      5                                                                5
+     1.0                                              4          1.0                                                   4
+E(B − V)
+
+
+
+
+                                                            E(B − V)
+
+
+
+
+                                                      3                                                                3
+                                                       AV
+
+
+
+
+                                                                                                                        AV
+     0.5                                              2          0.5                                                   2
+                                                      1                                                                1
+     0.0                                              0          0.0                                                    0
+            4              5          6           7                 16     17      18     19       20       21         22
+                       Redshift zspec                                            MUV(AGN + Host)
+Figure 7.     Dust attenuation estimated from the Balmer decrement as a function of spectroscopic redshift (left) and UV
+magnitude (right). The magenta diamonds are red AGNs (E(B − V) > 0.5) and the red diamonds are other AGNs identified in
+this study. The gray circles show star-forming galaxies in Nakajima et al. (2023).
+                                         JWST/NIRSpec Faint AGNs at z = 4 − 7                                                           11
+
+
+              26                                                             27
+Mag [ABmag]
+
+
+
+
+                                                              Mag [ABmag]
+              27                                                             28
+
+              28                                                             29
+
+              29                                                             30
+                   0.5       1.0         2.0   3.0 4.0 5.0                               0.5          1.0         2.0     3.0 4.0 5.0
+                            Wavelength [µm]                                                          Wavelength [µm]
+Figure 8. SEDs of two Red AGNs, CEERS 00746 (left) and CEERS 00672 (right). CEERS 00746 is also reported in Kocevski
+et al. (2023). The red circles and arrows show the measured magnitudes and 2σ upper limits, respectively. The blue curve is
+the best-fit SEDs if we use galaxy templates. The inset panel shows the false color image in Figure 6.
+
+broad-line AGNs include both blue and red AGNs. The
+red AGNs are found only in a faint UV-magnitude range                                   1.0
+with −18 < MUV < −16 mag (Figure 4).
+
+                         4.3. Emission Lines
+                                                                   log([OIII]5007/Hβ)
+                                                                                        0.5
+   In Figure 9, we plot the narrow-line ratios of our AGNs
+in the BPT diagram (Baldwin et al. 1981) that is com-
+monly used to classify galaxies as dominated by emission
+from AGN or star formation. Our AGNs are located
+                                                                                        0.0
+in the region with high [Oiii]/Hβ and low [Nii]/Hα,
+similar to other galaxies at z > 3.8 without broad line
+emission (Nakajima et al. 2023; Sanders et al. 2023),
+                                                                                        0.5
+and above the sequence of z ∼ 0 galaxies, as seen in
+z = 2 − 3 star forming galaxies (e.g., Steidel et al. 2014;
+Shapley et al. 2015; Kashino et al. 2017). These re-
+                                                                                        1.0
+sults indicate that our galaxies harboring AGNs cannot
+be distinguished from normal star-forming galaxies at
+z > 4 with the BPT diagram, as discussed in Kocevski                                           2.0    1.5   1.0         0.5 0.0     0.5
+et al. (2023), because of the low metallicities in these                                             log([NII]6584/Hα)
+sources. Indeed, low-metallicity (Z < Z⊙ ) AGNs with
+moderately weak [Nii] emission are found at z ∼ 0 in                   Figure 9.      The BPT diagram. The red symbols show
+Kawasaki et al. (2017). As shown in Table 1, metallici-                narrow emission line ratios of our galaxies having AGNs at
+ties of our galaxies having AGNs are typically sub-solar,              z = 4 − 7, and the cyan symbols are other galaxies at z ≳ 4
+resulting in the weak [Nii] emission in contrast to typical            in Nakajima et al. (2023). The black contours show SDSS
+z ∼ 0 AGNs showing strong [Nii] emission.                              galaxies at z ∼ 0 (Abazajian et al. 2009). The black solid
+                                                                       and dashed curves are boundaries between AGNs and star-
+   We have investigated the presence of rest-frame UV
+                                                                       forming galaxies obtained in Kewley et al. (2001) and Kauff-
+emission lines and rest-optical high-ionization lines in               mann et al. (2003), respectively. Our galaxies having AGNs
+these galaxies having AGNs. We do not find significant                 cannot be distinguished from normal star-forming galaxies
+high-ionization lines such as NeVλ3426 and Heiiλ4686.                  at z > 4 with the BPT diagram.
+Rest-frame UV Ciii]λλ1907,1909 emission lines are
+seen in four objects, CEERS 01244, GLASS 150029,                       also shows broad (FWHM ∼ 1000 km s−1 ) and red-
+CEERS 01665, and CEERS 00397, with rest-frame                          shifted (+800 km s−1 ) Civλλ1548,1551 and tentative
+                                     0
+equivalent widths (EW) of EWCIII]           = 7 − 13 Å,               Heiiλ1640 lines (the top panels in Figure 10). As shown
+comparable to both star-forming galaxies and AGNs                      in the bottom panels in Figure 10, rest-UV diagnostics
+(Nakajima et al. 2018). Among them, CEERS 00397
+12                                                                                                                           Harikane et al.
+
+
+
+                                   CEERS_00397
+                                 2 ( z = 6.000)
+   fλ [10 −19 erg s −1 cm −2 Å −1 ]
+
+
+
+
+                                                                                   fλ [10 −19 erg s −1 cm −2 Å −1 ]
+
+
+
+
+                                                                                                                                                                          fλ [10 −19 erg s −1 cm −2 Å −1 ]
+                                                                                                                 1.5                                                                                    2
+
+
+
+
+                                                                                                                 1.0
+                                                                                                                                                                                                        1
+                                 1
+
+
+                                                                                                                 0.5
+                                            1.08            1.09            1.10                                            1.14                1.15                                                               1.33                      1.34
+                                                   Wavelength [µm]                                                                 Wavelength [µm]                                                                         Wavelength [µm]
+
+                                      100                                                                             100                                                                           102
+                                            AGN            Composite                                                          AGN             Composite
+                                                                                                                                                                                                                                     Star Forming
+
+
+
+
+                                                                                                                                                                      CIII]1907, 1909/HeII1640
+             + 1909 [Å]
+
+
+
+
+                                                                                                  , 1551 [Å]
+
+
+
+                                                                                                                                                                                                    101
+                                                                                        EWCIV1548
+
+
+
+                                       10                                                                              10
+ EWCIII]1907
+
+
+
+
+                                                     CEERS_00397                                                                                                                                                     Composite     CEERS_00397
+                                                                                                                                                                                                    100
+                                                                                          0
+   0
+
+
+
+
+                                                                                                                                       CEERS_00397
+
+                                                                   Star Forming                                                                        Star Forming                                                  AGN
+                                                                                                                                                                                                             -1
+                                        1                                                                               1                                                                        10
+                                               1              10            100                                                    1             10             100                                                10-1             100
+                                            CIII]1907, 1909/HeII1640                                                          CIV1548, 1551/HeII1640                                                              CIV1548, 1551/CIII]1907, 1909
+
+Figure 10. (Top:) Rest-frame UV spectrum of CEERS 00397 at z = 6.000 around wavelengths of Civλλ1548,1551 (left),
+Heiiλ1640 (middle), and Ciii]λλ1907,1909 (right). The spectrum shows the broad (FWHM ∼ 1000 km s−1 ) and redshifted
+(+800 km s−1 ) Civ, tentative Heii, and clear Ciii] emission lines. (Bottom:) The rest-UV line diagnostics to separate AGNs
+and star-forming galaxies. The dashed lines are criteria to distinguish AGNs, composites, and star-forming galaxies proposed
+in Hirschmann et al. (2019, 2022), while the dotted line is to separate AGNs from star-forming galaxies proposed in Nakajima
+et al. (2018). Our faint AGN, CEERS 00397, is located in the composite region of Hirschmann et al. (2019, 2022) and around
+the boundary in Nakajima et al. (2018), indicating that these rest-UV lines in CEERS 00397 are partly dominated by its AGN.
+
+
+using Ciii], Civ, and Heii indicate that the AGN activ-                                                                                       the broad Hα emission line. We use the broad-line lumi-
+ity is partly contributing the these emission line fluxes                                                                                     nosity as an input of Equation (16) following Kocevski
+but not dominating the total fluxes, which is consistent                                                                                      et al. (2023), because it is not clear whether the narrow-
+with its Seyfert-like nature.                                                                                                                 line emission line seen in our AGNs originates from the
+                                                                                                                                              AGN or Hii regions in its host galaxy. The estimated
+                                              4.4. MBH − Lbol Relation                                                                        black hole masses are presented in Table 2. If we in-
+   We estimate the black hole mass, MBH , and bolomet-                                                                                        clude the narrow line component in the Hα luminosity,
+ric luminosity, Lbol , of our AGNs. The black hole mass                                                                                       the black hole mass increase by 0.1 dex on average (0.4
+is estimated with the following equation calibrated at                                                                                        dex at the maximum).
+z ∼ 0 in Greene & Ho (2005):                                                                                                                     Estimating the bolometric luminosity of our AGNs is
+                                                                                                                                              not straightforward, because the continuum luminosities
+          MBH = 2.0 × 106 M⊙                                                                                                                  observed with the HST and JWST images are possibly
+                          0.55               2.06                                                                                         significantly contributed by the lights from their host
+               LHα,broad           FWHMHα,broad                                                                                               galaxies. Therefore, we instead estimate the bolomet-
+          ×                                           ,                                                                       (16)
+              1042 erg s−1          103 km s−1                                                                                                ric luminosity from the Hα luminosity. Our best esti-
+                                                                                                                                              mates of the bolometric luminosity, Lbol , comes from the
+where the LHα,broad is the extinction-correlated broad-
+                                                                                                                                              following equation between the luminosity at the rest-
+line Hα luminosity, and FWHMHα,broad is the FWHM of
+                                        JWST/NIRSpec Faint AGNs at z = 4 − 7                                                  13
+
+
+                                 48   This work (z =4-7)
+                                      This work (Red AGNs)
+                                      Ubler+23 (z =5.55)
+                                      Larson+23 (z =8.68)
+                                      Maiolino+23 (z =4-7)
+                                      Kokorev+23 (z =8.50)
+                                 47   Onoue+19,Matsuoka+19 (z ~6-7)
+                                      Shen+19 (z ~6)
+           logLbol [erg s −1 ]
+
+                                      Trakhtenbrot+11 (z ~5)
+                                      Willott+10 (z ~6)
+                                      Shen+11 (z =1-2)
+                                 46   Liu+19 (z <0.35)
+
+
+
+
+                                 45
+
+
+                                 44
+
+                                      6               7                  8                  9                10
+                                                     logMBH [M ¯ ]
+Figure 11. Relation between the bolometric luminosity (Lbol ) and black hole mass (MBH ). The blue symbols show previous
+measurement for quasars at z > 4 (square: Onoue et al. 2019 and Matsuoka et al. 2019, circle: Shen et al. 2019, triangle: Willott
+et al. 2010a, cross: Trakhtenbrot et al. 2011). Our AGNs at z = 4 − 7 identified with JWST/NIRSpec (the red and magenta
+diamonds) occupy a unique parameter space with lower Lbol and MBH , distinct from the quasars previously identified with the
+ground-based telescopes. The red open symbols are faint AGNs identified with JWST/NIRSpec observations (star: Übler et al.
+2023, square: Larson et al. 2023, circle: Maiolino et al. 2023, cross: Kokorev et al. 2023). The green and gray contours show
+the low redshift AGNs at z = 1 − 2 (Shen et al. 2019) and z < 0.35 (Liu et al. 2019). The dashed lines show the bolometric
+luminosities with the Eddington ratios of λEdd = Lbol /LEdd = 1.0, 0.1, and 0.01.
+
+frame 5100 Å, L5100 , and the Hα luminosity including              star formation in host galaxies, we set the lower limit of
+both the broad and narrow components (Greene & Ho                   the bolometric luminosity using Equation (17) with the
+2005):                                                              broad-line Hα luminosity as an input assuming that the
+                                         1
+                                       1.157                       narrow component comes from the host galaxy and the
+                          LHα
+   L5100 = 1044                               erg s−1 ,             bolometric correction of Lbol = 9.8 × L5100 in McLure &
+                  5.25 × 1042 erg s−1                               Dunlop (2004). As the upper limit, we use the following
+                                                     (17)           equation in Netzer (2009) calibrated with type-2 AGNs:
+and the relation between L5100 and Lbol with the bolo-                   
+                                                                             Lbol
+                                                                                          
+                                                                                               LHβ
+                                                                                                     
+metric correction in Richards et al. (2006), Lbol =                  log             = log
+                                                                           erg s−1           erg s−1
+10.33 × L5100 . Since it is not clear whether the narrow-
+line emission in our AGNs originates from the AGN or                     + 3.48 + max[0.0, 0.31(log([OIII]/Hβ) − 0.6)], (18)
+14                                                            Harikane et al.
+
+                                                    Table 2. Derived AGN Properties
+
+           Name           LHα,broad             Lbroad /Lnarrow   FWHMHα,broad           MBH                Lbol           λEdd
+                                  −1                                        −1                                 −1
+                           (erg s      )                            (km s        )      (M⊙ )            (erg s     )
+       CEERS 01244      7.7+0.2
+                           −0.2   × 10     42         +0.17
+                                                  2.51−0.22         2228+75
+                                                                        −52          3.2+0.3
+                                                                                        −0.2   × 107
+                                                                                                       1.9+3.8
+                                                                                                          −0.6 × 10
+                                                                                                                    45
+                                                                                                                         0.46+1.04
+                                                                                                                             −0.16
+       GLASS 160133     1.2+0.1
+                           −0.1   × 1042              +0.02
+                                                  0.26−0.01         1028+19
+                                                                        −13          2.3+0.1
+                                                                                        −0.1   × 106      +6.1
+                                                                                                       1.1−0.9 × 1045        +21.21
+                                                                                                                         3.68−2.84
+       GLASS 150029     8.2+0.7
+                           −0.5   × 1041              +0.02
+                                                  0.22−0.01         1429+10
+                                                                        −67          3.7+0.2
+                                                                                        −0.3   × 106   9.1+13.8
+                                                                                                          −7.1 × 10
+                                                                                                                    44
+                                                                                                                         1.89+3.31
+                                                                                                                             −1.49
+       CEERS 00746      6.8+0.4
+                           −0.4   × 1043              +1.10
+                                                  5.06−1.26         1660+157
+                                                                        −162         5.8+1.5
+                                                                                        −1.3   × 107      +0.1
+                                                                                                       1.1−0.2 × 10 46
+                                                                                                                         1.47+0.60
+                                                                                                                             −0.52
+       CEERS 01665      6.8+0.9
+                           −0.6   × 1042              +0.05
+                                                  0.28−0.05         1794+282
+                                                                        −171         1.9+0.8
+                                                                                        −0.5   × 107   4.8+7.2
+                                                                                                          −3.6 × 10
+                                                                                                                    45
+                                                                                                                         1.93+4.61
+                                                                                                                             −1.59
+       CEERS 00672      1.8+0.2
+                           −0.2   × 1043              +0.45
+                                                  1.95−0.40         2208+277
+                                                                        −241         5.0+1.7
+                                                                                        −1.3   × 107      +0.4
+                                                                                                       4.3−1.4 × 1045    0.65+0.31
+                                                                                                                             −0.33
+       CEERS 02782      7.6+0.8
+                           −0.7   × 1042              +0.14
+                                                  0.85−0.10         2534+260
+                                                                        −266         4.2+1.2
+                                                                                        −1.0   × 107   2.8+2.3
+                                                                                                          −1.4 × 10
+                                                                                                                    45
+                                                                                                                         0.51+0.71
+                                                                                                                             −0.32
+       CEERS 00397      2.6+0.8
+                           −0.4   × 1042              +0.07
+                                                  0.19−0.05         1739+359
+                                                                        −317         1.0+0.8
+                                                                                        −0.5   × 107      +14.2
+                                                                                                       2.8−2.2 × 1045    2.02+20.68
+                                                                                                                             −1.80
+       CEERS 00717      1.2+0.3
+                           −0.2   × 1042              +0.17
+                                                  0.57−0.11         6279+805
+                                                                        −881         9.8+4.4
+                                                                                        −3.2   × 107   7.1+51.8
+                                                                                                          −4.3 × 10
+                                                                                                                    44
+                                                                                                                         0.06+0.63
+                                                                                                                             −0.04
+       CEERS 01236      4.8+1.1
+                           −0.8   × 1041              +1.12
+                                                  2.39−0.59         3521+649
+                                                                        −485         1.8+1.0
+                                                                                        −0.6   × 107      +2.6
+                                                                                                       1.8−0.5 × 10 44
+                                                                                                                         0.08+0.20
+                                                                                                                             −0.04
+
+
+
+
+where the Hβ luminosity is estimated from the                           same manner as Zhang et al. (2023d). We conduct the
+extinction-corrected narrow-line Hα line assuming Case                  two-dimensional decomposition by fitting the images of
+B recombination. The estimated bolometric luminosi-                     our AGNs in all bands with 1) a PSF profile only, 2)
+ties are presented in Table 2.                                          a PSF and a Sérsic profile, and 3) two PSFs and one
+   Figure 11 shows the estimated MBH and Lbol of our                    Sérsic profile. For each band, we generate the PSF by
+AGNs. The black hole masses and bolometric lumi-                        selecting and stacking bright stars in the same fields.
+nosities of our AGNs are MBH ∼ 106 − 108 M⊙ and                         For the Sérsic profile, we restrict the Sérsic index n to
+Lbol ∼ 1044 − 1046 erg s−1 , respectively, indicating that              the range of n = 1 − 4. We find that CEERS 00746 and
+our AGNs have lower black hole masses and lower bolo-                   CEERS 00672 are well-fitted with a PSF only model,
+metric luminosities than quasars at z ∼ 4 − 7 identified                and their host galaxies are not seen. CEERS 02782 is
+in the ground-based observations (Trakhtenbrot et al.                   also well fitted with a PSF, but a tentative residual is
+2011; Matsuoka et al. 2019; Shen et al. 2019; Onoue                     seen, possibly indicative of its host galaxy. The other
+et al. 2019). The two red AGNs show relatively higher                   sources are fitted with a PSF and a Sérsic profile, ex-
+MBH and Lbol , indicating that these AGNs might be in                   cept for CEERS 01236, which is well fitted with a model
+the transition phase between the faint AGNs with low                    of two PSFs and a Sérsic profile, indicating that this
+MBH and low-luminosity quasars.                                         source could be a dual AGN. Examples of our results
+   The black hole masses of our AGNs are comparable                     are shown in Figure 12, and fitted models are summa-
+to those of z ∼ 0 AGNs in Liu et al. (2019), but our                    rized in Table 3. For GLASS 160133, we cannot obtain a
+AGNs show bolometric luminosities higher than those                     reasonable fitting solution with either PSF, PSF+Sérsic,
+of z ∼ 0 AGNs in Liu et al. (2019) on average, resulting                or 2×PSF+Sérsic models.
+in higher Eddington ratios (λEdd = Lbol /LEdd ). This
+distribution of higher λEdd of our AGNs compared to                                               4.5.2. SED fitting
+those in z ∼ 0 may be due to selection bias, because                      To estimate the stellar mass, we conduct SED fittings
+AGNs with faint broad-line Hα emission may not be                       for host galaxy components using prospector (John-
+selected in our selection criteria with the signal-to-noise             son et al. 2021). The procedure of the SED fitting is
+ratio threshold. Deeper NIRSpec spectroscopy is needed                  the same as that of Harikane et al. (2023), except for
+to investigate whether the AGNs at z > 4 with MBH ∼                     the fixed redshifts based on the NIRSpec emission line
+106 −108 M⊙ have systematically higher λEdd than z ∼ 0                  measurements. We use the stellar population synthesis
+AGNs or not.                                                            package, Flexible Stellar Population Synthesis (FSPS;
+                                                                        Conroy et al. 2009; Conroy & Gunn 2010) for stellar
+                4.5. MBH − M∗ Relation
+                                                                        SEDs, and include nebular emission from the photoion-
+             4.5.1. AGN-Host Decomposition                              ization models of Cloudy (Byler et al. 2017). We assume
+  To estimate the stellar mass of AGN’s host galaxies,                  the Chabrier (2003) stellar initial mass function (IMF)
+we conduct the AGN-host decomposition analysis us-                      of 0.1 − 100 M⊙ , the intergalactic medium (IGM) at-
+ing the high-resolution JWST and HST images, in the                     tenuation model of Madau (1995), the Calzetti et al.
+                                                  JWST/NIRSpec Faint AGNs at z = 4 − 7                                           15
+1.00
+                                                                                  Table 4. Fraction and Number Den-
+0.75                                                                              sities of Our Broad-Line AGNs
+
+0.50                                                                                MUV       fAGN                Φ
+
+0.25                                                                                (mag)                  Mpc   −3
+                                                                                                                      mag−1
+                                                                                            z ∼ 4 (zave   = 4.365)
+0.000.0          0.2          0.4           0.6          0.8      1.0
+1.00                                                                                −21.5    0.07+0.15
+                                                                                                 −0.06    8.9+21.0
+                                                                                                              −8.7 × 10
+                                                                                                                        −6
+
+                                                                                                                        −4
+                                                                                    −18.5    0.15+0.15        +9.9
+                                                                                                           9.0−8.9 × 10
+0.75                                                                                             −0.09
+                                                                                            z ∼ 5 (zave   = 4.912)
+0.50                                                                                −21.5     < 0.10        < 1.2 × 10−5
+                                                                                                                        −4
+                                                                                    −18.5    0.04+0.05     1.4+1.9
+                                                                                                              −1.4 × 10
+0.25                                                                                             −0.02
+                                                                                            z ∼ 6 (zave   = 5.763)
+0.000.0          0.2          0.4           0.6          0.8      1.0
+                                                                                    −21.5    0.07+0.17
+                                                                                                 −0.06     3.5+8.2
+                                                                                                              −3.3 × 10
+                                                                                                                        −6
+
+                                                                                    −18.5    0.04+0.10
+                                                                                                 −0.04     1.5−1.5 × 10−4
+                                                                                                              +3.5
+
+       Figure 12.      Examples of the AGN-host decomposition                               z ∼ 7 (zave   = 6.936)
+       analysis. The top and bottom panels show the images of                                                           −6
+                                                                                    −21.5    0.07+0.17
+                                                                                                 −0.06     1.6+3.7
+                                                                                                              −1.4 × 10
+       CEERS 01665 and CEERS 01236 in the F606W and F150W                                                              −4
+       bands, respectively. The left, middle, and right panels show                 −18.5     < 0.19        < 5.1 × 10
+       the observed images, models, and the residuals, respectively.              Note—Errors are 1σ and upper limits
+       CEERS 01665 (CEERS 01236) is well fitted by a model with                    are 2σ.
+       one PSF and the Sérsic profile (2×PSF and the Sérsic pro-
+       file).
+
+
+                                                                        tainty. For sources whose host galaxies are not seen (i.e.,
+                 Table 3. Stellar Mass of Host Galaxies                 CEERS 00746, CEERS 00672, and CEERS 02782) and
+                                                                        GLASS 160133, we estimate the stellar mass by fitting
+                   Name             logM∗           Fitting
+                                                                        the total lights of that source with the galaxy templates
+                                    (M⊙ )                               using prospector, and use the derived value as the up-
+                CEERS 01244       8.63+0.63
+                                      −1.03     PSF+Sérsic             per limit.
+                               †
+               GLASS 160133        < 8.82           ···                                        4.5.3. Result
+               GLASS 150029 9.10+0.31 −0.37     PSF+Sérsic
+                                                                          Figure 13 shows the stellar masses and black hole
+                CEERS 00746        < 9.11           PSF
+                                                                        masses of our AGNs. Compared to the AGNs at z ∼ 0
+                CEERS 01665       9.92+0.51
+                                      −0.68     PSF+Sérsic             (Reines & Volonteri 2015), our AGNs at z ∼ 4 − 7 have
+                CEERS 00672        < 9.01           PSF                 similar black hole masses but systematically lower stellar
+                CEERS 02782        < 9.35           PSF                 masses. Similar results are obtained in previous studies
+                CEERS 00397       9.36+0.36
+                                      −0.45     PSF+Sérsic             with a smaller number of AGNs (Kocevski et al. 2023;
+                CEERS 00717       9.61+0.77
+                                      −1.18     PSF+Sérsic             Übler et al. 2023; Kocevski et al. 2023), but we confirm
+                CEERS 01236       8.94+0.29
+                                      −0.54   2×PSF+Sérsic             this trend of lower M∗ (higher MBH ) with a sample of
+             †
+               We cannot obtain a reasonable fitting solution           10 AGNs at z = 4 − 7. Our results at z = 4 − 7 showing
+               for GLASS 160133. Thus we use the stellar                lower M∗ (higher MBH ) than z ∼ 0 AGNs indicate that
+               mass estimated from the SED fitting to total
+                                                                        the black hole grows faster than its host galaxy at high
+               lights as the upper limit for this object.
+                                                                        redshift. The fast black hole growth is also suggested
+                                                                        by previous studies at z ∼ 2 (e.g., Zhang et al. 2023d).
+                                                                        Such over-massive black holes compared to their host
+                                                                        stellar masses are indeed predicted in some theoretical
+       (2000) dust attenuation law, and a fixed metallicity of          simulations (e.g., Toyouchi et al. 2021; Trinca et al. 2022;
+       0.2 Z⊙ . We choose a flexible star formation history             Inayoshi et al. 2022; Hu et al. 2022; Zhang et al. 2023b).
+       as adopted in Harikane et al. (2023) with a continu-
+       ity prior. The estimated stellar masses are presented                         4.6. UV Luminosity Function
+       in Table 3. The systematic uncertainty on the stellar              We estimate the number density of our broad-line
+       mass due to the fixed prior is typically ∼ 0.2 dex (Leja         AGNs detected with NIRSpec. Since the selection func-
+       et al. 2019), which is smaller than the statistical uncer-       tion including the target selection completeness with
+16                                                    Harikane et al.
+
+
+                     10          This work (z =4-7)
+                                 This work (Red AGNs)
+                                 Ubler+23 (z =5.55)
+                                 Larson+23 (z =8.68)
+                                 Maiolino+23 (z =4-7)
+                                 Kokorev+23 (z =8.50)
+                           9     Izumi+21 (z ~6-7, Mdyn )
+                                 Kormendy&Ho 13 (z ~0, Mbulge )
+                                 Reines&Volonteri 15 (z ~0)
+           logMBH [M ¯ ]
+
+                                 Reines&Volonteri 15 Fit
+
+                           8
+
+
+                           7
+
+
+                           6
+
+                                  8                  9                10                 11                12
+                                                      logM ∗ [M ¯ ]
+Figure 13. Relation between the black hole mass (MBH ) and host’s stellar mass (M∗ ). The red and magenta diamonds are
+our AGNs at z = 4 − 7. The red open symbols are faint AGNs identified with JWST/NIRSpec observations (star: Übler et al.
+2023, square: Larson et al. 2023, circle: Maiolino et al. 2023, cross: Kokorev et al. 2023). The blue circles show z > 6 quasar
+samples compiled in Izumi et al. (2021) (see also Izumi et al. 2018, 2019). The gray crosses and circles are z ∼ 0 AGNs in
+Kormendy & Ho (2013) and Reines & Volonteri (2015), respectively. The black solid line with the shaded region is the relation
+at z ∼ 0 in Reines & Volonteri (2015), and the dashed lines correspond to MBH /M∗ = 0.1, 0.01, and 0.001. Our z = 4 − 7 AGNs
+show systematically higher MBH (lower M∗ ) compared to z ∼ 0 galaxies.
+
+NIRSpec/MSA is not known, we cannot precisely cal-                 power law form, Φ, as
+culate the number density of our AGNs. Instead, we
+present rough estimates based on the spectroscopic re-               ΦAGN (z, MUV ) = fAGN (z, MUV ) × Φ(z, MUV ),        (19)
+sults. We divide our AGN sample and the entire galaxy
+sample in Nakajima et al. (2023) into magnitude and                where the fitting parameters of the galaxy luminosity
+redshift bins and calculate the fraction of the AGNs to            function are taken from Harikane et al. (2022), which
+the entire sources in each bin. Table 4 summarizes our             are consistent with Adams et al. (2020, 2022). The er-
+calculated AGN fraction at each redshift and magnitude             ror of the number density includes both the Poisson er-
+bin. Using this AGN fraction, fAGN (z, MUV ), we esti-             ror (Gehrels 1986) and the cosmic variance. We esti-
+mate the number density of the AGNs, ΦAGN , from the               mate the cosmic variance following the procedures in
+galaxy UV luminosity function fitted with the double-              Somerville et al. (2004), using the bias value of faint
+                                                                   quasars at z ∼ 4 (He et al. 2018) and the effective vol-
+                                          JWST/NIRSpec Faint AGNs at z = 4 − 7                                                 17
+
+            Table 5. Fit Parameters for the AGN Luminosity Function, Cosmic emissivity, and Photoionization
+            Rate
+                                          ∗
+                      Redshift           MUV        logϕ∗           α     β               ϵ912                       Γ
+                                                        −3                           −1          −3               −1
+                                         (mag)     Mpc                           erg s    Mpc         Hz         s
+                                                                                                                       −13
+             z   ∼4   (zave   = 4.365)   −21.10   −4.05+0.30
+                                                       −2.05   −1.87    −4.95     4.9+4.9
+                                                                                     −4.9 × 10
+                                                                                               24
+                                                                                                           8.5+8.4
+                                                                                                              −8.4 × 10
+                                                                                                                        −14
+             z   ∼5   (zave   = 4.912)   −21.39   −5.05+0.35
+                                                       −1.43   −1.94    −4.96     7.6+9.3
+                                                                                     −7.3 × 10
+                                                                                               23
+                                                                                                           8.4+10.3
+                                                                                                              −8.1 × 10
+             z   ∼6   (zave   = 5.763)   −21.23   −4.87+0.34
+                                                       −1.50   −2.14    −5.03        +1.5
+                                                                                  1.3−1.2 × 1024           9.8−9.5 × 10−14
+                                                                                                              +11.9
+
+                                                                                                                       −14
+             z   ∼7   (zave   = 6.936)   −20.82   −4.77+0.36
+                                                       −0.96   −2.05    −4.83     8.4+11.0
+                                                                                     −7.5 × 10
+                                                                                               23
+                                                                                                           4.7+6.1
+                                                                                                              −4.2 × 10
+                  ∗
+            Note—MUV , α, and β are fixed to values in Harikane et al. (2022). Errors are 1σ.
+
+
+
+
+ume assuming the survey area of 72 arcmin2 (= 8 NIR-                                             5. DISCUSSION
+Spec pointings). Using the effective volume calculated                          5.1. Contribution to Cosmic Reionization
+here, we can also evaluate the lower limit of the number
+density based on the observed number of AGNs in each                       To discuss the contribution of our AGNs to cosmic
+bin. If the 1σ lower limit calculated with fAGN is higher               reionization, we estimate the cosmic ionizing emissivity
+than the volume-based value, we replace the 1σ lower                    density, ϵ912 , and the cosmic photoionization rate, Γ,
+limit with the volume-based lower limit.                                following Giallongo et al. (2019). First, we estimate the
+  Figure 14 shows the calculated number densities of                    rest-frame UV emissivity at 1450 Å, ϵ1450 , by integrat-
+our AGNs at z ∼ 4 − 7 with previous measurements for                    ing the UV luminosity function at each redshift down
+AGNs and galaxies. Tables 4 and 5 present our number                    to MUV = −18 mag, the same limit as Giallongo et al.
+density estimates and parameters of the best-fit double                 (2019). Since an AGN does not dominate all of the rest-
+power-law function,                                                     frame UV light as discussed in Section 4.1, we multiply
+                                                                        the UV luminosity density with the fraction of light from
+           ln10 ∗                                                       an AGN to all light including both an AGN and its host
+ Φ(MUV ) =      ϕ
+            2.5                                                         galaxy, which is estimated to be ∼ 50% in rest-frame UV
+   h                ∗                       ∗
+                                                 i−1                    (1450 Å) based on the decomposition analysis in Section
+ × 100.4(α+1)(MUV −MUV ) + 100.4(β+1)(MUV −MUV )     .
+                                                                        4.5.1. Then we calculate ϵ912 from ϵ1450 using the SED
+                                                             (20)       presented in Lusso et al. (2015) and an ionizing photon
+                                                                        escape fraction. The escape fraction of faint AGNs is
+The number density of our broad-line type-1 AGNs de-                    highly uncertain, with a variety of the values reported
+tected with NIRSpec is higher than an extrapolation of                  (fesc = 0.3−0.8) by previous studies (e.g., Micheva et al.
+the quasar luminosity functions (Akiyama et al. 2018;                   2017; Grazian et al. 2018; Romano et al. 2019; Iwata
+Niida et al. 2020; Matsuoka et al. 2018), because these                 et al. 2022). In this calculation, we assume fesc = 0.5.
+quasar studies only select compact objects. The best es-                The photoionization rate, Γ, is estimated from ϵ912 us-
+timates of the number densities are higher than those of                ing an equation presented in Lusso et al. (2015). We
+the X-ray selected AGNs (Parsa et al. 2018; Giallongo                   increase the AGN emissivity by a factor of 1.2 to include
+et al. 2019), probably due to the limited sensitivity in                the contribution by radiative recombination in the IGM
+X-ray observations. Our best estimates are higher than                  following D’Aloisio et al. (2018). Calculated emissivities
+Matthee et al. (2023) and lower than Maiolino et al.                    and photoionization rates are summarized in Table 5.
+(2023), because of the difference in sensitivities and se-                 Figure 16 presents the cosmic ionizing emissivity den-
+lection functions. As shown in Figure 15, the typical                   sity and the photoionization rate from our AGNs with
+sensitivity of NIRCam Grism spectra in Matthee et al.                   previous measurements. The emissivities of our AGNs
+(2023) is lower than those of the NIRSpec data in this                  at z ∼ 4 − 6 are comparable to those of X-ray selected
+study and Maiolino et al. (2023), resulting in the low                  AGNs in Giallongo et al. (2019), although our AGNs
+AGN fraction in Matthee et al. (2023). The slightly                     selected with broad emission lines may not be the same
+higher AGN fraction in Maiolino et al. (2023) compared                  population from X-ray selected AGNs. The cosmic pho-
+to this study may be due to the slightly higher typical                 toionization rates from our AGNs are also comparable to
+sensitivity in the JADES data, or a biased selection to                 those of X-ray-selected AGNs. At z ∼ 6, the photoion-
+AGN candidates in the NIRSpec MSA target selection                      ization rate of our AGNs is lower than the measurement
+as discussed in Maiolino et al. (2023).
+18                                                                    Harikane et al.
+
+
+
+                       10-2                                                                        10-2
+                       10-3
+                                           z∼4    AGN
+                                                     This work (NIRSpec BL)
+                                                                                                   10-3
+                                                                                                                       z∼5    AGN
+                                                                                                                                 This work (NIRSpec BL)
+                                                     Akiyama+18 (Quasar)                                                         Kocevski+23 (NIRSpec BL)
+                                                     Parsa+18 (X-ray)                                                            Maiolino+23 (NIRSpec BL)
+                                                     Labbe+23 (Compact&Red)                                                      Matthee+23 (NIRCam BL)
+                       10-4                                                                        10-4
+  Φ [mag −1 Mpc −3 ]
+
+
+
+
+                                                                              Φ [mag −1 Mpc −3 ]
+                                                  Galaxy                                                                         Niida+20 (Quasar)
+                                                     Harikane+22a                                                                Giallongo+19 (X-ray)
+                                                     Bouwens+21                                                                  Parsa+18 (X-ray)
+                       10-5                          Finkelstein+15                                10-5                       Galaxy
+                                                                                                                                 Harikane+22a
+                            -6                                                                          -6                       Bouwens+21
+                       10                                                                          10                            Finkelstein+15
+
+                       10-7                                                                        10-7
+                       10-8                                                                        10-8
+                       10-9                                                                        10-9
+                                 18   20     22      24         26       28                                  18   20     22      24         26          28
+                                      MUV (AGN + Host) [mag]                                                      MUV (AGN + Host) [mag]
+                       10-2                                                                        10-2
+                       10-3
+                                           z∼6    AGN
+                                                     This work (NIRSpec BL)
+                                                                                                   10-3
+                                                                                                                       z∼7    AGN
+                                                                                                                                 This work (NIRSpec BL)
+                                                     Giallongo+19 (X-ray)                                                        Fujimoto+22 (Red quasar)
+                                                     Matsuoka+18 (Quasar)                                                        Endsley+22 (Radio)
+                                                     Parsa+18 (X-ray)
+                       10-4                                                                        10-4
+                                                                                                                              Galaxy
+  Φ [mag −1 Mpc −3 ]
+
+
+
+
+                                                                              Φ [mag −1 Mpc −3 ]
+                                                     Labbe+23 (Compact&Red)                                                      Harikane+22a
+                                                  Galaxy                                                                         Bouwens+21
+                                                     Harikane+22a                                                                Bowler+17
+                       10-5                          Bouwens+21
+                                                     Finkelstein+15
+                                                                                                   10-5                          Finkelstein+15
+                                                     Bowler+15
+                       10-6                                                                        10-6
+                       10-7                                                                        10-7
+                       10-8                                                                        10-8
+                       10-9                                                                        10-9
+                                 18   20     22      24         26       28                                  18   20     22      24         26          28
+                                      MUV (AGN + Host) [mag]                                                      MUV (AGN + Host) [mag]
+Figure 14. UV luminosity functions at z ∼ 4, 5, 6, and 7. The red diamonds show the number densities of our broad-line (BL)
+AGNs identified with NIRSpec (Table 4), and the red dashed lines with the shaded regions are the best-fit functions (Table 5).
+The cyan triangles and circles are X-ray selected AGNs in Parsa et al. (2018) and Giallongo et al. (2019), respectively, and the
+blue squares show the number densities of quasars at z ∼ 4, 5, and 6 (Akiyama et al. 2018; Niida et al. 2020; Matsuoka et al.
+2018). In the z ∼ 5 panel, the red open star and circles are number density estimates of z ∼ 5 faint BL AGNs detected with
+NIRSpec in Kocevski et al. (2023) and Maiolino et al. (2023), respectively, while the red crosses are estimates for BL AGNs
+found in NIRCam Grism observations in Matthee et al. (2023). The orange open circles at z ∼ 4 and 6 are number densities
+of red and compact AGN candidates in Labbe et al. (2023). The results of Matthee et al. (2023) and Labbe et al. (2023)
+are horizontally shifted by −0.1 dex for visualization purposes. The blue pentagon and circle at z ∼ 7 are lower limits for a
+red quasar (Fujimoto et al. 2022) and the radio-selected AGN (Endsley et al. 2022), respectively, whose number densities are
+estimated in Fujimoto et al. (2022). The gray symbols show the number densities of galaxies (diamond: Harikane et al. 2022,
+square: Bouwens et al. 2021, triangle: Bowler et al. 2015, 2017, circle: Finkelstein et al. 2015). The cyan solid and dashed lines
+are the best-fit double power-law functions based on the X-ray selected AGNs in Parsa et al. (2018) and Giallongo et al. (2019),
+respectively, and the blue lines are the best-fit functions and their extrapolations based on the quasars (Akiyama et al. 2018;
+Niida et al. 2020; Matsuoka et al. 2018). The number densities of our AGNs newly identified in the NIRSpec spectra are higher
+than the extrapolations of the quasar luminosity function.
+                                         JWST/NIRSpec Faint AGNs at z = 4 − 7                                           19
+
+                                                                  of our AGNs are comparable to those of narrow-line
+            -1
+       10                      fAGN = 7.5 − 11%
+                               JADES (Maiolino+23)
+                                                                  Seyfert 1 galaxies.
+                                                                     Although our AGNs are similar to intermediate-type
+                                          fAGN = 5.4 ± 1.7%       AGNs seen in local universe, the fraction of such AGNs
+                                          CEERS+GLASS             may increase toward higher redshifts. Our analysis in-
+                                          (Harikane+23)
+                                                                  dicates that about 5% of the galaxies at z ∼ 4 − 7
+fAGN
+
+
+
+                                                                  harbor faint type-1 AGNs, while studies of local AGNs
+                                                                  implies that only 1-2% of galaxies with similar bolo-
+                                                                  metric luminosities (Lbol ∼ 1044 − 1046 erg s−1 , or
+                                                   fAGN < 1%
+                                                   EIGER+FRESCO   L6166 ∼ 1043 − 1044 erg s−1 ) are type-1 AGNs (Stern
+            -2                                     (Matthee+23)
+       10                                                         & Laor 2012). Spectroscopic studies for z ∼ 3 Lyman
+                                                                  break galaxies indicate that ∼ 1% of them are type-1
+                                                                  AGNs. Although a larger sample of broad-line AGNs
+                                                                  at z > 4 is needed, our study finding the high fraction
+                                                                  (∼ 5%) implies a possible redshift evolution of the type-
+                 0.6    1           2       3           5         1 AGN fraction.
+                   f3σ, Hα, broad [10 erg s cm −1 ]
+                                   −18            −1
+                                                                     Some of our AGNs show weak (but statistically signif-
+                                                                  icant) broad Hα emission lines compared to their nar-
+Figure 15.       Broad-line AGN fraction and 3σ sensitivity       row components with low broad-to-narrow line flux ra-
+for an Hα broad emission line in each study. The sensi-           tios, which are detected in the deep NIRspec spectra
+tivity is for a broad-line width of FWHM = 2000 km s−1 .          but will be missed in shallow spectroscopic observations.
+The purple, blue, and green shaded regions indicate AGN           Although the broad emission lines are detected, the low
+fractions and the 16th−84th percentile of the broad-line          broad-to-narrow line flux ratios suggest that these AGNs
+sensitivities for reported AGNs in JADES (Maiolino et al.         may be significantly contributed from Hii regions in
+2023), CEERS+GLASS (this study), and EIGER+FRESCO
+                                                                  their host galaxies, or partly obscured, implying a high
+(Matthee et al. 2023), respectively. The low AGN fraction
+from NIRCam Grism observations in Matthee et al. (2023)
+                                                                  obscured fraction in the universe at z > 4. Indeed, sev-
+is due to the shallower depth compared to NIRSpec obser-          eral X-ray observations indicate a higher fraction of ob-
+vations in this study and Maiolino et al. (2023).                 scured AGNs in the higher redshift universe at z ∼ 0 − 4
+                                                                  (e.g., Hasinger 2008; Ueda et al. 2014; Liu et al. 2017;
+from the Lyα forest analysis (e.g., Bosman et al. 2022;           Zappacosta et al. 2018; Iwasawa et al. 2020; Peca et al.
+Davies et al. 2018; Wyithe & Bolton 2011). This indi-             2023). From recent ALMA observations, Gilli et al.
+cates that such faint AGNs contribute to cosmic reion-            (2022) predict that AGNs at z > 3 are significantly ob-
+ization, while the total contribution is not large, up to         scured by their host galaxies’ interstellar medium, which
+∼ 50% at z ∼ 6, because of their faint nature.                    may reasonably explain the observed high obscured frac-
+                                                                  tion at high redshifts. This indicates there may be many
+   5.2. Nature of the NIRSpec-Detected AGNs and                   obscured AGNs (type-2 AGNs) in the z > 4 universe
+                    Redshift Evolution                            possibly more than the type-1 AGNs we have identi-
+                                                                  fied, consistent with recent findings of heavily obscured
+   Our broad-line type-1 AGNs have low-mass black
+                                                                  AGNs at z ∼ 7 (Fujimoto et al. 2022; Endsley et al.
+holes with MBH ∼ 106 − 108 M⊙ . Given that more than
+                                                                  2022).
+half of the AGNs show extended morphologies, the to-
+tal lights are partly dominated by lights from their host                             6. SUMMARY
+galaxies rather than those of the AGNs, suggesting that             In this paper, we conduct a systematic search for
+these AGNs are type-1 Seyfert galaxies. Some of them              broad-line emission in the JWST/NIRSpec deep spec-
+show weak broad Hα emission lines with a broad-to-                tra of a total of 185 galaxies at zspec = 3.8 − 8.9. We
+narrow-line luminosity ratio of Lbroad /Lnarrow ∼ 0.2 −           identify 10 faint type-1 AGNs at zspec = 4.015 − 6.936,
+0.6, suggesting that they are intermediate-type AGNs              two of which are reported in Kocevski et al. (2023), al-
+such as type 1.5, 1.8, and 1.9 Seyfert galaxies (Oster-           lowing us to conduct the first statistical census of such
+brock 1981; Blandford 1990; Whittle 1992). Indeed,                faint AGNs in the early universe. Our major findings
+such a weak broad component observed in our AGNs                  are summarized below.
+is similarly seen in some Seyfert 1.5-1.9 galaxies (e.g.,
+Stern & Laor 2012, their Figure 1). The moderate line                1. Our faint AGNs show a broad emission line with
+width of the broad component (< 2000 km s−1 ) in some                   FWHM ≃ 1000 − 6000 km s−1 only in the per-
+20                                                                                Harikane et al.
+
+
+
+                               1025                                                                    10-12
+   ²912 [erg s −1 Mpc −3 Hz]
+
+
+
+
+                                                                                           Γ [s −1 ]
+                               1024
+                                                                                                       10-13
+                                                                                                                 This work (NIRSpec BL AGN)
+                                                                                                                 Giallongo+19 (X-ray AGN)
+                                          This work (NIRSpec BL AGN)                                             Bosman+22
+                                          Giallongo+19 (X-ray AGN)                                               Davies+18
+                                          Palanque-Delabrouille+13 (Quasar)                                      Becker&Bolton13
+                               1023       Becker&Bolton 13
+                                          Madau&Haardt 15
+                                                                                                                 Wyithe+11
+                                                                                                                 Faucher-Giguere+08
+                                      0   1      2      3       4       5     6   7                    10-140    1     2      3      4        5   6   7
+                                                        Redshift z                                                            Redshift z
+Figure 16. (Left:) Cosmic ionizing emissivity density, ϵ912 , contributed by AGNs as a function of redshift. The red diamonds
+show estimates for our AGNs identified with the NIRSpec spectra assuming the escape fraction of 50%. The cyan circles
+and blue squares are measurements from X-ray AGNs (Giallongo et al. 2019) and quasars (Palanque-Delabrouille et al. 2013),
+respectively. The gray squares are measurements in Becker & Bolton (2013), and the black curve is the model in Madau &
+Haardt (2015). (Right:) Cosmic photoionization rate, Γ, a function of redshift. The red diamonds show estimates for our
+AGNs, and the cyan circles are measurements in Giallongo et al. (2019). The gray open symbols show measurements from the
+Lyα forest analysis in quasar spectra (circle: Bosman et al. 2022, diamond: Davies et al. 2018, square: Becker & Bolton 2013,
+pentagon: Wyithe & Bolton 2011, triangle: Faucher-Giguère et al. 2008).
+
+                      mitted Hα line (Figures 1-3). Their forbidden                                      of low-luminosity quasars previously identified at
+                      [Oiii]λ5007 line is detected with a higher signal-                                 z > 4 with ground-based telescopes (Figure 11).
+                      to-noise ratio than Hα, but show only narrow                                       Our AGNs at z = 4 − 7 show higher bolometric lu-
+                      emission with FWHM ≲ 500 km s−1 . These                                            minosities than AGNs at z ∼ 0 with similar black
+                      spectral features are consistent with the fact that                                hole masses on average, possibly due to the selec-
+                      these objects are type-1 AGNs. The broad emis-                                     tion bias. Deeper NIRSpec spectroscopy is needed
+                      sion in some objects is very weak with a broad                                     to confirm this trend.
+                      line-to-narrow line ratio of LHα,broad /LHα,narrow =
+                                                                                                   5. We estimate the stellar masses of AGN’s host
+                      0.2 − 0.6, comparable to those seen in local
+                                                                                                      galaxies with careful AGN-host decomposition
+                      intermediate-type AGNs.
+                                                                                                      analyses. The estimated stellar masses are sys-
+   2. High-resolution JWST/NIRCam and HST/ACS                                                         tematically lower than the black hole mass-stellar
+      and WFC3 images reveal that seven AGNs in our                                                   mass relation at z ∼ 0 (Figure 13). The lower stel-
+      sample show extended morphologies, indicating                                                   lar mass (higher black hole mass) at high redshifts
+      significant contributions to the total lights from                                              implies fast black hole growth, which is consistent
+      their host galaxies (Figure 5). The remaining three                                             with predictions from theoretical simulations.
+      objects are dominated by compact emission con-                                               6. We estimate that ∼ 5% of galaxies at z = 4 − 7
+      sistent with the PSF, and two of them show red                                                  are type-1 AGNs on average, whose fraction is
+      SEDs implying that they are dusty compact AGNs                                                  higher than that in local galaxies with similar lu-
+      (Figures 7 and 8).                                                                              minosities. The estimated number density of our
+   3. Our selected AGNs show narrow emission line ra-                                                 faint AGNs is higher than an extrapolation of
+      tios of high [Oiii]/Hβ and low [Nii]/Hα, similar                                                the quasar UV luminosity functions and is com-
+      to star-forming galaxies at z ≳ 4. These AGNs                                                   parable to those of X-ray selected AGNs (Figure
+      cannot be distinguished from normal star-forming                                                14). Estimates of the ionizing emissivity and pho-
+      galaxies with the classical BPT diagram (Figure                                                 toionization rate by the faint AGNs indicate that
+      9), probably due to their low metallicities.                                                    such faint AGNs contribute to cosmic reionization,
+                                                                                                      while the total contribution is not large, up to
+   4. Our faint AGNs have low-mass black holes with                                                   ∼ 50% at z ∼ 6, because of their faint nature
+      MBH ∼ 106 −108 M⊙ , remarkably lower than those                                                 (Figure 16).
+                                       JWST/NIRSpec Faint AGNs at z = 4 − 7                                              21
+
+This study demonstrates that NIRSpec spectroscopy is                          ACKNOWLEDGMENTS
+an efficient and powerful tool to find faint type-1 AGNs
+with low mass black holes that are embedded in their            We thank the anonymous referee for careful reading
+host galaxies. Future large NIRSpec observations will         and valuable comments that improved the clarity of
+uncover a large number of high redshift faint AGNs,           the paper. We are grateful to Takuma Izumi, Roberto
+allowing us to investigate the galaxy-SMBH co-evolution       Maiolino, Ryan Sanders, and John Silverman for use-
+in the early universe.                                        ful discussions. This work is based on observations
+                                                              made with the NASA/ESA/CSA James Webb Space
+                                                              Telescope. The data were obtained from the Mikulski
+                                                              Archive for Space Telescopes at the Space Telescope
+                                                              Science Institute, which is operated by the Associa-
+                                                              tion of Universities for Research in Astronomy, Inc.,
+                                                              under NASA contract NAS 5-03127 for JWST. These
+                                                              observations are associated with programs ERS-1324
+                                                              (GLASS), ERS-1345 (CEERS), GO-2561 (UNCOVER),
+                                                              and ERO-2736. The authors acknowledge the teams of
+                                                              JWST commissioning, ERO, GLASS, UNCOVER, and
+                                                              CEERS for developing their observing programs with a
+                                                              zero-exclusive-access period. The JWST data presented
+                                                              in this paper were obtained from the Mikulski Archive
+                                                              for Space Telescopes (MAST) at the Space Telescope
+                                                              Science Institute. The specific observations analyzed
+                                                              can be accessed via 10.17909/qp74-bk09. This publica-
+                                                              tion is based upon work supported by the World Premier
+                                                              International Research Center Initiative (WPI Initia-
+                                                              tive), MEXT, Japan, KAKENHI (20H00180, 21J20785,
+                                                              21K13953, 21H04467) through Japan Society for the
+                                                              Promotion of Science, and JSPS Core-to-Core Program
+                                                              (grant number: JPJSCCA20210003). This work was
+                                                              supported by the joint research program of the Institute
+                                                              for Cosmic Ray Research (ICRR), University of Tokyo,
+                                                              and a grant from the Hayakawa Satio Fund awarded by
+                                                              the Astronomical Society of Japan.
+
+
+                                                                Software: Galfit (Peng et al. 2002), Prospector
+                                                              (Johnson et al. 2021), SExtractor (Bertin & Arnouts
+                                                              1996)
+
+
+                                                       REFERENCES
+Abazajian, K. N., Adelman-McCarthy, J. K., Agüeros,          Akiyama, M., He, W., Ikeda, H., et al. 2018, PASJ, 70, S34
+  M. A., et al. 2009, ApJS, 182, 543                          Anglés-Alcázar, D., Faucher-Giguère, C.-A., Quataert, E.,
+Adams, N. J., Bowler, R. A. A., Jarvis, M. J., et al. 2020,     et al. 2017, MNRAS, 472, L109
+  MNRAS, 494, 1771                                            Bañados, E., Venemans, B. P., Decarli, R., et al. 2016,
+Adams, N. J., Bowler, R. A. A., Jarvis, M. J., Varadaraj,       ApJS, 227, 11
+  R. G., & Häußler, B. 2022, arXiv e-prints,                 Bañados, E., Venemans, B. P., Mazzucchelli, C., et al. 2018,
+  arXiv:2207.09342                                              Nature, 553, 473
+Aihara, H., Arimoto, N., Armstrong, R., et al. 2018, PASJ,    Bagley, M. B., Finkelstein, S. L., Koekemoer, A. M., et al.
+  70, S4                                                        2022, arXiv e-prints, arXiv:2211.02495
+Akaike, H. 1974, IEEE Transactions on Automatic Control,      Baldwin, J. A., Phillips, M. M., & Terlevich, R. 1981,
+  19, 716                                                       PASP, 93, 5
+22                                                    Harikane et al.
+
+Becker, G. D., & Bolton, J. S. 2013, MNRAS, 436, 1023          Fujimoto, S., Brammer, G. B., Watson, D., et al. 2022,
+Bertin, E., & Arnouts, S. 1996, A&AS, 117, 393                   Nature, 604, 261
+Bezanson, R., Labbe, I., Whitaker, K. E., et al. 2022, arXiv   Fujimoto, S., Wang, B., Weaver, J., et al. 2023, arXiv
+  e-prints, arXiv:2212.04026                                     e-prints, arXiv:2308.11609
+Blandford, R. D. 1990, in Active Galactic Nuclei, ed. R. D.    Furtak, L. J., Zitrin, A., Plat, A., et al. 2022, arXiv
+  Blandford, H. Netzer, L. Woltjer, T. J. L. Courvoisier, &      e-prints, arXiv:2212.10531
+  M. Mayor, 161–275                                            Furtak, L. J., Labbé, I., Zitrin, A., et al. 2023, arXiv
+Bogdan, A., Goulding, A., Natarajan, P., et al. 2023, arXiv      e-prints, arXiv:2308.05735
+  e-prints, arXiv:2305.15458                                   Gallerani, S., Fan, X., Maiolino, R., & Pacucci, F. 2017,
+Bosman, S. E. I., Davies, F. B., Becker, G. D., et al. 2022,    PASA, 34, e022
+  MNRAS, 514, 55                                               Gebhardt, K., Bender, R., Bower, G., et al. 2000, ApJ, 539,
+Bouwens, R. J., Oesch, P. A., Stefanon, M., et al. 2021, AJ,    L13
+  162, 47                                                      Gehrels, N. 1986, ApJ, 303, 336
+Bowler, R. A. A., Adams, N. J., Jarvis, M. J., & Häußler,     Genzel, R., Förster Schreiber, N. M., Rosario, D., et al.
+  B. 2021, MNRAS, 502, 662                                      2014, ApJ, 796, 7
+Bowler, R. A. A., Dunlop, J. S., McLure, R. J., & McLeod,      Giallongo, E., Grazian, A., Fiore, F., et al. 2019, ApJ, 884,
+  D. J. 2017, MNRAS, 466, 3612
+                                                                 19
+Bowler, R. A. A., Dunlop, J. S., McLure, R. J., et al. 2015,
+                                                               Gilli, R., Norman, C., Calura, F., et al. 2022, A&A, 666,
+  MNRAS, 452, 1817
+                                                                 A17
+Byler, N., Dalcanton, J. J., Conroy, C., & Johnson, B. D.
+                                                               Goulding, A. D., Greene, J. E., Setton, D. J., et al. 2023,
+  2017, ApJ, 840, 44
+                                                                arXiv e-prints, arXiv:2308.02750
+Calzetti, D., Armus, L., Bohlin, R. C., et al. 2000, ApJ,
+                                                               Granato, G. L., De Zotti, G., Silva, L., Bressan, A., &
+  533, 682
+                                                                 Danese, L. 2004, ApJ, 600, 580
+Carnall, A. C., McLure, R. J., Dunlop, J. S., et al. 2023,
+                                                               Grazian, A., Giallongo, E., Boutsia, K., et al. 2018, A&A,
+  Nature, 619, 716
+                                                                 613, A44
+Chabrier, G. 2003, PASP, 115, 763
+                                                               Greene, J. E., & Ho, L. C. 2005, ApJ, 630, 122
+Conroy, C., & Gunn, J. E. 2010, ApJ, 712, 833
+                                                               Greene, J. E., Labbe, I., Goulding, A. D., et al. 2023, arXiv
+Conroy, C., Gunn, J. E., & White, M. 2009, ApJ, 699, 486
+                                                                 e-prints, arXiv:2309.05714
+D’Aloisio, A., McQuinn, M., Davies, F. B., & Furlanetto,
+                                                               Grogin, N. A., Kocevski, D. D., Faber, S. M., et al. 2011,
+  S. R. 2018, MNRAS, 473, 560
+                                                                 ApJS, 197, 35
+Davies, F. B., Hennawi, J. F., Eilers, A.-C., & Lukić, Z.
+  2018, ApJ, 855, 106                                          Habouzit, M., Onoue, M., Bañados, E., et al. 2022,
+Di Matteo, T., Springel, V., & Hernquist, L. 2005, Nature,       MNRAS, 511, 3751
+  433, 604                                                     Harikane, Y., Ono, Y., Ouchi, M., et al. 2022, ApJS, 259, 20
+Ding, X., Onoue, M., Silverman, J. D., et al. 2022, arXiv      Harikane, Y., Ouchi, M., Oguri, M., et al. 2023, ApJS, 265,
+  e-prints, arXiv:2211.14329                                     5
+Endsley, R., Stark, D. P., Lyu, J., et al. 2022, arXiv         Hashimoto, T., Inoue, A. K., Mawatari, K., et al. 2019,
+  e-prints, arXiv:2206.00018                                     PASJ, 71, 71
+Faucher-Giguère, C.-A., Lidz, A., Hernquist, L., &            Hasinger, G. 2008, A&A, 490, 905
+  Zaldarriaga, M. 2008, ApJ, 688, 85                           He, W., Akiyama, M., Bosch, J., et al. 2018, PASJ, 70, S33
+Finkelstein, S. L., Ryan, Jr., R. E., Papovich, C., et al.     Hirschmann, M., Charlot, S., Feltre, A., et al. 2019,
+  2015, ApJ, 810, 71                                             MNRAS, 487, 333
+Finkelstein, S. L., Bagley, M., Song, M., et al. 2022a, ApJ,   —. 2022, arXiv e-prints, arXiv:2212.02522
+  928, 52                                                      Hopkins, P. F., Hernquist, L., Cox, T. J., et al. 2006, ApJS,
+Finkelstein, S. L., Bagley, M. B., Ferguson, H. C., et al.       163, 1
+  2022b, arXiv e-prints, arXiv:2211.05792                      Hu, H., Inayoshi, K., Haiman, Z., et al. 2022, ApJ, 935, 140
+Förster Schreiber, N. M., Genzel, R., Newman, S. F., et al.   Inayoshi, K., Nakatani, R., Toyouchi, D., et al. 2022, ApJ,
+  2014, ApJ, 787, 38                                             927, 237
+Freeman, W. R., Siana, B., Kriek, M., et al. 2019, ApJ,        Inayoshi, K., Visbal, E., & Haiman, Z. 2020, ARA&A, 58,
+  873, 102                                                       27
+                                      JWST/NIRSpec Faint AGNs at z = 4 − 7                                                  23
+
+Isobe, Y., Ouchi, M., Nakajima, K., et al. 2023, arXiv           Magorrian, J., Tremaine, S., Richstone, D., et al. 1998, AJ,
+  e-prints, arXiv:2301.06811                                       115, 2285
+Iwasawa, K., Comastri, A., Vignali, C., et al. 2020, A&A,        Mainali, R., Zitrin, A., Stark, D. P., et al. 2018, MNRAS,
+  639, A51                                                         479, 1180
+Iwata, I., Sawicki, M., Inoue, A. K., et al. 2022, MNRAS,        Maiolino, R., Scholtz, J., Curtis-Lake, E., et al. 2023, arXiv
+  509, 1820                                                        e-prints, arXiv:2308.01230
+Izumi, T., Onoue, M., Shirakata, H., et al. 2018, PASJ, 70,      Matsuoka, Y., Onoue, M., Kashikawa, N., et al. 2016, ApJ,
+  36                                                               828, 26
+Izumi, T., Onoue, M., Matsuoka, Y., et al. 2019, PASJ, 71,       Matsuoka, Y., Strauss, M. A., Kashikawa, N., et al. 2018,
+  111                                                              ApJ, 869, 150
+Izumi, T., Matsuoka, Y., Fujimoto, S., et al. 2021, ApJ,         Matsuoka, Y., Onoue, M., Kashikawa, N., et al. 2019, ApJ,
+  914, 36                                                          872, L2
+Johnson, B. D., Leja, J., Conroy, C., & Speagle, J. S. 2021,     Matthee, J., Naidu, R. P., Brammer, G., et al. 2023, arXiv
+  ApJS, 254, 22                                                    e-prints, arXiv:2306.05448
+Kashikawa, N., Ishizaki, Y., Willott, C. J., et al. 2015, ApJ,   McLure, R. J., & Dunlop, J. S. 2004, MNRAS, 352, 1390
+  798, 28                                                        Micheva, G., Iwata, I., & Inoue, A. K. 2017, MNRAS, 465,
+Kashino, D., Silverman, J. D., Sanders, D., et al. 2017,           302
+  ApJ, 835, 88                                                   Nakajima, K., Ouchi, M., Isobe, Y., et al. 2023, arXiv
+Kauffmann, G., Heckman, T. M., Tremonti, C., et al. 2003,          e-prints, arXiv:2301.12825
+  MNRAS, 346, 1055                                               Nakajima, K., Schaerer, D., Le Fèvre, O., et al. 2018, A&A,
+Kawasaki, K., Nagao, T., Toba, Y., Terao, K., & Matsuoka,          612, A94
+  K. 2017, ApJ, 842, 44                                          Netzer, H. 2009, MNRAS, 399, 1907
+Kewley, L. J., Dopita, M. A., Sutherland, R. S., Heisler,        Niida, M., Nagao, T., Ikeda, H., et al. 2020, ApJ, 904, 89
+  C. A., & Trevena, J. 2001, ApJ, 556, 121                       Oke, J. B., & Gunn, J. E. 1983, ApJ, 266, 713
+Kocevski, D. D., Onoue, M., Inayoshi, K., et al. 2023, ApJ,      Onoue, M., Kashikawa, N., Willott, C. J., et al. 2017, ApJ,
+  954, L4                                                          847, L15
+Koekemoer, A. M., Faber, S. M., Ferguson, H. C., et al.          Onoue, M., Kashikawa, N., Matsuoka, Y., et al. 2019, ApJ,
+  2011, ApJS, 197, 36                                              880, 77
+Kokorev, V., Fujimoto, S., Labbe, I., et al. 2023, arXiv         Onoue, M., Inayoshi, K., Ding, X., et al. 2023, ApJ, 942,
+  e-prints, arXiv:2308.11610                                       L17
+Kormendy, J., & Ho, L. C. 2013, ARA&A, 51, 511                   Osterbrock, D. E. 1981, ApJ, 249, 462
+Labbe, I., Greene, J. E., Bezanson, R., et al. 2023, arXiv       Palanque-Delabrouille, N., Magneville, C., Yèche, C., et al.
+  e-prints, arXiv:2306.07320                                       2013, A&A, 551, A29
+Laporte, N., Nakajima, K., Ellis, R. S., et al. 2017, ApJ,       Parsa, S., Dunlop, J. S., & McLure, R. J. 2018, MNRAS,
+  851, 40                                                          474, 2904
+Larson, R. L., Finkelstein, S. L., Kocevski, D. D., et al.       Peca, A., Cappelluti, N., Urry, C. M., et al. 2023, ApJ, 943,
+  2023, arXiv e-prints, arXiv:2303.08918                           162
+Leja, J., Carnall, A. C., Johnson, B. D., Conroy, C., &          Peng, C. Y., Ho, L. C., Impey, C. D., & Rix, H.-W. 2002,
+  Speagle, J. S. 2019, ApJ, 876, 3                                 AJ, 124, 266
+Li, Y., Hernquist, L., Robertson, B., et al. 2007, ApJ, 665,     Planck Collaboration, Aghanim, N., Akrami, Y., et al.
+  187                                                              2020, A&A, 641, A6
+Liu, H.-Y., Liu, W.-J., Dong, X.-B., et al. 2019, ApJS, 243,     Pontoppidan, K. M., Barrientes, J., Blome, C., et al. 2022,
+  21                                                               ApJ, 936, L14
+Liu, T., Tozzi, P., Wang, J.-X., et al. 2017, ApJS, 232, 8       Reines, A. E., & Volonteri, M. 2015, ApJ, 813, 82
+Lotz, J. M., Koekemoer, A., Coe, D., et al. 2017, ApJ, 837,      Richards, G. T., Lacy, M., Storrie-Lombardi, L. J., et al.
+  97                                                               2006, ApJS, 166, 470
+Lusso, E., Worseck, G., Hennawi, J. F., et al. 2015,             Romano, M., Grazian, A., Giallongo, E., et al. 2019, A&A,
+  MNRAS, 449, 4204                                                 632, A45
+Madau, P. 1995, ApJ, 441, 18                                     Romano, M., Cassata, P., Morselli, L., et al. 2021, A&A,
+Madau, P., & Haardt, F. 2015, ApJ, 813, L8                         653, A111
+24                                                     Harikane et al.
+
+Sanders, R. L., Shapley, A. E., Topping, M. W., Reddy,          Ueda, Y., Akiyama, M., Hasinger, G., Miyaji, T., &
+  N. A., & Brammer, G. B. 2023, arXiv e-prints,                   Watson, M. G. 2014, ApJ, 786, 104
+  arXiv:2301.06696                                              Valentini, M., Gallerani, S., & Ferrara, A. 2021, MNRAS,
+Shapley, A. E., Reddy, N. A., Kriek, M., et al. 2015, ApJ,        507, 1
+  801, 88                                                       Valiante, R., Agarwal, B., Habouzit, M., & Pezzulli, E.
+Shen, Y., Wu, J., Jiang, L., et al. 2019, ApJ, 873, 35            2017, PASA, 34, e031
+Somerville, R. S., Lee, K., Ferguson, H. C., et al. 2004,       Vanden Berk, D. E., Richards, G. T., Bauer, A., et al. 2001,
+  ApJ, 600, L171                                                  AJ, 122, 549
+Steidel, C. C., Rudie, G. C., Strom, A. L., et al. 2014, ApJ,   Wang, F., Yang, J., Fan, X., et al. 2021, ApJ, 907, L1
+  795, 165                                                      Whittle, M. 1992, ApJS, 79, 49
+Steinhardt, C. L., Jauzac, M., Acebron, A., et al. 2020,        Willott, C. J., Albert, L., Arzoumanian, D., et al. 2010a,
+  ApJS, 247, 64                                                   AJ, 140, 546
+Stern, J., & Laor, A. 2012, MNRAS, 423, 600                     Willott, C. J., Delorme, P., Reylé, C., et al. 2010b, AJ, 139,
+Storey, P. J., & Zeippen, C. J. 2000, MNRAS, 312, 813             906
+Swinbank, A. M., Harrison, C. M., Tiley, A. L., et al. 2019,    Wyithe, J. S. B., & Bolton, J. S. 2011, MNRAS, 412, 1926
+  MNRAS, 487, 381                                               Xu, Y., Ouchi, M., Rauch, M., et al. 2022, ApJ, 929, 134
+Tilvi, V., Pirzkal, N., Malhotra, S., et al. 2016, ApJ, 827,    Yang, J., Wang, F., Fan, X., et al. 2020, ApJ, 897, L14
+  L14                                                           Zappacosta, L., Comastri, A., Civano, F., et al. 2018, ApJ,
+                                                                  854, 33
+Toyouchi, D., Inayoshi, K., Hosokawa, T., & Kuiper, R.
+                                                                Zhang, H., Behroozi, P., Volonteri, M., et al. 2023a,
+  2021, ApJ, 907, 74
+                                                                  MNRAS, 518, 2123
+Trakhtenbrot, B., Netzer, H., Lira, P., & Shemmer, O.
+                                                                —. 2023b, arXiv e-prints, arXiv:2303.08150
+  2011, ApJ, 730, 7
+                                                                Zhang, Y., Ouchi, M., Nakajima, K., et al. 2023c, arXiv
+Treu, T., Roberts-Borsani, G., Bradac, M., et al. 2022,
+                                                                  e-prints, arXiv:2306.07940
+  arXiv e-prints, arXiv:2206.07978
+                                                                Zhang, Y., Ouchi, M., Gebhardt, K., et al. 2023d, arXiv
+Trinca, A., Schneider, R., Valiante, R., et al. 2022,
+                                                                  e-prints, arXiv:2303.02929
+  MNRAS, 511, 616
+                                                                Zhu, Q., Li, Y., Li, Y., et al. 2022, MNRAS, 514, 5583
+Übler, H., Maiolino, R., Curtis-Lake, E., et al. 2023, arXiv
+                                                                Zitrin, A., Labbé, I., Belli, S., et al. 2015, ApJ, 810, L12
+  e-prints, arXiv:2302.06647
+

@@ -62,7 +62,7 @@ from config import (  # noqa: E402
     STD_DPI,
     imbh_mass_from_sigma_metallicity,
 )
-from load_obs import load_cliff_fig14_observations  # noqa: E402
+from load_obs import load_cliff_fig14_observations, load_juodzbalis2026_fig4_observations  # noqa: E402
 from load_output import build_kong_model, load_run_metadata  # noqa: E402
 from plot_common import plot_dir as default_plot_dir  # noqa: E402
 
@@ -101,6 +101,9 @@ FIGURE_07_FILENAME = "Fig.07_sunkMimbh~sunkMgc.pdf"
 HALO_MASS_UNIT_LABEL = r"M_{\odot}"
 SMHM_TOP_AXIS_DEFAULT = True
 BH_TO_STELLAR_MASS_RATIOS = (0.01, 0.1, 1.0)
+REINES_VOLONTERI_2015_NORM = 7.45
+REINES_VOLONTERI_2015_SLOPE = 1.05
+REINES_VOLONTERI_2015_SCATTER_DEX = 0.55
 FH_VALUES = (0.125, 0.184, 0.269, 0.395, 0.580)
 IMBH_CONTOUR_LEVELS = (100.0, 300.0, 1000.0, 3000.0)
 IMBH_SIZE_REFERENCE_MASSES = (100.0, 300.0, 1000.0, 3000.0)
@@ -376,6 +379,10 @@ def _log_error_to_linear(log_value: float, err_lo: float, err_hi: float) -> np.n
     return np.array([[value - 10.0 ** (log_value - lo)], [10.0 ** (log_value + hi) - value]], dtype=float)
 
 
+def _reines_volonteri_2015_mbh(mstar_msun: np.ndarray) -> np.ndarray:
+    return np.power(10.0, REINES_VOLONTERI_2015_NORM + REINES_VOLONTERI_2015_SLOPE * np.log10(mstar_msun / 1.0e11))
+
+
 def _plot_mbh_mstar_observations(ax: plt.Axes, observations: pd.DataFrame) -> None:
     seen_labels: set[str] = set()
     for _, row in observations.iterrows():
@@ -386,17 +393,26 @@ def _plot_mbh_mstar_observations(ax: plt.Axes, observations: pd.DataFrame) -> No
         colour = str(row["color"]).strip() or "0.45"
         marker = str(row["marker"]).strip() or "o"
         group = str(row["plot_group"]).strip().lower()
-        if group == "cliff":
-            label_base = str(row["name"]).strip() or "The Cliff"
-            zorder = 7
-            alpha = 1.0
-            marker_size = 6.5
-        else:
-            label_base = "Cliff Fig.14 comparison points"
-            colour = colour if colour else "0.55"
-            zorder = 5
-            alpha = 0.75
-            marker_size = 5.5
+        label_base = str(row.get("legend_label", "")).strip()
+        if not label_base:
+            if group == "cliff":
+                label_base = str(row["name"]).strip() or "The Cliff"
+            else:
+                label_base = str(row.get("reference", "")).strip() or "Observed comparison points"
+        default_zorder = 7 if group == "cliff" else 5
+        default_alpha = 1.0 if group == "cliff" else 0.75
+        default_marker_size = 6.5 if group == "cliff" else 5.5
+        zorder_value = float(row.get("zorder", np.nan))
+        alpha_value = float(row.get("alpha", np.nan))
+        marker_size_value = float(row.get("marker_size", np.nan))
+        edgewidth_value = float(row.get("marker_edgewidth", np.nan))
+        zorder = int(zorder_value) if np.isfinite(zorder_value) else default_zorder
+        alpha = alpha_value if np.isfinite(alpha_value) else default_alpha
+        marker_size = marker_size_value if np.isfinite(marker_size_value) and marker_size_value > 0.0 else default_marker_size
+        marker_edgecolor = str(row.get("marker_edgecolor", "")).strip()
+        if not marker_edgecolor:
+            marker_edgecolor = "white" if group == "cliff" else colour
+        marker_edgewidth = edgewidth_value if np.isfinite(edgewidth_value) else (0.7 if group == "cliff" else 0.0)
         label = None if label_base in seen_labels else label_base
         seen_labels.add(label_base)
 
@@ -416,8 +432,8 @@ def _plot_mbh_mstar_observations(ax: plt.Axes, observations: pd.DataFrame) -> No
             fmt=marker,
             ms=marker_size,
             mfc=colour,
-            mec="white" if group == "cliff" else colour,
-            mew=0.7 if group == "cliff" else 0.0,
+            mec=marker_edgecolor,
+            mew=marker_edgewidth,
             ecolor=colour,
             elinewidth=1.0,
             capsize=2.5,
@@ -431,6 +447,14 @@ def _plot_mbh_mstar_observations(ax: plt.Axes, observations: pd.DataFrame) -> No
                 "",
                 xy=(x * 0.55, y),
                 xytext=(x * 0.95, y),
+                arrowprops={"arrowstyle": "-|>", "color": colour, "lw": 1.1, "alpha": alpha},
+                zorder=zorder,
+            )
+        if _as_bool(row["logMBH_upper_limit"]):
+            ax.annotate(
+                "",
+                xy=(x, y * 0.55),
+                xytext=(x, y * 0.95),
                 arrowprops={"arrowstyle": "-|>", "color": colour, "lw": 1.1, "alpha": alpha},
                 zorder=zorder,
             )
@@ -624,7 +648,7 @@ def plot_fig03(joined: pd.DataFrame, mass_bin_width_dex: float, add_stellar_mass
     ax.set_xscale("log")
     ax.set_yscale("log")
     ax.set_xlabel(rf"Descendant $z=0$ halo mass [${HALO_MASS_UNIT_LABEL}$]")
-    ax.set_ylabel(r"Stored central BH mass [$M_{\odot}$]")
+    ax.set_ylabel(r"Central BH mass within 1 pc [$M_{\odot}$]")
     ax.set_xlim(left=10.0**edges[0], right=10.0**edges[-1])
     ax.set_ylim(bottom=1.0e2, top=1.0e8)
     if add_stellar_mass_axis:
@@ -687,26 +711,37 @@ def plot_fig04(joined: pd.DataFrame, mass_bin_width_dex: float, observations: pd
     ax.set_xscale("log")
     ax.set_yscale("log")
     ax.set_xlabel(rf"Stellar mass at redshift $z$ from MPB $M_h(z)$ and SMHM [${HALO_MASS_UNIT_LABEL}$]")
-    ax.set_ylabel(r"Stored central BH mass [$M_{\odot}$]")
+    ax.set_ylabel(r"Central BH mass [$M_{\odot}$]")
     ax.set_xlim(left=10.0**x_limit_edges[0], right=10.0**x_limit_edges[-1])
-    ax.set_ylim(bottom=1.0e2, top=1.0e8)
 
     x_line = np.logspace(x_limit_edges[0], x_limit_edges[-1], 256)
+    rv15 = _reines_volonteri_2015_mbh(x_line)
+    rv15_scatter = 10.0**REINES_VOLONTERI_2015_SCATTER_DEX
+    y_limit_values = [plot_rows["M_SMBH_final"].to_numpy(dtype=float), rv15 * rv15_scatter]
+    if observations is not None and len(observations) > 0:
+        obs_log_mbh = observations["logMBH"].to_numpy(dtype=float)
+        obs_err_hi = observations["logMBH_err_hi"].to_numpy(dtype=float)
+        obs_limit = observations["logMBH_upper_limit"].map(_as_bool).to_numpy(dtype=bool)
+        obs_log_top = np.where(obs_limit, obs_log_mbh, obs_log_mbh + np.where(np.isfinite(obs_err_hi), np.maximum(obs_err_hi, 0.0), 0.0))
+        y_limit_values.append(np.power(10.0, obs_log_top[np.isfinite(obs_log_top)]))
+    y_limit_array = np.concatenate([values[np.isfinite(values) & (values > 0.0)] for values in y_limit_values])
+    y_top = 10.0 ** math.ceil(max(8.0, float(np.log10(np.nanmax(y_limit_array)))))
+    ax.set_ylim(bottom=1.0e2, top=y_top)
+
+    ax.fill_between(x_line, rv15 / rv15_scatter, rv15 * rv15_scatter, color="#2ca25f", alpha=0.16, edgecolor="none", label="Reines+Volonteri 2015", zorder=0)
+    ax.plot(x_line, rv15, c="#238b45", lw=1.8, zorder=1)
     for ratio in BH_TO_STELLAR_MASS_RATIOS:
         ratio_label = f"{ratio:g}"
-        ax.plot(
-            x_line,
-            ratio * x_line,
-            c="#7b3294",
-            ls="--",
-            lw=1.1,
-            alpha=0.8,
-            label=rf"$M_{{\rm BH}}/M_\ast={ratio_label}$",
-            zorder=2,
-        )
+        ax.plot(x_line, ratio * x_line, c="#31a354", ls="--", lw=1.0, alpha=0.75, zorder=2)
+        label_x_log = min(float(x_limit_edges[-1]) - 0.35, math.log10(y_top) - math.log10(ratio) - 1.05)
+        label_x_log = max(label_x_log, float(x_limit_edges[0]) + 0.45)
+        label_x = 10.0**label_x_log
+        label_y = ratio * label_x
+        if 1.0e2 < label_y < y_top:
+            ax.text(label_x, label_y, rf"$M_{{\rm BH}}/M_\ast={ratio_label}$", color="#31a354", fontsize=8.5, rotation=33.0, ha="center", va="bottom", clip_on=True, zorder=3)
     if observations is not None and len(observations) > 0:
         _plot_mbh_mstar_observations(ax, observations)
-    ax.legend(loc="lower right", fontsize=7.5, frameon=True, framealpha=0.85)
+    ax.legend(loc="lower right", fontsize=6.2, frameon=True, framealpha=0.85, ncol=2)
     ax.grid(True, alpha=0.3, linestyle=":", which="both")
     return fig
 
@@ -755,7 +790,7 @@ def plot_fig05(joined: pd.DataFrame) -> plt.Figure:
     ax.set_xscale("log")
     ax.set_yscale("log")
     ax.set_xlabel(rf"NSC mass at redshift $z$ [${HALO_MASS_UNIT_LABEL}$]")
-    ax.set_ylabel(r"Stored central BH mass [$M_{\odot}$]")
+    ax.set_ylabel(r"Central BH mass [$M_{\odot}$]")
     ax.grid(True, alpha=0.3, linestyle=":", which="both")
     ax.tick_params(direction="in", right=True, top=True, which="both")
     return fig
@@ -921,6 +956,7 @@ def main() -> None:
     parser.add_argument("--mass-bin-width-dex", type=float, default=0.5, help="Log10 halo-mass bin width.")
     parser.add_argument("--no-smhm-top-axis", action="store_true", help="Do not add the SMHM stellar-mass top x-axis to Fig.03.")
     parser.add_argument("--no-cliff-observations", action="store_true", help="Do not overlay Cliff Fig.14 observational points on Fig.04.")
+    parser.add_argument("--no-juodzbalis2026-observations", action="store_true", help="Do not overlay Juodzbalis et al. 2026 Fig.4 observational points on Fig.04.")
     args = parser.parse_args()
 
     out_dir = args.out_dir.resolve()
@@ -936,9 +972,12 @@ def main() -> None:
     final_redshift = float(metadata.get("final_redshift", 0.0))
     if not np.isfinite(final_redshift) or final_redshift < 0.0:
         raise ValueError(f"run_metadata final_redshift must be finite and non-negative, got {final_redshift!r}.")
-    cliff_observations = None
+    fig04_observation_tables = []
     if not args.no_cliff_observations:
-        cliff_observations = load_cliff_fig14_observations().table
+        fig04_observation_tables.append(load_cliff_fig14_observations().table)
+    if not args.no_juodzbalis2026_observations:
+        fig04_observation_tables.append(load_juodzbalis2026_fig4_observations().table)
+    fig04_observations = pd.concat(fig04_observation_tables, ignore_index=True) if fig04_observation_tables else None
 
     fig01 = plot_fig01(formation)
     path01 = plot_dir / FIGURE_01_FILENAME
@@ -966,7 +1005,7 @@ def main() -> None:
     fig04 = plot_fig04(
         joined,
         mass_bin_width_dex=float(args.mass_bin_width_dex),
-        observations=cliff_observations,
+        observations=fig04_observations,
     )
     path04 = plot_dir / FIGURE_04_FILENAME
     fig04.savefig(path04, dpi=STD_DPI, bbox_inches="tight")

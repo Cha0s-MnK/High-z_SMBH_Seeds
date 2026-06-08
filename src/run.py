@@ -167,11 +167,14 @@ HALO_SUMMARY_BY_Z_COLUMNS = [
     "M_NSC",
     "M_SMBH_init",
     "M_SMBH_final",
+    "z_depos_sampled",
+    "lookback_depos_sampled_gyr",
+    "depos_time_match_delta_gyr",
 ]
 
 RUN_METADATA_NAME = "run_metadata.json"
 HALO_TREE_LOOKUP_NAME = "halo_tree_lookup.csv"
-SCRATCH_DIR_DEFAULT = Path("/lingshan/disk3/subonan/_scratch")
+SCRATCH_DIR = Path("/lingshan/disk3/subonan/_scratch")
 EX_SITU_GAO_ANALYTIC = 0
 EX_SITU_BRANCH_NO_IMPORT = 1
 EX_SITU_BRANCH_IMPORT = 2
@@ -185,6 +188,16 @@ VALID_EVOLUTION_STATUS = {
     STAT_WANDERER_SUNK,
 }
 TIME_ROUNDOFF_TOL_GYR = 1.0e-5
+MIN_RAD_KPC = MIN_RAD_PC * 1.0e-3
+NSC_RAD_KPC = NSC_RAD_PC * 1.0e-3
+
+
+@dataclass(frozen=True)
+class DepositSample:
+    mass_msun: float
+    z_sampled: float
+    lookback_sampled_gyr: float
+    time_match_delta_gyr: float
 
 
 def _ns_tag(ns: float) -> str:
@@ -282,10 +295,10 @@ def _clear_dir_contents(path: Path) -> None:
             child.unlink()
 
 
-def _prepare_scratch_root(path: Path, min_free_gb: float = 0.0) -> Path:
+def _prepare_scratch_root() -> Path:
     """Create and validate the shared transient-work root."""
 
-    scratch_root = Path(path).expanduser().resolve()
+    scratch_root = SCRATCH_DIR.expanduser().resolve()
     scratch_root.mkdir(parents=True, exist_ok=True)
     probe_path = None
     try:
@@ -304,14 +317,7 @@ def _prepare_scratch_root(path: Path, min_free_gb: float = 0.0) -> Path:
                 probe_path.unlink()
             except FileNotFoundError:
                 pass
-    usage = shutil.disk_usage(scratch_root)
-    free_gb = usage.free / 1024.0**3
-    print(f"SCRATCH_ROOT {scratch_root} free_gb={free_gb:.2f}")
-    if float(min_free_gb) > 0.0 and free_gb < float(min_free_gb):
-        raise OSError(
-            f"Scratch root {scratch_root} has only {free_gb:.2f} GB free, "
-            f"below requested --min-scratch-free-gb={float(min_free_gb):.2f}."
-        )
+    print(f"SCRATCH_ROOT {scratch_root}")
     return scratch_root
 
 
@@ -567,6 +573,88 @@ def _shift_depos_row_lookback(row: str, lookback_shift_gyr: float) -> str:
     return " ".join(parts)
 
 
+def _sample_deposited_stellar_mass(
+    depos_path: Path,
+    *,
+    z_out: float,
+    aperture_kpc: float = NSC_RAD_KPC,
+    final_redshift: float = 0.0,
+) -> DepositSample:
+    """Sample the cumulative evolved deposited stellar mass inside one aperture."""
+
+    z_value = check_finite_non_negative(float(z_out), name="deposit sample redshift")
+    aperture = check_finite_positive(float(aperture_kpc), name="deposit sample aperture")
+    t_final = float(Redshift2CosmicAge(float(final_redshift), time_unit="Gyr"))
+    t_z0 = float(Redshift2CosmicAge(0.0, time_unit="Gyr"))
+    target_time = float(Redshift2CosmicAge(z_value, time_unit="Gyr"))
+
+    if not Path(depos_path).exists():
+        raise FileNotFoundError(f"Missing deposit profile for NSC sampling: {depos_path}")
+
+    blocks: Dict[float, List[tuple[int, float, float, float]]] = {}
+    for line in _iter_numeric_text_lines(depos_path):
+        parts = [float(value) for value in line.split()]
+        if len(parts) >= 8:
+            lookback, bin_index, r_inner, r_outer, m_star_with_evo = (
+                parts[1],
+                int(round(parts[2])),
+                parts[3],
+                parts[4],
+                parts[7],
+            )
+        elif len(parts) >= 7:
+            lookback, bin_index, r_inner, r_outer, m_star_with_evo = (
+                parts[0],
+                int(round(parts[1])),
+                parts[2],
+                parts[3],
+                parts[6],
+            )
+        else:
+            raise ValueError(f"Malformed deposit row in {depos_path}: {line}")
+        lookback = _checked_non_negative_time(lookback, "Deposit lookback time")
+        blocks.setdefault(float(lookback), []).append((int(bin_index), float(r_inner), float(r_outer), float(m_star_with_evo)))
+
+    if not blocks:
+        return DepositSample(0.0, float(z_value), _checked_non_negative_time(t_z0 - target_time, "Deposit sample lookback"), 0.0)
+
+    best_lookback = min(
+        blocks.keys(),
+        key=lambda lb: (abs((t_final - float(lb)) - target_time), t_final - float(lb)),
+    )
+    block_time = t_final - float(best_lookback)
+    block = np.asarray(sorted(blocks[best_lookback], key=lambda item: item[0]), dtype=float)
+    if block.ndim != 2 or block.shape[1] != 4:
+        raise ValueError(f"Malformed deposit block in {depos_path} at lookback={best_lookback}")
+    bin_index = block[:, 0].astype(int)
+    if not np.array_equal(bin_index, np.arange(1, len(bin_index) + 1, dtype=int)):
+        raise ValueError(f"Deposit block in {depos_path} has non-contiguous bin indices at lookback={best_lookback}")
+    r_inner = block[:, 1]
+    r_outer = block[:, 2]
+    if abs(float(r_inner[0])) > 1.0e-12 or abs(float(r_outer[0]) - MIN_RAD_KPC) > 1.0e-8:
+        raise ValueError(
+            f"Deposit profile {depos_path} does not preserve the fixed [0, 1 pc] first bin "
+            f"at lookback={best_lookback}: r_inner={r_inner[0]}, r_outer={r_outer[0]}"
+        )
+    if aperture < float(r_outer[0]) - 1.0e-12:
+        raise ValueError(
+            f"Requested aperture {aperture:.10e} kpc is inside the fixed first deposit bin "
+            f"outer edge {float(r_outer[0]):.10e} kpc."
+        )
+    if np.any(np.diff(r_outer) <= 0.0):
+        raise ValueError(f"Deposit block in {depos_path} has non-increasing outer radii at lookback={best_lookback}")
+    shell = np.maximum(block[:, 3], 0.0)
+    cumulative = np.cumsum(shell, dtype=float)
+    sample_mass = float(np.interp(aperture, np.r_[0.0, r_outer], np.r_[0.0, cumulative], right=float(cumulative[-1])))
+    sample_lookback_z0 = _checked_non_negative_time(t_z0 - block_time, "Deposit sampled lookback to z=0")
+    return DepositSample(
+        mass_msun=check_finite_non_negative(sample_mass, name="sampled deposited NSC mass"),
+        z_sampled=float(CosmicAge2Redshift(block_time, time_unit="Gyr")),
+        lookback_sampled_gyr=float(sample_lookback_z0),
+        time_match_delta_gyr=float(abs(block_time - target_time)),
+    )
+
+
 def _combine_per_halo_outputs(
     per_halo_dir: Path,
     ns_output_dir: Path,
@@ -656,10 +744,12 @@ def _build_halo_summary_table(
     status: np.ndarray,
     m_final: np.ndarray,
     M_IMBH_final: np.ndarray,
+    per_halo_dir: Path,
+    ns_tag: str,
     central_history_by_halo: Dict[int, Sequence[dict]] | None = None,
     eddington_ratio: float = 0.0,
 ) -> pd.DataFrame:
-    """Build one halo-level summary table, including the SMBH estimate."""
+    """Build one halo-level summary table, including sampled NSC and SMBH masses."""
 
     all_rows_arr = np.asarray(all_rows, dtype=float)
     if all_rows_arr.ndim != 2 or all_rows_arr.shape[1] <= 12:
@@ -695,10 +785,14 @@ def _build_halo_summary_table(
         n_sunk_gc = int(np.sum(s == STAT_SUNK))
         n_sunk_wanderer = int(np.sum(s == STAT_WANDERER_SUNK))
         central_events = list((central_history_by_halo or {}).get(int(hid0), []))
-        m_nsc, m_smbh_init, m_smbh_final = _central_masses_at_redshift(
+        m_smbh_init, m_smbh_final = _central_bh_masses_at_redshift(
             central_events,
             0.0,
             eddington_ratio,
+        )
+        depos_sample = _sample_deposited_stellar_mass(
+            _tmp_product_path(Path(per_halo_dir), "depos_halo", int(hid0), str(ns_tag)),
+            z_out=0.0,
         )
         _warn_if_central_bh_high(m_smbh_final, context=f"halo {int(hid0)} at z=0")
         sunk_mask = np.isin(s, np.asarray([STAT_SUNK, STAT_WANDERER_SUNK], dtype=int))
@@ -719,7 +813,7 @@ def _build_halo_summary_table(
                 "m_gc_final_total_msun": float(np.sum(m_final_halo[survivor_mask])),
                 "M_IMBH_init_tot": float(np.sum(imbh_init)),
                 "M_IMBH_final_tot": m_imbh_final_tot,
-                "M_NSC": m_nsc,
+                "M_NSC": float(depos_sample.mass_msun),
                 "M_SMBH_init": float(m_smbh_init),
                 "M_SMBH_final": float(m_smbh_final),
             }
@@ -778,30 +872,29 @@ def _interpolate_mpb_logmh_at_redshift(mpb_rows: np.ndarray, z_out: float) -> tu
 def _warn_if_central_bh_high(m_bh_msun: float, *, context: str) -> None:
     if central_bh_mass_warning_needed(m_bh_msun):
         warnings.warn(
-            f"Stored central BH mass exceeds {CENTRAL_BH_WARNING_MASS_MSUN:.3e} Msun "
+            f"Central BH mass exceeds {CENTRAL_BH_WARNING_MASS_MSUN:.3e} Msun "
             f"for {context}: M_SMBH_final={float(m_bh_msun):.6e} Msun",
             RuntimeWarning,
         )
 
 
-def _central_masses_at_redshift(events: Sequence[dict], z_out: float, eddington_ratio: float) -> tuple[float, float, float]:
-    """Sample stored central stellar and BH masses at one output redshift."""
+def _central_bh_masses_at_redshift(events: Sequence[dict], z_out: float, eddington_ratio: float) -> tuple[float, float]:
+    """Sample stored central BH masses at one output redshift."""
 
     z_value = check_finite_non_negative(z_out, name="Output redshift z_out")
     eddington_ratio = check_eddington_ratio(eddington_ratio)
     if not events:
-        return 0.0, 0.0, 0.0
+        return 0.0, 0.0
     target_time = float(Redshift2CosmicAge(z_value, time_unit="Gyr"))
     eligible = [
         event for event in events
         if float(event.get("t_cosmic_gyr", -np.inf)) <= target_time + 1.0e-10
     ]
     if not eligible:
-        return 0.0, 0.0, 0.0
+        return 0.0, 0.0
     latest = max(eligible, key=lambda item: float(item.get("t_cosmic_gyr", 0.0)))
     latest_time = _checked_non_negative_time(float(latest.get("t_cosmic_gyr", target_time)), "Central-event cosmic time")
     dt_gyr = _checked_non_negative_time(target_time - latest_time, "Central BH growth timestep")
-    m_nsc = check_finite_non_negative(float(latest.get("M_NSC", 0.0)), name="Central NSC mass")
     m_smbh_init = check_finite_non_negative(float(latest.get("M_SMBH_init", 0.0)), name="Initial central BH mass")
     m_smbh_final = float(grow_eddington_mass_msun(
         check_finite_non_negative(float(latest.get("M_SMBH_current", 0.0)), name="Current central BH mass"),
@@ -810,7 +903,6 @@ def _central_masses_at_redshift(events: Sequence[dict], z_out: float, eddington_
         overflow_policy="warn_inf",
     ))
     return (
-        m_nsc,
         m_smbh_init,
         m_smbh_final,
     )
@@ -857,13 +949,16 @@ def _build_halo_summary_by_z_table(
                 mpb_by_halo[int(hid0)],
                 float(z_out),
             )
-            m_nsc_z, m_smbh_init_z, m_smbh_final_z = _central_masses_at_redshift(
+            m_smbh_init_z, m_smbh_final_z = _central_bh_masses_at_redshift(
                 list((central_history_by_halo or {}).get(int(hid0), [])),
                 float(z_out),
                 eddington_ratio,
             )
+            depos_sample = _sample_deposited_stellar_mass(
+                _tmp_product_path(Path(per_halo_dir), "depos_halo", int(hid0), str(ns_tag)),
+                z_out=float(z_out),
+            )
             _warn_if_central_bh_high(m_smbh_final_z, context=f"halo {int(hid0)} at z={float(z_out):g}")
-            m_nsc_z = check_finite_non_negative(m_nsc_z, name="NSC mass")
             m_smbh_init_z = check_finite_non_negative(m_smbh_init_z, name="Initial central BH mass")
             m_smbh_final_z = check_finite_non_negative(m_smbh_final_z, name="Final central BH mass")
             rows.append(
@@ -873,9 +968,12 @@ def _build_halo_summary_by_z_table(
                     "lookback_to_z0_gyr": float(lookback_to_z0_gyr),
                     "halo_mass_available": int(halo_mass_available),
                     "logMh_z_msun": float(logmh_z),
-                    "M_NSC": float(m_nsc_z),
+                    "M_NSC": float(depos_sample.mass_msun),
                     "M_SMBH_init": float(m_smbh_init_z),
                     "M_SMBH_final": float(m_smbh_final_z),
+                    "z_depos_sampled": float(depos_sample.z_sampled),
+                    "lookback_depos_sampled_gyr": float(depos_sample.lookback_sampled_gyr),
+                    "depos_time_match_delta_gyr": float(depos_sample.time_match_delta_gyr),
                 }
             )
 
@@ -960,38 +1058,50 @@ def _read_full_tree_numeric(tree_path: Path) -> np.ndarray:
     """Read the fixed-tree columns needed by formation/evolution mapping."""
 
     rows: List[List[object]] = []
-    skipped = 0
+    schema = "float, int, int, int, int, float, float, float, float"
     with Path(tree_path).open("r", encoding="utf-8") as handle:
-        for line in handle:
+        for line_no, line in enumerate(handle, start=1):
+            row_text = line.rstrip("\n")
             stripped = line.strip()
             if (not stripped) or stripped.startswith("#") or stripped.lower().startswith("logmh"):
                 continue
             parts = stripped.split()
             if len(parts) < 9:
-                skipped += 1
-                continue
-            try:
-                rows.append(
-                    [
-                        float(parts[0]),
-                        int(parts[1]),
-                        int(parts[2]),
-                        int(parts[3]),
-                        int(parts[4]),
-                        float(parts[5]),
-                        float(parts[6]),
-                        float(parts[7]),
-                        float(parts[8]),
-                    ]
+                warnings.warn(
+                    f"Malformed fixed-tree row in {Path(tree_path)} at physical line {line_no}: "
+                    f"found {len(parts)} column(s), expected at least 9; row={row_text}",
+                    RuntimeWarning,
+                    stacklevel=2,
                 )
-            except ValueError:
-                skipped += 1
                 continue
-    if skipped:
-        warnings.warn(
-            f"Skipped {skipped} malformed fixed-tree row(s) while reading {Path(tree_path)}.",
-            RuntimeWarning,
-        )
+            if len(parts) > 9:
+                warnings.warn(
+                    f"Fixed-tree row in {Path(tree_path)} at physical line {line_no} has "
+                    f"{len(parts)} column(s); using the first 9 columns; row={row_text}",
+                    RuntimeWarning,
+                    stacklevel=2,
+                )
+            try:
+                parsed = [
+                    float(parts[0]),
+                    int(parts[1]),
+                    int(parts[2]),
+                    int(parts[3]),
+                    int(parts[4]),
+                    float(parts[5]),
+                    float(parts[6]),
+                    float(parts[7]),
+                    float(parts[8]),
+                ]
+            except ValueError as exc:
+                warnings.warn(
+                    f"Malformed fixed-tree row in {Path(tree_path)} at physical line {line_no}: "
+                    f"expected first 9 columns as {schema}; parser error={exc}; row={row_text}",
+                    RuntimeWarning,
+                    stacklevel=2,
+                )
+                continue
+            rows.append(parsed)
     if not rows:
         return np.zeros((0, 9), dtype=object)
     arr = np.asarray(rows, dtype=object)
@@ -1751,13 +1861,23 @@ def _state_from_formation_row(global_index: int, row: np.ndarray) -> dict:
 def _extended_gcini_rows_from_states(states: Sequence[dict]) -> np.ndarray:
     rows: List[List[float]] = []
     for state in states:
-        current_mass = check_finite_positive(float(state["current_mass_msun"]), name="live continuation current mass")
+        deposit_only = bool(state.get("deposit_only", False))
+        if deposit_only:
+            current_mass = 1.0
+        else:
+            current_mass = check_finite_positive(float(state["current_mass_msun"]), name="live continuation current mass")
         current_z = check_finite_non_negative(float(state["current_z"]), name="live continuation redshift")
-        current_r = check_finite_positive(float(state["current_r_kpc"]), name="live continuation radius")
+        current_r = MIN_RAD_KPC if deposit_only else check_finite_positive(float(state["current_r_kpc"]), name="live continuation radius")
         gc_radius_pc = check_finite_positive(float(state["gc_radius_pc"]), name="live continuation GC half-mass radius")
         sigma_h_msun_pc2 = check_finite_positive(float(state["sigma_h_msun_pc2"]), name="live continuation GC half-mass surface density")
-        M_IMBH_init = check_finite_non_negative(float(state["M_IMBH_init"]), name="live continuation initial IMBH mass")
-        M_IMBH_current = check_finite_non_negative(float(state["M_IMBH_current"]), name="live continuation current IMBH mass")
+        M_IMBH_init = 0.0 if deposit_only else check_finite_non_negative(float(state["M_IMBH_init"]), name="live continuation initial IMBH mass")
+        M_IMBH_current = 0.0 if deposit_only else check_finite_non_negative(float(state["M_IMBH_current"]), name="live continuation current IMBH mass")
+        depo_channels = np.zeros(3, dtype=float)
+        if deposit_only:
+            depo_channels = np.asarray(state.get("depo_channels_msun", np.zeros(3, dtype=float)), dtype=float)
+            if depo_channels.shape != (3,):
+                raise ValueError("deposit-only continuation states must carry three deposited-mass channels.")
+            _check_array(depo_channels, "deposit-only continuation channels", non_negative=True)
         rows.append(
             [
                 float(state["hid_z0"]),
@@ -1776,9 +1896,30 @@ def _extended_gcini_rows_from_states(states: Sequence[dict]) -> np.ndarray:
                 M_IMBH_init,
                 M_IMBH_current,
                 float(state["global_index"]),
+                float(depo_channels[0]),
+                float(depo_channels[1]),
+                float(depo_channels[2]),
+                1.0 if deposit_only else 0.0,
             ]
         )
     return np.asarray(rows, dtype=float)
+
+
+def _deposit_only_state_from_state(state: dict, channels_msun: np.ndarray, *, current_z: float) -> dict:
+    channels = np.asarray(channels_msun, dtype=float)
+    if channels.shape != (3,):
+        raise ValueError("Imported deposit states require three channel masses.")
+    _check_array(channels, "imported deposited stellar mass channels", non_negative=True)
+    imported = dict(state)
+    imported["global_index"] = -abs(int(state.get("global_index", 1)))
+    imported["current_mass_msun"] = 1.0
+    imported["current_z"] = check_finite_non_negative(float(current_z), name="imported deposit redshift")
+    imported["current_r_kpc"] = MIN_RAD_KPC
+    imported["M_IMBH_init"] = 0.0
+    imported["M_IMBH_current"] = 0.0
+    imported["deposit_only"] = True
+    imported["depo_channels_msun"] = channels.astype(float)
+    return imported
 
 
 def _required_branch_events(tree_rows: np.ndarray, initial_branches: set[int], mpb_branch: int) -> Dict[int, BranchMergerEvent]:
@@ -1955,7 +2096,7 @@ def _evolve_one_segmented_halo_task(
                 overflow_policy="warn_inf",
             ))
             child_nsc = check_finite_non_negative(float(child_result["M_NSC"]), name="child-branch NSC mass")
-            if import_branch_central_masses and (child_nsc > 0.0 or child_smbh_current > 0.0):
+            if import_branch_central_masses and child_smbh_current > 0.0:
                 event_order += 1
                 central_deltas.append(
                     {
@@ -1963,16 +2104,22 @@ def _evolve_one_segmented_halo_task(
                         "status": 0,
                         "t_cosmic_gyr": float(event.t_merge_gyr),
                         "redshift": float(event.z_merge),
-                        "delta_M_NSC": child_nsc,
+                        "delta_M_NSC": 0.0,
                         "delta_M_SMBH_init": check_finite_non_negative(float(child_result["M_SMBH_init"]), name="child-branch initial BH mass"),
                         "delta_M_SMBH_entry": check_finite_non_negative(float(child_result["M_SMBH_entry"]), name="child-branch entry BH mass"),
                         "delta_M_SMBH_current": float(child_smbh_current),
                         "event_order": event_order,
                         "source_branch_id": int(child_branch),
                         "recipient_branch_id": int(branch),
-                        "event_type": "branch_import",
+                        "event_type": "branch_bh_import",
                     }
                 )
+            if import_branch_central_masses:
+                for imported_depo in child_result.get("depo_imports", []):
+                    continued_depo = dict(imported_depo)
+                    continued_depo["current_z"] = float(event.z_merge)
+                    continued_depo["current_r_kpc"] = MIN_RAD_KPC
+                    live_states.append(continued_depo)
             for survivor in child_result["survivors"]:
                 continued = dict(survivor)
                 continued["current_r_kpc"] = check_finite_positive(event.r_accretion_kpc, name="branch accretion radius")
@@ -1981,6 +2128,7 @@ def _evolve_one_segmented_halo_task(
 
         final_redshift = 0.0 if branch == int(mpb_branch) else check_finite_non_negative(events_by_source[branch].z_merge, name="branch final redshift")
         survivors: List[dict] = []
+        depo_imports: List[dict] = []
 
         if live_states:
             for state in live_states:
@@ -2002,7 +2150,7 @@ def _evolve_one_segmented_halo_task(
             _write_branch_tree(tree_segment, tree_rows_arr, branch)
             depos_segment = _tmp_product_path(tmp_work_dir_p, "depos_branch", int(hz0), ns_tag, branch_id=branch)
             gcfin_segment = _tmp_product_path(tmp_work_dir_p, "final_gcs_branch", int(hz0), ns_tag, branch_id=branch)
-            gcfin_arr, _, local_central, local_imbh_inventory = evolve_single_halo(
+            gcfin_arr, depo_arr, local_central, local_imbh_inventory = evolve_single_halo(
                 ts_m=ts_m,
                 ts_r=ts_r,
                 gcini_path=gcini_segment,
@@ -2022,15 +2170,30 @@ def _evolve_one_segmented_halo_task(
                 t_z0 - float(Redshift2CosmicAge(float(final_redshift), time_unit="Gyr")),
                 "branch deposit lookback shift",
             )
-            add_depos_rows(depos_segment, shift_gyr)
+            if branch == int(mpb_branch):
+                add_depos_rows(depos_segment, shift_gyr)
             for event in local_central:
                 event_order += 1
                 central_deltas.append({**event, "event_order": event_order, "branch_id": branch, "event_type": "local_sink"})
 
-            for state, out_row in zip(live_states, gcfin_arr):
+            for state, out_row, depo_i in zip(live_states, gcfin_arr, depo_arr):
+                if bool(state.get("deposit_only", False)):
+                    if branch != int(mpb_branch):
+                        channels_msun = 1.0e5 * np.asarray(depo_i[0, :], dtype=float)
+                        if float(np.sum(channels_msun)) > 0.0:
+                            depo_imports.append(
+                                _deposit_only_state_from_state(state, channels_msun, current_z=float(final_redshift))
+                            )
+                    continue
                 status_i = int(out_row[1])
                 m_stellar = check_finite_non_negative(float(out_row[2]), name="segmented survivor stellar mass")
                 M_IMBH_current = check_finite_non_negative(float(out_row[8]), name="segmented survivor IMBH mass")
+                if branch != int(mpb_branch):
+                    channels_msun = 1.0e5 * np.asarray(depo_i[0, :], dtype=float)
+                    if float(np.sum(channels_msun)) > 0.0:
+                        depo_imports.append(
+                            _deposit_only_state_from_state(state, channels_msun, current_z=float(final_redshift))
+                        )
                 if status_i in (1, -4) and branch != int(mpb_branch):
                     if status_i == -4:
                         current_mass = M_IMBH_current
@@ -2074,6 +2237,7 @@ def _evolve_one_segmented_halo_task(
             "M_SMBH_entry": M_SMBH_entry_branch,
             "M_SMBH_current": M_SMBH_current,
             "t_smbh_current_gyr": t_branch_final,
+            "depo_imports": depo_imports,
         }
         memo[branch] = result
         return result
@@ -2397,10 +2561,12 @@ def _run_single_ns_pipeline(
         status=status,
         m_final=m_final,
         M_IMBH_final=M_IMBH_final,
+        per_halo_dir=tmp_gcini_dir,
+        ns_tag=ns_tag,
         central_history_by_halo=central_history_by_halo,
         eddington_ratio=eddington_ratio,
     )
-    halo_summary_df.to_csv(ns_output_dir / f"haloSummary_ns{ns_tag}.csv", index=False)
+    halo_summary_df.to_csv(ns_output_dir / f"haloSummary_ns{ns_tag}.csv", index=False, float_format="%.17g")
     halo_summary_by_z_df = _build_halo_summary_by_z_table(
         all_rows=all_rows,
         status=status,
@@ -2412,7 +2578,7 @@ def _run_single_ns_pipeline(
         central_history_by_halo=central_history_by_halo,
         eddington_ratio=eddington_ratio,
     )
-    halo_summary_by_z_df.to_csv(ns_output_dir / _ns_product_name("halo_summary_by_z", ns), index=False)
+    halo_summary_by_z_df.to_csv(ns_output_dir / _ns_product_name("halo_summary_by_z", ns), index=False, float_format="%.17g")
     return float(ns), allcat[:, 0].astype(int), summary_df, halo_summary_df, halo_summary_by_z_df
 
 
@@ -2440,7 +2606,7 @@ def main() -> None:
     # Physics/evolution controls used by the active Python GCevo rewrite.
     parser.add_argument("--ts-m", type=float, default=0.2, help="adaptive mass-loss timestep factor for evo")
     parser.add_argument("--ts-r", type=float, default=0.2, help="adaptive orbital-decay timestep factor for evo")
-    parser.add_argument("--out_z", "--extra_out_z_list", dest="out_z", type=str, default=OUT_Z_DEFAULT, help=("comma-separated output redshifts for halo-level "
+    parser.add_argument("--out_z", dest="out_z", type=str, default=OUT_Z_DEFAULT, help=("comma-separated output redshifts for halo-level "
                         "sunk-BH and NSC-mass summaries; z=0 is always included automatically"))
     parser.add_argument(
         "--Eddington",
@@ -2461,8 +2627,8 @@ def main() -> None:
         default=EX_SITU_GAO_ANALYTIC,
         help=(
             "ex-situ GC treatment: 0 Gao+2024-style analytic survival for non-MPB GCs; "
-            "1 branch evolution without importing satellite central NSC/BH masses; "
-            "2 branch evolution with satellite central NSC/BH import"
+            "1 branch evolution without importing satellite central BH or sunk-stellar deposits; "
+            "2 branch evolution with satellite central BH and fixed-bin-1 sunk-stellar deposit import"
         ),
     )
     parser.add_argument("--run-all", type=int, default=1, help="if 1, process all halos in the tree set; if 0, apply the mass window and halo count below")
@@ -2471,18 +2637,6 @@ def main() -> None:
     parser.add_argument("--n-halos", type=int, default=10, help="maximum number of halos to run when --run-all=0")
     parser.add_argument("--jobs", type=int, default=1, help="Parallel halo-evolution workers per N_s run.")
     parser.add_argument("--ns-jobs", type=int, default=1, help="Concurrent N_s pipelines.")
-    parser.add_argument(
-        "--scratch-dir",
-        type=Path,
-        default=SCRATCH_DIR_DEFAULT,
-        help="Shared root directory under which one unique transient-work directory is created per run.",
-    )
-    parser.add_argument(
-        "--min-scratch-free-gb",
-        type=float,
-        default=0.0,
-        help="Abort before running if the selected scratch filesystem has less than this many GB free; 0 disables the check.",
-    )
     parser.add_argument(
         "--plot_Gao+2024",
         dest="plot_gao2023",
@@ -2541,7 +2695,7 @@ def main() -> None:
         # These directories are only transient working areas for the formation
         # and per-halo evolution stages. They no longer contain any copied or
         # linked copies of the raw Gao+2024 input data.
-        scratch_root = _prepare_scratch_root(args.scratch_dir, args.min_scratch_free_gb)
+        scratch_root = _prepare_scratch_root()
         run_scratch_dir = _make_run_scratch_dir(scratch_root)
         stage_root = run_scratch_dir / "main_spatial"
         tmp_gcini_root = run_scratch_dir / "gcini"
@@ -2665,11 +2819,11 @@ def main() -> None:
         _combine_all_ns_outputs(output_dir=output_dir, ns_values=ns_values)
 
         summary = pd.concat(summary_parts, ignore_index=True)
-        summary.to_csv(output_dir / "python_evo_summary.csv", index=False)
+        summary.to_csv(output_dir / "python_evo_summary.csv", index=False, float_format="%.17g")
         halo_summary = pd.concat(halo_summary_parts, ignore_index=True)
-        halo_summary.to_csv(output_dir / "haloSummary_all.csv", index=False)
+        halo_summary.to_csv(output_dir / "haloSummary_all.csv", index=False, float_format="%.17g")
         halo_summary_by_z = pd.concat(halo_summary_by_z_parts, ignore_index=True)
-        halo_summary_by_z.to_csv(output_dir / "haloSummaryByZ_all.csv", index=False)
+        halo_summary_by_z.to_csv(output_dir / "haloSummaryByZ_all.csv", index=False, float_format="%.17g")
         central_warning_values = pd.concat(
             [
                 halo_summary[["M_SMBH_final"]],
@@ -2705,8 +2859,8 @@ def main() -> None:
             "ex_situ_mode": int(args.ex_situ),
             "ex_situ_mode_definition": {
                 "0": "Gao+2024-style analytic survival/disruption for non-MPB GCs; MPB GCs use active dynamical NSC evolution",
-                "1": "branch evolution with surviving non-central GCs/wanderers released at 0.5 Rvir; satellite central NSC/BH masses are not imported",
-                "2": "branch evolution with surviving non-central GCs/wanderers released at 0.5 Rvir; satellite central NSC/BH masses are imported",
+                "1": "branch evolution with surviving non-central GCs/wanderers released at 0.5 Rvir; satellite central BH masses and sunk-stellar deposits are not imported",
+                "2": "branch evolution with surviving non-central GCs/wanderers released at 0.5 Rvir; satellite central BH masses and fixed-bin-1 sunk-stellar deposits are imported",
             },
             "eff_rad_catalogue_fallback_policy": "catalogue rows with missing matches, zero SFR, invalid radii/fractions, unresolved stellar components, or inconsistent aperture estimates fall back to empirical",
             "run_all": int(args.run_all),
@@ -2714,8 +2868,10 @@ def main() -> None:
             "log_mh_max": float(args.log_mh_max),
             "n_halos": int(args.n_halos),
             "ns_values": [float(v) for v in ns_values],
-            "nsc_radius_pc": float(NSC_RADIUS_PC),
-            "nsc_radius_kpc": float(NSC_RADIUS_PC) * 1.0e-3,
+            "min_rad_pc": float(MIN_RAD_PC),
+            "min_rad_kpc": float(MIN_RAD_KPC),
+            "nsc_rad_pc": float(NSC_RAD_PC),
+            "nsc_rad_kpc": float(NSC_RAD_KPC),
             "initial_imbh_mass_column": "M_IMBH_init",
             "final_imbh_mass_column": "M_IMBH_final",
             "initial_imbh_total_column": "M_IMBH_init_tot",
@@ -2731,8 +2887,9 @@ def main() -> None:
                 "over rows with status == 1 only."
             ),
             "M_NSC_definition": (
-                "Cumulative stellar mass carried into r <= NSC_RADIUS_PC by intact GCs; "
-                "terminal NSC transfers are stored in M_NSC and are not added to deposited radial bookkeeping."
+                "Cumulative evolved deposited stellar mass sampled from m_star_with_evo_msun inside "
+                f"{float(NSC_RAD_PC):g} pc. The fixed 0-1 pc sink/bin edge is included through the "
+                "deposited radial bookkeeping, not through a separate public sunk-stellar column."
             ),
             "M_IMBH_init_definition": "Initial IMBH seed mass assigned at GC formation.",
             "M_IMBH_final_definition": "Final GC-line BH mass without non-central Eddington growth; for sunk rows this is the central drop-in mass.",
@@ -2745,14 +2902,14 @@ def main() -> None:
             ),
             "deposited_mass_bookkeeping": (
                 "depos_ns*.dat and depos_all.dat retain radial stellar mass-loss, stripping, exhaustion, "
-                "and tidal-disruption profiles outside the terminal NSC-transfer channel. "
-                "For non-IMBH GCs that are torn after ending inside the 6 pc aperture, the final residual "
-                "stellar mass is terminal but is not added to depos or M_NSC."
+                "tidal-disruption, and fixed 1 pc sink-deposit profiles. The first radial bin is always "
+                "[0, 1e-3] kpc; public M_NSC is sampled from the evolved stellar channel inside NSC_RAD_PC."
             ),
             "haloSummaryByZ_definition": (
-                "Redshift-resolved central NSC and central BH state. "
+                "Redshift-resolved deposited stellar NSC sample and central BH state. "
                 "Non-central IMBH inventories are not included in haloSummaryByZ; "
-                "z=0 total BH inventory is stored in M_IMBH_final_tot in haloSummary."
+                "z=0 total BH inventory is stored in M_IMBH_final_tot in haloSummary. "
+                "Deposit-sampling diagnostics record the closest deposited-profile block used for each z_out."
             ),
             "plot_schema": {
                 "finalGCs": list(COMBINED_FINAL_GC_HEADER.splitlines()[0].split()),
@@ -2781,7 +2938,8 @@ def main() -> None:
         elif int(args.ex_situ) == EX_SITU_BRANCH_IMPORT:
             metadata["ex_situ_model"] = {
                 "branch_continuation": True,
-                "central_masses_imported_at_branch_merger": ["M_NSC", "M_SMBH_current"],
+                "central_masses_imported_at_branch_merger": ["M_SMBH_current"],
+                "stellar_deposits_imported_at_branch_merger": "child fixed-bin-1 deposited stellar components only",
                 "surviving_branch_GCs_released_to_recipient": True,
                 "release_radius_fraction_of_recipient_Rv": 0.5,
                 "redshift_resolved_noncentral_imbh_inventory": False,

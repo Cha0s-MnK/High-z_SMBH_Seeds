@@ -57,9 +57,10 @@ NUM_PROC = 16
 OUT_DIR  = "/lingshan/disk3/subonan/_output"
 STD_DPI  = 512
 
-# Single physical aperture for the nuclear star cluster proxy and GC sink.
-# Units: pc.  Code that needs kpc should use ``NSC_RADIUS_PC * 1.0e-3``.
-NSC_RADIUS_PC = 1.0
+# Fixed inner aperture/bin edge and public stellar NSC aperture.
+# Units: pc.  Code that needs kpc should multiply by 1.0e-3 locally.
+MIN_RAD_PC = 1.0
+NSC_RAD_PC = 6.0
 
 EDDINGTON_EPSILON = 0.1
 CENTRAL_BH_WARNING_MASS_MSUN = 1.0e12

@@ -1,0 +1,1066 @@
+                                                 Draft version September 18, 2015
+                                                 Preprint typeset using LATEX style emulateapj v. 5/2/11
+
+
+
+
+                                                RELATIONS BETWEEN CENTRAL BLACK HOLE MASS AND TOTAL GALAXY STELLAR MASS IN THE
+                                                                               LOCAL UNIVERSE
+                                                                                                           Amy E. Reines1
+                                                            Department of Astronomy, University of Michigan, 1085 South University Avenue, Ann Arbor, MI 48109, USA
+                                                                                                                 and
+                                                                                                           Marta Volonteri
+arXiv:1508.06274v2 [astro-ph.GA] 17 Sep 2015
+
+
+
+
+                                                Institut dAstrophysique de Paris, Sorbonne Universitès, UPMC Univ Paris 6 et CNRS, UMR 7095, 98 bis bd Arago, 75014 Paris, France
+
+                                                                                                    Draft version September 18, 2015
+
+                                                                                                      ABSTRACT
+                                                          Scaling relations between central black hole (BH) mass and host galaxy properties are of fundamental
+                                                        importance to studies of BH and galaxy evolution throughout cosmic time. Here we investigate the
+                                                        relationship between BH mass and host galaxy total stellar mass using a sample of 262 broad-line
+                                                        active galactic nuclei (AGN) in the nearby Universe (z < 0.055), as well as 79 galaxies with dynamical
+                                                        BH masses. The vast majority of our AGN sample is constructed using Sloan Digital Sky Survey
+                                                        spectroscopy and searching for Seyfert-like narrow-line ratios and broad Hα emission. BH masses are
+                                                        estimated using standard virial techniques. We also include a small number of dwarf galaxies with
+                                                        total stellar masses Mstellar . 109.5 M⊙ and a sub-sample of the reverberation-mapped AGNs. Total
+                                                        stellar masses of all 341 galaxies are calculated in the most consistent manner feasible using color-
+                                                        dependent mass-to-light ratios. We find a clear correlation between BH mass and total stellar mass for
+                                                        the AGN host galaxies, with MBH ∝ Mstellar , similar to that of early-type galaxies with dynamically-
+                                                        detected BHs. However, the relation defined by the AGNs has a normalization that is lower by more
+                                                        than an order of magnitude, with a BH-to-total stellar mass fraction of MBH /Mstellar ∼ 0.025% across
+                                                        the stellar mass range 108 ≤ Mstellar /M⊙ ≤ 1012 . This result has significant implications for studies
+                                                        at high redshift and cosmological simulations in which stellar bulges cannot be resolved.
+                                                        Subject headings: galaxies: active – galaxies: evolution – galaxies: nuclei – galaxies: Seyfert
+
+                                                                   1. INTRODUCTION                                    of the host galaxies can also be measured with good pre-
+                                                 A growing body of evidence suggests that su-                         cision, using either photometric bulge/disk decomposi-
+                                               permassive black hole (BH) masses scale with the                       tion (e.g., Marconi & Hunt 2003) or kinematical fitting
+                                               large-scale properties of their host galaxies, pri-                    (Häring & Rix 2004) coupled with assumptions of the
+                                               marily of the bulge component (e.g., bulge mass,                       mass-to-light ratio (see Kormendy & Ho 2013, for a dis-
+                                               velocity dispersion, infrared luminosity, see for in-                  cussion).
+                                               stance Magorrian et al. 1998; Gebhardt et al. 2000a;                     Estimates of the relative mass of BHs and their host
+                                               Ferrarese & Merritt 2000; Marconi & Hunt 2003;                         galaxies at higher redshift, which are of fundamental
+                                               Häring & Rix 2004; Gültekin et al. 2009; Beifiori et al.             importance to establish the timing of their growth, do
+                                               2012; Kormendy & Ho 2013; McConnell & Ma 2013,                         not have access to the same wealth of information avail-
+                                               and references therein). These correlations on the one                 able locally. The BH masses are measured through in-
+                                               hand hint to a joint evolution of BHs and galaxies, and                direct methods, and their uncertainties are discussed
+                                               contain crucial information on the cosmic assembly of                  at length in the literature (e.g., Vestergaard & Peterson
+                                               structures; on the other hand they provide a way to                    2006; Shen 2013). The host properties are also es-
+                                               estimate BH masses via a proxy which is often much                     timated very differently. Except for gravitationally
+                                               easier to measure. Extending these estimates to a                      lensed galaxies (Peng et al. 2006) and/or HST images
+                                               statistical ensemble of galaxies allows one eventually to              (Schramm & Silverman 2013; Park et al. 2015), which
+                                               derive a census of BHs, such as their mass functions and               cannot provide a large statistical sample, reliable decom-
+                                               total mass density locked into BHs (e.g., Marconi et al.               position into the bulge and disk components are very
+                                               2004; Shankar et al. 2004; Merloni 2004; Shankar et al.                difficult due to lack of spatial resolution and sensitivity
+                                               2009; Gültekin et al. 2009; Kelly & Merloni 2012).                    (but see Sanghvi et al. 2014). Normally, the total stel-
+                                                 In the local Universe, z = 0, benchmark BH                           lar mass is used instead, estimated through assuming
+                                               masses are measured through direct methods, such                       a mass-to-light ratio or SED fitting (e.g., Jahnke et al.
+                                               as stellar and gas kinematics, and at the time of                      2009; Cisternas et al. 2011; Targett et al. 2012; Merloni
+                                               writing ∼90 galaxies have dynamical BH masses (see                     2010; Bongiorno et al. 2014; Sun et al. 2015), sometimes
+                                               Kormendy & Ho 2013; McConnell & Ma 2013, and                           trying to select quasars with bulge-dominated host galax-
+                                               http://blackhole.berkeley.edu). The masses of the bulges               ies (Decarli et al. 2010) to lessen the discrepancy be-
+                                                                                                                      tween bulge mass and total stellar mass. The scaling
+                                                                                                                      between BH and total stellar mass at high-z is then of-
+                                                reines@umich.edu
+                                                   1 Hubble Fellow                                                    ten compared to the scaling between BH and bulge mass
+2                                                                       Reines et al.
+
+                         140
+ (10 erg s−1 cm−2 Å−1)   120
+                         100
+                          80
+                          60
+                          40
+     Flux Density
+
+
+
+
+                          20
+                           0
+                                   4000        4500              5000                   5500            6000                6500
+
+                               0.78       Hβ          [OIII]   1.18                                            Hα + [NII]              [SII]
+                               (3.63)                          (8.11)
+           −17
+
+
+
+
+                                                                Rest Wavelength (Å)
+Figure 1. Spectrum of a broad-line AGN illustrating our fitting method. Top: the redshift-corrected spectrum is shown in black and the
+continuum plus absorption-line model is plotted in blue. Bottom: chunks of the emission-line spectrum (after subtracting the continuum
+and absorption-line model). The best-fit models for the emission line regions are shown in red. The individual narrow-line Gaussian
+components are plotted in yellow. Broad Hα and Hβ Gaussian components are plotted in dark blue. The residuals are shown in gray with
+a vertical offset for clarity. In the upper left-hand corner of the Hα and Hβ chunks we show the reduced χ2 values. The reduced χ2 values
+from the fits not including a broad component are shown below in parenthesis for comparison.
+
+at z = 0. Lauer et al. (2007) expose important biases in-                       ing SDSS ugriz images with the improved background-
+curred when investigating the potential evolution of BH                         subtraction technique described in Blanton et al. (2011).
+scaling relations by comparing samples at different red-                        The NSA also provides a reanalysis of spectroscopic
+shifts with different selection criteria (e.g., AGN activity                    data from the SDSS using the methods described in
+vs. host galaxy properties).                                                    Yan & Blanton (2012) and Yan (2011).           We select
+  In this paper we aim at quantifying on a local sam-                           emission-line galaxies in the NSA by imposing modest
+ple the difference between using total stellar mass and                         signal-to-noise (S/N) cuts on emission-line measurements
+bulge stellar mass to calculate the BH-to-host relation-                        reported in the NSA. We require S/N ≥ 3 for the flux
+ship. While the tightest correlation appears to be the                          and S/N > 1 for the equivalent width (EW) of the Hα,
+one between the BH and the bulge, we wish to provide                            [NII]λ6584, and [OIII]λ5007 emission lines. We also re-
+a benchmark for high-redshift studies which cannot avail                        quire S/N ≥ 2 for Hβ and the [SII]λλ6716,6731 doublet.
+themselves of bulge masses (or dynamical BH masses).                            This leaves us with a parent sample of 66,945 galaxies.
+We therefore investigate the relationship between BH
+mass and total stellar mass in a large sample of nearby                             2.2. Spectral Analysis and Selection of Broad-line
+(z ∼ 0) broad-line AGNs using techniques for estimating                                                       AGNs
+BH and galaxy masses similar to those used at z > 0.                               We retrieved the SDSS spectra of our entire parent
+Making use of active BHs has the added advantage of                             sample of galaxies and analyzed them with customized
+extending our sample to the lowest-mass BHs known in                            software that is described in detail in Reines et al. (2013)
+galaxy nuclei (Reines et al. 2013; Baldassare et al. 2015).                     and briefly reviewed here for completeness. First we
+                                                                                model and remove the stellar continuum and absorption
+                         2. SAMPLE OF BROAD-LINE AGN                            lines from the host galaxy using simple stellar population
+  We construct our sample of broad-line AGNs by an-                             model templates spanning a range of ages and metallic-
+alyzing Sloan Digital Sky Survey (SDSS) spectra of                              ities. Next we model the narrow emission line profile
+∼67,000 emission-line galaxies and searching for objects                        based on the [SII]λλ6716,6731 doublet. Once we have a
+exhibiting broad Hα emission (signifying dense gas or-                          suitable model of the [SII] doublet, we use it as a tem-
+biting a massive BH) as well as narrow emission-line ra-                        plate for fitting the narrow emission lines in the Hα +
+tios indicating photoionization by an accreting massive                         [NII]λλ6548,6583 complex. We fit the Hα + [NII] com-
+BH. Our parent sample of emission-line galaxies is culled                       plex twice, first with the narrow lines only and then al-
+from the NASA-Sloan Atlas (NSA), which is based on                              lowing a broad Hα component. We accept the fit with the
+the SDSS Data Release 8 (DR8) spectroscopic catalog                             broad Hα component if statistically warranted (reduced
+(Aihara et al. 2011). While we use the NSA for selecting                        χ2 is improved by more than 50%2 ) and the FWHM of
+our parent sample of galaxies, we use our own software                          the broad Hα component is ≥ 500 km s−1 after cor-
+to analyze the SDSS spectra and search for broad-line                           recting for the fiber-dependent instrumental resolution
+AGN. Distance estimates come from the zdist parame-                             (e.g., see Figure 1). This FHWM requirement avoids
+ter in the NSA, which is based on the SDSS NSA redshift                         severe contamination from intensely star forming galax-
+and the peculiar velocity model of Willick et al. (1997).                       ies with moderately broadened bases on Hα. We also
+We assume H0 = 70 km s−1 Mpc−1 .
+                                                                                   2 Reines et al. (2013) used a threshold of 20% since they were
+
+     2.1. Parent Sample of Emission-line Galaxies                               focused on dwarf galaxies with low-mass BHs, which can have weak
+                                                                                broad Hα emission. Here we choose a higher threshold to help
+  The NSA catalog of nearby galaxies (z ≤ 0.055)                                eliminate objects with marginally detected broad lines in higher
+provides a reanalysis of SDSS optical photometry us-                            mass galaxies.
+                                                                       Local MBH − M⋆ Relations                                                                           3
+
+
+                            1.5                                                                                  1.5
+                                                                          AGN                                                            Seyfert
+
+                            1.0                                                                                  1.0
+    log ([OIII]λ5007/Hβ)
+
+
+
+
+                                                                                         log ([OIII]λ5007/Hβ)
+                            0.5                                                                                  0.5
+
+                                       HII                                                                                         HII
+                            0.0                                                                                  0.0                                        LINER
+
+
+                           −0.5                                                                                 −0.5
+                                                                Comp
+                           −1.0                                                                                 −1.0
+                             −1.5           −1.0       −0.5      0.0            0.5                               −1.5           −1.0       −0.5      0.0           0.5
+                                               log ([NII]λ6583/Hα)                                                               log ([SII]λλ6716,6731/Hα)
+
+Figure 2. Narrow-line diagnostic diagrams for sources with detectable broad Hα emission. We use the classification scheme outlined in
+Kewley et al. (2006). Our sample of broad-line AGNs is restricted to objects with narrow line ratios placing them in both the AGN region
+of the [OIII]/Hβ vs. [NII]/Hα diagram and the Seyfert region of the [OIII]/Hβ vs. [SII]/Hα diagram (red points). The typical error for the
+red points is shown in the lower right corner of each plot.
+
+
+                                                                                  Table 1
+                                                                        Sample of 244 Broad-line AGN
+
+                             ID    NSAID          SDSS Name          Plate-MJD-Fiber                    zdist          Mi (Host)    g − i (Host)   log M⋆   log MBH
+                             (1)    (2)              (3)                    (4)                          (5)              (6)            (7)         (8)       (9)
+                             1      25955     J000907.90+142755.8      752-52251-320              0.0422                −21.81           1.06       10.68     6.2
+                             2      22075     J004236.86−104922.0       655-52162-58              0.0424                −21.10           1.10       10.43     7.1
+                             3       6452     J012159.81−010224.3       398-51789-10              0.0548                −22.77           0.49       10.47     7.7
+                             4      23318     J021011.49−090335.5      667-52163-506              0.0419                −22.60           0.99       10.92     8.1
+                             5      11183     J024912.86−081525.7       456-51910-77              0.0296                −20.64           0.96       10.11     5.7
+                              Note. — Column 1: identification number assigned in this paper. Column 2: NSA identification number. Column
+                           3: SDSS name. Column 4: Plate-MJD-Fiber of analyzed spectra. Column 5: zdist parameter in the NSA, which
+                           is based on the SDSS NSA redshift and the peculiar velocity model of Willick et al. (1997). Column 6: absolute
+                           i-band magnitude of the host galaxy. Column 7: g − i color of the host galaxy. Magnitudes and colors have been
+                           corrected for foreground Galactic extinction (Schlegel et al. 1998) and the AGN contribution has been removed as
+                           described in §2.4. Column 6: log host galaxy stellar mass in units of M⊙ , corrected for AGN contribution. Uncertain-
+                           ties are on the order of 0.3 dex. Column 7: log black hole mass in units of M⊙ . Uncertainties are on the order of 0.5 dex.
+
+                           (This table is available in its entirety in a machine-readable form in the online journal.                              A portion is shown
+                           here for guidance regarding its form and content.)
+
+measure fluxes of Hβ, [OIII] λ5007, and the [SII] doublet                                                            2.3. Black Hole Masses and Luminosities
+to place objects on standard narrow-line diagnostic dia-                                                       Single-epoch spectroscopic BH masses are routinely es-
+grams (Baldwin et al. 1981; Veilleux & Osterbrock 1987;                                                     timated for broad-line AGNs (e.g., Greene & Ho 2007b;
+Kewley et al. 2001, 2006; Kauffmann et al. 2003).                                                           Vestergaard & Osmer 2009; Schulze & Wisotzki 2010).
+   Figure 2 shows the [OIII]/Hβ vs. [NII]/Hα and                                                            Under the assumption that the broad-line region (BLR)
+[OIII]/Hβ vs. [SII]/Hα narrow-line diagnostic diagrams                                                      kinematics are dominated by the gravity of the BH,
+for all objects with detectable broad Hα emission. To                                                       the BH mass is given by MBH ∝ R∆V 2 /G. The
+minimize contamination from potential sources of broad                                                      average gas velocity is inferred from the width of a
+Hα other than ionized gas orbiting a BH (e.g., super-                                                       broad emission line (typically Hβ) and the radius of the
+novae in star-forming galaxies and shocks in LINERs),                                                       BLR is estimated from the radius-luminosity relation de-
+we restrict our sample of broad-line AGN to those sources                                                   fined by reverberation-mapped AGN (e.g., Kaspi et al.
+falling in both the AGN region of the [OIII]/Hβ vs.                                                         2005; Bentz et al. 2013).     The proportionality con-
+[NII]/Hα diagram and the Seyfert region of the [OIII]/Hβ                                                    stant depends on the unknown geometry and orienta-
+vs. [SII]/Hα diagram. We also visually inspect each indi-                                                   tion of the BLR. While these parameters have been
+vidual object and cut sources with poor spectral fits (e.g.,                                                seen to vary from object to object (Kollatschny 2003;
+due to complicated line profiles including double-peaked                                                    Bentz et al. 2009; Denney et al. 2010; Barth et al. 2011),
+lines) that may lead to erroneous BH masses based on                                                        a single scaling factor is generally adopted from cali-
+broad Hα (see below). A handful of objects are also ex-                                                     brating the ensemble of reverberation-based BH masses
+cluded for reasons described in §2.4, leaving us with a                                                     to the MBH − σ⋆ relation (e.g., Gebhardt et al. 2000b;
+final sample of 244 broad-line AGN (Tables 1 and 2).                                                        Ferrarese et al. 2001; Nelson et al. 2004; Onken et al.
+4                                                                   Reines et al.
+
+                                                                Table 2
+                                       Sample of 244 Broad-line AGN: Emission Line Measurements
+
+          ID    (Hβ)n      (Hβ)b      [O III]        [N II]     (Hα)n        (Hα)b       [N II]     [S II]    [S II]    FWHM (Hα)b
+                                      λ5007          λ6548                               λ6583      λ6716     λ6731
+       (1)       (2)        (3)         (4)           (5)         (6)         (7)         (8)        (9)       (10)        (11)
+          1    245(13)      ···       1659(77)       301(13)   1192(31)      757(63)     892(39)    250(16)   219(11)      1501
+          2    481(26)   2343(147)    4960(87)       271(14)   2022(103)    11321(84)    803(24)    505(27)   417(29)      2121
+          3    664(47)   2073(289)   6841(203)       892(60)   3563(237)   16872(168)   2640(116)   627(53)   612(42)      3281
+          4    494(33)      ···       1876(84)       761(49)   1802(116)    6309(715)   2252(150)   748(57)   585(69)      7720
+          5     32(5)     331(20)      296(20)        19(2)     176(15)      524(18)      57(5)      29(3)     28(3)       1081
+        Note. — Column 1: identification number assigned in this paper. Columns 2-10: emission line fluxes with units of 10−17
+      erg s−1 cm−2 . Errors are given in parenthesis. We have not applied an extinction correction. The subscripts n and b indicate
+      the narrow and broad components of the line, respectively. A three-dot ellipsis indicates that no line was detected. Column 11:
+      FWHM of the broad Hα component.
+
+      (This table is available in its entirety in a machine-readable form in the online journal.         A portion is shown here for
+      guidance regarding its form and content.)
+
+
+2004; Greene & Ho 2006; Park et al. 2012; Grier et al.                       the SDSS spectrum (Hβ, [OIII], Hα, [NII], [SII]). We scale
+2013; Ho & Kim 2014).                                                        the mock AGN spectrum using the conversion between
+  We estimate BH masses for our sample of broad-line                         L5100 and LHα (Greene & Ho 2005), where the broad Hα
+AGN using the single-epoch virial mass estimator given                       luminosity is measured from the SDSS spectrum (§2.2).
+by equation 5 in Reines et al. (2013):                                       For the vast majority of our sample (∼85%), the AGN
+                                                                             contribution to the total g-band and i-band flux densi-
+                                                                         ties is less than 20% (see Figure 4). To minimize erro-
+          MBH                                       L Hα
+log                 = log ǫ + 6.57 + 0.47 log                (1)             neous stellar mass estimates, we remove 5 sources from
+          M⊙                                    1042 erg s−1                 our sample in which the AGN dominates (i.e., contributes
+                                                                             more than 50% to) the integrated flux densities.
+                                                           
+                                                 FWHMHα
+                                   +2.06 log                  .                 After removing the AGN contribution, the host-only
+                                                103 km s−1
+                                                                             AB magnitudes (corrected for Galactic reddening) are
+This equation was derived following the approach out-                        used to estimate galaxy stellar masses with a color-
+lined in Greene & Ho (2005) for using the broad Hα line,                     dependent mass-to-light ratio from Zibetti et al. (2009):
+but incorporates the updated radius-luminosity relation-
+ship from Bentz et al. (2013). Here we adopt ǫ = 1.075,                                  log(M/Li ) = 1.032(g − i) − 0.963              (2)
+corresponding to the mean virial factor < f >= 4.3 from
+Grier et al. (2013), where ǫ = f /4 (e.g., Onken et al.                      We adopt a solar absolute i-band magnitude of 4.56 mag
+2004). The distribution of BH masses for our sample                          (Bell et al. 2003). Errors on the stellar masses are ex-
+of broad-line AGNs is shown in Figure 3. Viral BH mass                       pected to be ∼ 0.3 dex and are dominated by uncertain-
+estimates for broad-line AGNs are obviously very indirect                    ties in stellar evolution (Conroy et al. 2009).
+and carry uncertainties of ∼0.5 dex (e.g., Shen 2013).                          In Figure 4 we compare total stellar masses of the host
+   We estimate the bolometric luminosities of the AGNs                       galaxies (with the AGN contribution removed) to those
+using the conversion between LHα and L5100 given by                          derived from the integrated photometry (without remov-
+Equation 1 in Greene & Ho (2005), where LHα is the                           ing the AGN contribution). The median offset is 0.00 dex
+broad Hα luminosity and L5100 is the continuum lumi-                         with a 1σ scatter of 0.04 dex. In some cases, the stel-
+nosity at 5100 Å, and Lbol = 10.3L5100 (Richards et al.                     lar mass actually increases slightly since the g − i color
+2006). The range of bolometric luminosities is 41.5 .                        gets redder once the (blue) AGN is removed, and a red-
+log Lbol . 44.4 and the median is log Lbol ∼ 43.4, ap-                       der g − i color increases M/Li . The effect of correcting
+proximately 2.5 dex larger than the median of the distri-                    for AGN contamination is minimal since our sample is
+bution of broad Hα luminosities (see Figure 3).                              dominated by Seyferts of modest luminosity (§2.3). The
+                                                                             distribution of stellar masses is shown in Figure 5.
+      2.4. Total Stellar Masses of the Host Galaxies                            We also compare the stellar masses of our sample based
+                                                                             on the mass-to-light ratios in Zibetti et al. (2009) to
+  We estimate the total stellar masses, Mstellar , of galax-                 those based on mass-to-light ratios in Bell et al. (2003),
+ies hosting broad-line AGN using mass-to-light ratios for                    as well as the stellar masses provided in the NSA based
+i-band data (M/Li ) as a function of g − i color following                   on SED fitting. For the Bell et al. (2003) masses, we
+Zibetti et al. (2009), after removing the AGN contribu-                      again use M/Li as a function of g − i color. We then
+tion to the integrated photometry.                                           scale log M/Li down by −0.093 dex (Zibetti et al. 2009;
+  For each source, we estimate g-band and i-band flux                        Gallazzi et al. 2008) to account for the differences be-
+densities of the AGN alone by constructing a mock AGN                        tween the Chabrier initial mass function (IMF) used in
+spectrum and convolving it with the SDSS filter through-                     Zibetti et al. (2009) and the scaled Salpeter IMF used
+put curves. The mock AGN spectrum consists of a power                        in Bell et al. (2003). The NSA stellar masses are de-
+law (fλ ∝ λα , where α = −1.56 for λ ≤ 5000 Å and                           rived from the kcorrect code (Blanton & Roweis 2007),
+α = −0.45 for λ > 5000 Å; Vanden Berk et al. 2001)                          which assumes a Chabrier IMF and fits broadband op-
+plus the observed strong emission lines measured from                        tical fluxes from the SDSS and ultraviolet fluxes from
+                                                   Local MBH − M⋆ Relations                                                                5
+
+           60
+
+           50
+
+           40
+  Number
+
+
+
+
+           30
+
+           20
+
+           10
+
+            0
+             0   2000  4000     6000     8000          39       40         41      42        5.0   5.5   6.0     6.5 7.0 7.5   8.0   8.5
+                 FWHM of broad Hα [km s−1]          log (luminosity of broad Hα [erg s−1])                     log (MBH/MO•)
+
+Figure 3. Distribution of the FWHM (left panel) and luminosity (middle panel) of broad Hα emission for our sample of nearby broad-line
+AGN. The distribution of virial BH masses calculated from equation 1 is shown in the right panel.
+
+the Galaxy Evolution Explorer when available. Stel-                       We note that 3 of the broad-line objects from
+lar masses from the three methods (using integrated                    Reines et al. (2013) are also included in our main sample
+photometry in the NSA) are compared in Figure 6.                       of broad-line AGN in this work (including NGC 4395).
+The Bell et al. (2003) masses are systematically higher                The remaining 7 objects are not recovered due to differ-
+than the Zibetti et al. (2009) masses with a median                    ent selection criteria. In this work we exclude composite
+offset of 0.21 dex (σ = 0.10 dex) across the sample,                   objects and also impose a more stringent threshold for
+with the largest discrepancies at low masses. The                      flagging a source as having broad Hα emission (see §2.2),
+NSA (kcorrect) masses are more consistent with the                     since we are more concerned with having a clean sam-
+Zibetti et al. (2009) masses with a median offset of 0.06              ple than finding rare objects. In contrast, Reines et al.
+dex (σ = 0.13 dex).                                                    (2013) focused on finding low-mass BHs that can have
+                                                                       weak broad Hα emission in dwarf galaxies that tend to
+                 3. ADDITIONAL OBJECTS                                 have more active star formation.
+  We include the following additional objects in our in-                  Follow-up high resolution spectroscopy of the
+vestigation of the relationship between BH mass and host               Reines et al. (2013) sample has led to the discovery
+galaxy total stellar mass.                                             of a new broad-line object with MBH ∼ 50, 000 M⊙
+                                                                       (Baldassare et al. 2015). This object, designated RGG
+      3.1. Dwarf Galaxies Hosting Broad-line AGN                       118 (object ID 118 in the Reines et al. paper), has the
+   Reines et al. (2013) carried out the first systematic               smallest BH reported in a galaxy nucleus. The BH
+search for AGNs in dwarf galaxies. The vast major-                     mass for RGG 118 was estimated using equation 1 and
+ity of objects in that sample are narrow-line AGNs                     here we estimate the stellar mass of RGG 118 to be
+and composites as defined by Kewley et al. (2006), for                 Mstellar ∼ 2.7 × 109 M⊙ using the SDSS i and g-band
+which we have no estimates of the BH masses. How-                      photometry in the NSA with equation 2.
+ever, 10 out of 136 AGN and composite objects have                        We also include the well-studied dwarf Seyfert 1
+detectable broad Hα emission and narrow-line signa-                    galaxy Pox 52 (Barth et al. 2004; Thornton et al. 2008).
+tures suggesting the presence of an active BH (6 AGN                   The mass of the BH in Pox 52 is MBH ∼ 3 ×
+and 4 composites). This subsample includes the well-                   105 M⊙ (Thornton et al. 2008). As Pox 52 is not
+studied dwarf disk galaxy NGC 4395 hosting a Seyfert                   in the SDSS footprint, we estimate the galaxy stellar
+1 nucleus (Filippenko & Sargent 1989; Filippenko & Ho                  mass using B, V and K-band photometry (corrected for
+2003), two objects from the Greene & Ho (2007a) sample                 the AGN contribution) provided by Barth et al. (2004)
+of low-mass BHs, and the dwarf disk galaxy presented in                and Thornton et al. (2008) with the following color-
+Dong et al. (2007). Reines et al. (2013) also provide in-              dependent mass-to-light ratio from Zibetti et al. (2009):
+formation on 15 galaxies with broad Hα emission, but
+narrow-line ratios dominated by star formation. As de-
+                                                                                   log(M/LK ) = 1.176(B − V ) − 1.390.                (3)
+scribed in that work, there is likely significant contamina-
+tion from luminous Type II supernovae in that subsample                We adopt a solar absolute K-band magnitude of 3.32 mag
+and we therefore do not include those objects here. This               (Bell et al. 2003). The resulting stellar mass for Pox 52
+issue will be further addressed in a forthcoming paper                 is Mstellar ∼ 4.3 × 108 M⊙ . This is ∼2.8 times smaller
+(V.F. Baldassare et al., in preparation). BH masses and                than the stellar mass estimated by Thornton et al. (2008)
+total stellar masses for the 10 broad-line AGN and com-                using the kcorrect code of Blanton & Roweis (2007).
+posites from Reines et al. (2013) are recomputed3 here                 We adopt the Zibetti et al. (2009) mass for consistency
+in the same way as our full sample of broad-line AGN                   with the rest of our sample.
+(see §2.3 and §2.4) and listed in Table 3.                                As with our main sample of broad-line AGNs (§2), we
+  3 Here we use ǫ = 1.075 in equation 1, rather than ǫ = 1 as in       adopt uncertainties of 0.3 dex in stellar mass and 0.5 dex
+Reines et al. (2013). Stellar masses are computed using equation       in BH mass for all of the dwarf galaxies discussed above.
+2 rather than taken from the NSA as in Reines et al. (2013).           However we caution that the virial BH masses derived for
+6                                                                                                 Reines et al.
+
+
+                                                                                                                       70
+                                          120                              SDSS g−band                                       Broad-line AGN
+                                                                           SDSS i−band                                       Parent sample of emission line galaxies
+                                                                                                                       60     (normalized)
+                                          100                                                                                All galaxies in NSA
+                                                                                                                       50     (normalized)
+                                           80
+            Number
+
+
+
+
+                                                                                                              Number
+                                                                                                                       40
+                                           60
+                                                                                                                       30
+                                           40
+                                                                                                                       20
+                                           20
+                                                                                                                       10
+                                            0
+                                                   0.0      0.1      0.2        0.3   0.4   0.5                         0
+                                                                  fλ,AGN/fλ,total                                        7           8          9          10          11   12
+                                                                                                                                              log (Mstellar/MO•)
+
+                                                                                                          Figure 5. The distribution of host galaxy total stellar masses for
+                                           60       Total                                                 our sample of broad-line AGN (corrected for AGN contamination)
+                                                    Host                                                  is shown in red. Our parent sample of emission-line galaxies is
+                                                    AGN                                                   shown in blue, normalized to the number of galaxies in the red
+                                           50
+                                                                                                          histogram (244 objects). We also show the mass distribution for the
+                                                                                                          full NSA catalog (no emission-line cuts), again normalized by the
+                                           40                                                             number of galaxies in the red histogram. All masses were derived
+                              Number
+
+
+
+
+                                                                                                          using g and i-band data in the NSA with the color-dependent mass-
+                                                                                                          to-light ratio given in equation 2.
+                                           30
+
+                                           20
+                                                                                                          these objects are based on an extrapolation from more
+                                                                                                          massive and luminous AGNs and may carry additional
+                                                                                                          errors. We do not include the dwarf galaxies Henize 2-
+                                           10
+                                                                                                          10 (Reines et al. 2011; Reines & Deller 2012), Mrk 709
+                                            0                                                             (Reines et al. 2014) or J1329+3234 (Secrest et al. 2015)
+                                            −12       −14     −16     −18 −20         −22   −24           since the BH masses in these systems are uncertain by
+                                                                    Mg [mag]                              at least an order of magnitude.
+                                                                                                             It is worth noting here that optical searches for AGN in
+                                                                                                          dwarf galaxies suffer from severe selection effects. First,
+                                                                                                          low-metallicity AGN, which are likely to reside in low-
+                                          12.0
+                                                                                                          mass galaxies, have line ratios significantly different from
+    log (Mstellar/MO•), AGN not removed
+
+
+
+
+                                                   median offset = 0.00 dex
+                                          11.5     σ = 0.04 dex                                           Seyferts in more metal-rich systems and overlap with
+                                                                                                          low-metallicity starbursts in the [OIII]/Hβ vs. [NII]/Hα
+                                          11.0                                                            (i.e., BPT) diagram (Groves et al. 2006; Kewley et al.
+                                                                                                          2013; Reines et al. 2014). Moreover, broad Hα from
+                                          10.5                                                            small accreting BHs can be very weak and difficult to
+                                                                                                          detect. Given the sensitivity of the SDSS spectra and
+                                          10.0                                                            our search volume (z < 0.055), Reines et al. (2013) esti-
+                                                                                                          mate a minimum detectable BH mass of MBH ∼ 105 M⊙
+                                           9.5                                                            if the BH is radiating at ∼10% of its Eddington limit.
+                                           9.0                                                                        3.2. Reverberation-Mapped AGN
+                                           8.5                                                              The most reliable AGN BH masses come from rever-
+                                             8.5      9.0   9.5 10.0 10.5 11.0 11.5 12.0                  beration mapping (e.g., Peterson et al. 2004; Bentz et al.
+                                                               log (Mstellar/MO•)                         2009; Denney et al. 2010; Barth et al. 2011). Deter-
+                                                                                                          mining the time lag between the continuum flux and
+Figure 4. Top: Distributions of the ratio of AGN flux density                                             broad emission line variability gives the light travel
+to total (Host+AGN) flux density in the SDSS g and i bands for                                            time across the BLR, and in turn the BLR radius
+our sample of broad-line AGNs. Middle: Distributions of absolute                                          when multiplied by the speed of light. The BLR
+g-band magnitudes for our sample of broad-line AGN. The blue his-
+togram shows AGN-only magnitudes, the orange histogram shows                                              radius-luminosity correlation derived from the sample of
+host galaxy-only magnitudes and the black histogram shows the                                             reverberation-mapped AGN (∼50 objects) makes single-
+total (Host+AGN) magnitudes. Bottom: Total stellar mass with-                                             epoch virial BH masses for AGNs, such as the ones
+out correcting for AGN contamination versus total stellar mass                                            used in this work, possible (e.g., Kaspi et al. 2005;
+corrected for AGN contamination. See §2.4 for details. The line
+shows the one-to-one relation.                                                                            Bentz et al. 2013). The reverberation-mapped AGN
+                                                                                                          also provide a link between single-epoch spectroscopic
+                                                                                                          BH masses and dynamical BH masses, as the ensem-
+                                            Local MBH − M⋆ Relations                                                                            7
+
+               Table 3                                                                      12.0
+           Additional Objects                                                                        median offset = 0.21 dex
+                                                                                            11.5     σ = 0.10 dex
+
+
+
+
+                                                              log (Mstellar/MO•), Bell+03
+        Name        log M⋆      log MBH
+         (1)          (2)          (3)                                                      11.0
+
+ Dwarf Galaxies with Broad-line AGN                                                         10.5
+ RGG 1                 9.30   5.44(0.50)
+ RGG 9                 9.24   5.00(0.50)                                                    10.0
+ RGG 11                9.30   5.29(0.50)
+ RGG 20                9.29   6.10(0.50)                                                     9.5
+ RGG 21                9.45   5.80(0.50)
+ RGG 32                8.90   5.28(0.50)
+ RGG 48                8.96   5.18(0.50)                                                     9.0
+ RGG 118a              9.43   4.70(0.50)
+ RGG 119               9.12   5.42(0.50)                                                     8.5
+ RGG 123               9.36   5.79(0.50)                                                       8.5      9.0      9.5 10.0 10.5 11.0 11.5 12.0
+ RGG 127               9.36   5.21(0.50)                                                                      log (Mstellar/MO•), Zibetti+09
+ Pox 52b               8.63   5.48(0.50)
+
+      Reverberation-Mapped AGN                                                              12.0
+                                                                                                     median offset = 0.06 dex
+ Mrk 590              11.38   7.57(0.07)                                                             σ = 0.13 dex
+ Mrk 79               10.41   7.61(0.12)
+                                                                                            11.5
+
+
+
+
+                                                              log (Mstellar/MO•), NSA
+ Mrk 110              10.14   7.29(0.10)
+ NGC 3227             10.36   6.77(0.10)                                                    11.0
+ SBS 1116+583A        10.00   6.56(0.08)
+ Arp 151               9.90   6.67(0.05)                                                    10.5
+ Mrk 1310              9.62   6.21(0.08)
+ NGC 4051             10.16   6.13(0.14)
+ Mrk 202               9.92   6.13(0.17)                                                    10.0
+ NGC 4253             10.34   6.82(0.05)
+ NGC 4395              8.90   5.45(0.14)                                                     9.5
+ NGC 5273             10.25   6.66(0.16)
+ NGC 5548             10.79   7.72(0.02)                                                     9.0
+ Mrk 817               9.87   7.59(0.07)
+ Mrk 290               9.52   7.28(0.06)                                                     8.5
+  Galaxies with Dynamical BH Masses                                                            8.5      9.0      9.5 10.0 10.5 11.0 11.5 12.0
+                                                                                                              log (Mstellar/MO•), Zibetti+09
+ M 32                  8.77   6.39(0.18)
+ NGC    1316          11.48   8.23(0.07)
+ NGC    1332          10.92   9.17(0.06)                  Figure 6. Comparison of stellar masses of our sample of broad-
+ NGC    1374          10.33   8.77(0.04)                  line AGN derived from different methods. We calculate mass-to-
+ NGC    1399          11.17   8.94(0.33)                  light ratios for the SDSS i-band data as a function of g − i color
+ NGC    1407          11.43   9.67(0.05)                  following both Zibetti et al. (2009) and Bell et al. (2003) and using
+ NGC    1550          11.02   9.59(0.07)                  integrated photometry provided in the NSA (AGN contribution
+ NGC    2960          10.72   7.03(0.02)                  has not been removed). NSA masses are derived from the kcorrect
+ NGC    3091          11.29   9.57(0.04)                  code, which is described in detail in Blanton & Roweis (2007). The
+ NGC    3377          10.14   8.25(0.23)                  lines show the one-to-one relation.
+   Note. — Column 1: object name.
+Dwarf galaxies with the designation                       ble of reverberation-mapped BH masses is calibrated
+RGG are from Reines et al. (2013).                        to the MBH − σ⋆ relation (e.g., Gebhardt et al. 2000b;
+Column 2: log host galaxy stellar mass
+in units of M⊙ . The AGN contribution                     Ferrarese et al. 2001; Nelson et al. 2004; Onken et al.
+has been removed for the dwarf galaxies                   2004; Greene & Ho 2006; Park et al. 2012; Grier et al.
+and reverberation-mapped AGN. All                         2013; Ho & Kim 2014).
+stellar masses are estimated using color-                   In this work we include 15 reverberation-mapped
+dependent mass-to-light ratios from
+Zibetti et al. (2009). Uncertainties are                  AGNs with BH masses provided in the AGN Black Hole
+on the order of 0.3 dex. Column 3: log                    Mass Database (Bentz & Katz 2015). We adopt BH
+black hole mass in units of M⊙ . BH                       masses calculated with a mean virial factor of < f >=
+masses for the reverberation-mapped                       4.3 (Grier et al. 2013) as we did for the single-epoch spec-
+AGN are taken from the AGN Black
+Hole Mass Database (Bentz & Katz                          troscopic masses given by equation 1. We first cross-
+2015). Dynamical BH masses are taken                      match the AGN Black Hole Mass Database with the
+from Kormendy & Ho (2013).                                NSA and find 19 matches. We require that galaxies
+(This table is available in its en-
+                                                          have photometry in the NSA so we can calculate the
+tirety in a machine-readable form in                      host galaxy stellar masses consistently with the rest of
+the online journal. A portion is shown                    our AGN sample (equation 2). We correct for the AGN
+here for guidance regarding its form and                  contribution to the integrated photometry, assuming the
+content.)
+a BH mass from Baldassare et al. (2015).
+                                                          same power law shape described in section 2.4. How-
+b BH mass from Thornton et al. (2008).
+                                                          ever, for most of the reverberation-mapped AGN, the
+                                                          normalization comes directly from L5100 provided in the
+                                                          AGN Black Hole Mass Database. There are a few cases
+8                                                                                                       Reines et al.
+
+                                                                                                                pseudobulges).
+                                              12.0                                                                Kormendy & Ho (2013) provide a different way to pre-
+        log (Mstellar/MO•), KH13 equation 9
+                                                       median offset = 0.33 dex                                 dict M/LK as a function of B − V color (their equa-
+                                              11.5     σ = 0.01 dex
+                                                                                                                tion 9). This relation is based on the mass-to-light
+                                                                                                                ratio calibrations of Into & Portinari (2013), shifted to
+                                              11.0                                                              a dynamically measurement zeropoint. Using equation
+                                                                                                                9 in Kormendy & Ho (2013) yields stellar masses that
+                                              10.5                                                              are systematically higher than the Zibetti et al. (2009)
+                                                                                                                masses by 0.33 dex (see Figure 7). This discrepancy is
+                                              10.0                                                              primarily due to different assumed stellar IMFs in the
+                                                                                                                models and the shift of 0.1258 dex in log M/LK applied
+                                               9.5
+                                                                   Galaxies with dynamical BH masses:           by Kormendy & Ho (2013). Zibetti et al. (2009) adopt a
+                                               9.0                              Ellipticals                     Chabrier IMF, whereas Into & Portinari (2013) assume
+                                                                                Bulges                          a Kroupa IMF. The stellar IMF is known to signifi-
+                                                                                Pseudobulges
+                                               8.5                                                              cantly affect the overall normalization of log M/LK (e.g.,
+                                                 8.5      9.0      9.5 10.0 10.5 11.0 11.5 12.0                 Bell & de Jong 2001). Here we adopt the Zibetti et al.
+                                                                log (Mstellar/MO•), Zibetti+09                  (2009) masses for consistency with the other samples in
+                                                                                                                this work.
+Figure 7. Total stellar masses of galaxies with dynamically mea-
+sured BH masses derived using K-band mass-to-light ratios as a                                                    4. LOCAL BH MASS − TOTAL STELLAR MASS
+function of B − V color from equation 9 in Kormendy & Ho (2013)
+versus equation 3 here taken from Zibetti et al. (2009).
+                                                                                                                                         RELATIONS
+                                                                                                                  One of the most useful aspects of BH-galaxy scal-
+where L5100 is not available, yet we have a measurement                                                         ing relationships is that they provide a way to estimate
+of broad Hα from the SDSS spectrum. For these, we                                                               BH mass from more easily measured galaxy properties.
+normalize the AGN continuum as described in section                                                             While the tightest scaling relations appear to be between
+2.4. Emission lines are not included in the mock AGN                                                            the BH mass and bulge properties in quiescent early-type
+spectrum for the reverberation-mapped AGN, as these                                                             galaxies, we seek to quantify the relationship between BH
+measurements are not readily available in many cases.                                                           mass and total stellar mass to facilitate work at higher
+We exclude 4 objects (from the initial 19 matches) in                                                           redshifts where measuring bulge properties is difficult or
+which the AGN dominates the integrated photometry to                                                            impossible and BHs are identified via nuclear activity.
+minimize unreliable stellar mass estimates. BH masses                                                             In Figure 8 we plot BH mass versus host galaxy total
+and total stellar masses for the 15 reverberation-mapped                                                        stellar mass for our local sample of 244 broad-line AGN
+AGNs used in this work are listed in Table 3.                                                                   and the additional objects described in §3. A single linear
+  We note that six of the reverberation-mapped AGNs                                                             relation is disfavored by the data. There is a large range
+in Table 3 are included in our main sample of broad-line                                                        in BH mass at a given total stellar mass (e.g., a factor of
+AGNs with SDSS spectroscopy. As a consistency check,                                                            ∼1000 in MBH at Mstellar ∼ 1010.5 M⊙ ).
+we compare the reverberation-mapped BH masses and                                                                 Despite a significant amount of scatter in this plot, it is
+those based on broad Hα emission measured from the                                                              clear that at a given total stellar mass, AGN host galax-
+SDSS spectra (equation 1). For this limited sample of                                                           ies at z ∼ 0 tend to fall below elliptical galaxies and
+six objects, the spectroscopic BH masses are on average                                                         spiral/S0 galaxies with classical bulges hosting quiescent
+∼ 0.4 dex larger than the reverberation masses.                                                                 BHs. If the spectroscopic BH masses were shifted down
+                                                                                                                (see §3.2), this would cause an even larger discrepancy
+      3.3. Galaxies with Dynamically Detected BHs                                                               between the AGNs and the dynamically detected BHs in
+   Benchmark BH masses come from dynamical meth-                                                                Figure 8. Similarly, the AGN host galaxies fall below the
+ods, which rely on observations that spatially resolve the                                                      canonical BH-to-bulge mass relations defined by these
+BH sphere of influence. Kormendy & Ho (2013) provide                                                            inactive early-type galaxies (e.g., Häring & Rix 2004;
+an inventory of BH mass measurements based on stellar                                                           McConnell & Ma 2013; Kormendy & Ho 2013). BHs
+dynamics, ionized gas dynamics, CO molecular gas disk                                                           in galaxies with pseudobulges also preferentially lie be-
+dynamics and maser disk dynamics.                                                                               low the scaling relations based on ellipticals and classi-
+   We estimate total stellar masses of galaxies with dy-                                                        cal bulges (also see Greene et al. 2010; Kormendy et al.
+namical BH mass measurements using the total abso-                                                              2011).
+lute K-band magnitudes and B − V colors provided by                                                               We note that bulge mass and total stellar mass are
+Kormendy & Ho (2013) in their tables 2 and 3 with the                                                           equivalent for elliptical galaxies, which dominate the
+color-dependent mass-to-light ratio from Zibetti et al.                                                         samples used to derive BH-to-bulge mass relations. In-
+(2009) given in equation 3 above. The results are                                                               deed, we find that a linear regression using total stel-
+listed in Table 3. We include all objects summarized in                                                         lar mass for the elliptical galaxies and spiral/S0 galaxies
+Kormendy & Ho (2013) except those with BH mass up-                                                              with classical bulges, which have dynamically-measured
+per limits (2 elliptical galaxies and 2 spiral galaxies with                                                    BH masses (§3.3), is roughly consistent with standard
+pseudobulges), and galaxies without provided B − V col-
+                                                                                                                provided by Kormendy & Ho (2013), however they do have Mbulge
+ors that are necessary for estimating the galaxy stellar                                                        which is equivalent to total stellar mass since these are ellipticals.
+masses (2 elliptical galaxies4 and 3 spiral galaxies with                                                       We include these galaxies in our sample and adopt a total stellar
+                                                                                                                mass log Mstellar = log Mbulge − 0.33, where the offset accounts
+    4        Two additional elliptical galaxies do not have B − V colors                                        for differences our assumed mass-to-light ratios.
+                                                          Local MBH − M⋆ Relations                                                         9
+
+
+
+                                       11   Broad-line AGN (this work)
+                                            Broad-line AGN and composite dwarf galaxies
+                                            RGG118
+                                       10   Pox 52
+                                            Reverberation-mapped AGN
+                                            Elliptical galaxies
+                                            S/S0s with classical bulges
+                                        9   S/S0s with pseudobulges
+                       log (MBH/MO•)
+
+
+
+                                        8
+
+                                        7
+
+                                        6
+
+                                        5                                    Kormendy & Ho 2013, scaled
+                                                                             Kormendy & Ho 2013
+                                                                             McConnell & Ma 2013
+                                                                             Haring & Rix 2004
+                                        4
+                                        8.5      9.0      9.5      10.0 10.5 11.0                 11.5       12.0
+                                                                 log (Mstellar/MO•)
+Figure 8. Left: Black hole mass versus total host galaxy stellar mass. All stellar masses are estimated using color dependent mass-to-light
+ratios presented in Zibetti et al. (2009) (see §2.4 and §3). Our sample of 244 broad-line AGN for which we estimate virial BH masses from
+equation 1 are shown as red points. The 10 broad-line AGN and composite dwarf galaxies from Reines et al. (2013) are shown as pink
+points (including NGC 4395; Filippenko & Sargent 1989). The dwarf galaxy RGG 118 (Reines et al. 2013) hosting a ∼50,000 M⊙ BH
+(Baldassare et al. 2015) is the dark green point, and Pox 52 (Barth et al. 2004; Thornton et al. 2008) is the light green point (see §3.1).
+Fifteen reverberation-mapped AGN with BH masses taken from Bentz & Katz (2015) are shown as purple points (see §3.2). Dynamical BH
+mass measurements are taken from Kormendy & Ho (2013) and shown as blue (elliptical galaxies), turquoise (S/S0 galaxies with classical
+bulges) and orange (S/S0 galaxies with pseudobulges) points. The gray error bar indicates uncertainties in stellar masses for all points, and
+single-epoch spectroscopic BH masses. The gray lines show various MBH vs. Mbulge relations based on ellipticals and spiral bulges with
+dynamical BH mass measurements. The Kormendy & Ho (2013) “scaled” relation has bulge masses scaled down by 0.33 dex to account
+for differences in our assumed mass-to-light ratios (see §3.3).
+
+bulge mass relations, albeit with more scatter (see be-                   plane from the observed data for all AGNs5 . Each data
+low).                                                                     point is represented by a two-dimensional normalized
+   Thus, it appears that a separation exists between our                  Gaussian kernel. The smoothing parameter (e.g., σ for
+sample of uniformly selected AGN hosts (§2), and el-                      a Gaussian) is set to 0.3 and 0.5 for log Mstellar and
+lipticals and classical bulges. We anticipate that using                  log MBH , respectively, and reflects the measurement un-
+or extrapolating the canonical BH-to-bulge mass scaling                   certainties for the majority of our sample (where masses
+relations to interpret samples of galaxies with uncertain                 are in units of M⊙ ). The individual kernels are then
+morphological classification, or AGN hosts, may lead to                   summed to produce the kernel density estimate (left
+erroneous inferences.                                                     panel of Figure 9). The kernel density estimate is subse-
+                                                                          quently normalized for each log Mstellar independently to
+                                                                          construct the conditional probability distribution func-
+  4.1. The BH-to-Total Stellar Mass Relation for Local                    tion (PDF), p(logMBH |logMstellar ), which illustrates the
+                              AGNs                                        dependence of BH mass on total stellar mass for our sam-
+                                                                          ple of AGNs. The right panel of Figure 9 shows the re-
+  We plot log MBH versus log Mstellar for the AGNs                        sulting PDF, where the lines correspond to the median
+alone in the left panel of Figure 9. We first use a non-                  and standard deviation as a function of log Mstellar .
+parametric method to help visualize the data and demon-                     This non-parametric method nicely illustrates a cor-
+strate that there is indeed a correlation between BH mass
+and total stellar mass for local AGNs. We use the kernel                    5 For individual AGN with multiple BH mass estimates, we
+density estimation technique (e.g., Silverman 1986) to es-                include only one data point with priority given to reverberation
+timate the density function in the log Mstellar − log MBH                 masses when available (e.g., NGC 4395).
+10                                                                     Reines et al.
+
+
+                  10   Broad-line AGN (this work)
+                                                                                             10
+                       Broad-line AGN and composite dwarf galaxies
+                       RGG118
+                  9    Pox 52                                                                9
+                       Reverberation-mapped AGN
+
+                  8                                                                          8
+  log (MBH/MO•)
+
+
+
+
+                                                                             log (MBH/MO•)
+                  7                                                                          7
+
+                  6                                                                          6
+
+                  5                                                                          5
+
+                  4                                                                          4
+                           9.0      9.5 10.0 10.5              11.0   11.5                        9.0     9.5 10.0 10.5          11.0   11.5
+                                      log (Mstellar/MO•)                                                    log (Mstellar/MO•)
+Figure 9. Left: Black hole mass versus total host galaxy stellar mass for local AGNs with the kernel density estimate (see text) shown in
+grayscale. Contour levels are at (1/2)n × the peak value, where n = 1 to 5. Right: Conditional PDF p(logMBH |logMstellar ) computed by
+normalizing the kernel density estimate at each log Mstellar . The middle line indicates the median of the PDF as a function of log Mstellar
+and the outer white lines show the standard deviation.
+
+relation between log MBH and log Mstellar for our sam-                          do not change significantly when using only our primary
+ple of AGNs. However, the shape/slope of the relation                           sample of broad-line AGNs (§2) and excluding the addi-
+may be different for the population of local AGNs since                         tional AGNs described in sections 3.1 and 3.2. The slope
+the conditional PDF is based on data that is suscepti-                          and intercept derived from our uniformly selected sample
+ble to selection biases that are particularly severe at low                     agree with those in equation 5 within the 1σ uncertain-
+masses (see §3.1). While we should not immediately as-                          ties.
+sume these data are well described by a linear relation,                           The BH-to-total stellar mass relation for the ellipticals
+the sample Pearson correlation coefficient indicates that                       and classical bulges is shown in the right panel of Fig-
+a linear relationship between log MBH and log Mstellar                          ure 10 for comparison. The corresponding coefficients in
+is a reasonable description of the data; r = 0.54 with a                        equation 4 are given by
+probability p < 10−6 that no linear correlation is present.
+We therefore use a line to parameterize the AGN rela-                                             α = 8.95 ± 0.09; β = 1.40 ± 0.21,       (6)
+tion.
+   We take a Bayesian approach to linear regression using                       and the intrinsic scatter is 0.47 dex (rms = 0.60 dex).
+the method of Kelly (2007)6 , which accounts for uncer-
+tainties in both log MBH and log Mstellar . To facilitate                          4.2. Implications for BH-to-Stellar Mass Fractions
+comparison with other studies, we parameterize the re-                            Figure 11 shows BH mass fractions as a function of
+lation as                                                                       stellar mass for our two total stellar mass relations at
+             log(MBH /M⊙ ) = α + β log(Mstellar /1011 M⊙ )            (4)       z ∼ 0 (AGNs and dynamically measured BHs; equa-
+                                                                                tions 4-6), as well as some standard BH-to-bulge mass
+and find                                                                        relations (e.g., Kormendy & Ho 2013; McConnell & Ma
+                                                                                2013; Häring & Rix 2004). The BH-to-total stellar mass
+                        α = 7.45 ± 0.08; β = 1.05 ± 0.11.             (5)
+                                                                                fraction given by the AGN relation is MBH /Mstellar ∼
+The quoted slope and intercept are given by the median                          0.02% to 0.03% across the stellar mass range 108 ≤
+of 10,000 draws from the posterior probability distribu-                        Mstellar /M⊙ ≤ 1012 . This is markedly smaller, by
+tion of the parameters. The errors on the linear coef-                          roughly an order of magnitude, than the BH-to-bulge
+ficients are correlated and the reported values are de-                         mass fractions derived from quiescent early-type galax-
+termined from the 1σ error ellipse. The rms deviation                           ies that are commonly used as references.
+of the BH mass measurements from the relation is 0.55                             For instance, the BH mass fraction given by our AGN
+dex, and incorporates both our adopted measurement                              total stellar mass relation is ∼ 19 to 56 times lower than
+errors of 0.50 dex and a best-fit intrinsic scatter of 0.24                     that given by the canonical BH-to-bulge mass relation
+dex (added in quadrature). The intrinsic scatter may                            of Kormendy & Ho (2013) across the stellar mass range
+be larger if our measurement errors are overestimated.                          108 ≤ Mstellar /M⊙ ≤ 1012 , accounting for differences in
+The linear relation for the AGN host galaxies is shown                          our assumed stellar mass-to-light ratios (see §3.3). Using
+in the left panel of Figure 10. We note that our results                        total stellar mass rather than bulge mass for the host
+                                                                                galaxies of dynamically measured BHs in ellipticals and
+   6      linmix err.pro in the IDL Astronomy User’s Library.                   classical bulges also results in a BH mass fraction that
+                                                                Local MBH − M⋆ Relations                                                                                                     11
+
+
+                  11    Broad-line AGN (this work)
+                                                                                                  11               Elliptical galaxies
+                        Broad-line AGN and composite dwarf galaxies                                                S/S0 galaxies with classical bulges
+                  10    RGG118                                                                    10
+                        Pox 52
+                        Reverberation-mapped AGN
+                  9                                                                                          9
+  log (MBH/MO•)
+
+
+
+
+                                                                              log (MBH/MO•)
+                  8                                                                                          8
+
+                  7                                                                                          7
+
+                  6                                                                                          6
+
+                  5                                                                                          5                                       Mstellar = Mtotal
+                                                                                                                                                     Kormendy & Ho 2013, scaled
+                                                                                                                                                     Kormendy & Ho 2013
+                  4                                                                                          4
+                  8.5      9.0     9.5     10.0 10.5 11.0 11.5 12.0                                          8.5        9.0     9.5      10.0 10.5 11.0 11.5 12.0
+                                         log (Mstellar/MO•)                                                                            log (Mstellar/MO•)
+Figure 10. Left: The BH-to-total stellar mass relation for local AGNs (dark red line; equations 4 and 5). The light gray shaded region
+accounts for the errors in the slope and intercept of the relation and the dark red dotted lines indicate the rms scatter of points around the
+relation (0.55 dex). The gray error bar indicates uncertainties in stellar masses for all points, and single-epoch spectroscopic BH masses.
+BH mass errors for the reverberation-mapped AGN are shown on the (purple) data points. Right: Same as the left panel, but for the
+inactive sample of elliptical galaxies and sprial/S0 galaxies with classical bulges (equations 4 and 6). The dark blue line indicates our
+relation derived using total stellar mass (§3.3).
+
+is roughly an order of magnitude larger than that of the
+AGN host galaxies. We thus urge extreme caution when                                                                          Local AGNs: Mstellar=Mtotal
+using the canonical BH-to-bulge mass scaling relations                                                                        Ellipticals and S/S0s with classical bulges: Mstellar=Mtotal
+as a proxy for BH-to-total stellar masses since this may                                                                      Kormendy & Ho 2013, scaled
+                                                                                                                              Kormendy & Ho 2013
+lead to a biased interpretation.                                                                                              McConnell & Ma 2013
+                                                                                                                              Haring & Rix 2004
+                                                                                          (MBH/Mstellar) x 100
+
+
+
+
+               4.3. Systematic Uncertainties                                                                     1.00
+   Based on the z ∼ 0 samples presented in this work,
+we have shown that AGNs occupy a region in the
+log Mstellar − log MBH plane below that populated by
+ellipticals and classical bulges. Here we consider sys-
+tematic uncertainties in stellar and BH masses that may                                                          0.10
+affect this empirical result. We note that differences in
+distance scales are negligible. The range of assumed H0
+across all samples represented in Figure 8 varies from 70
+to 71 km s−1 Mpc−1 .
+   We do not expect that systematic uncertainties in stel-                                                       0.01
+lar masses between the samples shown in Figure 10 can                                                               108           109            1010                 1011             1012
+account for the two different relations. First, all stellar                                                                                    Mstellar/MO•
+masses have been estimated in the most consistent man-
+ner feasible. That is, we use color dependent mass-to-                           Figure 11. BH mass fractions (given as a percentage of the stellar
+light ratios provided by Zibetti et al. (2009) with either                       mass) as a function of stellar mass. Our local AGN relation, where
+                                                                                 Mstellar = Mtotal is shown as a dark red line. Our total stellar
+a combination of g and i-band SDSS data (all AGN ex-                             mass relation for quiescent BHs in early-type galaxies is shown as
+cept Pox 52), or B, V , and K-band data (galaxies with                           a dark blue line. Bulge mass relations from the literature are shown
+dynamical BH masses and Pox 52). As described in §2.4,                           as gray lines.
+we have accounted for any AGN contribution when calcu-
+lating stellar masses so we do not think AGN host galaxy                         ometry and orientation certainly varies between objects
+masses are significantly overestimated. Moreover, in or-                         (Kollatschny 2003; Bentz et al. 2009; Denney et al. 2010;
+der to bring the sample of AGNs onto the upper relation                          Barth et al. 2011), yet we apply a single geometric scal-
+by shifting their stellar masses, the stellar masses would                       ing factor since we do not have this information for the
+need to be reduced by more than an order of magnitude                            individual broad-line AGNs in our sample. There is also
+(see Figure 8).                                                                  the possibility that there are nongravitational contribu-
+   The virial BH masses estimated for our sample of                              tions to the measured gas velocities (e.g., Krolik 2001),
+broad-line AGNs are quite indirect and subject to vari-                          although this would lead to systematically overestimated
+ous uncertainties. For example, the broad-line region ge-                        BH masses.
+12                                                      Reines et al.
+
+   The lower relation defined by the broad-line AGNs
+has a normalization that is ∼1.2 dex lower than the                              11     E
+upper relation at Mstellar = 1010 M⊙ . Across our                                       S0
+sample, uncertainties in the virial BH mass estimates                            10     Sab
+                                                                                        Scd
+are expected to be on the order of ∼ 0.5 dex (e.g.,
+Vestergaard & Peterson 2006; Shen 2013), which is con-                            9
+siderably less than the offset in BH mass between the
+
+
+
+
+                                                                 log (MBH/MO•)
+two relations. Any reasonable variation in the virial fac-
+tor can also be ruled out as producing artificially low BH                        8
+masses for the broad-line AGNs. In order to get AGN BH
+masses to fall on the upper relation by changing the virial                       7
+factor, < f > would need to be & 40 (ǫ & 10 in equation
+1). Finally, we note that dynamically measured BHs in                             6
+galaxies with pseudobulges, as well as the reverberation-
+mapped AGN, overlap our sample of broad-line AGN.
+For all of these reasons, we conclude that uncertainties                          5
+in virial BH masses alone are not artificially producing a
+lower relation in the log Mstellar − log MBH plane for the                        4
+AGN.                                                                              8.5         9.0   9.5     10.0 10.5 11.0 11.5 12.0
+   We note that we have discarded 9 objects from our                                                      log (Mstellar/MO•)
+sample of AGNs in which the luminosity of the AGN
+dominates the total integrated photometry (host +              Figure 12. Log MBH versus log Mstellar with points color-coded
+                                                               by approximate morphological type (see text in §4.4). AGNs are
+AGN). Our motivation for this was to minimize unre-            plotted as stars and dynamically detected BHs are plotted as cir-
+liable stellar mass estimates. For a fixed stellar mass        cles. The dark red line indicates our BH-to-total stellar mass re-
+and Eddington ratio, this could bias us against large          lation based on local AGNs (equations 4 and 5). The dark blue
+                                                               line indicates our BH-to-total stellar mass relation based on ellipti-
+MBH /Mstellar . However, given that only ∼ 3% of the           cals and galaxies with classical bulges hosting dynamically detected
+AGNs were removed from our sample, we do not think             BHs (equations 4 and 6).
+this has impacted our results in any appreciable way.
+ 4.4. Possible Origins for the Separation Between AGN             Another potential factor is differences in host galaxy
+             Hosts and Ellipticals/Classical Bulges            properties.      A comparison of the Hubble types of
+  We now turn our attention to possible origins for            the galaxies with dynamically detected BHs (from
+two BH-to-total stellar mass relations: one comprising         Kormendy & Ho 2013) supports this notion. For exam-
+AGNs, the other ellipticals and classical bulges, with         ple, the classical bulges are mostly hosted by early-type
+pseudobulges predominantly overlapping the AGNs. It is         S0 galaxies (16/20 have Hubble types of S0 or SB0), and
+worth noting that at least some of the galaxies with pseu-     they overlap with the elliptical galaxies. Alternatively,
+dobulges are active, as they are selected as being masers.     the pseudobulges that tend to overlap with the AGN
+Others, like the Milky Way, are obviously inactive.            host galaxies are more commonly found in later-type spi-
+  Given that the lower relation is defined by AGNs and         ral galaxies (2/17 are found in SB0 galaxies, the rest are
+the upper relation is defined by quiescent BHs with dy-        in spirals).
+namical BH mass measurements, it is reasonable to con-            We find that a significant fraction of local broad-
+sider if nuclear activity (or lack thereof) may be par-        line AGN host galaxies are also spirals/disks, simi-
+tially responsible for the existence of two separate re-       lar to what has previously been found in studies of
+altions. On the one hand, there are reasons to ques-           moderate-luminosity AGN host galaxies out to z ∼
+tion the importance of nuclear activity since the samples      3 (e.g.,     Gabor et al. 2009; Schawinski et al. 2011;
+defining the two relations are each fraught with their         Kocevski et al. 2012; Bennert et al. 2015).             We ob-
+own selection biases. Dynamical BH mass measurements           tained approximate Hubble types for a subset of the
+are severely biased towards nearby, massive and dense          AGN host galaxies using automated morphological clas-
+galaxies where the BH sphere of influence can be re-           sifications from Huertas-Company et al. (2011). The
+solved (e.g., van den Bosch et al. 2015). Gültekin et al.     automated classifications from this work have been
+(2011) showed that dynamical BH masses are not bi-             shown to correlate well with visual classifications.
+ased high in the MBH − σ⋆ plane for very large galaxies        Rather than assigning a single morphological classifica-
+(< σ⋆ >∼ 268 km s−1 ), however we are probing signif-          tion, Huertas-Company et al. (2011) provide probabili-
+icantly lower masses. There is no reason that galaxies         ties of being in four morphological classes (E, S0, Sab,
+with quiescent BHs should not overlap with the AGN             Scd). For the AGN host galaxies with matches in the
+host galaxies in Figure 8; we just cannot detect such BHs.     Huertas-Company et al. (2011) catalog (129 objects), we
+One the other hand, we see in Figure 8 that we do not de-      simply adopt the class with the highest probability.
+tect AGNs with BH masses as large as the quiescent BHs            In Figure 12 we plot log MBH versus log Mstellar with
+at a given stellar mass, suggesting nuclear activity is an     points color-coded by morphological class. We also in-
+important factor. If there were AGNs with such large BH        clude the galaxies with dynamical BH masses, convert-
+masses, we should see them since they would be bright.         ing Hubble types provided by Kormendy & Ho (2013) to
+Apparently, the larger BHs (at a given stellar mass) are       either E, S0, Sab, or Scd. Based on these rough morpho-
+not shining as AGNs (see also, e.g., Heckman et al. 2004;      logical classifications, it is clear that a significantly higher
+Merloni 2004).                                                 fraction of spiral galaxies lies close to the lower relation
+                                                   Local MBH − M⋆ Relations                                                 13
+
+compared to the upper relation. These spiral galaxies               (2013), which in part leads them to conclude that AGN
+will have less prominent bulges than the galaxies on the            host galaxies follow a steeper, quadratic-like relation be-
+upper relation, which are mostly bulge-dominated ellip-             tween BH mass and bulge mass.
+tical and S0 galaxies.                                                 Our work also has important implications for cosmo-
+   The AGN host galaxies on the lower BH-to-total stel-             logical simulations that are tied to the local BH-to-bulge
+lar mass relation could conceivably follow the canonical            mass relations. In most cosmological simulations that
+BH-to-bulge mass relation7 if the classical bulge masses            produce statistical samples of BHs and AGNs, i.e., large
+for the AGN hosts were on average only ∼ 5% of the                  uniform-volume simulations (e.g., MassiveBlack I and
+total stellar masses. This echoes the result of the model           II, Di Matteo et al. (2012); DeGraf et al. (2014); Illus-
+for bulge evolution by Lu & Mo (2015), where their ref-             tris, Sijacki et al. (2015); Eagle, Schaye et al. (2015);
+erence model (Model III) is a very good fit to our data.            Horizon-AGN, Dubois et al. (2014)) the resolution is lim-
+Sanghvi et al. (2014) also find that low-mass quasars lie           ited to ∼kpc scales, making bulge-disk decomposition
+below the extrapolation of the local BH-to-bulge mass               for low-mass galaxies unreliable. The typical approach,
+relation, but with a correction for the disk they obey it.          in fact, is to estimate the total stellar mass within
+Caplar et al. (2014) advocate a lower MBH /Mstellar ra-             the stellar half-mass radius (Sijacki et al. 2015) or twice
+tio for local active galaxies compared to inactive galaxies         that (DeGraf et al. 2014), or extrapolate a fit to the
+that have “quenched” at earlier times.                              mass profile of the bulge inferred from kinematic data
+                                                                    (Schaye et al. 2015). If the simulations do not select el-
+        5. CONCLUSIONS AND DISCUSSION                               lipticals or galaxies with classical bulges and perform a
+   In this paper we have studied the relation between               bulge-disk decomposition, using the relations published
+BH mass and total stellar mass for nearby galaxies                  in the literature for BH-bulge mass (e.g., Häring & Rix
+(z < 0.055), including both galaxies with inactive BHs,             2004; Marconi & Hunt 2003; McConnell & Ma 2013;
+with dynamical BH mass measurements, and galaxies                   Kormendy & Ho 2013) as a benchmark for the compari-
+with an active BH, with mass measurements based on                  son between simulations and observations at z = 0 (and
+reverberation mapping or single-epoch virial estimates.             perhaps beyond) would not be appropriate. Our method
+Inclusion of the latter sources allows us to extend our             is easier to implement in the analysis of simulations, and
+sample to low BH masses, and also to use the same tech-             can help disentangle issues related to BH growth and
+nique used at higher redshift. Moreover, our stellar mass           AGN properties.
+measurements rely on mass-to-light ratios, as is routinely             Whether or not the BH-to-total stellar mass relation
+the case for higher redshift samples. Therefore we build            extends to even smaller masses bears directly to the ori-
+a local analog of higher redshift samples, but where we             gin of BH ‘seeds’. Volonteri & Natarajan (2009) and
+have better control on systematics. Our work is com-                van Wassenhove et al. (2010) suggested that if BH seeds
+plementary to Läsker et al. (2014), where they measure             are massive, e.g., 105 M⊙ , as predicted by ‘direct col-
+in a uniform way the total luminosities of a sample of              lapse’ models, the low-mass end of the relation between
+galaxies with dynamically-measured BHs, in that we try              BHs and galaxies (they specifically referred to the corre-
+to provide a benchmark for observational or theoretical             lation with the velocity dispersion, but the result would
+studies where detailed information on bulge properties is           hold for the stellar mass as well) flattens towards an
+not available. Bennert et al. (2015) also took a similar            asymptotic value, creating a characteristic ‘plume’ of un-
+approach towards the correlation with velocity disper-              grown BHs. Vice versa, if BH seeds are small, e.g., 102
+sion. One important caveat in our analysis is that the              M⊙ , as predicted by models related to the first genera-
+AGNs we have studied are moderate-luminosity Seyferts               tion of stars, the expectation is that the observable scal-
+(41.5 . log Lbol . 44.4). At high-redshift, statistical             ing laws would not see the asymptotic value (the ‘plume’)
+samples are often biased towards more luminous AGNs                 because it lies at masses below those that can be probed
+and quasars.                                                        observationally.
+   In Figure 8, we plot BH mass versus total stellar mass              Finally, extending the sample at stellar masses ∼
+for galaxies with 108.5 . Mstellar . 1012 M⊙ . A single             109 M⊙ is fundamental to interpret results for much
+linear fit to the data is disfavored. Rather, the AGN               higher redshift galaxies with similar masses. Searches
+host galaxies define a relation that has a similar slope            for AGN in galaxies with stellar masses ∼ 109 M⊙ at
+(MBH ∝ Mstellar ) to early-type galaxies with quiescent             z > 6 have found very few, if any, BHs (Willott 2011;
+BHs, but a normalization that is more than an order                 Fiore et al. 2012; Cowie et al. 2012; Treister et al. 2013;
+of magnitude lower (Figures 10 and 11). The differ-                 Giallongo et al. 2015; Weigel et al. 2015). If our sample
+ent normalizations may be partially due to active ver-              is a good representation of the local universe, and the
+sus inactive BHs, but can also be attributed to differ-             same relation based on local AGNs holds at high-redshift,
+ences in host galaxy (bulge) properties as discussed in             it explains why we do not easily detect BHs at high-z:
+§4.4. We caution that using the z = 0 benchmark BH-to-              their masses would lie below the extrapolation of the lo-
+bulge mass relations for AGN host galaxies, or assuming             cal BH-bulge mass relation which is normally used as a
+Mbulge = Mtotal , may lead to severely biased interpre-             benchmark. Volonteri & Stark (2011) suggested that ob-
+tations. For example, Graham & Scott (2015) assume                  servations could indeed be explained with a BH-stellar
+bulge mass equals total stellar mass for the 10 broad-              mass correlation either steeper than at z = 0, or with
+line AGN and composite dwarf galaxies in Reines et al.              a lower normalization. Dubois et al. (2015) suggest that
+                                                                    the growth of BHs in low-mass galaxies (galaxy mass
+ 7   We have scaled the BH-to-bulge mass relation of                < 1010 M⊙ and bulge mass < 109 M⊙ ) is stunted be-
+Kormendy & Ho (2013) to account for our different assumed stellar   cause of supernova feedback, which hinders accumulation
+mass-to-light ratios as discussed in §3.3.
+14                                                             Reines et al.
+
+of gas in the nucleus until the potential well of the bulge           —. 2007b, ApJ, 667, 131
+and galaxy become deep enough. In forthcoming work,                   Greene, J. E., Peng, C. Y., Kim, M., et al. 2010, ApJ, 721, 26
+                                                                      Grier, C. J., Martini, P., Watson, L. C., et al. 2013, ApJ, 773, 90
+we will explore the consequences of our results on the                Groves, B. A., Heckman, T. M., & Kauffmann, G. 2006, MNRAS,
+interpretation of high-z BH populations, and the link to                 371, 1559
+their hosts.                                                          Gültekin, K., Richstone, D. O., Gebhardt, K., et al. 2009, ApJ,
+                                                                         698, 198
+                                                                      Gültekin, K., Tremaine, S., Loeb, A., & Richstone, D. O. 2011,
+                                                                         ApJ, 738, 17
+  It is our pleasure to thank Rich Plotkin, Eric Bell,                Häring, N., & Rix, H.-W. 2004, ApJL, 604, L89
+                                                                      Heckman, T. M., Kauffmann, G., Brinchmann, J., et al. 2004,
+Kayhan Gültekin and Jenny Greene for very helpful dis-                  ApJ, 613, 109
+cussions. We also thank the anonymous referee for useful              Ho, L. C., & Kim, M. 2014, ApJ, 789, 17
+comments and suggestions. Support for AER was pro-                    Huertas-Company, M., Aguerri, J. A. L., Bernardi, M., Mei, S., &
+                                                                         Sánchez Almeida, J. 2011, A&A, 525, A157
+vided by NASA through Hubble Fellowship grant HST-                    Into, T., & Portinari, L. 2013, MNRAS, 430, 2715
+HF2-51347.001-A awarded by the Space Telescope Sci-                   Jahnke, K., Bongiorno, A., Brusa, M., et al. 2009, ApJL, 706,
+ence Institute, which is operated by the Association of                  L215
+                                                                      Kaspi, S., Maoz, D., Netzer, H., et al. 2005, ApJ, 629, 61
+Universities for Research in Astronomy, Inc., for NASA,               Kauffmann, G., et al. 2003, MNRAS, 346, 1055
+under contract NAS 5-26555. MV acknowledges fund-                     Kelly, B. C. 2007, ApJ, 665, 1489
+                                                                      Kelly, B. C., & Merloni, A. 2012, Advances in Astronomy, 2012,
+ing from the European Research Council under the Eu-                     arXiv:1112.1430
+ropean Community’s Seventh Framework Programme                        Kewley, L. J., Dopita, M. A., Leitherer, C., et al. 2013, ApJ, 774,
+(FP7/2007-2013 Grant Agreement no. 614199, project                       100
+                                                                      Kewley, L. J., Dopita, M. A., Sutherland, R. S., Heisler, C. A., &
+“BLACK”).                                                                Trevena, J. 2001, ApJ, 556, 121
+                                                                      Kewley, L. J., Groves, B., Kauffmann, G., & Heckman, T. 2006,
+                         REFERENCES                                      MNRAS, 372, 961
+                                                                      Kocevski, D. D., Faber, S. M., Mozena, M., et al. 2012, ApJ, 744,
+                                                                         148
+                                                                      Kollatschny, W. 2003, A&A, 407, 461
+Aihara, H., Allende Prieto, C., An, D., et al. 2011, ApJS, 193, 29    Kormendy, J., Bender, R., & Cornell, M. E. 2011, Nature, 469,
+Baldassare, V. F., Reines, A. E., Gallo, E., & Greene, J. E. 2015,       374
+  ApJ, 809, L14                                                       Kormendy, J., & Ho, L. C. 2013, ARA&A, 51, 511
+Baldwin, J. A., Phillips, M. M., & Terlevich, R. 1981, PASP, 93, 5    Krolik, J. H. 2001, ApJ, 551, 72
+Barth, A. J., Ho, L. C., Rutledge, R. E., & Sargent, W. L. W.         Läsker, R., Ferrarese, L., van de Ven, G., & Shankar, F. 2014,
+  2004, ApJ, 607, 90                                                     ApJ, 780, 70
+Barth, A. J., Pancoast, A., Thorman, S. J., et al. 2011, ApJ, 743,    Lauer, T. R., Tremaine, S., Richstone, D., & Faber, S. M. 2007,
+  L4                                                                     ApJ, 670, 249
+Bell, E. F., & de Jong, R. S. 2001, ApJ, 550, 212                     Lu, Z., & Mo, H. J. 2015, ApJ, 802, 110
+Bell, E. F., McIntosh, D. H., Katz, N., & Weinberg, M. D. 2003,       Magorrian, J., et al. 1998, AJ, 115, 2285
+  ApJS, 149, 289                                                      Marconi, A., & Hunt, L. K. 2003, ApJL, 589, L21
+Bennert, V. N., Treu, T., Auger, M. W., et al. 2015, ApJ, 809, 20     Marconi, A., Risaliti, G., Gilli, R., et al. 2004, MNRAS, 351, 169
+Bentz, M. C., & Katz, S. 2015, PASP, 127, 67                          McConnell, N. J., & Ma, C.-P. 2013, ApJ, 764, 184
+Bentz, M. C., et al. 2009, ApJ, 705, 199                              Merloni, A. 2004, MNRAS, 353, 1035
+Bentz, M. C., Denney, K. D., Grier, C. J., et al. 2013, ApJ, 767,     Merloni, A. e. a. 2010, ApJ, 708, 137
+  149                                                                 Nelson, C. H., Green, R. F., Bower, G., Gebhardt, K., &
+Beifiori, A., Courteau, S., Corsini, E. M., & Zhu, Y. 2012,              Weistrop, D. 2004, ApJ, 615, 652
+  MNRAS, 419, 2497                                                    Onken, C. A., Ferrarese, L., Merritt, D., et al. 2004, ApJ, 615, 645
+Blanton, M. R., Kazin, E., Muna, D., Weaver, B. A., &                 Park, D., Woo, J.-H., Bennert, V. N., et al. 2015, ApJ, 799, 164
+  Price-Whelan, A. 2011, AJ, 142, 31                                  Park, D., Woo, J.-H., Treu, T., et al. 2012, ApJ, 747, 30
+Blanton, M. R., & Roweis, S. 2007, AJ, 133, 734                       Peng, C. Y., Impey, C. D., Rix, H.-W., et al. 2006, ApJ, 649, 616
+Bongiorno, A., Maiolino, R., Brusa, M., et al. 2014, MNRAS, 443,      Peterson, B. M., et al. 2004, ApJ, 613, 682
+  2077                                                                Reines, A. E., & Deller, A. T. 2012, ApJ, 750, L24
+Caplar, N., Lilly, S. J., & Trakhtenbrot, B. 2014, arXiv:1411.3719    Reines, A. E., Greene, J. E., & Geha, M. 2013, ApJ, 775, 116
+Cisternas, M., Jahnke, K., Bongiorno, A., et al. 2011, ApJ, 741,      Reines, A. E., Plotkin, R. M., Russell, T. D., et al. 2014, ApJ,
+  L11                                                                    787, L30
+Conroy, C., Gunn, J. E., & White, M. 2009, ApJ, 699, 486              Reines, A. E., Sivakoff, G. R., Johnson, K. E., & Brogan, C. L.
+Cowie, L. L., Barger, A. J., & Hasinger, G. 2012, ApJ, 748, 50           2011, Nature, 470, 66
+Decarli, R., Falomo, R., Treves, A., et al. 2010, MNRAS, 402,         Richards, G. T., et al. 2006, ApJS, 166, 470
+  2453                                                                Sanghvi, J., Kotilainen, J. K., Falomo, R., et al. 2014, MNRAS,
+DeGraf, C., Di Matteo, T., Treu, T., et al. 2014, ArXiv e-prints,        445, 1261
+  arXiv:1412.4133                                                     Schawinski, K., Treister, E., Urry, C. M., et al. 2011, ApJ, 727,
+Denney, K. D., Peterson, B. M., Pogge, R. W., et al. 2010, ApJ,          L31
+  721, 715                                                            Schaye, J., Crain, R. A., Bower, R. G., et al. 2015, MNRAS, 446,
+Di Matteo, T., Khandai, N., DeGraf, C., et al. 2012, ApJ, 745,           521
+  L29                                                                 Schlegel, D. J., Finkbeiner, D. P., & Davis, M. 1998, ApJ, 500,
+Dong, X., Wang, T., Yuan, W., et al. 2007, ApJ, 657, 700                 525
+Dubois, Y., Volonteri, M., Silk, J., et al. 2015, MNRAS, 452, 1502    Schramm, M., & Silverman, J. D. 2013, ApJ, 767, 13
+Dubois, Y., Pichon, C., Welker, C., et al. 2014, MNRAS, 444,          Schulze, A., & Wisotzki, L. 2010, A&A, accepted
+  1453                                                                   (astroph/1004.2671), arXiv:1004.2671
+Ferrarese, L., & Merritt, D. 2000, ApJ, 539, L9                       Secrest, N. J., Satyapal, S., Gliozzi, M., et al. 2015, ApJ, 798, 38
+Ferrarese, L., Pogge, R. W., Peterson, B. M., et al. 2001, ApJ,       Shankar, F., Salucci, P., Granato, G. L., De Zotti, G., & Danese,
+  555, L79                                                               L. 2004, MNRAS, 354, 1020
+Filippenko, A. V., & Ho, L. C. 2003, ApJ, 588, L13                    Shankar, F., Weinberg, D. H., & Miralda-Escudé, J. 2009, ApJ,
+Filippenko, A. V., & Sargent, W. L. W. 1989, ApJ, 342, L11               690, 20
+Fiore, F., Puccetti, S., Grazian, A., et al. 2012, A&A, 537, A16      Shen, Y. 2013, Bulletin of the Astronomical Society of India, 41,
+Gabor, J. M., Impey, C. D., Jahnke, K., et al. 2009, ApJ, 691, 705       61
+Gallazzi, A., Brinchmann, J., Charlot, S., & White, S. D. M.          Sijacki, D., Vogelsberger, M., Genel, S., et al. 2015, MNRAS, 452,
+  2008, MNRAS, 383, 1439                                                 575
+Gebhardt, K., Bender, R., Bower, G., et al. 2000a, ApJ, 539, L13      Silverman, B. W. 1986, Density estimation for statistics and data
+Gebhardt, K., et al. 2000b, ApJ, 543, L5                                 analysis
+Giallongo, E., Grazian, A., Fiore, F., et al. 2015, A&A, 578, A83     Sun, M., Trump, J. R., Brandt, W. N., et al. 2015, ApJ, 802, 14
+Graham, A. W., & Scott, N. 2015, ApJ, 798, 54                         Targett, T. A., Dunlop, J. S., & McLure, R. J. 2012, MNRAS,
+Greene, J. E., & Ho, L. C. 2005, ApJ, 630, 122                           420, 3621
+—. 2006, ApJ, 641, L21
+—. 2007a, ApJ, 670, 92
+                                                    Local MBH − M⋆ Relations                                                         15
+
+Thornton, C. E., Barth, A. J., Ho, L. C., Rutledge, R. E., &         Volonteri, M., & Natarajan, P. 2009, MNRAS, 400, 1911
+  Greene, J. E. 2008, ApJ, 686, 892                                  Volonteri, M., & Stark, D. P. 2011, MNRAS, 417, 2085
+Treister, E., Schawinski, K., Volonteri, M., & Natarajan, P. 2013,   Weigel, A. K., Schawinski, K., Treister, E., et al. 2015, MNRAS,
+  ApJ, 778, 130                                                        448, 3167
+van den Bosch, R. C. E., Gebhardt, K., Gültekin, K., Yıldırım,      Willick, J. A., Courteau, S., Faber, S. M., et al. 1997, ApJS, 109,
+  A., & Walsh, J. L. 2015, ApJS, 218, 10                               333
+van Wassenhove, S., Volonteri, M., Walker, M. G., & Gair, J. R.      Willott, C. J. 2011, ApJ, 742, L8
+  2010, MNRAS, 408, 1139                                             Yan, R. 2011, AJ, 142, 153
+Vanden Berk, D. E., et al. 2001, AJ, 122, 549                        Yan, R., & Blanton, M. R. 2012, ApJ, 747, 61
+Veilleux, S., & Osterbrock, D. E. 1987, ApJS, 63, 295                Zibetti, S., Charlot, S., & Rix, H.-W. 2009, MNRAS, 400, 1181
+Vestergaard, M., & Osmer, P. S. 2009, ApJ, 699, 800
+Vestergaard, M., & Peterson, B. M. 2006, ApJ, 641, 689
+

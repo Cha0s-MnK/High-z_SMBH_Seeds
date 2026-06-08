@@ -1,0 +1,1517 @@
+                                 https://doi.org/10.1038/s41586-026-10579-4
+
+
+ Supplementary information
+
+A direct black-hole mass measurement in a
+little red dot at high redshift
+
+
+
+
+Nature | www.nature.com/nature
+                                                                                                                                                        1
+1   Supplementary Material                                                      Fig. 2, no significant degeneracies are present between the scale of
+                                                                                the fixed BLR model and narrow Hα properties. In particular, there
+1.1 Narrow line kinematics
+                                                                                are no degeneracies between the “Scale” parameter (which defines
+In order to constrain the narrow line kinematics, we perform spaxel-            the intensity of the broad component and its absorption) and the
+by-spaxel fitting of the original cube to subtract the broad H𝛼 and             velocity of the narrow line (identified by 𝑧 𝑛𝑟 , i.e. the redshift of the
+the continuum components. The broad H𝛼 emission was modeled                     narrow component), which is the most critical quantity. This indicates
+with the same shape as derived from combined spectrum in Ref. 15 ,              that the two components of Hα are well decoupled by the spectral
+consisting of two Gaussians with FWHM of 450 and 1800 km s−1                    resolution of our data.
+and containing 41% and 59% of the total broad line flux respectively.              As can be seen in the figure, the narrow H𝛼 kinematics reveal a
+This composite profile was then scaled in the fitting procedure to              strong velocity gradient of an amplitude of 10 km s−1 . This value is
+reproduce the data in each spaxel. In addition to the broad line emis-          smaller than the spectral pixel scale of 20-25 km s−1 , but it is well
+sion, the H𝛼 profile of QSO1 also includes significant absorption.              known that with high signal-to-noise it is possible to measure offsets
+We account for this in the fitting by including an absorption profile           below the spectral and spatial resolutions 48 , with an accuracy that is
+of the form:                                                                    given by Δ𝑣 ∝ 𝐹𝑊 𝐻 𝑀 𝐿𝑆𝐹 ×(𝑆/𝑁) −1 . However, wavelength calibra-
+                                                                                tion issues may potentially introduce spurious effects. In particular,
+ 𝐹𝜆                                                                             due to data-processing issues, point sources may display spurious
+     = 1 − 𝐶 𝑓 + 𝐶 𝑓 𝑒 − 𝜏𝜆 ,                                            (5)                                                               ★
+                                                                                rotation of up to ≲ 1 spectral pixel (Beck T., in prep. ). In case of
+𝐹𝜆;0
+                                                                                false rotation, the inferred velocity gradient is always across the IFU
+where 𝐹𝐹𝜆;0
+          𝜆
+             is the ratio of transmitted to emitted fluxes, 𝐶 𝑓 is the cover-   slicers, because spaxels along the same slice tend to have a constant
+ing factor and 𝜏𝜆 - a Gaussian optical depth distribution characterized         velocity offset with respect to the centre of the source. However,
+by the optical depth at the core of the line (𝜏0 ), Doppler broadening          in our case, the observed velocity gradient is aligned to the slicers
+(𝑏) and velocity offset from the narrow emission (𝑑𝑣). Following the            (green segment in Fig.1, i.e., orthogonal to the direction expected for
+results of 15 , we adopt 𝐶 𝑓 = 0.55, 𝜏0 = 1.9, 𝑏 = 100 km s−1 and               potential, spurious rotation. We can therefore rule out the observed
+𝑑𝑣 = −36 km s−1 as the parameters to Equation 5. The narrow H𝛼                  rotation being due to data-reduction artifacts.
+line was parametrized as a Gaussian, with 𝜎 bounded between 10                     While the narrow line emission is spatially extended up to 200 pc
+and 50 km s−1 and peak location allowed to shift by 100 km s−1 rela-            scales as found by 11 , this extent is not much larger than the IFU PSF
+tive to the redshift obtained from an aperture spectrum. As discussed           at H𝛼 wavelengths 15 . As shown in Fig. 1, QSO1 is resolved into
+further on, the single parameter broad line + absorber model does               only two beams. We thus do not attempt to construct a rotation curve
+not leave structured residuals, indicating that both the broad lines            through a full line of nodes. Instead, we bin the positions of positive
+and the absorber are unresolved.                                                and negative velocity spaxels to map out the red and blue wings of
+   After subtracting the broad line and continuum emission, we per-             the rotation curve. The bins were chosen to include approximately
+form Bayesian fitting of the narrow H𝛼 emission. We choose a flat               equal numbers of spaxels at 100 and 150 pc distances from the center
+prior on the FWHM of the narrow H𝛼 line, bounded between 10                     of rotation (black star in Fig.1 - this was found iteratively as part of
+and 200 km s−1 , while the redshift prior was a Gaussian centered               the fit, and then confirmed to be consistent with the best fit obtained
+on 𝑧 = 7.0367 4,15 and had a FWHM of 100 km s−1 in velocity                     by MOKA3D). We avoided binning spaxels closer than 60 pc to
+space. The posteriors were estimated using a Monte Carlo integrator             the center of rotation as beam-smearing dominates on scales below
+emcee 59 with only spaxels for which the line was detected at > 5𝜎              120 pc. The binned velocities are obtained through an rms weighted
+significance considered for further analysis. The H𝛼 emission and               mean of the contributing spaxels in each bin.The rotation curve in
+kinematics maps obtained as the median values of the posteriors are             Fig.2 is obtained by simply taking the line of sight velocity, without
+shown in Fig.1. The velocities were calculated from the difference              adding in quadrature the velocity dispersion, as it is the line of sight
+between the Hα redshift in each spaxel and the median value.                    velocity which should follow a Keplerian rotation in the case of a
+   We check the validity of our line fitting procedure by investigating         point mass. Hα is unresolved in the outer parts, with an upper limit on
+the model-subtracted cube for position dependent residuals. No such             the velocity dispersion 𝜎 < 10 − 20 km s−1 . In the central region the
+residuals are found, which we illustrate by presenting fits to three            apparent velocity dispersion is of the order of 25 km s−1 . However,
+individual representative spaxels. One of these is picked to coincide           the analysis performed by MOKA3D (discussed in the Methods)
+with the inferred dynamical center while the remaining two are 150 pc           reveals that this central broadening is entirely due to beam smearing
+away (source plane) in the red and blue shifted sides, respectively.            of the rotation curve, with an intrinsic 𝜎 ∼ 7 km s−1 - well below the
+   Supplemental Materials Fig. 1 showcases the fits to the combined             instrumental resolution. Therefore, the whole system is consistent
+line profile, their residuals and fits to the BLR-subtracted narrow line        with not being pressure-support dominated. Our velocity errors on
+profile. As can be seen there, the combined line profile fit leaves             individual spaxels are ∼ 2 − 6 km s−1 , similar to what is reasonably
+no significant residuals near the core of the line, independent of the          achievable at our resolution and signal-to-noise 15 .
+spaxel position. As the red and blue spaxels are separated by 300                  It should be noted that using the median redshift as the velocity
+pc, the lack of significant (> 3𝜎) residuals around the core of the             zero point can skew the observed rotation as the narrow Hα flux
+line implies that the absorption profile is unresolved as otherwise our         distribution is skewed towards the blue side (Fig. 1). This causes
+procedure of fixing its properties would leave significant residuals            more of the pixels on the blue side to be above the S/N threshold for
+on either side of the dynamical center. This is in line with the fact           inclusion into the extended kinematics map, skewing the median to
+that the absorption is against the continuum and the BLR component              one side. In order to account for this bias, we force the mean velocity
+of H𝛼 emission, which are both unresolved, hence the absorption is              across both wings to be zero. Note that in the MOKA3D modelling,
+expected to be unresolved too.                                                  discussed in the Methods, the determination of the zero velocity is a
+   In addition to the best-fit plots, Supplemental Materials Fig. 2 and
+3 showcase corner plots of the posteriors of the full line and BLR-
+                                                                                ★
+subtracted profile fits respectively. As seen in Supplemental Materials             Available on jdocs.
+2
+free parameter of the global fit; the two rest frame central velocities,   30 < |𝑣| < 60 km s−1 , the smallest independent velocity bins possi-
+independently determined with the two methods, are consistent with         ble at our resolution, and repeat our analysis. The considerably lower
+each other.                                                                signal to noise in the finer-split channels does significantly reduce
+                                                                           our centroiding accuracy. However, as shown in Fig.2, the extended
+                                                                           spectroastrometric points are consistent with the measured extended
+1.2 Spectroastrometric measurements                                        velocity field and retain a strong preference for the point mass model.
+The spatial resolution (0.1") of the NIRSpec IFU data is larger than           Before conducting an in-depth analysis we perform a first order
+the 30 pc scales, below which the influence on kinematics from a           estimate of the virial mass of the object. The measured separa-
+point mass with a few tens million masses would be most apparent.          tion between the red and blue (±50 km s−1 ) centroids of H𝛼 is
+However, both spatial and spectral information present in the data         24.9+9.4
+                                                                                 −9.4 pc (after correcting for the shear lensing factor of 3.52).
+can be combined to measure sizes significantly below the nominal           Taking half of this value as the spectroastrometric radius gives
+resolution, if the signal-to-noise is high enough. The method through      𝑟 spec = 12.4+4.7
+                                                                                           −4.7 pc. Combined with 𝑣 = 50 km s
+                                                                                                                                     −1 this yields
+                                                                                            2      2                   6
+which this is accomplished, spectroastrometry, was first conceived to      𝑀 (< 𝑟 spec ) sin 𝑖 = 𝑣 𝑟 spec /𝐺 = 7.2 × 10 M⊙ . We repeat this esti-
+measure separations between close binary stars 49,50 and has been ap-      mate using the methods laid out in 18 , who derive the following mass
+plied to search for BHs in the centers of galaxies by Ref. 18 and, more    estimator:
+recently, to measure BLR sizes and BH masses in bright QSOs 61 .                                FWHM2 𝑟 spec
+   The spectroastrometric measurements, when carried out on an             𝑀spec sin2 𝑖 = 𝑓spec                ,                                    (6)
+                                                                                                      𝐺
+IFU cube containing an emission line involve slicing the line into
+several velocity channels an constructing an image of the source in        where 𝑟 spec is the spectroastrometric radius, FWHM - the observed
+each. Afterwards, centroids in each velocity channel are measured          width of the emission line analyzed and 𝑖 - the inclination angle. The
+and distances to the reference zero velocity channel are computed.         calibrated 𝑓spec value is 1.0, with 0.15 dex scatter 18 . Taking the same
+With sufficient signal to noise, this method can recover a rotation        𝑟 spec value as above, and using FWHM = 52+14     −14 km s
+                                                                                                                                         −1 15 , yields
+                                                                                         2               +0.23
+curve at scales smaller than the PSF by leveraging the fact that           log 𝑀spec sin 𝑖/M⊙ = 6.90−0.23 . Consistent with the simplified es-
+centroid accuracy for a given S/N and spatial resolution is given by       timate above and the full analysis performed later. We note that the
+𝜎𝐶 = 0.6𝜃 (𝑆/𝑁) −1 48 , where 𝜃 is the size of the PSF. Given the          FWHM value used in Equation 6 is only corrected for instrumental
+peak S/N = 12 of the narrow Hα line, our nominal centroid accuracy         effects and hence it does include beam smearing of the rotation curve,
+is thus 𝜎𝐶 ∼ 5 mas, corresponding to 2 pc on the source plane. In          as it should be for applying the methods given in Ref. 18 . As shown in
+practice, the measurement error is larger than this value as it is also    the subsequent analysis, this beam smearing is in fact the main line
+influenced by flux errors on individual pixels making up the image.        broadening mechanism in QSO1, with the intrinsic line width being
+   We perform the spectroastrometric analysis using the same broad         unresolved (see Methods).
+line and continuum subtracted cube as in the previous section. The             Lastly, we perform a null test using JWST IFU observations of
+centroid measurements were carried out using three velocity chan-          reference stars from PID 1537 (PI: K. Gordon). The details of this
+nels: −40 < 𝑣 < 40 km s−1 , serving as the zero velocity reference         test, which shows that systematic spatial uncertainties from data
+point and −100 < 𝑣 < 0 km s−1 , 0 < 𝑣 < 100 km s−1 , tracing               calibration do not exceed 0.5 pc, are given in the following section.
+the blue and red wings of the line respectively. The widths of these
+channels are equal to 2-3 spectral channels of the underlying cube
+                                                                           1.3 Null test using calibration stars and continuum
+and were chosen in order to maximize S/N in each channel image.
+The centroid positions were measured by fitting 2D quadratic poly-         In order to assess the robustness of our result against calibration
+nomials (although the results are not strongly influeced by the exact      systematics we perform a null test using JWST NIRSpec IFU obser-
+centroiding routine) via astropy, with the errors estimated through        vations of calibration stars. As stars are pure bright point sources,
+bootstrap resampling utilizing the rms of the blank parts of the image     any apparent rotation shown in their data must result from calibration
+as 1𝜎 error on the flux. The centroid positions are shown in Extended      systematics. In order to robustly quantify such systematics, we use
+Data Fig.1a and indicate that the centroids of the blue and red wings      IFU data obtained from PID 1537 (PI: K. Gordon), reduce it with
+of the line lie on the opposite ends of the 𝑣 = 0 channel centroid         the same pipeline as our QSO1 data, with the exception of leaving
+and are broadly aligned with the large scale rotation. While the exact     the pixel scale at 0.05" as the calibration observations lack enough
+positions of the centroids are subject to some uncertainty, the signif-    dithers for oversampling, and perform spectroastrometric analysis
+icance of the separation is 3-5𝜎, indicating that the measurements         on the stellar continuum around 𝜆 = 5.0𝜇𝑚, close to where Hα of
+trace small-scale rotation. It should be noted that the |𝑣| = 0 cen-       QSO1 is located. The resulting centroids are shown in Supplemen-
+troid in Extended Data Fig.1a does not coincide with the dynamical         tary Material Fig. 4 and showcase a complete lack of appreciable
+center inferred by MOKA3D modeling, this is because the overall flux       spatial offset. The offsets measured between the stellar spectroastro-
+distribution (Fig. 1) is asymmetric. MOKA3D takes into account this        metric points do not exceed 0.5 pc in the rest-frame of QSO1. This
+asymmetry (as well as any other non-radial flux distribution), how-        shows that the 10-20 pc offsets measured in our target are not due
+ever, spectroastrometry does not. As a consequence, the absolute           to calibration systematics and that the calibration-induced centroid
+location of the spectro-astrometry centroids is affected by this issue,    uncertainties of ∼ 0.5 pc are an order of magnitude lower than those
+but the relative position of the centroids is very precise.                arising from the PSF or signal to noise. This conclusively shows that
+   The integrated narrow Hα profile is shown in Extended Data Fig.         our results are not dominated by calibration systematics.
+1b and indicates some emission present at |𝑣| ∼ 150 km s−1 at                 In addition to using a calibration star, we perform a similar test on
+about 2𝜎 significance, however, extending the velocity bins out to         the data cube of QSO1, defining additional high velocity channels
+150 km s−1 does not impact the results.                                    of 100 < |𝑣| < 3000 and 3000 < |𝑣| < 7000 km s−1 . Emission
+   In order to further investigate the correspondence of spectroastro-     in these channels is expected to originate from the broadest part of
+metric measurements with the inferred large-scale rotation, we also        the BLR and continuum respectively, both of which are expected
+split the Hα into finer velocity channels of |𝑣| < 30 km s−1 and           to be unresolved. Spectroastrometry of these velocity channels is
+                                                                                                                                                                              3
+
+                                                               +150 pc                                Center                                 −150 pc
+                                                     5.27       z med.       5.28           5.27       z med.       5.28           5.27       z med.       5.28
+                                               1.0
+
+                           Fλ , norm.
+                                               0.5
+
+
+                                               0.0
+
+                                                                     Data
+                                                                     Combined fit
+                                              0.08
+                                                                     Data, no BLR
+                                                                     NLR fit
+                  Fλ [×10−20 erg s−1 Å−1 ]
+
+
+
+
+                                              0.06
+
+
+
+
+                                              0.04
+
+
+
+
+                                              0.02
+
+
+
+                                                       5.250    5.275       5.300   5.325                                            5.250    5.275       5.300   5.325
+                                                2
+                          Residual [σ]
+
+
+
+
+                                                0
+
+
+                                               −2
+
+                                                       5.250    5.275       5.300   5.325     5.250    5.275       5.300   5.325     5.250    5.275       5.300   5.325
+                                                               λobs. [µm]                             λobs. [µm]                             λobs. [µm]
+
+
+Supplementary Material Fig. 1 | Showcase of the fits to the individual spaxels. Top row: Showcase of the BLR-subtracted narrow line profiles normalized
+to the line peak (teal) along with the best-fit resluts (red) in the redshifted wing (+150 pc), dynamical center and blueshifted (-150 pc) wing. The dashed vertical
+line shows the median redshift of the data cube. The shift in the narrow line profiles clearly showcases a ∼30 km s −1 velocity gradient across 300 pc. Middle
+row: Combined (broad and narrow) line profiles of the same spaxels (black) together with the best-fit line profiles (magenta). Bottom row: Residuals of the fits
+to the full Hα line profiles in terms of the error on each spaxel. It can be seen that our fitting procedure does not leave residuals above 2𝜎 with the exception of
+a few noise spikes.
+
+
+shown in Supplementary Material Fig. 5 and displays apparent offsets                                       local Universe and a biconical outflow viewed edge-on can resemble
+between the centroids of the broad lines. However, these offsets are                                       a rotating disk. This is a particular concern for QSO1 as analysis
+smaller by a factor of 2-3 than those observed for the narrow line                                         of the H𝛽 and [OIII] emission in this source by 11 has identified a
+velocity channels. In addition, they lie perpendicular to the direction                                    likely extended outflow component in H𝛽, traced by an intermediate
+of the slicer, unlike the narrow line channels. This indicates that they                                   width, blueshifted component. In addition, the broad H𝛼 line shows
+are likely the product of inter-slicer wavelength offsets, potentially                                     a bimodal profile, with a narrower (FWHM = 490 km s−1 ) broad
+enhanced by our oversampling of the pixel scale. Regardless, this                                          component superimposed on a broader (FWHM = 1800 km s−1 )
+clearly showcases that the spectroastrometric signal seen in the |𝑣| <                                     emission line 15 .
+100 km s−1 channels can not be ascribed to data callibration issues.
+                                                                                                              We investigate weather the intermediate Hα component is spa-
+                                                                                                           tially distinct from the broad one by extracting an annular spectrum
+                                                                                                           between 0.2 and 0.3" from the center - corresponding to 300 - 450 pc
+1.4 Tentative nuclear outflow
+                                                                                                           on the source plane. This extraction annulus is ∼ 30% larger than
+The remaining concern of our kinematics modeling is the potential                                          utilized in Hβ analysis by Ref. 11 in order to account for additional
+presence of outflows, which are common in AGN host galaxies in the                                         beam smearing, by a 30% larger PSF at Hα wavelengths. The result-
+4
+
+                                    4.3+2.3
+                                       −2.5 ×10
+                                                −4
+                                                   +zmed .                                                                                                                                                               1.8+2.3
+                                                                                                                                                                                                                            −2.4 ×10
+                                                                                                                                                                                                                                     −4
+                                                                                                                                                                                                                                        +zmed .
+                                                                              +150 pc                                                                                                                                                                                                          Center
+
+
+
+                                                             86.9+22.4
+                                                                 −20.8                                                                                                                                                                                              106.4+25.0
+                                                                                                                                                                                                                                                                         −21.0
+                   4 6 8 0 80 0 0 0 0
+
+
+
+
+                                                                                                                                                                                          60 90 120 150
+                 2. 1. 0. 0. 0. 3 6 9 12 15
+    FWHMnr
+
+
+
+
+                                                                                                                                                                         FWHMnr
+                                                                         −1.0+0.8
+                                                                             −0.8                                                                                                                                                                                                     −1.2+0.8
+                                                                                                                                                                                                                                                                                          −0.8
+
+
+
+
+                                                                                                                                                                                        68 74 80 86 .35 .40 .45 .50 .55 2.4 1.8 1.2 0.6 0.0
+                                                                                                                                                                                                    2 2 2 2 2 − − − −
+      α
+
+
+
+
+                                                                                                                                                                           α
+                − − −
+
+
+
+
+                                                                                             2.6+0.1
+                                                                                                −0.1 ×10
+                                                                                                         −3
+                                                                                                                                                                                                                                                                                                    2.5+0.0
+                                                                                                                                                                                                                                                                                                       −0.1 ×10
+                                                                                                                                                                                                                                                                                                                −3
+                38 .44 .50 .56 .52 .58 .64 .70
+                               2 2 2 2
+    C
+
+
+
+
+                                                                                                                                                                         C
+                                                                                                                                   1.5+0.1
+                                                                                                                                      −0.1 ×10
+                                                                                                                                               −4
+                                                                                                                                                                                                                                                                                                                     1.7+0.1
+                                                                                                                                                                                                                                                                                                                        −0.1 ×10
+                                                                                                                                                                                                                                                                                                                                 −4
+                   1 1 1
+
+
+
+
+                                                                                                                                                                                      1. 1. 1. 1.
+    Scale
+
+
+
+
+                                                                                                                                                                         Scale
+                                                                                                                                                    3.7+0.9
+                                                                                                                                                       −0.8 ×10
+                                                                                                                                                                −3
+                                                                                                                                                                                                                                                                                                                                      4.2+0.8
+                                                                                                                                                                                                                                                                                                                                         −0.8 ×10
+                                                                                                                                                                                                                                                                                                                                                  −3
+
+                                                  znr                                                                                                                                                                                             znr
+                1.
+
+
+
+
+                                                             FWHMnr         α                                           C              Scale             Peak, nr.                                                                                                  FWHMnr                 α               C              Scale          Peak, nr.
+                  5 0 5 0 5
+
+
+
+
+                                                                                                                                                                                                           7
+    Peak, nr.
+
+
+
+
+                                                                                                                                                                         Peak, nr.
+                2. 5. 7. 10. 12.
+
+
+
+
+                                                                                                                                                                                                           6
+                                                                                                                                                                                                           5
+                                                                                                                                                                                                           4
+                                                                                                                                                                                                           3
+                                                      0
+                                                      5
+                                                      0
+                                                      5
+                                                   3.00
+                                                   60
+                                                                 90
+
+                                                                  0
+                                                                  0
+
+                                                              − 4
+                                                              − 6
+                                                                   8
+                                                                   0
+                                                              2. .8
+                                                                 52
+                                                                 58
+                                                                 64
+                                                                 70
+
+                                                                                                                                38
+                                                                                                                                     44
+                                                                                                                                         50
+                                                                                                                                                56
+
+                                                                                                                                                   5
+                                                                                                                                                   0
+                                                                                                                                                   5
+                                                                                                                                                  .0
+                                                                                                                                                  .5
+
+
+
+
+                                                                                                                                                                                                                                              6
+                                                                                                                                                                                                                                                  3
+                                                                                                                                                                                                                                                  0
+                                                                                                                                                                                                                                                        3
+                                                                                                                                                                                                                                                            6
+                                                                                                                                                                                                                                                                60
+                                                                                                                                                                                                                                                                        90
+
+                                                                                                                                                                                                                                                                          0
+
+                                                                                                                                                                                                                                                                     − 0
+                                                                                                                                                                                                                                                                     − 4
+                                                                                                                                                                                                                                                                     − .8
+                                                                                                                                                                                                                                                                     − .2
+                                                                                                                                                                                                                                                                          6
+                                                                                                                                                                                                                                                                          0
+                                                                                                                                                                                                                                                                        35
+                                                                                                                                                                                                                                                                        40
+
+                                                                                                                                                                                                                                                                     2. 5
+                                                                                                                                                                                                                                                                     2. 0
+                                                                                                                                                                                                                                                                        55
+
+                                                                                                                                                                                                                                                                                                                     68
+                                                                                                                                                                                                                                                                                                                          74
+                                                                                                                                                                                                                                                                                                                           80
+                                                                                                                                                                                                                                                                                                                                86
+                                                                                                                                                                                                                                                                                                                                     3
+                                                                                                                                                                                                                                                                                                                                         4
+                                                                                                                                                                                                                                                                                                                                             5
+                                                                                                                                                                                                                                                                                                                                                 6
+                                                                                                                                                                                                                                                                                                                                                     7
+                                                  0.
+                                                  2.
+                                                  5.
+                                                  7.
+
+
+
+
+                                                               12
+                                                               15
+
+                                                                2.
+                                                                1.
+                                                                0.
+                                                                0.
+
+
+
+
+                                                                                                                                                2.
+                                                                                                                                                5.
+                                                                                                                                                7.
+
+
+
+
+                                                                                                                                                                                                                                          −
+                                                                                                                                                                                                                                              −
+
+
+
+
+                                                                                                                                                                                                                                                                      12
+                                                                                                                                                                                                                                                                      15
+                                                                                                                                                                                                                                                                       2.
+
+
+
+                                                                                                                                                                                                                                                                       0.
+                                                                                                                                                                                                                                                                       0.
+
+
+
+                                                                                                                                                                                                                                                                        4
+                                                                                                                                                                                                                                                                        5
+                                                 10
+
+
+
+
+                                                                0
+
+
+
+
+                                                                                                                                               10
+                                                                                                                                               12
+
+
+
+
+                                                                                                                                                                                                                                                                       1
+                                                                                                                                                                                                                                                                       1
+                                                              2.
+                                                              2.
+                                                              2.
+
+                                                                                                                                1.
+                                                                                                                                    1.
+                                                                                                                                        1.
+                                                                                                                                           1.
+
+
+
+
+                                                                                                                                                                                                                                                                     2.
+                                                                                                                                                                                                                                                                     2.
+                                                                                                                                                                                                                                                                     2.
+
+
+
+
+                                                                                                                                                                                                                                                                                                                     1.
+                                                                                                                                                                                                                                                                                                                      1.
+                                                                                                                                                                                                                                                                                                                           1.
+                                                                                                                                                                                                                                                                                                                               1.
+                                                              −
+
+
+
+
+                                                  z nr       fwhm nr     ContSlope                 ContNorm                            Scale         HAnr peak                                                                                    z nr               fwhm nr       ContSlope            ContNorm          Scale          HAnr peak
+
+
+                                                                                                        −1.5+1.1
+                                                                                                            −1.1 ×10
+                                                                                                                     −4
+                                                                                                                        +zmed .
+                                                                                                                                                                     −150 pc
+
+
+
+                                                                                                                                             64.9+10.8
+                                                                                                                                                 −11.2
+                                                                                               0 80 60 30 45 60 75 90
+                                                                                 FWHMnr
+
+
+
+
+                                                                                                                                                             6.8+85.8
+                                                                                                                                                                −79.0 ×10
+                                                                                                                                                                          −2
+                                                                                                   1
+                                                                                    α
+
+
+
+
+                                                                                                                                                                                     2.9+0.1
+                                                                                               76 82 88 94 60 80
+
+
+
+
+                                                                                                                                                                                                 −3
+                                                                                                                                                                                        −0.1 ×10
+                                                                                             2. 2. 2. 2. −1 −
+                                                                                 C
+
+
+
+
+                                                                                                                                                                                                                                                    1.0+0.1
+                                                                                                                                                                                                                                                       −0.1 ×10
+                                                                                                                                                                                                                                                                −4
+                                                                                             96 02 .08 .14
+                                                                                                  1 1
+                                                                                 Scale
+
+                                                                                             1.
+
+
+
+
+                                                                                                                                                                                                                                                                         9.1+1.7
+                                                                                                                                                                                                                                                                            −1.4 ×10
+                                                                                                                                                                                                                                                                                     −3
+                                                                                             0.
+
+
+
+
+                                                                                                                             znr                                                                                                                                            Peak, nr.
+                                                                                                                                               FWHMnr                α                                                                 C                    Scale
+                                                                                                  20
+                                                                                 Peak, nr.
+
+                                                                                                  16
+                                                                                                  12  8
+
+                                                                                                                        0
+                                                                                                                                5
+                                                                                                                                0
+                                                                                                                                5
+                                                                                                                              30
+                                                                                                                                          45
+                                                                                                                                          60
+                                                                                                                                                  75
+                                                                                                                                                  90
+
+                                                                                                                                                           −0
+                                                                                                                                                              80
+                                                                                                                                                               0
+                                                                                                                                                              80
+
+                                                                                                                                                               0
+
+                                                                                                                                                              76
+                                                                                                                                                              82
+                                                                                                                                                              88
+                                                                                                                                                              94
+
+
+                                                                                                                                                                                                                                                      96
+                                                                                                                                                                                                                                                      02
+                                                                                                                                                                                                                                                      08
+                                                                                                                                                                                                                                                      14
+
+                                                                                                                                                                                                                                                                        8
+                                                                                                                                                                                                                                                                            12
+                                                                                                                                                                                                                                                                                 16
+                                                                                                                                                                                                                                                                                      20
+                                                                                                                        3.
+                                                                                                                             1.
+                                                                                                                             0.
+                                                                                                                             1.
+
+
+
+
+                                                                                                                                                            16
+
+
+
+
+                                                                                                                                                            16
+
+                                                                                                                                                           2.
+                                                                                                                                                           2.
+                                                                                                                                                           2.
+                                                                                                                                                           2.
+
+
+                                                                                                                                                                                                                                                   0.
+                                                                                                                                                                                                                                                   1.
+                                                                                                                                                                                                                                                   1.
+                                                                                                                                                                                                                                                   1.
+                                                                                                                    −
+                                                                                                                            −
+
+
+
+
+                                                                                                                                                          −
+
+
+
+
+                                                                                                                             z nr              fwhm nr         ContSlope                  ContNorm                                                          Scale          HAnr peak
+
+
+
+Supplementary Material Fig. 2 | Posteriors of the full line profile fits. Showcase of the corner plots of the full line profile fits fits to the same spaxels as
+in Supplementary Material Fig. 1. The redshift of the narrow component (𝑧𝑛𝑟 ) is given in terms of deviation from the median redshift 𝑧𝑚𝑒𝑑 = 7.03601. The
+FWHM is given in km s −1 . The width of the line is given by the FWHMnr parameter. It should be noted that for the initial model fitting we do not convolve the
+line width with instrumental LSF hence the values are larger than in Supplementary Material Fig. 3. The continuum power-law slope is denoted by 𝛼, while 𝐶
+- indicates continuum normalization. The Scale defines the scaling of the fixed-shape BLR model while Peak nr. is the amplitude of the narrow line Gaussian.
+No significant degeneracies are present between the scaling of the BLR model and the rest of the narrow line parameters.
+
+
+ing annular spectrum is shown in Supplementary Material 6b (purple                                                                                                              gas, |𝑣| = 250 km s−1 and |𝑣| = 550 km s−1 tracing the intermediate
+line) and clearly reveals that the intermediate velocity component (|v|                                                                                                         component and |𝑣| = 1100 km s−1 - tracing the high velocity broad
+< 500 km s−1 ) is spatially distinct from the broad component and is                                                                                                            wings. The centroids of the relevant velocity channels are shown in
+thus likely associated with a large scale outflow.                                                                                                                              Supplementary Material Fig.6a and show that the red wing of the line
+   In order to further investigate the presence of outflows in our ob-                                                                                                          is significantly offset from the blue. This likely indicates contamina-
+ject, we perform spectroastrometric analysis of the full line profile,                                                                                                          tion by higher velocity unresolved outflows inducing turbulence as
+splitting it into channels of |𝑣| = 50 km s−1 , tracing low velocity                                                                                                            the red and blue nodes of the high velocity channels do not lie on
+                                                                                                                                                                                                                                                                                                                               5
+
+                               4.1+1.1     −4
+                                              +zmed .                                                                                                                                                                     1.8+1.0
+                                                                                                                                                                                                                             −1.0 ×10
+                                                                                                                                                                                                                                      −4
+                                                                                                                                                                                                                                         +zmed .
+                                  −1.1 ×10
+                                                                            +150 pc                                                                                                                                                                                       Center
+
+
+
+
+                                                         24.1+18.4                                                                                                                                                                                     81.1+13.9
+                                                                                                                                                                                                                                                           −13.9
+                                                             −15.7
+
+
+
+
+                                                                                                                                                                                                      80 100 120
+                    60
+
+
+
+
+                                                                                                                                                                                         FWHMnr
+  FWHMnr
+
+
+                    45
+                    30
+
+
+
+
+                                                                                                                                                                                                        60
+                                                                            −2.1+101.3    −2                                                                                                                                                                              8.6+100.5
+                                                                                                                                                                                                                                                                             −99.3 ×10
+                                                                                                                                                                                                                                                                                       −2
+                    15
+
+
+
+
+                                                                                −98.1 ×10
+
+
+
+
+                                                                                                                                                                                                        00
+                                                                                                                                                                                                      30 4
+                                                                                                                                                                                                            0
+                      0
+
+
+
+
+                                                                                                                                                                                                      15
+                 15
+
+
+
+
+                                                                                                                                                                                           α
+    α
+
+
+
+
+                                                                                                                                                                                                            0
+                      0
+
+
+
+
+                                                                                                                                                                                                                                                                                            1.6+0.4
+
+
+
+
+                                                                                                                                                                                                            0
+                      0
+
+
+
+
+                                                                                                                                        2.1+11.2
+                                                                                                                                                                                                                                                                                                        −3
+
+
+
+
+                                                                                                                                                                                                      15
+                                                                                                                                                                                                                                                                                               −0.3 ×10
+                                                                                                                                                     −4
+                 15
+
+
+
+
+                                                                                                                                           −11.0 ×10
+
+
+
+
+                                                                                                                                                                                                      −
+               −
+                    30
+
+
+
+
+                                                                                                                                                                                                      11 0.8 1.2 1.6 2.0 2.4
+                    15
+
+
+
+
+                                                                                                                                                                                         C
+  C
+
+
+                      0
+
+
+
+
+                                                                                                                                                                                                                                                                                                             9.3+0.8
+                    15
+
+
+
+
+                                                                                                                                                                    0.2+0.0
+                                                                                                                                                                                                                                                                                                                         −2
+                                                                                                                                                                                                                                                                                                                −0.7 ×10
+                  −
+
+
+
+
+                                                                                                                                                                       −0.0
+                5 0 5 0 5
+              17 .20 .22 .25 .27
+
+
+
+
+                                                                                                                                                                                         Peak, nr.
+  Peak, nr.
+
+                 0 0 0 0
+
+
+
+
+                                                                                                                                                                                                        10  9
+                                                                                                                                                                                                            8
+
+                                                                                                                                                                                                                                0
+
+                                                                                                                                                                                                                                    5
+
+                                                                                                                                                                                                                                           0
+
+                                                                                                                                                                                                                                                450
+
+                                                                                                                                                                                                                                                      60
+
+                                                                                                                                                                                                                                                           80
+
+                                                                                                                                                                                                                                                                0
+
+                                                                                                                                                                                                                                                                     0
+
+
+                                                                                                                                                                                                                                                                           0
+                                                                                                                                                                                                                                                                               0
+
+                                                                                                                                                                                                                                                                                    0
+
+                                                                                                                                                                                                                                                                                          0.0
+                                                                                                                                                                                                                                                                                             8
+                                                                                                                                                                                                                                                                                             2
+                                                                                                                                                                                                                                                                                             6
+                                                                                                                                                                                                                                                                                             0
+                                                                                                                                                                                                                                                                                             4
+
+                                                                                                                                                                                                                                                                                                             8
+
+                                                                                                                                                                                                                                                                                                                 9
+                                                                                                                                                                                                                                                                                                                     10
+
+                                                                                                                                                                                                                                                                                                                          11
+                                   5
+
+                                       0
+
+                                            5
+
+                                                  0
+
+
+                                                        15
+                                                             30
+                                                                  45
+                                                                       60
+
+
+
+                                                                              0
+                                                                                    0
+
+                                                                                                     0
+
+
+
+                                                                                                                                        15
+                                                                                                                                              0
+                                                                                                                                                    15
+
+                                                                                                                                                             30
+
+                                                                                                                                                         0. 5
+                                                                                                                                                         0. 0
+                                                                                                                                                         0. 5
+                                                                                                                                                         0. 0
+                                                                                                                                                               5
+              0.
+
+
+
+
+                                                                                                                                                                                                                               0.
+
+                                                                                                                                                                                                                                    1.
+
+                                                                                                                                                                                                                                         3.
+
+                                                                                                                                                                                                                                               4.
+
+
+
+
+                                                                                                                                                                                                                                                                10
+
+                                                                                                                                                                                                                                                                     12
+
+
+                                                                                                                                                                                                                                                                          15
+
+
+
+                                                                                                                                                                                                                                                                                    15
+
+                                                                                                                                                                                                                                                                                         30
+
+                                                                                                                                                                                                                                                                                          1.
+                                                                                                                                                                                                                                                                                          1.
+                                                                                                                                                                                                                                                                                          2.
+                                                                                                                                                                                                                                                                                          2.
+                               1.
+
+                                       3.
+
+                                            4.
+
+                                                  6.
+
+
+
+
+                                                                             15
+
+
+
+                                                                                                15
+
+
+
+
+                                                                                                                                                            17
+                                                                                                                                                            20
+                                                                                                                                                            22
+                                                                                                                                                            25
+                                                                                                                                                            27
+                                                                                                                                        −
+
+
+
+
+                                                                                                                                                                                                                                                                          −
+                                                                            −
+
+
+
+
+                                                                                                                                                         0.
+
+
+
+
+                                            znr              FWHMnr                         α                                                  C                   Peak, nr.                                                         znr               FWHMnr                   α                 C              Peak, nr.
+
+
+                                                                                                                         −1.0+0.5
+                                                                                                                             −0.5 ×10
+                                                                                                                                      −4
+                                                                                                                                         +zmed .
+                                                                                                                                                                                   −150 pc
+
+
+
+
+                                                                                                                                                                   8.8+8.6
+                                                                                                                                                                      −5.5
+                                                                                                          40
+                                                                                FWHMnr
+
+
+                                                                                                          30
+                                                                                                          20
+
+
+
+
+                                                                                                                                                                                   −3.9+100.3
+                                                                                                          10
+
+
+
+
+                                                                                                                                                                                                 −2
+                                                                                                                                                                                       −97.6 ×10
+                                                                                                         0
+                                                                                                      15
+                                                                                  α
+
+
+                                                                                                               0
+                                                                                                               0
+
+
+
+
+                                                                                                                                                                                                                               −4.4+2.2     −3
+                                                                                                      15
+
+
+
+
+                                                                                                                                                                                                                                   −2.2 ×10
+                                                                                                  −
+                                                                                                72 .78 .84 .900.0 7.5 5.0 2.5 0.0
+                                                                                C
+
+
+                                                                                                           0 1 − − −
+
+
+
+
+                                                                                                                                                                                                                                                       0.8+0.0
+                                                                                                                                                                                                                                                          −0.0
+                                                                                                            −
+                                                                                Peak, nr.
+
+
+                                                                                                   0
+                                                                                                   0.  0
+                                                                                                          66
+
+                                                                                                                                    4
+
+                                                                                                                                          6
+
+                                                                                                                                                8
+                                                                                                                                                 0
+
+                                                                                                                                                         8
+                                                                                                                                                              10
+
+                                                                                                                                                                   20
+
+                                                                                                                                                                        30
+
+                                                                                                                                                                              40
+
+
+                                                                                                                                                                                     0
+                                                                                                                                                                                           0
+
+                                                                                                                                                                                                     0
+
+
+                                                                                                                                                                                                                    − 0
+                                                                                                                                                                                                                         5
+                                                                                                                                                                                                                         0
+                                                                                                                                                                                                                         5
+                                                                                                                                                                                                                         0
+                                                                                                                                                                                                                      66
+
+                                                                                                                                                                                                                      72
+
+                                                                                                                                                                                                                      78
+
+                                                                                                                                                                                                                      84
+
+                                                                                                                                                                                                                      90
+                                                                                                   0.
+
+                                                                                                                            2.
+
+                                                                                                                                        1.
+
+                                                                                                                                              0.
+                                                                                                                                              0.
+
+                                                                                                                                                         0.
+
+
+
+
+                                                                                                                                                                                    15
+
+
+
+                                                                                                                                                                                                     15
+
+
+                                                                                                                                                                                                                       .
+                                                                                                                                                                                                                      7.
+                                                                                                                                                                                                                      5.
+                                                                                                                                                                                                                      2.
+                                                                                                                                                                                                                      0.
+                                                                                                                                                                                                                    10
+
+
+
+
+                                                                                                                                                                                                                    0.
+
+                                                                                                                                                                                                                    0.
+
+                                                                                                                                                                                                                    0.
+
+                                                                                                                                                                                                                    0.
+
+                                                                                                                                                                                                                    0.
+                                                                                                                        −
+
+                                                                                                                                    −
+
+                                                                                                                                            −
+
+
+
+
+                                                                                                                                                                                                                    −
+                                                                                                                                                                                                                    −
+                                                                                                                                                                                   −
+
+
+
+
+                                                                                                                                                                                                                −
+
+
+
+
+                                                                                                                                              znr              FWHMnr                          α                                     C                 Peak, nr.
+
+
+
+Supplementary Material Fig. 3 | Posteriors of the fits to the BLR-subtracted Hα line. Showcase of the corner plots of the fits to BLR-subtracted spectra of
+the selected spaxels. The notation is the same as in Supplementary Material Fig. 2, except absent is the ’Scale‘ variable, which controlled the normalization of
+the fixed BLR model in the combined line profile fits. The measured FWHM of the narrow Hα shown in this figure is the intrinsic value, measured accounting
+for the LSF. Thus, the posteriors clearly show that Hα becomes entirely unresolved in the wings while remaining clearly resolved near the dynamical center.
+
+
+opposite sides of the |𝑣| = 0 km s−1 channel. In addition, the appar-                                                                                                                           < 2𝜎. However, as shown in Fig. 1, the observed velocity dispersion
+ent ’rotation’ is more perpendicular to the IFU slices, which might                                                                                                                             of the narrow component is very low and drops off with increasing
+be indicative of instrumental effects associated with the calibration                                                                                                                           distance from the axis of rotation, which would be unusual for an
+of different slices.                                                                                                                                                                            extended outflow. In addition, it would be a very improbable con-
+   While all broad components are removed by our broad line sub-                                                                                                                                spiracy for the velocity distribution of the putative outflow to exactly
+traction procedure, the narrow line kinematics may still end up con-                                                                                                                            mimic Keplerian rotation. In the following section we present an
+taminated. Indeed, the centroid of the red wing narrow line slightly                                                                                                                            equivalent MOKA3D analysis, showing that the kinematics maps are
+shifts in position once the underlying broad emission is subtracted                                                                                                                             entirely inconsistent with an outflow.
+(see Extended Data Fig. 1), although the significance of this shift is
+   6
+
+                                                                                                                                                                  v [km s−1 ]
+                                                                                                                                               −1000 −750 −500 −250    0      250           500     750   1000
+                      0.06                                                           4000
+                                                       Centroids |v | > 0
+                                                       v = 0 centroid                                                                    0.04
+                                                                                                                                                   a
+                                                                                                                                         0.03
+                      0.03                                                           2000
+
+
+
+
+                                                                                                           ∆y [arcsec]
+                                                                                                                                         0.02
+       y [arcsec]
+
+
+
+
+                                                                                                                                         0.01
+
+
+
+
+                                                                                               v [km/s]
+                      0.00                                                           0
+                                                                                                                                         0.00
+
+                                                                                                                              −0.01
+                    −0.03                                                            −2000                                       −0.05                 −0.04   −0.03      −0.02      −0.01         0.00     0.01
+                                                                                                                                                                       ∆x [arcsec]
+
+                                                                                                                                             1.0 b             < 300 pc              300 - 450 pc
+                    −0.06                                                            −4000
+                       −0.06    −0.03       0.00           0.03           0.06
+                                                                                                                                             0.8
+                                          x [arcsec]
+
+
+
+
+                                                                                                                         Flux (normalized)
+                                                                                                                                             0.6
+
+   Supplementary Material Fig. 4 | Spectroastrometry of a calibration star.                                                                  0.4
+   Centroids obtained for a calibration star showing that the values are all less
+   than 0.1 px away from 𝑣 = 0.
+                                                                                                                                             0.2
+
+
+                                                                                                                                             0.0
+                                                                                                                                               −1500   −1000   −500        0          500         1000    1500
+                                                                                                                                                                       v [km s−1 ]
+
+
+
+                    0.06                                                         4000                     Supplementary Material Fig. 6 | Spectroastrometric analysis of the full
+                                                     Centroids |v | > 0
+                                                                                                          line profile. Panel a Centroids of the different velocity channels defined in the
+                                                     v = 0 centroid
+                                                                                                          text showcasing the offset of the positive high velocity channels. The |𝑣 | = 0
+                                                                                                          channel is marked with a black cross while the green line shows the PA of the
+                    0.03                                                         2000
+                                                                                                          IFU slicer. Panel b Hα line profiles extracted from the inner 300 pc (green
+                                                                                                          line) and an 300 - 450 pc annulus (violet line) normalized to the peak of the
+                                                                                                          inner 300 pc spectrum. The vertical colored bars denote the velocity bins for
+y [arcsec]
+
+
+
+
+                                                                                            v [km/s]
+
+
+
+
+                    0.00                                                         0                        which centroids were measured with colors corresponding to their points in
+                                                                                                          a.
+
+
+             −0.03                                                               −2000                    geometry with aperture angle of 40◦ , found iteratively through testing
+                                                                                                          different values until one matching the data was found, position angle
+                                                                                                          of 45◦ † (although we note that leaving the position angle free does
+                                                                                                          not change the results) and a constant radial velocity field for both
+             −0.06                                                               −4000
+                −0.06          −0.03      0.00            0.03         0.06                               the approaching and receding cones. The MOKA3D free parameters in
+                                        x [arcsec]                                                        the following analysis are two: the inclination with respect to the line
+                                                                                                          of sight and the intrinsic radial outflow velocity (see Extended Data
+                                                                                                          Tab. 1). We constrained the inclination angle of the blue-shifted cone
+                                                                                                          to be directed towards the observer. In particular, we allowed the in-
+                                                                                                          clination to vary within the range [0◦ ,90◦ ], with the two boundaries
+   Supplementary Material Fig. 5 | Spectroastrometry of the continum of                                   representing a cone with the axis directed along the line of sight or
+   QSO1. Extended spectroastrometric analysis of QSO1, incorporating high                                 lying on the plane on the sky, respectively. Based on the observed
+   velocity channels tracing the edges of the BLR profile and pure continuum.
+                                                                                                          projected velocity range in moment maps in Fig.1 and the possible
+   The white dashed line indicates the position angle of the IFU slicer. It can be
+                                                                                                          inclination range, we allowed the intrinsic outflow radial velocity to
+   seen that the continuum and pure BLR channels have a much smaller offset
+   than those tracing the narrow line and that their offsets are perpendicular to                         vary within a conservative range of [0, 200] km s−1 . As a result, the
+   the slicer, unlike what is seen in narrow line emission.                                               best-fit parameters are an outflow intrinsic velocity of 110 km s−1
+                                                                                                          and an inclination with respect to the line of sight of 85◦ , i.e. only 5◦
+                                                                                                          inclination with respect to the plane of the sky, which is the expected
+   1.5 Ruling out an outflow scenario for the narrow line extended                                        geometrical configuration that would mimic a rotating disc. Then, we
+       kinematics                                                                                         constructed the best-fit model cube adopting the mentioned parame-
+                                                                                                          ters and compared the resulting 2D moment maps with the observed
+   Here we investigate more quantitatively the possibility that the narrow
+   line kinematics is due to a large scale outflow. We construct a bicon-
+   ical outflow model in MOKA3D. In particular, we assume a bi-conical                                    † The position angle is measured clockwise from the north.
+                                                                                                                                                7
+ones in Fig. 1. As shown in Supplementary Material Fig. 7, the bi-         1.7 Dynamic upper limit on the stellar mass in the host galaxy
+conical outflow model still leaves systematic residuals resembling a
+                                                                           In addition to constraining the BH mass, we endeavor to estimate
+rotating disk and results in 𝜒𝑅2 = 9.6, which is considerably worse
+                                                                           the maximum extended mass component permitted by our data. For
+than any of the models assuming a rotating disk. We notice that the
+                                                                           a conservative upper limit, for this analysis we add the velocity dis-
+flux map in Supplementary Material Fig. 7 shows larger residuals
+                                                                           persion (𝜎) in quadrature to the velocity of each spaxel and redo the
+close to the cone apex. This has to be ascribed to conical geometry
+                                                                           binning procedure. This curve represents the maximal rotation al-
+of the model which, by construction, cannot reproduce the observed
+                                                                           lowed in the extended Hα region and thus provides the highest upper
+features that are likely associated to purely circular motions, not
+                                                                           limit on any extended mass component. We perform this estimate
+considered in the current purely radial outflow model. Similarly, the
+                                                                           by constructing a combined point mass and an extended exponential
+LOS velocity map shows systematic residuals resembling a rotating
+                                                                           disc component modelled as an 𝑛 = 1 Sérsic density profile of half
+disc which directly indicates the impossibility of reproducing the
+                                                                           mass radius 100 pc, truncated at 300 pc - the maximum extent of the
+observed features with a purely radial outflow. Therefore, if potential
+                                                                           source found by Ref. 11 . We note that galaxies with such a small stel-
+outflow contamination to the narrow line kinematics is present, it
+                                                                           lar mass at such high redshift are observed to be on average smaller
+cannot be reproduced by a simple bi-conical outflow with a purely
+                                                                           than this radius 60 .
+radial velocity profile. In order to reproduce the observed velocity
+                                                                              If both components are left free, the point mass dominates, essen-
+profile one would have to incorporate an outflow kinematical model
+                                                                           tially recovering the previous pure Keplerian fits. We thus derive an
+that would mimic a rotation pattern.
+                                                                           upper limit on the extended mass component by forcing a particular
+   We also note that the velocities observed in the large scale emission
+                                                                           extended mass value and increasing it until the Δ𝐵𝐼𝐶 > 5 between
+(about 10 km s−1 ) are much lower than what seen in outflows driven
+                                                                           the fiducial and extended component models. Following this method,
+by AGN with luminosities (1044 − 1045 𝑒𝑟𝑔 𝑠 −1 ) similar to QSO1,
+                                                                           we derive the maximum extended mass of log 𝑀 sin2 𝑖 = 6.85, simi-
+which are in excess of about 400 km s−1 (e.g. Refs. 62,63 ).
+                                                                           lar to the mass of the BH, which is increased to log 𝑀 sin2 𝑖 = 6.94
+                                                                           by the higher velocity field.
+                                                                              However, this extended mass component is a composite of contri-
+1.6 BH mass estimate assuming electron scattering                          butions from stars, gas and Dark Matter and thus only serves as an
+                                                                           upper limit to the total stellar mass. We tighten this limit further by
+In order to test how the BH mass would change if the dominant              estimating the ionized gas mass from the narrow line emission. The
+broadening mechanism was electron scattering, as proposed by Ref. 7 ,      ionized gas mass can be estimated from narrow Hβ emission via the
+we refit the H𝛼 and H𝛽 lines of QSO1 with a scattering profile             following equation:
+constructed via the following equation:                                                𝑚 p 𝐿 Hβ
+                                                                           𝑀ion = 0.8            ,                                             (9)
+                                                                                         𝑗 Hβ 𝑛e
+𝑃(𝜆) = 𝑓scatt (𝐸 ∗ 𝐺 BLR )(𝜆) + (1 − 𝑓scatt )𝐺 BLR (𝜆),             (7)
+                                                                           where 𝐿 Hβ is the Hβ line luminosity, 𝑗Hβ - Hβ emissivity, 𝑛𝑒 -
+where 𝐺 BLR (𝜆) is the intrinsic broad-line profile, assumed to be         electron density and 𝑚 𝑝 - proton mass. Assuming standard warm in-
+virially broadened and Gaussian in shape, 𝑓scatt - the fraction of light   terstellar medium conditions of 𝑇 ∼ 10000 K and 𝑛𝑒 ∼ 100 cm−3 and
+affected by the electron scattering and 𝐸 (𝜆) - the exponential electron   taking 𝐿 𝐻 𝛽 = 5 × 1040 erg s−1 from 4 we obtain log 𝑀𝑖𝑜𝑛 /𝑀⊙ = 6.7,
+scattering profile 64 , defined as                                         with a similar mass obtained by using narrow Hα measurements
+                                                                           from 15 . Utilizing the inclination of 52 ± 2◦ derived from MOKA3D,
+              |𝜆−𝜆0 |
+𝐸 (𝜆) ∝ 𝑒 −     𝑊       ,                                           (8)    we estimate that the effective contribution of ionized gas to the un-
+                                                                           corrected kinematics is log 𝑀𝑖𝑜𝑛 sin2 𝑖 = 6.5. Hence, the dynam-
+where 𝜆 0 is the central wavelength, and 𝑊 is the width of the expo-       ical contribution of an extended stellar component cannot exceed
+nential.                                                                   log 𝑀 sin2 𝑖 − 𝑀𝑖𝑜𝑛 sin2 𝑖 = 6.6.
+   The absorption features in the Balmer lines were modeled using             In addition to an extended stellar distribution we also consider
+Equation 1, as in the previous section. The priors on the fit were         the maximal contribution of a compact NSC. For this, we fix 𝑅𝑐
+uninformative, flat priors over all model parameters. We inspected         to 0.5 pc, a factor of 2 below the most compact NSCs seen in the
+the posterior probability over each model parameter, and verified          local Universe 51 to account for higher redshift structures being less
+that no posterior hit the boundaries (except for physically motivated      relaxed. As with the previous attempts to fit a non-point mass dis-
+boundaries, such as non-negative emission-line flux). The posteri-         tribution, the mass of the extended component goes to zero if left
+ors were estimated using the Monte Carlo sampler emcee 59 , using          free. We thus estimate an upper limit on the NSC mass through re-
+ten walkers per free parameters, and initializing the chains inside a      quiring Δ𝐵𝐼𝐶 < 5 from the fiducial model. The upper limit on the
+sphere centered on the maximum-likelihood solution, obtained from          NSC mass is thus 𝑀 (< 𝑅𝑐 ) sin2 𝑖 = 106.1 M⊙ with the BH mass
+differential evolution 65 . The best-fit, produced by the medians of       reducing slightly to 𝑀BH sin2 𝑖 = 106.44 M⊙ . A similar mass ratio
+the posteriors, is shown in Supplementary material Fig. 8. As can          is maintained even when setting 𝑅𝑐 = 0.2 pc, the upper limit found
+be seen there, the integrated spectrum is well fitted by this model        earlier.
+producing a BH mass estimate of log 𝑀BH /𝑀⊙ = 5.9 ± 0.1. We note              We also repeat the above analysis using the MOKA3D framework,
+that, as discussed in the main text and shown in Fig. 3, this value        finding that 𝑀∗ ≤ 107.2 M⊙ within ∼800 pc (i.e. well beyond any
+is nearly 2 dex lower than the direct mass estimates, showing that it      possible galaxy extension at this redshift) 60 for an extended expo-
+is implausible that the observed Hα line profile can be attributed to      nential disc profile and 𝑀∗ ≤ 106.55 M⊙ for a NSC-like distribution
+electron scattering. In case of the BH mass being this low, extreme        with 𝑅𝑐 = 0.5 pc. Taking the estimated 𝑀BH = 107.7 M⊙ , we obtain
+stellar densities would be required to produce a point mass consistent     𝑀 𝐵𝐻 /𝑀𝑠𝑡 𝑎𝑟 > 2 − 15. As before, the stellar masses estimated above
+with the one measured. This result confirms the findings of Ref. 66 :      are upper limits, as dynamical mass measures are sensitive to the
+despite providing an excellent fit to the data, the electron scattering    combined mass of gas, stars and DM, which we are unable to fully
+model violates basic physical constraints.                                 disentangle due to lack of emission tracing gas on larger scales (but
+    8
+
+                                                                                                                                MOKA3D outflow residuals (χ2R = 9.6)
+                                                         Flux                                                                                L.O.S. Velocity                                       Vel. dispersion
+                                                                                           20                                                                            3
+                                  0.1 a                                                    15
+                                                                                                                                b                                                       c                                  10
+                                                                                                                                                                         2
+                                                                                           10
+                                                                                                                                                                                                                           5
+                                                                                                                                                                         1
+                                                                                           5
+                                  0.0
+
+
+
+
+                                                                                                                                                                              km s−1
+
+
+
+
+                                                                                                                                                                                                                                 km s−1
+              ∆y (”)
+
+
+
+
+                                                                                           0                                                                             0                                                 0
+
+                                                                                           −5
+                                                                                                                                                                         −1
+                                                                                                                                                                                                                           −5
+                                  -0.1                                                     −10
+                                                                                                                                                                         −2
+                                                                                           −15
+                                                                                                                                                                                                                           −10
+                                                                                           −20                                                                           −3
+                                               -0.1       0.0           0.1                                                         -0.1           0.0          0.1                         -0.1        0.0          0.1
+                                                        ∆x (”)                                                                                    ∆x (”)                                               ∆x (”)
+
+
+
+                                                                                                                  2 value are considerably worse than any of
+    Supplementary Material Fig. 7 | Residuals of a fit assuming a biconical outflow. The residuals and hence the 𝜒𝑅
+    the fits assuming a rotating disk.
+
+
+                                                                        λ (rest) [Å]                                                                         Aside from heavy seeding, a lone black hole can originate as a
+                                   6475          6500    6525     6550         6575                           6600        6625             6650            runaway from a triple black hole interaction in a galaxy nucleus 68,69 .
+                                  10
+                                         (a)                                                          1.0                                                  The lightest black hole is ejected at about 1000 km s−1 , and so
+                                                                                     1 − Cf + Cf exp(−τλ )
+Fλ [10−20 erg s−1 cm−2 Å−1 ]
+
+
+
+
+                                                                                                               (c)
+                                                                                                                                                           at redshift 7 may travel up to 20 arcsec in 100 Myr. We consider
+                                   8
+                                                                                                      0.5                                                  this scenario very unlikely as it compounds 2 unlikely events (being
+                                   6                                                                                                                       ejected and then coinciding with a cluster caustic). Searching the
+                                                                                                                                                           neighborhood of QSO1 for a suitable galaxy is complicated by the
+                                                                                                      0.0
+                                   4                                                                                 5.26    5.28    5.30                  strong lensing. However, Ref. 12 do not report any nearby objects
+                                                                                                                        λ (obs.) [µm]                      associated with QSO1. Either way, a quantitative examination into
+                                   2
+                                                                                                                                                           the origins of this object is beyond the scope of this paper.
+                                   0
+
+                                 2.5
+                                         (b)   5.22     5.24     5.26         5.28                           5.30        5.32         5.34
+                                                                                                                                                           1.8 Spectroscopic constraints on the gas and stellar masses
+                                 0.0
+       χ
+
+
+
+
+                                                                                                                                                           The dynamical mass estimates discussed above are sensitive to the
+                                −2.5                                                                                                                       total mass present in the object. The kinematics fits shown in Fig.1-2
+                                               5.22     5.24     5.26         5.28                           5.30       5.32          5.34                 alone constitute > 5𝜎 evidence against significant stellar contribu-
+                                                                   λ (obs.) [µm]                                                                           tion to the mass of the object. In addition, Ref. 4 have shown that the
+                                                                                                                                                           optical continuum of QSO1 is dominated by AGN emission, with
+                                                                                                                                                           a stellar contribution of <10%. Stellar contribution to the UV con-
+    Supplementary Material Fig. 8 | Fits to the Hα line assuming a line profile
+    dominated by electron scattering. The combined best fit is shown by the                                                                                tinuum can not be ruled out and was indeed suggested as a way to
+    red line, the scattered Hα BLR is shown in cyan with the NLR shown in                                                                                  explain the observed power law slopes by Ref. 8 , and the observed
+    green, the blue line shows the transmitted, unscattered BLR. As can be seen                                                                            spatial offsets 70 , although some indications of UV variability in
+    in residual plots (panel b), the model fits the data well, however, the BH mass                                                                        QSO1 4 suggest that even the UV maybe AGN-dominated. Yet, even
+    derived is 2 dex (∼ 4𝜎) below the dynamic mass measurements as discussed                                                                               conservatively assuming that the UV light is entirely stellar, it would
+    in the text.                                                                                                                                           give a stellar mass much lower than the dynamical mass inferred
+                                                                                                                                                           earlier, as discussed in the following. The UV magnitude measured
+                                                                                                                                                           for image A is 𝑀UV = −15.60, after correction of 𝜇 = 6.2. Utilizing
+    see the following section for additional spectroscopic constraints on                                                                                  the 𝑀∗ − 𝑀UV relation from Ref. 71 , we obtain a stellar mass estimate
+    the stellar and gas masses). We note that any extended mass compo-                                                                                     of log 𝑀∗ /M⊙ = 6.03. This is almost 1 dex lower than the measured
+    nent below 106 M⊙ has no impact on the fit given the observational                                                                                     virial mass. In addition, while Ref. 4 have shown that the UV con-
+    uncertainties.                                                                                                                                         tinuum is damped by a different hydrogen column density than the
+       The above analysis implies a 𝑀BH /𝑀𝑠𝑡 𝑎𝑟 > 2 for any reasonable                                                                                     optical, the observed slope can be explained by nebular emission.
+    mass distribution, with the inclination term canceling in the ratio.                                                                                   Hence our stellar mass value should be treated as an upper limit and
+    This is an extreme lower limit since it does not include contributions                                                                                 stars can be conclusively ruled out as dominant contributors to the
+    from non-ionized gas and DM. Therefore, QSO1 represents the most                                                                                       virial mass budget.
+    naked BH yet discovered, leaving only direct collapse and primordial                                                                                      As discussed in the previous section, contributions to the dynam-
+    BHs as potential progenitors. These findings corroborate our initial                                                                                   ical mass from ionized ISM gas, on scales of ∼ 100 pc, are very
+    back of the envelope estimate of the BH sphere of influence for which,                                                                                 small, and anyhow are taken into account. Contribution, on these
+    in the absence of stellar features, we use the 𝜎𝑁 of the narrow lines                                                                                  scales from neutral gas, would make the upper limit on the stellar
+    as a proxy for 𝜎∗ 67 and find that the entirety of the object lies within                                                                              mass (based on dynamical modeling) even lower.
+    this sphere.                                                                                                                                              In the nuclear region, the amount of ionized gas is even smaller.
+                                                                                                                                           9
+Indeed, as the emissivity scales quadratically with the density and       gen Line Formation in Little Red Dots, p. arXiv:2508.08768
+the broad lines are coming from the BLR, which has a density higher       arXiv:2508.08768
+than 109 𝑐𝑚 −3 , the mass of nuclear ionized gas inferred from the        74. Ji X., et al., 2025. Lord of LRDs: Insights into a “Little Red
+luminosity of the broad Balmer lines is only of order of a few solar      Dot” with a low-ionization spectrum at z = 0.1, p. arXiv:2507.23774
+masses (see e.g. Ref. 72 ), as also inferred from Equation 9.             arXiv:2507.23774
+   The putative envelope of dense ionized gas that, according to          75. Lin X., et al., 2025. The Discovery of Little Red Dots
+the electron scattering scenarios, should produce the exponential         in the Local Universe: Signatures of Cool Gas Envelopes, p.
+line wings must also have a negligible mass. Indeed, such gas must        arXiv:2507.10659 arXiv:2507.10659
+recombine and its signature should be associated with one of the
+Balmer emission line components and, if the densities are as high as
+expected by those scenarios, the masses must be similarly low. Ref 7
+estimate an upper limit on the mass of the putative ionized envelope
+of < 105 𝑀⊙ (for systems that are much more luminous than QSO1),
+i.e. negligible relative to the mass estimated by us dynamically.
+   The envelope of neutral gas responsible for the putative Balmer
+scattering 8 73 must also be negligible. This can be estimated by scal-
+ing from the case of the Rosetta Stone 5 , in which the column and
+density of neutral gas was estimated in detail, thanks to the presence
+of multiple transitions in absorption. In this case we obtain a mass
+of ∼ 6 × 104 𝑀⊙ , again negligible. In the case of the local LRD ana-
+logue the “Lord of LRDs” 74 or the “Egg” 75 , which has a luminosity
+similar to QSO1, an upper limit on the mass of the neutral envelope
+of 7 × 105 𝑀⊙ has been estimated - again negligible when compared
+to our dynamical mass estimates.
+
+
+
+References (continued)
+ 61. Abuter R., et al., 2024. A dynamical measure of the black hole
+ mass in a quasar 11 billion years ago, Nature, 627, 281
+ 62. Fiore F., et al., 2017. AGN wind scaling relations and the
+ co-evolution of black holes and galaxies, A&A, 601, A143
+ 63. Fluetsch A., et al., 2021. Properties of the multiphase outflows
+ in local (ultra)luminous infrared galaxies, MNRAS, 505, 5753
+ 64. Laor A., 2006. Evidence for Line Broadening by Electron
+ Scattering in the Broad-Line Region of NGC 4395, ApJ, 643, 112
+ 65. Storn R., Price K., 1997. Differential evolution–a simple and
+ efficient heuristic for global optimization over continuous spaces,
+ Journal of global optimization, 11, 341
+ 66. Brazzini M., et al., 2025. Ruling out dominant electron scat-
+ tering in Little Red Dots’ Rosetta Stone using multiple hydrogen
+ lines, p. arXiv:2507.08929 arXiv:2507.08929
+ 67. Bezanson R., et al., 2018. 1D Kinematics from Stars and Ion-
+ ized Gas at z ∼ 0.8 from the LEGA-C Spectroscopic Survey of
+ Massive Galaxies, ApJ, 868, L36
+ 68. Saslaw W. C., Valtonen M. J., Aarseth S. J., 1974. The Gravi-
+ tational Slingshot and the Structure of Extragalactic Radio Sources,
+ ApJ, 190, 253
+ 69. Volonteri M., Madau P., Haardt F., 2003. The Formation of
+ Galaxy Stellar Cores by the Hierarchical Merging of Supermassive
+ Black Holes, ApJ, 593, 661
+ 70. Torralba A., et al., 2025. A weak Ly𝛼 halo for an extremely
+ bright Little Red Dot. Indications of enshrouded SMBH growth, p.
+ arXiv:2505.09542 arXiv:2505.09542
+ 71. Simmonds C., et al., 2024. Ionizing properties of galaxies in
+ JADES for a stellar mass complete sample: resolving the cosmic
+ ionizing photon budget crisis at the Epoch of Reionization, MN-
+ RAS, 535, 2998
+ 72. Maiolino R., et al., 2024. A small and vigorous black hole in
+ the early Universe, Nature, 627, 59
+ 73. Chang S.-J., Gronke M., Matthee J., Mason C., 2025. Im-
+ pact of Resonance, Raman, and Thomson Scattering on Hydro-
+

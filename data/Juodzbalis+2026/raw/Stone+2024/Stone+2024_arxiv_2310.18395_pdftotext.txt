@@ -1,0 +1,1010 @@
+                                                Draft version February 7, 2024
+                                                Typeset using LATEX twocolumn style in AASTeX631
+
+
+
+
+                                                         Undermassive Host Galaxies of Five z ∼ 6 Luminous Quasars Detected with JWST
+                                                        Meredith A. Stone          ,1 Jianwei Lyu (吕建伟 ) ,1 George H. Rieke            ,1 Stacey Alberts        ,1 and
+                                                                                                  Kevin N. Hainline 1
+                                                               1 Steward   Observatory, University of Arizona, 933 North Cherry Avenue, Tucson, AZ 85721, USA
+
+
+                                                                                                        ABSTRACT
+arXiv:2310.18395v3 [astro-ph.GA] 5 Feb 2024
+
+
+
+
+                                                         We measure host galaxy stellar masses for a sample of five luminous quasars at z ∼ 5 − 7. Using
+                                                      JWST/NIRCam medium-band images of nearby PSF reference stars, we carefully subtract the contri-
+                                                      bution from the quasar light to place upper and lower limits on the flux of each host galaxy. We find
+                                                      that the members of our sample of quasar host galaxies have mass upper limits of 109.7 − 1010.8 M⊙ ,
+                                                      significantly less than expected from their SMBH masses and the local MBH —M∗ relation. We ad-
+                                                      ditionally obtain JWST/NIRSpec IFU spectra of three of our quasars to calculate black hole masses,
+                                                      which we find are consistent with those in the literature, and to search for the presence of bright but
+                                                      compact galaxies via a Balmer break, which we do not find evidence for. We discuss the potential
+                                                      effects of dust extinction on our measured fluxes and the impact of selection effects on high-redshift
+                                                      quasar samples. We conclude that the masses of the SMBHs relative to the host galaxy stellar masses
+                                                      have a much larger scatter than locally, large enough that these selection effects cannot be responsible.
+                                                      The result is reinforced by other studies. Finally, we explore the potential implications of these results
+                                                      on the picture of SMBH-galaxy coeval growth in the early Universe.
+
+                                                                1. INTRODUCTION                                    are readily detectable and their stellar masses can be
+                                                 Active galactic nuclei (AGN) can have great effects               determined via photometry. The central point source
+                                              on their host galaxies as the two evolve over cosmic                 usually outshines the host galaxy, but the host galaxy’s
+                                              time; they have the ability to enhance or halt star for-             emission can be revealed via techniques such as point-
+                                              mation and potentially even affect the morphology of                 spread function (PSF) subtraction, where a theoretical
+                                              their hosts (e.g., Heckman & Best 2014). However, the                or empirical PSF is scaled to the quasar image and sub-
+                                              precise nature of the interplay between AGN and their                tracted to remove the contribution from the quasar light
+                                              host galaxies is still a matter of investigation, especially         and reveal extended emission from the host galaxy. The
+                                              at high redshift. To build a complete picture of galaxy              black hole masses can be determined either by reverber-
+                                              formation and evolution and understand how AGN are                   ation mapping or by the broadening of emission lines
+                                              triggered, it is critical to understand how supermassive             from gas orbiting near the black hole.
+                                              black holes (SMBHs) and the galaxies in which they re-                  Using ground-based optical telescopes and the Hub-
+                                              side evolve together with time.                                      ble Space Telescope, large samples of AGN (including
+                                                 We know already that in the local Universe the stellar            bright quasars) at z ≲ 3 have been PSF-subtracted to
+                                              masses of galaxies, M∗ —particularly their centrally con-            reveal and characterize their underlying host galaxies
+                                              centrated bulge components—and the masses of their                   (e.g. Gehren et al. 1984; Hutchings et al. 2002; Dunlop
+                                              supermassive black holes (MBH ) are correlated across a              et al. 2003; Jahnke et al. 2004; Kim et al. 2017; Yue
+                                              wide range in black hole mass. The MBH —M∗ relation                  et al. 2018; Li et al. 2021). Above z ∼ 4, however,
+                                              is well-studied in the local Universe and up to z ∼ 3,               the rest-frame optical is shifted out of the range of these
+                                              both in inactive galaxies (Kormendy & Ho 2013; Greene                telescopes: observations instead probe the rest-frame ul-
+                                              et al. 2020) and AGN (e.g. Reines & Volonteri 2015). At              traviolet, which can provide information about the star
+                                              these redshifts, the host galaxies of even bright quasars            formation occurring in the host galaxy but is a less ro-
+                                                                                                                   bust tracer of stellar mass. The rest-frame ultraviolet
+                                                                                                                   is also intrinsically fainter (and more strongly impacted
+                                              Corresponding author: Meredith Stone                                 by dust) in a wavelength regime where the quasar is
+                                              meredithstone@arizona.edu                                            bright. Host galaxy emission was therefore detected or
+2
+
+constrained in only a small number of high-z systems be-     lap with our sample) and found similar behavior rela-
+fore the launch of JWST (e.g. Peng et al. 2006; McLeod       tive to the MBH —M∗ relation. In contrast, Ding et al.
+& Bechtold 2009; Mechtley et al. 2012; Targett et al.        (2023) detected the host galaxies of two similarly high-
+2012; Schramm et al. 2019; Marshall et al. 2020).            mass AGN and found them to be consistent with the
+   Alternatively, the dynamical mass, measured via the       local MBH —M∗ relation.
+widths of far-infrared lines like [C II] (158µm), can be        Are J2239+0207 and the systems in Yue et al. (2023)
+used as an approximation of the stellar mass at high         outliers, coincidentally lying above the local relation
+redshift. However, dynamical masses have associated          and most other z ∼ 6 quasars, or does the MBH —
+uncertainties related to assumptions about the nature        M∗ relation perhaps exhibit greater scatter at high-z
+of the dynamics of the galaxy and its orientation on the     than locally? The remaining quasars in our JWST GTO
+sky. All these studies are subject to various selection      program will help to expand the number of high-MBH ,
+biases, but their general conclusion is that up to z ∼ 4,    high-luminosity (LAGN ) AGN at z ∼ 6 with constraints
+the local relation between stellar and SMBH mass is pre-     on the masses of their host galaxies, and will provide
+served within the uncertainties caused by these biases.      additional evidence for or against the evolution of the
+That is, the black holes and stellar populations appear      MBH —M∗ relation with cosmic time.
+to co-evolve, possibly regulated by feedback processes.         For HSC J2239+0207 (z = 6.25) and two addi-
+   JWST is advancing this topic rapidly at z > 4, en-        tional quasars, J073103.12+445949.4 (z = 5.01) and
+abling the discovery of AGN with intermediate-mass           J134015.03+281328.1 (z = 5.36) (or J0731+4459 and
+(∼ 107 M⊙ ) black holes at z = 4 − 11 and increasing the     J1340+2813; we use JHHMM+DDMM for brevity) we
+number of corresponding host galaxy detections, find-        obtained NIRCam images and NIRSpec spectra. We
+ing that the SMBHs generally are overmassive relative        search for host galaxy emission via PSF subtraction in
+to their host galaxies, compared with the local MBH —        the images, and in the case that the host galaxy is more
+M∗ relation (e.g., Kocevski et al. 2023; Goulding et al.     compact than the core of the PSF, also set limits on the
+2023; Maiolino et al. 2023; Kokorev et al. 2023). Push-      mass by searching for Balmer breaks in the integrated
+ing these discoveries to very high redshifts may iden-       quasar-plus-host-galaxy spectra. The final two quasars,
+tify the seeds of SMBHs in the early Universe (Bogdan        SDSS J1148+5251 and ULAS J112001.48+064124.3
+et al. 2023; Maiolino et al. 2023). New observations with    (J1120+0641) at z ∼ 6.4 and 7.1 respectively, are among
+JWST also address a related question: how seed black         the highest-redshift quasars known. We obtained only
+holes can grow to ∼ 109 M⊙ in < 1 Gyr, as found in           NIRCam images of these quasars to search for hosts via
+luminous, very high-redshift quasars (Fan et al. 2023).      PSF subtraction. For all these quasars, we determine
+   We report observations addressing the latter issue us-    host masses from our derived PSF-subtracted fluxes and
+ing NIRCam on JWST (which probes the rest-frame op-          compare them with values from the literature for galax-
+tical out to much higher redshift and with greater spa-      ies without AGN.
+tial resolution and sensitivity than HST). To explore the       We describe the process of reducing our NIRCam and
+coevolution of host galaxies and their central SMBHs         NIRSpec data in Section 2. In Section 3, we outline
+at high-z with NIRCam, we designed a JWST GTO                the steps taken to remove the quasar signal from the
+program (ID 1205; Rieke et al. 2017) to obtain NIR-          NIRCam images via PSF subtraction and place limits
+Cam imaging and/or NIRSpec IFU observations of five          on the masses of the host galaxies. We also calculate
+z ∼ 5 − 7 quasars at a range of star formation rates,        black hole masses from the width of Hβ and constrain
+AGN luminosities, and obscurations.                          Balmer break strengths for the quasars with NIRSpec
+   Our first quasar analyzed, HSC J2239+0207 (z =            observations. With these measurements, we discuss the
+6.25), is a sub-Eddington quasar with a high ALMA            location of our quasar sample relative to the local MBH
+dynamical mass (Izumi et al. 2019), making its host          —M∗ relation in Section 4, examine potential biases in
+galaxy theoretically easy to detect in PSF-subtracted        this result, and outline the implications for the coevolu-
+NIRCam images. Indeed, we detected the host galaxy           tion of SMBHs and galaxies at early times. We summa-
+of this quasar in two bands (at signal-to-noise ratios be-   rize our results in Section 5. Throughout this work, we
+tween 5 and 7), but determined its stellar mass to be        assume a flat cosmology with H0 = 69.6, ΩM = 0.286,
+more than an order of magnitude less than its ALMA           and ΩΛ = 0.714.
+[C II] dynamical mass (Stone et al. 2023, hereafter S23).
+J2239+0207 therefore lies significantly above the local
+MBH —M∗ relation. Yue et al. (2023) searched for host           2. OBSERVATIONS AND DATA REDUCTION
+galaxies in six high redshift quasars (two of which over-                         2.1. NIRCam
+                                                                                                                          3
+
+   All our quasars were observed in three NIRCam fil-           3 and 4 to mitigate cosmic ray and detector artifacts
+ters chosen from F210M, F360M, F410M, F430M, and                during data reduction. The NRSIRS2 readout was se-
+F480M (see Table 1), with exposure times ranging from           lected, with a total integration time of 5894 seconds for
+265.3 to 2623.8 seconds depending on the quasar and fil-        J0731+4459, 7353 seconds for J1340+2813, and 8870
+ter. We used Module B SUB400P (FOV 12.5′′ × 12.5′′ ,            seconds for J2239+0207.
+SW; 25′′ × 25′′ , LW) to image the quasar field using              We processed the NIRSpec IFU data with JWST
+either the RAPID or BRIGHT2 readout modes. We                   pipeline version 1.12.0 (Bushouse et al. 2023, with CRDS
+adopted 4 × 4 dithering patterns to improve the PSF             pipeline parameter reference file jwst 1088.pmap) fol-
+sampling and mitigate cosmic rays and detector arti-            lowing the standard steps. This includes the first stage,
+facts, using primary dither type INTRAMODULEBOX                 Detector1Pipeline, to apply detector-level corrections
+and sub-pixel dither type STANDARD. Reference PSFs              (e.g., dark current and bias subtraction, persistence cor-
+were obtained for all quasars by observing nearby bright        rection, cosmic-ray removal) to the raw data of individ-
+stars. Stars were observed using the same module,               ual exposures and produce the uncalibrated 2D spectra;
+dither types, and filter configurations as their corre-         and Spec2Pipeline to assign world coordinate system
+sponding quasars, but all stellar observations used the         (WCS) information to the data, apply flat-field correc-
+RAPID readout mode to avoid saturation. All stars               tion, make flux calibration, and construct 3D data cubes
+were observed for 530.7 seconds in SW bands and 265.3           from the 2D spectra obtained at each dither location.
+seconds in LW bands.                                            The third stage, Spec3Pipeline, combines the individual
+   We processed our NIRCam data using the JWST                  data cubes at different dither positions to produce the
+pipeline version 1.9.6 (Bushouse et al. 2023), roughly fol-     final merged data cube with outlier rejections, drizzling,
+lowing the procedures recommended in the STScI JWeb-            etc. to remove any additional artifacts and improve spa-
+binars.1 The pipeline parameter reference file is regis-        tial sampling. We found that the default pipeline did not
+tered in the JWST Calibration Reference Data System             always reject all obvious outliers: we therefore added an
+(CRDS) as jwst 1084.pmap. We added a custom step                additional step to manually mask out the bad pixels in
+to Stage 2 of the pipeline to characterize and subtract         the 2D spectra after a careful visual inspection of in-
+1/f noise, a striping pattern in the images caused by           dividual cubes, and redid the final cube construction.
+the detector readout, from each frame. We produced              Finally, we extracted the quasar spectrum using a cir-
+final mosaic images of each quasar and star in Stage 3          cular aperture at a radius of 0.35′′ . For the background
+of the pipeline by aligning and stacking all frames ob-         subtraction, we placed the same circular aperture at ran-
+tained in Stage 2, and resampled the images to smaller          dom locations of the cube that do not contain real struc-
+pixel scales (0.0147′′ /pixel in SW filters, 0.0300′′ /pixel    tures, computed the median background spectrum, and
+in LW filters) using the drizzling algorithm in the Re-         subtracted it from the quasar spectrum.
+sample step of the pipeline to improve the accuracy of
+the PSF subtraction. Finally, we used the Photutils                         3. ANALYSIS AND RESULTS
+Background2D function on the mosaiced and resampled                      3.1. Point-spread function subtraction
+images to perform a global background subtraction.
+                                                                   Our quasar observations have small fields of view with
+                                                                no bright stars, so building an empirical PSF from stars
+                         2.2. NIRSpec                           in the field (as in e.g., Ding et al. 2023; Yue et al. 2023)
+  We also obtained NIRSpec/IFU data of three quasars            was not a viable option. Instead, for each quasar we
+in our sample, with a 3′′ × 3′′ field of view composed of       observed a nearby PSF star in the same bands immedi-
+IFU elements of 0.1′′ × 0.1′′ on the sky. J0731+4459 and        ately after observing the quasar (to reduce any temporal
+J1340+2813 were observed with the G235M/F170LP                  variation in the instrument’s PSF between the images)
+disperser-filter combination, offering wavelength cover-        and subtracted it from the quasar image to reveal any
+age from 1.66 µm to 3.07 µm with a nominal spectral             underlying host galaxy emission.
+resolution of ∼1000; J2239+0207 was observed in the                Our approach has the advantage of being immune to
+PRISM mode with a wavelength coverage from 0.60                 different wavefront errors and PSF variation over the
+µm to 5.30 µm with a nominal resolution ∼100. All               field of view. That is, the quasar and star are placed
+these observations were carried out with the SPARE-             at the same location on the detector to minimize the
+CYCLING dither type in LARGE size at points 1, 2,               effects from any spatial variation of the PSF across the
+                                                                detector. We additionally chose medium bands for all
+                                                                NIRCam observations to virtually eliminate differences
+  1   https://www.stsci.edu/jwst/science-execution/jwebbinars   in the profiles of the quasar and stellar PSFs due to
+4
+
+their different spectral shapes across the filter (the flat     quasar radial profiles underscores the results from our
+continuum of the quasar versus the declining Rayleigh-          WebbPSF simulations: despite their different spectral
+Jeans tail of the star). In a wide bandpass, the quasar’s       shapes, the quasars and their corresponding PSF stars
+redder color in the filter could tend to broaden its PSF;       exhibit nearly identical PSFs near the image centers.
+if we then subtracted the narrower PSF of the star, we          Any deviations between the PSF shapes of a quasar and
+might observe a spurious galaxy detection.                      star at slightly greater radii (∼ 0.2–0.4′′ from the PSF
+   However, we still considered the possibility of a dis-       center) are likely caused by extended emission from the
+crepancy in the PSF shapes. We investigated the magni-          host galaxy, rather than a PSF mismatch.
+tude of any potential PSF mismatch by generating sim-              Once the stellar reference PSF is aligned and scaled
+ulated stellar and quasar PSFs in each of our observed          to the quasar PSF, we subtract the stellar PSF and ex-
+bands using WebbPSF. We used a Rayleigh-Jeans spec-             amine the residuals for evidence of extended emission.
+trum to generate the stellar PSFs, and a general quasar         The PSF-subtracted images of all quasars are shown in
+template (Lyu et al. 2016), shifted to the appropriate          Figure 2 in order of ascending redshift. The cleanli-
+redshift, for the quasars. We constructed differential ra-      ness of the images, with excess noise under the core
+dial profiles of the stellar and quasar PSFs, and compute       of the PSF but few other residuals, demonstrates the
+the normalized difference between the two as a func-            quality of the subtractions. Only the F410M image of
+tion of radius. As in S23, we find no significant dif-          J0731+4459 displays a higher degree of PSF mismatch
+ference between the simulated quasar and stellar PSFs           than the other images. Most of the images do not display
+in any band. The normalized difference between the              evidence of extended emission, with the possible excep-
+simulated stellar and quasar PSF at any given radius,           tions of J0731+4459 in F430M, J1340+2813 in F410M
+F (star)−F (QSO)
+      F (star)   , is significantly less than 1% in all bands   and F430M, and—as discussed in S23—J2239+0207 in
+and at almost all radii, except that normalized differ-         F360M and F480M.
+ences up to 5% occur very near the PSF core where the              As a first estimate, we measure the PSF-subtracted
+annulus contains fewer pixels. We therefore do not ex-          flux by placing a 0.4′′ radius aperture on each PSF-
+pect any significant residuals to be introduced in the          subtracted image (we do not apply aperture correc-
+PSF subtraction as a result of the different spectral           tions to these measurements, but based on the mea-
+shapes of the quasars and their PSF stars, particularly         sured effective radii of typical z ∼ 6 galaxies from
+outside the PSF core in the region where we search for          JWST (Morishita et al. 2023) this aperture should cap-
+evidence of the host galaxy.                                    ture ≳ 80% of the galaxies’ flux). The host galaxy of
+   The process of PSF subtraction begins by aligning            J0731+4459 (z = 5.01, top row of Figure 2) is unde-
+the background-subtracted star and quasar images in             tected in the noisy F410M image (measured flux at the
+a given band. We perform this alignment by hand, it-            < 3σ level) and marginally detected (∼ 4σ) in F430M.
+erating until minimal PSF artifacts are present in the          J1340+2813 (z = 5.36, second row) is undetected in
+subtracted images. We performed tests comparing the             F210M and marginally detected (4-5σ) in F410M and
+results of manual to computerized alignment: these in-          F430M. J2239+0207 (z = 6.25, third row) is unde-
+dicated that the shifts obtained and the measured flux          tected in F210M but returns fluxes at the 6.8 and 5.5σ
+in the resulting PSF-subtracted images were identical           level in F360M and F480M respectively (as discussed
+whether the images were aligned by hand or automati-            in S23), our only apparently unambiguous detection
+cally.                                                          with this PSF normalization method. J1148+5251 and
+   Next, we normalize the stellar PSF image to match            J1120+0641 (bottom two rows, the two highest-redshift
+the flux of the quasar near the center of the image             quasars in our sample) are undetected in all bands. That
+(within ∼ 0.15′′ ), where the quasar light is most domi-        is, the only images in Figure 2 where the host galaxy
+nant. As we iterate the alignment and scaling, we exam-         emission can be unambiguously seen are in the F360M
+ine the azimuthally-averaged radial profiles of the star        and F480M bands on J2239+0207. These results are
+and quasar, shown for all quasars in Figure 1. If the           consistent with the radial profiles (Figure 1), where only
+star and quasar are properly aligned and scaled, their          J2239+0207 shows obvious deviations between the ra-
+profiles will exhibit identical shapes at small radii. In-      dial profiles of the quasar and its PSF star.
+deed, as shown in Figure 1, the profiles of the quasars            We report the flux in all images within a 0.4′′ radius
+and their PSF stars are virtually identical in all bands at     aperture in Column 5 of Table 1. This method of nor-
+small radii. Far from the center (r ≳ 0.4′′ ), deviations       malizing the reference PSF necessarily removes any flux
+between the stellar and quasar PSFs are due to noise.           from the host galaxy near the center of the image, and
+The excellent agreement in the shape of the star and            may lead to oversubtraction, potentially making the val-
+                                                                                                                                   5
+
+                                   J1340                     J2239                     J1148                     J1120
+                                         F210M                      F210M                     F210M                     F210M
+           All
+        Profiles
+       Normalized
+
+         J0731
+       F410M                     F410M                      F360M                     F360M                     F360M
+
+
+
+ 0.0     0.2      0.4
+       F430M                     F430M                      F480M                     F410M                     F480M
+
+
+       Quasar
+       Star (scaled)
+ 0.0     0.2       0.4     0.0     0.2      0.4      0.0      0.2     0.4      0.0      0.2     0.4      0.0      0.2     0.4
+        Radius (")                Radius (")                Radius (")                Radius (")                Radius (")
+Figure 1. The normalized quasar and PSF star radial profiles. The quasars (columns) are shown in order of increasing redshift
+left to right, with the filter labeled. The quasar profile is shown as a blue solid line, and the radial profile of its corresponding
+PSF star, with the best-fit scaling to match the quasar profile at the center, is shown as a red dashed line. Each profile extends
+from the center of the image to a 0.6′′ radius: note that the F210M PSF is narrower than the other bands because of the smaller
+pixel scale. Most of the quasars and their PSF stars have virtually identical profiles out to ∼ 13 pixels from the center (∼ 0.4′′
+in LW bands, bottom two rows, and ∼ 0.2′′ in SW bands, top row), beyond which point noise drives any PSF mismatch (grey
+shaded region). The exception is J2239+0207 (center column) where small quasar-star PSF mismatches can be seen at ∼ 0.2′′
+in F360M and F480M. The excellent agreement between the quasar and stellar radial profiles underscores the efficacy of using
+medium-band filters for this analysis, and underscores the difficulty of detecting the host galaxy emission.
+
+ues underestimates, not true upper limits. Also, there                ual flux to zero near the center of the image. Placing an
+are additional systematic errors associated with the PSF              aperture on the PSF-subtracted image therefore returns
+subtraction. We address these issues in the next section              essentially a lower limit on the total galaxy flux, be-
+(3.2), where we determine upper limits to the possible                cause any flux at the very center of the galaxy (behind
+host galaxy fluxes to accompany the potentially over-                 the PSF artifacts) has been subtracted. To estimate
+subtracted fluxes derived here.                                       the amount of “missing” flux and provide an alternate,
+                                                                      more conservative measurement of the galaxy flux and
+         3.2. Accounting for oversubtracted flux                      therefore its mass, we iterate the normalization of our
+   Given how faint the host galaxies are, the dominant er-            reference PSF and fit Sérsic profiles to the residual flux
+rors in measuring them (or obtaining limits) are the sys-             in the PSF-subtracted images.
+tematic ones associated with the PSF subtraction, not                    We begin by modifying the normalization of the ref-
+statistical errors. In addition, because the host galaxies            erence PSF. When we reduce the normalization of the
+of our quasars are very faint, the usual practice of sub-             reference PSF to the quasar PSF, the resulting profile
+tracting the PSF down to the projected galaxy emission                is broadly consistent with a Sérsic profile for all of our
+is not feasible. Instead, as described in the preceding               quasars, especially at r > 0.2′′ (see Figure 3). Early
+section, we scaled the stellar PSF to match the quasar                JWST results (e.g. Yang et al. 2022; Ormerod et al.
+PSF at the center, which necessarily reduces the resid-               2023) have found that Sérsic indices of n ∼ 1 are typ-
+6
+
+                                   J1340                     J2239                     J1148                    J1120
+                           F210M                     F210M                    F210M                     F210M
+
+
+
+            J0731          1 kpc                     1 kpc                     1 kpc                    1 kpc
+    F410M                  F410M                     F360M                    F360M                     F360M
+
+
+    1 kpc                  1 kpc                     1 kpc                     1 kpc                    1 kpc
+    F430M                  F430M                     F480M                    F410M                     F480M
+
+
+    1 kpc                  1 kpc                     1 kpc                     1 kpc                    1 kpc
+
+Figure 2. Our five observed quasars after subtraction of their stellar PSFs, normalized by the total (Poissonian + pixel)
+error budget. Each quasar (columns) is imaged in two or three bands between observed-frame 2.1 and 4.8 µm (rows). The
+0.4′′ radius aperture used to extract galaxy fluxes and upper limits is shown as a white circle; each image has a field of view of
+1.8′′ . Consistent with the radial profiles (see Figure 1), the only quasar that shows significant extended emission even when the
+reference PSF is normalized to the quasar flux at the center before subtraction is J2239+0207 (center column) in bands F360M
+and F480M.
+ical for galaxies at z ∼ 6: indeed, we find that this               this process is shown in Figure 3, for the F360M image
+is the Sérsic index most consistent with the profiles of           of J1340+2813.
+our PSF-subtracted images. While a higher Sérsic in-                  We examine the radial profiles of these adjusted PSF-
+dex may provide a slightly better fit to the very inner,            subtracted images, and fit the region of the profile rel-
+extremely noisy part of the image (at r < 0.1′′ ), any              atively unaffected by central PSF artifacts (at radii
+index above n ∼ 1.5 does not fit the region from 0.15′′ to          ≳ 0.15′′ ), with an n = 1 Sérsic profile. We set the ef-
+0.4′′ well. The quasar PSF, on the other hand, is highly            fective radius of the model Sérsic using equations 5 and
+inconsistent with a Sérsic profile. Therefore, by decreas-         6 of Morishita et al. (2023), determining an “expected”
+ing the flux of the reference PSF before subtracting and            mass from the local MBH —M∗ relation and the black
+examining the resulting modified PSF-subtracted image               hole masses of our quasar sample: these effective radii
+and radial profiles until the PSF pattern becomes visi-             are between 1 and 1.5 kpc for our quasars.
+ble in the “subtracted” image and the radial profile is no             We find only small adjustments to the normalization
+longer well-fit by an n = 1 Sérsic profile, we can place           are needed to account for oversubtraction. For most
+an upper limit on the flux attributable to the galaxy               bands, when tuned to return more than 4 − 6 times
+rather than to the PSF. We adjust the normalization                 the original, normalized-to-zero-at-center flux, the PSF
+to a range of values, such that the measured flux in                pattern begins to become apparent in the subtracted
+the 0.4′′ aperture returns from two to twenty times the             images, and the core of its radial profile becomes incon-
+flux obtained when normalizing the stellar PSF to the               sistent with a Sérsic profile (see Figure 3). The excep-
+quasar PSF at the center of the image. An example of                tion is the F410M image of J0731+4459, which displays
+                                                                    worse stellar-quasar PSF agreement than the rest of the
+                                                                                                                               7
+
+
+
+
+Figure 3. An illustration of the process of obtaining upper limits to the luminosities of our quasar host galaxies, with the
+test case of J1340+2813 in the F430M band (left). We subtract the images down to a range of flux levels, with the minimum
+being the flux obtained in a 0.4′′ aperture when the reference (stellar) PSF is normalized to the quasar PSF (as in Figure 1). At
+right, we show the resulting “PSF-subtracted” images: clearly, remnants of the PSF pattern begin to become visible when the
+flux in the aperture is tuned to 4 − 6 times the normalized-to-zero flux. At left, we show the corresponding radial profiles of
+the PSF-subtracted images. At > 6x the lower limit flux, the radial profile is no longer consistent with an n = 1 Sérsic profile
+(black dotted line). We take the maximum flux where the PSF pattern is not obvious in the images and the radial profile is
+consistent, on average, with the Sérsic at r > 0.1′′ as the upper limit on the galaxy flux (column 6 of Table 1).
+
+sample and therefore a noisier radial profile; we can in-           bands. It is therefore not feasible to determine the host
+crease its flux by approximately a factor of 20 before the          masses by performing e.g. spectral energy distribution
+radial profile becomes inconsistent with the Sérsic. We            (SED) fitting because of the degeneracies in models due
+report the upper limit on the J0731+4459 F410M flux                 to our small number of data points, combined with the
+in Table 1, but do not use this band to constrain the               low signal to noise. We must therefore turn to another
+galaxy mass. We take the maximum normalization that                 method.
+returns a) a subtracted image without obvious residual                 The Spitzer Space Telescope observed hundreds of
+PSF patterns, and b) a radial profile that can be fit by            high-redshift AGN and inactive galaxies during its mis-
+an n = 1 Sérsic profile, as the upper limit on the flux of         sion, including many galaxies in legacy fields with addi-
+the galaxy as listed in column 6 of Table 1.                        tional data spanning the UV to far-IR or radio, and
+                                                                    therefore with robust masses from SED fitting. We
+                   3.3. Galaxy Masses                               can therefore use these galaxies to examine the rela-
+  Our five quasars possess high-mass supermassive black             tionship between their IRAC Band 1 (3.6 µm) fluxes,
+holes (log(MBH [M⊙ ]) = 8.8 to 9.8): the local MBH —                whose bandpass closely resembles NIRCam F360M, and
+M∗ relation therefore predicts large host galaxy masses,            their stellar masses from SED fitting. At the redshifts
+between log(M∗ [M⊙ ]) = 11 and 12. Such massive hosts               of our quasars, F360M probes the rest-frame optical and
+would have been easily detected. However, obtaining                 should therefore scale with the galaxy mass: we can use
+realistic host galaxy masses is nontrivial, as each quasar          this to build an empirical relationship between 3.6 µm
+has been observed in no more than three closely spaced              flux and mass to constrain the masses of our quasar host
+8
+
+                                         J1340                      J2239                    J1148                   J1120
+                                 F210M                      F210M                   F210M                    F210M
+
+
+
+            J0731                1 kpc                      1 kpc                    1 kpc                   1 kpc
+    F410M                        F410M                      F360M                   F360M                    F360M
+
+
+    1 kpc                        1 kpc                      1 kpc                    1 kpc                   1 kpc
+    F430M                        F430M                      F480M                   F410M                    F480M
+
+
+    1 kpc                        1 kpc                      1 kpc                    1 kpc                   1 kpc
+
+Figure 4. Same as Figure 2, but with the normalization of the reference PSF to the quasar image adjusted as described in
+Section 3.2 in order to calculate the upper limits on the galaxy flux. The 0.4′′ radius aperture used to extract galaxy fluxes
+is shown as a white circle; each image has a field of view of ∼ 1.8′′ . For comparison, each image is shown with the same
+normalization and stretch as in its corresponding panel in Figure 2.
+
+galaxies. This method is based on the assumption un-                       find that they are virtually flat in frequency units at the
+derlying the Magorrian relation that quasar host galax-                    wavelengths of interest (rest-frame ∼ 450-600 nm). The
+ies, as a population, should resemble field galaxies at the                necessary K-corrections are therefore negligible.
+same redshift.                                                                We correct the IRAC Band 1 fluxes of the McLure
+  McLure et al. (2011), Curtis-Lake et al. (2013), and                     et al. (2011), Curtis-Lake et al. (2013), and Jiang et al.
+Jiang et al. (2016) model massive z ∼ 5 − 8 galaxies                       (2016) to a single redshift (z = 6), and plot their masses
+with high-quality observations spanning a wide range of                    as a function of IRAC Band 1 flux in Figure 5. The
+wavelengths, including IRAC Band 1 measurements.2                          errors on the McLure et al. (2011) and Curtis-Lake
+These samples include high-mass, highly star-forming                       et al. (2013) galaxies are directly from the references,
+galaxies similar to those we expect to host our luminous                   but the quoted errors in Jiang et al. (2016) are much
+quasars. Because these sample galaxies—as well as our                      smaller and appear not to include systematic uncertain-
+quasar hosts—lie at a range of redshifts, the IRAC Band                    ties. We therefore increase the error bars on the Jiang
+1 filter probes a range of rest-frame wavelengths. This                    et al. (2016) points by 0.15 dex, making them similar to
+may introduce biases if the galaxies’ spectra are not flat,                the errors quoted in the other references to ensure those
+requiring complicated K-corrections. Reassuringly, how-                    points do not dominate our fits.
+ever, when we create model SEDs with reasonable star                          The points in Figure 5 clearly fall into two distinct
+formation histories and the small levels of reddening typ-                 populations. Very young galaxies, with a dominant stel-
+ical of galaxies at these redshifts (E(B-V) ∼ 0.05), we                    lar population age (from SED fitting) less than 10 Myr
+                                                                           have a larger 3.6 µm flux for a given mass: these are
+    2
+                                                                           plotted as open circles in Figure 5. Older galaxies, on
+        We use the exponentially decaying star formation models of
+        McLure et al. (2011), models E of Curtis-Lake et al. (2013), and   the other hand, which we expect to more closely resem-
+        the Jiang et al. (2016) models including nebular emission.         ble the galaxies hosting our quasar sample, produce less
+                                                                                                                                 9
+
+3.6 µm flux at a given mass (filled circles in Figure 5).       We obtained NIRSpec spectra of three of our quasars:
+We want to place maximally conservative upper limits         J0731+4459 (z = 5.01), J1340+2813 (z = 5.36), and
+on the masses of our host galaxies; including the very       J2239+0207 (z ∼ 6.25) to constrain the strength of the
+young galaxies biases our fit, tending to return a lower     Balmer break and measure black hole masses from Hα
+galaxy mass for a given flux. Using such a fit may lead      and Hβ. All three quasar spectra are shown in Fig-
+us to mistakenly conclude that our quasar host galaxies      ure 6 in order of increasing redshift. The prism spec-
+lie above the local MBH —M∗ relation even if they do         trum of J2239+0207 (bottom row of Figure 6) is ex-
+not. A more conservative result is obtained by rejecting     tensively discussed in S23: the spectral resolution and
+these very young galaxies when we fit the relationship       signal-to-noise ratio are low, but we are nonetheless able
+between stellar mass and 3.6 µm flux.                        to use Hα to place a lower limit on the black hole mass
+   We therefore fit the relationship between the 3.6µm       of log(MBH [M⊙ ]) > 8.5, consistent with previous mea-
+flux density (adjusted to z = 6) and galaxy mass mea-        surements from Mg II and C IV. The redshifts of both
+surements by least squares minimization, holding the         J0731+4459 and J1340+2813 place Hβ within the NIR-
+slope to 1 (i.e., the mass should be proportional to         Spec wavelength range, which we use to calculate an
+the 3.6µm flux density) and excluding the galaxies with      additional black hole mass estimate.
+dominant stellar population age < 10 Myr. The re-               We do not observe an obvious narrow component
+duced χ2 for this fit is 1.98; if the single most dis-       of Hβ in the spectra of J0731+4459 and J1340+2813.
+cordant point (the value at log(Fν [µJy]) = −0.31,           However, both spectra display a [Fe II] emission feature
+log(M∗ [M⊙ ]) = 9.17) is rejected, the reduced χ2 is 1.50.   blended with Hβ, which must be fit simultaneously with
+The equation of this best-fit line is                        the Hβ line. We therefore fit two Gaussian profiles—
+                                                             for the broad component of Hβ and for the [Fe II]
+         log(M∗ [M⊙ ]) = log(Fν [µJy]) + 10.20,       (1)    feature—superimposed on a local linear continuum. We
+                                                             fix the central wavelengths to the line centers and allow
+where Fν is the 3.6 µm flux adjusted to z = 6 in µJy
+                                                             the amplitudes and widths of both lines to vary. For
+and the galaxy mass is in solar units.
+                                                             J0731+4459, we obtain a FWHM of ∼ 3400 km/s. This
+   With this empirical relation, we can place lower and
+                                                             line width can be converted to a black hole mass using
+upper limits on the masses of our quasar host galax-
+                                                             Equation 5 in Vestergaard & Peterson (2006):
+ies from the lower and upper limits on their fluxes. As
+with the galaxies in the models, we begin by correcting
+our lower limits (from aperture photometry, column 5 of                        (                 2                   0.5 )
+Table 1) and upper limits (from varying the normaliza-                              FWHM(Hβ)               λL5100Å
+                                                               log MBH = log
+tion in Section 3.2, column 6 of Table 1) on the galaxy                             1000 km s−1          1044 erg s−1
+fluxes to z = 6; we again make the assumption that the                                              + (6.91 ± 0.02)         (2)
+galaxy SED is flat at the wavelengths of interest, around
+rest-frame 500 nm. We can then use these K-corrected         where we use the flux density in F410M (Table 1) as a
+fluxes and Equation 1 to obtain a mass range for each        proxy to determine the continuum luminosity at 5100Å.
+quasar host galaxy. For the galaxies with an F360M flux      We find a black hole mass log(MBH [M⊙ ]) = 9.3+0.2 −0.3 .
+(J2239+0207, J1148+5251, and J1120+0641), we utilize           For J1340+2813, we measure a FWHM of 5100 km/s,
+that flux to calculate the mass. For J1340+2813, we          and using Equation 2 obtain a mass log(MBH [M⊙ ]) =
+use the band at the most similar wavelengths, F410M.         9.4+0.2
+                                                                −0.4 . This value is consistent with that reported by
+J0731+4459 also has an F410M flux, but because its           Jun et al. (2015).
+F410M PSF-subtracted image displays more severe PSF            J0731+4459 and J1340+2813 also have rest-frame
+subtraction artifacts than its F430M image, suggesting       3650Å positioned within the NIRSpec medium wave-
+some degree of mismatch between its quasar and stellar       length range.      While their host galaxies are only
+PSF in that band, we conservatively use F430M to calcu-      marginally detected in the NIRCam images, their spec-
+late its mass instead. Again, the rest-frame optical SED     tra might reveal a Balmer break if there is a massive
+is very flat for these galaxies and using F410M or F430M     host galaxy sufficiently compact to hide behind the PSF
+instead of F360M should not probe a significantly differ-    subtraction artifacts.
+ent part of the SED. The masses are reported in Column         To test for this possibility, we fit a Balmer break spec-
+7 of Table 1.                                                trum to the quasar spectra, varying the strength of the
+                                                             break. We created a model of the Balmer break us-
+  3.4. BH masses and Balmer breaks from NIRSpec
+                                                             ing the PopStar models (Mollá et al. 2009) assuming
+                       spectra
+                                                             a Chabrier initial mass function. The strength of any
+10
+
+
+                                 11.0
+                                 10.5
+
+                     log(M * [M ])
+                                 10.0
+                                  9.5
+                                  9.0
+                                  8.5
+                                  8.0
+                                        1.25 1.00 0.75 0.50 0.25 0.00 0.25
+                                                 log(F , 3.6 m [ Jy])
+Figure 5. Galaxy masses vs. IRAC Band 1 flux density converted to equivalent values at z = 6, and the best-fit model (red
+line, Equation 1). Models from Jiang et al. (2016) that derive ages of the dominant stellar population < 10 Myr, which we
+exclude from the fit, are shown as open circles.
+
+Balmer break depends on the age of the stellar popula-         values as the negatives of the best fits (so the breaks are
+tion dominating the SED; a very young population will          positive). These stellar continuum fluxes permit galaxy
+have a very weak feature. For a baseline model, we have        flux densities in J0731+4459 and J1340+2813 of 2.5 and
+assumed constant star formation for 500 Myr. To fit            5.4 µJy respectively in the 3 to 4 µm bands, values con-
+the resulting complex spectrum to the quasar spectrum,         sistent with the upper limits in Table 1 for the same
+we first mask all absorption and emission features in          quasars. This result, and the lack of obvious stellar con-
+both spectra and fit the model PopStar spectrum with           tribution when visually inspecting the quasar spectrum,
+two lines, shortward and longward of the Balmer break,         implies that there is not significant flux (relative to the
+and a cubic function connecting the two to represent the       quasar flux) from the galaxy in the central regions of
+break itself. We fit this parameterization of the Balmer       the PSF, and rules out the possibility of compact host
+break to the spectra of our quasars, with the normaliza-       galaxies sufficiently massive to preserve the local MBH
+tion of the model, the magnitude of the break, and an          —M∗ relation hiding behind PSF subtraction residuals
+overall slope (to represent any effects of dust extinction)    in the core of the PSF.
+as free parameters. We allowed negative break values as
+a test for fitting residuals.
+  The best-fit strengths of the Balmer break are approx-
+                                                                                   4. DISCUSSION
+imately 0.8% and 1.4% the flux of the quasar contin-
+uum in J0731+4459 and J1340+2813, respectively, as               The existence of the supermassive black holes in very
+shown in Figure 6, and both are negative (i.e. the fit         high redshift, very luminous quasars is a severe test of
+returns a reverse break, with the spectrum brighter at         conventional theories that supermassive black holes and
+blue wavelengths than red). We do not believe this is          their host galaxies grow symbiotically from very early
+significant, as in both cases, no break at all is consis-      times. This issue is most challenging for the most mas-
+tent with the spectra and fitting a single flat continuum      sive SMBHs, e.g. those in luminous quasars. Our quasar
+returns a nearly identical reduced χ2 .                        host galaxy masses, reported above, appear to chal-
+  Placing an upper limit on the Balmer break is there-         lenge this hypothesis, and imply that the local MBH
+fore difficult, because the best-fit value of the break is     —M∗ relation is not well established at z ∼ 5 − 7.
+negative and consistent with zero: clearly the contribu-       This section explores this possible contradiction in more
+tion of the stellar continuum to the spectrum is very          depth. We begin by discussing theoretical predictions of
+small. As a rough estimate of the maximum possible             host galaxy masses for quasars similar to our sample and
+contribution, we take upper limits to the nominal break        comparing these predictions to our measurements. We
+                                                               then discuss whether our results could be missing the
+                                                                                                                               11
+
+                                                                          H                   H [Fe II] [O III]
+       Normalized Flux
+                         Full Spectrum
+                         Balmer Break Model           J0731+4459
+
+
+
+
+                            300                 350           400                 450               500
+
+                                                      J1340+2813
+       Normalized Flux
+
+
+
+
+                            [Mg V]                                                      H                    H [Fe II]
+                250                   300              350             400                  450                   500
+
+                                             J2239+0207
+       Normalized Flux
+
+
+
+
+                                  [Mg V]                      H       H [O III]                              H
+               200                     300              400              500                  600                        700
+                                                       Rest Wavelength (nm)
+Figure 6. The NIRSpec spectra of three of our quasars: J0731+4459 (top row, z = 5.01), J1340+2813 (center, z = 5.36), and
+J2239+0207 (bottom row, z = 6.25). Prominent spectral lines are labeled. We fit the spectra of J0731+4459 and J1340+2813
+on either side of the Balmer break to constrain its strength, masking out emission and absorption lines, and show the best-fit
+model as a red dashed line. The scale for these two quasars is amplified and the zero point suppressed to emphasize the small
+size of the resulting fitted break. Neither galaxy displays an obvious Balmer break; the spectra of all three sources are very
+typical of high-redshift quasars.
+
+host galaxies or underestimating their masses because               massive black hole and its host galaxy have reached their
+of extinction by interstellar dust. We conclude by show-            final masses by z = 5, with nearly all growth (particu-
+ing that the deviation of our and other z ∼ 5 − 7 quasar            larly of the host galaxy) complete even earlier, by z = 6.
+samples from the local MBH —M∗ relation is unlikely                 As such, between z = 6 and z = 5, the host galaxy is
+to be a consequence of selection effects.                           slightly overmassive compared to the black hole.
+                                                                       Habouzit et al. (2022) discuss the results of six large
+   4.1. Testing Quasar-Galaxy Symbiotic Evolution                   cosmological simulations with different approaches to
+  A theoretical example of the growth of a galaxy and               SMBH-galaxy coevolution, providing a more complete
+SMBH together is provided by Li et al. (2008) (see their            view. Such studies are limited by the currently achiev-
+Figure 1). In these particular models, the central super-           able simulation volumes (see Habouzit et al. (2022)
+12
+
+                                   Table 1. Measured properties of the high-z quasar sample
+
+                    Quasar       Redshift     Band        Quasar       Measured         Upper Limit       Inferred
+                                                           Flux       Galaxy Flux       Galaxy Flux     Galaxy Mass
+
+                                                          (µJy)          (µJy)             (µJy)           log(M⊙ )
+
+                      (1)           (2)        (3)          (4)             (5)              (6)              (7)
+
+                 J0731+4459        5.01      F410M     194.0 ± 0.2    0.24 ± 0.21           4.32
+                                             F430M      112.0 ± 0.2   0.85 ± 0.22           5.12            < 10.7
+                                             F210M       95.1 ± 0.3   0.78 ± 0.28           1.56
+                 J1340+2813        5.36      F410M     173.2 ± 0.2    0.88 ± 0.18           5.28            < 10.8
+                                             F430M      192.7 ± 0.2   1.06 ± 0.23           6.36
+                                             F210M      6.81 ± 0.04   0.12 ± 0.07           0.60
+                 J2239+0207        6.25      F360M     7.43 ± 0.05    0.34 ± 0.05           1.36           10.0+0.4
+                                                                                                               −0.3
+                                             F480M     11.32 ± 0.09   0.45 ± 0.08           1.32
+                                             F210M      120.5 ± 0.2   0.39 ± 0.23           0.78
+                 J1148+5251        6.40      F360M     117.1 ± 0.2    0.45 ± 0.18           2.70            < 10.7
+                                             F410M      103.2 ± 0.1   0.48 ± 0.11           1.92
+                                             F210M       42.0 ± 0.1   0.12 ± 0.12           0.48
+                 J1120+0641        7.09      F360M      53.2 ± 0.1    0.20 ± 0.07           0.80            < 10.3
+                                             F480M       48.3 ± 0.1   0.31 ± 0.13           0.62
+                Note—The measured quasar and host galaxy fluxes of our five high-z quasars. The measured
+                 galaxy fluxes (5) were obtained by normalizing our reference PSF to match the flux of the
+                 quasar at the center of the image before subtracting, therefore subtracting the flux to zero near
+                 the center of the host galaxy (see Section 3.1). The uncertainties in (5) reflect purely statistical
+                 errors, without taking into account systematics.
+                We then adjusted the normalization of the reference PSF to determine how much flux could
+                 be attributed to the host galaxy near the image center, and adopted the maximum flux with
+                 subtracted image and radial profile consistent with a Sérsic profile rather than a PSF as the
+                 upper limit on the galaxy flux (6). We then calculate masses (7) by applying Equation 1 to
+                 the limits on the host galaxy flux.
+
+
+
+for a discussion), but the two with adequate statistics               2019)5 ; J1340+2813, 2.5 × 109 M⊙ , (Jun et al. 2015,
+to extend to high-luminosity quasars indicate that at                 this paper). The additional quasars analyzed for host
+z = 5 they reside in host galaxies in the 0.3 to 1 × 1011             galaxies by Yue et al. (2023) also all have very massive
+M⊙ range, with relatively little scatter3 . However, the              SMBHs, as listed in that paper, ranging from 1.9×109 to
+quasars we have studied have SMBH masses well above                   1.2 × 1010 M⊙ . The AGN luminosities are proportional
+the simulation results4 . J2239+0207 lies at the very                 to their SMBH masses (Shen et al. 2019), placing all of
+high end of the simulated distribution (S23), but our                 these quasars high into the “bright” category (Habouzit
+other four quasars have much larger SMBH masses: for                  et al. 2022). According to the predictions from exist-
+J0731+4459, 2 × 109 M⊙ (this paper); J1120+0641,                      ing simulations, we therefore expect these SMBHs to lie
+1.35 × 109 M⊙ (Yang et al. 2021); J1148+5251, 7 × 109
+M⊙ , (Barth et al. 2003; Willott et al. 2003; Shen et al.               5   There is a wide range of estimates for this quasar’s black hole
+                                                                            mass, with Willott et al. (2003) estimating ∼ 3 × 109 M⊙ and
+  3
+                                                                            Shen et al. (2019) 9.9 × 109 M⊙ from Mg II and 10.2 × 109
+    For the TNG300 case, the probability density is > 0.1 for 10.27         M⊙ from C IV. There is no evidence of variability in the J-band
+    < log(M∗ /M⊙ ) < 10.77 and for SIMBA it is > 0.1 for 10.68 <            magnitudes from Willott et al. (2003) and Shen et al. (2019) that
+    log(M∗ /M⊙ ) < 11.10.                                                   could explain this difference. The calibration of line width SMBH
+  4 The maximum SMBH masses in the simulations are < 6 × 108
+                                                                            masses has changed modestly over time (Jun et al. 2015), which
+    M⊙ .                                                                    could account for a small part of the difference. In averaging the
+                                                                            values we have therefore given slightly greater weight to the Shen
+                                                                            et al. (2019) ones.
+                                                                                                                    13
+
+in hosts of 1 × 1011 M⊙ (and larger), significantly more    J2239+0207, and J1148+5251, however, have very high
+massive than the upper limits we have calculated for our    far infrared luminosities and should have significant ob-
+quasar sample. We now consider whether the apparent         scuration in their central regions. We begin by consid-
+contradiction to these predictions we have found might      ering the first category.
+arise from other effects than the intrinsic quasar/host
+behavior.                                                   Extinction in typical z ∼ 6 galaxies: The galaxies in
+                                                            Figure 5, used to derive Equation 1 and determine host
+     4.1.1. Effect of Intense Nuclear Star Formation        galaxy masses, in general show very low levels of ex-
+   Three members of our sample, J1148+5251,                 tinction. Is this a reasonable assumption to make for
+J1340+2813, and J2239+0207, have very large far-            typical z ∼ 6 galaxies in general, and the subset of our
+infrared luminosities indicative of star formation rates    quasar sample without high levels of nuclear star forma-
+>> 1000 M⊙ yr−1 (Leipski et al. 2014; Izumi et al.          tion? The galaxies from McLure et al. (2011), Curtis-
+2019; Bertoldi et al. 2003). Such star forming regions      Lake et al. (2013), and Jiang et al. (2016), predating
+are expected to be centrally concentrated within the        JWST, were by necessity selected on the basis of the vis-
+host galaxy (e.g., Lapi et al. 2018) and their frequent     ible and near infrared measurements and therefore may
+occurrence around high-redshift quasars may be directly     be biased toward low extinctions. To first order, this se-
+related to the growth of the SMBHs and the energy out-      lection does not undermine their use as mass indicators,
+put from the quasar (e.g., Hopkins & Quataert 2010;         but it could affect the application of Equation 1 to other
+Li et al. 2022). The regions are sufficiently luminous      galaxies at z ∼ 6, since they might have systematically
+and compact to approach the Eddington limit, where          higher extinction.
+the radiation pressure from the young, hot stars blows         Nakajima et al. (2023), using a mix of direct-
+the dust and with it the interstellar gas out of the re-    temperature and strong-line metallicity calibrations,
+gion and quenches the star formation (Thompson et al.       find typical metallicities of 12 + log(O/H) ∼ 8.2 for
+2005; Crocker et al. 2018). As a result, these extremely    galaxies at z ∼ 6 with masses of ∼ 1010 M⊙ (i.e., simi-
+high levels of star formation observed in J1148+5251,       lar to the quasar hosts); this is a metallicity four times
+J1340+2813, and J2239+0207 are likely very short-           lower than the solar value (8.8, von Steiger & Zurbuchen
+lived; nonetheless, they can contribute significantly to    2016). The ratio of dust to gas mass is then expected to
+the mass of the host galaxy (e.g., 5 Myr of creation        be an order of magnitude lower than in galaxies of ap-
+of 2000 M⊙ /yr−1 of stars yields 1010 M⊙ of stars for       proximately solar metallicity (Rémy-Ruyer et al. 2015;
+a conventional, i.e. Chabrier or Kroupa, initial mass       Aniano et al. 2020). It is therefore not surprising that
+function, although the actual mass function in these        the extinctions are low in galaxies at z ∼ 6, and the
+regions is probably more top-heavy and the mass yield       sources in Figure 5 are likely not significantly biased to-
+therefore lower). Repetitive short bursts of this nature    wards uncommonly low extinction.
+quenched by the Eddington limit process are proposed           The levels of extinction for infrared-selected galax-
+to be a mechanism for feeding black holes and activating    ies (i.e., observed with JWST NIRCam) are discussed
+AGN (Davies et al. 2007).                                   in Gómez-Guijarro et al. (2023) for a sample at 3 <
+   Although important to understand the co-evolution of     z < 7.5. They find that about 76% of their sample has
+the quasars and their host galaxies, the gas, dust, and     AV < 0.5 (probed by the F150W−F444W color) and
+star formation described above is centrally concentrated    another 17% has 0.5 < AV < 1. These extinction levels
+within a radius ≲ 1 kpc (Lapi et al. 2018), in the region   are only slightly higher than those for the sample shown
+made invisible in our images by the quasar and the PSF      in Figure 5. Assuming that the two quasars in our sam-
+subtraction artifacts. Our galaxy masses and upper lim-     ple without large far-infrared excesses lie in relatively
+its are derived for the extended, older, more quiescent     typical z ∼ 6 galaxies, these low extinction levels sup-
+part of the galaxy outside this central region.             port our assumption that the galaxy-scale interstellar
+                                                            extinction is low in J0731+4459 and J1120+0641.
+             4.1.2. Host Galaxy Extinction
+  Our failure to detect host galaxies might be attributed   Extinction in highly star-forming z ∼ 6 galaxies:
+to galaxy-scale obscuration by interstellar dust. Our       However, the three other quasars in our sample
+quasars fall into two broad categories. In J0731+4459       (J1340+2813, J2239+0207, and J1148+5251) with huge
+and J1120+0641 there is no evidence for ongoing strong      far-infrared luminosities may be highly-dusty exceptions
+nuclear star formation and the accompanying gas and         to the rule of generally low interstellar dust and extinc-
+dust and the extinction should be typical of z ∼            tion at z ∼ 6. We examine this possibility using a sam-
+6 field galaxies. As already discussed, J1340+2813,         ple of local LIRGs and ULIRGs, which, like our three
+14
+
+quasars, exhibit large far-infrared excesses compared to         Table 2. Summary of Observations of Outer Zones of Local
+typical galaxies at their redshift (by a factor of a few to      ULIRGs
+tens: Howell et al. 2010). We use the J − K color dif-
+                                                                         galaxy          J-K    error            ref
+ference to judge the extinction: these longer-wavelength
+bands trace old stars and this color is therefore rela-           bulge                  0.94     –      Frogel et al. (1978)
+tively immune to differences in star formation history.           disk                   0.90     –     Terndrup et al. (1994)
+                                                                  UGC 1315               0.98   0.09     Smith et al. (1996)
+We draw examples from the multi-aperture JHK pho-
+                                                                  UGC 4509               0.75   0.09     Smith et al. (1996)
+tometry in Smith et al. (1996), selecting galaxies with in-
+                                                                  UGC 8387               0.79   0.09     Smith et al. (1996)
+frared luminosity > 3×1011 L⊙ (Sanders et al. 2003). We
+                                                                  UGC 8696               0.85   0.09     Smith et al. (1996)
+calculate the color difference in all cases for annuli rang-      UGC 9913 (Arp 220)     0.90   0.09     Smith et al. (1996)
+ing from 5 to 20′′ , away from the galaxy centers; these          UGC 12332 (NGC 7469)   1.01   0.09     Smith et al. (1996)
+annuli contain half or slightly more of the total K-band
+flux within 20′′ , so 5′′ is analogous to re in our fitting of
+the quasars. For comparison with typical galaxies (i.e.
+without significant far-infrared excesses), we have taken
+typical J − K colors in local bulges from Frogel et al.          In contrast, the two quasars whose host galaxy emis-
+(1978), and disk colors from Terndrup et al. (1994). To          sion was detected via subtraction of an empirical PSF
+guard against cases with exceptional reddening or mea-           by Ding et al. (2023) (purple diamonds in Figure 7)
+surement errors, we quote the median values from these           have host galaxies that are, within their uncertainties,
+two references. Table 2 summarizes the results; the ex-          roughly as massive as predicted from their black hole
+tranuclear colors of these LIRGs and ULIRGs are indis-           mass by the local MBH —M∗ relation of Kormendy &
+tinguishable from those of normal, non-infrared-excess           Ho (2013).
+galaxies. That is, despite the extreme levels of star for-         Overall, these results strongly suggest that the
+mation in their cores, there is no evidence for significant      SMBHs in the high redshift quasars are overmassive
+extinction in the outer parts of the surrounding galaxies.       compared with their host galaxies. However, it is criti-
+   This behavior is consistent with the theoretical pre-         cally important to consider the selection effects at play
+dictions at the redshifts of our quasars by Lapi et al.          when drawing conclusions from high-redshift quasar
+(2018), which predict that the gas, dust, and star form-         samples. In particular, our sample of luminous z ∼ 6
+ing regions are all centrally concentrated in high redshift      quasars and hosts is subject to two significant biases.
+extreme star forming galaxies.                                     The first is simple: more massive host galaxies are sig-
+   In summary, our view of the central regions of these          nificantly easier to detect and constrain after performing
+galaxies is obliterated by the quasars, so by necessity          PSF subtraction. If z ∼ 6 quasars of a given black hole
+we are determining their masses (or upper limits to the          mass display a range of host galaxy masses, the more
+masses) from the outskirts of the galaxy (regions out-           massive hosts (i.e., those galaxies lying to the right of
+side ∼ re ). We therefore expect little extinction in the        the MBH —M∗ relation) are more likely to be detected.
+regions we are using to constrain the PSF normaliza-             This bias, however, is contrary to our results. No z ∼ 6
+tion and therefore the galaxy fluxes and masses, and             quasar host galaxies detected with JWST to date lie to
+conclude that the galaxies from McLure et al. (2011);            the right of the local relation (as can be seen in Figure
+Curtis-Lake et al. (2013) and Jiang et al. (2016) used           7).
+to construct Equation 1 are a reasonable comparison to             The situation is complicated, however, by the selec-
+our quasar hosts even in these three cases.                      tion bias first described by Lauer et al. (2007). Due to
+                                                                 the steep slope at the bright end of the galaxy luminosity
+                                                                 function, the most massive black holes are more likely
+                                                                 to lie in lower-mass galaxies (where the black holes are
+         4.2. Potential bias in quasar selections                overmassive compared to the local MBH —M∗ relation),
+  Even with our conservative upper mass limits, all five         than in high-mass galaxies where the massive black hole
+of our quasars lie significantly above the local MBH —           is proportional. Because massive black holes can ac-
+M∗ relation: the central SMBHs are overmassive com-              crete at higher rates and produce brighter AGN, this
+pared to their host galaxies. Similar behavior is found          bias may then also manifest in flux-limited quasar sam-
+for the EIGER quasar sample, whose members also lie              ples. Therefore, to accurately compare our sample to
+above the local MBH —M∗ relation (Yue et al. 2023,               local AGN and draw conclusions about the MBH —
+pink circles in Figure 7, though they have significantly         M∗ relation at high redshift, we must use a similarly
+larger radii for their host galaxies than we find for ours).
+                                                                                                                                     15
+
+
+                                              J0731+4459 (z=5.01)
+                                              J1340+3926 (z=5.05)
+                              10.0            J2239+0207 (z=6.25)
+                                              J1148+5251 (z=6.4)
+                                              J1120+0641 (z=7.09)
+                                  9.5
+               log [ MBH (M ) ]
+
+
+                                  9.0
+
+
+                                  8.5
+
+
+                                  8.0
+                                              z~6 quasars (ALMA Mdyn)
+                                              High-L AGN PG Quasars (M * )
+                                              Ding+2023 (z~6.4)
+                                  7.5         Yue+2023 (z~6-7)
+                                              Kormendy & Ho 2013
+                                        9.0            9.5          10.0         10.5         11.0          11.5
+                                                           log M * or log Mdyn (M )
+Figure 7. The MBH —M∗ relation for our five observed quasars (stars), colored in order of increasing redshift. Black hole
+masses for J0731+4459, J1340+3926, and J2239+0207 are calculated from our NIRSpec spectra; masses for J1148+5251 and
+J1120+0641 are from the literature (Barth et al. 2003, respectively). For reference, we also show the two z ∼ 6.4 quasars whose
+host galaxies were detected via PSF subtraction by Ding et al. (2023) (purple diamonds), and the six z ∼ 6 − 7 quasars from
+Yue et al. (2023). The local MBH —M∗ relation in local non-AGN systems from Kormendy & Ho (2013) (grey shaded region)
+is shown. z ∼ 6 quasars with ALMA dynamical masses (Izumi et al. 2021; Pensabene et al. 2020) are shown as grey diamonds
+and circles respectively; their distribution is offset from that of local high-LAGN quasars (white triangles), demonstrating that
+the high-z offset from the local MBH —M∗ relation is not simply a consequence of selection biases. The constraints on the host
+galaxy masses of our five z ∼ 5 − 7 quasars and the EIGER sample (Yue et al. 2023) put them all well above the local MBH
+—M∗ relation, while the Ding et al. (2023) galaxies appear to be consistent with the local relation. This could point to a greater
+spread in the ratio MBH /M∗ at high redshift than is observed locally.
+
+biased sample of the most luminous quasars in the local                      quasars are derived using methods as similar as possi-
+Universe.                                                                    ble to those used for our z ∼ 6 quasar sample: stellar
+  As discussed in more detail in S23, we create this com-                    masses from rest-frame optical photometry and black
+parison z ∼ 0 sample from the Palomar Green (PG)                             hole masses from single-epoch spectra (see S23 for more
+sample of Type 1 quasars at z ≤ 0.5. This provides a                         details). If these z = 0 luminous quasars behaved like
+valid comparison because the high redshift quasars are                       the z ∼ 6 JWST samples, there would be a significant
+remarkably similar in all the relevant properties to very                    population lying to the left of the local relation: this is
+luminous local type-1 quasars (Fan et al. 2023). By ex-                      not the case. The local quasars lie on or to the right
+amining PG quasars with LAGN ≥ 2 × 1012 L⊙ (shown                            of the local relation, with only a very small minority of
+in Figure 7 as open triangles), we recreate the same lu-                     the sample (four quasars out of 37 total) slightly to the
+minosity bias present in our high-z sample and others                        left. Indeed, a two-sample KS test comparing the dis-
+in the literature (e.g. Ding et al. 2023; Yue et al. 2023).                  tance above/below the local MBH —M∗ relation for the
+The stellar and black hole masses we retrieve for the PG                     high-LAGN PG quasars and the z ∼ 6 samples of this
+16
+
+work, Ding et al. (2023), and Yue et al. (2023) returns       stellar masses of their host galaxies (a rarity at z=0),
+a p-value of 4 × 10−6 , which indicates these samples         taken together with similar results from sub-millimeter
+are drawn from distinct populations (despite both being       telescopes, implies that there is additional scatter in the
+subject to the same luminosity bias). The Lauer et al.        MBH —M∗ relation at high-redshift: the relationship
+(2007) bias therefore cannot be entirely responsible for      between galaxy mass and black hole mass is not nearly
+the increasing number of high-redshift quasars far from       as tight as in the local Universe. One Gyr after the Big
+the local MBH —M∗ relation.                                   Bang, supermassive black holes and their host galaxies
+                                                              do not yet march in lockstep.
+     4.3. Implications for Co-Evolution of SMBHs and             These results appear to contradict predictions that the
+                          Host Galaxies                       growth of galaxy mass will precede that of SMBH mass
+                                                              such as in Li et al. (2008). They are also problematic
+  It is therefore unlikely that the position of our quasars
+                                                              for the some of the simulations summarized by Habouzit
+above the local MBH —M∗ relation is only a conse-
+                                                              et al. (2022), which predict reasonably coordinated co-
+quence of extinction effects on our estimates of the host
+                                                              evolution. These results suggest that the growth of the
+masses, or of selection biases. Instead, we find that even
+                                                              SMBHs is not purely due to galaxy mergers, where the
+the most massive SMBHs at z ∼ 6 share the behavior
+                                                              overall host galaxy mass grows and much of the inter-
+found for lower mass ones (e.g., Harikane et al. 2023;
+                                                              stellar gas falls to the center where it can be accreted by
+Goulding et al. 2023; Maiolino et al. 2023; Kokorev et al.
+                                                              the SMBH. Nonetheless, the presence of metals and dust
+2023), namely to show a large scatter in MBH /M∗ with a
+                                                              around these quasars (e.g., Maiolino et al. 2003; Vene-
+strong tendency toward over-massive SMBHs compared
+                                                              mans et al. 2018) shows that they must lie in evolved
+with the local MBH —M∗ relation. The small number of
+                                                              populations of stars.
+SMBHs discovered so far at even higher redshifts (Bog-
+                                                                 The mystery of the rapid SMBH growth therefore per-
+dan et al. 2023; Goulding et al. 2023; Kokorev et al.
+                                                              sists (Fan et al. 2023). Solutions may well require ways
+2023; Pacucci et al. 2023; Übler et al. 2023) share this
+                                                              that the growth of SMBHs could be turbocharged to pro-
+behavior.
+                                                              ceed much more rapidly than in the conventional major
+  The spread of MBH —M∗ ratios observed—from
+                                                              merger scenario, as discussed for example by Inayoshi
+galaxies consistent with the local relation to cases an
+                                                              et al. (2020).
+order of magnitude less massive than predicted—aligns
+with existing measurements of [C II] dynamical masses
+                                                                      5. SUMMARY AND CONCLUSIONS
+using ALMA and other sub-mm telescopes (see the small
+grey diamonds in Figure 7). Indeed, these ALMA re-              We obtained NIRCam images and NIRSpec IFU spec-
+sults eliminate the possibility that the local MBH —          tra of a sample of high-luminosity z ∼ 5−7 quasars, and
+M∗ relation holds for gas masses rather than stellar          perform careful point-spread function subtraction to de-
+masses at z ∼ 6: ALMA dynamical masses at this red-           tect emission from their host galaxies.
+shift also tend to indicate galaxies less massive than
+predicted by the local MBH —M∗ relation. However,                • Utilizing NIRCam medium bands and reference
+because the gas dynamics can be influenced by non-                 PSFs from dedicated reference star observations
+gravitational forces and the mass estimates are depen-             provides excellent quasar-star PSF agreement, al-
+dent on assumptions about the gas distribution around              lowing us to probe to within less than a kiloparsec
+the SMBH, these results should be interpreted with cau-            of the galaxies’ centers before PSF artifacts dom-
+tion until stellar masses can be determined (Inayoshi              inate.
+et al. 2020). An illustrative case is the host galaxy of
+J2239+0207, with a stellar mass more than an order of            • We place lower and upper limits on the rest-frame
+magnitude less than its dynamical mass (S23). Such                 optical fluxes of the host galaxies by iterating
+galaxies are not unheard of in the high-redshift Uni-              the normalization of the reference PSF, allowing
+verse (see e.g. Riechers et al. 2013, for an example of a          us to precisely determine the maximum flux at-
+z = 6.34 non-active galaxy with stellar mass nearly an             tributable to the host rather than the quasar.
+order of magnitude less than its dynamical mass).                  By relating the F360M flux to galaxy mass via
+  Clearly, not all galaxies—or even all AGN—at z ∼ 6               Spitzer/IRAC Band 1 observations of galaxies
+will lie significantly above the local relation: even some         from 5 < z < 8 in the literature, we find that
+luminous quasars with detected host galaxies are consis-           our entire sample lies significantly above the lo-
+tent with it. However, the number of luminous quasars              cal MBH —M∗ relation, with mass upper limits
+observed to have overmassive black holes relative to the           < 1011 M⊙ .
+                                                                                                                                     17
+
+    • We explore the possibility that our host galaxies                JWST’s NIRCam and NIRSpec instruments are
+      are highly extincted and therefore appear to be                rapidly expanding the number of quasar host galaxies
+      less luminous than expected: based on the metal-               detected at z ≳ 4, demonstrating that the relation-
+      licities and extinctions of typical z ∼ 6 galax-               ship between SMBH and galaxy masses displays much
+      ies and the dust morphology of local extremely                 more scatter at high-redshift than locally. As the theory
+      star-forming galaxies analogous to the highly star-            of SMBH-galaxy coevolution evolves, such high-redshift
+      forming galaxies in our sample, we conclude that               luminous quasars will continue to provide a challenge
+      extinction at the radii we are able to probe with              for models to explain the apparent disconnect between
+      PSF subtraction is likely not significant. We also             SMBH and galaxy masses at z ∼ 6 now being uncovered
+      examine the possibility of selection biases driv-              with JWST.
+      ing the apparent deviation from the local MBH —
+      M∗ relation observed at z ∼ 6, and conclude that          1    We thank Junyao Li for bringing a calculation error to
+      even bias towards finding overmassive black holes         2    our attention, and the referee for helpful comments that
+      associated with luminous quasars cannot explain           3    improved the clarity of this paper. MS, SA, JL, GR, and
+      the abundance of overmassive SMBHs observed at            4    KH acknowledge support from the JWST Mid-Infrared
+      high redshift.                                            5    Instrument (MIRI) grant 80NSSC18K0555, and the
+                                                                6    NIRCam science support contract NAS5-02105, both
+    • Analysis of mm-wave gas dynamics measured for             7    from NASA Goddard Space Flight Center to the Univer-
+      low-redshift PG quasars indicates that selection          8    sity of Arizona. The JWST data presented in this paper
+      biases also do not influence these results suffi-         9    were obtained from the Mikulski Archive for Space Tele-
+      ciently to account for the behavior of the high-z         10   scopes (MAST) at the Space Telescope Science Institute.
+      quasar hosts.                                             11   The observations can be accessed via DOI.
+    • Our results appear to contradict evolutionary                     Facilities: JWST(NIRCam, NIRSpec)
+      models where the SMBH growth at very high red-                   Software: Astropy (Astropy Collaboration et al.
+      shift proceeds much as it does locally, through the            2013, 2018), Matplotlib (Hunter 2007), NumPy (van der
+      mergers of galaxies and injection of gas into the              Walt et al. 2011), photutils (Bradley et al. 2022),
+      nucleus where it is accreted by the SMBH, with co-
+      evolution of the SMBH and its host galaxy linked
+      from early times.
+
+
+                                                         REFERENCES
+Aniano, G., Draine, B. T., Hunt, L. K., et al. 2020, ApJ,            Bushouse, H., Eisenhamer, J., Dencheva, N., et al. 2023,
+  889, 150, doi: 10.3847/1538-4357/ab5fdb                              JWST Calibration Pipeline, 1.9.6, Zenodo,
+Astropy Collaboration, Robitaille, T. P., Tollerud, E. J.,             doi: 10.5281/zenodo.7714020
+                                                                     Crocker, R. M., Krumholz, M. R., Thompson, T. A.,
+  et al. 2013, A&A, 558, A33,
+                                                                       Baumgardt, H., & Mackey, D. 2018, MNRAS, 481, 4895,
+  doi: 10.1051/0004-6361/201322068
+                                                                       doi: 10.1093/mnras/sty2659
+Astropy Collaboration, Price-Whelan, A. M., Sipőcz, B. M.,
+                                                                     Curtis-Lake, E., McLure, R. J., Dunlop, J. S., et al. 2013,
+  et al. 2018, AJ, 156, 123, doi: 10.3847/1538-3881/aabc4f             MNRAS, 429, 302, doi: 10.1093/mnras/sts338
+Barth, A. J., Martini, P., Nelson, C. H., & Ho, L. C. 2003,          Davies, R. I., Müller Sánchez, F., Genzel, R., et al. 2007,
+  ApJL, 594, L95, doi: 10.1086/378735                                  ApJ, 671, 1388, doi: 10.1086/523032
+Bertoldi, F., Carilli, C. L., Cox, P., et al. 2003, A&A, 406,        Ding, X., Onoue, M., Silverman, J. D., et al. 2023, Nature,
+  L55, doi: 10.1051/0004-6361:20030710                                 621, 51, doi: 10.1038/s41586-023-06345-5
+                                                                     Dunlop, J. S., McLure, R. J., Kukula, M. J., et al. 2003,
+Bogdan, A., Goulding, A., Natarajan, P., et al. 2023, arXiv
+                                                                      MNRAS, 340, 1095,
+  e-prints, arXiv:2305.15458,
+                                                                      doi: 10.1046/j.1365-8711.2003.06333.x
+  doi: 10.48550/arXiv.2305.15458
+                                                                     Fan, X., Bañados, E., & Simcoe, R. A. 2023, ARA&A, 61,
+Bradley, L., Sipőcz, B., Robitaille, T., et al. 2022,                 373, doi: 10.1146/annurev-astro-052920-102455
+  astropy/photutils: 1.6.0, 1.6.0, Zenodo, Zenodo,                   Frogel, J. A., Persson, S. E., Aaronson, M., & Matthews,
+  doi: 10.5281/zenodo.7419741                                          K. 1978, ApJ, 220, 75, doi: 10.1086/155883
+18
+
+Gehren, T., Fried, J., Wehinger, P. A., & Wyckoff, S. 1984,     Lauer, T. R., Tremaine, S., Richstone, D., & Faber, S. M.
+ ApJ, 278, 11, doi: 10.1086/161763                                2007, ApJ, 670, 249, doi: 10.1086/522083
+Gómez-Guijarro, C., Magnelli, B., Elbaz, D., et al. 2023,      Leipski, C., Meisenheimer, K., Walter, F., et al. 2014, ApJ,
+  arXiv e-prints, arXiv:2304.08517,                               785, 154, doi: 10.1088/0004-637X/785/2/154
+  doi: 10.48550/arXiv.2304.08517                                Li, J., Silverman, J. D., Ding, X., et al. 2021, ApJ, 918, 22,
+Goulding, A. D., Greene, J. E., Setton, D. J., et al. 2023,       doi: 10.3847/1538-4357/ac06a8
+ arXiv e-prints, arXiv:2308.02750,                              Li, J., Silverman, J. D., Izumi, T., et al. 2022, ApJL, 931,
+ doi: 10.48550/arXiv.2308.02750                                   L11, doi: 10.3847/2041-8213/ac6de8
+Greene, J. E., Strader, J., & Ho, L. C. 2020, ARA&A, 58,        Li, Y., Hopkins, P. F., Hernquist, L., et al. 2008, ApJ, 678,
+  257, doi: 10.1146/annurev-astro-032620-021835                   41, doi: 10.1086/529364
+Habouzit, M., Onoue, M., Bañados, E., et al. 2022,             Lyu, J., Rieke, G. H., & Alberts, S. 2016, ApJ, 816, 85,
+  MNRAS, 511, 3751, doi: 10.1093/mnras/stac225                    doi: 10.3847/0004-637X/816/2/85
+Harikane, Y., Zhang, Y., Nakajima, K., et al. 2023, arXiv       Maiolino, R., Juarez, Y., Mujica, R., Nagar, N. M., &
+  e-prints, arXiv:2303.11946,                                     Oliva, E. 2003, ApJL, 596, L155, doi: 10.1086/379600
+  doi: 10.48550/arXiv.2303.11946                                Maiolino, R., Scholtz, J., Curtis-Lake, E., et al. 2023, arXiv
+Heckman, T. M., & Best, P. N. 2014, ARA&A, 52, 589,               e-prints, arXiv:2308.01230,
+  doi: 10.1146/annurev-astro-081913-035722                        doi: 10.48550/arXiv.2308.01230
+Hopkins, P. F., & Quataert, E. 2010, MNRAS, 407, 1529,          Marshall, M. A., Mechtley, M., Windhorst, R. A., et al.
+                                                                  2020, ApJ, 900, 21, doi: 10.3847/1538-4357/abaa4c
+  doi: 10.1111/j.1365-2966.2010.17064.x
+                                                                McLeod, K. K., & Bechtold, J. 2009, ApJ, 704, 415,
+Howell, J. H., Armus, L., Mazzarella, J. M., et al. 2010,
+                                                                  doi: 10.1088/0004-637X/704/1/415
+  ApJ, 715, 572, doi: 10.1088/0004-637X/715/1/572
+                                                                McLure, R. J., Dunlop, J. S., de Ravel, L., et al. 2011,
+Hunter, J. D. 2007, Computing in Science and Engineering,
+                                                                  MNRAS, 418, 2074,
+ 9, 90, doi: 10.1109/MCSE.2007.55
+                                                                  doi: 10.1111/j.1365-2966.2011.19626.x
+Hutchings, J. B., Frenette, D., Hanisch, R., et al. 2002, AJ,
+                                                                Mechtley, M., Windhorst, R. A., Ryan, R. E., et al. 2012,
+ 123, 2936, doi: 10.1086/340472
+                                                                  ApJL, 756, L38, doi: 10.1088/2041-8205/756/2/L38
+Inayoshi, K., Visbal, E., & Haiman, Z. 2020, ARA&A, 58,
+                                                                Mollá, M., Garcı́a-Vargas, M. L., & Bressan, A. 2009,
+  27, doi: 10.1146/annurev-astro-120419-014455
+                                                                  MNRAS, 398, 451, doi: 10.1111/j.1365-2966.2009.15160.x
+Izumi, T., Onoue, M., Matsuoka, Y., et al. 2019, PASJ, 71,
+                                                                Morishita, T., Stiavelli, M., Chary, R.-R., et al. 2023, arXiv
+  111, doi: 10.1093/pasj/psz096
+                                                                  e-prints, arXiv:2308.05018,
+Izumi, T., Matsuoka, Y., Fujimoto, S., et al. 2021, ApJ,
+                                                                  doi: 10.48550/arXiv.2308.05018
+  914, 36, doi: 10.3847/1538-4357/abf6dc
+                                                                Nakajima, K., Ouchi, M., Isobe, Y., et al. 2023, arXiv
+Jahnke, K., Sánchez, S. F., Wisotzki, L., et al. 2004, ApJ,
+                                                                  e-prints, arXiv:2301.12825,
+  614, 568, doi: 10.1086/423233                                   doi: 10.48550/arXiv.2301.12825
+Jiang, L., Finlator, K., Cohen, S. H., et al. 2016, ApJ, 816,   Ormerod, K., Conselice, C. J., Adams, N. J., et al. 2023,
+  16, doi: 10.3847/0004-637X/816/1/16                             arXiv e-prints, arXiv:2309.04377,
+Jun, H. D., Im, M., Lee, H. M., et al. 2015, ApJ, 806, 109,       doi: 10.48550/arXiv.2309.04377
+  doi: 10.1088/0004-637X/806/1/109                              Pacucci, F., Nguyen, B., Carniani, S., Maiolino, R., & Fan,
+Kim, M., Ho, L. C., Peng, C. Y., Barth, A. J., & Im, M.           X. 2023, arXiv e-prints, arXiv:2308.12331.
+  2017, ApJS, 232, 21, doi: 10.3847/1538-4365/aa8a75              https://arxiv.org/abs/2308.12331
+Kocevski, D. D., Onoue, M., Inayoshi, K., et al. 2023, arXiv    Peng, C. Y., Impey, C. D., Rix, H.-W., et al. 2006, ApJ,
+ e-prints, arXiv:2302.00012,                                      649, 616, doi: 10.1086/506266
+ doi: 10.48550/arXiv.2302.00012                                 Pensabene, A., Carniani, S., Perna, M., et al. 2020, A&A,
+Kokorev, V., Fujimoto, S., Labbe, I., et al. 2023, arXiv          637, A84, doi: 10.1051/0004-6361/201936634
+ e-prints, arXiv:2308.11610,                                    Reines, A. E., & Volonteri, M. 2015, ApJ, 813, 82,
+ doi: 10.48550/arXiv.2308.11610                                   doi: 10.1088/0004-637X/813/2/82
+Kormendy, J., & Ho, L. C. 2013, ARA&A, 51, 511,                 Rémy-Ruyer, A., Madden, S. C., Galliano, F., et al. 2015,
+ doi: 10.1146/annurev-astro-082708-101811                         A&A, 582, A121, doi: 10.1051/0004-6361/201526067
+Lapi, A., Pantoni, L., Zanisi, L., et al. 2018, ApJ, 857, 22,   Riechers, D. A., Bradford, C. M., Clements, D. L., et al.
+  doi: 10.3847/1538-4357/aab6af                                   2013, Nature, 496, 329, doi: 10.1038/nature12050
+                                                                                                                            19
+
+Rieke, G., Alberts, S., Lyu, J., & Shivaei, I. 2017,            van der Walt, S., Colbert, S. C., & Varoquaux, G. 2011,
+  Formation Histories and Stellar Masses of Very High-z           Computing in Science and Engineering, 13, 22,
+  Quasars, JWST Proposal. Cycle 1, ID. #1205                      doi: 10.1109/MCSE.2011.37
+Sanders, D. B., Mazzarella, J. M., Kim, D. C., Surace,
+                                                                Venemans, B. P., Decarli, R., Walter, F., et al. 2018, ApJ,
+  J. A., & Soifer, B. T. 2003, AJ, 126, 1607,
+  doi: 10.1086/376841                                             866, 159, doi: 10.3847/1538-4357/aadf35
+Schramm, M., Rujopakarn, W., Silverman, J. D., et al.           Vestergaard, M., & Peterson, B. M. 2006, ApJ, 641, 689,
+  2019, ApJ, 881, 145, doi: 10.3847/1538-4357/ab2cd3              doi: 10.1086/500572
+Shen, Y., Wu, J., Jiang, L., et al. 2019, ApJ, 873, 35,
+                                                                von Steiger, R., & Zurbuchen, T. H. 2016, ApJ, 816, 13,
+  doi: 10.3847/1538-4357/ab03d9
+                                                                  doi: 10.3847/0004-637X/816/1/13
+Smith, D. A., Herter, T., Haynes, M. P., Beichman, C. A.,
+  & Gautier, T. N., I. 1996, ApJS, 104, 217,                    Willott, C. J., McLure, R. J., & Jarvis, M. J. 2003, ApJL,
+  doi: 10.1086/192299                                             587, L15, doi: 10.1086/375126
+Stone, M. A., Lyu, J., Rieke, G. H., & Alberts, S. 2023,        Yang, J., Wang, F., Fan, X., et al. 2021, ApJ, 923, 262,
+  ApJ, 953, 180, doi: 10.3847/1538-4357/acebe0
+                                                                  doi: 10.3847/1538-4357/ac2b32
+Targett, T. A., Dunlop, J. S., & McLure, R. J. 2012,
+  MNRAS, 420, 3621,                                             Yang, L., Morishita, T., Leethochawalit, N., et al. 2022,
+  doi: 10.1111/j.1365-2966.2011.20286.x                           ApJL, 938, L17, doi: 10.3847/2041-8213/ac8803
+Terndrup, D. M., Davies, R. L., Frogel, J. A., Depoy, D. L.,    Yue, M., Jiang, L., Shen, Y., et al. 2018, ApJ, 863, 21,
+  & Wells, L. A. 1994, ApJ, 432, 518, doi: 10.1086/174591
+                                                                  doi: 10.3847/1538-4357/aacf04
+Thompson, T. A., Quataert, E., & Murray, N. 2005, ApJ,
+                                                                Yue, M., Eilers, A.-C., Simcoe, R. A., et al. 2023, arXiv
+  630, 167, doi: 10.1086/431923
+Übler, H., Maiolino, R., Curtis-Lake, E., et al. 2023, arXiv     e-prints, arXiv:2309.04614,
+  e-prints, arXiv:2302.06647,                                     doi: 10.48550/arXiv.2309.04614
+  doi: 10.48550/arXiv.2302.06647
+

@@ -1,0 +1,33 @@
+{
+   "sources" : [
+      {
+         "usage" : "toplevel",
+         "filename" : "main.tex"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "AGN.bib"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "bib_style.bst"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "m.bbl"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "met.bbl"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "sup.bbl"
+      }
+   ],
+   "version" : 2,
+   "texlive_version" : 2023,
+   "process" : {
+      "compiler" : "pdflatex"
+   }
+}

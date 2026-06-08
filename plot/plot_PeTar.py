@@ -1,0 +1,399 @@
+#!/usr/bin/env python3
+"""
+Analyze PeTar ASCII snapshots for the NSC + two-BH experiment.
+
+Outputs:
+  1. <snapshot_dir>/_plots/XYproj.mp4
+     2D x-y projection movie of all stars and the two BHs.
+  2. <snapshot_dir>/_plots/BHorb.pdf
+     Time evolution of BH separation, binding energy, semi-major axis,
+     and eccentricity.
+
+Assumptions for the default setup:
+  - Snapshot files are ASCII PeTar snapshots named data.0, data.1, ...
+  - First line is the PeTar header. For normal runs, the first value is time
+    and the second value is the particle number.
+  - Particle rows contain at least:
+        col 0: mass
+        col 1: x
+        col 2: y
+        col 3: z
+        col 4: vx
+        col 5: vy
+        col 6: vz
+        col 9: particle ID
+  - The two BHs were the last two particles in the initial IC file.
+    Therefore, by default, their PeTar IDs are inferred as N-1 and N,
+    where N is read from the first snapshot header.
+  - PeTar was run with -u 1, so velocities are in pc/Myr.
+
+Example:
+  python ~/High-z_SMBH_Seeds/plot/plot_PeTar.py /lingshan/disk3/subonan/_outputs/PeTarNSCcoreM1e3M1e2r1 --fps 12 --dpi 256
+  python ~/High-z_SMBH_Seeds/plot/plot_PeTar.py /lingshan/disk3/subonan/_outputs/PeTarNSCcoreM1e3M1e2r2 --fps 12 --dpi 256
+"""
+
+import argparse
+import glob
+import os
+import re
+import sys
+
+import numpy as np
+import matplotlib.pyplot as plt
+plt.rcParams.update({"font.family": "Times New Roman",
+                     "mathtext.default": "regular",
+                     "xtick.direction": "in",
+                     "ytick.direction": "in",
+                     "text.usetex": True,
+                     "text.latex.preamble": r"\usepackage{amsmath} \usepackage{bm}"})
+from matplotlib.animation import FFMpegWriter
+
+# physical constants (reference: https://en.wikipedia.org/wiki/List_of_physical_constants)
+G_astro = 0.004498517029175462  # gravitational constant [pc³·M☉⁻¹·Myr⁻²]
+
+parser = argparse.ArgumentParser(
+    description="Make a 2D projection movie and BH orbital diagnostics from PeTar ASCII snapshots."
+)
+parser.add_argument(
+    "snapshot_dir",
+    help="Directory containing PeTar snapshots named data.0, data.1, ...",
+)
+parser.add_argument(
+    "--fps",
+    type=int,
+    default=10,
+    help="Movie frames per second (default: 10).",
+)
+parser.add_argument(
+    "--dpi",
+    type=int,
+    default=160,
+    help="Movie and figure DPI (default: 160).",
+)
+args = parser.parse_args()
+
+
+# -----------------------------------------------------------------------------
+# Locate and numerically sort PeTar snapshot files.
+# -----------------------------------------------------------------------------
+snapshot_dir = os.path.abspath(args.snapshot_dir)
+if not os.path.isdir(snapshot_dir):
+    raise NotADirectoryError(f"Snapshot directory does not exist: {snapshot_dir}")
+
+output_dir = os.path.join(snapshot_dir, "_plots")
+os.makedirs(output_dir, exist_ok=True)
+movie_path = os.path.join(output_dir, "XYproj.mp4")
+diag_path = os.path.join(output_dir, "BHorb.pdf")
+
+snapshot_pattern = os.path.join(snapshot_dir, "data.*")
+all_paths = glob.glob(snapshot_pattern)
+
+snapshot_paths = []
+for path in all_paths:
+    base = os.path.basename(path)
+    match = re.fullmatch(r"data\.(\d+)", base)
+    if match is not None:
+        snapshot_paths.append((int(match.group(1)), path))
+
+snapshot_paths = [path for _, path in sorted(snapshot_paths, key=lambda item: item[0])]
+
+if len(snapshot_paths) == 0:
+    raise FileNotFoundError(f"No snapshots found with pattern: {snapshot_pattern}")
+
+print(f"Found {len(snapshot_paths)} snapshots.")
+print(f"First snapshot: {snapshot_paths[0]}")
+print(f"Last snapshot : {snapshot_paths[-1]}")
+
+
+# -----------------------------------------------------------------------------
+# Read one PeTar ASCII snapshot.
+# Header: first line. Particle data start from the second line.
+# Required columns: m, x, y, z, vx, vy, vz, ..., id.
+# -----------------------------------------------------------------------------
+def _read_snapshot_for_internal_use_only(path):
+    """Internal helper. Kept local to avoid code duplication in the script body."""
+    with open(path, "r") as f:
+        header = f.readline().split()
+
+    if len(header) < 2:
+        raise ValueError(f"Snapshot header has fewer than two columns: {path}")
+
+    try:
+        time = float(header[2])  # PeTar header time is usually the third value (index 2)
+    except ValueError:
+        time = np.nan
+
+    try:
+        n_header = int(float(header[1]))
+    except ValueError:
+        n_header = None
+
+    data = np.loadtxt(path, skiprows=1)
+    data = np.atleast_2d(data)
+
+    if data.shape[1] < 10:
+        raise ValueError(
+            f"Expected at least 10 columns in PeTar snapshot so that column 9 is particle ID. "
+            f"Got {data.shape[1]} columns in {path}."
+        )
+
+    return time, n_header, data
+
+
+# -----------------------------------------------------------------------------
+# Infer BH IDs from the first snapshot header.
+# PeTar IDs generated by petar.init are one-based and follow the input-file order.
+# Since the two BHs were the last two particles in the initial IC, their IDs are
+# inferred as N-1 and N.
+# -----------------------------------------------------------------------------
+time0, n0_header, data0 = _read_snapshot_for_internal_use_only(snapshot_paths[0])
+
+if n0_header is None:
+    n0_header = data0.shape[0]
+
+bh1_id = n0_header - 1
+bh2_id = n0_header
+
+print(f"Using BH1 ID = {bh1_id}")
+print(f"Using BH2 ID = {bh2_id}")
+print("Plotting all non-BH particles in every movie frame.")
+
+
+# -----------------------------------------------------------------------------
+# Loop over snapshots once to collect BH diagnostics and cache movie coordinates.
+# This is simpler and fast enough for moderate N and output counts.
+# -----------------------------------------------------------------------------
+times = []
+r12_list = []
+v12_list = []
+e_bind_list = []
+a_list = []
+e_list = []
+bound_list = []
+
+movie_cache = []
+
+for index, path in enumerate(snapshot_paths):
+    time, n_header, data = _read_snapshot_for_internal_use_only(path)
+
+    ids = data[:, 9].astype(np.int64)
+    bh1_match = np.where(ids == bh1_id)[0]
+    bh2_match = np.where(ids == bh2_id)[0]
+
+    if bh1_match.size != 1 or bh2_match.size != 1:
+        raise RuntimeError(
+            f"Could not uniquely identify BHs in {path}. "
+            f"Found BH1 matches={bh1_match.size}, BH2 matches={bh2_match.size}. "
+            "BH IDs are inferred as N-1 and N from the first snapshot header."
+        )
+
+    bh1 = data[bh1_match[0]]
+    bh2 = data[bh2_match[0]]
+
+    m1 = bh1[0]
+    m2 = bh2[0]
+    mtot = m1 + m2
+    mu = m1 * m2 / mtot
+
+    x1 = bh1[1:4]
+    x2 = bh2[1:4]
+    v1 = bh1[4:7]
+    v2 = bh2[4:7]
+
+    r_vec = x2 - x1
+    v_vec = v2 - v1
+    r12 = np.linalg.norm(r_vec)
+    v12 = np.linalg.norm(v_vec)
+
+    if r12 <= 0.0:
+        e_bind = np.nan
+        a_bh = np.nan
+        ecc = np.nan
+        bound = False
+    else:
+        e_bind = 0.5 * mu * v12**2 - G_astro * m1 * m2 / r12
+        eps = 0.5 * v12**2 - G_astro * mtot / r12
+        h_vec = np.cross(r_vec, v_vec)
+        h2 = np.dot(h_vec, h_vec)
+
+        if eps < 0.0:
+            a_bh = -G_astro * mtot / (2.0 * eps)
+        else:
+            a_bh = np.nan
+
+        ecc2 = 1.0 + 2.0 * eps * h2 / (G_astro**2 * mtot**2)
+        ecc = np.sqrt(max(ecc2, 0.0))
+        bound = e_bind < 0.0
+
+    times.append(time)
+    r12_list.append(r12)
+    v12_list.append(v12)
+    e_bind_list.append(e_bind)
+    a_list.append(a_bh)
+    e_list.append(ecc)
+    bound_list.append(bound)
+
+    # Cache projected coordinates for the movie.
+    star_mask = (ids != bh1_id) & (ids != bh2_id)
+    star_xy = data[star_mask, 1:3]
+    bh1_xy = x1[:2]
+    bh2_xy = x2[:2]
+
+    movie_cache.append((time, star_xy, bh1_xy, bh2_xy))
+
+    if (index + 1) % max(1, len(snapshot_paths) // 10) == 0 or index == len(snapshot_paths) - 1:
+        print(f"Read {index + 1}/{len(snapshot_paths)} snapshots.")
+
+
+times = np.array(times, dtype=float)
+r12_arr = np.array(r12_list, dtype=float)
+v12_arr = np.array(v12_list, dtype=float)
+e_bind_arr = np.array(e_bind_list, dtype=float)
+a_arr = np.array(a_list, dtype=float)
+e_arr = np.array(e_list, dtype=float)
+bound_arr = np.array(bound_list, dtype=bool)
+
+
+# -----------------------------------------------------------------------------
+# Make the BH orbital diagnostics figure.
+# -----------------------------------------------------------------------------
+fig, axes = plt.subplots(4, 1, figsize=(7.0, 9.0), sharex=True)
+
+axes[0].plot(times, r12_arr, lw=1.5)
+axes[0].set_ylabel(r"$r_{12}$ [pc]")
+axes[0].grid(alpha=0.25)
+
+axes[1].plot(times, e_bind_arr, lw=1.5)
+axes[1].axhline(0.0, lw=1.0, ls="--")
+axes[1].set_ylabel(r"$E_{12}$ [$M_\odot$ pc$^2$ Myr$^{-2}$]")
+axes[1].grid(alpha=0.25)
+
+axes[2].plot(times, a_arr, lw=1.5)
+axes[2].set_ylabel(r"$a_{12}$ [pc]")
+axes[2].grid(alpha=0.25)
+if np.any(np.isfinite(a_arr) & (a_arr > 0.0)):
+    axes[2].set_yscale("log")
+
+axes[3].plot(times, e_arr, lw=1.5)
+axes[3].axhline(1.0, lw=1.0, ls="--")
+axes[3].set_ylabel(r"$e_{12}$")
+axes[3].set_xlabel("Time [Myr]")
+axes[3].grid(alpha=0.25)
+
+fig.suptitle(f"BH diagnostics: ID {bh1_id} + ID {bh2_id}")
+fig.tight_layout()
+fig.savefig(diag_path, dpi=args.dpi)
+plt.close(fig)
+print(f"Saved diagnostics figure: {diag_path}")
+
+
+# -----------------------------------------------------------------------------
+# Make the x-y projection movie.
+# Requires ffmpeg to be available in the environment.
+# -----------------------------------------------------------------------------
+fig, ax = plt.subplots(figsize=(6.0, 6.0))
+writer = FFMpegWriter(fps=args.fps, metadata={"artist": "plot_PeTar.py"}, bitrate=2400)
+
+try:
+    if os.path.exists(movie_path):
+        os.remove(movie_path)
+
+    with writer.saving(fig, movie_path, args.dpi):
+        for i, (time, star_xy, bh1_xy, bh2_xy) in enumerate(movie_cache):
+            ax.clear()
+            ax.scatter(
+                star_xy[:, 0],
+                star_xy[:, 1],
+                s=0.2,
+                alpha=0.3,
+                linewidths=0,
+                label="stars",
+            )
+            ax.scatter(
+                bh1_xy[0],
+                bh1_xy[1],
+                s=80,
+                marker="o",
+                color="black",
+                edgecolors="none",
+                label=r"$M_{\bullet, 1}$",
+            )
+            ax.scatter(
+                bh2_xy[0],
+                bh2_xy[1],
+                s=70,
+                marker="o",
+                color="gray",
+                edgecolors="none",
+                label=r"$M_{\bullet, 2}$",
+            )
+
+            ax.set_xlim(-4.0, 4.0)
+            ax.set_ylim(-4.0, 4.0)
+            ax.set_aspect("equal", adjustable="box")
+            ax.set_xlabel("")
+            ax.set_ylabel("")
+            ax.set_xticks([])
+            ax.set_yticks([])
+            for spine in ax.spines.values():
+                spine.set_visible(False)
+            ax.set_title("")
+            ax.text(
+                0.03,
+                0.96,
+                f"t = {time:.4g} Myr",
+                transform=ax.transAxes,
+                ha="left",
+                va="top",
+                color="black",
+            )
+            ax.legend(loc="upper right", fontsize=8, frameon=False)
+            bar_length = 1.0
+            bar_x1 = 3.6
+            bar_x0 = bar_x1 - bar_length
+            bar_y = -3.55
+            ax.plot(
+                [bar_x0, bar_x1],
+                [bar_y, bar_y],
+                color="black",
+                lw=2.0,
+                solid_capstyle="butt",
+            )
+            ax.text(
+                0.5 * (bar_x0 + bar_x1),
+                bar_y + 0.12,
+                "1 pc",
+                ha="center",
+                va="bottom",
+                color="black",
+            )
+
+            writer.grab_frame()
+
+            if (i + 1) % max(1, len(movie_cache) // 10) == 0 or i == len(movie_cache) - 1:
+                print(f"Wrote frame {i + 1}/{len(movie_cache)}.")
+except FileNotFoundError:
+    plt.close(fig)
+    print(
+        "ERROR: ffmpeg was not found, so the MP4 movie could not be written.\n"
+        "Install ffmpeg or load it as a module, then rerun this script.\n"
+        "The diagnostics figure was already written.",
+        file=sys.stderr,
+    )
+    raise
+
+plt.close(fig)
+print(f"Saved projection movie: {movie_path}")
+
+
+# -----------------------------------------------------------------------------
+# Print a short summary.
+# -----------------------------------------------------------------------------
+first_bound = np.where(bound_arr)[0]
+if first_bound.size > 0:
+    ib = first_bound[0]
+    print(f"First bound snapshot: index={ib}, time={times[ib]:.8g} Myr, E12={e_bind_arr[ib]:.8e}")
+else:
+    print("The BH pair is not bound in any analyzed snapshot according to E12 < 0.")
+
+print("Done.")

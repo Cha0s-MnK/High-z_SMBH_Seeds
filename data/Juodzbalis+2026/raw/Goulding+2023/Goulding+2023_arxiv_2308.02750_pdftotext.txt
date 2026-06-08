@@ -1,0 +1,505 @@
+                                                 Draft version September 20, 2023
+                                                 Typeset using LATEX twocolumn style in AASTeX63
+
+
+
+
+                                                           UNCOVER: The growth of the first massive black holes from JWST/NIRSpec –
+                                                             spectroscopic redshift confirmation of an X-ray luminous AGN at z=10.1
+                                                  Andy D. Goulding,1 Jenny E. Greene,1 David J. Setton,2 Ivo Labbe,3 Rachel Bezanson,2 Tim B. Miller,4, 5
+                                                  Hakim Atek,6 Ákos Bogdán,7 Gabriel Brammer,8 Iryna Chemerynska,6 Sam E. Cutler,9 Pratika Dayal,10
+                                                    Yoshinobu Fudamoto,11, 12 Seiji Fujimoto,13, ∗ Lukas J. Furtak,14 Vasily Kokorev,15 Gourav Khullar,2
+                                                   Joel Leja,16, 17, 18 Danilo Marchesini,19 Priyamvada Natarajan,4, 20, 21 Erica Nelson,22 Pascal A. Oesch,23, 8
+arXiv:2308.02750v3 [astro-ph.GA] 19 Sep 2023
+
+
+
+
+                                                  Richard Pan,24 Casey Papovich,25, 26 Sedona H. Price,2 Pieter van Dokkum,4 Bingjie Wang (王冰洁),16, 17, 18
+                                                                           John R. Weaver,9 Katherine E. Whitaker,9, 27 and Adi Zitrin14
+                                                                    1 Department           of Astrophysical Sciences, Princeton University, Princeton, NJ 08544, USA
+                                                         2 Department         of Physics and Astronomy and PITT PACC, University of Pittsburgh, Pittsburgh, PA 15260, USA
+                                                          3 Centre for Astrophysics and Supercomputing, Swinburne University of Technology, Melbourne, VIC 3122, Australia
+                                                                                    4 Department of Astronomy, Yale University, New Haven, CT 06511, USA
+                                                     5 Center for Interdisciplinary Exploration and Research in Astrophysics (CIERA) and Department of Physics and Astronomy,
+
+                                                                                       Northwestern University, 1800 Sherman Ave, Evanston IL 60201, USA
+                                                               6 Institut d’Astrophysique de Paris, CNRS, Sorbonne Université, 98bis Boulevard Arago, 75014, Paris, France
+                                                                      7 Center for Astrophysics | Harvard & Smithsonian, 60 Garden Street, Cambridge, MA 02138, USA
+                                                  8 Cosmic Dawn Center (DAWN), Niels Bohr Institute, University of Copenhagen, Jagtvej 128, København N, DK-2200, Denmark
+                                                                               9 Department of Astronomy, University of Massachusetts, Amherst, MA 01003, USA
+                                                                      10 Kapteyn Astronomical Institute, University of Groningen, 9700 AV Groningen, The Netherlands
+                                                   11 Waseda Research Institute for Science and Engineering, Faculty of Science and Engineering, Waseda University, 3-4-1 Okubo,
+
+                                                                                                          Shinjuku, Tokyo 169-8555, Japan
+                                                                              12 National Astronomical Observatory of Japan, 2-21-1, Osawa, Mitaka, Tokyo, Japan
+                                                                           13 Department of Astronomy, The University of Texas at Austin, Austin, TX 78712, USA
+                                                                    14 Physics Department, Ben-Gurion University of the Negev, P.O. Box 653, Be’er-Sheva 84105, Israel
+                                                             15 Kapteyn Astronomical Institute, University of Groningen, P.O. Box 800, 9700AV Groningen, The Netherlands
+                                                           16 Department of Astronomy & Astrophysics, The Pennsylvania State University, University Park, PA 16802, USA
+                                                         17 Institute for Computational & Data Sciences, The Pennsylvania State University, University Park, PA 16802, USA
+                                                            18 Institute for Gravitation and the Cosmos, The Pennsylvania State University, University Park, PA 16802, USA
+                                                                     19 Physics and Astronomy Department, Tufts University, 574 Boston Ave., Medford, MA 02155, USA
+                                                                                      20 Department of Physics, Yale University, New Haven, CT 06520, USA
+                                                                          21 Black Hole Initiative, Harvard University, 20 Garden Street, Cambridge, MA 02138, USA
+                                                                  22 Department for Astrophysical and Planetary Science, University of Colorado, Boulder, CO 80309, USA
+                                                                       23 Department of Astronomy, University of Geneva, Chemin Pegasi 51, 1290 Versoix, Switzerland
+                                                                   24 Department of Physics and Astronomy, Tufts University, 574 Boston Ave., Medford, MA 02155, USA
+                                                                  25 Department of Physics and Astronomy, Texas A&M University, College Station, TX, 77843-4242 USA
+                                               26 George P. and Cynthia Woods Mitchell Institute for Fundamental Physics and Astronomy, Texas A&M University, College Station,
+
+                                                                                                                TX, 77843-4242 USA
+                                                                                                    27 Cosmic Dawn Center (DAWN), Denmark
+
+
+
+                                                                                                      (Dated: Aug 2023)
+
+                                                                                                    Submitted to ApJL
+
+                                                                                                        ABSTRACT
+                                                         The James Webb Space Telescope is now detecting early black holes (BHs) as they transition from
+                                                       “seeds” to supermassive BHs. Recently, Bogdan et al. (2023) reported the detection of an X-ray
+                                                       luminous supermassive BH, UHZ-1, with a photometric redshift at z > 10. Such an extreme source at
+                                                       this very high redshift provides new insights on seeding and growth models for BHs given the short time
+
+
+                                               Corresponding author: Andy D. Goulding
+                                               goulding@astro.princeton.edu
+2                                                    Goulding et al.
+
+          available for formation and growth. Harnessing the exquisite sensitivity of JWST/NIRSpec, here we
+          report the spectroscopic confirmation of UHZ-1 at z = 10.073±0.002. We find that the NIRSpec/Prism
+          spectrum is typical of recently discovered z ≈ 10 galaxies, characterized primarily by star-formation
+          features. We see no clear evidence of the powerful X-ray source in the rest-frame UV/optical spectrum,
+          which may suggest heavy obscuration of the central BH, in line with the Compton-thick column density
+          measured in the X-rays. We perform a stellar population fit simultaneously to the new NIRSpec
+          spectroscopy and previously available photometry. The fit yields a stellar mass estimate for the host
+          galaxy that is significantly better constrained than prior photometric estimates (M⋆ ∼ 1.4+0.3    −0.4 ×
+          108 M⊙ ). Given the predicted BH mass (MBH ∼ 107 − 108 M⊙ ), the resulting ratio of MBH /M⋆
+          remains two to three orders of magnitude higher than local values, thus lending support to the heavy
+          seeding channel for the formation of supermassive BHs within the first billion years of cosmic evolution.
+
+          Keywords: Active galactic nuclei (16), High-redshift galaxies (734), Early universe (435)
+
+                    1. INTRODUCTION                               troscopically confirmed at more moderate luminosities
+   Until the launch of the James Webb Space Telescope             (Kocevski et al. 2023; Matthee et al. 2023), with some
+(JWST), the earliest black holes known were a handful             discovered at z > 7 (Harikane et al. 2022; Furtak et al.
+of extremely UV-luminous z ≈ 7 quasars (e.g., Mortlock            2023a; Larson et al. 2023; Maiolino et al. 2023a,b). In
+et al. 2011; Bañados et al. 2018; Matsuoka et al. 2018,          the absence of other direct indicators of AGN activity
+2023). While these sources are quite rare, given their            (e.g., broadened Balmer emission lines), the most un-
+high estimated masses, their existence leads to a timing          ambiguous identification of AGN activity is through the
+challenge for the formation of supermassive black holes           detection of high-energy X-ray emission. Due to the neg-
+(SMBHs). If their initial seeds originate from the death          ative k-correction at X-ray energies, high redshift AGN
+of the first massive stars, with a typical remnant mass of        are preferentially detected at increasingly harder X-ray
+∼ 100 M⊙ these black holes would need to accrete at or            energies, making their identification more distinct from
+above the Eddington limit continuously for ∼ 700 − 800            lower energy X-rays produced by contaminating star-
+million years in order to reach the observed masses of            formation emission.
+> 109 M⊙ (see Natarajan 2011; Fan et al. 2019, for a re-             Harnessing the exquisite spatial resolution afforded
+view). Theorists have therefore explored alternate seed           by the Chandra X-ray Observatory, the current record-
+formation models, with heavier seed BH mass functions             holder to-date for the most distant (zphot ∼ 10.3; Castel-
+(∼ 104 M⊙ ) that could form from the direct collapse of           lano et al. 2023) X-ray luminous AGN is UHZ-1, dis-
+gas in the high redshift Universe (Lodato & Natarajan             covered behind the lensing cluster Abell 2744 (Bogdan
+2006, 2007; Volonteri et al. 2008; Inayoshi et al. 2022, see      et al. 2023). Previously identified as an extremely high-
+for instance). These heavy seeds are expected to be rare          redshift candidate (Castellano et al. 2023), UHZ-1 is re-
+in general (e.g., Agarwal et al. 2013; Dayal et al. 2019;         ported with a robust 4.2−4.4σ detection in the observed-
+Habouzit et al. 2022), and their individual future growth         frame 2–7 keV band with 20.6 net counts. At z > 10,
+trajectories are unclear. Therefore, it is unclear if UHZ-1       these are extremely hard X-ray photons with rest-frame
+is a likely progenitor for the luminous optically detected        energies of E ∼ 22 − 80 keV, which can only arise from
+SDSS quasars. Guidance from cosmological simulations              an accreting BH. UHZ-1 is undetected in the softer 0.5–
+that track BH growth, the MASSIVEBLACK suite in                   2 keV band, which the authors explain is likely due to
+particular, have shown that the most massive BH at                UHZ-1 being heavily obscured with a Compton-thick
+z ∼ 10 does not necessarily grow to remain the most               column density of NH ∼ 1024 − 1025 cm−2 . Assuming
+massive BH by z = 6 (Di Matteo et al. 2017, 2023).                their adopted lensing magnification of µ = 3.81, and
+The details of the environment play an important role             given the degeneracies related to the X-ray spectral fit-
+in shaping the accretion and, therefore, growth history           ting, the resultant intrinsic 2–10 keV X-ray luminosity
+of BHs.                                                           is LX ≳ 2 × 1044 erg/s.
+   The situation has gotten decidedly more interesting               In this paper, we present the JWST/NIRSpec Prism
+with the launch of JWST. A number of intriguing ac-               spectroscopy confirming that UHZ1 is at a redshift of
+tive galactic nuclei (AGN) candidates have been spec-             z = 10.07 (§ 2). This deep spectrum was recently col-
+                                                                  lected as part of the UNCOVER JWST treasury pro-
+                                                                  gram (JWST-GO-2561, PIs: Labbe, Bezanson), which
+∗   Hubble Fellow                                                 includes deep (∼ 2.7−17 hr) low-resolution spectroscopy
+                                           UNCOVER: UHZ-1 at z = 10.1                                                  3
+
+for ∼ 700 JWST-selected targets. We further examine           (internal v0.3) spectroscopic reduction. We perform slit-
+the rest-frame UV/optical spectral properties of UHZ1         loss corrections by applying a wavelength-independent
+(§ 3), and estimate the stellar mass and star-formation       calibration to scale the normalization of the spectrum
+rate of the host galaxy (§ 4). Throughout, we assume          to the photometry by convolving the single-mask ex-
+a ΛCDM cosmology with ΩM = 0.29, ΩΛ = 0.71 and                tracted 1D spectra with the broad/medium band filters,
+H0 = 69.6 km s−1 Mpc−1 , with a Chabrier (2003) ini-          comparing to the total photometry (Weaver et al. 2023),
+tial mass function.                                           and modeling the wavelength dependent linear correc-
+                                                              tion with a first order polynomial. Reduced data is
+ 2. JWST/NIRSPEC PRISM SPECTROSCOPY OF                        planned for public release before Cycle 3 and presented
+                            UHZ1                              in Price et al. (2023, in prep).
+              2.1. MSA Observational Setup
+                                                                 3. UHZ1: A Z=10.07 X-RAY LUMINOUS AGN
+   UHZ-1 (Weaver et al. 2023), positioned at α =
+3.567070796◦ , δ = −30.3778606◦ , was observed on July                        3.1. Prism spectroscopy
+31 and August 1 2023 for a total of 7.1 hours as part            The wide spectral coverage of the NIRSpec/Prism
+of the Multi-shutter Array (MSA) follow-up program of         spectrum allows us to probe from the Lyman break
+the UNCOVER JWST field, Abell 2744 (Bezanson et al.           all the way to ∼ 4500 Å rest-frame (Figure 2). Using
+2022). The NIRSpec/Prism observations of UNCOVER              msaexp, we fit stellar population and emission line tem-
+were split into 7 MSA configurations, with UHZ1 po-           plates to the spectroscopy, and unambiguously confirm
+sitioned on MSA 1 (2.7 hours) and 4 (4.4 hours) cen-          the redshift z = 10.071 ± 0.002 with a strongly identi-
+tered at α = 3.5839128◦ , δ = −30.3998611◦ and α =            fied Lyman break and several emission lines. The previ-
+3.5586419◦ , δ = −30.3564066◦ , respectively. These ob-       ous best-fit photometric redshift solution for UHZ1 was
+servations employed a 2-POINT-WITH-NIRCam-SIZE2               zphot ∼ 10.19 ± 0.17 produced using the EAZY (Bram-
+dither pattern and a 3 shutter slit-let nod pattern at an     mer et al. 2008) package (see Atek et al. 2023), and
+angle of V3PA∼266.0◦ . MSA configuration 1 used the           zphot ∼ 10.87+0.21
+                                                                             −0.41 adapting the Prospector-β model
+NRSIRS2RAPID readout pattern, while MSA 4 used                (Johnson et al. 2021; Wang et al. 2023). The inset of
+NRSIRS2. For further details of the observational setup       Fig. 2 presents the redshift probability functions pro-
+see Bezanson et al. (2022) and Price et al. (2023, in         duced by msaexp showing a narrow single-peaked P(z) at
+prep). Upon analysis it was determined that around            z ∼ 10.07, which is consistent with the previous best-fit
+the position of UHZ1, MSA 1 suffered from an electrical       photometric redshift. We further verify the high redshift
+short, and given the resultant low signal to noise, we do     nature of UHZ-1 using the publicly available Bayesian
+not use those data for any part of the analysis presented     Analysis of Galaxies for Physical Inference and Param-
+here. Hence, the total usable exposure time for UHZ1 is       eter EStimation (Bagpipes; Carnall et al. 2018, 2019)
+4.4 hours.                                                    code, finding a similar single-peaked redshift solution
+                                                              at z = 10.068 ± 0.003. In addition to the strong blue
+           2.2. NIRSpec/Prism Data Reduction                  UV/optical continuum with slope β ∼ −2.7 (Castellano
+   The Prism spectra are reduced using msaexp (v0.6.10,       et al. 2023), we also note the presence of several weaker
+Brammer 2022). Beginning from the level 2 prod-               UV and optical lines, which we measure in the next sec-
+ucts downloaded from MAST1 , msaexp applies a cor-            tion.
+rection for 1/f noise, identifies and masks snowballs,
+                                                                            3.2. Spectral Emission lines
+and removes the bias in each individual frame. Parts
+of the JWST science calibration and reduction pipeline          We fit single Gaussians and low order polyno-
+(Bushouse et al. 2023) are used to apply WCS, identify,       mial continua to all prominent emission lines, and
+flat-field, and apply photometric corrections to each slit.   present the emission line centroids, fluxes and signal
+2D slits are then extracted and drizzled together onto a      to noise ratios in Table 1. We find significant de-
+common grid. A local background subtraction is applied        tections of Ciii] λ 1907, 1909, [Neiii] λ 3869, and the
+using vertically shifted, stacked 2D spectra. Finally,        [Oii] λ 3727, 3729 doublet (see Fig. 3). Interestingly, de-
+msaexp performs an optimal extraction using a Gaussian        spite the clear and robust X-ray detection of UHZ1, and
+model to the collapsed spectrum with free center and          hence its identification as an AGN, we do not detect ev-
+width (e.g., Horne 1986). This work is based on an early      idence for any broadened emission lines such as Civ or
+                                                              MgII as expected for relatively unobscured AGN. Even
+                                                              for obscured AGN, typically high-EW, high-ionization
+  1   Available from: [DATASET]                               narrow emission lines such as [Nev]λ3426 are detected,
+4                                                    Goulding et al.
+
+
+
+
+Figure 1. From top-left: NIRSpec/Prism MSA shutter positions for UHZ1 (see § 2), JWST/NIRCam images of UHZ1 in
+filters F115W, F150W, F200W, F277W, F356, F410M and F444W (photometric measurements from these calibrated data are
+presented in Fig. 2) and Chandra X-ray images in the 0.5-2 and 2-7 keV bands (smoothed with a 1 pixel width Gaussian filter).
+JWST cutout images are 1.5′′ on a side, Chandra images are 5′′ on a side. These are oriented in standard North-East convention.
+     Table 1. Emission Line Measurements of UHZ1                      Based upon the non-detection of broadened emission
+                                                                   lines as well as lack of prominent high-ionization lines
+       Name         Obs. Cent.          Flux         S/N           and a blue UV continuum shape that is consistent with
+                     λ (µm)    (10−20 erg s−1 cm−2 )               star formation, there is no clear and direct evidence
+ Niv] λ1485           1.637          < 112.40        <3            for a significant contribution from the AGN to the
+ Civ λλ1548, 1550     1.715           < 99.04        <3            UV/optical spectrum. Therefore, we can fit the spec-
+ Ciii] λλ1907, 1909   2.101        67.93 ± 17.62     3.9           trophotometry robustly, where the light contribution is
+ Mgii λ2799           3.098           < 30.03        <3
+                                                                   dominated by the host galaxy, despite knowledge of the
+                                                                   presence of an X-ray AGN.
+ [Oii] λλ3727, 3729   4.124         29.29 ± 5.50     5.3
+                                                                      We use the Bagpipes SED fitting code (Carnall
+ [Neiii] λλ3869       4.282        14.63 ± 4.77      3.1
+                                                                   et al. 2018, 2019) to perform this SED fit. We use
+                                                                   Bruzual & Charlot (2003) stellar population models,
+                                                                   the MILES spectral library (Sánchez-Blázquez et al.
+which would point to the presence of a rapidly accreting           2006; Falcón-Barroso et al. 2011), a Chabrier (2003)
+BH. Instead, the only clear signature of AGN activity              IMF, and Cloudy nebular emission models (Ferland
+in this source comes from the strong detection of X-ray            et al. 2017). We utilize PyMultinest (Buchner et al.
+emission at hard energies. While lower ionization lines            2014; Feroz et al. 2019) to perform our sampling using
+such as [Neiii] can indicate the presence of an AGN,               the default Bagpipes convergence criteria. We parame-
+they are also readily produced by star formation, and              terize the star formation history with a delayed-τ model
+this alone would not be the basis for an unambiguous               (SFR ∝ te−t/τ ) with the age and τ as free parameters
+AGN indicator (e.g., Goulding & Alexander 2009). The               (0.1 Gyr < age < tuniverse and 0.01 Gyr < τ < 5 Gyr).
+UV luminosity (MUV ∼ −19.85) is also not distinctively             We additionally allow the metallicity (with the stellar
+high compared to similarly high-z star-forming galaxies.           and gas phase metallicity fixed to the same value) and
+Taken together, the lack of obvious AGN emission lines             ionization parameter to vary, with −2 < log(Z) < 0.3
+and the clear detection of luminous hard X-ray emis-               and −3.5 < log(U) < −1.0. We assume a Charlot & Fall
+sion, we can conclude that UHZ-1 is likely an extremely            (2000) dust model, with 0 < Av < 5 and 0.3 < n < 2.5
+Compton-thick and optically-obscured AGN, potentially              as free parameters. We allow the redshift to vary around
+similar to systems such as NGC 4945 in the local Uni-              the best fitting spectroscopic redshift of 10.07±0.05.
+verse (Matt et al. 2000; Yaqoob 2012).                             Additionally, we apply the wavelength-dependent in-
+                                                                   strumental resolution curve to all models before fitting,
+                                                                   assuming that the resolution is a nominal 1.3 times
+          4. HOST GALAXY PROPERTIES
+                                                 UNCOVER: UHZ-1 at z = 10.1                                                   5
+
+
+
+
+Figure 2. JWST/NIRSpec Prism spectroscopy of UHZ-1. Upper panel: 2D MSA Prism spectroscopy produced by msaexp.
+Lower panel: 1D spectral extraction in fλ (in units of 10−17 erg s−1 cm−2 µm−1 ) with associated statistical uncertainties (gray
+shaded region). Slit-loss corrections are defined by convolution of the JWST photometry with the Prism spectrum (see § 2).
+Prominent and/or expected emission features are highlighted assuming zspec = 10.07 with significant > 3σ detections and non-
+detections labeled in red and gray, respectively. Overlaid are the JWST/NIRCam photometry (blue circles) with associated
+filter responses highlighted. Inset panel: Redshift probability distributions for fits to the NIRSpec spectroscopy produced by
+EAZY (yellow) and BAGPIPES (purple) packages.
+
+better than the pre-flight curve provided by STSci2                  noise ceiling of 20 on both our photometry and spec-
+(Curtis-Lake et al. 2023), and we leave the wavelength-              troscopy to account for potential systematic issues with
+independent velocity dispersion free between 1 km/s and              the flux calibration. We fit all available JWST /NIRCam
+2000 km/s as a nuisance parameter. We fit for a poly-                (F115W/F150W/F200W/F277W/F356W/F410M/F444W)
+nomial calibration vector of order 2 and the Bagpipes                and HST /ACS (F435W/F606W/F814W) and WFC3
+white noise model to allow for underestimated errors                 (F105W/F125W/F160W) photometry in addition to
+up to a factor of 10. Finally, we place a signal-to-                 the full NIRSPEC/Prism spectrum.
+                                                                       We present the best-fit model spectrum in Figure 4a
+  2
+                                                                     along with the pairwise posterior distributions of rele-
+      https://jwst-docs.stsci.edu/jwst-near-infrared-
+      spectrograph/nirspec-instrumentation/nirspec-dispersers-and-   vant parameters in Figure 4b, which have been corrected
+      filters                                                        for the magnification of UHZ1 with the median value of
+                                                                     µ = 3.866 (±0.10.4 , see Furtak et al. 2023b). The median,
+6                                                     Goulding et al.
+
+                                                                            Table 2. Host Galaxy Parameters
+
+                                                                             Parameter       Unit         Percentile
+                                                                                                     16th 50th 84th
+                                                                            SFR            M⊙ /yr    1.13 1.25 1.43
+                                                                            log(M⋆ /M⊙ )             8.03 8.14 8.23
+                                                                            logU               -     -2.00 -1.78 -1.58
+                                                                            AV               mag     0.03 0.08 0.16
+                                                                            t50              Myr     45.1 64.9 96.6
+                                                                            Z                Z⊙      0.15 0.20 0.28
+                                                                            reff            arcsec   0.12 0.14 0.16
+                                                                            Sersic n           -     0.79 1.06 1.64
+
+Figure 3. Upper panels: Gaussian line combined with
+low-order polynomial continua fits to the Ciii] λ 1907, 1909,   UHZ-1, and confirm the highest-redshift (currently
+[Oii] λ 3727, 3729 doublet and [Neiii] λ 3869 emission fea-     known) galaxy hosting an X-ray AGN, with a firm spec-
+tures. Lower panels: Residuals of the best fits.                troscopic redshift of z = 10.073 ± 0.002. The spec-
+                                                                trum is likely dominated by host galaxy light in the
+16th and 84th percentiles of the host galaxy parameter          rest-frame UV/optical and stellar population synthe-
+posteriors are presented in Table 2. The magnification-         sis analysis yields a stellar mass for the system of log
+corrected stellar mass of log(M⋆ /M⊙ ) = 8.1±0.1 is fairly      M∗ = 8.1 ± 0.1 M⊙ . The size, mass, emission-line prop-
+typical for z ≈ 10 galaxies being spectroscopically con-        erties and star-formation rate of the host of UHZ-1 seem
+firmed with JWST (e.g., Curtis-Lake et al. 2023; Arra-          relatively typical of other known z ≈ 10 galaxies. Here,
+bal Haro et al. 2023), but is now more robustly con-            we discuss the implications of UHZ1 for the growth of
+strained to the higher mass end of the stellar mass previ-      supermassive BHs, and for their signatures in the very
+ously inferred from photometry alone (Castellano et al.         early Universe.
+2022; Bogdan et al. 2023) owing to the precise nature              A large open question for the formation of supermas-
+of the spectroscopic redshift in the Bagpipes fit. We           sive black holes has been whether they originate from
+note that fitting only the photometric data at the spec-        “light” or stellar-mass black holes, remnants from the
+troscopic redshift of UHZ-1 produces a consistent mea-          death of massive stars (∼ 100 M⊙ seeds; Loeb & Ra-
+sure of the stellar mass with log(M⋆ /M⊙ ) = 8.1 ± 0.1.         sio 1994; Bromm & Loeb 2003) or whether there are
+The Bagpipes fit prefers a star-formation rate of SFR∼          mechanisms that operate to form heavier initial seeds
+1.3 ± 0.2 M⊙ /yr, i.e., a sSFR∼ 10−8 yr−1 , which is simi-      (MBH ∼ 103 − 105 M⊙ ; Miller & Hamilton 2002; Porte-
+lar to within a factor ∼ 2 − 3 of sSFR values inferred for      gies Zwart & McMillan 2002; Freitag et al. 2006; Devec-
+galaxies of similar mass at this early epoch (e.g., Castel-     chi & Volonteri 2009; Koushiappas et al. 2004; Lodato
+lano et al. 2023). Finally, the fit prefers a moderately        & Natarajan 2006, 2007; Alexander & Natarajan 2014;
+low stellar metallicity of Z = 0.2 ± 0.05 compared to           Begelman 2010; Natarajan et al. 2017; Natarajan 2021;
+solar metallicity, similar to other early galaxies.             Greene et al. 2020). As shown by Bogdan et al. (2023),
+   We perform a parametric Sersic-profile fit to the NIR-       to form the BH in UHZ-1 requires either continuous
+Cam F444W image using pysersic (Pasha & Miller                  growth exceeding the Eddington limit for > 200 Myr,
+2023), utilizing the NUTS sampler to explore the pos-           or a massive seed. Similar timing arguments have been
+terior (Hoffman et al. 2014; Phan et al. 2019). We              made for UV-luminous quasars at z > 6; while they have
+find the Sersic index is consistent with n ∼ 1, typical         more time to grow, they pose challenges for our current
+of disk-like structures, and with an effective radius of        understanding of accretion models (e.g., Haiman & Loeb
+reff ∼ 0.14 ± 0.02 arcseconds, which at z = 10.07 trans-        2001; Natarajan 2011).
+lates to a physical scale of reff,physical ∼ 0.592 kpc. We         The ratio of BH mass to galaxy mass provides a com-
+therefore find that UHZ-1 is also fairly typical in physi-      plementary clue to the seeding mechanism. A key pre-
+cal scales and extent measured for high-z galaxies in the       diction of the heavy seed formation scenarios by the di-
+GLASS field (Castellano et al. 2022).                           rect collapse of gas is that this ratio at early times, close
+                                                                to the seeding epoch, is significantly higher than found
+          5. DISCUSSION AND SUMMARY                             locally (Natarajan 2011; Natarajan et al. 2017). Heavy
+  We have performed JWST NIRSpec/Prism spectro-                 seeding models predict an early phase of overly mas-
+scopic follow-up of the z ≈ 10 X-ray luminous AGN,              sive BHs relative to the local MBH /M∗ relation (e.g.,
+                                            UNCOVER: UHZ-1 at z = 10.1                                                      7
+
+
+
+
+Figure 4. SPS modeling with Bagpipes. The left panel shows the observed galaxy SED and spectrum (black, showing only
+JWST photometry) after the application of the polynomial calibration with 1σ errors (assuming an error floor of 5%) and the
+median model (red). Additionally, the median model is shown at the full resolution (gold), highlighting the predicted emission
+features that are washed out by the instrumental resolution. In the right panel, we show the covariant posteriors for a number
+of key measured parameters after accounting for the magnification of the source.
+
+Natarajan et al. 2017). Under the assumption that the             place in other systems, particularly as such lower-mass
+AGN is contributing little to the observed UV/optical             BHs would be substantially more difficult to detect and
+continuum and emission lines, the measured host mass              may not be X-ray luminous (Natarajan 2021). However,
+for UHZ-1 is roughly 0.5 dex higher with the benefit of           the combination of the high BH mass, low galaxy mass
+spectroscopy compared to the median photometric value             at z ∼ 10 and early accretion history modeling suggest
+in Castellano et al. (2023). However, we still estimate a         that the particular BH in UHZ-1 was likely formed from
+very high ratio of MBH /M∗ based on the X-ray emission.           a heavy seed (Natarajan et al. 2023). Indeed, given the
+The X-ray source in UHZ-1 has an LX,int ∼ 2×1044 erg/s            extremely small volume probed by the UNCOVER re-
+(assuming NH ∼ 2 × 1024 cm−2 ), and an implied BH                 gion (∼40 arcmin2 ), the number density of BHs formed
+mass of MBH ∼ 107−8 M⊙ conservatively assuming                    from a heavy seed or a scenario involving light seeds that
+Eddington limited accretion and relevant uncertainties            require substantial super-Eddington growth, cannot be
+regarding the high Compton-thick column density ob-               vanishingly small with the detection of UHZ-1 and other
+served in the X-rays (Bogdan et al. 2023). The im-                systems thus far.
+plied BH to stellar mass ratio in this system (combining            Despite the > 4σ detection in the 2–7 keV band (see
+relevant modeling uncertainties) based on our best-fit            Fig. 1 and Bogdan et al. 2023), the lack of clear AGN
+Bagpipes model is thus MBH /Mgal ≈ 0.05 − 1.0.                    signatures in the UV/optical given the luminous hard
+  This BH is a much larger fraction of the galaxy mass            X-ray source present in this system is somewhat sur-
+than the typical ratio of ∼ 0.001 − 0.002 seen locally            prising. While highly unlikely given the precise locale
+(Kormendy & Ho 2013; Reines & Volonteri 2015). At                 and centroiding of the X-ray emission, it cannot be ex-
+face value, this observation would strongly disfavor light        cluded that the X-ray association is coincidental. On
+seed scenarios (in systems similar to UHZ-1) which typ-           the other hand, the lack of UV AGN signatures is not
+ically result in BHs that are under massive with re-              unusual. Even in other bonafide broad-line AGN de-
+spect to the host galaxy until the galaxy mass exceeds            tected by JWST, which interestingly lack X-ray emis-
+∼ 1010 M⊙ Anglés-Alcázar et al. (2017); Çatmabacak             sion despite their Type-1 AGN nature (e.g., Furtak et al.
+et al. (2022). Thus far, all luminous AGN discovered              2023c), these systems are also bereft of the typical broad
+at z > 5 with estimates for both the BH mass and the              and narrow AGN emission lines blueward of Hβ (e.g.,
+galaxy mass have had high ratios, but this source is ex-          Harikane et al. 2023; Kocevski et al. 2023; Matthee et al.
+treme even in that context (e.g., Izumi et al. 2019; Neele-       2023; Labbe et al. 2023). Moreover, such objects are
+man et al. 2021; Fan et al. 2022). This of course does            not entirely uncommon in the nearby Universe (e.g.,
+not preclude a light-seed scenario concurrently taking            NGC 1448; NGC 4945; see Alexander & Hickox 2012;
+8                                                    Goulding et al.
+
+Annuar et al. 2017) as even luminous AGN signatures              The authors thank the anonymous referee for a con-
+can be swamped by strong star formation and/or ex-            structive and insightful report that improved several as-
+treme obscuration. Furthermore, the relatively high           pects of the manuscript. A.D.G would like to thank
+LX,int /L1450,obs ∼ 0.7 ratio also points towards a heavily   M.A. Strauss for useful and enlightening conversa-
+buried AGN. Indeed, the relatively low AV ∼ 0.08 mag          tions. A.D.G and J.E.G. acknowledges support from
+suggests a low line-of-sight extinction to the galaxy,        NSF/AAG grant# 1007094. PD acknowledges support
+placing any obscuration on small nuclear scales, as sug-      from the NWO grant 016.VIDI.189.162 (“ODIN”) and
+gested by the Compton-thick column measured in the X-         the European Commission’s and University of Gronin-
+rays. Longer wavelength data may provide useful clues         gen’s CO-FUND Rosalind Franklin program. RB ac-
+about the AGN’s nature in UHZ-1. For example, due to          knowledges support from the Research Corporation for
+the spectral coverage of the NIRSpec/Prism data, the          Scientific Advancement (RCSA) Cottrell Scholar Award
+current spectrum just misses the vital [OIII] and Hβ          ID No: 27587. This work is based in part on obser-
+complex (a typical diagnostic for AGN activity). More-        vations made with the NASA/ESA/CSA James Webb
+over, at significantly longer wavelengths, the rest-frame     Space Telescope. The data were obtained from the
+near and mid-IR wavebands can provide much cleaner            Mikulski Archive for Space Telescopes at the Space
+information on the presence of AGN emission even in the       Telescope Science Institute, which is operated by the
+most heavily obscured AGN due to the re-emission by           Association of Universities for Research in Astronomy,
+dust of the AGN signatures. Such wavelengths are fully        Inc., under NASA contract NAS 5-03127 for JWST.
+accessible by JWST/MIRI out to restframe λ < 2.5µm,           The specific observations analyzed can be accessed via
+giving access to the hot AGN dust continuum as well           [DATASET]. These observations are associated with
+as high-ionization emission lines and the Paschen series.     JWST Cycle 1 programs JWST-GO-2561 and JWST-
+Indeed, the detection of lower-order Balmer lines and the     ERS-1324. Support for program JWST-GO-2561 was
+Paschen series, given the lack of Balmer emission lines       provided by NASA through a grant from the Space Tele-
+in the current NIRSpec/Prism data may point towards           scope Science Institute, which is operated by the Asso-
+heavy obscuration in UHZ-1.                                   ciations of Universities for Research in Astronomy, In-
+  Objects such as UHZ-1 are only now beginning to be          corporated, under NASA contract NAS5-26555. The
+uncovered in the JWST data. The UNCOVER program               Cosmic Dawn Center is funded by the Danish Na-
+hints at the power of deep NIRSpec spectroscopy to            tional Research Foundation (DNRF) under grant #140.
+characterize the first growing black holes, while the high    YF acknowledge support from NAOJ ALMA Scien-
+magnification (µ ∼ 3.8 ± 0.2) certainly aids in the detec-    tific Research Grant number 2020-16B. YF further ac-
+tion of objects such as that presented here. The detec-       knowledges support from support from JSPS KAKENHI
+tion of the unimpeded UV-photons produced due to star         Grant Number JP23K13149. HA and IC acknowledge
+formation from UHZ-1 suggests that the obscuration of         support from CNES, focused on the JWST mission,
+the growing BH is confined to the nuclear regions given       and the Programme National Cosmology and Galax-
+the low inferred extinction along the line of sight. This     ies (PNCG) of CNRS/INSU with INP and IN2P3, co-
+suggests that at extremely high-redshift, even modest         funded by CEA and CNES. ÁB acknowledges support
+star-forming sources like UHZ-1, likely jump-started re-      from the Smithsonian Institution through NASA con-
+ionization. The number of AGN detected so far, given          tract NAS8-03060. PN acknowledges support from the
+the relatively limited areas covered by JWST to date,         Gordon and Betty Moore Foundation and the John Tem-
+suggests that an actively growing BH population may           pleton Foundation that fund the Black Hole Initiative
+already be in place at this early epoch. However, be-         (BHI) at Harvard University where she serves as one
+cause of the difficulty to detect the AGN signatures in       of the PIs. AZ acknowledges support by Grant No.
+UHZ-1, the further identification and characterization of     2020750 from the United States-Israel Binational Sci-
+the demographics of such systems may require a suite of       ence Foundation (BSF) and Grant No. 2109066 from
+diagnostics from JWST NIRCam, NIRSpec, MIRI and               the United States National Science Foundation (NSF),
+in the X-rays.                                                and by the Ministry of Science & Technology, Israel.
+
+               ACKNOWLEDGMENTS
+
+
+                                                      REFERENCES
+Agarwal, B., Davis, A. J., Khochfar, S., Natarajan, P., &     Alexander, D. M., & Hickox, R. C. 2012, NewAR, 56, 93,
+  Dunlop, J. S. 2013, MNRAS, 432, 3438,                         doi: 10.1016/j.newar.2011.11.003
+  doi: 10.1093/mnras/stt696
+                                             UNCOVER: UHZ-1 at z = 10.1                                                   9
+
+Alexander, T., & Natarajan, P. 2014, Science, 345, 1330,        Dayal, P., Rossi, E. M., Shiralilou, B., et al. 2019, MNRAS,
+   doi: 10.1126/science.1251053                                   486, 2336, doi: 10.1093/mnras/stz897
+Anglés-Alcázar, D., Faucher-Giguère, C.-A., Quataert, E.,    Devecchi, B., & Volonteri, M. 2009, ApJ, 694, 302,
+   et al. 2017, MNRAS, 472, L109,                                 doi: 10.1088/0004-637X/694/1/302
+   doi: 10.1093/mnrasl/slx161                                   Di Matteo, T., Angles-Alcazar, D., & Shankar, F. 2023,
+Annuar, A., Alexander, D. M., Gandhi, P., et al. 2017, ApJ,       arXiv e-prints, arXiv:2304.11541,
+   836, 165, doi: 10.3847/1538-4357/836/2/165                     doi: 10.48550/arXiv.2304.11541
+Arrabal Haro, P., Dickinson, M., Finkelstein, S. L., et al.     Di Matteo, T., Croft, R. A. C., Feng, Y., Waters, D., &
+   2023, ApJL, 951, L22, doi: 10.3847/2041-8213/acdd54            Wilkins, S. 2017, MNRAS, 467, 4243,
+Atek, H., Chemerynska, I., Wang, B., et al. 2023, arXiv           doi: 10.1093/mnras/stx319
+   e-prints, arXiv:2305.01793,                                  Falcón-Barroso, J., Sánchez-Blázquez, P., Vazdekis, A.,
+   doi: 10.48550/arXiv.2305.01793                                 et al. 2011, A&A, 532, A95,
+Bañados, E., Venemans, B. P., Mazzucchelli, C., et al. 2018,     doi: 10.1051/0004-6361/201116842
+   Nature, 553, 473, doi: 10.1038/nature25180                   Fan, X., Banados, E., & Simcoe, R. A. 2022, arXiv e-prints,
+Begelman, M. C. 2010, MNRAS, 402, 673,                            arXiv:2212.06907, doi: 10.48550/arXiv.2212.06907
+   doi: 10.1111/j.1365-2966.2009.15916.x                        Fan, X., Wang, F., Yang, J., et al. 2019, ApJL, 870, L11,
+Bezanson, R., Labbe, I., Whitaker, K. E., et al. 2022, arXiv      doi: 10.3847/2041-8213/aaeffe
+   e-prints, arXiv:2212.04026,                                  Ferland, G. J., Chatzikos, M., Guzmán, F., et al. 2017,
+   doi: 10.48550/arXiv.2212.04026                                 RMxAA, 53, 385, doi: 10.48550/arXiv.1705.10877
+Bogdan, A., Goulding, A., Natarajan, P., et al. 2023, arXiv     Feroz, F., Hobson, M. P., Cameron, E., & Pettitt, A. N.
+   e-prints, arXiv:2305.15458,                                    2019, The Open Journal of Astrophysics, 2, 10,
+   doi: 10.48550/arXiv.2305.15458                                 doi: 10.21105/astro.1306.2144
+Brammer, G. 2022, msaexp: NIRSpec analyis tools, 0.3,           Freitag, M., Gürkan, M. A., & Rasio, F. A. 2006, MNRAS,
+   doi: 10.5281/zenodo.7299500                                    368, 141, doi: 10.1111/j.1365-2966.2006.10096.x
+Brammer, G. B., van Dokkum, P. G., & Coppi, P. 2008,            Furtak, L. J., Zitrin, A., Plat, A., et al. 2023a, ApJ, 952,
+   ApJ, 686, 1503, doi: 10.1086/591786                            142, doi: 10.3847/1538-4357/acdc9d
+Bromm, V., & Loeb, A. 2003, ApJ, 596, 34,                       Furtak, L. J., Zitrin, A., Weaver, J. R., et al. 2023b,
+   doi: 10.1086/377529                                            MNRAS, 523, 4568, doi: 10.1093/mnras/stad1627
+Bruzual, G., & Charlot, S. 2003, MNRAS, 344, 1000,              Furtak, L. J., Labbé, I., Zitrin, A., et al. 2023c, arXiv
+   doi: 10.1046/j.1365-8711.2003.06897.x                          e-prints, arXiv:2308.05735,
+Buchner, J., Georgakakis, A., Nandra, K., et al. 2014,            doi: 10.48550/arXiv.2308.05735
+   A&A, 564, A125, doi: 10.1051/0004-6361/201322971             Goulding, A. D., & Alexander, D. M. 2009, MNRAS, 398,
+Bushouse, H., Eisenhamer, J., Dencheva, N., et al. 2023,          1165, doi: 10.1111/j.1365-2966.2009.15194.x
+   JWST Calibration Pipeline, 1.10.0, Zenodo,                   Greene, J. E., Strader, J., & Ho, L. C. 2020, ARA&A, 58,
+   doi: 10.5281/zenodo.7795697                                    257, doi: 10.1146/annurev-astro-032620-021835
+Carnall, A. C., Leja, J., Johnson, B. D., et al. 2019, ApJ,     Habouzit, M., Onoue, M., Bañados, E., et al. 2022,
+   873, 44, doi: 10.3847/1538-4357/ab04a2                         MNRAS, 511, 3751, doi: 10.1093/mnras/stac225
+Carnall, A. C., McLure, R. J., Dunlop, J. S., & Davé, R.       Haiman, Z., & Loeb, A. 2001, ApJ, 552, 459,
+   2018, MNRAS, 480, 4379, doi: 10.1093/mnras/sty2169             doi: 10.1086/320586
+Castellano, M., Fontana, A., Treu, T., et al. 2022, ApJL,       Harikane, Y., Ono, Y., Ouchi, M., et al. 2022, ApJS, 259,
+   938, L15, doi: 10.3847/2041-8213/ac94d0                        20, doi: 10.3847/1538-4365/ac3dfc
+—. 2023, ApJL, 948, L14, doi: 10.3847/2041-8213/accea5          Harikane, Y., Zhang, Y., Nakajima, K., et al. 2023, arXiv
+Çatmabacak, O., Feldmann, R., Anglés-Alcázar, D., et al.       e-prints, arXiv:2303.11946,
+   2022, MNRAS, 511, 506, doi: 10.1093/mnras/stac040              doi: 10.48550/arXiv.2303.11946
+Chabrier, G. 2003, PASP, 115, 763, doi: 10.1086/376392          Hoffman, M. D., Gelman, A., et al. 2014, J. Mach. Learn.
+Charlot, S., & Fall, S. M. 2000, ApJ, 539, 718,                   Res., 15, 1593
+   doi: 10.1086/309250                                          Horne, K. 1986, PASP, 98, 609, doi: 10.1086/131801
+Curtis-Lake, E., Carniani, S., Cameron, A., et al. 2023,        Inayoshi, K., Onoue, M., Sugahara, Y., Inoue, A. K., & Ho,
+   Nature Astronomy, 7, 622,                                      L. C. 2022, ApJL, 931, L25,
+   doi: 10.1038/s41550-023-01918-w                                doi: 10.3847/2041-8213/ac6f01
+10                                                    Goulding et al.
+
+Izumi, T., Onoue, M., Matsuoka, Y., et al. 2019, PASJ, 71,     Miller, M. C., & Hamilton, D. P. 2002, MNRAS, 330, 232,
+  111, doi: 10.1093/pasj/psz096                                  doi: 10.1046/j.1365-8711.2002.05112.x
+Johnson, B. D., Leja, J., Conroy, C., & Speagle, J. S. 2021,   Mortlock, D. J., Warren, S. J., Venemans, B. P., et al. 2011,
+  ApJS, 254, 22, doi: 10.3847/1538-4365/abef67                   Nature, 474, 616, doi: 10.1038/nature10159
+Kocevski, D. D., Onoue, M., Inayoshi, K., et al. 2023, arXiv
+                                                               Natarajan, P. 2011, Bulletin of the Astronomical Society of
+  e-prints, arXiv:2302.00012,
+                                                                 India, 39, 145, doi: 10.48550/arXiv.1104.4797
+  doi: 10.48550/arXiv.2302.00012
+                                                               —. 2021, MNRAS, 501, 1413, doi: 10.1093/mnras/staa3724
+Kormendy, J., & Ho, L. C. 2013, ARA&A, 51, 511,
+  doi: 10.1146/annurev-astro-082708-101811                     Natarajan, P., Pacucci, F., Ferrara, A., et al. 2017, The
+Koushiappas, S. M., Bullock, J. S., & Dekel, A. 2004,            Astrophysical Journal, 838, 117,
+  MNRAS, 354, 292, doi: 10.1111/j.1365-2966.2004.08190.x         doi: 10.3847/1538-4357/aa6330
+Labbe, I., Greene, J. E., Bezanson, R., et al. 2023, arXiv     Natarajan, P., Pacucci, F., Ricarte, A., et al. 2023, arXiv
+  e-prints, arXiv:2306.07320,                                    e-prints, arXiv:2308.02654.
+  doi: 10.48550/arXiv.2306.07320                                 https://arxiv.org/abs/2308.02654
+Larson, R. L., Finkelstein, S. L., Kocevski, D. D., et al.     Neeleman, M., Novak, M., Venemans, B. P., et al. 2021,
+  2023, arXiv e-prints, arXiv:2303.08918,
+                                                                 ApJ, 911, 141, doi: 10.3847/1538-4357/abe70f
+  doi: 10.48550/arXiv.2303.08918
+                                                               Pasha, I., & Miller, T. B. 2023, arXiv e-prints,
+Lodato, G., & Natarajan, P. 2006, MNRAS, 371, 1813,
+                                                                 arXiv:2306.05454, doi: 10.48550/arXiv.2306.05454
+  doi: 10.1111/j.1365-2966.2006.10801.x
+—. 2007, MNRAS, 377, L64,                                      Phan, D., Pradhan, N., & Jankowiak, M. 2019, arXiv
+  doi: 10.1111/j.1745-3933.2007.00304.x                          preprint arXiv:1912.11554
+Loeb, A., & Rasio, F. A. 1994, ApJ, 432, 52,                   Portegies Zwart, S. F., & McMillan, S. L. W. 2002, ApJ,
+  doi: 10.1086/174548                                            576, 899, doi: 10.1086/341798
+Maiolino, R., Scholtz, J., Witstok, J., et al. 2023a, arXiv    Reines, A. E., & Volonteri, M. 2015, ApJ, 813, 82,
+  e-prints, arXiv:2305.12492,                                    doi: 10.1088/0004-637X/813/2/82
+  doi: 10.48550/arXiv.2305.12492                               Sánchez-Blázquez, P., Peletier, R. F., Jiménez-Vicente, J.,
+Maiolino, R., Scholtz, J., Curtis-Lake, E., et al. 2023b,
+                                                                 et al. 2006, MNRAS, 371, 703,
+  arXiv e-prints, arXiv:2308.01230,
+                                                                 doi: 10.1111/j.1365-2966.2006.10699.x
+  doi: 10.48550/arXiv.2308.01230
+                                                               Volonteri, M., Lodato, G., & Natarajan, P. 2008, MNRAS,
+Matsuoka, Y., Strauss, M. A., Kashikawa, N., et al. 2018,
+  ApJ, 869, 150, doi: 10.3847/1538-4357/aaee7a                   383, 1079, doi: 10.1111/j.1365-2966.2007.12589.x
+Matsuoka, Y., Onoue, M., Iwasawa, K., et al. 2023, arXiv       Wang, B., Leja, J., Bezanson, R., et al. 2023, ApJL, 944,
+  e-prints, arXiv:2305.11225,                                    L58, doi: 10.3847/2041-8213/acba99
+  doi: 10.48550/arXiv.2305.11225                               Weaver, J. R., Cutler, S. E., Pan, R., et al. 2023, arXiv
+Matt, G., Fabian, A. C., Guainazzi, M., et al. 2000,             e-prints, arXiv:2301.02671,
+  MNRAS, 318, 173, doi: 10.1046/j.1365-8711.2000.03721.x         doi: 10.48550/arXiv.2301.02671
+Matthee, J., Naidu, R. P., Brammer, G., et al. 2023, arXiv     Yaqoob, T. 2012, MNRAS, 423, 3360,
+  e-prints, arXiv:2306.05448,                                    doi: 10.1111/j.1365-2966.2012.21129.x
+  doi: 10.48550/arXiv.2306.05448
+

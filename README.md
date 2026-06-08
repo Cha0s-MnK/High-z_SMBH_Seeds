@@ -102,15 +102,52 @@ The plotting helpers are split by responsibility: `plot/load_output.py` handles 
 
 ```bash
 python ~/High-z_SMBH_Seeds/src/run.py --help
+python ~/High-z_SMBH_Seeds/plot/plot_PeTar.py --help
 nohup python3 ~/High-z_SMBH_Seeds/src/run.py \
   --tree-dir /lingshan/disk3/subonan/Illustris-1-Dark+TNG50-1-Dark/data/fixed_trees_large_spin_dark \
-  --clear-output 2 --output /lingshan/disk3/subonan/_outputs/High-z_SMBH_Seeds_Eddington0_ex-situ2_Mc7 \
-  --Eddington 0.0 --ex-situ 2 --lg_cut-off_mass 7.0 --p2 6.75 --p3 0.5 --ts-m 0.2 --ts-r 0.2 \
+  --clear-output 2 --output /lingshan/disk3/subonan/_outputs/High-z_SMBH_Seeds_Eddington0.01_ex-situ2_Mc7_New \
+  --Eddington 0.01 --ex-situ 2 --lg_cut-off_mass 7.0 --p2 6.75 --p3 0.5 --ts-m 0.2 --ts-r 0.2 \
   --run-all 0 --n-halos 512 --log-mh-min 9.0 --log-mh-max 15.0 \
-  --extra_out_z_list '1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0' --ns-values 2.0 \
+  --out_z '1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0' --ns-values 2.0 \
   --jobs 32 --ns-jobs 1 \
   --plot_Choksi+2018 --plot_Neumayer+2020 --plot_Gao+2024 --plot_Kong+2026 \
-  > ~/run0.log 2>&1 &
+  > ~/run1.log 2>&1 &
+nohup python3 ~/High-z_SMBH_Seeds/src/run.py \
+  --tree-dir /lingshan/disk3/subonan/Illustris-1-Dark+TNG50-1-Dark/data/fixed_trees_large_spin_dark \
+  --clear-output 2 --output /lingshan/disk3/subonan/_outputs/High-z_SMBH_Seeds_Eddington0_ex-situ0_M31_Mc7_New \
+  --Eddington 0.0 --ex-situ 0 --lg_cut-off_mass 7.0 --p2 6.75 --p3 0.5 --ts-m 0.2 --ts-r 0.2 \
+  --run-all 0 --n-halos 64 --log-mh-min 11.845 --log-mh-max 12.398 \
+  --out_z '1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0' --ns-values 2.0 \
+  --jobs 32 --ns-jobs 1 \
+  --plot_Choksi+2018 --plot_Neumayer+2020 --plot_Gao+2024 --plot_Kong+2026 \
+  > ~/run00.log 2>&1 &
+nohup python3 ~/High-z_SMBH_Seeds/src/run.py \
+  --tree-dir /lingshan/disk3/subonan/Illustris-1-Dark+TNG50-1-Dark/data/fixed_trees_large_spin_dark \
+  --clear-output 2 --output /lingshan/disk3/subonan/_outputs/High-z_SMBH_Seeds_Eddington0_ex-situ1_M31_Mc7_New \
+  --Eddington 0.0 --ex-situ 1 --lg_cut-off_mass 7.0 --p2 6.75 --p3 0.5 --ts-m 0.2 --ts-r 0.2 \
+  --run-all 0 --n-halos 64 --log-mh-min 11.845 --log-mh-max 12.398 \
+  --out_z '1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0' --ns-values 2.0 \
+  --jobs 32 --ns-jobs 1 \
+  --plot_Choksi+2018 --plot_Neumayer+2020 --plot_Gao+2024 --plot_Kong+2026 \
+  > ~/run11.log 2>&1 &
+nohup python3 ~/High-z_SMBH_Seeds/src/run.py \
+  --tree-dir /lingshan/disk3/subonan/Illustris-1-Dark+TNG50-1-Dark/data/fixed_trees_large_spin_dark \
+  --clear-output 2 --output /lingshan/disk3/subonan/_outputs/High-z_SMBH_Seeds_Eddington0.02_ex-situ2_M31_Mc7_New \
+  --Eddington 0.02 --ex-situ 2 --lg_cut-off_mass 7.0 --p2 6.75 --p3 0.5 --ts-m 0.2 --ts-r 0.2 \
+  --run-all 0 --n-halos 64 --log-mh-min 11.845 --log-mh-max 12.398 \
+  --out_z '1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0' --ns-values 2.0 \
+  --jobs 32 --ns-jobs 1 \
+  --plot_Choksi+2018 --plot_Neumayer+2020 --plot_Gao+2024 --plot_Kong+2026 \
+  > ~/run.log 2>&1 &
+nohup python3 ~/High-z_SMBH_Seeds/src/run.py \
+  --tree-dir /lingshan/disk3/subonan/Illustris-1-Dark+TNG50-1-Dark/data/fixed_trees_large_spin_dark \
+  --clear-output 2 --output /lingshan/disk3/subonan/_outputs/High-z_SMBH_Seeds_Eddington0.02_ex-situ2_M12-14_Mc7_New \
+  --Eddington 0.02 --ex-situ 2 --lg_cut-off_mass 7.0 --p2 6.75 --p3 0.5 --ts-m 0.2 --ts-r 0.2 \
+  --run-all 0 --n-halos 128 --log-mh-min 12.0 --log-mh-max 14.0 \
+  --out_z '1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0' --ns-values 2.0 \
+  --jobs 64 --ns-jobs 1 \
+  --plot_Choksi+2018 --plot_Neumayer+2020 --plot_Gao+2024 --plot_Kong+2026 \
+  > ~/run.log 2>&1 &
 ```
 
 Prefer running from the repository root because the project path contains spaces and the relative `my/run.py` entry point is the least error-prone form.
@@ -136,7 +173,7 @@ python3 ~/High-z_SMBH_Seeds/plot/plot_Neumayer+2020.py \
   --ns-value 2.0 --out_dir /lingshan/disk3/subonan/_outputs/NSC_Mix_IMBH
 python3 ~/High-z_SMBH_Seeds/plot/plot_Gao+2024.py --out_dir /lingshan/disk3/subonan/_outputs/NSC_Mix_R0.5
 python3 ~/High-z_SMBH_Seeds/plot/plot_Kong+2026.py \
-  --ns-value 2.0 --out_dir /lingshan/disk3/subonan/_outputs/NSC_DF1_IMBH1
+  --ns-value 2.0 --out_dir /lingshan/disk3/subonan/_outputs/High-z_SMBH_Seeds_Eddington0_ex-situ2_M31_Mc7_New
 ```
 
 New style:
@@ -185,7 +222,7 @@ The evolution solver now always uses the evolving-host background implementation
 - `--extra_out_z_list`: comma-separated extra redshifts for halo-level central NSC/BH summaries. The simulation itself still runs to `z=0`, `z=0` is always included automatically, and halo selection remains tied to the descendant `z=0` host.
 - `--IMBH`: if `1`, enable IMBH seeding in `src/main_spatial.py`; if `0`, write zero IMBH-related columns.
 - `--Eddington`: dimensionless Eddington ratio for uncapped growth of the stored central BH state only; IMBHs inside GCs and non-central wandering IMBHs remain non-accreting.
-- `--ex-situ`: tri-state ex-situ GC treatment. Mode `0` applies Gao+2024-style analytic survival/disruption to non-MPB GCs to `z = 0` while MPB GCs use the active dynamical NSC path. Mode `1` evolves satellite branches and releases surviving non-central GCs/wanderers at `0.5 Rvir`, but does not import satellite central NSC/BH masses. Mode `2` evolves satellite branches, releases surviving non-central GCs/wanderers, and imports satellite central NSC/BH masses at branch merger.
+- `--ex-situ`: tri-state ex-situ GC treatment. Mode `0` applies Gao+2024-style analytic survival/disruption to non-MPB GCs to `z = 0` while MPB GCs use the active dynamical NSC path. Mode `1` evolves satellite branches and releases surviving non-central GCs/wanderers at `0.5 Rvir`, but does not import satellite central BH masses or sunk stellar deposits. Mode `2` evolves satellite branches, releases surviving non-central GCs/wanderers, and imports the child central BH plus child fixed-bin-1 sunk stellar deposit components at branch merger.
 - The former satellite-NSC boolean option has been removed; pass `--ex-situ 2` for the previous branch-import behaviour.
 - Mode `0` keeps the active `src/config.py` cosmology and time conversion, not the original Gao+2024 `smhm.py` cosmology. Non-MPB analytic survivors and wanderers keep `r_final_kpc = r_init_kpc`, and disrupted non-MPB IMBH hosts are retained as `status = -4` wanderers.
 - `--ns-values`: comma-separated list of Sersic indices to run.
@@ -203,7 +240,7 @@ These are not exposed as `my/run.py` flags, but they still define the evolution 
 
 - `T_UNIVERSE_GYR = 13.799`: Universe-age constant used by the approximate cosmic-time and redshift conversions.
 - `dt_max = 0.01` and `t_div = 100`: cap the adaptive step size and define the coarse cosmic-time blocks.
-- `binnub = 100`, `r_min = 1.0e-3 kpc`, and `r_sink = NSC_RADIUS_PC * 1.0e-3 = 6.0e-3 kpc`: set the deposited-profile radial binning and the 6 pc NSC/BH sink radius.
+- `binnub = 100`, `MIN_RAD_PC = 1 pc`, and `NSC_RAD_PC = 6 pc`: set the deposited-profile radial binning, the fixed 0-1 pc sink/inner bin edge, and the public stellar NSC aperture sampled from the deposit profile.
 - `t_limit = 1.0e-2`: sets the minimum adaptive timescale floor.
 
 ## Figure Reproduction
@@ -350,8 +387,7 @@ Columns:
 #### `depos_all.dat`
 
 Merged deposited-mass profile table across all `N_s` runs.
-`depos` records mass lost through external GC evolution channels; terminal stellar mass transferred into `M_NSC` at the 6 pc sink is not added to `depos`.
-For non-IMBH GCs that are tidally torn after ending inside the 6 pc aperture, the final residual mass is not added to either `depos` or `M_NSC`.
+`depos` records mass lost through external GC evolution channels and terminal stellar mass deposited when an object reaches the fixed 1 pc sink. The first radial bin is always `[0, 1.0e-3] kpc`, and public `M_NSC` is sampled from `m_star_with_evo_msun` inside `NSC_RAD_PC = 6 pc`.
 
 Columns:
 - `ns`
@@ -389,6 +425,7 @@ Columns:
 - `ns`
 
 `M_IMBH_final_tot` is the `z = 0` total BH inventory: stored central BH mass plus non-sunk non-central IMBH masses.
+`M_NSC` is the evolved deposited stellar mass sampled inside 6 pc, not a separate 1 pc sunk-stellar column.
 
 #### `haloSummaryByZ_all.csv`
 
@@ -403,10 +440,13 @@ Columns:
 - `M_NSC`
 - `M_SMBH_init`
 - `M_SMBH_final`
+- `z_depos_sampled`
+- `lookback_depos_sampled_gyr`
+- `depos_time_match_delta_gyr`
 - `ns`
 
 `logMh_z_msun` is the MPB halo mass at `z_out`, interpolated in linear halo mass versus cosmic time using the same monotonic MPB block convention as `src/evo.py`. `halo_mass_available` is `0` and `logMh_z_msun` is `NaN` when the requested redshift lies outside the available MPB history for that halo.
-`haloSummaryByZ` contains central quantities only. Non-central IMBH inventories are not redshift-resolved in this table; use `M_IMBH_final_tot` in `haloSummary` for the `z = 0` total BH inventory.
+`haloSummaryByZ` samples `M_NSC` from the closest deposited-profile time block, preferring the earlier cosmic time on ties; the three deposit diagnostics record that sampled block. Non-central IMBH inventories are not redshift-resolved in this table; use `M_IMBH_final_tot` in `haloSummary` for the `z = 0` total BH inventory.
 
 #### `run_metadata.json`
 
@@ -507,4 +547,3 @@ python add2BHs.py NSCcusp.txt NSCcuspM1e3M1e2r1.txt --m1 1.0e3 --m2 1.0e2 --r2 1
 ### Add 2 BHs
 
 `_ic/add2BHs.py`
-

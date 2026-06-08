@@ -26,6 +26,8 @@ from scipy import special
 from config import *
 
 EPS = 1.0e-30
+MIN_RAD_KPC = MIN_RAD_PC * 1.0e-3
+NSC_RAD_KPC = NSC_RAD_PC * 1.0e-3
 
 STAT_ALIVE = 1 # GC is still alive at the end of the evolution
 STAT_EXHAUSTED = -1 # GC is fully disrupted by the end of the evolution, but never sank to the center
@@ -67,12 +69,8 @@ class Tunables:
     binnub: int = 100
     # Minimum base timescale in Gyr allowed for the ts_m and ts_r timestep floors.
     t_limit: float = 1.0e-2
-    # Radius in kpc below which a cluster is tagged as sunk to the centre. [kpc]
-    r_sink: float = NSC_RADIUS_PC * 1.0e-3
     # Little-h used in the halo virial-radius and spin conversions.
     h: float = 0.704
-    # Inner radius floor in kpc for radial binning and background-density calls.
-    r_min: float = 1.0e-3
 
 
 def _numeric_rows(path: Path) -> np.ndarray:
@@ -139,7 +137,7 @@ def rho_bkgd(r_kpc: float, SersicReff_kpc: float, Mv_1e9Msun: float, t_Gyr: floa
     check_finite_positive(Mv_1e9Msun, name="Halo virial mass in 1e9 Msun Mv_1e9Msun")
     check_finite_positive(t_Gyr, name="Cosmic age in Gyr t_Gyr")
 
-    if float(r_kpc) < 1.0e-3:
+    if float(r_kpc) < MIN_RAD_KPC:
         warnings.warn(
             f"rho_bkgd called below 1 pc: r_kpc={float(r_kpc):.6e}. "
             "This is inside the numerical caution region for the external GC background model.",
@@ -193,14 +191,13 @@ def rateStrippingFragioneP2019(M_GC_1e5Msun: float, r_kpc: float, v_kms: float) 
 
 def assign_bin_fast(
     r_kpc: float,
-    r_min: float,
     log_r_min: float,
     inv_log_span: float,
     binnub: int,
 ) -> int:
-    if r_kpc < r_min or inv_log_span <= 0.0:
+    if r_kpc < MIN_RAD_KPC or inv_log_span <= 0.0:
         return 1
-    frac = (math.log10(max(r_kpc, r_min)) - log_r_min) * inv_log_span
+    frac = (math.log10(max(r_kpc, MIN_RAD_KPC)) - log_r_min) * inv_log_span
     b = 1 + int(math.floor(frac * (binnub - 1)))
     return max(1, min(binnub, b))
 
@@ -288,7 +285,6 @@ def drdt_DF_RK4(
     rho_bg_current: float,
     m_enclosed_current_1e5: float,
     prefix_snapshot: np.ndarray,
-    r_min: float,
     log_r_min: float,
     inv_log_span: float,
     binnub: int,
@@ -298,34 +294,34 @@ def drdt_DF_RK4(
     t_l_gyr: float,
     tun: Tunables,
 ) -> Optional[float]: # >= 0.0
-    """RK4 estimate of the radial inspiral rate; None means the step reaches r <= 0."""
+    """RK4 estimate of the radial inspiral rate; None means an RK4 substep reaches r <= MIN_RAD_KPC."""
     check_finite_positive(M_GC_1e5Msun, name="GC mass in 1e5 M☉ M_GC_1e5Msun")
     check_finite_positive(r_kpc, name="GC distance from the galactic centre in kpc r_kpc")
     check_finite_positive(dt_Gyr, name="Timestep in Gyr dt_Gyr")
-    if r_kpc <= tun.r_sink:
+    if r_kpc <= MIN_RAD_KPC:
         return None
 
     k1 = dt_Gyr * M_GC_1e5Msun / (0.45 * r_kpc * vc_kms(m_enclosed_current_1e5, r_kpc, rho_bg_current))
 
     def drdt_DF(rr: float) -> float: # > 0.0
         check_finite_positive(rr, name="Substep DF radius in kpc rr")
-        rk_bin = assign_bin_fast(rr, r_min, log_r_min, inv_log_span, binnub)
+        rk_bin = assign_bin_fast(rr, log_r_min, inv_log_span, binnub)
         m_enclose = _enclosed_mass_before_bin_from_prefix(rk_bin, prefix_snapshot)
         rho_bg = rho_bkgd(rr, sersic_re_now, masshalo, t_l_gyr, tun)
         return M_GC_1e5Msun / (0.45 * rr * vc_kms(m_enclose, rr, rho_bg))
 
     r2 = r_kpc - 0.5 * k1
-    if r2 <= tun.r_sink:
+    if r2 <= MIN_RAD_KPC:
         return None
     else:
         k2 = drdt_DF(r2) * dt_Gyr
         r3 = r_kpc - 0.5 * k2
-        if r3 <= tun.r_sink:
+        if r3 <= MIN_RAD_KPC:
             return None
         else:
             k3 = drdt_DF(r3) * dt_Gyr
             r4 = r_kpc - k3
-            if r4 <= tun.r_sink:
+            if r4 <= MIN_RAD_KPC:
                 return None
             else:
                 k4 = drdt_DF(r4) * dt_Gyr
@@ -378,6 +374,8 @@ def evolve_single_halo(
     # continuation rows use 15 columns so satellite survivors can enter a new
     # host with their current mass, age, and accretion radius without
     # pretending they formed at the merger time.
+    import_depo_channels = np.zeros((n_gc, 3), dtype=float)
+    is_deposit_only = np.zeros(n_gc, dtype=bool)
     if gc_init.shape[1] >= 15:
         m_gc_init = np.asarray(gc_init[:, 7], dtype=float) / 1.0e5
         z_gc_init = np.asarray(gc_init[:, 8], dtype=float)
@@ -388,6 +386,13 @@ def evolve_single_halo(
         r_gc_init = gc_init[:, 10].astype(float)
         m_imbh_init = np.asarray(gc_init[:, 13], dtype=float) / 1.0e5
         m_imbh = np.asarray(gc_init[:, 14], dtype=float) / 1.0e5
+        if gc_init.shape[1] >= 20:
+            import_depo_channels = np.maximum(np.asarray(gc_init[:, 16:19], dtype=float), 0.0) / 1.0e5
+            is_deposit_only = np.asarray(gc_init[:, 19], dtype=float) > 0.5
+            m_gc_current[is_deposit_only] = 0.0
+            m_imbh_init[is_deposit_only] = 0.0
+            m_imbh[is_deposit_only] = 0.0
+            r_gc_init[is_deposit_only] = MIN_RAD_KPC
     else:
         m_gc_init = 10.0 ** (gc_init[:, 6] - 5.0)
         r_gc_init = gc_init[:, 9].astype(float)
@@ -419,34 +424,40 @@ def evolve_single_halo(
     m_gc = np.maximum(m_gc_current, 0.0)
     r_gc = r_gc_init.copy()
     t_gc = t_gc_current.copy()
+    t_depo_age = t_gc_current.copy()
     t_gc_segment_start = t_gc_current.copy()
     status = np.full(n_gc, STAT_ALIVE, dtype=int)
     is_wanderer = m_imbh >= (m_gc - 1.0e-12)
+    is_wanderer[is_deposit_only] = False
     m_gc[is_wanderer] = m_imbh[is_wanderer]
+    status[is_deposit_only] = STAT_EXHAUSTED
     m_imbh_final = 1.0e5 * m_imbh.copy()
     global_gc_index = np.arange(1, n_gc + 1, dtype=int)
     if gc_init.shape[1] >= 16:
         global_gc_index = np.asarray(gc_init[:, 15], dtype=int)
 
-    r_min = tun.r_min
+    if int(tun.binnub) < 2:
+        raise ValueError("binnub must be at least 2 so bin 1 can remain the fixed 0-1 pc aperture.")
+    r_min = MIN_RAD_KPC
     r_max = max(float(np.max(r_gc_init)), r_min * 1.0001)
     log_r_min = math.log10(r_min)
     log_r_max = math.log10(r_max)
     inv_log_span = 0.0 if log_r_max <= log_r_min else 1.0 / (log_r_max - log_r_min)
-    if tun.binnub == 1:
-        bin_edges = np.array([0.0, r_max], dtype=float)
-    else:
-        frac = np.arange(tun.binnub, dtype=float) / float(tun.binnub - 1)
-        edges = 10.0 ** (log_r_min + (log_r_max - log_r_min) * frac)
-        bin_edges = np.concatenate(([0.0], edges))
+    frac = np.arange(tun.binnub, dtype=float) / float(tun.binnub - 1)
+    edges = 10.0 ** (log_r_min + (log_r_max - log_r_min) * frac)
+    bin_edges = np.concatenate(([0.0], edges))
     bin_gc = np.array(
-        [assign_bin_fast(rr, r_min, log_r_min, inv_log_span, tun.binnub) for rr in r_gc],
+        [assign_bin_fast(rr, log_r_min, inv_log_span, tun.binnub) for rr in r_gc],
         dtype=int,
     )
 
     depo = np.zeros((n_gc, tun.binnub, 3), dtype=float)
     m_sumbin_total = np.zeros((n_gc, 3), dtype=float)
     m_sumgc_total = np.zeros((tun.binnub, 3), dtype=float)
+    if np.any(is_deposit_only):
+        depo[is_deposit_only, 0, :] = import_depo_channels[is_deposit_only, :]
+        m_sumbin_total[is_deposit_only, :] = import_depo_channels[is_deposit_only, :]
+        m_sumgc_total[0, :] += np.sum(import_depo_channels[is_deposit_only, :], axis=0)
     final_stellar_mass = np.zeros(n_gc, dtype=float)
     has_entered_nsc = np.zeros(n_gc, dtype=bool)
     central_history: List[dict] = []
@@ -500,6 +511,7 @@ def evolve_single_halo(
     dt_gc = np.full(n_gc, t_end, dtype=float)
     mdot_td = np.zeros(n_gc, dtype=float)
     rdot_df = np.zeros(n_gc, dtype=float)
+    sink_after_step = np.zeros(n_gc, dtype=bool)
 
     if depos_path.exists():
         depos_path.unlink()
@@ -562,7 +574,7 @@ def evolve_single_halo(
             f"t_cosmic_gyr={float(t_gc[i]):.10e} "
             f"redshift={float(CosmicAge2Redshift(float(t_gc[i]), time_unit='Gyr')):.10e} "
             f"r_kpc={float(r_gc[i]):.10e} "
-            f"r_sink_kpc={float(tun.r_sink):.10e} "
+            f"min_rad_kpc={float(MIN_RAD_KPC):.10e} "
             f"bin_index={int(bin_gc[i])} "
             f"m_gc_msun={1.0e5 * float(m_gc[i]):.10e} "
             f"m_imbh_msun={1.0e5 * float(m_imbh[i]):.10e} "
@@ -603,6 +615,45 @@ def evolve_single_halo(
             loss = min(loss, max(float(m_gc[i] - m_imbh[i]), 0.0))
         return loss
 
+    def age_deposited_stars(
+        i: int,
+        t_target_gyr: float,
+        bound_mass_1e5: float,
+        sumbin_col2_override: Optional[float] = None,
+    ) -> float:
+        """Age deposited stars up to ``t_target_gyr`` and return bound stellar wind loss."""
+
+        if m_gc_init[i] <= 1.0e-2:
+            t_depo_age[i] = min(max(float(t_target_gyr), float(t_depo_age[i])), t_end)
+            return 0.0
+        t_prev = float(t_depo_age[i])
+        t_target = min(max(float(t_target_gyr), t_prev), t_end)
+        if t_target <= t_prev + 1.0e-14:
+            return 0.0
+        delta_swf = swf(t_target - t_gc_init[i]) - swf(t_prev - t_gc_init[i])
+        depos_col2 = float(m_sumbin_total[i, 2] if sumbin_col2_override is None else sumbin_col2_override)
+        denom = max(float(bound_mass_1e5), 0.0) + depos_col2
+        bound_loss = 0.0
+        if denom > 0.0 and delta_swf != 0.0:
+            for l in range(tun.binnub):
+                dM_star = m_gc_init[i] * depo[i, l, 2] / denom * delta_swf
+                new_val = max(0.0, depo[i, l, 2] - dM_star)
+                removed = depo[i, l, 2] - new_val
+                depo[i, l, 2] = new_val
+                m_sumbin_total[i, 2] -= removed
+                m_sumgc_total[l, 2] -= removed
+            bound_loss = m_gc_init[i] * max(float(bound_mass_1e5), 0.0) / denom * delta_swf
+        t_depo_age[i] = t_target
+        return bound_loss
+
+    def age_inactive_deposits(t_target_gyr: float) -> None:
+        for j in range(n_gc):
+            if status[j] == STAT_ALIVE:
+                continue
+            if m_sumbin_total[j, 2] <= 0.0:
+                continue
+            age_deposited_stars(j, float(t_target_gyr), 0.0)
+
     def deposit_remaining_stars(i: int, bin_index: int) -> None:
         _deposit_amount(i, bin_index, remaining_stellar_mass(i), depo, m_sumbin_total, m_sumgc_total)
 
@@ -617,7 +668,7 @@ def evolve_single_halo(
         is_wanderer[i] = True
 
     def record_nsc_entry(i: int, bin_index: int, t_event_gyr: float) -> None:
-        """Terminate one object that has entered the 6 pc central aperture."""
+        """Terminate one object that has entered the fixed 1 pc central sink."""
 
         nonlocal M_NSC_msun, M_SMBH_init_msun, M_SMBH_entry_msun, M_BH_msun
         if status[i] != STAT_ALIVE or has_entered_nsc[i]:
@@ -633,6 +684,7 @@ def evolve_single_halo(
         if stellar_1e5 > 0.0 and (not is_wanderer[i]):
             delta_nsc = 1.0e5 * stellar_1e5
             final_stellar_mass[i] = delta_nsc
+            _deposit_amount(i, 1, stellar_1e5, depo, m_sumbin_total, m_sumgc_total)
             status[i] = STAT_SUNK
         else:
             final_stellar_mass[i] = 0.0
@@ -646,6 +698,9 @@ def evolve_single_halo(
         m_imbh_final[i] = delta_smbh_entry
         m_gc[i] = 0.0
         t_gc[i] = t_event
+        t_depo_age[i] = t_event
+        r_gc[i] = min(float(r_gc[i]), MIN_RAD_KPC)
+        bin_gc[i] = 1
         dt_gc[i] = t_end
         central_history.append(
             {
@@ -669,10 +724,10 @@ def evolve_single_halo(
     def stop_if_already_inside_nsc(i: int, phase: str) -> bool:
         if status[i] != STAT_ALIVE or has_entered_nsc[i]:
             return True
-        if r_gc[i] <= tun.r_sink:
-            if r_gc[i] == 0.0:
+        if r_gc[i] <= MIN_RAD_KPC:
+            if r_gc[i] <= 0.0:
                 warnings.warn(
-                    "GC reached r_final_kpc=0.0 before NSC entry bookkeeping; preserving 0.0. "
+                    "GC reached r_final_kpc <= 0.0 before NSC entry bookkeeping; preserving 0.0. "
                     + gc_warning_context(i, phase),
                     NSCEvolutionWarning,
                     stacklevel=2,
@@ -681,23 +736,13 @@ def evolve_single_halo(
             return True
         return False
 
-    def mark_inside_sink_torn_without_deposit(i: int, phase: str) -> None:
-        residual_msun = 1.0e5 * float(m_gc[i])
-        status[i] = STAT_TORN
-        warnings.warn(
-            "Non-IMBH GC was tidally torn after ending inside the NSC sink; "
-            "keeping final status as STAT_TORN and excluding the final residual mass from depos. "
-            f"excluded_residual_msun={residual_msun:.10e} "
-            + gc_warning_context(i, phase),
-            NSCEvolutionWarning,
-            stacklevel=2,
-        )
-        final_stellar_mass[i] = 0.0
-        m_gc[i] = 0.0
-        dt_gc[i] = t_end
-
     def rho_bg_current_block(r_now: float) -> float:
-        rr = max(float(r_now), 1.0e-12)
+        rr = float(r_now)
+        if rr <= MIN_RAD_KPC:
+            raise ValueError(
+                "Background density requested inside the fixed 1 pc sink. "
+                f"r_kpc={rr:.10e}; {gcini_path}"
+            )
         return rho_bkgd(rr, sersic_re_now, masshalo, t_l_block, tun)
 
     def rho_components(
@@ -707,16 +752,18 @@ def evolve_single_halo(
     ) -> Tuple[float, float, float]:
         m_enclose = _enclosed_mass_before_bin_from_prefix(bin_index, prefix_snapshot)
         rho_bg = rho_bg_current_block(r_now)
-        rho_tot = rho_bg + m_enclose / ((4.0 / 3.0) * PI * (max(r_now, 1.0e-12) ** 3)) / 1.0e4
+        rho_tot = rho_bg + m_enclose / ((4.0 / 3.0) * PI * (float(r_now) ** 3)) / 1.0e4
         return m_enclose, rho_bg, rho_tot
 
     def current_rdot(
         mass_df: float,
         i: int,
         prefix_snapshot: np.ndarray,
-    ) -> Optional[float]:
-        b_now = assign_bin_fast(r_gc[i], r_min, log_r_min, inv_log_span, tun.binnub)
-        m_enclose, rho_bg, rho_tot = rho_components(r_gc[i], b_now, prefix_snapshot)
+    ) -> Tuple[float, bool]:
+        if r_gc[i] <= MIN_RAD_KPC:
+            return 0.0, True
+        b_now = assign_bin_fast(r_gc[i], log_r_min, inv_log_span, tun.binnub)
+        m_enclose, rho_bg, _ = rho_components(r_gc[i], b_now, prefix_snapshot)
         drdt_DF = drdt_DF_RK4(
             M_GC_1e5Msun=mass_df,
             r_kpc=r_gc[i],
@@ -724,7 +771,6 @@ def evolve_single_halo(
             rho_bg_current=rho_bg,
             m_enclosed_current_1e5=m_enclose,
             prefix_snapshot=prefix_snapshot,
-            r_min=r_min,
             log_r_min=log_r_min,
             inv_log_span=inv_log_span,
             binnub=tun.binnub,
@@ -734,8 +780,8 @@ def evolve_single_halo(
             tun=tun,
         )
         if drdt_DF is None:
-            return r_gc[i] / dt_gc[i]
-        return drdt_DF
+            return 0.0, True
+        return drdt_DF, False
 
     def prepare_gc_step(
         i: int,
@@ -745,6 +791,7 @@ def evolve_single_halo(
         """Prepare one active GC or IMBH wanderer against the current deposit field."""
 
         dt_gc[i] = t_end
+        sink_after_step[i] = False
         if stop_if_already_inside_nsc(i, "prepare"):
             return
         if m_gc_init[i] <= 1.0e-2:
@@ -778,7 +825,7 @@ def evolve_single_halo(
             elif dt_orb < ts_r * tun.t_limit:
                 dt_orb = ts_r * tun.t_limit
             dt_gc[i] = min(dt_orb, tun.dt_max)
-            rdot_df[i] = current_rdot(m_imbh[i], i, prefix_snapshot)
+            rdot_df[i], sink_after_step[i] = current_rdot(m_imbh[i], i, prefix_snapshot)
             return
 
         mdot_td[i] = rateStrippingFragioneP2019(m_gc[i], r_gc[i], v)
@@ -797,7 +844,7 @@ def evolve_single_halo(
             dt_orb = ts_r * tun.t_limit
 
         dt_gc[i] = min(dtm, dt_orb, tun.dt_max)
-        rdot_df[i] = current_rdot(m_gc[i], i, prefix_snapshot)
+        rdot_df[i], sink_after_step[i] = current_rdot(m_gc[i], i, prefix_snapshot)
 
     for i in range(n_gc):
         stop_if_already_inside_nsc(i, "init")
@@ -845,22 +892,15 @@ def evolve_single_halo(
         while (t_gc[next_i] + dt_gc[next_i]) < t_r:
             prefix_snapshot = _prefix_from_sumgc_total(m_sumgc_total)
             i = next_i
+            t_step = float(t_gc[i] + dt_gc[i])
+            age_inactive_deposits(t_step)
             dM_gc_sw = 0.0
             dM_gc = 0.0
 
-            if not is_wanderer[i]:
-                delta_swf = swf(t_gc[i] + dt_gc[i] - t_gc_init[i]) - swf(t_gc[i] - t_gc_init[i])
-                denom = m_gc[i] + m_sumbin_total[i, 2]
-                if denom > 0.0 and delta_swf != 0.0:
-                    for l in range(tun.binnub):
-                        dM_star = m_gc_init[i] * depo[i, l, 2] / denom * delta_swf
-                        new_val = max(0.0, depo[i, l, 2] - dM_star)
-                        removed = depo[i, l, 2] - new_val
-                        depo[i, l, 2] = new_val
-                        m_sumbin_total[i, 2] -= removed
-                        m_sumgc_total[l, 2] -= removed
-                    dM_gc_sw = m_gc_init[i] * m_gc[i] / denom * delta_swf
-
+            if is_wanderer[i]:
+                age_deposited_stars(i, t_step, 0.0)
+            else:
+                dM_gc_sw = age_deposited_stars(i, t_step, float(m_gc[i]))
                 dM_gc_sw = cap_bound_mass_loss(i, dM_gc_sw)
                 m_gc[i] -= dM_gc_sw
                 if (m_imbh[i] > 0.0) and (m_gc[i] <= m_imbh[i] + 1.0e-12):
@@ -879,15 +919,28 @@ def evolve_single_halo(
                 m_sumbin_total[i, :] += delta
                 m_sumgc_total[bi, :] += delta
 
-            dR = dt_gc[i] * (current_rdot(m_imbh[i], i, prefix_snapshot)
-                             if is_wanderer[i] else rdot_df[i])
-            r_gc[i] = max(0.0, r_gc[i] - dR)
-            bin_gc[i] = assign_bin_fast(r_gc[i], r_min, log_r_min, inv_log_span, tun.binnub)
+            if is_wanderer[i]:
+                rdot_now, reaches_sink = current_rdot(m_imbh[i], i, prefix_snapshot)
+            else:
+                rdot_now = rdot_df[i]
+                reaches_sink = bool(sink_after_step[i])
+            if not reaches_sink:
+                r_gc[i] = max(0.0, r_gc[i] - dt_gc[i] * rdot_now)
+                bin_gc[i] = assign_bin_fast(r_gc[i], log_r_min, inv_log_span, tun.binnub)
             t_gc[i] += dt_gc[i]
 
             b = int(bin_gc[i])
-            if is_wanderer[i]:
-                if r_gc[i] <= tun.r_sink:
+            if reaches_sink:
+                if is_wanderer[i]:
+                    record_nsc_entry(i, b, float(t_gc[i]))
+                elif m_gc[i] <= 0.0:
+                    dt_gc[i] = t_end
+                    status[i] = STAT_EXHAUSTED
+                    m_gc[i] = 0.0
+                else:
+                    record_nsc_entry(i, b, float(t_gc[i]))
+            elif is_wanderer[i]:
+                if r_gc[i] <= MIN_RAD_KPC:
                     record_nsc_entry(i, b, float(t_gc[i]))
                 else:
                     prepare_gc_step(i, prefix_snapshot, t_r)
@@ -899,6 +952,9 @@ def evolve_single_halo(
                 elif r_gc[i] <= 0.0:
                     dt_gc[i] = t_end
                     sink_bound_gc(i, b)
+                elif r_gc[i] <= MIN_RAD_KPC:
+                    dt_gc[i] = t_end
+                    sink_bound_gc(i, b)
                 else:
                     _, _, rho_tot = rho_components(r_gc[i], b, prefix_snapshot)
                     rho_h = cluster_halfmass_density(m_gc[i])
@@ -906,26 +962,10 @@ def evolve_single_halo(
                         dt_gc[i] = t_end
                         if m_imbh[i] > 0.0:
                             enter_wanderer(i, b, deposit_stars=True)
-                            if r_gc[i] <= tun.r_sink:
-                                warnings.warn(
-                                    "IMBH-hosting GC was tidally torn and is also inside the NSC sink; "
-                                    "recording final status as STAT_WANDERER_SUNK. "
-                                    + gc_warning_context(i, "mixed_torn_wanderer_sink"),
-                                    NSCEvolutionWarning,
-                                    stacklevel=2,
-                                )
-                                record_nsc_entry(i, b, float(t_gc[i]))
-                            else:
-                                prepare_gc_step(i, prefix_snapshot, t_r)
+                            prepare_gc_step(i, prefix_snapshot, t_r)
                         else:
-                            if r_gc[i] <= tun.r_sink:
-                                mark_inside_sink_torn_without_deposit(i, "mixed_torn_no_imbh_sink")
-                            else:
-                                status[i] = STAT_TORN
-                                _deposit_full_mass(i, b, m_gc, depo, m_sumbin_total, m_sumgc_total)
-                    elif r_gc[i] <= tun.r_sink:
-                        dt_gc[i] = t_end
-                        sink_bound_gc(i, b)
+                            status[i] = STAT_TORN
+                            _deposit_full_mass(i, b, m_gc, depo, m_sumbin_total, m_sumgc_total)
                     else:
                         prepare_gc_step(i, prefix_snapshot, t_r)
 
@@ -934,23 +974,17 @@ def evolve_single_halo(
 
         prefix_snapshot = _prefix_from_sumgc_total(m_sumgc_total)
         sumbin_stage_col2 = m_sumbin_total[:, 2].copy()
+        age_inactive_deposits(t_r)
         for i in range(n_gc):
             if (t_gc[i] >= t_r) or (status[i] != STAT_ALIVE) or (m_gc_init[i] <= 1.0e-2):
                 continue
 
             dM_gc_sw = 0.0
             dM_gc = 0.0
-            if not is_wanderer[i]:
-                delta_swf = swf(t_gc[i] + dt_gc[i] - t_gc_init[i]) - swf(t_gc[i] - t_gc_init[i])
-                denom = m_gc[i] + sumbin_stage_col2[i]
-                if denom > 0.0 and delta_swf != 0.0:
-                    for l in range(tun.binnub):
-                        dM_star = m_gc_init[i] * depo[i, l, 2] / denom * delta_swf
-                        depo[i, l, 2] = depo[i, l, 2] - dM_star
-                        m_sumbin_total[i, 2] -= dM_star
-                        m_sumgc_total[l, 2] -= dM_star
-                    dM_gc_sw = m_gc_init[i] * m_gc[i] / denom * delta_swf
-
+            if is_wanderer[i]:
+                age_deposited_stars(i, t_r, 0.0, sumbin_stage_col2[i])
+            else:
+                dM_gc_sw = age_deposited_stars(i, t_r, float(m_gc[i]), sumbin_stage_col2[i])
                 dM_gc_sw = cap_bound_mass_loss(i, dM_gc_sw)
                 m_gc[i] -= dM_gc_sw
                 if (m_imbh[i] > 0.0) and (m_gc[i] <= m_imbh[i] + 1.0e-12):
@@ -969,15 +1003,28 @@ def evolve_single_halo(
                 m_sumbin_total[i, :] += delta
                 m_sumgc_total[bi, :] += delta
 
-            dR = dt_gc[i] * (current_rdot(m_imbh[i], i, prefix_snapshot)
-                             if is_wanderer[i] else rdot_df[i])
-            r_gc[i] = max(0.0, r_gc[i] - dR)
-            bin_gc[i] = assign_bin_fast(r_gc[i], r_min, log_r_min, inv_log_span, tun.binnub)
+            if is_wanderer[i]:
+                rdot_now, reaches_sink = current_rdot(m_imbh[i], i, prefix_snapshot)
+            else:
+                rdot_now = rdot_df[i]
+                reaches_sink = bool(sink_after_step[i])
+            if not reaches_sink:
+                r_gc[i] = max(0.0, r_gc[i] - dt_gc[i] * rdot_now)
+                bin_gc[i] = assign_bin_fast(r_gc[i], log_r_min, inv_log_span, tun.binnub)
             t_gc[i] = t_r
 
             b = int(bin_gc[i])
-            if is_wanderer[i]:
-                if r_gc[i] <= tun.r_sink:
+            if reaches_sink:
+                if is_wanderer[i]:
+                    record_nsc_entry(i, b, float(t_gc[i]))
+                elif m_gc[i] <= 0.0:
+                    dt_gc[i] = t_end
+                    status[i] = STAT_EXHAUSTED
+                    m_gc[i] = 0.0
+                else:
+                    record_nsc_entry(i, b, float(t_gc[i]))
+            elif is_wanderer[i]:
+                if r_gc[i] <= MIN_RAD_KPC:
                     record_nsc_entry(i, b, float(t_gc[i]))
             else:
                 if m_gc[i] <= 0.0:
@@ -985,12 +1032,9 @@ def evolve_single_halo(
                     status[i] = STAT_EXHAUSTED
                     m_gc[i] = 0.0
                 elif r_gc[i] <= 0.0:
-                    warnings.warn(
-                        "GC reached r_final_kpc=0.0 before post-step density classification; preserving 0.0. "
-                        + gc_warning_context(i, "post_step_zero_radius"),
-                        NSCEvolutionWarning,
-                        stacklevel=2,
-                    )
+                    dt_gc[i] = t_end
+                    sink_bound_gc(i, b)
+                elif r_gc[i] <= MIN_RAD_KPC:
                     dt_gc[i] = t_end
                     sink_bound_gc(i, b)
                 else:
@@ -1000,24 +1044,9 @@ def evolve_single_halo(
                         dt_gc[i] = t_end
                         if m_imbh[i] > 0.0:
                             enter_wanderer(i, b, deposit_stars=True)
-                            if r_gc[i] <= tun.r_sink:
-                                warnings.warn(
-                                    "IMBH-hosting GC was tidally torn and is also inside the NSC sink; "
-                                    "recording final status as STAT_WANDERER_SUNK. "
-                                    + gc_warning_context(i, "mixed_torn_wanderer_sink"),
-                                    NSCEvolutionWarning,
-                                    stacklevel=2,
-                                )
-                                record_nsc_entry(i, b, float(t_gc[i]))
                         else:
-                            if r_gc[i] <= tun.r_sink:
-                                mark_inside_sink_torn_without_deposit(i, "mixed_torn_no_imbh_sink")
-                            else:
-                                status[i] = STAT_TORN
-                                _deposit_full_mass(i, b, m_gc, depo, m_sumbin_total, m_sumgc_total)
-                    elif r_gc[i] <= tun.r_sink:
-                        dt_gc[i] = t_end
-                        sink_bound_gc(i, b)
+                            status[i] = STAT_TORN
+                            _deposit_full_mass(i, b, m_gc, depo, m_sumbin_total, m_sumgc_total)
 
             write_trace_row(i, "coarse")
 
