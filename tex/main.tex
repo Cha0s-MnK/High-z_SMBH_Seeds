@@ -121,7 +121,7 @@
 \begin{document}
 \begin{CJK*}{UTF8}{gbsn}
 
-\title{Connecting intermediate-mass black holes formed in globular clusters to high redshift supermassive black hole seeds}
+\title{Connecting intermediate-mass black holes formed in proto-globular clusters to high redshift supermassive black hole seeds}
 
 %% A significant change from AASTeX v6+ is in the author blocks. Now an email
 %% address is required for each author. This means that each author requires
@@ -216,7 +216,7 @@ We describe the current semi-analytic nuclear-star-cluster (NSC) model used to c
 
 \section{Introduction} \label{sect:intro}
 
-The discovery of massive black holes in the first billion years of cosmic history provides a direct constraint on the formation of black-hole seeds and their early assembly. Luminous quasars at $z \gtrsim 6$ host black holes with masses of $M_{\bullet} \sim 10^8$--$10^{10}~M_\odot$, requiring either massive initial seeds, sustained near-Eddington accretion, episodes of super-Eddington growth, low radiative efficiencies, or a combination of these processes \citep[e.g.,][]{Fan+2023, Inayoshi+2020, Volonteri+2021}. The tension has become sharper with JWST, which has revealed a population of fainter active galactic nuclei at high redshift, including systems whose inferred black-hole masses appear large compared with the stellar masses of their young host galaxies \citep[e.g.,][]{Maiolino+2024GNz11, Natarajan+2024UHZ1, Furtak+2024A2744QSO1}. These objects extend the early-black-hole problem from the most luminous quasars to a broader population of lower-mass galaxies, where the ratio $M_{\bullet}/M_\star$ may be even more informative than $M_{\bullet}$ alone.
+The discovery of massive black holes in the first billion years of cosmic history provides a direct constraint on the formation of black-hole seeds and their early assembly. Luminous quasars at $z \gtrsim 6$ host black holes with masses of $M_{\bullet} \sim 10^8$--$10^{10}~M_\odot$, requiring either massive initial seeds, sustained near-Eddington accretion, episodes of super-Eddington growth, low radiative efficiencies, or a combination of these processes \citep[e.g.,][]{Banados+2018SMBH, Matsuoka+2023SMBH, Larson+2023SMBH, Kocevski+2023SMBH, Harikane+2023SMBH, Bogdan+2024SMBH, Furtak+2024SMBH}. The tension has become sharper with JWST, which has revealed a population of fainter active galactic nuclei at high redshift, including systems whose inferred black-hole masses appear large compared with the stellar masses of their young host galaxies \citep[e.g.,][]{Maiolino+2024GNz11, Natarajan+2024UHZ1, Furtak+2024A2744QSO1}. These objects extend the early-black-hole problem from the most luminous quasars to a broader population of lower-mass galaxies, where the ratio $M_{\bullet}/M_\star$ may be even more informative than $M_{\bullet}$ alone.
 
 A particularly important class of objects is the population of high-redshift black holes that appear overmassive relative to their hosts. In this work, we use ``overmassive'' in the observational sense, referring to systems whose inferred $M_{\bullet}/M_\star$ lies substantially above the local black-hole--galaxy scaling relations \citep[e.g.,][]{KormendyHo2013, ReinesVolonteri2015}. A2744-QSO1 provides a clear example: deep JWST/NIRSpec spectroscopy identifies it as a reddened broad-line AGN at $z \simeq 7.05$, with a black-hole mass of order $10^7~M_\odot$ and a black-hole-to-galaxy mass ratio well above that of typical local galaxies \citep{Furtak+2024A2744QSO1}. Similar high ratios have been inferred for other JWST-selected broad-line AGN, although the quantitative values remain sensitive to virial mass estimators, bolometric corrections, host-galaxy decomposition, obscuration, and selection effects \citep{Pacucci+2023, Harikane+2023, Greene+2024}. The relevant theoretical question is therefore not only how to form the most massive $z \gtrsim 6$ quasars, but also how to produce a high-redshift population with a broad and possibly biased distribution of $M_{\bullet}/M_\star$.
 
@@ -226,11 +226,9 @@ Most theoretical models of early black-hole formation are commonly grouped into 
 
 Nuclear star clusters provide a natural mechanism for connecting cluster-scale seed formation to galaxy-scale black-hole assembly. Observationally, NSCs are dense stellar systems at galactic centres, and their formation is usually interpreted as a combination of in-situ star formation and the inspiral of massive star clusters through dynamical friction \citep{Neumayer+2020}. In a hierarchical universe, the same process can occur not only along the main progenitor branch, but also inside satellite galaxies before they merge into the main system. Satellite NSCs can therefore deliver both stellar mass and embedded black-hole seeds to the growing central nucleus. This channel is particularly relevant for overmassive high-redshift black holes because it can concentrate black-hole mass into small galaxies before their stellar hosts have fully assembled.
 
-\czkong{[The next 3 paragraphs puts too many words on describing the model details, which should be investigated later in methods part. So Compress them into one paragraph with proper length.]}
-
 In this paper, we develop a semi-analytic model for this compact-stellar-system pathway. GC formation is painted onto cosmological merger trees and tied to halo growth, gas availability, a Schechter cluster initial mass function, and spatial sampling in host or satellite systems; IMBH seeds are then assigned at cluster birth using the metallicity- and surface-density-dependent runaway-collision fit from FROST-CLUSTERS III \citep{Rantala+2026}. The subsequent evolution follows stellar mass loss, tidal stripping, direct tidal tearing, and dynamical-friction sinking, allowing intact clusters, disrupted remnants, wandering IMBHs, and satellite NSCs to contribute to the final central mass budget. This structure lets us test whether hierarchical GC and NSC assembly can deliver enough black-hole mass to overmassive high-redshift systems without imposing seeds directly by a halo-mass threshold.
 
-The goal of this work is to determine whether GC and NSC assembly can provide a viable origin for high-redshift overmassive black holes, including the black-hole-hosting subset of LRDs. The model is not intended to predict LRD colours, line profiles, obscuration, or radiative-transfer signatures. Instead, it addresses the underlying mass-assembly problem: whether dense clusters can form IMBH seeds early, whether those seeds can be delivered efficiently to galactic centres, and whether the resulting central black holes can become massive compared with their young host galaxies. In this sense, LRDs with confirmed or likely AGN components provide an observational motivation and possible target population, while the model predicts the compact-stellar-system contribution to their black-hole masses. \czkong{[Add a typical tail in astronomy paper that describes each Sect, e.g. Sect 1 ... Sect 2 ...]} This paper is organised as follows. Sect.~\ref{sect:intro} introduces the observational motivation and the compact-stellar-system seed channel. Sect.~\ref{sect:method} describes the GC formation, sampling, orbital evolution, IMBH-seeding, final-status, and ex-situ NSC merger prescriptions used in the model. The appendices collect the cosmological relations, galaxy scaling relations, cluster initial-condition formulae, evolution equations, IMBH seed fits, and auxiliary statistical and photometric relations used by the semi-analytic calculation.
+The goal of this work is to determine whether GC and NSC assembly can provide a viable origin for high-redshift overmassive black holes, including the black-hole-hosting subset of LRDs. The model is not intended to predict LRD colours, line profiles, obscuration, or radiative-transfer signatures. Instead, it addresses the underlying mass-assembly problem: whether dense clusters can form IMBH seeds early, whether those seeds can be delivered efficiently to galactic centres, and whether the resulting central black holes can become massive compared with their young host galaxies. In this sense, LRDs with confirmed or likely AGN components provide an observational motivation and possible target population, while the model predicts the compact-stellar-system contribution to their black-hole masses. This paper is organised as follows. Sect.~\ref{sect:intro} introduces the observational motivation and the compact-stellar-system seed channel. Sect.~\ref{sect:method} describes the GC formation, sampling, orbital evolution, IMBH-seeding, final-status, and ex-situ NSC merger prescriptions used in the model. The appendices collect the cosmological relations, galaxy scaling relations, cluster initial-condition formulae, evolution equations, IMBH seed fits, and auxiliary statistical and photometric relations used by the semi-analytic calculation.
 
 \section{Method} \label{sect:method}
 
@@ -336,7 +334,7 @@ which corresponds to the Bullock-style spin proxy for the classical $R_{\rm e} \
 r_{\rm GC} & = R_{\rm e}
 \left[\dfrac{P^{-1}\{N_{\rm S}(3 - p), u\}}{b}\right]^{N_{\rm S}},
 \end{align}
-where $u$ is the assigned enclosed mass fraction of a cluster within the formation event. Clusters that form on non-main branches are assigned local S{\'e}rsic radii within their own satellite branch when the ex-situ NSC mode is enabled. In the default accreted-cluster mode, they are instead placed at $0.5 R_{\rm vir}$ of the descendant halo rather than in the central S{\'e}rsic component.
+where $u$ is the assigned enclosed mass fraction of a cluster within the formation event. Clusters that form on satellite branches are assigned local S{\'e}rsic radii within their own branch before any later halo merger. If they survive outside the nuclear region until the branch merges, they are released into the recipient halo at $0.5R_{\rm vir}$ and continue evolving in the new host potential.
 
 \subsubsection{Metallicity assignment} \label{subsubsect:metallicity_assignment}
 
@@ -408,7 +406,7 @@ Dynamical friction drives the radial inspiral of both bound GCs and wandering IM
 \dot{r}_{\rm df} & = - \dfrac{M / (10^5\,M_\odot)}{0.45\,r\,v_{\rm c}},
 \label{eq:dynamical_friction}
 \end{align}
-where $M$ is the current inspiralling mass. The code integrates this radial decay with a fourth-order Runge--Kutta estimate that re-evaluates the enclosed deposited mass and analytic background density at substeps. Objects reaching $r_{\rm sink} = 10^{-3}\,{\rm kpc}$ are counted as sunk into the central NSC channel.
+where $M$ is the current inspiralling mass. The code integrates this radial decay with a fourth-order Runge--Kutta estimate that re-evaluates the enclosed deposited mass and analytic background density at substeps. Objects reaching $r_{\rm sink} = 10^{-3}\,{\rm kpc}$ enter the fixed nuclear sink. Their stellar component is deposited into the innermost radial bin, while any embedded or wandering IMBH is added to the central black-hole channel.
 
 \subsection{Intermediate-Mass Black Holes (IMBHs)} \label{subsect:IMBH}
 
@@ -443,23 +441,91 @@ The adopted seed mass is $M_{\bullet,10}$ above this density threshold and $M_{\
 
 \subsubsection{Wandered IMBHs} \label{subsubsect:wandered_imbh}
 
-An IMBH-hosting GC can lose its stellar envelope before reaching the centre. This happens either when continuous stellar and tidal mass loss reduces the bound stellar mass down to the IMBH mass, or when direct tidal tearing removes the remaining stellar component. In that case the model deposits the residual stellar mass into the local radial bin and converts the object into a wandering IMBH. A wandering IMBH no longer undergoes stellar evolution or tidal stripping, but it continues to experience dynamical friction using its own mass. If it reaches $r_{\rm sink}$, it is counted as a sunk wandering IMBH; otherwise it remains as a surviving off-centre remnant at the final redshift.
+An IMBH-hosting GC can lose its stellar envelope before reaching the centre. This happens either when continuous stellar and tidal mass loss reduces the bound stellar mass down to the IMBH mass, or when direct tidal tearing removes the remaining stellar component. In that case the model deposits the residual stellar mass into the local radial bin and converts the object into a wandering IMBH\@. A wandering IMBH no longer undergoes stellar evolution or tidal stripping, but it continues to experience dynamical friction using its own mass. If it reaches $r_{\rm sink}$, it is counted as a sunk wandering IMBH; otherwise it remains as a surviving off-centre remnant at the final redshift.
 
 \subsection{Final Fate of GCs} \label{subsect:stat}
 
-\czkong{[Add a subsection here to describe the final status of GCs, matching those in the model/code.]}
+At the end of each evolution segment, the solver writes one final state for every input GC\@. Table~\ref{tab:final_status} summarises the mutually exclusive status flags used in the final-GC catalogue.
 
-At the end of each evolution segment, the solver writes one final state for every input GC. The status flag distinguishes six mutually exclusive fates. Clusters with status $1$ remain bound outside the nuclear sink and contribute their surviving stellar mass to the final-GC catalogue. Status $-1$ denotes complete stellar exhaustion outside the sink, after which no bound stellar component remains. Status $-2$ denotes direct tidal tearing outside the sink; the remaining stellar mass is deposited into the local radial bins and does not enter the central NSC aperture. Status $-3$ denotes an intact GC reaching $r_{\rm sink}=6\,{\rm pc}$ before disruption. In this case the remaining stellar mass is added to the cumulative NSC mass, $M_{\rm NSC}$, and any embedded IMBH is added to the cumulative central black-hole mass, $M_{\rm BH}$.
+\begin{deluxetable*}{c p{0.20\textwidth} p{0.62\textwidth}}
+\tablecaption{Final GC and IMBH status flags.\label{tab:final_status}}
+\tablehead{\colhead{Status} & \colhead{Fate} & \colhead{Bookkeeping}}
+$1$ & Surviving bound GC & A bound stellar cluster remains outside the fixed $1~{\rm pc}$ sink and contributes its surviving stellar mass to the final-GC catalogue. Stellar mass stripped earlier remains in the deposited-mass profile. \\
+$-1$ & Stellar exhaustion & The bound stellar component is fully removed outside the sink. The object leaves no surviving GC and no central black-hole entry, but its lost stellar mass remains in the deposited-mass profile. \\
+$-2$ & Direct tidal tearing & A non-IMBH-hosting cluster is tidally destroyed outside the sink. Its remaining stellar mass is deposited at the disruption radius. \\
+$-3$ & Sunk bound GC & A bound GC reaches the fixed $1~{\rm pc}$ sink before disruption. Its remaining stellar mass is deposited into the innermost radial bin, and any embedded IMBH enters the central black-hole channel. \\
+$-4$ & Non-central wandering IMBH & An IMBH-hosting cluster loses its stellar envelope before reaching the sink, leaving a naked IMBH outside the nuclear region at the final redshift. The stripped stellar envelope is deposited where it is removed. \\
+$-5$ & Sunk wandering IMBH & A naked wandering IMBH reaches the fixed $1~{\rm pc}$ sink. The IMBH enters the central black-hole channel, with no stellar mass deposited at the entry event.
+\tablecomments{The published stellar NSC mass, $M_{\rm NSC}$, is sampled from the cumulative evolved stellar-mass deposition profile inside $R_{\rm NSC}=6~{\rm pc}$. The fixed $1~{\rm pc}$ sink is therefore the innermost deposit bin and the central-BH entry boundary, not the full public NSC aperture.}
+\end{deluxetable*}
 
-For IMBH-hosting clusters, loss of the stellar envelope converts the object into a naked wandering IMBH. Such remnants have status $-4$ if they remain outside the nuclear aperture at the final redshift, and status $-5$ if they later sink into the aperture. The latter contributes black-hole mass to $M_{\rm BH}$, but no stellar mass to $M_{\rm NSC}$. The deposited-mass profile therefore records stellar material lost outside the aperture, while the central NSC history records only mass carried into $r \le r_{\rm sink}$ by intact clusters plus IMBHs that cross the same sink boundary.
+For IMBH-hosting clusters, loss of the stellar envelope converts the object into a naked wandering IMBH\@. The deposited-mass profile records stellar material removed by stellar evolution, continuous tidal stripping, direct tidal tearing, and sink entry. The stellar NSC mass reported in the halo summaries is then the evolved deposited stellar mass enclosed by $R_{\rm NSC}=6~{\rm pc}$, so stellar material need not be carried intact to $r_{\rm sink}$ in order to contribute to $M_{\rm NSC}$. By contrast, the central black-hole mass includes only IMBHs that cross the fixed $1~{\rm pc}$ sink, either while still embedded in a bound GC or as naked wandering remnants.
 
-\subsection{Ex-situ NSC Mergers} \label{subsect:merge}
+\subsection{Halo Mergers \& NSCs} \label{subsect:merge}
 
-\czkong{[The latest version of the codes add an input param \texttt{--ex-situNSC 1} to add an ex-situ NSC merger channel. Describe the addtion here in this subsection.]}
+The merger treatment follows satellite branches explicitly before their material is handed to the descendant branch. A GC born on a satellite branch is assigned a local S{\'e}rsic radius inside that satellite, using the spatial-sampling procedure in Sect.~\ref{subsubsect:spatial_sampling} and equation~(\ref{eq:sersic_density}). It is then evolved with the same stellar-evolution, tidal-stripping, tidal-tearing, and dynamical-friction solver described in Sect.~\ref{subsect:gc_evolution} and equations~(\ref{eq:stellar_evolution})--(\ref{eq:dynamical_friction}), but using the satellite branch's own halo history. The branch is followed until the fixed-tree descendant connection releases it into its recipient branch, or until the terminal branch redshift when no direct descendant row is present.
 
-The command-line flag \texttt{--ex-situNSC 1} activates a branch-continuation treatment for clusters formed outside the main progenitor branch. In this mode, a GC born on a satellite branch is first assigned a local S{\'e}rsic radius inside that satellite and is evolved with the same GC evolution solver using the satellite branch's own halo history. The branch is followed until its release redshift, defined by the fixed-tree descendant connection, or by the terminal branch redshift when the direct descendant row is absent. Any intact GC or wandering IMBH that crosses $r_{\rm sink}$ before release contributes to the satellite's cumulative $M_{\rm NSC}$ and $M_{\rm BH}$.
+If a bound GC or a wandering IMBH crosses the fixed $1~{\rm pc}$ sink before the branch merger, its IMBH contribution is stored in the satellite's central black-hole state. The corresponding stellar contribution is retained through the deposited-mass profile: the public $M_{\rm NSC}$ is the evolved deposited stellar mass enclosed within $R_{\rm NSC}=6~{\rm pc}$, including the fixed $0$--$1~{\rm pc}$ bin. At the branch merger, the satellite central black-hole state and its fixed inner-bin deposited stellar component are imported into the recipient branch as compact nuclear material. Surviving non-central GCs and non-central wandering IMBHs are released into the recipient halo at $0.5R_{\rm vir}$ and continue evolving there \citep{Gao+2024GC}. The procedure is recursive, so compact nuclear material assembled in lower-level satellites can pass through intermediate branches before reaching the main progenitor.
 
-At the branch merger, these cumulative central masses are imported into the recipient branch as a compact satellite-NSC contribution. Surviving non-central GCs are released into the recipient halo at $0.5R_{\rm vir}$ and continue evolving there. The procedure is recursive, so central masses assembled in lower-level satellites can pass through intermediate branches before reaching the main progenitor. In the default \texttt{--ex-situNSC 0} mode this preprocessing is skipped, and non-main-branch clusters are treated only as ordinary ex-situ GCs in the recipient halo. Comparing the two modes therefore isolates the additional contribution from compact satellite nuclei.
+\section{Results} \label{sect:result}
+
+\czkong{[Write a brief summary of the subsections here. Mention the main content of each subsection explictly.]}
+
+We now compare the fiducial $N_{\rm S}=2$ output of the $M_{\rm h}(z=0)=10^{12}$--$10^{14}~M_\odot$ Illustris-1-Dark halo sample with observational diagnostics of GCs, NSCs, and massive BHs. We first verify that the GC population reproduces the local GC-system mass--halo mass relation and the broad GC age--metallicity structure. We then test whether the ex-situ deposited component, measured as the evolved stellar mass inside $R_{\rm NSC}=6~{\rm pc}$, follows the observed $M_{\rm NSC}$--$M_\star$ scaling. The next two subsections connect this deposited stellar component to the central BH mass, $M_\bullet$, which is built from IMBH delivery into the fixed $1~{\rm pc}$ sink plus the central-only accretion prescription. We then present a local $z=0$ number-density diagnostic for the Nuclear and Satellite BH components. Finally, we use the QSO1 rotation-curve comparison as a case study of whether the fiducial catalogue produces a compact, BH-dominated nucleus similar to the observed source.
+
+\subsection{Properties of GCs at $z = 0$ \& Comparison with Observations} \label{subsect:check}
+
+\czkong{[Based on \texttt{\_plots\_Choksi+2018/Fig.03\_mgc\_vs\_mhalo.pdf} and \texttt{\_plots\_Choksi+2018/Fig.09\_age\_metallicity}. Refer to similar sections in Gao+2024 paper.]}
+
+As a first validation of the underlying GC population, we compare the final GC-system mass with the present-day halo mass. Over the high-mass interval sampled by the fiducial run, the model median follows the approximately linear $M_{\rm GC}$--$M_{\rm h}$ relation inferred for local GC systems and remains close to both the Choksi+2018 model relation and the Harris et al.\ observational calibration. The interquartile range is narrow compared with the full dynamic range of the relation, but it is not negligible; this scatter is expected because the selected haloes have different merger histories, GC formation episodes, metallicities, and subsequent disruption histories.
+
+The age--metallicity comparison provides a complementary check on the formation history. The model contours occupy the same broad region as the Galactic and LMC GC measurements: the most metal-poor clusters are predominantly old, while the metal-richer population extends to younger ages and shows larger dispersion. This behaviour is qualitatively consistent with the Choksi-style formation picture used in \citet{Gao+2024GC}, in which early low-metallicity halo growth builds the old metal-poor population and later enrichment shifts subsequent cluster formation to higher metallicity. The agreement should be interpreted as a population-level validation of the GC formation and metallicity prescriptions, rather than a one-to-one fit to the observed Milky Way or LMC samples.
+
+\subsection{The $M_{\rm NSC}$-$M_\star$ Relation} \label{subsect:Mnsc-Mstar}
+
+\czkong{[Based on \texttt{\_plots\_Neumayer+2020/Fig.12\_nsc\_scaling}. Refer to similar sections in Neumayer+2020 paper.}
+
+The deposited stellar component also falls in the observed NSC scaling regime. In the $M_{\rm NSC}$--$M_\star$ plane, the model points overlap the Neumayer+2020 compilation and the fitted relation for the dynamically measured subset, especially at the massive-galaxy end covered by the present halo sample. The model fit uses the 6 pc deposited-mass proxy, so it should be compared with observed NSC masses as the contribution from inspiralling and disrupted clusters, not as a complete prediction for all nuclear stellar mass.
+
+This distinction is important for interpreting deviations from the observational cloud. The calculation does not include in-situ nuclear star formation, gas inflow, or star formation triggered after cluster deposition. Therefore, agreement with the observed scaling supports the idea that GC inspiral can provide a substantial ex-situ NSC component, while any deficit relative to individual high-mass or late-type systems is not by itself a failure of the ex-situ channel. The declining $M_{\rm NSC}/M_\star$ trend in the right-hand panel is likewise consistent with the observed tendency for NSCs to become a smaller fraction of their host stellar mass in massive galaxies \citep{Neumayer+2020}.
+
+\subsection{The $M_\bullet$-$M_{\rm NSC}$ Relation} \label{subsect:Mbh-Mnsc}
+
+\czkong{[Based on \texttt{\_plots\_Kong+2026/Fig.05\_Mbh$\sim$Mnsc.pdf}. Refer to similar sections in Neumayer+2020 paper.]}
+
+The model naturally produces systems in which a central BH and an NSC coexist. This is expected observationally: local galaxies can host both components, and the ratio $M_\bullet/M_{\rm NSC}$ spans orders of magnitude \citep{Neumayer+2020}. In the model, the relation is not imposed as an empirical scaling law. The NSC mass is the evolved stellar mass deposited inside $6~{\rm pc}$, whereas the BH mass counts only IMBHs that reach the fixed $1~{\rm pc}$ sink and the subsequent accretion of the central BH state.
+
+The plotted sequence therefore reflects delivery efficiency and accretion history. At high redshift, many haloes have already assembled $M_{\rm NSC}\sim10^7$--$10^9~M_\odot$ but retain comparatively small central BHs, because only a subset of IMBH-bearing clusters have reached the sink. Towards lower redshift, additional inspiral events and central-only accretion move the same population upward in $M_\bullet$ at nearly fixed or slowly growing $M_{\rm NSC}$. By $z=0$, the fiducial catalogue spans $M_\bullet\simeq3.4\times10^7$--$1.6\times10^9~M_\odot$ and $M_{\rm NSC}\simeq4.7\times10^7$--$1.6\times10^9~M_\odot$, illustrating that the model can reach BH-to-NSC mass ratios of order unity in massive descendants.
+
+\subsection{The $M_\bullet$-$M_\star$ Relation} \label{subsect:Mbh-Mstar}
+
+\czkong{[Based on \texttt{\_plots\_Kong+2026/Fig.04\_Mbh$\sim$Mstar.pdf}. Refer to similar sections in Kritos+2025 paper.]}
+
+We next compare the central BH mass with the stellar mass inferred for the same redshift. The stellar mass in this diagnostic is not measured from simulated star particles; it is obtained by applying the project stellar-mass--halo-mass helper to the main-progenitor halo mass at each output redshift. The comparison is therefore a consistency check between the cluster-seeded central BH channel and an empirical host-galaxy mass scale.
+
+The fiducial tracks occupy the low-mass extrapolation of the local \citet{ReinesVolonteri2015} relation at early times and then move upward as central BH accretion proceeds. At fixed redshift, the model produces a broad range of $M_\bullet/M_\star$, with some high-redshift systems lying above the local relation for their inferred stellar mass. However, the most extreme observed JWST/LRD comparison points remain above the fiducial model at $z\sim7$: in the catalogue, the maximum central BH mass at $z=7$ is only $6.8\times10^5~M_\odot$. Thus, the $2$ per cent Eddington central-only accretion run can populate moderately overmassive early BHs, but it does not reproduce the full mass scale of the most extreme high-redshift AGN points without additional growth or a different seeding/accretion history.
+
+\subsection{Massive BH Mass Function / Number Density} \label{subsect:BHMF}
+
+\czkong{[Refer to similar sections in Kritos+2025 paper.]}
+
+For the local abundance diagnostic, we follow the component split used in the Kritos+2025-style comparison. The Nuclear component consists of the positive central BH masses in the $z=0$ halo-summary rows, while the Satellite component consists of positive IMBHs that remain outside the nucleus, either in surviving GCs with status $1$ or as wandering IMBHs with status $-4$. Objects with status $-3$ or $-5$ have already entered the central sink and are therefore included only through the Nuclear channel. No Ejected component is included in this catalogue.
+
+The resulting $n_{\rm BH}$ values should be interpreted carefully. They are selected-output Kong counts divided by the Illustris-1-Dark box volume, $V=1.20911\times10^6~{\rm Mpc}^{3}$, following the adopted Fig.09 normalisation; they are not a parent-halo-selection-weighted reconstruction of the full Illustris-1-Dark halo population. With this convention, the $z=0$ inventory contains 128 Nuclear BHs with masses $3.4\times10^7$--$1.6\times10^9~M_\odot$ and $8.4\times10^5$ Satellite IMBHs with masses $1.0\times10^2$--$3.0\times10^3~M_\odot$. The Satellite component dominates the number density at IMBH masses, peaking near the $8.5\times10^2$--$1.7\times10^3~M_\odot$ bin, while the Nuclear component is restricted to the massive-BH regime and peaks at $n_{\rm BH}\simeq2.6\times10^{-5}~{\rm Mpc}^{-3}$ near $10^8~M_\odot$. Under this selected-output normalisation, the Nuclear curve remains below the Greene et al.\ lower-limit curves used in the Kritos-style reference comparison, so this panel is best viewed as an abundance diagnostic for the simulated sample rather than as a complete local BH mass function.
+
+\subsection{Case Study: Is Abell 2744-QSO1 a ``naked'' SMBH?} \label{subsect:case}
+
+\czkong{[Based on \texttt{\_plots\_Kong+2026/Fig.08\_QSO1\_rotation\_curve\_mass\_profile}. The Juodzbalis+2026 paper gives several mutually reinforcing reasons that QSO1 contains an accreting central compact object. The defensible reinterpretation is narrower: QSO1 may be a SMBH embedded in a compact nuclear star cluster assembled by GC inspiral and IMBH delivery, rather than a completely naked point-mass BH in an otherwise empty nucleus. Use the given figure to write to support this idea.]}
+
+The QSO1 comparison is a useful stress test because it asks whether the fiducial catalogue can produce a compact, BH-dominated nucleus at $z\simeq7$. We compare the observed rotation-curve points and point-mass curve with the deposited-stellar-plus-central-BH velocity profiles of the model haloes at $z=7$. The best-matching profile in the existing catalogue is halo \texttt{1660}. Its line-of-sight velocity profile reaches $63.8~{\rm km~s^{-1}}$ at $12.5~{\rm pc}$, $32.2~{\rm km~s^{-1}}$ at $50~{\rm pc}$, and $18.6~{\rm km~s^{-1}}$ at $150~{\rm pc}$, giving a reasonable match to the shape of the plotted rotation curve.
+
+The mass decomposition, however, does not support the intended SMBH-in-a-dynamically-subdominant-NSC interpretation for this fiducial run. The same best-matching halo has a central BH mass of only $1.2\times10^4~M_\odot$ at $z=7$, whereas the deposited stellar mass enclosed within $150~{\rm pc}$ is $1.2\times10^7~M_\odot$. The stellar component contributes more than $99$ per cent of the enclosed mass over the radii used for the comparison. Thus, the existing catalogue evidence indicates that the QSO1-like velocity amplitude in this run is produced by a compact deposited stellar nucleus rather than by an SMBH embedded in a dynamically subdominant NSC\@. This negative result is informative: the fiducial GC-inspiral model can build compact nuclear stellar mass early, but matching QSO1 as a BH-dominated object requires substantially more central BH growth than is present in the $Eddington=0.02$ catalogue.
+
+\section{Discussion \& Caveats} \label{sect:discuss}
+
+\subsection{Caveats, Limitations, \& Future Works} \label{subsect:limit}
+
+\section{Conclusions \& Summary} \label{sect:summary}
 
 %% Please use the acknowledgment and contribution environments. This will 
 %% be anonomyized when the "anonymous" style option is used. 
@@ -527,12 +593,12 @@ All authors contributed equally to the Terra Mater collaboration.
 \section{Cosmology and Halo Quantities}
 \label{app:cosmology_equations}
 
-This appendix reviews the cosmological equations used by the semi-analytic model to convert between redshift, cosmic time, halo virial quantities, and the analytic background potential. \czkong{[Not accurate. Your beginning should reflect the appendix title, like ``this appendix reviews the cosmology equations used in the semi-analytical model.'']} Throughout these calculations we adopt a standard spatially flat $\Lambda$CDM cosmology and neglect radiation, which is subdominant for the halo-evolution redshifts considered here. \czkong{[This expression is strange and uncommon in astronomy, using more precise way, like a standard $\Lambda$CDM cosmology but without radiation since the redshift range we considered is ...]} The expansion function is
+This appendix reviews the cosmological equations used by the semi-analytic model to convert between redshift, cosmic time, halo virial quantities, and the analytic background potential. Throughout these calculations we adopt a standard spatially flat $\Lambda$CDM cosmology and neglect radiation, which is subdominant for the halo-evolution redshifts considered here. The expansion function is
 \begin{align}
 \Omega_{\Lambda ,0} & = 1 - \Omega_{\rm m, 0} ,\\
 E(z) & = \dfrac{H (z)}{H_0} = \sqrt{\Omega_{\rm m, 0} (1 + z)^3 + \Omega_{\Lambda, 0}} .
 \end{align}
-\czkong{[What's the meaning of $E(z)$? You should explain every variable mentioned in the equations to avoid vague meanings.]} Here $E(z)$ is the dimensionless expansion function, $H(z)/H_0$; $H_0$ is the Hubble constant; $H(z)$ is the Hubble parameter at redshift $z$; $\Omega_{\rm m,0}$ is the present-day matter density parameter; and $\Omega_{\Lambda,0}$ is the present-day dark-energy density parameter. The current implementation uses a single cosmology for both the formation catalogues and the analytic orbital-evolution background. \czkong{[Illustris-based formation quantities are no longer used.]} We adopt $\Omega_{\rm m,0}=0.307$, $\Omega_{\Lambda,0}=0.693$, and $H_0=67.97\,{\rm km\,s^{-1}\,Mpc^{-1}}$, matching the DESI 2024 BAO plus CMB flat-$\Lambda$CDM constraints used in the code. \czkong{[Mention here that this is based on latest DSEI+BAO measurements.]}
+Here $E(z)$ is the dimensionless expansion function, $H(z)/H_0$; $H_0$ is the Hubble constant; $H(z)$ is the Hubble parameter at redshift $z$; $\Omega_{\rm m,0}$ is the present-day matter density parameter; and $\Omega_{\Lambda,0}$ is the present-day dark-energy density parameter. The current implementation uses a single cosmology for both the formation catalogues and the analytic orbital-evolution background. We adopt $\Omega_{\rm m,0}=0.307$, $\Omega_{\Lambda,0}=0.693$, and $H_0=67.97\,{\rm km\,s^{-1}\,Mpc^{-1}}$, matching the \cite{DESIcollaboration2025} flat-$\Lambda$CDM constraints used in the code.
 
 The evolving matter density parameter is
 \begin{align}
@@ -660,15 +726,6 @@ The smooth filtering function used for baryon retention is
 \begin{align}
 s(x,y) &= \left[1+\left(2^{y/3}-1\right)x^y\right]^{-3/y}.
 \end{align}
-The Muratov--Gnedin retention model is
-\begin{align}
-f_{\rm in} &= \left(1+\dfrac{M_{\rm ch}}{M_{\rm h}}\right)^{-3},\\
-M_{\rm ch} &= \max
-\left[
-\dfrac{3.6\times10^9 e^{-0.6(1+z)}}{h},
-\dfrac{1.5\times10^{10} 180^{-1/2}}{E(z)h}
-\right]M_\odot.
-\end{align}
 The Chen--Gnedin retention model is
 \begin{align}
 f_{\rm in} &= s\left(\dfrac{M_{\rm ch}}{M_{\rm h}},2\right),\\
@@ -681,19 +738,12 @@ z_{\rm rei} &= 6,\qquad \Gamma=15.
 \end{align}
 Here $M_{\rm ch}$ is the characteristic halo mass at which reionisation suppresses baryon accretion.
 
-Two mass--metallicity relations are used. The Choksi-style relation is
+The production runs use the Chen--Gnedin mass--metallicity relation \citep{Chen&Gnedin2024aGC},
 \begin{align}
-[\mathrm{Fe}/\mathrm{H}]_{\rm gal}
-&=0.35(\log_{10}M_{\star}-10.5)
--0.9\log_{10}(1+z),
+[\mathrm{Fe} / \mathrm{H}] (M_\star, z) & = 0.3 \log_{10} \left( \dfrac{M_\star}{10^9~M_\odot} \right) - \log_{10} (1 + z) - 0.5 .
+\label{eq:mass-metal}
 \end{align}
-and the Chen--Gnedin relation is
-\begin{align}
-[\mathrm{Fe}/\mathrm{H}]_{\rm gal}
-&=0.3\log_{10}\left(\dfrac{M_{\star}}{10^9~M_\odot}\right)
--\log_{10}(1+z)-0.5.
-\end{align}
-Both are capped at $[\mathrm{Fe}/\mathrm{H}]=0.3$. The cluster metallicity is
+This relation is capped at $[\mathrm{Fe}/\mathrm{H}]=0.3$. The cluster metallicity is
 \begin{align}
 [\mathrm{Fe}/\mathrm{H}]_{\rm GC}
 &=[\mathrm{Fe}/\mathrm{H}]_{\rm gal}+\xi_m,\\
@@ -709,16 +759,14 @@ and the solar-scaled metal fraction entering the IMBH fit is
 
 GC formation is triggered by rapid halo growth,
 \begin{align}
-R_{\rm m} &=
 \dfrac{M_{{\rm h},i}/M_{{\rm h},{\rm prog}}-1}
-{t_i-t_{\rm prog}},\\
-R_{\rm m} &> p_3.
+{t_i-t_{\rm prog}} > p_3 .
 \end{align}
-Here $R_{\rm m}$ is the specific halo growth rate, $t_i$ and $t_{\rm prog}$ are the cosmic ages of the current halo and its progenitor, and $p_3$ is the threshold parameter.
+Here $t_i$ and $t_{\rm prog}$ are the cosmic ages of the current halo and its progenitor, and $p_3$ is the threshold parameter.
 
 The total mass formed in clusters during one event is
 \begin{align}
-M_{\rm GC,tot} &= 3\times10^{-5}p_2\dfrac{M_{\rm g}}{f_{\rm b}},
+M_{\rm GC, tot} & = 3\times10^{-5}p_2\dfrac{M_{\rm g}}{f_{\rm b}},
 \end{align}
 where $p_2$ controls the cluster formation efficiency.
 
@@ -789,41 +837,6 @@ where $j_{\rm sp}$ is the specific angular momentum norm of the halo, $h=H_0/(10
 R_{\rm e} &= \dfrac{\lambda R_{\rm vir}}{\sqrt{2}},
 \end{align}
 where $J$ is the halo angular-momentum norm in the same unit system as $G$, $R_{\rm vir}$, and $M_{\rm h}$.
-
-\begin{comment}
-For the empirical star-forming size relation, the GC radius scale is
-\begin{align}
-R_{\rm e,GC} &= F_{\rm GC}R_{\rm e,SF}.
-\end{align}
-At $z>3$,
-\begin{align}
-R_{\rm e,SF} &=
-0.83
-\left(\dfrac{M_{\star}}{10^{8.5}~M_\odot}\right)^{0.25}
-\left(\dfrac{1+z}{5}\right)^{-1.24}
-~{\rm kpc}.
-\end{align}
-At lower redshift, tabulated coefficients are interpolated in $\log(1+z)$ and
-\begin{align}
-\log_{10} R_{\rm e,SF}
-&=\log_{10}A_{\rm SF}(z)
-+\alpha_{\rm SF}(z)
-\log_{10}\left(\dfrac{M_{\star}}{5\times10^{10}~M_\odot}\right)
-+\xi_R,\\
-\xi_R &\sim {\cal N}\left[0,\sigma_{\log R}(z)\right].
-\end{align}
-The current fiducial value is $F_{\rm GC}=1$.
-
-When star-formation aperture fractions are available, a Sersic effective radius is inferred from the fractions $f_1$ and $f_2$ inside $R_{1/2,\star}$ and $2R_{1/2,\star}$:
-\begin{align}
-a_n &= n(3-p),\\
-X_1 &= P^{-1}(a_n,f_1),\\
-X_2 &= P^{-1}(a_n,f_2),\\
-R_{{\rm e},1} &= R_{1/2,\star}\left(\dfrac{b}{X_1}\right)^n,\\
-R_{{\rm e},2} &= 2R_{1/2,\star}\left(\dfrac{b}{X_2}\right)^n,\\
-R_{\rm e,SF} &= \left(R_{{\rm e},1}R_{{\rm e},2}\right)^{1/2}.
-\end{align}
-\end{comment}
 
 \section{Cluster Evolution}
 \label{app:evolution_equations}
@@ -1039,14 +1052,6 @@ Here $A$, $B$, $C$, $D$, $E$, and $S$ are the metallicity-dependent fitted coeff
 \section{Auxiliary Statistical and Photometric Relations}
 \label{app:auxiliary_equations}
 
-The Euclidean separation used for halo-coordinate distances is
-\begin{align}
-d_{12} &=
-\left[
-(x_1-x_2)^2+(y_1-y_2)^2+(z_1-z_2)^2
-\right]^{1/2}.
-\end{align}
-
 For a power-law probability density $\mathrm{d}N/\mathrm{d}M\propto M^{\alpha}$, inverse-transform sampling gives
 \begin{align}
 M &= M_{\min}(1-r)^{1/(\alpha+1)}
@@ -1060,14 +1065,6 @@ r\left(M_{\max}^{\alpha+1}-M_{\min}^{\alpha+1}\right)
 \right]^{1/(\alpha+1)}
 \end{align}
 for the bounded interval $M_{\min}\leq M\leq M_{\max}$, where $r$ is a uniform deviate on $[0,1)$.
-
-The AB magnitude and flux-density conversions are
-\begin{align}
-F_{\nu}({\rm Jy}) &=
-\dfrac{10^{(23.9-m_{\rm AB})/2.5}}{10^6},\\
-m_{\rm AB} &=
--2.5\log_{10}\left(\dfrac{F_{\nu}}{3631~{\rm Jy}}\right).
-\end{align}
 
 The Gaussian kernel density estimate used for one-dimensional distributions is
 \begin{align}

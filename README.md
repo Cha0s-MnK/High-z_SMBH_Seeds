@@ -73,7 +73,7 @@ This script builds the Neumayer et al. (2020) NSC comparison from one finished m
 
 #### `plot/plot_Kong+2026.py`
 
-This script combines the IMBH seed diagnostics and the redshift-resolved central NSC/BH summaries. It reads one per-`N_s` `allcat_ns*.txt` formation catalogue for the initial cluster mass-radius and surface-density-metallicity IMBH plots, then reads `haloSummaryByZ_ns*.csv` for the central tracks. Fig. 4 uses the same-redshift MPB halo mass stored in that summary, converts it to stellar mass with the project SMHM helper, and does not reconstruct halo mass from the flattened `mpb_from_fixed_trees.csv` table. Fig. 7 adds an individual sunk IMBH versus sunk GC stellar mass diagnostic from `finalGCs_ns*.dat`, including sunk IMBH wanderers at `M_GC_final = 0`. It writes seven figures to `<out_dir>/_plots_Kong+2026`. When `my/run.py` is given `--plot_Kong+2026`, it uses the same automatic `N_s` choice as the Choksi and Neumayer plot suites.
+This script combines the IMBH seed diagnostics and the redshift-resolved central NSC/BH summaries. It reads one per-`N_s` `allcat_ns*.txt` formation catalogue for the initial cluster mass-radius and surface-density-metallicity IMBH plots, then reads `haloSummaryByZ_ns*.csv` for the central tracks. Fig. 4 uses the same-redshift MPB halo mass stored in that summary, converts it to stellar mass with the project SMHM helper, and does not reconstruct halo mass from the flattened `mpb_from_fixed_trees.csv` table. Fig. 7 adds an individual sunk IMBH versus sunk GC stellar mass diagnostic from `finalGCs_ns*.dat`, including sunk IMBH wanderers at `M_GC_final = 0`. Fig. 8 reproduces the Juodzbalis+2026 QSO1 rotation curve and overlays the z~7 deposited-stellar-plus-central-BH mass profiles. Fig. 9 compares the local nuclear and satellite BH mass function with the Kritos+2025/Greene+2020 reference curves. It writes nine figures to `<out_dir>/_plots_Kong+2026`. When `my/run.py` is given `--plot_Kong+2026`, it uses the same automatic `N_s` choice as the Choksi and Neumayer plot suites.
 
 The plotting helpers are split by responsibility: `plot/load_output.py` handles model-output paths, readers, validation, and derived model tables; `plot/load_obs.py` handles observational cache readers and explicit missing-cache errors; `plot/plot_common.py` contains small plotting-only utilities. Plotting does not download or rebuild observational caches automatically.
 
@@ -101,53 +101,26 @@ The plotting helpers are split by responsibility: `plot/load_output.py` handles 
 ## Typical Run
 
 ```bash
-python ~/High-z_SMBH_Seeds/src/run.py --help
-python ~/High-z_SMBH_Seeds/plot/plot_PeTar.py --help
-nohup python3 ~/High-z_SMBH_Seeds/src/run.py \
+python ~/GitHub/src/run.py --help
+python ~/GitHub/plot/plot_PeTar.py --help
+nohup python3 ~/GitHub/src/run.py \
   --tree-dir /lingshan/disk3/subonan/Illustris-1-Dark+TNG50-1-Dark/data/fixed_trees_large_spin_dark \
-  --clear-output 2 --output /lingshan/disk3/subonan/_outputs/High-z_SMBH_Seeds_Eddington0.01_ex-situ2_Mc7_New \
-  --Eddington 0.01 --ex-situ 2 --lg_cut-off_mass 7.0 --p2 6.75 --p3 0.5 --ts-m 0.2 --ts-r 0.2 \
-  --run-all 0 --n-halos 512 --log-mh-min 9.0 --log-mh-max 15.0 \
-  --out_z '1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0' --ns-values 2.0 \
-  --jobs 32 --ns-jobs 1 \
-  --plot_Choksi+2018 --plot_Neumayer+2020 --plot_Gao+2024 --plot_Kong+2026 \
-  > ~/run1.log 2>&1 &
-nohup python3 ~/High-z_SMBH_Seeds/src/run.py \
-  --tree-dir /lingshan/disk3/subonan/Illustris-1-Dark+TNG50-1-Dark/data/fixed_trees_large_spin_dark \
-  --clear-output 2 --output /lingshan/disk3/subonan/_outputs/High-z_SMBH_Seeds_Eddington0_ex-situ0_M31_Mc7_New \
-  --Eddington 0.0 --ex-situ 0 --lg_cut-off_mass 7.0 --p2 6.75 --p3 0.5 --ts-m 0.2 --ts-r 0.2 \
+  --clear-output 2 --output /lingshan/disk3/subonan/_outputs/High-z_SMBH_Seeds_Eddington0_M31_Mc7 \
+  --Eddington 0.0 --ex-situ 2 --lg_cut-off_mass 7.0 --p2 6.75 --p3 0.5 --ts-m 0.2 --ts-r 0.2 \
   --run-all 0 --n-halos 64 --log-mh-min 11.845 --log-mh-max 12.398 \
   --out_z '1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0' --ns-values 2.0 \
   --jobs 32 --ns-jobs 1 \
   --plot_Choksi+2018 --plot_Neumayer+2020 --plot_Gao+2024 --plot_Kong+2026 \
-  > ~/run00.log 2>&1 &
-nohup python3 ~/High-z_SMBH_Seeds/src/run.py \
+  > ~/run14.log 2>&1 &
+nohup python3 ~/GitHub/src/run.py \
   --tree-dir /lingshan/disk3/subonan/Illustris-1-Dark+TNG50-1-Dark/data/fixed_trees_large_spin_dark \
-  --clear-output 2 --output /lingshan/disk3/subonan/_outputs/High-z_SMBH_Seeds_Eddington0_ex-situ1_M31_Mc7_New \
-  --Eddington 0.0 --ex-situ 1 --lg_cut-off_mass 7.0 --p2 6.75 --p3 0.5 --ts-m 0.2 --ts-r 0.2 \
-  --run-all 0 --n-halos 64 --log-mh-min 11.845 --log-mh-max 12.398 \
+  --clear-output 2 --output /lingshan/disk3/subonan/_outputs/High-z_SMBH_Seeds_Eddington0.3_M11.5-13.5_Mc7 \
+  --Eddington 0.3 --ex-situ 2 --lg_cut-off_mass 7.0 --p2 6.75 --p3 0.5 --ts-m 0.2 --ts-r 0.2 \
+  --run-all 0 --n-halos 128 --log-mh-min 11.5 --log-mh-max 13.5 \
   --out_z '1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0' --ns-values 2.0 \
   --jobs 32 --ns-jobs 1 \
   --plot_Choksi+2018 --plot_Neumayer+2020 --plot_Gao+2024 --plot_Kong+2026 \
-  > ~/run11.log 2>&1 &
-nohup python3 ~/High-z_SMBH_Seeds/src/run.py \
-  --tree-dir /lingshan/disk3/subonan/Illustris-1-Dark+TNG50-1-Dark/data/fixed_trees_large_spin_dark \
-  --clear-output 2 --output /lingshan/disk3/subonan/_outputs/High-z_SMBH_Seeds_Eddington0.02_ex-situ2_M31_Mc7_New \
-  --Eddington 0.02 --ex-situ 2 --lg_cut-off_mass 7.0 --p2 6.75 --p3 0.5 --ts-m 0.2 --ts-r 0.2 \
-  --run-all 0 --n-halos 64 --log-mh-min 11.845 --log-mh-max 12.398 \
-  --out_z '1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0' --ns-values 2.0 \
-  --jobs 32 --ns-jobs 1 \
-  --plot_Choksi+2018 --plot_Neumayer+2020 --plot_Gao+2024 --plot_Kong+2026 \
-  > ~/run.log 2>&1 &
-nohup python3 ~/High-z_SMBH_Seeds/src/run.py \
-  --tree-dir /lingshan/disk3/subonan/Illustris-1-Dark+TNG50-1-Dark/data/fixed_trees_large_spin_dark \
-  --clear-output 2 --output /lingshan/disk3/subonan/_outputs/High-z_SMBH_Seeds_Eddington0.02_ex-situ2_M12-14_Mc7_New \
-  --Eddington 0.02 --ex-situ 2 --lg_cut-off_mass 7.0 --p2 6.75 --p3 0.5 --ts-m 0.2 --ts-r 0.2 \
-  --run-all 0 --n-halos 128 --log-mh-min 12.0 --log-mh-max 14.0 \
-  --out_z '1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0' --ns-values 2.0 \
-  --jobs 64 --ns-jobs 1 \
-  --plot_Choksi+2018 --plot_Neumayer+2020 --plot_Gao+2024 --plot_Kong+2026 \
-  > ~/run.log 2>&1 &
+  > ~/run_Eddington0.3_M11.5-13.5_Mc7.log 2>&1 &
 ```
 
 Prefer running from the repository root because the project path contains spaces and the relative `my/run.py` entry point is the least error-prone form.
@@ -167,13 +140,13 @@ Prefer running from the repository root because the project path contains spaces
 - The main merged outputs are `finalGCs_all.dat`, `depos_all.dat`, `haloSummary_all.csv`, `haloSummaryByZ_all.csv`, `python_evo_summary.csv`, and `run_metadata.json`.
 
 ```bash
-python3 ~/High-z_SMBH_Seeds/plot/plot_Choksi+2018.py \
+python3 ~/GitHub/plot/plot_Choksi+2018.py \
   --ns-value 2.0 --out_dir /lingshan/disk3/subonan/_outputs/NSC_Mix_IMBH
-python3 ~/High-z_SMBH_Seeds/plot/plot_Neumayer+2020.py \
+python3 ~/GitHub/plot/plot_Neumayer+2020.py \
   --ns-value 2.0 --out_dir /lingshan/disk3/subonan/_outputs/NSC_Mix_IMBH
-python3 ~/High-z_SMBH_Seeds/plot/plot_Gao+2024.py --out_dir /lingshan/disk3/subonan/_outputs/NSC_Mix_R0.5
-python3 ~/High-z_SMBH_Seeds/plot/plot_Kong+2026.py \
-  --ns-value 2.0 --out_dir /lingshan/disk3/subonan/_outputs/High-z_SMBH_Seeds_Eddington0_ex-situ2_M31_Mc7_New
+python3 ~/GitHub/plot/plot_Gao+2024.py --out_dir /lingshan/disk3/subonan/_outputs/NSC_Mix_R0.5
+python3 ~/GitHub/plot/plot_Kong+2026.py \
+  --ns-value 2.0 --out_dir /lingshan/disk3/subonan/_outputs/High-z_SMBH_Seeds_Eddington1_M12-13_Mc7
 ```
 
 New style:
@@ -248,7 +221,7 @@ These are not exposed as `my/run.py` flags, but they still define the evolution 
 ### `plot/plot_Gao+2024.py`
 
 ```bash
-cd ~/High-z_SMBH_Seeds
+cd ~/GitHub
 python3 plot/plot_Gao+2024.py \
   --out_dir <out_dir> \
   --ns-values 0.5,1.0,1.5,2.0,2.5,3.0,3.5,4.0
@@ -298,12 +271,12 @@ python3 plot/plot_Kong+2026.py \
 ```
 
 - `--out_dir`: one finished model output directory containing `ns*/allcat_ns*.txt` for Fig. 1/2, plus `allcat_s-*.txt` and `ns*/haloSummaryByZ_ns*.csv` for the redshift-resolved figures.
-- `--ns-value`: the single `N_s` value used for all seven figures; Fig. 1/2 intentionally use only this per-`N_s` formation catalogue.
+- `--ns-value`: the single `N_s` value used for all nine figures; Fig. 1/2 intentionally use only this per-`N_s` formation catalogue.
 - `--mass-bin-width-dex`: optional log halo-mass bin width for the mean and standard-deviation tracks.
 - `--no-smhm-top-axis`: optional switch to omit the present-day SMHM top axis in Fig. 3.
 - `--no-cliff-observations`: optional switch to skip the cached Cliff Fig. 14 observational overlay in Fig. 4.
 
-This script writes `Fig.01_initial_cluster_mass_radius_imbh_seeds.pdf`, `Fig.02_initial_surface_density_metallicity_imbh_thresholds.pdf`, `Fig.03_sunk_bh_mass_vs_halo_mass.pdf`, `Fig.04_Mbh~Mstar.pdf`, `Fig.05_Mbh~Mnsc.pdf`, `Fig.06_sunk_bh_mass_histogram.pdf`, and `Fig.07_sunkMimbh~sunkMgc.pdf` under `<out_dir>/_plots_Kong+2026/`.
+This script writes `Fig.01_initial_cluster_mass_radius_imbh_seeds.pdf`, `Fig.02_initial_surface_density_metallicity_imbh_thresholds.pdf`, `Fig.03_sunk_bh_mass_vs_halo_mass.pdf`, `Fig.04_Mbh~Mstar.pdf`, `Fig.05_Mbh~Mnsc.pdf`, `Fig.06_sunk_bh_mass_histogram.pdf`, `Fig.07_sunkMimbh~sunkMgc.pdf`, `Fig.08_QSO1_rotation_curve_mass_profile.pdf`, and `Fig.09_local_bh_mass_function.pdf` under `<out_dir>/_plots_Kong+2026/`.
 
 For all four plotting scripts, figure products always go to `<out_dir>/_plots_<suite>/`. Required observational cache files must already exist under `data/`; missing cache files now raise an explicit error instead of triggering a download or rebuild during plotting.
 
@@ -508,7 +481,7 @@ When the plot scripts are run, they write:
 - `_plots_Gao+2024/Fig.XX_*.pdf`: Gao+2024 suite from `plot/plot_Gao+2024.py`.
 - `_plots_Choksi+2018/Fig.XX_*.pdf`: Choksi+2018 suite from `plot/plot_Choksi+2018.py`.
 - `_plots_Neumayer+2020/Fig.03_galaxy_demographics.pdf`, `_plots_Neumayer+2020/Fig.12_nsc_scaling.pdf`, and `_plots_Neumayer+2020/Fig.13_bh_nsc_mass_ratio.pdf`: Neumayer+2020 comparison from `plot/plot_Neumayer+2020.py`.
-- `_plots_Kong+2026/Fig.01_*.pdf` through `_plots_Kong+2026/Fig.07_*.pdf`: IMBH seed diagnostics and redshift-resolved central NSC/BH summaries from `plot/plot_Kong+2026.py`.
+- `_plots_Kong+2026/Fig.01_*.pdf` through `_plots_Kong+2026/Fig.09_*.pdf`: IMBH seed diagnostics, redshift-resolved central NSC/BH summaries, the QSO1 z~7 rotation-curve comparison, and the local BH mass-function comparison from `plot/plot_Kong+2026.py`.
 
 ## Install McLuster
 

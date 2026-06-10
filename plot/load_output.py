@@ -23,7 +23,7 @@ SRC_DIR = PROJECT_ROOT / "src"
 if str(SRC_DIR) not in sys.path:
     sys.path.insert(0, str(SRC_DIR))
 
-from config import Ez, H100, Mstar_SMHM, NSC_RAD_PC, Redshift2CosmicAge  # noqa: E402
+from config import Ez, H100, Mstar_SMHM, NSC_RAD_PC, CosmicAge2Redshift, Redshift2CosmicAge  # noqa: E402
 
 
 RUN_METADATA_NAME = "run_metadata.json"
@@ -468,6 +468,118 @@ def load_deposit_profile(path: Path) -> DepositProfile:
     return DepositProfile(np.asarray(halo_ids, dtype=int), r_inner, r_outer, shell_mass, cumulative)
 
 
+def load_deposit_profile_for_redshift_summary(deposit_path: Path, summary_rows: pd.DataFrame, final_redshift: float = 0.0) -> DepositProfile:
+    """Load the deposit-profile block matched to each selected redshift-summary row."""
+
+    path = Path(deposit_path)
+    if not path.exists():
+        raise FileNotFoundError(f"Missing deposit profile: {path}")
+
+    summary = _add_halo_summary_by_z_legacy_aliases(summary_rows).copy()
+    required_summary = ["halo_id_z0", "redshift"]
+    missing_summary = [name for name in required_summary if name not in summary.columns]
+    if missing_summary:
+        raise ValueError(f"Selected halo summary is missing required deposit-match columns: {missing_summary}")
+    for col in summary.columns:
+        summary[col] = pd.to_numeric(summary[col], errors="coerce")
+    if summary.empty:
+        raise ValueError("Selected halo summary is empty; cannot match deposit-profile blocks.")
+    if summary["halo_id_z0"].isna().any():
+        raise ValueError("Selected halo summary contains non-finite halo_id_z0 values.")
+    summary["halo_id_z0"] = summary["halo_id_z0"].astype(int)
+    duplicated = summary["halo_id_z0"].duplicated(keep=False)
+    if duplicated.any():
+        dupes = sorted(summary.loc[duplicated, "halo_id_z0"].astype(int).unique().tolist())
+        raise ValueError(f"Selected halo summary must contain one row per halo; duplicated halo_id_z0 values: {dupes[:10]}")
+
+    table = read_headered_whitespace_table(path)
+    required_deposit = [
+        "halo_id_z0",
+        "lookback_time_gyr",
+        "bin_index",
+        "r_inner_kpc",
+        "r_outer_kpc",
+        "m_star_with_evo_msun",
+    ]
+    missing_deposit = [name for name in required_deposit if name not in table.columns]
+    if missing_deposit:
+        raise ValueError(f"{path} is missing required deposit columns: {missing_deposit}")
+    for col in required_deposit:
+        table[col] = pd.to_numeric(table[col], errors="coerce")
+    if table[required_deposit].isna().any().any():
+        raise ValueError(f"{path} contains non-finite values in required deposit columns.")
+    table["halo_id_z0"] = table["halo_id_z0"].astype(int)
+    table["bin_index"] = table["bin_index"].astype(int)
+
+    final_age_gyr = float(Redshift2CosmicAge(float(final_redshift)))
+    if not np.isfinite(final_age_gyr):
+        raise ValueError(f"final_redshift={final_redshift!r} gives a non-finite cosmic age.")
+
+    halo_ids: list[int] = []
+    r_inner: list[np.ndarray] = []
+    r_outer: list[np.ndarray] = []
+    shell_mass: list[np.ndarray] = []
+    cumulative: list[np.ndarray] = []
+    grouped = {int(hid): group for hid, group in table.groupby("halo_id_z0", sort=True)}
+
+    for row in summary.sort_values("halo_id_z0").itertuples(index=False):
+        hid = int(getattr(row, "halo_id_z0"))
+        if hid not in grouped:
+            raise ValueError(f"Deposit profile {path} has no rows for selected halo_id_z0={hid}.")
+        group = grouped[hid]
+        lookbacks = np.sort(group["lookback_time_gyr"].to_numpy(dtype=float))
+        unique_lookbacks = np.unique(lookbacks)
+
+        target_lookback = getattr(row, "deposit_sample_lookback_gyr", np.nan)
+        if np.isfinite(target_lookback):
+            block_lookback = float(unique_lookbacks[np.argmin(np.abs(unique_lookbacks - float(target_lookback)))])
+            delta = abs(block_lookback - float(target_lookback))
+            if delta > 1.0e-6:
+                raise ValueError(
+                    f"Deposit profile for halo_id_z0={hid} does not contain the requested "
+                    f"lookback {float(target_lookback):.9g} Gyr; nearest is {block_lookback:.9g} Gyr."
+                )
+        else:
+            target_redshift = getattr(row, "deposit_sample_redshift", np.nan)
+            if not np.isfinite(target_redshift):
+                target_redshift = getattr(row, "redshift")
+            block_redshifts = np.array([CosmicAge2Redshift(final_age_gyr - float(lb)) for lb in unique_lookbacks], dtype=float)
+            if not np.all(np.isfinite(block_redshifts)):
+                raise ValueError(f"Cannot infer finite deposit-block redshifts for halo_id_z0={hid}.")
+            block_lookback = float(unique_lookbacks[np.argmin(np.abs(block_redshifts - float(target_redshift)))])
+
+        block = group[np.isclose(group["lookback_time_gyr"].to_numpy(dtype=float), block_lookback, rtol=0.0, atol=1.0e-8)]
+        ordered = block.sort_values("bin_index")
+        bin_index = ordered["bin_index"].to_numpy(dtype=int)
+        expected = np.arange(1, len(bin_index) + 1, dtype=int)
+        if len(bin_index) == 0 or not np.array_equal(bin_index, expected):
+            raise ValueError(f"Deposit profile for halo_id_z0={hid} has non-contiguous bin_index values at lookback {block_lookback:.9g} Gyr.")
+
+        rin = ordered["r_inner_kpc"].to_numpy(dtype=float)
+        rout = ordered["r_outer_kpc"].to_numpy(dtype=float)
+        shell = ordered["m_star_with_evo_msun"].to_numpy(dtype=float)
+        if not np.isclose(rin[0], 0.0, rtol=0.0, atol=1.0e-10):
+            raise ValueError(f"Deposit profile for halo_id_z0={hid} does not start at r_inner_kpc=0.")
+        if not np.isclose(rout[0], 1.0e-3, rtol=0.0, atol=1.0e-10):
+            raise ValueError(f"Deposit profile for halo_id_z0={hid} does not start with r_outer_kpc=0.001.")
+        if np.any(~np.isfinite(rin)) or np.any(~np.isfinite(rout)) or np.any(~np.isfinite(shell)):
+            raise ValueError(f"Deposit profile for halo_id_z0={hid} contains non-finite radial or mass values.")
+        if np.any(shell < 0.0):
+            raise ValueError(f"Deposit profile for halo_id_z0={hid} contains negative deposited stellar shell masses.")
+        if np.any(np.diff(rout) <= 0.0):
+            raise ValueError(f"Deposit profile for halo_id_z0={hid} has non-increasing r_outer_kpc values.")
+        if np.any(rout <= rin):
+            raise ValueError(f"Deposit profile for halo_id_z0={hid} has non-positive-width radial bins.")
+
+        halo_ids.append(hid)
+        r_inner.append(rin)
+        r_outer.append(rout)
+        shell_mass.append(shell)
+        cumulative.append(np.cumsum(shell))
+
+    return DepositProfile(np.asarray(halo_ids, dtype=int), r_inner, r_outer, shell_mass, cumulative)
+
+
 def load_halo_summary(path: Path) -> pd.DataFrame:
     table = _rename_existing_columns(pd.read_csv(path), HALO_SUMMARY_COLUMN_MAP)
     if "halo_id_z0" not in table.columns:
@@ -533,6 +645,9 @@ def _add_halo_summary_by_z_legacy_aliases(table: pd.DataFrame) -> pd.DataFrame:
             "M_NSC": "nsc_mass_msun",
             "M_SMBH_init": "central_bh_mass_init_msun",
             "M_SMBH_final": "central_bh_mass_final_msun",
+            "z_depos_sampled": "deposit_sample_redshift",
+            "lookback_depos_sampled_gyr": "deposit_sample_lookback_gyr",
+            "depos_time_match_delta_gyr": "deposit_sample_time_delta_gyr",
         },
     )
 

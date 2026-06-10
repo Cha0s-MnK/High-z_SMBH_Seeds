@@ -31,6 +31,9 @@ CHOKSI_CACHE_DIR = PROJECT_ROOT / "data" / "Choksi+2018"
 NEUMAYER_CACHE_DIR = PROJECT_ROOT / "data" / "Neumayer+2020"
 CLIFF_CACHE_DIR = PROJECT_ROOT / "data" / "TheCliff+2026"
 JUODZBALIS_2026_CACHE_DIR = PROJECT_ROOT / "data" / "Juodzbalis+2026"
+JUODZBALIS_2026_FIG2_CACHE_DIR = PROJECT_ROOT / "data" / "Juodzbalis+2026Fig2"
+KRITOS_2025_FIG9_CACHE_DIR = PROJECT_ROOT / "data" / "Kritos+2025Fig9"
+KRITOS_2025_FIG10_CACHE_DIR = PROJECT_ROOT / "data" / "Kritos+2025Fig10"
 if not CHOKSI_CACHE_DIR.is_dir():
     CHOKSI_CACHE_DIR = PROJECT_ROOT.parent / "data" / "Choksi+2018"
 if not NEUMAYER_CACHE_DIR.is_dir():
@@ -39,6 +42,12 @@ if not CLIFF_CACHE_DIR.is_dir():
     CLIFF_CACHE_DIR = PROJECT_ROOT.parent / "data" / "TheCliff+2026"
 if not JUODZBALIS_2026_CACHE_DIR.is_dir():
     JUODZBALIS_2026_CACHE_DIR = PROJECT_ROOT.parent / "data" / "Juodzbalis+2026"
+if not JUODZBALIS_2026_FIG2_CACHE_DIR.is_dir():
+    JUODZBALIS_2026_FIG2_CACHE_DIR = PROJECT_ROOT.parent / "data" / "Juodzbalis+2026Fig2"
+if not KRITOS_2025_FIG9_CACHE_DIR.is_dir():
+    KRITOS_2025_FIG9_CACHE_DIR = PROJECT_ROOT.parent / "data" / "Kritos+2025Fig9"
+if not KRITOS_2025_FIG10_CACHE_DIR.is_dir():
+    KRITOS_2025_FIG10_CACHE_DIR = PROJECT_ROOT.parent / "data" / "Kritos+2025Fig10"
 
 FEH_MIN = -2.3
 FEH_MAX = 0.3
@@ -64,6 +73,10 @@ NEUMAYER_REQUIRED_CACHE_FILES = [
 ]
 CLIFF_OBS_PATH = CLIFF_CACHE_DIR / "cliff_fig14_mbh_mstar_points.csv"
 JUODZBALIS_2026_FIG4_OBS_PATH = JUODZBALIS_2026_CACHE_DIR / "juodzbalis2026_fig4_mbh_mstar_points.csv"
+JUODZBALIS_2026_FIG2_POINTS_PATH = JUODZBALIS_2026_FIG2_CACHE_DIR / "juodzbalis2026_fig2_points.csv"
+JUODZBALIS_2026_FIG2_CURVES_PATH = JUODZBALIS_2026_FIG2_CACHE_DIR / "juodzbalis2026_fig2_curves.csv"
+KRITOS_2025_FIG9_MASS_FUNCTION_PATH = KRITOS_2025_FIG9_CACHE_DIR / "kritos2025_fig9_greene2020_mass_functions.csv"
+KRITOS_2025_FIG10_MBH_MNSC_PATH = KRITOS_2025_FIG10_CACHE_DIR / "kritos2025_fig10_greene2020_mbh_mnsc_points.csv"
 
 
 @dataclass(frozen=True)
@@ -123,6 +136,26 @@ class NeumayerFig13Obs:
 
 @dataclass
 class KongObs:
+    table: pd.DataFrame
+    source_path: Path
+
+
+@dataclass
+class JuodzbalisFig2Obs:
+    points: pd.DataFrame
+    curves: pd.DataFrame
+    points_path: Path
+    curves_path: Path
+
+
+@dataclass
+class KritosFig9Obs:
+    table: pd.DataFrame
+    source_path: Path
+
+
+@dataclass
+class KritosFig10Obs:
     table: pd.DataFrame
     source_path: Path
 
@@ -511,3 +544,178 @@ def load_juodzbalis2026_fig4_observations() -> KongObs:
     ]
     table = _load_mbh_mstar_csv(JUODZBALIS_2026_FIG4_OBS_PATH, "Juodzbalis+2026 Fig.4", required)
     return KongObs(table=table, source_path=JUODZBALIS_2026_FIG4_OBS_PATH)
+
+
+def load_kritos2025_fig9_mass_functions() -> KritosFig9Obs:
+    _require_paths([KRITOS_2025_FIG9_MASS_FUNCTION_PATH], "Kritos+2025 Fig.9 mass-function")
+    required = [
+        "log10_mbh_msun",
+        "mbh_msun",
+        "linear_mpc3",
+        "linear_low_mpc3",
+        "linear_high_mpc3",
+        "nsc_mpc3",
+        "nsc_low_mpc3",
+        "nsc_high_mpc3",
+        "source_kind",
+        "source_note",
+    ]
+    table = pd.read_csv(KRITOS_2025_FIG9_MASS_FUNCTION_PATH)
+    missing = [name for name in required if name not in table.columns]
+    if missing:
+        raise ValueError(f"{KRITOS_2025_FIG9_MASS_FUNCTION_PATH} is missing required columns: {missing}")
+
+    numeric_columns = [
+        "log10_mbh_msun",
+        "mbh_msun",
+        "linear_mpc3",
+        "linear_low_mpc3",
+        "linear_high_mpc3",
+        "nsc_mpc3",
+        "nsc_low_mpc3",
+        "nsc_high_mpc3",
+    ]
+    for column in numeric_columns:
+        table[column] = pd.to_numeric(table[column], errors="coerce")
+    for column in ["source_kind", "source_note"]:
+        table[column] = table[column].fillna("").astype(str)
+
+    values = table[numeric_columns].to_numpy(dtype=float)
+    if np.any(~np.isfinite(values)):
+        raise ValueError("Kritos+2025 Fig.9 mass-function table contains non-finite numeric values.")
+    positive_columns = [name for name in numeric_columns if name != "log10_mbh_msun"]
+    if np.any(table[positive_columns].to_numpy(dtype=float) <= 0.0):
+        raise ValueError("Kritos+2025 Fig.9 mass-function table contains non-positive plotted masses or densities.")
+    if np.any(table["linear_low_mpc3"].to_numpy(dtype=float) > table["linear_high_mpc3"].to_numpy(dtype=float)):
+        raise ValueError("Kritos+2025 Fig.9 Linear lower envelope exceeds upper envelope.")
+    if np.any(table["nsc_low_mpc3"].to_numpy(dtype=float) > table["nsc_high_mpc3"].to_numpy(dtype=float)):
+        raise ValueError("Kritos+2025 Fig.9 NSC lower envelope exceeds upper envelope.")
+    return KritosFig9Obs(table=table.copy(), source_path=KRITOS_2025_FIG9_MASS_FUNCTION_PATH)
+
+
+def load_kritos2025_fig10_mbh_mnsc_observations() -> KritosFig10Obs:
+    _require_paths([KRITOS_2025_FIG10_MBH_MNSC_PATH], "Kritos+2025 Fig.10 MBH-MNSC")
+    required = [
+        "point_id",
+        "sample",
+        "measurement",
+        "log10_mnsc_msun",
+        "log10_mbh_msun",
+        "log10_mbh_err_lo",
+        "log10_mbh_err_hi",
+        "mnsc_upper_limit",
+        "mbh_upper_limit",
+        "marker",
+        "colour",
+        "legend_label",
+        "source_kind",
+        "source_note",
+    ]
+    table = pd.read_csv(KRITOS_2025_FIG10_MBH_MNSC_PATH)
+    missing = [name for name in required if name not in table.columns]
+    if missing:
+        raise ValueError(f"{KRITOS_2025_FIG10_MBH_MNSC_PATH} is missing required columns: {missing}")
+
+    for column in ["log10_mnsc_msun", "log10_mbh_msun", "log10_mbh_err_lo", "log10_mbh_err_hi"]:
+        table[column] = pd.to_numeric(table[column], errors="coerce")
+    for column in ["mnsc_upper_limit", "mbh_upper_limit"]:
+        table[column] = table[column].map(_as_bool)
+    for column in ["point_id", "sample", "measurement", "marker", "colour", "legend_label", "source_kind", "source_note"]:
+        table[column] = table[column].fillna("").astype(str)
+
+    expected_samples = {"galaxy", "ucd"}
+    expected_measurements = {"detection", "upper_limit"}
+    unknown_samples = sorted(set(table["sample"]) - expected_samples)
+    unknown_measurements = sorted(set(table["measurement"]) - expected_measurements)
+    if unknown_samples:
+        raise ValueError(f"Kritos+2025 Fig.10 table contains unknown sample values: {unknown_samples}")
+    if unknown_measurements:
+        raise ValueError(f"Kritos+2025 Fig.10 table contains unknown measurement values: {unknown_measurements}")
+    if np.any(~np.isfinite(table[["log10_mnsc_msun", "log10_mbh_msun"]].to_numpy(dtype=float))):
+        raise ValueError("Kritos+2025 Fig.10 table contains non-finite plotted mass coordinates.")
+
+    detections = table["measurement"].eq("detection").to_numpy(dtype=bool)
+    err_values = table.loc[detections, ["log10_mbh_err_lo", "log10_mbh_err_hi"]].to_numpy(dtype=float)
+    if np.any(~np.isfinite(err_values)) or np.any(err_values < 0.0):
+        raise ValueError("Kritos+2025 Fig.10 detections must have finite non-negative BH-mass error columns.")
+    if table.loc[~detections, "mbh_upper_limit"].map(_as_bool).eq(False).any():
+        raise ValueError("Kritos+2025 Fig.10 upper-limit rows must have mbh_upper_limit=True.")
+
+    for sample in expected_samples:
+        for measurement in expected_measurements:
+            if not np.any(table["sample"].eq(sample) & table["measurement"].eq(measurement)):
+                raise ValueError(f"Kritos+2025 Fig.10 table is missing {sample} {measurement} rows.")
+    table["mnsc_msun"] = np.power(10.0, table["log10_mnsc_msun"].to_numpy(dtype=float))
+    table["mbh_msun"] = np.power(10.0, table["log10_mbh_msun"].to_numpy(dtype=float))
+    return KritosFig10Obs(table=table.copy(), source_path=KRITOS_2025_FIG10_MBH_MNSC_PATH)
+
+
+def load_juodzbalis2026_fig2_rotation_curve() -> JuodzbalisFig2Obs:
+    _require_paths(
+        [JUODZBALIS_2026_FIG2_POINTS_PATH, JUODZBALIS_2026_FIG2_CURVES_PATH],
+        "Juodzbalis+2026 Fig.2 rotation-curve",
+    )
+    point_required = [
+        "component",
+        "r_pc",
+        "r_err_low_pc",
+        "r_err_high_pc",
+        "v_km_s",
+        "v_err_low_km_s",
+        "v_err_high_km_s",
+        "source_kind",
+        "source_note",
+    ]
+    curve_required = [
+        "curve",
+        "r_pc",
+        "v_km_s",
+        "log10_mass_reference",
+        "chi2_reduced",
+        "source_kind",
+        "source_note",
+    ]
+    points = pd.read_csv(JUODZBALIS_2026_FIG2_POINTS_PATH)
+    curves = pd.read_csv(JUODZBALIS_2026_FIG2_CURVES_PATH)
+    point_missing = [name for name in point_required if name not in points.columns]
+    curve_missing = [name for name in curve_required if name not in curves.columns]
+    if point_missing:
+        raise ValueError(f"{JUODZBALIS_2026_FIG2_POINTS_PATH} is missing required columns: {point_missing}")
+    if curve_missing:
+        raise ValueError(f"{JUODZBALIS_2026_FIG2_CURVES_PATH} is missing required columns: {curve_missing}")
+
+    for column in ["r_pc", "r_err_low_pc", "r_err_high_pc", "v_km_s", "v_err_low_km_s", "v_err_high_km_s"]:
+        points[column] = pd.to_numeric(points[column], errors="coerce")
+    for column in ["r_pc", "v_km_s", "log10_mass_reference", "chi2_reduced"]:
+        curves[column] = pd.to_numeric(curves[column], errors="coerce")
+    for column in ["component", "source_kind", "source_note"]:
+        points[column] = points[column].fillna("").astype(str)
+    for column in ["curve", "source_kind", "source_note"]:
+        curves[column] = curves[column].fillna("").astype(str)
+
+    expected_components = {"resolved_kinematics", "spectroastrometry", "spectroastrometry_fine"}
+    expected_curves = {"point_mass_keplerian", "mw_nsc"}
+    missing_components = sorted(expected_components - set(points["component"]))
+    missing_curves = sorted(expected_curves - set(curves["curve"]))
+    if missing_components:
+        raise ValueError(f"Juodzbalis+2026 Fig.2 point table is missing component(s): {missing_components}")
+    if missing_curves:
+        raise ValueError(f"Juodzbalis+2026 Fig.2 curve table is missing curve(s): {missing_curves}")
+    if np.any(~np.isfinite(points["r_pc"].to_numpy(dtype=float))) or np.any(~np.isfinite(points["v_km_s"].to_numpy(dtype=float))):
+        raise ValueError("Juodzbalis+2026 Fig.2 point table contains non-finite plotted coordinates.")
+    if np.any(~np.isfinite(curves["r_pc"].to_numpy(dtype=float))) or np.any(~np.isfinite(curves["v_km_s"].to_numpy(dtype=float))):
+        raise ValueError("Juodzbalis+2026 Fig.2 curve table contains non-finite plotted coordinates.")
+    if np.any(curves["r_pc"].to_numpy(dtype=float) == 0.0):
+        raise ValueError("Juodzbalis+2026 Fig.2 curve table must not contain r_pc == 0 rows.")
+
+    point_error_columns = ["r_err_low_pc", "r_err_high_pc", "v_err_low_km_s", "v_err_high_km_s"]
+    for column in point_error_columns:
+        values = points[column].dropna().to_numpy(dtype=float)
+        if np.any(values < 0.0):
+            raise ValueError(f"Juodzbalis+2026 Fig.2 point table contains negative error values in {column}.")
+    return JuodzbalisFig2Obs(
+        points=points.copy(),
+        curves=curves.copy(),
+        points_path=JUODZBALIS_2026_FIG2_POINTS_PATH,
+        curves_path=JUODZBALIS_2026_FIG2_CURVES_PATH,
+    )

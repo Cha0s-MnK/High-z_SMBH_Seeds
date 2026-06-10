@@ -1,0 +1,1025 @@
+curve,r_pc,v_km_s,log10_mass_reference,chi2_reduced,source_kind,source_note
+point_mass_keplerian,-1.0,-155.51782627481728,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-1.0203445720939386,-153.9595907814379,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-1.0411030458015629,-152.41696827539886,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-1.0622838417740919,-150.88980231990053,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-1.0838955519772908,-149.37793804558652,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-1.1059469431767923,-147.88122213483854,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-1.1284469604943237,-146.39950280622844,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-1.1514047310362865,-144.9326297991261,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-1.1748295675961562,-143.48045435846163,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-1.198730972432207,-142.0428292196401,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-1.2231186411220911,-140.61960859360755,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-1.2480024664958398,-139.21064815206645,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-1.2733925426488777,-137.81580501283963,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-1.2992991690366817,-136.43493772538042,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-1.325732854652743,-135.0679062564284,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-1.352704322291529,-133.71457197580844,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-1.3802245128981714,-132.37479764237258,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-1.4083045900066495,-131.04844739008217,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-1.4369559442682645,-129.73538671422992,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-1.4661901980722438,-128.43548245779968,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-1.496019210260351,-127.1486027979632,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-1.5264550809374098,-125.87461723271186,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-1.5575101563796998,-124.61339656762263,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-1.5891970340432084,-123.36481290275647,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-1.6215285676737738,-122.12873961968802,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-1.654517872521194,-120.90505136866531,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-1.6881783306594116,-119.69362405589801,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-1.722523596414937,-118.49433483097326,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-1.7575676019057112,-117.30706207439731,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-1.7933245626926528,-116.13168538526219,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-1.8298089835461844,-114.96808556903595,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-1.8670356643300765,-113.81614462547506,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-1.9050197060049943,-112.6757457366582,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-1.9437765167541867,-111.54677325513966,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-1.9833218182337973,-110.42911269222162,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-2.023671651950336,-109.32265070634396,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-2.0648423857678995,-108.22727509159024,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-2.1068507205477753,-107.14287476630895,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-2.149713696923126,-106.06933976184882,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-2.193448702211506,-105.00656121140689,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-2.2380734774680042,-103.95443133898837,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-2.2836061246818837,-102.91284344847713,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-2.330065114119634,-101.88169191281565,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-2.3774692918174125,-100.86087216329348,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-2.425837887225917,-99.85028067894288,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-2.4751905210107927,-98.84981497604092,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-2.5255472130117305,-97.85937359771647,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-2.576928390363493,-96.87885610366166,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-2.6293548957821606,-95.90816305994618,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-2.6828479960199516,-94.94719602893369,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-2.7374293904920584,-93.99585755929941,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-2.7931212200789908,-93.0540511761475,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-2.8499460761079973,-92.12168137122762,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-2.907927009517214,-91.1986535932495,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-2.967087540206249,-90.28487423829446,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-3.0274516665770017,-89.38025064032314,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-3.089043875268592,-88.48469106177824,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-3.1518891510903337,-87.5981046842814,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-3.216012987156794,-86.72040159942344,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-3.281441395229049,-85.85149279964672,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-3.3482009162663204,-84.99129016921891,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-3.416318631192292,-84.1397064752972,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-3.48582217188045,-83.2966553590821,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-3.556739732362921,-82.46205132705977,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-3.6291000802673548,-81.63580974233217,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-3.702932568486473,-80.81784681603406,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-3.778267147085039,-80.00807959883606,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-3.8551343754490706,-79.20642597253267,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-3.9335654346822158,-78.41280464171477,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-4.013592140254333,-77.6271351255255,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-4.095246954907402,-76.84933774949866,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-4.178563001823999,-76.07933363747898,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-4.263574078063672,-75.31704470362338,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-4.350314668272687,-74.56239364448219,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-4.4388199586726795,-73.8153039311599,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-4.529125851333909,-73.07569980155445,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-4.621268978738893,-72.34350625267408,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-4.7152867186423295,-71.61864903303145,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-4.811217209233339,-70.90105463511372,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-4.909099364606186,-70.19065028792825,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-5.008972890545724,-69.48736394962287,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-5.110878300634016,-68.79112430018014,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-5.2148569326846115,-68.10186073418487,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-5.32095096551119,-67.41950335366398,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-5.429203436037343,-66.74398296099824,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-5.539658256754465,-66.07523105190486,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-5.65236023353479,-65.41317980849063,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-5.767355083806849,-64.75776209237442,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-5.884689455100702,-64.10891143787877,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-6.004410943970439,-63.46656204528959,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-6.126568115301679,-62.83064877418346,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-6.25121052201186,-62.20110713682172,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-6.378388725151319,-61.57787329161086,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-6.508154314413324,-60.96088403662831,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-6.640559929061385,-60.350076803213156,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-6.775659279282295,-59.745389649621124,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-6.913507167973616,-59.14676125474306,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-7.054159512974418,-58.55413091188633,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-7.19767336974827,-57.96743852261868,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-7.344106954527737,-57.38662459067358,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-7.493519667929721,-56.81163021591678,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-7.645972119051265,-56.242397088373245,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-7.801526150055549,-55.67886748231398,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-7.960244861258101,-55.12098425040208,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-8.122192636723371,-54.568690817897426,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-8.287435170382048,-54.02193117691945,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-8.456039492679727,-53.48064988076746,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-8.628073997767743,-52.94479203829772,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-8.803608471247168,-52.41430330835702,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-8.982714118477263,-51.88912989427195,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-9.165463593459865,-51.36921853839339,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-9.35193102831138,-50.85451651669564,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-9.5421920633344,-50.34497163342978,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-9.736323877701118,-49.84053221583041,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-9.934405220760945,-49.341147108875624,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-10.13651644398512,-48.84676567009934,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-10.342739533561167,-48.357337764455714,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-10.55315814365053,-47.872813759234894,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-10.767857630322768,-47.39314451902985,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-10.986925086180134,-46.918281400753564,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-11.210449375686627,-46.44817624870609,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-11.438521171215738,-45.98278138969116,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-11.671232989831578,-45.52204962818168,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-11.90867923081836,-45.06593424153359,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-12.150956213973338,-44.614388975247735,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-12.398162218678808,-44.16736803827929,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-12.650397523769064,-43.72482609839403,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-12.90776444820837,-43.28671827757123,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-13.170367392596521,-42.85300014745262,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-13.438312881518858,-42.42362772483688,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-13.711709606757827,-41.99855746721935,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-13.99066847138366,-41.5777462683764,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-14.275302634742118,-41.161151453994044,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-14.565727558357427,-40.748730777340306,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-14.862061052769096,-40.34044241498108,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-15.164423325321671,-39.936244962538744,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-15.472937028926689,-39.53609743049341,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-15.787727311816658,-39.13995924002621,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-16.108921868311356,-38.747790218904115,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-16.436650990616844,-38.359550597406184,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-16.771047621678356,-37.97520100429051,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-17.112247409108466,-37.59470246280155,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-17.460388760212393,-37.218016386717544,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-17.815612898132727,-36.84510457643751,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-18.178063919136488,-36.4759292151074,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-18.547888851067594,-36.11045286478511,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-18.925237712988494,-35.74863846264398,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-19.310263576035315,-35.39044931721417,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-19.70312262551093,-35.035849104661835,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-20.103974224241345,-34.684801865105555,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-20.512980977221105,-34.33727199896962,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-20.93030879757378,-33.99322426337391,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-21.356126973854412,-33.652623768559955,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-21.790608238721298,-33.3154359743527,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-22.233928839004747,-32.98162668665787,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-22.686268607201374,-32.65116205399434,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-23.147811034423036,-32.324008564061245,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-23.618743344829735,-32.00013304033952,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-24.099256571576852,-31.679502638727527,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-24.58954563430762,-31.36208484421027,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-25.089809418221993,-31.047847467562097,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-25.600250854754186,-30.736758642082428,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-26.121077003891642,-30.428786820364113,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-26.652499138168647,-30.123900771094245,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-27.194732828368753,-29.822069575887024,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-27.747998030970898,-29.52326262614829,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-28.31251917737446,-29.227449619971548,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-28.888525264939574,-28.93460055906507,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-29.4762499498797,-28.644685745709744,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-30.075931642043994,-28.35767577974746,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-30.687813601627923,-28.07354155559966,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-31.31214403785159,-27.79225425931574,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-31.94917620964546,-27.513785365651017,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-32.59916852838454,-27.23810663517405,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-33.262384662712705,-26.96519011140283,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-33.9390936454996,-26.695008117969735,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-34.62956998297339,-26.427533255814936,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-35.33409376607408,-26.162738400407786,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-36.05295078407198,-25.900596698996175,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-36.78643264049775,-25.641081567883415,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-37.53483687143117,-25.384166689732364,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-38.29846706619624,-25.129826010896593,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-39.077632990511795,-24.87803373877835,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-39.87265071214773,-24.628764339212857,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-40.68384272913747,-24.38199253387897,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-41.51153810059886,-24.13769329773569,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-42.35607258021677,-23.895841856484374,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-43.2177887524411,-23.656413684056368,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-44.09703617145574,-23.41938450012589,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-44.994171502974936,-23.184730267647694,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-45.90955866892427,-22.952427190419517,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-46.8435689950651,-22.722451710668945,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-47.79658136162258,-22.494780506664362,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-48.76898235697793,-22.26939049034995,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-49.76116643448748,-22.04625880500432,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-50.77353607249241,-21.825362822922628,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-51.80650193758342,-21.606680143121903,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-52.860483051187344,-21.390188589069368,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-53.93590695954267,-21.175866206433515,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-55.03320990713304,-20.96369126085777,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-56.15283701364956,-20.753642235756363,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-57.29524245455296,-20.54569783013236,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-58.4608896453093,-20.339836956417567,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-59.65025142937407,-20.13603873833399,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-60.86381027000056,-19.934282508776814,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-62.102058445950384,-19.734547807718577,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-63.365498251186004,-19.53681438013428,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-64.65464219862562,-19.341062173947353,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-65.97001322804336,-19.14727133799621,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-67.31214491819937,-18.95542222002109,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-68.68158170328533,-18.76549536467118,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-70.07887909377355,-18.577471511531645,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-71.50460390175922,-18.3913315931704,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-72.95933447088711,-18.20705673320453,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-74.44366091095586,-18.024628244386044,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-75.9581853372955,-17.844027626706765,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-77.50352211501489,-17.665236565522292,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-79.08029810821797,-17.488236929694708,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-80.68915293429076,-17.313010769753898,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-82.3307392233613,-17.139540316077305,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-84.00572288303823,-16.967807977087926,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-85.71478336853562,-16.797796337470345,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-87.45861395829316,-16.62948815640465,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-89.23792203520358,-16.46286636581808,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-91.05342937356204,-16.297914068654105,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-92.90587243185286,-16.134614537158935,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-94.79600265149294,-15.97295121118518,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-96.72458676165343,-15.812907696512445,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-98.69240709028234,-15.654467763184826,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-100.70026188145492,-15.49761534386505,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-102.74896561918071,-15.342334532205054,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-104.83934935779769,-15.18860958123297,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-106.97226105908906,-15.036424901756185,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-109.14856593625736,-14.885765060780486,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-111.3691468048975,-14.736614779944993,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-113.63490444111021,-14.588958933972767,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-115.94675794690023,-14.442782549136993,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-118.30564512300933,-14.298070801742481,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-120.71252284933435,-14.154809016622387,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-123.16836747308389,-14.012982665650046,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-125.6741752048327,-13.872577366265658,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-128.23096252263375,-13.733578880017733,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-130.83976658435066,-13.595973111119235,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-133.50164564838,-13.459746105018086,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-136.21767950293295,-13.324884046982037,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-138.98896990404944,-13.19137326069776,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-141.81664102252455,-13.059200206883913,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-144.70183989992756,-12.928351481918103,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-147.64573691389725,-12.798813816477681,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-150.64952625290465,-12.670574074194073,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-153.71442640067463,-12.543619250320617,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-156.84168063046164,-12.417936470413784,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-160.03255750938246,-12.293512989027576,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-163.2883514130095,-12.170336188420986,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-166.61038305043195,-12.048393577278482,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,-170.0,-11.927672789443251,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,1.0,155.51782627481728,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,1.0203445720939386,153.9595907814379,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,1.0411030458015629,152.41696827539886,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,1.0622838417740919,150.88980231990053,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,1.0838955519772908,149.37793804558652,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,1.1059469431767923,147.88122213483854,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,1.1284469604943237,146.39950280622844,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,1.1514047310362865,144.9326297991261,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,1.1748295675961562,143.48045435846163,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,1.198730972432207,142.0428292196401,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,1.2231186411220911,140.61960859360755,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,1.2480024664958398,139.21064815206645,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,1.2733925426488777,137.81580501283963,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,1.2992991690366817,136.43493772538042,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,1.325732854652743,135.0679062564284,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,1.352704322291529,133.71457197580844,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,1.3802245128981714,132.37479764237258,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,1.4083045900066495,131.04844739008217,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,1.4369559442682645,129.73538671422992,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,1.4661901980722438,128.43548245779968,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,1.496019210260351,127.1486027979632,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,1.5264550809374098,125.87461723271186,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,1.5575101563796998,124.61339656762263,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,1.5891970340432084,123.36481290275647,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,1.6215285676737738,122.12873961968802,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,1.654517872521194,120.90505136866531,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,1.6881783306594116,119.69362405589801,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,1.722523596414937,118.49433483097326,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,1.7575676019057112,117.30706207439731,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,1.7933245626926528,116.13168538526219,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,1.8298089835461844,114.96808556903595,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,1.8670356643300765,113.81614462547506,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,1.9050197060049943,112.6757457366582,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,1.9437765167541867,111.54677325513966,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,1.9833218182337973,110.42911269222162,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,2.023671651950336,109.32265070634396,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,2.0648423857678995,108.22727509159024,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,2.1068507205477753,107.14287476630895,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,2.149713696923126,106.06933976184882,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,2.193448702211506,105.00656121140689,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,2.2380734774680042,103.95443133898837,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,2.2836061246818837,102.91284344847713,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,2.330065114119634,101.88169191281565,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,2.3774692918174125,100.86087216329348,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,2.425837887225917,99.85028067894288,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,2.4751905210107927,98.84981497604092,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,2.5255472130117305,97.85937359771647,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,2.576928390363493,96.87885610366166,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,2.6293548957821606,95.90816305994618,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,2.6828479960199516,94.94719602893369,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,2.7374293904920584,93.99585755929941,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,2.7931212200789908,93.0540511761475,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,2.8499460761079973,92.12168137122762,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,2.907927009517214,91.1986535932495,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,2.967087540206249,90.28487423829446,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,3.0274516665770017,89.38025064032314,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,3.089043875268592,88.48469106177824,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,3.1518891510903337,87.5981046842814,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,3.216012987156794,86.72040159942344,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,3.281441395229049,85.85149279964672,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,3.3482009162663204,84.99129016921891,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,3.416318631192292,84.1397064752972,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,3.48582217188045,83.2966553590821,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,3.556739732362921,82.46205132705977,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,3.6291000802673548,81.63580974233217,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,3.702932568486473,80.81784681603406,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,3.778267147085039,80.00807959883606,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,3.8551343754490706,79.20642597253267,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,3.9335654346822158,78.41280464171477,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,4.013592140254333,77.6271351255255,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,4.095246954907402,76.84933774949866,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,4.178563001823999,76.07933363747898,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,4.263574078063672,75.31704470362338,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,4.350314668272687,74.56239364448219,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,4.4388199586726795,73.8153039311599,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,4.529125851333909,73.07569980155445,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,4.621268978738893,72.34350625267408,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,4.7152867186423295,71.61864903303145,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,4.811217209233339,70.90105463511372,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,4.909099364606186,70.19065028792825,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,5.008972890545724,69.48736394962287,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,5.110878300634016,68.79112430018014,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,5.2148569326846115,68.10186073418487,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,5.32095096551119,67.41950335366398,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,5.429203436037343,66.74398296099824,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,5.539658256754465,66.07523105190486,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,5.65236023353479,65.41317980849063,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,5.767355083806849,64.75776209237442,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,5.884689455100702,64.10891143787877,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,6.004410943970439,63.46656204528959,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,6.126568115301679,62.83064877418346,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,6.25121052201186,62.20110713682172,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,6.378388725151319,61.57787329161086,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,6.508154314413324,60.96088403662831,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,6.640559929061385,60.350076803213156,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,6.775659279282295,59.745389649621124,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,6.913507167973616,59.14676125474306,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,7.054159512974418,58.55413091188633,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,7.19767336974827,57.96743852261868,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,7.344106954527737,57.38662459067358,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,7.493519667929721,56.81163021591678,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,7.645972119051265,56.242397088373245,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,7.801526150055549,55.67886748231398,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,7.960244861258101,55.12098425040208,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,8.122192636723371,54.568690817897426,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,8.287435170382048,54.02193117691945,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,8.456039492679727,53.48064988076746,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,8.628073997767743,52.94479203829772,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,8.803608471247168,52.41430330835702,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,8.982714118477263,51.88912989427195,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,9.165463593459865,51.36921853839339,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,9.35193102831138,50.85451651669564,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,9.5421920633344,50.34497163342978,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,9.736323877701118,49.84053221583041,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,9.934405220760945,49.341147108875624,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,10.13651644398512,48.84676567009934,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,10.342739533561167,48.357337764455714,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,10.55315814365053,47.872813759234894,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,10.767857630322768,47.39314451902985,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,10.986925086180134,46.918281400753564,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,11.210449375686627,46.44817624870609,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,11.438521171215738,45.98278138969116,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,11.671232989831578,45.52204962818168,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,11.90867923081836,45.06593424153359,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,12.150956213973338,44.614388975247735,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,12.398162218678808,44.16736803827929,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,12.650397523769064,43.72482609839403,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,12.90776444820837,43.28671827757123,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,13.170367392596521,42.85300014745262,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,13.438312881518858,42.42362772483688,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,13.711709606757827,41.99855746721935,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,13.99066847138366,41.5777462683764,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,14.275302634742118,41.161151453994044,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,14.565727558357427,40.748730777340306,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,14.862061052769096,40.34044241498108,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,15.164423325321671,39.936244962538744,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,15.472937028926689,39.53609743049341,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,15.787727311816658,39.13995924002621,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,16.108921868311356,38.747790218904115,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,16.436650990616844,38.359550597406184,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,16.771047621678356,37.97520100429051,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,17.112247409108466,37.59470246280155,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,17.460388760212393,37.218016386717544,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,17.815612898132727,36.84510457643751,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,18.178063919136488,36.4759292151074,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,18.547888851067594,36.11045286478511,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,18.925237712988494,35.74863846264398,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,19.310263576035315,35.39044931721417,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,19.70312262551093,35.035849104661835,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,20.103974224241345,34.684801865105555,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,20.512980977221105,34.33727199896962,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,20.93030879757378,33.99322426337391,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,21.356126973854412,33.652623768559955,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,21.790608238721298,33.3154359743527,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,22.233928839004747,32.98162668665787,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,22.686268607201374,32.65116205399434,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,23.147811034423036,32.324008564061245,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,23.618743344829735,32.00013304033952,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,24.099256571576852,31.679502638727527,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,24.58954563430762,31.36208484421027,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,25.089809418221993,31.047847467562097,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,25.600250854754186,30.736758642082428,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,26.121077003891642,30.428786820364113,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,26.652499138168647,30.123900771094245,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,27.194732828368753,29.822069575887024,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,27.747998030970898,29.52326262614829,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,28.31251917737446,29.227449619971548,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,28.888525264939574,28.93460055906507,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,29.4762499498797,28.644685745709744,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,30.075931642043994,28.35767577974746,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,30.687813601627923,28.07354155559966,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,31.31214403785159,27.79225425931574,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,31.94917620964546,27.513785365651017,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,32.59916852838454,27.23810663517405,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,33.262384662712705,26.96519011140283,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,33.9390936454996,26.695008117969735,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,34.62956998297339,26.427533255814936,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,35.33409376607408,26.162738400407786,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,36.05295078407198,25.900596698996175,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,36.78643264049775,25.641081567883415,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,37.53483687143117,25.384166689732364,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,38.29846706619624,25.129826010896593,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,39.077632990511795,24.87803373877835,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,39.87265071214773,24.628764339212857,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,40.68384272913747,24.38199253387897,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,41.51153810059886,24.13769329773569,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,42.35607258021677,23.895841856484374,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,43.2177887524411,23.656413684056368,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,44.09703617145574,23.41938450012589,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,44.994171502974936,23.184730267647694,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,45.90955866892427,22.952427190419517,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,46.8435689950651,22.722451710668945,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,47.79658136162258,22.494780506664362,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,48.76898235697793,22.26939049034995,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,49.76116643448748,22.04625880500432,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,50.77353607249241,21.825362822922628,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,51.80650193758342,21.606680143121903,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,52.860483051187344,21.390188589069368,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,53.93590695954267,21.175866206433515,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,55.03320990713304,20.96369126085777,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,56.15283701364956,20.753642235756363,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,57.29524245455296,20.54569783013236,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,58.4608896453093,20.339836956417567,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,59.65025142937407,20.13603873833399,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,60.86381027000056,19.934282508776814,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,62.102058445950384,19.734547807718577,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,63.365498251186004,19.53681438013428,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,64.65464219862562,19.341062173947353,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,65.97001322804336,19.14727133799621,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,67.31214491819937,18.95542222002109,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,68.68158170328533,18.76549536467118,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,70.07887909377355,18.577471511531645,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,71.50460390175922,18.3913315931704,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,72.95933447088711,18.20705673320453,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,74.44366091095586,18.024628244386044,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,75.9581853372955,17.844027626706765,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,77.50352211501489,17.665236565522292,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,79.08029810821797,17.488236929694708,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,80.68915293429076,17.313010769753898,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,82.3307392233613,17.139540316077305,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,84.00572288303823,16.967807977087926,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,85.71478336853562,16.797796337470345,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,87.45861395829316,16.62948815640465,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,89.23792203520358,16.46286636581808,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,91.05342937356204,16.297914068654105,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,92.90587243185286,16.134614537158935,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,94.79600265149294,15.97295121118518,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,96.72458676165343,15.812907696512445,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,98.69240709028234,15.654467763184826,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,100.70026188145492,15.49761534386505,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,102.74896561918071,15.342334532205054,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,104.83934935779769,15.18860958123297,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,106.97226105908906,15.036424901756185,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,109.14856593625736,14.885765060780486,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,111.3691468048975,14.736614779944993,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,113.63490444111021,14.588958933972767,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,115.94675794690023,14.442782549136993,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,118.30564512300933,14.298070801742481,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,120.71252284933435,14.154809016622387,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,123.16836747308389,14.012982665650046,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,125.6741752048327,13.872577366265658,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,128.23096252263375,13.733578880017733,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,130.83976658435066,13.595973111119235,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,133.50164564838,13.459746105018086,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,136.21767950293295,13.324884046982037,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,138.98896990404944,13.19137326069776,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,141.81664102252455,13.059200206883913,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,144.70183989992756,12.928351481918103,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,147.64573691389725,12.798813816477681,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,150.64952625290465,12.670574074194073,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,153.71442640067463,12.543619250320617,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,156.84168063046164,12.417936470413784,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,160.03255750938246,12.293512989027576,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,163.2883514130095,12.170336188420986,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,166.61038305043195,12.048393577278482,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+point_mass_keplerian,170.0,11.927672789443251,6.75,1.0,published_equation,"Nature 2026 Fig.2/Methods equation (1), point mass log10(M/Msun)=6.75"
+mw_nsc,-1.0,-53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-1.0203445720939386,-53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-1.0411030458015629,-53.36975082751819,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-1.0622838417740919,-53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-1.0838955519772908,-53.36975082751819,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-1.1059469431767923,-53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-1.1284469604943237,-53.36975082751819,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-1.1514047310362865,-53.36975082751819,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-1.1748295675961562,-53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-1.198730972432207,-53.36975082751819,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-1.2231186411220911,-53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-1.2480024664958398,-53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-1.2733925426488777,-53.36975082751819,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-1.2992991690366817,-53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-1.325732854652743,-53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-1.352704322291529,-53.36975082751819,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-1.3802245128981714,-53.36975082751819,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-1.4083045900066495,-53.36975082751819,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-1.4369559442682645,-53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-1.4661901980722438,-53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-1.496019210260351,-53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-1.5264550809374098,-53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-1.5575101563796998,-53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-1.5891970340432084,-53.36975082751819,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-1.6215285676737738,-53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-1.654517872521194,-53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-1.6881783306594116,-53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-1.722523596414937,-53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-1.7575676019057112,-53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-1.7933245626926528,-53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-1.8298089835461844,-53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-1.8670356643300765,-53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-1.9050197060049943,-53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-1.9437765167541867,-53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-1.9833218182337973,-53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-2.023671651950336,-53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-2.0648423857678995,-53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-2.1068507205477753,-53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-2.149713696923126,-53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-2.193448702211506,-53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-2.2380734774680042,-53.36975082751819,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-2.2836061246818837,-53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-2.330065114119634,-53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-2.3774692918174125,-53.36975082751819,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-2.425837887225917,-53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-2.4751905210107927,-53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-2.5255472130117305,-53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-2.576928390363493,-53.36975082751819,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-2.6293548957821606,-53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-2.6828479960199516,-53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-2.7374293904920584,-53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-2.7931212200789908,-53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-2.8499460761079973,-53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-2.907927009517214,-53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-2.967087540206249,-53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-3.0274516665770017,-53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-3.089043875268592,-53.36975082751819,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-3.1518891510903337,-53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-3.216012987156794,-53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-3.281441395229049,-53.36975082751819,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-3.3482009162663204,-53.36975082751819,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-3.416318631192292,-53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-3.48582217188045,-53.36975082751819,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-3.556739732362921,-53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-3.6291000802673548,-53.36975082751819,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-3.702932568486473,-53.36975082751819,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-3.778267147085039,-53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-3.8551343754490706,-53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-3.9335654346822158,-53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-4.013592140254333,-53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-4.095246954907402,-53.36975082751819,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-4.178563001823999,-53.36975082751819,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-4.263574078063672,-53.36975082751819,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-4.350314668272687,-53.36975082751819,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-4.4388199586726795,-53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-4.529125851333909,-53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-4.621268978738893,-53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-4.7152867186423295,-53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-4.811217209233339,-53.36975082751819,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-4.909099364606186,-53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-5.008972890545724,-53.36970798625996,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-5.110878300634016,-53.36342486603633,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-5.2148569326846115,-53.34677925458198,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-5.32095096551119,-53.3201773992123,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-5.429203436037343,-53.284008148757685,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-5.539658256754465,-53.23864395595648,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-5.65236023353479,-53.18444180352137,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-5.767355083806849,-53.12174406107383,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-5.884689455100702,-53.0508792793417,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-6.004410943970439,-52.97216292731675,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-6.126568115301679,-52.88589807745837,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-6.25121052201186,-52.7923760434937,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-6.378388725151319,-52.69187697489301,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-6.508154314413324,-52.58467041168424,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-6.640559929061385,-52.47101580290297,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-6.775659279282295,-52.35116299165024,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-6.913507167973616,-52.22535266944191,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-7.054159512974418,-52.09381680227743,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-7.19767336974827,-51.95677903062812,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-7.344106954527737,-51.814455045341276,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-7.493519667929721,-51.66705294127505,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-7.645972119051265,-51.51477355031613,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-7.801526150055549,-51.357810755286096,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-7.960244861258101,-51.196351786111734,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-8.122192636723371,-51.03057749951597,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-8.287435170382048,-50.86066264338044,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-8.456039492679727,-50.68677610683406,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-8.628073997767743,-50.50908115703609,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-8.803608471247168,-50.32773566354272,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-8.982714118477263,-50.14289231107593,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-9.165463593459865,-49.95469880144829,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-9.35193102831138,-49.763298045338715,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-9.5421920633344,-49.56882834456107,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-9.736323877701118,-49.37142356541843,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-9.934405220760945,-49.171213303691935,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-10.13651644398512,-48.968323041771974,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-10.342739533561167,-48.76287429840296,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-10.55315814365053,-48.55498477147871,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-10.767857630322768,-48.34476847429433,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-10.986925086180134,-48.13233586563204,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-11.210449375686627,-47.91779397403215,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-11.438521171215738,-47.70124651657636,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-11.671232989831578,-47.482794012488064,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-11.90867923081836,-47.262533891834394,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-12.150956213973338,-47.04056059959557,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-12.398162218678808,-46.81696569534969,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-12.650397523769064,-46.59183794880522,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-12.90776444820837,-46.365263431398596,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-13.170367392596521,-46.13732560416029,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-13.438312881518858,-45.908105402040356,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-13.711709606757827,-45.6776813148724,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-13.99066847138366,-45.44612946514408,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-14.275302634742118,-45.213523682731875,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-14.565727558357427,-44.979935576748844,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-14.862061052769096,-44.7454346046447,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-15.164423325321671,-44.51008813868985,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-15.472937028926689,-44.27396152996717,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-15.787727311816658,-44.03711816998815,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-16.108921868311356,-43.79961955004364,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-16.436650990616844,-43.56152531839294,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-16.771047621678356,-43.32289333538949,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-17.112247409108466,-43.083779726635626,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-17.460388760212393,-42.844238934254356,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-17.815612898132727,-42.60432376636078,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-18.178063919136488,-42.36408544481178,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-18.547888851067594,-42.12357365130826,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-18.925237712988494,-41.88283657192036,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-19.310263576035315,-41.64192094010226,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-19.70312262551093,-41.40087207826026,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-20.103974224241345,-41.159733937933765,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-20.512980977221105,-40.918549138646576,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-20.93030879757378,-40.67735900548256,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-21.356126973854412,-40.436203605437186,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-21.790608238721298,-40.19512178259403,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-22.233928839004747,-39.95415119217272,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-22.686268607201374,-39.71332833349281,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-23.147811034423036,-39.47268858189568,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-23.618743344829735,-39.23226621966478,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-24.099256571576852,-38.992094465982674,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-24.58954563430762,-38.75220550596111,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-25.089809418221993,-38.5126305187794,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-25.600250854754186,-38.27339970496415,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-26.121077003891642,-38.0345423128421,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-26.652499138168647,-37.79608666419656,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-27.194732828368753,-37.55806017915638,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-27.747998030970898,-37.320489400345004,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-28.31251917737446,-37.08340001631643,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-28.888525264939574,-36.84681688430313,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-29.4762499498797,-36.610764052300304,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-30.075931642043994,-36.37526478050964,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-30.687813601627923,-36.14034156216499,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-31.31214403785159,-35.90601614376093,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-31.94917620964546,-35.67230954470487,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-32.59916852838454,-35.4392420764123,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-33.262384662712705,-35.20683336086364,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-33.9390936454996,-34.97510234864108,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-34.62956998297339,-34.74406733646239,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-35.33409376607408,-34.513745984228386,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-36.05295078407198,-34.28415533159991,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-36.78643264049775,-34.05531181411987,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-37.53483687143117,-33.82723127889449,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-38.29846706619624,-33.59992899984847,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-39.077632990511795,-33.37341969256736,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-39.87265071214773,-33.14771752874,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-40.68384272913747,-32.92283615021409,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-41.51153810059886,-32.69878868267648,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-42.35607258021677,-32.475587748970064,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-43.2177887524411,-32.253245482058425,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-44.09703617145574,-32.031773537649045,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-44.994171502974936,-31.81118310648533,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-45.90955866892427,-31.591484926317623,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-46.8435689950651,-31.37268929356282,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-47.79658136162258,-31.15480607466176,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-48.76898235697793,-30.9378447171435,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-49.76116643448748,-30.72181426040511,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-50.77353607249241,-30.506723346215207,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-51.80650193758342,-30.2925802289495,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-52.860483051187344,-30.079392785565847,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-53.93590695954267,-29.86716852532658,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-55.03320990713304,-29.65591459927525,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-56.15283701364956,-29.445637809474707,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-57.29524245455296,-29.236344618013412,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-58.4608896453093,-29.028041155786532,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-59.65025142937407,-28.820733231057915,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-60.86381027000056,-28.61442633780936,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-62.102058445950384,-28.409125663882914,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-63.365498251186004,-28.20483609892188,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-64.65464219862562,-28.001562242116204,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-65.97001322804336,-27.799308409757483,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-67.31214491819937,-27.598078642608794,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-68.68158170328533,-27.397876713094387,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-70.07887909377355,-27.198706132314094,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-71.50460390175922,-27.000570156887083,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-72.95933447088711,-26.803471795629605,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-74.44366091095586,-26.607413816071126,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-75.9581853372955,-26.412398750813022,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-77.50352211501489,-26.2184289037341,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-79.08029810821797,-26.025506356046954,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-80.68915293429076,-25.8336329722089,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-82.3307392233613,-25.642810405691467,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-84.00572288303823,-25.45304010461198,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-85.71478336853562,-25.264323317230772,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-87.45861395829316,-25.076661097317604,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-89.23792203520358,-24.89005430939047,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-91.05342937356204,-24.70450363383011,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-92.90587243185286,-24.520009571873423,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-94.79600265149294,-24.33657245048877,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-96.72458676165343,-24.154192427136135,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-98.69240709028234,-23.97286949441506,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-100.70026188145492,-23.792603484603188,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-102.74896561918071,-23.61339407408798,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-104.83934935779769,-23.435240787694507,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-106.97226105908906,-23.25814300291157,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-109.14856593625736,-23.08209995401895,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-111.3691468048975,-22.907110736117996,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-113.63490444111021,-22.733174309067966,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-115.94675794690023,-22.560289501330526,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-118.30564512300933,-22.388455013724442,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-120.71252284933435,-22.217669423092772,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-123.16836747308389,-22.047931185884664,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-125.6741752048327,-21.879238641653714,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-128.23096252263375,-21.71159001647496,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-130.83976658435066,-21.5449834262825,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-133.50164564838,-21.379416880129448,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-136.21767950293295,-21.214888283372243,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-138.98896990404944,-21.051395440781068,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-141.81664102252455,-20.888936059578036,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-144.70183989992756,-20.727507752404875,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-147.64573691389725,-20.567108040221882,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-150.64952625290465,-20.407734355139567,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-153.71442640067463,-20.24938404318467,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-156.84168063046164,-20.092054367002092,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-160.03255750938246,-19.93574250849414,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-163.2883514130095,-19.780445571398587,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-166.61038305043195,-19.626160583807007,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,-170.0,-19.47288450062466,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,1.0,53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,1.0203445720939386,53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,1.0411030458015629,53.36975082751819,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,1.0622838417740919,53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,1.0838955519772908,53.36975082751819,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,1.1059469431767923,53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,1.1284469604943237,53.36975082751819,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,1.1514047310362865,53.36975082751819,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,1.1748295675961562,53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,1.198730972432207,53.36975082751819,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,1.2231186411220911,53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,1.2480024664958398,53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,1.2733925426488777,53.36975082751819,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,1.2992991690366817,53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,1.325732854652743,53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,1.352704322291529,53.36975082751819,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,1.3802245128981714,53.36975082751819,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,1.4083045900066495,53.36975082751819,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,1.4369559442682645,53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,1.4661901980722438,53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,1.496019210260351,53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,1.5264550809374098,53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,1.5575101563796998,53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,1.5891970340432084,53.36975082751819,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,1.6215285676737738,53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,1.654517872521194,53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,1.6881783306594116,53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,1.722523596414937,53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,1.7575676019057112,53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,1.7933245626926528,53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,1.8298089835461844,53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,1.8670356643300765,53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,1.9050197060049943,53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,1.9437765167541867,53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,1.9833218182337973,53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,2.023671651950336,53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,2.0648423857678995,53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,2.1068507205477753,53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,2.149713696923126,53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,2.193448702211506,53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,2.2380734774680042,53.36975082751819,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,2.2836061246818837,53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,2.330065114119634,53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,2.3774692918174125,53.36975082751819,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,2.425837887225917,53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,2.4751905210107927,53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,2.5255472130117305,53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,2.576928390363493,53.36975082751819,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,2.6293548957821606,53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,2.6828479960199516,53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,2.7374293904920584,53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,2.7931212200789908,53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,2.8499460761079973,53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,2.907927009517214,53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,2.967087540206249,53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,3.0274516665770017,53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,3.089043875268592,53.36975082751819,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,3.1518891510903337,53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,3.216012987156794,53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,3.281441395229049,53.36975082751819,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,3.3482009162663204,53.36975082751819,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,3.416318631192292,53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,3.48582217188045,53.36975082751819,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,3.556739732362921,53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,3.6291000802673548,53.36975082751819,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,3.702932568486473,53.36975082751819,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,3.778267147085039,53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,3.8551343754490706,53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,3.9335654346822158,53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,4.013592140254333,53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,4.095246954907402,53.36975082751819,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,4.178563001823999,53.36975082751819,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,4.263574078063672,53.36975082751819,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,4.350314668272687,53.36975082751819,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,4.4388199586726795,53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,4.529125851333909,53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,4.621268978738893,53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,4.7152867186423295,53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,4.811217209233339,53.36975082751819,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,4.909099364606186,53.369750827518196,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,5.008972890545724,53.36970798625996,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,5.110878300634016,53.36342486603633,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,5.2148569326846115,53.34677925458198,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,5.32095096551119,53.3201773992123,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,5.429203436037343,53.284008148757685,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,5.539658256754465,53.23864395595648,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,5.65236023353479,53.18444180352137,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,5.767355083806849,53.12174406107383,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,5.884689455100702,53.0508792793417,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,6.004410943970439,52.97216292731675,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,6.126568115301679,52.88589807745837,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,6.25121052201186,52.7923760434937,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,6.378388725151319,52.69187697489301,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,6.508154314413324,52.58467041168424,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,6.640559929061385,52.47101580290297,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,6.775659279282295,52.35116299165024,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,6.913507167973616,52.22535266944191,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,7.054159512974418,52.09381680227743,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,7.19767336974827,51.95677903062812,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,7.344106954527737,51.814455045341276,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,7.493519667929721,51.66705294127505,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,7.645972119051265,51.51477355031613,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,7.801526150055549,51.357810755286096,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,7.960244861258101,51.196351786111734,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,8.122192636723371,51.03057749951597,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,8.287435170382048,50.86066264338044,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,8.456039492679727,50.68677610683406,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,8.628073997767743,50.50908115703609,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,8.803608471247168,50.32773566354272,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,8.982714118477263,50.14289231107593,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,9.165463593459865,49.95469880144829,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,9.35193102831138,49.763298045338715,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,9.5421920633344,49.56882834456107,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,9.736323877701118,49.37142356541843,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,9.934405220760945,49.171213303691935,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,10.13651644398512,48.968323041771974,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,10.342739533561167,48.76287429840296,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,10.55315814365053,48.55498477147871,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,10.767857630322768,48.34476847429433,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,10.986925086180134,48.13233586563204,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,11.210449375686627,47.91779397403215,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,11.438521171215738,47.70124651657636,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,11.671232989831578,47.482794012488064,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,11.90867923081836,47.262533891834394,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,12.150956213973338,47.04056059959557,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,12.398162218678808,46.81696569534969,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,12.650397523769064,46.59183794880522,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,12.90776444820837,46.365263431398596,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,13.170367392596521,46.13732560416029,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,13.438312881518858,45.908105402040356,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,13.711709606757827,45.6776813148724,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,13.99066847138366,45.44612946514408,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,14.275302634742118,45.213523682731875,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,14.565727558357427,44.979935576748844,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,14.862061052769096,44.7454346046447,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,15.164423325321671,44.51008813868985,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,15.472937028926689,44.27396152996717,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,15.787727311816658,44.03711816998815,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,16.108921868311356,43.79961955004364,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,16.436650990616844,43.56152531839294,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,16.771047621678356,43.32289333538949,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,17.112247409108466,43.083779726635626,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,17.460388760212393,42.844238934254356,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,17.815612898132727,42.60432376636078,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,18.178063919136488,42.36408544481178,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,18.547888851067594,42.12357365130826,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,18.925237712988494,41.88283657192036,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,19.310263576035315,41.64192094010226,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,19.70312262551093,41.40087207826026,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,20.103974224241345,41.159733937933765,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,20.512980977221105,40.918549138646576,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,20.93030879757378,40.67735900548256,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,21.356126973854412,40.436203605437186,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,21.790608238721298,40.19512178259403,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,22.233928839004747,39.95415119217272,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,22.686268607201374,39.71332833349281,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,23.147811034423036,39.47268858189568,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,23.618743344829735,39.23226621966478,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,24.099256571576852,38.992094465982674,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,24.58954563430762,38.75220550596111,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,25.089809418221993,38.5126305187794,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,25.600250854754186,38.27339970496415,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,26.121077003891642,38.0345423128421,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,26.652499138168647,37.79608666419656,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,27.194732828368753,37.55806017915638,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,27.747998030970898,37.320489400345004,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,28.31251917737446,37.08340001631643,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,28.888525264939574,36.84681688430313,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,29.4762499498797,36.610764052300304,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,30.075931642043994,36.37526478050964,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,30.687813601627923,36.14034156216499,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,31.31214403785159,35.90601614376093,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,31.94917620964546,35.67230954470487,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,32.59916852838454,35.4392420764123,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,33.262384662712705,35.20683336086364,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,33.9390936454996,34.97510234864108,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,34.62956998297339,34.74406733646239,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,35.33409376607408,34.513745984228386,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,36.05295078407198,34.28415533159991,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,36.78643264049775,34.05531181411987,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,37.53483687143117,33.82723127889449,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,38.29846706619624,33.59992899984847,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,39.077632990511795,33.37341969256736,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,39.87265071214773,33.14771752874,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,40.68384272913747,32.92283615021409,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,41.51153810059886,32.69878868267648,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,42.35607258021677,32.475587748970064,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,43.2177887524411,32.253245482058425,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,44.09703617145574,32.031773537649045,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,44.994171502974936,31.81118310648533,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,45.90955866892427,31.591484926317623,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,46.8435689950651,31.37268929356282,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,47.79658136162258,31.15480607466176,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,48.76898235697793,30.9378447171435,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,49.76116643448748,30.72181426040511,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,50.77353607249241,30.506723346215207,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,51.80650193758342,30.2925802289495,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,52.860483051187344,30.079392785565847,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,53.93590695954267,29.86716852532658,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,55.03320990713304,29.65591459927525,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,56.15283701364956,29.445637809474707,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,57.29524245455296,29.236344618013412,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,58.4608896453093,29.028041155786532,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,59.65025142937407,28.820733231057915,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,60.86381027000056,28.61442633780936,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,62.102058445950384,28.409125663882914,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,63.365498251186004,28.20483609892188,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,64.65464219862562,28.001562242116204,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,65.97001322804336,27.799308409757483,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,67.31214491819937,27.598078642608794,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,68.68158170328533,27.397876713094387,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,70.07887909377355,27.198706132314094,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,71.50460390175922,27.000570156887083,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,72.95933447088711,26.803471795629605,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,74.44366091095586,26.607413816071126,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,75.9581853372955,26.412398750813022,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,77.50352211501489,26.2184289037341,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,79.08029810821797,26.025506356046954,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,80.68915293429076,25.8336329722089,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,82.3307392233613,25.642810405691467,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,84.00572288303823,25.45304010461198,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,85.71478336853562,25.264323317230772,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,87.45861395829316,25.076661097317604,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,89.23792203520358,24.89005430939047,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,91.05342937356204,24.70450363383011,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,92.90587243185286,24.520009571873423,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,94.79600265149294,24.33657245048877,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,96.72458676165343,24.154192427136135,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,98.69240709028234,23.97286949441506,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,100.70026188145492,23.792603484603188,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,102.74896561918071,23.61339407408798,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,104.83934935779769,23.435240787694507,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,106.97226105908906,23.25814300291157,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,109.14856593625736,23.08209995401895,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,111.3691468048975,22.907110736117996,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,113.63490444111021,22.733174309067966,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,115.94675794690023,22.560289501330526,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,118.30564512300933,22.388455013724442,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,120.71252284933435,22.217669423092772,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,123.16836747308389,22.047931185884664,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,125.6741752048327,21.879238641653714,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,128.23096252263375,21.71159001647496,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,130.83976658435066,21.5449834262825,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,133.50164564838,21.379416880129448,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,136.21767950293295,21.214888283372243,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,138.98896990404944,21.051395440781068,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,141.81664102252455,20.888936059578036,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,144.70183989992756,20.727507752404875,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,147.64573691389725,20.567108040221882,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,150.64952625290465,20.407734355139567,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,153.71442640067463,20.24938404318467,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,156.84168063046164,20.092054367002092,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,160.03255750938246,19.93574250849414,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,163.2883514130095,19.780445571398587,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,166.61038305043195,19.626160583807007,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
+mw_nsc,170.0,19.47288450062466,6.52,3.2,published_equation,Nature 2026 Fig.2/Methods MW-like NSC with Rc=5 pc and log10 M(<Rc)=6.52
