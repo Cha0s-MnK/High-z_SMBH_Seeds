@@ -148,12 +148,14 @@ def rho_bkgd(r_kpc: float, SersicReff_kpc: float, Mv_1e9Msun: float, t_Gyr: floa
     p, b = Sersic_coefs(2.2)
     c = 9.354 / ((Mv_1e9Msun * tun.h / 1.0e3) ** 0.094) # halo concentration
     check_finite_positive(c, name="Halo concentration c")
-    R_s = Rv_kpc(Mv_1e9Msun, t_Gyr, tun) / c # halo scale radius
-    check_finite_positive(R_s, name="Halo scale radius in kpc R_s")
-    dphidr_dm = Mv_1e9Msun * (math.log(1.0 + r_kpc / R_s) / (r_kpc * r_kpc) - 1.0 / ((R_s + r_kpc) * r_kpc))
+    #Rs = Rv_kpc(Mv_1e9Msun, t_Gyr, tun) / c # halo scale radius
+    Rs = Rv(Mhalo=Mv_1e9Msun*1.0e9, z=CosmicAge2Redshift(t=t_Gyr, time_unit="Gyr")) / c # halo scale radius
+    check_finite_positive(Rs, name="Halo scale radius in kpc Rs")
+    dphidr_dm = Mv_1e9Msun * (math.log(1.0 + r_kpc / Rs) / (r_kpc * r_kpc) - 1.0 / ((Rs + r_kpc) * r_kpc))
 
     sersic_z = b * (r_kpc / SersicReff_kpc) ** (1.0 / 2.2)
-    m_ser_r = Mstar_1e9Msun_SMHM(Mv_1e9Msun, t_Gyr) * float(special.gammainc(2.2 * (3.0 - p), sersic_z))
+    #m_ser_r = Mstar_1e9Msun_SMHM(Mv_1e9Msun, t_Gyr) * float(special.gammainc(2.2 * (3.0 - p), sersic_z))
+    m_ser_r = Mstar_SMHM(Mhalo=Mv_1e9Msun*1.0e9, z=CosmicAge2Redshift(t=t_Gyr, time_unit="Gyr")) * float(special.gammainc(2.2 * (3.0 - p), sersic_z))
     vc_bg = math.sqrt(max(r_kpc * dphidr_dm + m_ser_r / r_kpc, 0.0))
     return vc_bg * vc_bg / ((4.0 / 3.0) * PI * r_kpc * r_kpc)
 
@@ -360,7 +362,7 @@ def evolve_single_halo(
         raise ValueError("sersic_n must be positive")
     if final_redshift < 0.0:
         raise ValueError("final_redshift must be non-negative")
-    eddington_ratio = check_eddington_ratio(eddington_ratio)
+    eddington_ratio = check_finite_non_negative(eddington_ratio, name="Eddington ratio f_Eddington")
 
     gc_init = _numeric_rows(gcini_path)
     if gc_init.size == 0:
@@ -588,12 +590,7 @@ def evolve_single_halo(
         nonlocal M_BH_msun, t_smbh_current_gyr
         t_target = min(max(float(t_target_gyr), 0.0), t_end)
         dt_gyr = max(t_target - float(t_smbh_current_gyr), 0.0)
-        M_BH_msun = float(grow_eddington_mass_msun(
-            M_BH_msun,
-            dt_gyr=dt_gyr,
-            f_edd=eddington_ratio,
-            overflow_policy="warn_inf",
-        ))
+        M_BH_msun = float(grow_eddington_mass_msun(M_BH=M_BH_msun, dt_Gyr=dt_gyr, f_Eddington=eddington_ratio))
         t_smbh_current_gyr = float(t_target)
 
     def sample_pending_imbh_inventory(t_sample_gyr: float) -> None:

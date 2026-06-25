@@ -23,7 +23,7 @@ SRC_DIR = PROJECT_ROOT / "src"
 if str(SRC_DIR) not in sys.path:
     sys.path.insert(0, str(SRC_DIR))
 
-from config import Ez, H100, Mstar_SMHM, NSC_RAD_PC, CosmicAge2Redshift, Redshift2CosmicAge  # noqa: E402
+from config import E, ReducedH0, Mstar_SMHM, NSC_RAD_PC, CosmicAge2Redshift, Redshift2CosmicAge  # noqa: E402
 
 
 RUN_METADATA_NAME = "run_metadata.json"
@@ -693,9 +693,9 @@ def gas_mass_from_stellar_halo(stellar_mass: np.ndarray | float, halo_mass: np.n
     mg = sm * np.power(10.0, log_ratio)
     fstar = sm / np.clip(FB * mh, 1.0e-30, None)
     fgas = mg / np.clip(FB * mh, 1.0e-30, None)
-    e_of_z = np.array([Ez(float(redshift)) for redshift in zz.ravel()], dtype=float).reshape(zz.shape)
-    mc = 3.6e9 * np.exp(-0.6 * (1.0 + zz)) / H100
-    mc_min = 1.5e10 * np.power(180.0, -0.5) / np.clip(e_of_z * H100, 1.0e-30, None)
+    e_of_z = np.array([E(float(redshift)) for redshift in zz.ravel()], dtype=float).reshape(zz.shape)
+    mc = 3.6e9 * np.exp(-0.6 * (1.0 + zz)) / ReducedH0
+    mc_min = 1.5e10 * np.power(180.0, -0.5) / np.clip(e_of_z * ReducedH0, 1.0e-30, None)
     mc = np.maximum(mc, mc_min)
     fin = 1.0 / np.power(1.0 + mc / np.clip(mh, 1.0e-30, None), 3.0)
     overflow = fstar + fgas > fin

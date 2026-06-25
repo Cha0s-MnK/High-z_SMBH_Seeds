@@ -293,7 +293,7 @@ def gc_sersic_sampling(gc_list, mass_sum, halomass, redshift, re_kpc, re_source,
     """
     rgal_min_kpc = 1.0e-3
     rgal_max_kpc = 1.0e4
-    rVir = Rv(Mh=halomass, z=redshift) # in kpc
+    rVir = Rv(Mhalo=halomass, z=redshift) # [kpc]
 
     fallback_outer_kpc = 0.5*rVir
     #fallback_outer_kpc = 0.2*rVir
@@ -696,7 +696,7 @@ for tree_entry in _iter_tree_files(treedir):
         jj = jsp[i]
 
         if(fpID == -1 or len(subid[subid == fpID]) == 0): #then we've reached the first point along this track of the tree
-            sm_arr[i] = Mstar_SMHM(Mhalo=mass, z=redshifts[i], scatter = True) #assign a "seed" stellar mass which we will grow self-consistently
+            sm_arr[i] = Mstar_SMHM(Mhalo=mass, z=redshifts[i], scatter=True) #assign a "seed" stellar mass which we will grow self-consistently
             continue
 
         progIdx = np.where(subid == fpID)[0][0] #identify index of first progenitor in data
@@ -708,7 +708,7 @@ for tree_entry in _iter_tree_files(treedir):
         ratio = ratio/dt #(dMh/Mh)/dt
 
         #evolve stellar mass self-consistently as described in CGL18
-        sm1 = Mstar_SMHM(Mhalo=mass, z=znow, scatter = False); sm2 = Mstar_SMHM(Mhalo=progMass, z=zbefore, scatter = False)
+        sm1 = Mstar_SMHM(Mhalo=mass, z=znow, scatter=False); sm2 = Mstar_SMHM(Mhalo=progMass, z=zbefore, scatter=False)
         dsm = sm1-sm2
         a = 1./(1+znow)
         scatter = np.random.normal(0,.218 - .023*(a-1))
@@ -781,7 +781,7 @@ for tree_entry in _iter_tree_files(treedir):
     logmsub = np.log10(msub_z0)
     log_GC_mhost =  np.empty(len(GC_masses2))
     log_GC_mhost.fill(logmsub)
-    logms = np.log10(Mstar_SMHM(Mhalo=msub_z0, z=0.0, scatter = False))
+    logms = np.log10(Mstar_SMHM(Mhalo=msub_z0, z=0.0, scatter=False))
 
     # The historical host columns always refer to the descendant z=0 halo.
     # write to output files

@@ -794,7 +794,6 @@ def _build_halo_summary_table(
             _tmp_product_path(Path(per_halo_dir), "depos_halo", int(hid0), str(ns_tag)),
             z_out=0.0,
         )
-        _warn_if_central_bh_high(m_smbh_final, context=f"halo {int(hid0)} at z=0")
         sunk_mask = np.isin(s, np.asarray([STAT_SUNK, STAT_WANDERER_SUNK], dtype=int))
         m_imbh_final_tot = float(m_smbh_final + np.sum(imbh_final[(imbh_init > 0.0) & (~sunk_mask)]))
         rows.append(
@@ -869,20 +868,11 @@ def _interpolate_mpb_logmh_at_redshift(mpb_rows: np.ndarray, z_out: float) -> tu
         raise ValueError(f"Interpolated MPB halo mass is non-positive at z={z_value}: {interp_mass}")
     return float(np.log10(interp_mass)), 1
 
-def _warn_if_central_bh_high(m_bh_msun: float, *, context: str) -> None:
-    if central_bh_mass_warning_needed(m_bh_msun):
-        warnings.warn(
-            f"Central BH mass exceeds {CENTRAL_BH_WARNING_MASS_MSUN:.3e} Msun "
-            f"for {context}: M_SMBH_final={float(m_bh_msun):.6e} Msun",
-            RuntimeWarning,
-        )
-
-
 def _central_bh_masses_at_redshift(events: Sequence[dict], z_out: float, eddington_ratio: float) -> tuple[float, float]:
     """Sample stored central BH masses at one output redshift."""
 
     z_value = check_finite_non_negative(z_out, name="Output redshift z_out")
-    eddington_ratio = check_eddington_ratio(eddington_ratio)
+    eddington_ratio = check_finite_non_negative(eddington_ratio, name="Eddington ratio for central BH growth")
     if not events:
         return 0.0, 0.0
     target_time = float(Redshift2CosmicAge(z_value, time_unit="Gyr"))
@@ -898,10 +888,8 @@ def _central_bh_masses_at_redshift(events: Sequence[dict], z_out: float, eddingt
     m_smbh_init = check_finite_non_negative(float(latest.get("M_SMBH_init", 0.0)), name="Initial central BH mass")
     m_smbh_final = float(grow_eddington_mass_msun(
         check_finite_non_negative(float(latest.get("M_SMBH_current", 0.0)), name="Current central BH mass"),
-        dt_gyr=dt_gyr,
-        f_edd=eddington_ratio,
-        overflow_policy="warn_inf",
-    ))
+        dt_Gyr=dt_gyr,
+        f_Eddington=eddington_ratio))
     return (
         m_smbh_init,
         m_smbh_final,
@@ -958,7 +946,6 @@ def _build_halo_summary_by_z_table(
                 _tmp_product_path(Path(per_halo_dir), "depos_halo", int(hid0), str(ns_tag)),
                 z_out=float(z_out),
             )
-            _warn_if_central_bh_high(m_smbh_final_z, context=f"halo {int(hid0)} at z={float(z_out):g}")
             m_smbh_init_z = check_finite_non_negative(m_smbh_init_z, name="Initial central BH mass")
             m_smbh_final_z = check_finite_non_negative(m_smbh_final_z, name="Final central BH mass")
             rows.append(
@@ -1205,7 +1192,7 @@ def _branch_merger_events_by_source(tree_rows: np.ndarray, required_branches: se
         z_merge = check_finite_non_negative(z_merge, name="Branch merger redshift")
         recipient_logmh = check_finite(recipient_logmh, name="Recipient halo log mass")
         recipient_mhalo_msun = check_finite_positive(10.0 ** recipient_logmh, name="Recipient halo mass")
-        recipient_rvir_kpc = check_finite_positive(Rv(Mh=recipient_mhalo_msun, z=z_merge), name="Recipient virial radius")
+        recipient_rvir_kpc = check_finite_positive(Rv(Mhalo=recipient_mhalo_msun, z=z_merge), name="Recipient virial radius")
         events[branch_id] = BranchMergerEvent(
             source_branch_id=int(branch_id),
             recipient_branch_id=int(recipient_branch),
@@ -1629,62 +1616,6 @@ def _build_allcat_table(
         sigma_h_msun_pc2,
         M_IMBH_init,])
 
-
-def _evolve_one_halo_task(
-    *,
-    hz0: int,
-    halo_rows: np.ndarray,
-    ns: float,
-    ns_tag: str,
-    tmp_work_dir: str,
-    tree_halo: str,
-    ts_m: float,
-    ts_r: float,
-    eddington_ratio: float,
-    out_redshifts: Sequence[float]) -> tuple[int, np.ndarray, np.ndarray, np.ndarray, np.ndarray, np.ndarray, List[dict], Dict[float, float]]:
-    """Worker for one halo evolution.
-
-    The per-halo GC evolution is embarrassingly parallel once the formation
-    catalog has already been built. Each worker writes its own temporary GCini
-    file and returns only the columns needed to assemble the final vectors.
-    """
-
-    tmp_work_dir_p = Path(tmp_work_dir)
-    tree_halo_p = Path(tree_halo)
-    halo_rows_arr = np.asarray(halo_rows, dtype=float)
-    if halo_rows_arr.ndim != 2 or halo_rows_arr.shape[1] <= 12:
-        raise ValueError(f"Halo {int(hz0)} formation rows are malformed; got shape={halo_rows_arr.shape}")
-
-    gcini_halo = tmp_work_dir_p / f"gcini_halo{hz0}_ns{ns_tag}.txt"
-    # The fast evolution code now reads the modern per-GC formation rows,
-    # including the fixed IMBH seed mass used by the wanderer branch.
-    np.savetxt(gcini_halo, halo_rows_arr, fmt="%.10e", header=FINAL_GC_HEADER)
-
-    depos_halo = _tmp_product_path(tmp_work_dir_p, "depos_halo", hz0, ns_tag)
-    gcfin_halo = _tmp_product_path(tmp_work_dir_p, "final_gcs_halo", hz0, ns_tag)
-    gcfin_arr, _, central_history, imbh_inventory_by_z = evolve_single_halo(
-        ts_m=ts_m,
-        ts_r=ts_r,
-        gcini_path=gcini_halo,
-        depos_path=depos_halo,
-        gcfin_path=gcfin_halo,
-        haloevo_path=tree_halo_p,
-        sersic_n=float(ns),
-        eddington_ratio=float(eddington_ratio),
-        inventory_redshifts=[0.0] + [float(z) for z in out_redshifts])
-
-    gcfin_arr = _check_gcfin_array(gcfin_arr, f"halo {int(hz0)}")
-    return (
-        int(hz0),
-        gcfin_arr[:, 1].astype(int),
-        np.asarray(gcfin_arr[:, 2], dtype=float),
-        np.asarray(gcfin_arr[:, 4], dtype=float),
-        np.asarray(gcfin_arr[:, 6], dtype=float),
-        np.asarray(gcfin_arr[:, 8], dtype=float),
-        central_history,
-        {float(k): float(v) for k, v in imbh_inventory_by_z.items()},)
-
-
 def _evolve_one_gao_analytic_halo_task(
     *,
     hz0: int,
@@ -1968,12 +1899,7 @@ def _cumulative_central_events(events: Sequence[dict], eddington_ratio: float = 
         if t_event < t_current - TIME_ROUNDOFF_TOL_GYR:
             raise ValueError(f"Central events are not time-ordered: {t_event} < {t_current}")
         dt_gyr = _checked_non_negative_time(t_event - t_current, "Central-event timestep")
-        running_smbh_current = float(grow_eddington_mass_msun(
-            running_smbh_current,
-            dt_gyr=dt_gyr,
-            f_edd=eddington_ratio,
-            overflow_policy="warn_inf",
-        ))
+        running_smbh_current = float(grow_eddington_mass_msun(running_smbh_current, dt_Gyr=dt_gyr, f_Eddington=eddington_ratio))
         t_current = t_event
         delta_nsc = check_finite_non_negative(float(event.get("delta_M_NSC", 0.0)), name="central NSC mass increment")
         delta_smbh_init = check_finite_non_negative(float(event.get("delta_M_SMBH_init", 0.0)), name="central initial BH increment")
@@ -2088,13 +2014,11 @@ def _evolve_one_segmented_halo_task(
             event = events_by_source[int(child_branch)]
             child_smbh_current = float(grow_eddington_mass_msun(
                 check_finite_non_negative(float(child_result["M_SMBH_current"]), name="child-branch current BH mass"),
-                dt_gyr=_checked_non_negative_time(
+                dt_Gyr=_checked_non_negative_time(
                     float(event.t_merge_gyr) - float(child_result["t_smbh_current_gyr"]),
                     "child-branch central BH growth timestep",
                 ),
-                f_edd=eddington_ratio,
-                overflow_policy="warn_inf",
-            ))
+                f_Eddington=eddington_ratio))
             child_nsc = check_finite_non_negative(float(child_result["M_NSC"]), name="child-branch NSC mass")
             if import_branch_central_masses and child_smbh_current > 0.0:
                 event_order += 1
@@ -2217,10 +2141,8 @@ def _evolve_one_segmented_halo_task(
             last_time = _checked_non_negative_time(float(cumulative[-1].get("t_cosmic_gyr", t_branch_final)), "last central-event time")
             M_SMBH_current = float(grow_eddington_mass_msun(
                 check_finite_non_negative(float(cumulative[-1]["M_SMBH_current"]), name="branch current BH mass"),
-                dt_gyr=_checked_non_negative_time(t_branch_final - last_time, "branch central BH growth timestep"),
-                f_edd=eddington_ratio,
-                overflow_policy="warn_inf",
-            ))
+                dt_Gyr=_checked_non_negative_time(t_branch_final - last_time, "branch central BH growth timestep"),
+                f_Eddington=eddington_ratio))
             M_NSC_branch = check_finite_non_negative(float(cumulative[-1]["M_NSC"]), name="branch NSC mass")
             M_SMBH_init_branch = check_finite_non_negative(float(cumulative[-1]["M_SMBH_init"]), name="branch initial BH mass")
             M_SMBH_entry_branch = check_finite_non_negative(float(cumulative[-1]["M_SMBH_entry"]), name="branch entry BH mass")
@@ -2685,7 +2607,7 @@ def main() -> None:
 
     ns_values = _parse_ns_values(args.ns_values)
     out_redshifts = _parse_out_z(args.out_z)
-    eddington_ratio = check_eddington_ratio(args.Eddington)
+    eddington_ratio = check_finite_non_negative(args.Eddington, name="Eddington ratio f_Eddington")
     z_snap = _build_snap_map(SNAPS_PATH)
 
     run_scratch_dir = None
@@ -2832,7 +2754,7 @@ def main() -> None:
             ignore_index=True,
         )["M_SMBH_final"].to_numpy(dtype=float)
         finite_central_warning_values = central_warning_values[np.isfinite(central_warning_values)]
-        central_bh_warning_count = int(np.sum(finite_central_warning_values > CENTRAL_BH_WARNING_MASS_MSUN))
+        central_bh_warning_count = int(np.sum(finite_central_warning_values > M_BH_warning))
         central_bh_warning_max = (
             float(np.max(finite_central_warning_values)) if len(finite_central_warning_values) else 0.0
         )
@@ -2848,8 +2770,8 @@ def main() -> None:
             "Eddington_accretion_scope": (
                 "central BH state only; IMBHs inside GCs and non-central wandering IMBHs do not accrete"
             ),
-            "EDDINGTON_EPSILON": float(EDDINGTON_EPSILON),
-            "central_bh_warning_mass_msun": float(CENTRAL_BH_WARNING_MASS_MSUN),
+            "Eddington_varepsilon": float(Eddington_varepsilon),
+            "central_bh_warning_mass_msun": float(M_BH_warning),
             "central_bh_warning_count": central_bh_warning_count,
             "central_bh_warning_max_msun": central_bh_warning_max,
             "p2": float(args.p2),

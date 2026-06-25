@@ -2,21 +2,17 @@
 # CONFIGURE ENVIRONMENT #
 # ===================== #
 
-from __future__ import annotations
-
-import csv
-import math
-from dataclasses import dataclass
-from pathlib import Path
-from typing import Mapping, Tuple
-
+from __future__ import annotations # Annotations are not evaluated immediately when the file is imported.
+import math # to be optimized
 import numpy as np
 import scipy
-from scipy import interpolate, special
+from scipy import interpolate
+from typing import Tuple
+import warnings
 
 # physical constants (reference: https://en.wikipedia.org/wiki/List_of_physical_constants)
 AU        = 1.495978707e11        # astronomical unit [m] (reference: https://en.wikipedia.org/wiki/Astronomical_unit)
-c         = 2.99792458e8          # speed of light [m·s⁻¹]
+c         = 2.99792458e8          # speed of light [m·s⁻¹] (reference: https://en.wikipedia.org/wiki/Speed_of_light)
 day       = 24 * 3600             # day [s]
 e         = 1.602176634e-19       # elementary charge [C]
 epsilon_0 = 8.854187817e-12       # vacuum permittivity [F·m⁻¹]
@@ -28,13 +24,13 @@ h         = 6.62607015e-34        # Planck constant [J·s]
 k_B       = 1.380649e-23          # Boltzmann constant [J·K⁻¹]
 m_e       = 9.109383713928e-31    # electron mass [kg] (reference: https://en.wikipedia.org/wiki/Electron_mass)
 m_e_c2    = 0.5109989506916       # electron mass [MeV] (reference: https://en.wikipedia.org/wiki/Electron_mass)
-m_p       = 1.6726219259552e-27   # proton mass [kg]
+m_p       = 1.6726219259552e-27   # proton mass [kg] (reference: https://en.wikipedia.org/wiki/Proton)
 m_u       = 1.6605390689252e-27   # unified atomic mass unit [kg] (reference: https://en.wikipedia.org/wiki/Dalton_(unit))
 M_sun     = 1.988416e30           # solar mass [kg] (reference: https://en.wikipedia.org/wiki/Solar_mass)
 N_A       = 6.02214076e23         # Avogadro constant [mol⁻¹] (reference: https://en.wikipedia.org/wiki/Avogadro_constant)
 pc        = 3.0856775814913673e16 # parsec [m] (reference: https://en.wikipedia.org/wiki/Parsec)
 PI        = np.pi                 # π
-sigma_T   = 6.6524587321e-29      # Thomson cross section [m^2]
+sigma_T   = 6.652458705162e-29    # Thomson cross section [m^2] (reference: https://en.wikipedia.org/wiki/Thomson_scattering)
 yr        = 365.25 * 24 * 3600    # Julian year [s]
 
 kpc       = 1.0e3 * pc            # kiloparsec [m]
@@ -51,19 +47,12 @@ t_Lambda_Gyr  = 2.0 / (3.0 * H0 * math.sqrt(Omega_Lambda0)) * Mpc / 1.0e3 / Gyr
 t_universe    = 13.780 # age of the universe [Gyr]
 SqrtOmega_Lambda0OverOmega_m0 = math.sqrt(Omega_Lambda0 / Omega_m0)
 
-H100 = 0.704
-
-NUM_PROC = 16
-OUT_DIR  = "/lingshan/disk3/subonan/_output"
-STD_DPI  = 512
-
-# Fixed inner aperture/bin edge and public stellar NSC aperture.
-# Units: pc.  Code that needs kpc should multiply by 1.0e-3 locally.
-MIN_RAD_PC = 1.0
-NSC_RAD_PC = 6.0
-
-EDDINGTON_EPSILON = 0.1
-CENTRAL_BH_WARNING_MASS_MSUN = 1.0e12
+MIN_RAD_PC = 1.0 # inner aperture/bin edge
+NSC_RAD_PC = 6.0 # public stellar NSC aperture
+Eddington_varepsilon = 0.1 # Eddington radiative efficiency
+Eddington_time_Gyr = Eddington_varepsilon * sigma_T * c / (4.0 * PI * G * m_p * (1.0 - Eddington_varepsilon)) / Gyr # Eddington time [Gyr]
+M_BH_warning = 1.0e12 # BH mass threshold for warnings about excessive Eddington growth [Msun]
+STD_DPI = 512
 
 # ================== #
 # HELPER FUNCTION(S) #
@@ -89,7 +78,7 @@ def check_finite_positive(val, name="val"):
         raise ValueError(f"{name} must be finite and positive, but got {val}!")
     return val
 
-def fixed_tree_mpb_branch_id(log_mh, branch_id):
+def fixed_tree_mpb_branch_id(log_mh, branch_id): # to be checked
     """Return the project MPB branch ID from fixed-tree rows.
 
     This intentionally follows the Gao+2024 formation scripts and the
@@ -135,61 +124,30 @@ def fixed_tree_mpb_branch_id(log_mh, branch_id):
 
     return int(branch_values[int(np.argmax(log_mh_arr))])
 
-def check_eddington_ratio(f_edd):
-    return check_finite_non_negative(f_edd, name="Eddington ratio f_Edd")
+# Eddington-limited BH growth utilities
 
-def eddington_salpeter_time_gyr(epsilon: float = EDDINGTON_EPSILON) -> float:
-    epsilon = check_finite_positive(epsilon, name="Eddington radiative efficiency epsilon")
-    if epsilon >= 1.0:
-        raise ValueError("Eddington radiative efficiency epsilon must be < 1.")
-    t_sec = epsilon * sigma_T * c / (4.0 * PI * G * m_p * (1.0 - epsilon))
-    return t_sec / Gyr
+def grow_eddington_mass_msun(M_BH: float, dt_Gyr: float, f_Eddington: float):
+    """
+    Grow BH mass by simplified Eddington-limited accretion.
 
-def grow_eddington_mass_msun(
-    m_bh_msun,
-    dt_gyr: float,
-    f_edd: float,
-    epsilon: float = EDDINGTON_EPSILON,
-    *,
-    overflow_policy: str = "raise",
-):
-    mass = np.asarray(m_bh_msun, dtype=float)
-    scalar_output = mass.ndim == 0
-    dt_gyr = check_finite_non_negative(dt_gyr, name="Eddington growth timestep dt_gyr")
-    f_edd = check_eddington_ratio(f_edd)
-    if np.any(~np.isfinite(mass)) or np.any(mass < 0.0):
-        raise ValueError("Eddington growth input mass must be finite and non-negative.")
-    if f_edd == 0.0 or dt_gyr == 0.0 or np.all(mass == 0.0):
-        return float(mass) if scalar_output else mass.copy()
+    M_BH (t + dt) = M_BH (t) * exp(f_Eddington * dt / t_Eddington)
+    """
+    M_BH        = check_finite_non_negative(M_BH, name="BH mass M_BH before Eddington accretion")
+    dt_Gyr      = check_finite_non_negative(dt_Gyr, name="Eddington accretion timestep dt_Gyr")
+    f_Eddington = check_finite_non_negative(f_Eddington, name="Eddington ratio f_Eddington")
 
-    t_salp_gyr = eddington_salpeter_time_gyr(epsilon=epsilon)
-    exponent = f_edd * dt_gyr / t_salp_gyr
-    if not np.isfinite(exponent):
-        raise ValueError("Eddington growth exponent must be finite.")
+    if M_BH > 0.0 and dt_Gyr > 0.0 and f_Eddington > 0.0:
+        M_BH *= math.exp(f_Eddington * dt_Gyr / Eddington_time_Gyr)
+        check_finite_non_negative(M_BH, name="BH mass M_BH after Eddington accretion")
 
-    try:
-        growth = math.exp(exponent)
-    except OverflowError:
-        if overflow_policy == "warn_inf":
-            growth = np.inf
-        else:
-            raise
-    grown = mass * growth
-    if np.any(~np.isfinite(grown)):
-        if overflow_policy == "warn_inf":
-            grown = np.where(mass > 0.0, np.inf, mass)
-        elif overflow_policy == "ignore":
-            grown = grown
-        else:
-            raise OverflowError("Eddington growth produced a non-finite BH mass.")
-    return float(grown) if scalar_output else grown
+    if M_BH > M_BH_warning:
+        warnings.warn(f"BH mass M_BH after Eddington accretion exceeds {M_BH_warning:.0e} Msun.", RuntimeWarning)
 
-def central_bh_mass_warning_needed(m_bh_msun):
-    return np.any(np.asarray(m_bh_msun, dtype=float) > CENTRAL_BH_WARNING_MASS_MSUN)
+    return M_BH
 
 # linear interpolation on a uniformly spaced grid
 
-def lininterp_uniform(xq, x_grid, y_grid, dx_inv=None, *, allow_extrapolate=False):
+def lininterp_uniform(xq, x_grid, y_grid, dx_inv=None, *, allow_extrapolate=False): # to be checked
     """
     Linear interpolation on a uniformly spaced grid.
 
@@ -252,9 +210,9 @@ def lininterp_uniform(xq, x_grid, y_grid, dx_inv=None, *, allow_extrapolate=Fals
 
     return float(y_grid[i] + f * (y_grid[i + 1] - y_grid[i]))
 
-# cosmology utilities
+# cosmology
 
-def Ez(z: float) -> float:
+def E(z: float) -> float:
     """
     dimensionless Hubble parameter E(z) = H(z) / H0 for flat ΛCDM without radiation
     """
@@ -266,7 +224,7 @@ def H(z: float) -> float:
     """
     Hubble parameter H(z) in (km/s)/Mpc for flat ΛCDM without radiation
     """
-    return H0 * Ez(z)
+    return H0 * E(z)
 
 def Omega_m(z: float) -> float:
     """matter density parameter Ω_m(z) for flat ΛCDM without radiation"""
@@ -276,13 +234,9 @@ def Omega_m(z: float) -> float:
     return Omega_m0 * zPlus1Cubed / (1.0 - Omega_m0 + Omega_m0 * zPlus1Cubed)
 
 def Redshift2CosmicAge(z: float, time_unit: str = "Gyr") -> float:
-    """Flat LCDM cosmic age in Gyr.
-
-    For a spatially flat matter+Lambda cosmology, the age at redshift z has the analytic form
-
+    """
+    For flat ΛCDM without radiation, the age at redshift z has the analytic form:
         t(z) = 2 / (3 H0 sqrt(Omega_L)) * asinh(sqrt(Omega_L / Omega_M) / (1 + z)^(3/2))
-
-    which is exact under the flat-LCDM assumption.
     """
 
     check_finite_non_negative(z, name="Redshift z")
@@ -297,37 +251,39 @@ def Redshift2CosmicAge(z: float, time_unit: str = "Gyr") -> float:
 
     return t_Lambda * math.asinh(SqrtOmega_Lambda0OverOmega_m0 / ((1.0 + z) ** 1.5))
 
-def Rv(Mh: float, z: float) -> float:
+def Rv(Mhalo: float, z: float) -> float:
     """
-    Virial radius in kpc for halo mass Mh in Msun for flat ΛCDM without radiation
+    Virial radius in kpc for halo mass Mhalo in Msun for flat ΛCDM without radiation
 
     Uses the Bryan & Norman virial overdensity relative to the critical density.
     """
-    check_finite_positive(Mh, name="Halo mass Mh")
+    check_finite_positive(Mhalo, name="Halo mass in M☉ Mhalo")
     check_finite_non_negative(z, name="Redshift z")
 
     # critical density
-    Hz_kpc = H(z=z) * 1.0e-3 # [(km/s)/Mpc] --> [(km/s)/kpc]
-    rho_crit = 3.0 * (Hz_kpc ** 2) / (8.0 * PI * G_kpc) # [M☉/kpc³]
+    H_kpc = H(z=z) * 1.0e-3 # [(km/s)/Mpc] --> [(km/s)/kpc]
+    rho_crit = 3.0 * (H_kpc ** 2) / (8.0 * PI * G_kpc) # [M☉/kpc³]
 
     # Bryan & Norman virial overdensity relative to critical density
     x = Omega_m(z=z) - 1.0
-    Delta_v = 18.0 * (PI ** 2) + 82.0 * x - 39.0 * (x ** 2)
+    Delta_c = 18.0 * (PI ** 2) + 82.0 * x - 39.0 * (x ** 2)
 
     # virial radius in kpc
-    return np.cbrt(3.0 * Mh / (4.0 * PI * Delta_v * rho_crit))
+    return np.cbrt(3.0 * Mhalo / (4.0 * PI * Delta_c * rho_crit))
 
+"""
 def Rv_kpc(Mhalo_1e9Msun: float, t_Gyr: float, tun: Tunables) -> float:
     check_finite_positive(Mhalo_1e9Msun, name="Halo mass Mhalo_1e9Msun")
     check_finite_positive(t_Gyr, name="Cosmic age in Gyr t_Gyr")
 
     z = CosmicAge2Redshift(t_Gyr, time_unit="Gyr")
     Omega_m_z = Omega_m(z)
-    Delta_v = (18.0 * PI * PI + 82.0 * (Omega_m_z - 1.0) - 39.0 * (Omega_m_z - 1.0) ** 2) / Omega_m_z
-    check_finite_positive(Delta_v, name="Average halo over-density at Rv Delta_v")
-    Rv_kpc = 163.0 / ((1.0 + z) * tun.h) * (Mhalo_1e9Msun * tun.h * 200.0 / (1.0e3 * Omega_m0 * Delta_v)) ** (1.0 / 3.0)
+    Delta_c = (18.0 * PI * PI + 82.0 * (Omega_m_z - 1.0) - 39.0 * (Omega_m_z - 1.0) ** 2) / Omega_m_z
+    check_finite_positive(Delta_c, name="Average halo over-density at Rv Delta_c")
+    Rv_kpc = 163.0 / ((1.0 + z) * tun.h) * (Mhalo_1e9Msun * tun.h * 200.0 / (1.0e3 * Omega_m0 * Delta_c)) ** (1.0 / 3.0)
     check_finite_positive(Rv_kpc, name="Halo virial radius in kpc Rv_kpc")
     return Rv_kpc
+"""
 
 def CosmicAge2Redshift(t: float, time_unit: str = "Gyr") -> float:
     """cosmic age to redshift conversion for flat ΛCDM without radiation"""
@@ -342,29 +298,29 @@ def CosmicAge2Redshift(t: float, time_unit: str = "Gyr") -> float:
         raise ValueError(f"Unknown time unit: {time_unit}")
 
     z = (SqrtOmega_Lambda0OverOmega_m0 / math.sinh(t / t_Lambda_Gyr)) ** (2.0 / 3.0) - 1.0
-    check_finite_non_negative(z, name="Redshift z")
-    return z
+    return check_finite_non_negative(z, name="Redshift z")
 
-def Vv(Mh, z):
-    return np.sqrt(G_kpc * Mh / Rv(Mh=Mh, z=z))
+def v_v(Mhalo: float, z: float) -> float:
+    """virial velocity in km/s for halo mass Mhalo in M☉ at redshift z for flat ΛCDM without radiation"""
+    return np.sqrt(G_kpc * Mhalo / Rv(Mhalo=Mhalo, z=z))
 
-# Behroozi+2013 stellar mass-halo-mass(SMHM) relation
+# Behroozi+2013 stellar mass-halo mass(SMHM) relation
 
 def f_x_SMHM(x: float, z: float) -> float:
-    check_finite(x, name="lg(M_h/M_1) x")
+    check_finite(x, name="lg(Mhalo/M1) x")
     check_finite_non_negative(z, name="Redshift z")
 
-    a = 1.0 / (1.0 + z)
-    nu = math.exp(- 4.0 * a * a)
+    a     = 1.0 / (1.0 + z)
+    nu    = math.exp(- 4.0 * a * a)
     alpha = - 1.412 + 0.731 * (a - 1.0) * nu
     delta = 3.508 + (2.608 * (a - 1.0) - 0.043 * z) * nu
     gamma = 0.316 + (1.319 * (a - 1.0) + 0.279 * z) * nu
-    low_mass_arg = 10.0 ** (-x)
-    low_mass_weight = 0.0 if low_mass_arg > 700.0 else 1.0 / (1.0 + math.exp(low_mass_arg))
-    return - math.log10(10.0 ** (alpha * x) + 1.0) + delta * (math.log10(1.0 + math.exp(x))) ** gamma * low_mass_weight
+    #low_mass_arg = 10.0 ** (-x)
+    #low_mass_weight = 0.0 if low_mass_arg > 700.0 else 1.0 / (1.0 + math.exp(low_mass_arg))
+    return - math.log10(10.0 ** (alpha * x) + 1.0) + delta * (math.log10(1.0 + math.exp(x))) ** gamma / (1.0 + math.exp(10.0 ** (-x)))
 
 def Mstar_SMHM(Mhalo: float, z: float, scatter: bool = False) -> float:
-    check_finite_positive(Mhalo, name="Halo mass Mhalo")
+    check_finite_positive(Mhalo, name="Halo mass in M☉ Mhalo")
     check_finite_non_negative(z, name="Redshift z")
 
     a = 1.0 / (1.0 + z)
@@ -375,12 +331,11 @@ def Mstar_SMHM(Mhalo: float, z: float, scatter: bool = False) -> float:
     if scatter:
         xi = np.random.normal(0.0, 0.218 + 0.023 * z / (1.0 + z))
         lg_Mstar += xi
-    Mstar = 10 ** lg_Mstar
-    check_finite_positive(Mstar, name="Stellar mass in 1e9 Msun Mstar")
-    return Mstar
+    return check_finite_positive(10 ** lg_Mstar, name="Stellar mass in M☉ Mstar")
 
+"""
 def Mstar_1e9Msun_SMHM(Mhalo_1e9Msun: float, t_Gyr: float, scatter: bool = False) -> float:
-    check_finite_positive(Mhalo_1e9Msun, name="Halo mass in 1e9 Msun Mhalo_1e9Msun")
+    check_finite_positive(Mhalo_1e9Msun, name="Halo mass in 1e9 M☉ Mhalo_1e9Msun")
     check_finite_positive(t_Gyr, name="Cosmic age in Gyr t_Gyr")
 
     z = CosmicAge2Redshift(t_Gyr, time_unit="Gyr")
@@ -393,8 +348,9 @@ def Mstar_1e9Msun_SMHM(Mhalo_1e9Msun: float, t_Gyr: float, scatter: bool = False
         xi = np.random.normal(0.0, 0.218 + 0.023 * z / (1.0 + z))
         lg_Mstar += xi
     Mstar_1e9Msun = 10 ** lg_Mstar / 1.0e9
-    check_finite_positive(Mstar_1e9Msun, name="Stellar mass in 1e9 Msun Mstar_1e9Msun")
+    check_finite_positive(Mstar_1e9Msun, name="Stellar mass in 1e9 M☉ Mstar_1e9Msun")
     return Mstar_1e9Msun
+"""
 
 # Schechter star cluster initial mass function
 
@@ -414,7 +370,7 @@ def upperIncompleteGammaMinus1(x):
 
     return np.exp(-x) / x - scipy.special.exp1(x)
 
-def makeLogMgcToLogMmaxInterpolator(Mc: float, Mmin: float = 1.0e5, dlog_mmax: float = 0.02):
+def makeLogMgcToLogMmaxInterpolator(Mc: float, Mmin: float = 1.0e5, dlog_mmax: float = 0.02): # to be checked
     """
     Build an interpolator from log10(total GC mass) to log10(Mmax)
     for a Schechter cluster initial mass function with alpha = -2.
@@ -507,7 +463,7 @@ def makeLogMgcToLogMmaxInterpolator(Mc: float, Mmin: float = 1.0e5, dlog_mmax: f
         assume_sorted=True,
     )
 
-def upper_gamma2_log_mass(log_m: float, Mc: float) -> float:
+def upper_gamma2_log_mass(log_m: float, Mc: float) -> float: # to be checked
     """Return Gamma(-1, M/Mc) for a base-10 log mass."""
 
     check_finite(log_m, name="log10 cluster mass")
@@ -527,8 +483,8 @@ def Sersic_coefs(N_S: float) -> Tuple[float, float]:
 def resolve_birth_re_kpc(halomass_msun: float, redshift: float, jsp: float) -> float:
     """Gao+2024 birth-radius scale in physical kpc."""
 
-    j_kpc_kms = float(jsp) * H100
-    rvir_kpc = Rv(Mh=float(halomass_msun), z=float(redshift))
+    j_kpc_kms = float(jsp) * ReducedH0
+    rvir_kpc = Rv(Mhalo=halomass_msun, z=redshift)
     hz_km_s_kpc = H(float(redshift)) * 1.0e-3
     re_kpc = j_kpc_kms / (20.0 * hz_km_s_kpc * rvir_kpc)
     return check_finite_positive(re_kpc, name="Gao+2024 birth effective radius in kpc")
@@ -536,7 +492,8 @@ def resolve_birth_re_kpc(halomass_msun: float, redshift: float, jsp: float) -> f
 def resolve_background_re_kpc(mhalo_1e9msun: float, t_l_gyr: float, spin_norm: float, tun) -> float:
     """Gao+2024 analytical-background radius scale in physical kpc."""
 
-    rvir_kpc = Rv_kpc(float(mhalo_1e9msun), float(t_l_gyr), tun)
+    #rvir_kpc = Rv_kpc(float(mhalo_1e9msun), float(t_l_gyr), tun)
+    rvir_kpc = Rv(Mhalo=mhalo_1e9msun * 1.0e9, z=CosmicAge2Redshift(t_l_gyr, time_unit="Gyr"))
     halo_mass_kg = float(mhalo_1e9msun) * 1.0e9 * M_sun
     rvir_m = rvir_kpc * kpc
     spin_parameter = float(spin_norm) / math.sqrt(2.0 * G * halo_mass_kg * rvir_m)
