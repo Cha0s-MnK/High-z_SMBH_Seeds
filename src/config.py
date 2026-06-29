@@ -315,9 +315,9 @@ def f_x_SMHM(x: float, z: float) -> float:
     alpha = - 1.412 + 0.731 * (a - 1.0) * nu
     delta = 3.508 + (2.608 * (a - 1.0) - 0.043 * z) * nu
     gamma = 0.316 + (1.319 * (a - 1.0) + 0.279 * z) * nu
-    #low_mass_arg = 10.0 ** (-x)
-    #low_mass_weight = 0.0 if low_mass_arg > 700.0 else 1.0 / (1.0 + math.exp(low_mass_arg))
-    return - math.log10(10.0 ** (alpha * x) + 1.0) + delta * (math.log10(1.0 + math.exp(x))) ** gamma / (1.0 + math.exp(10.0 ** (-x)))
+    exp   = 10.0 ** (-x)
+    coef  = 0.0 if exp > 700.0 else 1.0 / (1.0 + math.exp(exp))
+    return - math.log10(10.0 ** (alpha * x) + 1.0) + delta * (math.log10(1.0 + math.exp(x))) ** gamma * coef
 
 def Mstar_SMHM(Mhalo: float, z: float, scatter: bool = False) -> float:
     check_finite_positive(Mhalo, name="Halo mass in M☉ Mhalo")
@@ -480,132 +480,137 @@ def Sersic_coefs(N_S: float) -> Tuple[float, float]:
 
 # Gao-only effective-radius helpers used by the formation and evolution stages.
 
+"""
 def resolve_birth_re_kpc(halomass_msun: float, redshift: float, jsp: float) -> float:
-    """Gao+2024 birth-radius scale in physical kpc."""
-
     j_kpc_kms = float(jsp) * ReducedH0
-    rvir_kpc = Rv(Mhalo=halomass_msun, z=redshift)
+    Rv_kpc = Rv(Mhalo=halomass_msun, z=redshift)
     hz_km_s_kpc = H(float(redshift)) * 1.0e-3
-    re_kpc = j_kpc_kms / (20.0 * hz_km_s_kpc * rvir_kpc)
-    return check_finite_positive(re_kpc, name="Gao+2024 birth effective radius in kpc")
-
-def resolve_background_re_kpc(mhalo_1e9msun: float, t_l_gyr: float, spin_norm: float, tun) -> float:
-    """Gao+2024 analytical-background radius scale in physical kpc."""
-
-    #rvir_kpc = Rv_kpc(float(mhalo_1e9msun), float(t_l_gyr), tun)
-    rvir_kpc = Rv(Mhalo=mhalo_1e9msun * 1.0e9, z=CosmicAge2Redshift(t_l_gyr, time_unit="Gyr"))
-    halo_mass_kg = float(mhalo_1e9msun) * 1.0e9 * M_sun
-    rvir_m = rvir_kpc * kpc
-    spin_parameter = float(spin_norm) / math.sqrt(2.0 * G * halo_mass_kg * rvir_m)
-    re_kpc = spin_parameter * rvir_kpc / math.sqrt(2.0)
-    return check_finite_positive(re_kpc, name="Gao+2024 evolution effective radius in kpc")
-
-"""
-Function-only IMBH seeding estimator for GC formation outputs.
-
-Metallicity inputs are assumed to be Z/Zsun, not [Fe/H].  All coefficients are
-hard-coded in the equations below.  The public API is intentionally small and
-works with ``from IMBH import *`` because imported modules are underscore-named.
+    Re = j_kpc_kms / (20.0 * hz_km_s_kpc * Rv_kpc)
+    return check_finite_positive(Re, name="Gao+2024 birth effective radius in kpc")
 """
 
-def radius_eq7(cluster_mass_msun):
-    """Eq. (7): GC 3D half-mass radius in pc."""
+def calcRe(mhalo_1e9msun: float, t_Gyr: float, j: float) -> float:
+    """compute the effective radius of the galactic disc in kpc"""
 
-    mass = np.asarray(cluster_mass_msun, dtype=float)
-    radius = 0.125 * 2.365 / 1.3 * (np.clip(mass, 1.0e-30, None) / 1.0e4) ** 0.180
-    return float(radius) if radius.ndim == 0 else radius
+    Mhalo = float(mhalo_1e9msun) * 1.0e9
+    Rv_kpc = Rv(Mhalo=Mhalo, z=CosmicAge2Redshift(t_Gyr, time_unit="Gyr"))
+    lambdaB = j / math.sqrt(2.0 * G_kpc * Mhalo * Rv_kpc)
+    Re = lambdaB * Rv_kpc / math.sqrt(2.0)
+    return check_finite_positive(Re, name="Effective radius of the galactic disc in kpc Re")
 
+"""
+Function-only scalar IMBH seeding estimator for GC formation outputs.
 
-def metallicity_to_z_ratio(metallicity):
-    """Return metallicity unchanged; input is assumed to be Z/Zsun."""
+Metallicity inputs are the literal ratio Z/Zsun, not [Fe/H].  The Rantala+2026
+fit is evaluated for finite positive floats and warns outside the simulated
+metallicity range 0.01 <= Z/Zsun <= 1.0.
+"""
 
-    z_ratio = np.asarray(metallicity, dtype=float)
-    return float(z_ratio) if z_ratio.ndim == 0 else z_ratio
+def initMRRofSCs(Mcl: float, f_h: float = 0.125) -> float:
+    """Eq.7: initial mass-radius relation of star clusters,
+    returning the star cluster 3D half-mass radius in pc."""
 
+    check_finite_positive(Mcl, name="Star cluster mass Mcl in M☉")
+    r_h = f_h * 2.365 / 1.3 * ((Mcl / 1.0e4) ** 0.18)
+    return check_finite_positive(r_h, name="Star cluster 3D half-mass radius r_h in pc")
 
-def projected_half_mass_radius_plummer(r_h_pc):
-    """Convert Plummer 3D half-mass radius to projected half-mass radius."""
-
-    radius = np.asarray(r_h_pc, dtype=float) / 1.305
-    return float(radius) if radius.ndim == 0 else radius
-
-
-def sigma_h_from_mass_radius(cluster_mass_msun, r_h_pc):
-    """Projected half-mass surface density in Msun pc^-2.
+def calcSigma_h(Mcl: float, r_h: float) -> float:
+    """Projected half-mass surface density in M☉/pc².
 
     The input radius is the 3D half-mass radius.  For a Plummer profile,
-    R_h,proj = r_h / 1.305 and Sigma_h = M / (2 pi R_h,proj^2).
+    r_h_2D = r_h / 1.305 and Sigma_h = M / (2 pi r_h_2D^2).
     """
+    check_finite_positive(Mcl, name="Star cluster mass Mcl in M☉")
+    check_finite_positive(r_h, name="Star cluster 3D half-mass radius r_h in pc")
 
-    mass = np.asarray(cluster_mass_msun, dtype=float)
-    radius = np.asarray(r_h_pc, dtype=float)
-    scalar_output = mass.ndim == 0 and radius.ndim == 0
-    mass, radius = np.broadcast_arrays(mass, radius)
+    r_h_2D  = r_h / 1.305
+    Sigma_h = Mcl / (2.0 * PI * r_h_2D**2)
+    return check_finite_positive(Sigma_h, name="Projected half-mass surface density Sigma_h in M☉/pc²")
 
-    projected_radius = radius / 1.305
-    sigma_h = np.where(
-        projected_radius > 0.0,
-        mass / (2.0 * np.pi * projected_radius**2),
-        0.0,
-    )
-    return float(sigma_h) if scalar_output else sigma_h
+def calcMimbhEq9(Sigma_h: float, Z: float) -> float:
+    """Eq.9: IMBH mass fit within the calibrated surface-density range."""
+    Sigma_h = check_finite_positive(Sigma_h, name="Projected 2D half-mass surface density Sigma_h in M☉/pc²")
+    lgZ     = math.log10(check_finite_non_negative(Z, name="Metallicity Z in Z☉"))
 
+    if Z < 0.126:
+        A, B, C, lgSigma_crit = - 1790.07 * lgZ - 7392.65, 162.46 * lgZ + 829.42, 4734.11 * lgZ + 16556.82, 0.0386 * lgZ + 4.53
+    elif Z < 0.398:
+        A, B, C, lgSigma_crit = 9707.84 * lgZ + 2627.71, - 1015.72 * lgZ - 211.38, - 23585.20 * lgZ - 7814.04, 0.91 * lgZ + 5.22
+    else:
+        A, B, C, lgSigma_crit = 1147.68 * lgZ - 721.18, - 166.92 * lgZ + 126.15, - 2002.25 * lgZ + 471.59, 0.91 * lgZ + 5.22
+    lgSigma_h = math.log10(Sigma_h)
+    Mimbh = 0.0 if Sigma_h <= 10.0**lgSigma_crit else A * lgSigma_h + B * lgSigma_h**2 + C
+    Mimbh = check_finite(Mimbh, name="Eq.9 IMBH mass Mimbh in M☉")
+    Mimbh = Mimbh if Mimbh >= 100.0 else 0.0
+    return Mimbh
 
-def eq9_coeffs(z_ratio):
-    """Piecewise coefficients for Eq. (9), using Z/Zsun."""
+def calcMimbhEq10(Sigma_h: float, Z: float) -> float:
+    """Eq.10: high-surface-density extrapolation."""
+    Sigma_h = check_finite_positive(Sigma_h, name="Projected 2D half-mass surface density Sigma_h in M☉/pc²")
+    lgZ     = math.log10(check_finite_non_negative(Z, name="Metallicity Z in Z☉"))
 
-    z = np.asarray(z_ratio, dtype=float)
-    log_z = np.log10(np.clip(z, 1.0e-30, None))
+    if Z < 0.079:
+        D, E = - 37.37 * lgZ + 1452.33, 81.66 * lgZ - 6892.57
+    elif Z < 0.316:
+        D, E = - 922.15 * lgZ + 466.71, 4242.58 * lgZ - 2280.02
+    else:
+        D, E = - 611.27 * lgZ + 628.40, 2620.25 * lgZ - 3137.93
 
-    A = np.where(z < 0.126, -1790.07 * log_z - 7392.65,
-                  np.where(z < 0.398, 9707.84 * log_z + 2627.71,
-                            1147.68 * log_z - 721.18))
-    B = np.where(z < 0.126, 162.46 * log_z + 829.42,
-                  np.where(z < 0.398, -1015.72 * log_z - 211.38,
-                            -166.92 * log_z + 126.15))
-    C = np.where(z < 0.126, 4734.11 * log_z + 16556.82,
-                  np.where(z < 0.398, -23585.20 * log_z - 7814.04,
-                            -2002.25 * log_z + 471.59))
-    log_sigma_crit = np.where(z < 0.126, 0.0386 * log_z + 4.53,
-                               np.where(z < 0.398, 0.91 * log_z + 5.22,
-                                         0.91 * log_z + 5.22))
-    return A, B, C, log_sigma_crit
+    Mimbh = check_finite(D * math.log10(Sigma_h) + E, name="Eq.10 IMBH mass Mimbh in M☉")
+    Mimbh = Mimbh if Mimbh >= 100.0 else 0.0
+    return Mimbh
 
+"""
+def eq9_coeffs(Z: float) -> Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
+    #Piecewise coefficients for Eq.9, using literal Z/Z☉
 
-def eq10_coeffs(z_ratio):
-    """Piecewise coefficients for Eq. (10), using Z/Zsun."""
+    lgZ = np.log10(check_finite_non_negative(Z, name="Metallicity Z in Z☉"))
 
-    z = np.asarray(z_ratio, dtype=float)
-    log_z = np.log10(np.clip(z, 1.0e-30, None))
+    A = np.where(Z < 0.126, -1790.07 * lgZ - 7392.65,
+                  np.where(Z < 0.398, 9707.84 * lgZ + 2627.71,
+                            1147.68 * lgZ - 721.18))
+    B = np.where(Z < 0.126, 162.46 * lgZ + 829.42,
+                  np.where(Z < 0.398, -1015.72 * lgZ - 211.38,
+                            -166.92 * lgZ + 126.15))
+    C = np.where(Z < 0.126, 4734.11 * lgZ + 16556.82,
+                  np.where(Z < 0.398, -23585.20 * lgZ - 7814.04,
+                            -2002.25 * lgZ + 471.59))
+    lgSigma_crit = np.where(Z < 0.126, 0.0386 * lgZ + 4.53,
+                               np.where(Z < 0.398, 0.91 * lgZ + 5.22,
+                                         0.91 * lgZ + 5.22))
+    return A, B, C, lgSigma_crit
 
-    D = np.where(z < 0.079, -37.37 * log_z + 1452.33,
-                  np.where(z < 0.316, -922.15 * log_z + 466.71,
-                            -611.27 * log_z + 628.40))
-    E = np.where(z < 0.079, 81.66 * log_z - 6892.57,
-                  np.where(z < 0.316, 4242.58 * log_z - 2280.02,
-                            2620.25 * log_z - 3137.93))
+def eq10_coeffs(Z: float) -> Tuple[np.ndarray, np.ndarray]:
+    #Piecewise coefficients for Eq.10, using literal Z/Z☉
+
+    lgZ = np.log10(check_finite_non_negative(Z, name="Metallicity Z in Z☉"))
+
+    D = np.where(Z < 0.079, -37.37 * lgZ + 1452.33,
+                  np.where(Z < 0.316, -922.15 * lgZ + 466.71,
+                            -611.27 * lgZ + 628.40))
+    E = np.where(Z < 0.079, 81.66 * lgZ - 6892.57,
+                  np.where(Z < 0.316, 4242.58 * lgZ - 2280.02,
+                            2620.25 * lgZ - 3137.93))
     return D, E
 
-
 def imbh_mass_eq9(sigma_h_msun_pc2, z_ratio):
-    """Eq. (9): IMBH mass fit within the calibrated surface-density range."""
+    #Eq.9: IMBH mass fit within the calibrated surface-density range.
 
     sigma_h = np.asarray(sigma_h_msun_pc2, dtype=float)
     z = np.asarray(z_ratio, dtype=float)
     scalar_output = sigma_h.ndim == 0 and z.ndim == 0
     sigma_h, z = np.broadcast_arrays(sigma_h, z)
 
-    A, B, C, log_sigma_crit = eq9_coeffs(z)
-    log_sigma_h = np.log10(np.clip(sigma_h, 1.0e-30, None))
-    mass = A * log_sigma_h + B * log_sigma_h**2 + C
-    mass = np.where(sigma_h >= 10.0**log_sigma_crit, mass, 0.0)
+    A, B, C, lgSigma_crit = eq9_coeffs(z)
+    lgSigma_h = np.log10(np.clip(sigma_h, 1.0e-30, None))
+    mass = A * lgSigma_h + B * lgSigma_h**2 + C
+    mass = np.where(sigma_h >= 10.0**lgSigma_crit, mass, 0.0)
     mass = np.where(np.isfinite(mass), mass, 0.0)
     mass = np.clip(mass, 0.0, None)
     return float(mass) if scalar_output else mass
 
-
 def imbh_mass_eq10(sigma_h_msun_pc2, z_ratio):
-    """Eq. (10): high-surface-density extrapolation."""
+    #Eq.10: high-surface-density extrapolation.
 
     sigma_h = np.asarray(sigma_h_msun_pc2, dtype=float)
     z = np.asarray(z_ratio, dtype=float)
@@ -618,31 +623,40 @@ def imbh_mass_eq10(sigma_h_msun_pc2, z_ratio):
     mass = np.clip(mass, 0.0, None)
     return float(mass) if scalar_output else mass
 
-
 def imbh_mass_from_sigma_metallicity(sigma_h_msun_pc2, z_ratio):
-    """Estimate IMBH mass from Sigma_h and metallicity Z/Zsun."""
+    #Estimate IMBH mass from Sigma_h and metallicity Z/Zsun.
 
     sigma_h = np.asarray(sigma_h_msun_pc2, dtype=float)
     z = np.asarray(z_ratio, dtype=float)
     scalar_output = sigma_h.ndim == 0 and z.ndim == 0
     sigma_h, z = np.broadcast_arrays(sigma_h, z)
 
-    z = np.clip(z, 1.0e-2, 1.0)
     mass = imbh_mass_eq9(sigma_h, z)
     use_eq10 = np.log10(np.clip(sigma_h, 1.0e-30, None)) >= 5.22
     mass = np.where(use_eq10, imbh_mass_eq10(sigma_h, z), mass)
     mass = np.where(mass >= 100.0, mass, 0.0)
     return float(mass) if scalar_output else mass
+"""
 
+def imbh_mass_from_sigma_metallicity(sigma_h_msun_pc2: float, z_ratio: float) -> float:
+    """Estimate IMBH mass from Sigma_h and metallicity Z/Zsun."""
+    Sigma_h = check_finite_positive(sigma_h_msun_pc2, name="Projected 2D half-mass surface density Sigma_h in M☉/pc²")
+    Z       = check_finite_non_negative(z_ratio, name="Metallicity Z in Z☉")
+    if Z < 0.01 or Z > 1.0:
+        warnings.warn(f"Rantala+2026 IMBH fit evaluated outside 0.01 <= Z/Z☉ <= 1.0: Z/Z☉ = {Z:.6g}.",
+            RuntimeWarning, stacklevel=2)
 
-def estimate_for_gc(cluster_mass_msun, metallicity):
+    Mimbh = calcMimbhEq10(Sigma_h, Z) if math.log10(Sigma_h) >= 5.22 else calcMimbhEq9(Sigma_h, Z)
+    return Mimbh if Mimbh >= 100.0 else 0.0
+
+def estimate_for_gc(Mcl: float, Z: float) -> dict:
     """Full GC-level IMBH estimate.
 
     Parameters
     ----------
-    cluster_mass_msun : float or array-like
+    Mcl : float
         GC mass in Msun.
-    metallicity : float or array-like
+    Z : float
         Metallicity ratio Z/Zsun.
 
     Returns
@@ -650,24 +664,16 @@ def estimate_for_gc(cluster_mass_msun, metallicity):
     dict
         Same output keys as the original class-based implementation.
     """
+    Mcl = check_finite_positive(Mcl, name="Star cluster mass Mcl in M☉")
+    Z   = check_finite_non_negative(Z, name="Metallicity Z in Z☉")
 
-    mass = np.asarray(cluster_mass_msun, dtype=float)
-    z_ratio_raw = np.asarray(metallicity, dtype=float)
-    scalar_output = mass.ndim == 0 and z_ratio_raw.ndim == 0
-    mass, z_ratio_raw = np.broadcast_arrays(mass, z_ratio_raw)
+    r_h     = initMRRofSCs(Mcl=Mcl, f_h=0.125)
+    Sigma_h = calcSigma_h(Mcl=Mcl, r_h=r_h)
+    Mimbh   = imbh_mass_from_sigma_metallicity(sigma_h_msun_pc2=Sigma_h, z_ratio=Z)
 
-    r_h_3d_pc = 0.125 * 2.365 / 1.3 * (np.clip(mass, 1.0e-30, None) / 1.0e4) ** 0.180
-    sigma_h = sigma_h_from_mass_radius(mass, r_h_3d_pc)
-    z_ratio_used = np.clip(z_ratio_raw, 1.0e-2, 1.0)
-    imbh_mass = imbh_mass_from_sigma_metallicity(sigma_h, z_ratio_used)
-
-    output = {
-        "r_h_pc": r_h_3d_pc,
-        "sigma_h_msun_pc2": sigma_h,
-        "z_ratio_input": z_ratio_raw,
-        "z_ratio_used": z_ratio_used,
-        "imbh_mass_msun": imbh_mass,
+    return {
+        "r_h_pc": r_h,
+        "sigma_h_msun_pc2": Sigma_h,
+        "Z": Z,
+        "imbh_mass_msun": Mimbh,
     }
-    if scalar_output:
-        return {key: float(np.asarray(value)) for key, value in output.items()}
-    return output

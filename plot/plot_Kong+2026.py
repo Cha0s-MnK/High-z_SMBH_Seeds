@@ -95,11 +95,12 @@ class IMBHModel:
         return float(radius) if radius.ndim == 0 else radius
 
     def imbh_mass_from_sigma_metallicity(self, sigma_h_msun_pc2, metallicity):
-        if self.config.metallicity_kind == "z_ratio":
-            z_ratio = metallicity
+        if self.config.metallicity_kind == "Z":
+            Z = metallicity
         else:
-            z_ratio = np.power(10.0, np.asarray(metallicity, dtype=float))
-        return imbh_mass_from_sigma_metallicity(sigma_h_msun_pc2, z_ratio)
+            Z = np.power(10.0, metallicity)
+        values = np.vectorize(imbh_mass_from_sigma_metallicity, otypes=[float])(sigma_h_msun_pc2, Z)
+        return float(values) if np.ndim(values) == 0 else values
 
 NS_VALUE_DEFAULT = 2.0
 FIGURE_01_FILENAME = "Fig.01_initial_cluster_mass_radius_imbh_seeds.pdf"
@@ -677,7 +678,7 @@ def plot_fig02(formation: pd.DataFrame) -> plt.Figure:
     sigma_grid_1d = np.logspace(log_sigma_min, log_sigma_max, 480)
     feh_grid_1d = np.linspace(feh_min, feh_max, 360)
     sigma_grid, feh_grid = np.meshgrid(sigma_grid_1d, feh_grid_1d)
-    contour_model = IMBHModel(IMBHModelConfig(enabled=True, metallicity_kind="z_ratio"))
+    contour_model = IMBHModel(IMBHModelConfig(enabled=True, metallicity_kind="Z"))
     imbh_grid = contour_model.imbh_mass_from_sigma_metallicity(sigma_grid, np.power(10.0, feh_grid))
 
     fig, ax = plt.subplots(1, 1, constrained_layout=True, dpi=STD_DPI, figsize=(6.8, 4.8))

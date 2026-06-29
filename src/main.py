@@ -208,8 +208,8 @@ class GC :
 
 
 def seed_imbh_properties(cluster_mass, metallicity):
-    z_ratio = 10.0**metallicity
-    estimate = estimate_for_gc(cluster_mass, z_ratio)
+    Z = 10.0**metallicity
+    estimate = estimate_for_gc(cluster_mass, Z)
     gc_radius_pc = float(estimate["r_h_pc"])
     sigma_h_msun_pc2 = float(estimate["sigma_h_msun_pc2"])
     imbh_mass_msun = float(estimate["imbh_mass_msun"])
@@ -720,7 +720,8 @@ for tree_entry in _iter_tree_files(treedir):
         if(ratio > p3):  #if merger criterion satisfied
             metallicity = MMR(SM, znow)
             is_mpb = mpi[i] == mpbi
-            Re = resolve_birth_re_kpc(halomass_msun = mass, redshift = znow, jsp = jj) # [kpc]
+            #Re = resolve_birth_re_kpc(halomass_msun = mass, redshift = znow, jsp = jj) # [kpc]
+            Re = calcRe(mhalo_1e9msun=mass/1.0e9, t_Gyr=Redshift2CosmicAge(znow, time_unit="Gyr"), j=jj) # [kpc]
             # `subid[i]` records the halo hosting the formation event; later
             # stages use it to mark MPB vs accreted GCs in merged catalogs.
             clusters.extend(clusterFormation(Mg, mass, znow, metallicity, SM, is_mpb, subid[i], jj, mpi[i], i, Re, "Gao+2024"))

@@ -114,7 +114,7 @@ nohup python3 ~/GitHub/src/run.py \
   > ~/test_Eddington0.3_M31_Mc7.log 2>&1 &
 nohup python3 ~/GitHub/src/run.py \
   --tree-dir /lingshan/disk3/subonan/Illustris-1-Dark+TNG50-1-Dark/data/fixed_trees_large_spin_dark \
-  --clear-output 2 --output /lingshan/disk3/subonan/_outputs/High-z_SMBH_Seeds_Eddington0.3_M11-13.5_Mc7 \
+  --clear-output 2 --output /lingshan/disk3/subonan/_outputs/Test_Eddington0.3_M11-13.5_Mc7 \
   --Eddington 0.3 --ex-situ 2 --lg_cut-off_mass 7.0 --p2 6.75 --p3 0.5 --ts-m 0.2 --ts-r 0.2 \
   --run-all 0 --n-halos 128 --log-mh-min 11.0 --log-mh-max 13.5 \
   --out_z '1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0' --ns-values 2.0 \

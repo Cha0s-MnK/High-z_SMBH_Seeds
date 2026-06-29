@@ -40,10 +40,7 @@ STAT_WANDERER_SUNK = -5 # GC is tagged as a wanderer at formation and also sank 
 class NSCEvolutionWarning(RuntimeWarning):
     """Warnings for numerically or physically delicate NSC evolution states."""
 
-
 warnings.simplefilter("always", NSCEvolutionWarning)
-
-StrippingChoices = ("Choksi+2018", "Fragione+2019")
 
 FINAL_GC_HEADER = "\n".join([
     "gc_index status M_GC_final m_init_msun lookback_time_final_gyr lookback_time_init_gyr r_final_kpc r_init_kpc M_IMBH_final",
@@ -163,13 +160,7 @@ def swf(t_gyr: float) -> float:
     t_safe = max(float(t_gyr), 1.0e-12)
     x = math.log10(t_safe) + 9.0
     return max(0.0, -(x * x) / 100.0 + 0.288 * x - 1.42)
-
-def validateStrippingChoices(choice: str) -> str:
-    if choice not in StrippingChoices:
-        allowed = ", ".join(StrippingChoices)
-        raise ValueError(f"tidal_stripping must be one of: {allowed}")
-    return choice
-
+"""
 def rateStrippingChoksiP2018(M_GC_1e5Msun: float) -> float:
     check_finite_positive(M_GC_1e5Msun, name="GC mass in 1e5 Msun M_GC_1e5Msun")
 
@@ -179,7 +170,7 @@ def rateStrippingChoksiP2018(M_GC_1e5Msun: float) -> float:
     dMdt_1e5MsunOverGyr = M_GC_1e5Msun / min(t_tid_Gyr, t_iso_Gyr)
     check_finite_positive(dMdt_1e5MsunOverGyr, name="GC mass-loss rate due to tidal stripping in 1e5 Msun/Gyr dMdt_1e5MsunOverGyr")
     return dMdt_1e5MsunOverGyr
-
+"""
 def rateStrippingFragioneP2019(M_GC_1e5Msun: float, r_kpc: float, v_kms: float) -> float:
     check_finite_positive(M_GC_1e5Msun, name="GC mass in 1e5 Msun M_GC_1e5Msun")
     check_finite_positive(r_kpc, name="GC distance from the galactic centre in kpc r_kpc")
@@ -538,11 +529,7 @@ def evolve_single_halo(
 
     def resolve_current_background_re() -> float:
         nonlocal eff_rad_source_count
-        re_kpc = resolve_background_re_kpc(
-            mhalo_1e9msun=masshalo,
-            t_l_gyr=t_l_block,
-            spin_norm=spin_now,
-            tun=tun)
+        re_kpc = calcRe(mhalo_1e9msun=masshalo, t_Gyr=t_l_block, j=spin_now)
         eff_rad_source_count += 1
         check_finite_positive(re_kpc, name="Resolved effective radius in kpc re_kpc")
         return float(re_kpc)
