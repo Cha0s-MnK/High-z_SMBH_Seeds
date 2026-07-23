@@ -74,13 +74,13 @@ T_UNIVERSE_GYR = float(Redshift2CosmicAge(0.0))
 FIGURE_STEMS = {
     1: "mean_feh",
     2: "sigma_feh",
-    3: "mgc_vs_mhalo",
+    3: "Mgc-Mhalo",
     4: "mdf_examples",
     5: "red_blue_peaks",
     6: "formation_histories",
     7: "blue_tilt",
     8: "host_masses_at_formation",
-    9: "age_metallicity",
+    9: "Age-Metal",
     10: "gc_fraction_vs_feh",
 }
 

@@ -1,27 +1,23 @@
 #!/usr/bin/env python3
 
-"""Standalone analytical Gao+2024 GC evolution.
+"""Gao+2024 GC evolution.
 
 This variant keeps the legacy event-driven scheduler and RK4 orbital decay.
-The background density is evaluated analytically inside the RK4 substeps, so
-there is no lookup-table evolution mode.
-
-- deposited-mass summaries are maintained incrementally instead of recomputing
-  ``np.sum(depo, axis=...)`` inside the inner scheduler loops.
+The background density is evaluated analytically inside the RK4 substeps.
 """
 
 from __future__ import annotations
 
 import argparse
+import numpy as np
 import math
 import time
 import warnings
+warnings.simplefilter("always")
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Dict, List, Optional, Sequence, Tuple
-
-import numpy as np
 from scipy import special
+from typing import Dict, List, Optional, Sequence, Tuple
 
 from config import *
 
@@ -36,12 +32,6 @@ STAT_SUNK = -3 # GC sank to the center before it was fully disrupted, so the fin
 STAT_WANDERER = -4 # GC is tagged as a wanderer at formation because its IMBH mass exceeds its stellar mass; it is considered lost regardless of its final radius or mass
 STAT_WANDERER_SUNK = -5 # GC is tagged as a wanderer at formation and also sank to the center; this is a subset of STAT_WANDERER but is tracked separately for potential future analysis of IMBH wanderers that do sink to the center
 
-
-class NSCEvolutionWarning(RuntimeWarning):
-    """Warnings for numerically or physically delicate NSC evolution states."""
-
-warnings.simplefilter("always", NSCEvolutionWarning)
-
 FINAL_GC_HEADER = "\n".join([
     "gc_index status M_GC_final m_init_msun lookback_time_final_gyr lookback_time_init_gyr r_final_kpc r_init_kpc M_IMBH_final",
     ("rows: one GC per input GCini row; lookback times are measured from the configured final redshift; "
@@ -55,7 +45,6 @@ TRACE_HEADER = "\n".join([
     "trace_index phase gc_index status t_cosmic_gyr redshift r_kpc m_gc_msun bin_index",
     "rows: one orbit-trace sample from the existing event-driven evolution; redshift follows the solver's own time-redshift convention",])
 
-
 @dataclass
 class Tunables:
     # Maximum per-GC timestep in Gyr after all adaptive limits are applied.
@@ -68,7 +57,6 @@ class Tunables:
     t_limit: float = 1.0e-2
     # Little-h used in the halo virial-radius and spin conversions.
     h: float = 0.704
-
 
 def _numeric_rows(path: Path) -> np.ndarray:
     """Read whitespace-delimited numeric rows, ignoring comments and blanks."""
@@ -93,8 +81,7 @@ def _numeric_rows(path: Path) -> np.ndarray:
         out[i, : len(row)] = row
     return out
 
-
-def _read_haloevo_mpb(path: Path) -> np.ndarray:
+def read_haloevo_mpb(path: Path) -> np.ndarray:
     """Read the monotonic MPB-like block from one halo-evolution table."""
 
     rows: List[List[float]] = []
@@ -123,11 +110,6 @@ def _read_haloevo_mpb(path: Path) -> np.ndarray:
         return np.zeros((0, 9), dtype=float)
     return np.asarray(rows, dtype=float)
 
-def read_haloevo_mpb(path: Path) -> np.ndarray:
-    """Public wrapper for the MPB parser used by plotting-ready summaries."""
-
-    return _read_haloevo_mpb(path)
-
 def rho_bkgd(r_kpc: float, SersicReff_kpc: float, Mv_1e9Msun: float, t_Gyr: float, tun: Tunables) -> float:
     check_finite_positive(r_kpc, name="Radius in kpc r_kpc")
     check_finite_positive(SersicReff_kpc, name="Sersic effective radius in kpc SersicReff_kpc")
@@ -138,7 +120,6 @@ def rho_bkgd(r_kpc: float, SersicReff_kpc: float, Mv_1e9Msun: float, t_Gyr: floa
         warnings.warn(
             f"rho_bkgd called below 1 pc: r_kpc={float(r_kpc):.6e}. "
             "This is inside the numerical caution region for the external GC background model.",
-            NSCEvolutionWarning,
             stacklevel=2,
         )
 
@@ -160,17 +141,7 @@ def swf(t_gyr: float) -> float:
     t_safe = max(float(t_gyr), 1.0e-12)
     x = math.log10(t_safe) + 9.0
     return max(0.0, -(x * x) / 100.0 + 0.288 * x - 1.42)
-"""
-def rateStrippingChoksiP2018(M_GC_1e5Msun: float) -> float:
-    check_finite_positive(M_GC_1e5Msun, name="GC mass in 1e5 Msun M_GC_1e5Msun")
 
-    M_GC_2e5Msun = M_GC_1e5Msun / 2.0
-    t_tid_Gyr = 5.0 * (M_GC_2e5Msun ** (2.0 / 3.0))
-    t_iso_Gyr = 17.0 * M_GC_2e5Msun
-    dMdt_1e5MsunOverGyr = M_GC_1e5Msun / min(t_tid_Gyr, t_iso_Gyr)
-    check_finite_positive(dMdt_1e5MsunOverGyr, name="GC mass-loss rate due to tidal stripping in 1e5 Msun/Gyr dMdt_1e5MsunOverGyr")
-    return dMdt_1e5MsunOverGyr
-"""
 def rateStrippingFragioneP2019(M_GC_1e5Msun: float, r_kpc: float, v_kms: float) -> float:
     check_finite_positive(M_GC_1e5Msun, name="GC mass in 1e5 Msun M_GC_1e5Msun")
     check_finite_positive(r_kpc, name="GC distance from the galactic centre in kpc r_kpc")
@@ -220,18 +191,15 @@ def _prefix_from_sumgc_total(m_sumgc_total: np.ndarray) -> np.ndarray:
     prefix[1:] = np.cumsum(m_sumgc_total[:, 0], dtype=float)
     return prefix
 
-
 def _enclosed_mass_before_bin_from_prefix(bin_index: int, prefix: np.ndarray) -> float:
     if bin_index <= 1:
         return 0.0
     return float(prefix[bin_index - 1])
 
-
 def _deposit_delta_partial(dM_gc: float, dM_gc_sw: float) -> np.ndarray:
     """Deposit the mass removed during one finite timestep."""
 
     return np.array([dM_gc + dM_gc_sw, dM_gc, dM_gc], dtype=float)
-
 
 def _deposit_amount(
     i: int,
@@ -251,7 +219,6 @@ def _deposit_amount(
     m_sumbin_total[i, :] += delta
     m_sumgc_total[bi, :] += delta
 
-
 def _deposit_full_mass(
     i: int,
     bin_index: int,
@@ -269,7 +236,6 @@ def _deposit_full_mass(
     dm = float(m_gc[i])
     _deposit_amount(i, bin_index, dm, depo, m_sumbin_total, m_sumgc_total)
     m_gc[i] = 0.0
-
 
 def drdt_DF_RK4(
     M_GC_1e5Msun: float,
@@ -482,7 +448,7 @@ def evolve_single_halo(
         z_value, _ = pending_inventory_targets.pop(0)
         inventory_by_z[float(z_value)] = 0.0
 
-    halo = _read_haloevo_mpb(haloevo_path)
+    halo = read_haloevo_mpb(haloevo_path)
     if halo.shape[0] == 0:
         raise ValueError(f"No usable halo rows found in {haloevo_path}")
     mhalo = 10.0 ** (halo[:, 0] - 9.0)
@@ -522,7 +488,7 @@ def evolve_single_halo(
 
     spin_now = float(spin_norm[0]) if len(spin_norm) > 0 else 0.0
     masshalo = float(mhalo[0]) if len(mhalo) > 0 else 0.0
-    redshift_now = float(redshift_halo[0]) if len(redshift_halo) > 0 else 0.0
+    #redshift_now = float(redshift_halo[0]) if len(redshift_halo) > 0 else 0.0
     sersic_re_now = 1.0
     t_l_block = 0.0
     eff_rad_source_count = 0
@@ -713,7 +679,7 @@ def evolve_single_halo(
                 warnings.warn(
                     "GC reached r_final_kpc <= 0.0 before NSC entry bookkeeping; preserving 0.0. "
                     + gc_warning_context(i, phase),
-                    NSCEvolutionWarning,
+                    RuntimeWarning,
                     stacklevel=2,
                 )
             record_nsc_entry(i, int(bin_gc[i]), float(t_gc[i]))
@@ -846,13 +812,13 @@ def evolve_single_halo(
         if snap_pos == 0:
             masshalo = float(mhalo[0])
             spin_now = float(spin_norm[0])
-            state_idx = 0
-            redshift_now = float(redshift_halo[0])
+            #state_idx = 0
+            #redshift_now = float(redshift_halo[0])
         elif snap_pos >= len(mhalo):
             masshalo = float(mhalo[-1])
             spin_now = float(spin_norm[-1])
-            state_idx = len(mhalo) - 1
-            redshift_now = float(redshift_halo[-1])
+            #state_idx = len(mhalo) - 1
+            #redshift_now = float(redshift_halo[-1])
         else:
             t0 = bg_time[snap_pos - 1]
             t1 = bg_time[snap_pos]
@@ -864,8 +830,8 @@ def evolve_single_halo(
                     + (mhalo[snap_pos] - mhalo[snap_pos - 1]) * (t_l - t0) / (t1 - t0)
                 )
             spin_now = float(spin_norm[snap_pos - 1])
-            state_idx = snap_pos - 1
-            redshift_now = CosmicAge2Redshift(t_l, time_unit="Gyr")
+            #state_idx = snap_pos - 1
+            #redshift_now = CosmicAge2Redshift(t_l, time_unit="Gyr")
         sersic_re_now = resolve_current_background_re()
         prefix_snapshot = _prefix_from_sumgc_total(m_sumgc_total)
         for i in range(n_gc):

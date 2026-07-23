@@ -13,9 +13,28 @@ The maintained external workflow is:
 ```bash
 python3 /lingshan/disk3/subonan/Illustris-1-Dark+TNG50-1-Dark/scripts/1_select_targets.py \
   --max_num_halo 512 --min_halo_mass 8.0 --max_halo_mass 14.65
+python3 /lingshan/disk3/subonan/Illustris-1-Dark_Cube/scripts/1_select_targets.py \
+  --cube-origin-ckpc-h 53239.5 23993.7 11946.8 --cube-side-cmpc 16.0 \
+  --min_halo_mass 10.0 --max_halo_mass 14.65
+python /lingshan/disk3/subonan/Illustris-1-Dark_Min13/scripts/1_select_targets.py \
+  --all-illustris-halos --min_halo_mass 13.0
+python /lingshan/disk3/subonan/TNG50-1-Dark_Min13/scripts/1_select_targets.py \
+  --all-tng50-halos --min_halo_mass 13.0
+
 python3 /lingshan/disk3/subonan/Illustris-1-Dark+TNG50-1-Dark/scripts/2_download_full_trees.py
+python3 /lingshan/disk3/subonan/Illustris-1-Dark_Cube/scripts/2_download_full_trees.py
+python3 /lingshan/disk3/subonan/Illustris-1-Dark_Min13/scripts/2_download_full_trees.py
+python3 /lingshan/disk3/subonan/TNG50-1-Dark_Min13/scripts/2_download_full_trees.py
+
 python3 /lingshan/disk3/subonan/Illustris-1-Dark+TNG50-1-Dark/scripts/3_convert_full_trees_to_fixed_dat.py
+python3 /lingshan/disk3/subonan/Illustris-1-Dark_Cube/scripts/3_convert_full_trees_to_fixed_dat.py
+python3 /lingshan/disk3/subonan/Illustris-1-Dark_Min13/scripts/3_convert_full_trees_to_fixed_dat.py
+python3 /lingshan/disk3/subonan/TNG50-1-Dark_Min13/scripts/3_convert_full_trees_to_fixed_dat.py
+
 python3 /lingshan/disk3/subonan/Illustris-1-Dark+TNG50-1-Dark/scripts/4_validate_fixed_trees.py
+python3 /lingshan/disk3/subonan/Illustris-1-Dark_Cube/scripts/4_validate_fixed_trees.py
+python3 /lingshan/disk3/subonan/Illustris-1-Dark_Min13/scripts/4_validate_fixed_trees.py
+python3 /lingshan/disk3/subonan/TNG50-1-Dark_Min13/scripts/4_validate_fixed_trees.py
 ```
 
 Current storage layout under `/lingshan/disk3/subonan/Illustris-1-Dark+TNG50-1-Dark`:
@@ -104,23 +123,41 @@ The plotting helpers are split by responsibility: `plot/load_output.py` handles 
 python ~/GitHub/src/run.py --help
 python ~/GitHub/plot/plot_PeTar.py --help
 nohup python3 ~/GitHub/src/run.py \
-  --tree-dir /lingshan/disk3/subonan/Illustris-1-Dark+TNG50-1-Dark/data/fixed_trees_large_spin_dark \
-  --clear-output 2 --output /lingshan/disk3/subonan/_outputs/Test_Eddington0.3_M31_Mc7 \
+  --tree-dir /lingshan/disk3/subonan/TNG50-1-Dark_Min13/data/fixed_trees_large_spin_dark \
+  --clear-output 2 --output /lingshan/disk3/subonan/_outputs/TNG50Min13_Eddington0.3_Mc7 \
   --Eddington 0.3 --ex-situ 2 --lg_cut-off_mass 7.0 --p2 6.75 --p3 0.5 --ts-m 0.2 --ts-r 0.2 \
-  --run-all 0 --n-halos 64 --log-mh-min 11.845 --log-mh-max 12.398 \
+  --run-all 1 --n-halos 256 --log-mh-min 13.0 --log-mh-max 15.0 \
+  --out_z '1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0' --ns-values 2.0 \
+  --jobs 32 --ns-jobs 1 \
+  --plot_Choksi+2018 --plot_Gao+2024 --plot_Kong+2026 \
+  > ~/TNG50Min13_Eddington0.3_Mc7.log 2>&1 &
+nohup python3 ~/GitHub/src/run.py \
+  --tree-dir /lingshan/disk3/subonan/TNG50-1-Dark_Min13/data/fixed_trees_large_spin_dark \
+  --clear-output 2 --output /lingshan/disk3/subonan/_outputs/TNG50Min13_Eddington0_Mc7 \
+  --Eddington 0.0 --ex-situ 2 --lg_cut-off_mass 7.0 --p2 6.75 --p3 0.5 --ts-m 0.2 --ts-r 0.2 \
+  --run-all 1 --n-halos 256 --log-mh-min 13.0 --log-mh-max 15.0 \
+  --out_z '1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0' --ns-values 2.0 \
+  --jobs 32 --ns-jobs 1 \
+  --plot_Choksi+2018 --plot_Gao+2024 --plot_Kong+2026 \
+  > ~/TNG50Min13_Eddington0_Mc7.log 2>&1 &
+nohup python3 ~/GitHub/src/run.py \
+  --tree-dir /lingshan/disk3/subonan/Illustris-1-Dark_Cube/data/fixed_trees_large_spin_dark \
+  --clear-output 2 --output /lingshan/disk3/subonan/_outputs/Cube_Eddington0_Mc7 \
+  --Eddington 0.0 --ex-situ 2 --lg_cut-off_mass 7.0 --p2 6.75 --p3 0.5 --ts-m 0.2 --ts-r 0.2 \
+  --run-all 1 --n-halos 512 --log-mh-min 10.0 --log-mh-max 14.65 \
   --out_z '1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0' --ns-values 2.0 \
   --jobs 16 --ns-jobs 1 \
   --plot_Choksi+2018 --plot_Neumayer+2020 --plot_Gao+2024 --plot_Kong+2026 \
-  > ~/test_Eddington0.3_M31_Mc7.log 2>&1 &
+  > ~/Cube_Eddington0_Mc7.log 2>&1 &
 nohup python3 ~/GitHub/src/run.py \
   --tree-dir /lingshan/disk3/subonan/Illustris-1-Dark+TNG50-1-Dark/data/fixed_trees_large_spin_dark \
-  --clear-output 2 --output /lingshan/disk3/subonan/_outputs/Test_Eddington0.3_M11-13.5_Mc7 \
+  --clear-output 2 --output /lingshan/disk3/subonan/_outputs/Test_Eddington0.3_M9-13.5_Mc7 \
   --Eddington 0.3 --ex-situ 2 --lg_cut-off_mass 7.0 --p2 6.75 --p3 0.5 --ts-m 0.2 --ts-r 0.2 \
-  --run-all 0 --n-halos 128 --log-mh-min 11.0 --log-mh-max 13.5 \
+  --run-all 0 --n-halos 256 --log-mh-min 9.0 --log-mh-max 13.5 \
   --out_z '1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0' --ns-values 2.0 \
   --jobs 32 --ns-jobs 1 \
   --plot_Choksi+2018 --plot_Neumayer+2020 --plot_Gao+2024 --plot_Kong+2026 \
-  > ~/test_Eddington0.3_M11-13.5_Mc7.log 2>&1 &
+  > ~/test_Eddington0.3_M9-13.5_Mc7.log 2>&1 &
 ```
 
 Prefer running from the repository root because the project path contains spaces and the relative `my/run.py` entry point is the least error-prone form.
@@ -143,10 +180,12 @@ Prefer running from the repository root because the project path contains spaces
 python3 ~/GitHub/plot/plot_Choksi+2018.py \
   --ns-value 2.0 --out_dir /lingshan/disk3/subonan/_outputs/NSC_Mix_IMBH
 python3 ~/GitHub/plot/plot_Neumayer+2020.py \
-  --ns-value 2.0 --out_dir /lingshan/disk3/subonan/_outputs/NSC_Mix_IMBH
+  --ns-value 2.0 --out_dir /lingshan/disk3/subonan/_outputs/Cube_Eddington0.3_Mc7
 python3 ~/GitHub/plot/plot_Gao+2024.py --out_dir /lingshan/disk3/subonan/_outputs/NSC_Mix_R0.5
 python3 ~/GitHub/plot/plot_Kong+2026.py \
-  --ns-value 2.0 --out_dir /lingshan/disk3/subonan/_outputs/High-z_SMBH_Seeds_Eddington1_M12-13_Mc7
+  --ns-value 2.0 --out_dir /lingshan/disk3/subonan/_outputs/Test_Eddington0.3_M9-14_Mc7
+python3 ~/GitHub/plot/plot_Kong\&Li2026.py --ns-value 2.0 --out_dir /lingshan/disk3/subonan/_outputs/Cube_Eddington0_Mc7
+python3 ~/GitHub/plot/plot_Kong\&Li2026.py --ns-value 2.0 --out_dir /lingshan/disk3/subonan/_outputs/TNG50Min13_Eddington0_Mc7
 ```
 
 New style:

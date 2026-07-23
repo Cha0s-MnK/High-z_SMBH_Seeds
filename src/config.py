@@ -39,13 +39,21 @@ Myr       = 1.0e6 * yr            # megayear [s]
 Gyr       = 1.0e9 * yr            # gigayear [s]
 
 # DESI 2024 + CMB
-Omega_m0      = 0.307 # present-day matter density parameter
-Omega_Lambda0 = 1 - Omega_m0 # present-day dark-energy density parameter
 H0            = 67.97 # Hubble constant [(km/s)/Mpc]
+Omega_Lambda0 = 0.693 # present-day dark-energy density parameter
+Omega_m0      = 0.307 # present-day matter density parameter
 ReducedH0     = H0 / 100.0 # reduced Hubble constant h; H_0 = 100 h (km/s)/Mpc
-t_Lambda_Gyr  = 2.0 / (3.0 * H0 * math.sqrt(Omega_Lambda0)) * Mpc / 1.0e3 / Gyr
 t_universe    = 13.780 # age of the universe [Gyr]
+
+# WMAP + eCMB + BAO + H0
+#H0            = 69.7 # Hubble constant [(km/s)/Mpc]
+#Omega_Lambda0 = 0.7181 # present-day dark-energy density parameter
+#Omega_m0      = 0.2819 # present-day matter density parameter
+#ReducedH0     = H0 / 100.0 # reduced Hubble constant h; H_0 = 100 h (km/s)/Mpc
+#t_universe    = 13.75 # age of the universe [Gyr]
+
 SqrtOmega_Lambda0OverOmega_m0 = math.sqrt(Omega_Lambda0 / Omega_m0)
+t_Lambda_Gyr  = 2.0 / (3.0 * H0 * math.sqrt(Omega_Lambda0)) * Mpc / 1.0e3 / Gyr
 
 MIN_RAD_PC = 1.0 # inner aperture/bin edge
 NSC_RAD_PC = 6.0 # public stellar NSC aperture

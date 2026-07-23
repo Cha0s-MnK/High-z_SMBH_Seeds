@@ -69,7 +69,7 @@ if not DEFAULT_OBS_CACHE_DIR.is_dir():
 
 NS_VALUE_DEFAULT = 2.0
 FIGURE_03_FILENAME = "Fig.03_galaxy_demographics.pdf"
-FIGURE_12_FILENAME = "Fig.12_nsc_scaling.pdf"
+FIGURE_12_FILENAME = "Fig.12_Mnsc-Mstar.pdf"
 FIGURE_13_FILENAME = "Fig.13_bh_nsc_mass_ratio.pdf"
 RAW_SUBDIR = "raw"
 ORIGINAL_REVIEW_SUBDIR = "original_nsc_review"
@@ -158,7 +158,7 @@ class ModelSummary:
 
 def _apply_plot_style() -> None:
     plt.style.use("default")
-    serif_fonts = _available_times_serif_fonts()
+    serif_fonts = "Times New Roman"
     use_tex = shutil.which("latex") is not None
     plt.rcParams.update(
         {
@@ -177,30 +177,6 @@ def _apply_plot_style() -> None:
     if use_tex:
         plt.rcParams["text.latex.preamble"] = r"\usepackage{amsmath} \usepackage{bm}"
 
-
-def _available_times_serif_fonts() -> List[str]:
-    for font_path in TIMES_COMPATIBLE_FONT_PATHS:
-        if font_path.is_file():
-            font_manager.fontManager.addfont(str(font_path))
-
-    serif_fonts: List[str] = []
-    for family in ["Times New Roman", "Nimbus Roman", "Nimbus Roman No9 L", "Times"]:
-        try:
-            font_manager.findfont(family, fallback_to_default=False)
-        except ValueError:
-            continue
-        serif_fonts.append(family)
-    return serif_fonts or ["DejaVu Serif"]
-
-
-def _safe_log10(arr: np.ndarray, floor: float = 1.0e-30) -> np.ndarray:
-    return np.log10(np.clip(np.asarray(arr, dtype=float), floor, None))
-
-
-def _ns_tag(ns_value: float) -> str:
-    return f"{float(ns_value):.1f}".replace(".", "p")
-
-
 def _regular_log_bin_edges(values: Iterable[float], step_dex: float = 0.5) -> np.ndarray:
     vals = np.asarray(list(values), dtype=float)
     vals = vals[np.isfinite(vals)]
@@ -215,7 +191,6 @@ def _regular_log_bin_edges(values: Iterable[float], step_dex: float = 0.5) -> np
         edges = np.array([lo, lo + float(step_dex)], dtype=float)
     return edges
 
-
 def _expanded_linear_limits(base: Tuple[float, float], values: Iterable[float], margin: float) -> Tuple[float, float]:
     vals = np.asarray(list(values), dtype=float)
     vals = vals[np.isfinite(vals)]
@@ -226,7 +201,6 @@ def _expanded_linear_limits(base: Tuple[float, float], values: Iterable[float], 
     if hi <= lo:
         hi = lo + 2.0 * float(margin)
     return lo, hi
-
 
 def _binned_percentiles(x_log: pd.Series | np.ndarray, y: pd.Series | np.ndarray, bins: np.ndarray, min_count: int = 5) -> pd.DataFrame:
     x_arr = np.asarray(x_log, dtype=float)
@@ -249,7 +223,6 @@ def _binned_percentiles(x_log: pd.Series | np.ndarray, y: pd.Series | np.ndarray
             }
         )
     return pd.DataFrame(rows)
-
 
 def _occupation_fraction_summary(x_log: pd.Series | np.ndarray, has_nsc: pd.Series | np.ndarray, bins: np.ndarray, min_count: int = 1) -> pd.DataFrame:
     x_arr = np.asarray(x_log, dtype=float)
@@ -275,31 +248,6 @@ def _occupation_fraction_summary(x_log: pd.Series | np.ndarray, has_nsc: pd.Seri
             }
         )
     return pd.DataFrame(rows)
-
-
-def _model_output_root_from_allcat_path(allcat_path: Path) -> Path:
-    parent = allcat_path.parent
-    if parent.name.startswith("ns"):
-        return parent.parent
-    return parent
-
-
-def _deposit_mass_within_radius(profile: DepositProfile, radius_kpc: float, halo_ids: np.ndarray | None = None) -> Tuple[np.ndarray, np.ndarray]:
-    if halo_ids is None:
-        use = np.ones(len(profile.halo_ids), dtype=bool)
-    else:
-        use = np.isin(profile.halo_ids, np.asarray(halo_ids, dtype=int))
-    halo_use = profile.halo_ids[use]
-    if len(halo_use) == 0:
-        return halo_use, np.array([], dtype=float)
-    vals = np.zeros(len(halo_use), dtype=float)
-    use_idx = np.where(use)[0]
-    for jj, ii in enumerate(use_idx):
-        rout = np.asarray(profile.r_outer_kpc[ii], dtype=float)
-        cum = np.asarray(profile.cumulative_mass_msun[ii], dtype=float)
-        vals[jj] = float(np.interp(float(radius_kpc), rout, cum, left=0.0, right=cum[-1]))
-    return halo_use, vals
-
 
 def build_figure_03(model: ModelSummary, fig03_obs: Fig03Catalog) -> Tuple[plt.Figure, Dict[str, object]]:
     _apply_plot_style()
@@ -412,23 +360,23 @@ def build_figure_12(model: ModelSummary, obs: ObsCatalog) -> Tuple[plt.Figure, D
     early_obs = obs_table.loc[obs_table["host_type"] == "early"].copy()
     late_good = late_obs.loc[late_obs["is_high_quality"]].copy()
     early_good = early_obs.loc[early_obs["is_high_quality"]].copy()
-    ax_left.scatter(np.power(10.0, late_obs["logMstar_gal"].to_numpy(dtype=float)), np.power(10.0, late_obs["logM_nsc"].to_numpy(dtype=float)), c=OBS_HOST_TYPE_COLOURS["late"], s=18, alpha=0.35, linewidths=0.0)
-    ax_left.scatter(np.power(10.0, early_obs["logMstar_gal"].to_numpy(dtype=float)), np.power(10.0, early_obs["logM_nsc"].to_numpy(dtype=float)), c=OBS_HOST_TYPE_COLOURS["early"], s=18, alpha=0.35, linewidths=0.0)
-    ax_left.scatter(np.power(10.0, late_good["logMstar_gal"].to_numpy(dtype=float)), np.power(10.0, late_good["logM_nsc"].to_numpy(dtype=float)), c=OBS_HOST_TYPE_COLOURS["late"], s=130, alpha=0.95, marker="*", edgecolors="black", linewidths=0.35)
-    ax_left.scatter(np.power(10.0, early_good["logMstar_gal"].to_numpy(dtype=float)), np.power(10.0, early_good["logM_nsc"].to_numpy(dtype=float)), c=OBS_HOST_TYPE_COLOURS["early"], s=130, alpha=0.95, marker="*", edgecolors="black", linewidths=0.35)
+    ax_left.scatter(np.power(10.0, late_obs["logMstar_gal"].to_numpy(dtype=float)), np.power(10.0, late_obs["logM_nsc"].to_numpy(dtype=float)), c=OBS_HOST_TYPE_COLOURS["late"], s=16, alpha=0.4, linewidths=0.0)
+    ax_left.scatter(np.power(10.0, early_obs["logMstar_gal"].to_numpy(dtype=float)), np.power(10.0, early_obs["logM_nsc"].to_numpy(dtype=float)), c=OBS_HOST_TYPE_COLOURS["early"], s=16, alpha=0.4, linewidths=0.0)
+    ax_left.scatter(np.power(10.0, late_good["logMstar_gal"].to_numpy(dtype=float)), np.power(10.0, late_good["logM_nsc"].to_numpy(dtype=float)), c=OBS_HOST_TYPE_COLOURS["late"], s=64, alpha=0.4, marker="*", edgecolors="none", linewidths=0.35)
+    ax_left.scatter(np.power(10.0, early_good["logMstar_gal"].to_numpy(dtype=float)), np.power(10.0, early_good["logM_nsc"].to_numpy(dtype=float)), c=OBS_HOST_TYPE_COLOURS["early"], s=64, alpha=0.4, marker="*", edgecolors="none", linewidths=0.35)
 
     if split_host_types:
         late_model = model_points.loc[model_points["host_type_fig3"] == "late"].copy()
         early_model = model_points.loc[model_points["host_type_fig3"] == "early"].copy()
         unmatched_model = model_points.loc[~model_points["host_type_fig3"].isin(["late", "early"])].copy()
         if len(unmatched_model) > 0:
-            ax_left.scatter(unmatched_model["M_star_plot"].to_numpy(dtype=float), unmatched_model["M_NSC"].to_numpy(dtype=float), c="0.65", s=18, alpha=0.25, marker="s", linewidths=0.0)
+            ax_left.scatter(unmatched_model["M_star_plot"].to_numpy(dtype=float), unmatched_model["M_NSC"].to_numpy(dtype=float), c="0.65", s=32, alpha=0.7, marker="s", linewidths=0.0)
         if len(late_model) > 0:
-            ax_left.scatter(late_model["M_star_plot"].to_numpy(dtype=float), late_model["M_NSC"].to_numpy(dtype=float), c=MODEL_HOST_TYPE_COLOURS["late"], s=18, alpha=0.45, marker="s", linewidths=0.0)
+            ax_left.scatter(late_model["M_star_plot"].to_numpy(dtype=float), late_model["M_NSC"].to_numpy(dtype=float), c=MODEL_HOST_TYPE_COLOURS["late"], s=32, alpha=0.7, marker="s", linewidths=0.0)
         if len(early_model) > 0:
-            ax_left.scatter(early_model["M_star_plot"].to_numpy(dtype=float), early_model["M_NSC"].to_numpy(dtype=float), c=MODEL_HOST_TYPE_COLOURS["early"], s=18, alpha=0.45, marker="s", linewidths=0.0)
+            ax_left.scatter(early_model["M_star_plot"].to_numpy(dtype=float), early_model["M_NSC"].to_numpy(dtype=float), c=MODEL_HOST_TYPE_COLOURS["early"], s=32, alpha=0.7, marker="s", linewidths=0.0)
     else:
-        ax_left.scatter(model_points["M_star_plot"].to_numpy(dtype=float), model_points["M_NSC"].to_numpy(dtype=float), c="0.25", s=18, alpha=0.45, marker="s", linewidths=0.0)
+        ax_left.scatter(model_points["M_star_plot"].to_numpy(dtype=float), model_points["M_NSC"].to_numpy(dtype=float), c="0.25", s=32, alpha=0.7, marker="s", linewidths=0.0)
 
     left_x_log_limits = _expanded_linear_limits(
         (5.5, 11.2),
@@ -477,15 +425,14 @@ def build_figure_12(model: ModelSummary, obs: ObsCatalog) -> Tuple[plt.Figure, D
     ax_right.plot(x_line, y_paper / x_line, c="black", ls="--", lw=1.8)
 
     left_handles = [
-        mpl.lines.Line2D([], [], marker="o", ls="", color=OBS_HOST_TYPE_COLOURS["late"], markersize=6, alpha=0.7, label="Obs late-type"),
-        mpl.lines.Line2D([], [], marker="o", ls="", color=OBS_HOST_TYPE_COLOURS["early"], markersize=6, alpha=0.7, label="Obs early-type"),
-        mpl.lines.Line2D([], [], marker="*", ls="", color="black", markersize=10, label="Obs dyn/spec subset"),
-    ]
+        mpl.lines.Line2D([], [], alpha=0.7, marker="o", ls="", color=OBS_HOST_TYPE_COLOURS["late"], markersize=6, label="Obs Late"),
+        mpl.lines.Line2D([], [], alpha=0.7, marker="o", ls="", color=OBS_HOST_TYPE_COLOURS["early"], markersize=6, label="Obs Early"),
+        mpl.lines.Line2D([], [], alpha=0.7, marker="*", ls="", color="black", markeredgecolor="none", markeredgewidth=0, markersize=8, label=r"Erwin\&Gadotti2012")]
     if split_host_types:
         left_handles.extend(
             [
-                mpl.lines.Line2D([], [], marker="s", ls="", color=MODEL_HOST_TYPE_COLOURS["late"], markersize=6, alpha=0.7, label="Model late (Fig.3 colour cut)"),
-                mpl.lines.Line2D([], [], marker="s", ls="", color=MODEL_HOST_TYPE_COLOURS["early"], markersize=6, alpha=0.7, label="Model early (Fig.3 colour cut)"),
+                mpl.lines.Line2D([], [], marker="s", ls="", color=MODEL_HOST_TYPE_COLOURS["late"], markersize=6, alpha=0.7, label="Model Late"),
+                mpl.lines.Line2D([], [], marker="s", ls="", color=MODEL_HOST_TYPE_COLOURS["early"], markersize=6, alpha=0.7, label="Model Early"),
             ]
         )
         if len(unmatched_model) > 0:
@@ -494,9 +441,9 @@ def build_figure_12(model: ModelSummary, obs: ObsCatalog) -> Tuple[plt.Figure, D
         left_handles.append(mpl.lines.Line2D([], [], marker="s", ls="", color="0.25", markersize=6, alpha=0.7, label="Model"))
     left_handles.extend(
         [
-            mpl.lines.Line2D([], [], c="black", ls="--", lw=1.8, label="Paper fit"),
-            mpl.lines.Line2D([], [], c="black", ls="-.", lw=1.8, label="Paper dyn/spec fit"),
-            mpl.lines.Line2D([], [], c="black", ls="-", lw=2.0, label=f"Model fit ({int(model.nsc_radius_pc)} pc proxy)"),
+            mpl.lines.Line2D([], [], c="black", ls="--", lw=1.8, label="Obs fit"),
+            mpl.lines.Line2D([], [], c="black", ls="-.", lw=1.8, label=r"Erwin\&Gadotti2012 fit"),
+            mpl.lines.Line2D([], [], c="black", ls="-", lw=2.0, label=f"Model fit"),
         ]
     )
     ax_left.legend(handles=left_handles, frameon=False, loc="upper left", ncol=1, fontsize=8)
@@ -505,20 +452,24 @@ def build_figure_12(model: ModelSummary, obs: ObsCatalog) -> Tuple[plt.Figure, D
     ax_left.set_yscale("log")
     ax_left.xaxis.set_major_formatter(mpl.ticker.LogFormatterMathtext(base=10.0))
     ax_left.yaxis.set_major_formatter(mpl.ticker.LogFormatterMathtext(base=10.0))
-    ax_left.set_xlabel(r"$M_{\star,\mathrm{gal}}\,[M_{\odot}]$")
-    ax_left.set_ylabel(r"$M_{\mathrm{NSC}}\,[M_{\odot}]$")
-    ax_left.set_xlim(10.0 ** left_x_log_limits[0], 10.0 ** left_x_log_limits[1])
-    ax_left.set_ylim(10.0 ** left_y_log_limits[0], 10.0 ** left_y_log_limits[1])
+    ax_left.set_xlabel(r"$M_\star~[M_\odot]$")
+    ax_left.set_ylabel(r"$M_\mathrm{NSC}~[M_\odot]$")
+    #ax_left.set_xlim(10.0 ** left_x_log_limits[0], 10.0 ** left_x_log_limits[1])
+    ax_left.set_xlim(10.0 ** 5.5, 10.0 ** left_x_log_limits[1])
+    #ax_left.set_ylim(10.0 ** left_y_log_limits[0], 10.0 ** left_y_log_limits[1])
+    ax_left.set_ylim(10.0 ** 4.5, 10.0 ** left_y_log_limits[1])
     ax_left.grid(True, alpha=0.3, linestyle=":", which="both")
 
     ax_right.set_xscale("log")
     ax_right.set_yscale("log")
     ax_right.xaxis.set_major_formatter(mpl.ticker.LogFormatterMathtext(base=10.0))
     ax_right.yaxis.set_major_formatter(mpl.ticker.LogFormatterMathtext(base=10.0))
-    ax_right.set_xlabel(r"$M_{\star,\mathrm{gal}}\,[M_{\odot}]$")
-    ax_right.set_ylabel(r"$M_{\mathrm{NSC}}/M_{\star,\mathrm{gal}}$")
-    ax_right.set_xlim(10.0 ** left_x_log_limits[0], 10.0 ** left_x_log_limits[1])
-    ax_right.set_ylim(10.0 ** right_y_log_limits[0], 10.0 ** right_y_log_limits[1])
+    ax_right.set_xlabel(r"$M_\star~[M_\odot]$")
+    ax_right.set_ylabel(r"$M_\mathrm{NSC} / M_\star$")
+    #ax_right.set_xlim(10.0 ** left_x_log_limits[0], 10.0 ** left_x_log_limits[1])
+    ax_right.set_xlim(10.0 ** 5.5, 10.0 ** left_x_log_limits[1])
+    #ax_right.set_ylim(10.0 ** right_y_log_limits[0], 10.0 ** right_y_log_limits[1])
+    ax_right.set_ylim(10.0 ** (-4.0), 10.0 ** 0.0)
     ax_right.grid(True, alpha=0.3, linestyle=":", which="both")
     right_handles = [
         mpl.lines.Line2D([], [], c=OBS_HOST_TYPE_COLOURS["late"], lw=2.0, label="Obs late-type median"),
@@ -540,7 +491,7 @@ def build_figure_12(model: ModelSummary, obs: ObsCatalog) -> Tuple[plt.Figure, D
                 mpl.lines.Line2D([], [], c="black", lw=2.0, label="Model median"),
             ]
         )
-    right_handles.append(mpl.lines.Line2D([], [], c="black", ls="--", lw=1.8, label=r"Paper fit / $M_{\star}$"))
+    right_handles.append(mpl.lines.Line2D([], [], c="black", ls="--", lw=1.8, label=r"Obs fit / $M_\star$"))
     ax_right.legend(handles=right_handles, frameon=False, loc="lower left", ncol=1, fontsize=8)
 
     summary = {
