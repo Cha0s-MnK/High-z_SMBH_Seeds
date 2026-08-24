@@ -11,15 +11,15 @@ override for the fixed-tree input directory:
 - ``snaps2redshifts.txt`` (snapshot-redshift table)
 
 The script performs three major steps:
-1. Run ``src/main.py`` per Sersic index ``N_s`` to build fresh GC formation catalogs from raw trees.
-2. Evolve each catalog halo-by-halo with ``src/evo.py`` physics.
-3. Write plotting-ready outputs consumed by the paper-specific plot scripts in ``plot/``.
+1. Run src/main.py once for the selected Sérsic index N_S to build a fresh GC formation catalogue.
+2. Evolve that catalogue halo-by-halo with src/evo.py physics.
+3. Write one root-level set of plotting-ready outputs consumed by the maintained plot scripts in plot/.
 """
 
 from __future__ import annotations
 
 import argparse
-from concurrent.futures import ProcessPoolExecutor, ThreadPoolExecutor, as_completed
+from concurrent.futures import FIRST_COMPLETED, ProcessPoolExecutor, as_completed, wait
 import csv
 from dataclasses import dataclass
 from functools import lru_cache
@@ -43,10 +43,8 @@ PROJECT_ROOT = THIS_FILE.parents[1]
 SRC_DIR = THIS_FILE.parent
 MAIN_SPATIAL_PATH = SRC_DIR / "main.py"
 EVO_PATH = SRC_DIR / "evo.py"
-PLOT_GAO2023_PATH = PROJECT_ROOT / "plot" / "plot_Gao+2024.py"
 PLOT_CHOKSI2018_PATH = PROJECT_ROOT / "plot" / "plot_Choksi+2018.py"
-PLOT_NEUMAYER2020_PATH = PROJECT_ROOT / "plot" / "plot_Neumayer+2020.py"
-PLOT_KONG2026_PATH = PROJECT_ROOT / "plot" / "plot_Kong+2026.py"
+PLOT_KONG_LI2026_PATH = PROJECT_ROOT / "plot" / "plot_Kong&Li2026.py"
 DATA_DIR = PROJECT_ROOT / "data"
 if not DATA_DIR.is_dir():
     DATA_DIR = PROJECT_ROOT.parent / "data"
@@ -85,7 +83,7 @@ from evo import (  # noqa: E402
 )
 from config import *  # noqa: E402
 
-NS_VALUES_DEFAULT = (0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0)
+N_S_DEFAULT = 2.0
 OUT_Z_DEFAULT = "1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0"
 
 FINAL_GC_HEADER = "\n".join([
@@ -97,7 +95,7 @@ ALLCAT_HEADER = "\n".join([
     ("hid_z0 logMh_z0 logMstar_z0 logMh_form logMstar_form logM_form "
      "zform feh isMPB subfind_form snap_form r_galaxy_kpc "
      "gc_radius_pc sigma_h_msun_pc2 M_IMBH_init"),
-    "rows: one formed GC per row; companion finalGCs_ns files use the same row ordering",])
+    "rows: one formed GC per row; finalGCs.dat uses the same row ordering",])
 ALLCAT_FMT = [
     "%.0f",    # hid_z0
     "%.10e",  # logMh_z0
@@ -121,23 +119,12 @@ COMBINED_FINAL_GC_HEADER = "\n".join(
       "m_init_msun lookback_time_final_gyr lookback_time_init_gyr "
       "r_final_kpc r_init_kpc gc_radius_pc sigma_h_msun_pc2 feh "
       "M_IMBH_init M_IMBH_final"),
-     ("rows: one GC row per allcat_ns row for this N_s; feh and "
+     ("rows: one GC row per the single allcat row set; feh and "
       "the GC/IMBH columns are fixed at formation."),])
 
 COMBINED_DEPOS_HEADER = "\n".join([
     "halo_id_z0 lookback_time_gyr bin_index r_inner_kpc r_outer_kpc m_depo_total_msun m_star_no_evo_msun m_star_with_evo_msun",
-    "rows: one deposited radial-bin row from the per-halo Depos files for this N_s; halo_id_z0 identifies the source halo",])
-
-GLOBAL_FINAL_GC_HEADER = "\n".join([
-    ("ns halo_id_z0 gc_index_halo status M_GC_final "
-     "m_init_msun lookback_time_final_gyr lookback_time_init_gyr "
-     "r_final_kpc r_init_kpc gc_radius_pc sigma_h_msun_pc2 feh "
-     "M_IMBH_init M_IMBH_final"),
-    "rows: one GC row from the per-N_s finalGCs files; ns and halo_id_z0 identify the source run and halo",])
-
-GLOBAL_DEPOS_HEADER = "\n".join([
-    "ns halo_id_z0 lookback_time_gyr bin_index r_inner_kpc r_outer_kpc m_depo_total_msun m_star_no_evo_msun m_star_with_evo_msun",
-    "rows: one deposited radial-bin row from the per-N_s combined Depos files; ns and halo_id_z0 identify the source run and halo",])
+    "rows: one deposited radial-bin row from the per-halo Depos files; halo_id_z0 identifies the source halo",])
 
 HALO_SUMMARY_COLUMNS = [
     "hid_z0",
@@ -200,6 +187,52 @@ class DepositSample:
     time_match_delta_gyr: float
 
 
+@dataclass(frozen=True)
+class SegmentedBranchResult:
+    branch_id: int
+    final_records: Dict[int, tuple[int, float, float, float, float]]
+    survivors: List[dict]
+    depo_imports: List[dict]
+    central_history: List[dict]
+    M_NSC: float
+    M_SMBH_init: float
+    M_SMBH_entry: float
+    M_SMBH_current: float
+    t_smbh_current_gyr: float
+    event_count: int
+    imbh_inventory_by_z: Dict[float, float]
+    deposit_path: str | None
+    deposit_shift_gyr: float | None
+
+
+def _validate_worker_count(value: object, name: str) -> int:
+    if isinstance(value, bool) or not isinstance(value, int) or value < 1:
+        raise ValueError(f"{name} must be an integer >= 1; got {value!r}")
+    return int(value)
+
+
+def _report_parallel_capacity(main_jobs: int, satellite_jobs: int) -> None:
+    main_jobs = _validate_worker_count(main_jobs, "main_jobs")
+    satellite_jobs = _validate_worker_count(satellite_jobs, "satellite_jobs")
+    product = main_jobs * satellite_jobs
+    if main_jobs == 1:
+        process_slots = 1 if satellite_jobs == 1 else 1 + satellite_jobs
+        process_note = "serial outer halo path"
+    elif satellite_jobs == 1:
+        process_slots = 1 + main_jobs
+        process_note = "no inner satellite pool because satellite_jobs == 1"
+    else:
+        process_slots = 1 + main_jobs + product
+        process_note = "coordinator + outer halo workers + inner satellite workers"
+    print(
+        "PARALLEL_CAPACITY "
+        f"main_jobs = {main_jobs}, satellite_jobs = {satellite_jobs}, "
+        f"{main_jobs} * {satellite_jobs} = {product} inner satellite-worker slots; "
+        f"possible process slots <= {process_slots} ({process_note}). "
+        "The actual count is limited by available halos and ready branches; no automatic global cap is applied."
+    )
+
+
 def _ns_tag(ns: float) -> str:
     """Convert one Sersic index into the filename-safe `0p5` style tag."""
 
@@ -210,27 +243,6 @@ def _fmt_param_tag(value: float) -> str:
     """Compact float formatting for output filenames."""
 
     return f"{check_finite(value, name='filename parameter'):g}"
-
-
-def _ns_output_dir(base_output_dir: Path, ns_value: float) -> Path:
-    """Return the per-N_s output directory and create it if needed."""
-
-    path = base_output_dir / f"ns{_ns_tag(ns_value)}"
-    path.mkdir(parents=True, exist_ok=True)
-    return path
-
-
-def _ns_product_name(kind: str, ns_value: float) -> str:
-    tag = _ns_tag(ns_value)
-    templates = {
-        "final_gcs": f"finalGCs_ns{tag}.dat",
-        "depos": f"depos_ns{tag}.dat",
-        "halo_summary_by_z": f"haloSummaryByZ_ns{tag}.csv",
-    }
-    try:
-        return templates[kind]
-    except KeyError as exc:
-        raise ValueError(f"Unknown per-N_s product kind: {kind}") from exc
 
 
 def _tmp_product_path(work_dir: Path, kind: str, hz0: int, ns_tag: str, branch_id: int | None = None) -> Path:
@@ -255,18 +267,6 @@ def _tmp_product_path(work_dir: Path, kind: str, hz0: int, ns_tag: str, branch_i
         return Path(work_dir) / templates[kind]
     except KeyError as exc:
         raise ValueError(f"Unknown temporary product kind: {kind}") from exc
-
-
-def _parse_ns_values(text: str) -> List[float]:
-    out: List[float] = []
-    for token in text.split(","):
-        tok = token.strip()
-        if not tok:
-            continue
-        out.append(check_finite_positive(float(tok), name="Sersic index N_s"))
-    if not out:
-        raise ValueError("No valid N_s values were provided.")
-    return out
 
 
 def _parse_out_z(text: str) -> List[float]:
@@ -340,10 +340,8 @@ def _remove_run_scratch_dir(path: Path) -> None:
 
 def _check_project_layout(
     *,
-    plot_gao2023_requested: bool,
     plot_choksi2018_requested: bool,
-    plot_neumayer2020_requested: bool,
-    plot_kong2026_requested: bool,
+    plot_kong_li2026_requested: bool,
     tree_dir: Path | None,
 ) -> tuple[Path, Path]:
     if not DATA_DIR.is_dir():
@@ -361,25 +359,15 @@ def _check_project_layout(
             f"Expected bundled High-z SMBHs repository layout under {PROJECT_ROOT}; "
             f"missing stellar-evolution mass-loss table: {MASS_LOSS_PATH}"
         )
-    if plot_gao2023_requested and (not PLOT_GAO2023_PATH.is_file()):
-        raise FileNotFoundError(
-            f"Expected bundled High-z SMBHs repository layout under {PROJECT_ROOT}; "
-            f"missing Gao+2024 plot script: {PLOT_GAO2023_PATH}"
-        )
     if plot_choksi2018_requested and (not PLOT_CHOKSI2018_PATH.is_file()):
         raise FileNotFoundError(
             f"Expected bundled High-z SMBHs repository layout under {PROJECT_ROOT}; "
             f"missing Choksi+2018 plot script: {PLOT_CHOKSI2018_PATH}"
         )
-    if plot_neumayer2020_requested and (not PLOT_NEUMAYER2020_PATH.is_file()):
+    if plot_kong_li2026_requested and (not PLOT_KONG_LI2026_PATH.is_file()):
         raise FileNotFoundError(
             f"Expected bundled High-z SMBHs repository layout under {PROJECT_ROOT}; "
-            f"missing Neumayer+2020 plot script: {PLOT_NEUMAYER2020_PATH}"
-        )
-    if plot_kong2026_requested and (not PLOT_KONG2026_PATH.is_file()):
-        raise FileNotFoundError(
-            f"Expected bundled High-z SMBHs repository layout under {PROJECT_ROOT}; "
-            f"missing Kong+2026 plot script: {PLOT_KONG2026_PATH}"
+            f"missing Kong&Li2026 plot script: {PLOT_KONG_LI2026_PATH}"
         )
     effective_tree_dir = tree_dir.resolve() if tree_dir is not None else DEFAULT_TREE_DIR
     if not effective_tree_dir.is_dir():
@@ -413,15 +401,18 @@ def _confirm_clear_output(path: Path) -> None:
         raise SystemExit("Aborted: output directory was not cleared.")
 
 
-def _warn_if_output_nonempty(path: Path) -> None:
-    """Warn when keeping existing output files."""
+def _require_empty_output(path: Path) -> None:
+    """Require a clean output root before a non-clearing run."""
 
     path.mkdir(parents=True, exist_ok=True)
     try:
         next(path.iterdir())
     except StopIteration:
         return
-    print(f"Warning: output directory is non-empty and will be kept: {path}")
+    raise RuntimeError(
+        f"Output directory must be empty when --clear-output=0; refusing to mix "
+        f"existing files with the new root-level layout: {path}"
+    )
 
 
 def _iter_numeric_text_lines(path: Path) -> Sequence[str]:
@@ -657,12 +648,12 @@ def _sample_deposited_stellar_mass(
 
 def _combine_per_halo_outputs(
     per_halo_dir: Path,
-    ns_output_dir: Path,
+    output_dir: Path,
     ns_value: float,
     halo_ids: Sequence[int],
     all_rows: np.ndarray,
 ) -> None:
-    """Merge temporary per-halo outputs for one N_s into the published files."""
+    """Merge temporary per-halo outputs into the single published files."""
 
     ns_tag = _ns_tag(ns_value)
     all_rows_arr = np.asarray(all_rows, dtype=float)
@@ -675,8 +666,8 @@ def _combine_per_halo_outputs(
         for hid in halo_ids_sorted
     }
 
-    gcfin_out = ns_output_dir / _ns_product_name("final_gcs", ns_value)
-    depos_out = ns_output_dir / _ns_product_name("depos", ns_value)
+    gcfin_out = output_dir / "finalGCs.dat"
+    depos_out = output_dir / "depos.dat"
 
     with gcfin_out.open("w", encoding="utf-8") as f_gcfin:
         f_gcfin.write("# " + COMBINED_FINAL_GC_HEADER.replace("\n", "\n# ") + "\n")
@@ -710,35 +701,6 @@ def _combine_per_halo_outputs(
                 raise FileNotFoundError(f"Missing per-halo Depos file: {src}")
             for row in _iter_numeric_text_lines(src):
                 f_depos.write(f"{hid:d} {row}\n")
-
-
-def _combine_all_ns_outputs(output_dir: Path, ns_values: Sequence[float]) -> None:
-    """Merge per-N_s combined GCfin/Depos files into one top-level file each."""
-
-    gcfin_out = output_dir / "finalGCs_all.dat"
-    depos_out = output_dir / "depos_all.dat"
-
-    with gcfin_out.open("w", encoding="utf-8") as f_gcfin:
-        f_gcfin.write("# " + GLOBAL_FINAL_GC_HEADER.replace("\n", "\n# ") + "\n")
-        for ns in ns_values:
-            ns_tag = _ns_tag(ns)
-            src = output_dir / f"ns{ns_tag}" / _ns_product_name("final_gcs", ns)
-            if not src.exists():
-                raise FileNotFoundError(f"Missing per-N_s combined GCfin file: {src}")
-            for row in _iter_numeric_text_lines(src):
-                f_gcfin.write(f"{float(ns):.1f} {row}\n")
-
-    with depos_out.open("w", encoding="utf-8") as f_depos:
-        f_depos.write("# " + GLOBAL_DEPOS_HEADER.replace("\n", "\n# ") + "\n")
-        for ns in ns_values:
-            ns_tag = _ns_tag(ns)
-            src = output_dir / f"ns{ns_tag}" / _ns_product_name("depos", ns)
-            if not src.exists():
-                raise FileNotFoundError(f"Missing per-N_s combined Depos file: {src}")
-            for row in _iter_numeric_text_lines(src):
-                f_depos.write(f"{float(ns):.1f} {row}\n")
-
-
 def _build_halo_summary_table(
     all_rows: np.ndarray,
     status: np.ndarray,
@@ -1182,13 +1144,9 @@ def _branch_merger_events_by_source(tree_rows: np.ndarray, required_branches: se
                         f"Branch {branch_id} has no retained descendant row for subhalo {desc_id}, "
                         "and the MPB branch has no usable rows."
                     )
-                z_clamped = float(np.clip(z_merge, float(np.min(mpb_redshift)), float(np.max(mpb_redshift))))
-                recipient_logmh, available = _interpolate_mpb_logmh_at_redshift(mpb_rows, z_clamped)
-                if not available:
-                    nearest = int(np.argmin(np.abs(mpb_redshift - z_clamped)))
-                    recipient_logmh = float(mpb_rows[nearest, 0])
-                    z_clamped = float(mpb_rows[nearest, 5])
-                z_merge = z_clamped
+                # The nearest MPB row supplies recipient mass only; the source terminal row supplies merger time.
+                nearest = int(np.argmin(np.abs(mpb_redshift - z_merge)))
+                recipient_logmh = float(mpb_rows[nearest, 0])
         z_merge = check_finite_non_negative(z_merge, name="Branch merger redshift")
         recipient_logmh = check_finite(recipient_logmh, name="Recipient halo log mass")
         recipient_mhalo_msun = check_finite_positive(10.0 ** recipient_logmh, name="Recipient halo mass")
@@ -1537,34 +1495,30 @@ def _run_main_spatial_for_ns(
     return all_path
 
 
-def _default_plot_ns_value(ns_values: Sequence[float]) -> float:
-    if any(abs(float(ns) - 2.0) < 1.0e-8 for ns in ns_values):
-        return 2.0
-    return float(ns_values[0])
-
-
 PLOT_RUNNERS = {
-    "gao2023": (PLOT_GAO2023_PATH, "_plots_Gao+2024", "plot_Gao+2024.py", "ns-values"),
-    "choksi2018": (PLOT_CHOKSI2018_PATH, "_plots_Choksi+2018", "plot_Choksi+2018.py", "ns-value"),
-    "neumayer2020": (PLOT_NEUMAYER2020_PATH, "_plots_Neumayer+2020", "plot_Neumayer+2020.py", "ns-value"),
-    "kong2026": (PLOT_KONG2026_PATH, "_plots_Kong+2026", "plot_Kong+2026.py", "ns-value"),
+    "choksi2018": (PLOT_CHOKSI2018_PATH, "_plots_Choksi+2018", "plot_Choksi+2018.py"),
+    "kongli2026": (PLOT_KONG_LI2026_PATH, "_plots_Kong&Li2026", "plot_Kong&Li2026.py"),
 }
 
 
-def _run_plot_product(kind: str, *, output_dir: Path, ns_values: Sequence[float]) -> Path:
+def _run_plot_product(kind: str, *, output_dir: Path) -> Path:
     try:
-        script_path, suffix, script_name, ns_mode = PLOT_RUNNERS[kind]
+        script_path, suffix, script_name = PLOT_RUNNERS[kind]
     except KeyError as exc:
         raise ValueError(f"Unknown plot product kind: {kind}") from exc
     plot_output_dir = output_dir / suffix
     cmd = [sys.executable, str(script_path), "--out_dir", str(output_dir)]
-    if ns_mode == "ns-values":
-        cmd.extend(["--ns-values", ",".join(f"{float(ns):.1f}" for ns in ns_values)])
-    else:
-        cmd.extend(["--ns-value", f"{_default_plot_ns_value(ns_values):.1f}"])
     print(f"{script_name} starting. output={plot_output_dir}")
-    subprocess.run(cmd, cwd=PROJECT_ROOT, check=True)
-    print(f"{script_name} finished. output={plot_output_dir}")
+    try:
+        subprocess.run(cmd, cwd=PROJECT_ROOT, check=True)
+    except (OSError, subprocess.CalledProcessError) as exc:
+        warnings.warn(
+            f"{script_name} failed; simulation outputs were retained and the run will remain successful: {exc}",
+            RuntimeWarning,
+            stacklevel=2,
+        )
+    else:
+        print(f"{script_name} finished. output={plot_output_dir}")
     return plot_output_dir
 
 
@@ -1921,6 +1875,311 @@ def _cumulative_central_events(events: Sequence[dict], eddington_ratio: float = 
     return out
 
 
+def _evolve_one_segmented_branch_task(
+    *,
+    hz0: int,
+    branch_id: int,
+    initial_states: Sequence[dict],
+    child_results: Sequence[tuple[BranchMergerEvent, SegmentedBranchResult]],
+    tree_rows: np.ndarray,
+    mpb_branch: int,
+    branch_final_redshift: float,
+    ns: float,
+    ns_tag: str,
+    tmp_work_dir: str,
+    ts_m: float,
+    ts_r: float,
+    eddington_ratio: float,
+    import_branch_central_masses: bool,
+    out_redshifts: Sequence[float],
+) -> SegmentedBranchResult:
+    """Evolve one branch after all of its child branch results are available."""
+
+    branch = int(branch_id)
+    hz0_i = int(hz0)
+    mpb_branch_i = int(mpb_branch)
+    if branch < 0 or mpb_branch_i < 0:
+        raise ValueError(f"Halo {hz0_i} branch IDs must be non-negative.")
+    if branch != mpb_branch_i and float(branch_final_redshift) < 0.0:
+        raise ValueError(f"Halo {hz0_i} branch {branch} has an invalid final redshift.")
+    tree_rows_arr = np.asarray(tree_rows, dtype=object)
+    tmp_work_dir_p = Path(tmp_work_dir)
+    initial_states_arr = [dict(state) for state in initial_states]
+    child_results_sorted = sorted(
+        child_results,
+        key=lambda item: int(item[0].source_branch_id),
+    )
+    child_ids = [int(event.source_branch_id) for event, _ in child_results_sorted]
+    if len(child_ids) != len(set(child_ids)):
+        raise ValueError(f"Halo {hz0_i} branch {branch} received duplicate child results: {child_ids}")
+
+    t_z0 = float(Redshift2CosmicAge(0.0, time_unit="Gyr"))
+    final_records: Dict[int, tuple[int, float, float, float, float]] = {}
+    imbh_inventory_by_z: Dict[float, float] = {
+        float(z): 0.0 for z in ([0.0] + [float(v) for v in out_redshifts])
+    }
+    live_states: List[dict] = initial_states_arr
+    central_deltas: List[dict] = []
+    event_order = 0
+
+    for event, child_result in child_results_sorted:
+        event_order += int(child_result.event_count)
+        child_smbh_current = float(grow_eddington_mass_msun(
+            check_finite_non_negative(
+                float(child_result.M_SMBH_current),
+                name="child-branch current BH mass",
+            ),
+            dt_Gyr=_checked_non_negative_time(
+                float(event.t_merge_gyr) - float(child_result.t_smbh_current_gyr),
+                "child-branch central BH growth timestep",
+            ),
+            f_Eddington=eddington_ratio,
+        ))
+        check_finite_non_negative(float(child_result.M_NSC), name="child-branch NSC mass")
+        if import_branch_central_masses and child_smbh_current > 0.0:
+            event_order += 1
+            central_deltas.append(
+                {
+                    "gc_index": -1,
+                    "status": 0,
+                    "t_cosmic_gyr": float(event.t_merge_gyr),
+                    "redshift": float(event.z_merge),
+                    "delta_M_NSC": 0.0,
+                    "delta_M_SMBH_init": check_finite_non_negative(
+                        float(child_result.M_SMBH_init),
+                        name="child-branch initial BH mass",
+                    ),
+                    "delta_M_SMBH_entry": check_finite_non_negative(
+                        float(child_result.M_SMBH_entry),
+                        name="child-branch entry BH mass",
+                    ),
+                    "delta_M_SMBH_current": float(child_smbh_current),
+                    "event_order": event_order,
+                    "source_branch_id": int(event.source_branch_id),
+                    "recipient_branch_id": branch,
+                    "event_type": "branch_bh_import",
+                }
+            )
+        if import_branch_central_masses:
+            for imported_depo in child_result.depo_imports:
+                continued_depo = dict(imported_depo)
+                continued_depo["current_z"] = float(event.z_merge)
+                continued_depo["current_r_kpc"] = MIN_RAD_KPC
+                live_states.append(continued_depo)
+        for survivor in child_result.survivors:
+            continued = dict(survivor)
+            continued["current_r_kpc"] = check_finite_positive(
+                event.r_accretion_kpc,
+                name="branch accretion radius",
+            )
+            continued["current_z"] = check_finite_non_negative(
+                event.z_merge,
+                name="branch merger redshift",
+            )
+            live_states.append(continued)
+
+    final_redshift = check_finite_non_negative(
+        float(branch_final_redshift),
+        name="branch final redshift",
+    )
+    survivors: List[dict] = []
+    depo_imports: List[dict] = []
+    deposit_path: str | None = None
+    deposit_shift_gyr: float | None = None
+
+    def finalise_state(state: dict, out_row: np.ndarray) -> None:
+        status_float = check_finite(float(out_row[1]), name="GC evolution status")
+        status_i = int(round(status_float))
+        if abs(status_float - float(status_i)) > 1.0e-8 or status_i not in VALID_EVOLUTION_STATUS:
+            raise ValueError(f"Halo {hz0_i} branch {branch} has invalid segmented-evolution status {out_row[1]}")
+        m_final_i = check_finite_non_negative(float(out_row[2]), name="segmented final GC stellar mass")
+        r_final_i = check_finite_non_negative(float(out_row[6]), name="segmented final GC radius")
+        m_imbh_final_i = check_finite_non_negative(float(out_row[8]), name="segmented final IMBH mass")
+        t_segment_end = float(Redshift2CosmicAge(final_redshift, time_unit="Gyr"))
+        segment_lookback = _checked_non_negative_time(float(out_row[4]), "segment final lookback time")
+        lookback_final_z0 = _checked_non_negative_time(
+            t_z0 - (t_segment_end - segment_lookback),
+            "z=0 final lookback time",
+        )
+        final_records[int(state["global_index"])] = (
+            status_i,
+            m_final_i,
+            lookback_final_z0,
+            r_final_i,
+            m_imbh_final_i,
+        )
+
+    if live_states:
+        for state in live_states:
+            current_z = check_finite_non_negative(float(state["current_z"]), name="live GC redshift")
+            if current_z < final_redshift - 1.0e-3:
+                raise ValueError(
+                    f"Halo {hz0_i} branch {branch} has a live GC/import at z={state['current_z']} "
+                    f"after the branch final redshift z={final_redshift}."
+                )
+            if current_z < final_redshift:
+                state["current_z"] = final_redshift
+                z_gc_init = check_finite_non_negative(float(state["z_GC_init"]), name="live GC initial redshift")
+                if z_gc_init < final_redshift:
+                    state["z_GC_init"] = final_redshift
+
+        gcini_segment = tmp_work_dir_p / f"gcini_halo{hz0_i}_branch{branch}_seg_ns{ns_tag}.txt"
+        np.savetxt(
+            gcini_segment,
+            _extended_gcini_rows_from_states(live_states),
+            fmt="%.10e",
+            header=FINAL_GC_HEADER,
+        )
+        tree_segment = _tmp_product_path(
+            tmp_work_dir_p,
+            "tree_branch",
+            hz0_i,
+            ns_tag,
+            branch_id=branch,
+        )
+        _write_branch_tree(tree_segment, tree_rows_arr, branch)
+        depos_segment = _tmp_product_path(
+            tmp_work_dir_p,
+            "depos_branch",
+            hz0_i,
+            ns_tag,
+            branch_id=branch,
+        )
+        gcfin_segment = _tmp_product_path(
+            tmp_work_dir_p,
+            "final_gcs_branch",
+            hz0_i,
+            ns_tag,
+            branch_id=branch,
+        )
+        gcfin_arr, depo_arr, local_central, local_imbh_inventory = evolve_single_halo(
+            ts_m=ts_m,
+            ts_r=ts_r,
+            gcini_path=gcini_segment,
+            depos_path=depos_segment,
+            gcfin_path=gcfin_segment,
+            haloevo_path=tree_segment,
+            sersic_n=float(ns),
+            final_redshift=float(final_redshift),
+            eddington_ratio=float(eddington_ratio),
+            inventory_redshifts=[0.0] + [float(z) for z in out_redshifts],
+        )
+        gcfin_arr = _check_gcfin_array(gcfin_arr, f"halo {hz0_i} branch {branch}")
+        for z_value, inventory in local_imbh_inventory.items():
+            z_key = check_finite_non_negative(float(z_value), name="IMBH inventory redshift")
+            imbh_inventory_by_z[z_key] = imbh_inventory_by_z.get(z_key, 0.0) + check_finite_non_negative(
+                float(inventory),
+                name="IMBH inventory mass",
+            )
+        deposit_shift_gyr = _checked_non_negative_time(
+            t_z0 - float(Redshift2CosmicAge(float(final_redshift), time_unit="Gyr")),
+            "branch deposit lookback shift",
+        )
+        deposit_path = str(depos_segment)
+        for local_event in local_central:
+            event_order += 1
+            central_deltas.append(
+                {
+                    **local_event,
+                    "event_order": event_order,
+                    "branch_id": branch,
+                    "event_type": "local_sink",
+                }
+            )
+
+        for state, out_row, depo_i in zip(live_states, gcfin_arr, depo_arr):
+            if bool(state.get("deposit_only", False)):
+                if branch != mpb_branch_i:
+                    channels_msun = 1.0e5 * np.asarray(depo_i[0, :], dtype=float)
+                    if float(np.sum(channels_msun)) > 0.0:
+                        depo_imports.append(
+                            _deposit_only_state_from_state(
+                                state,
+                                channels_msun,
+                                current_z=float(final_redshift),
+                            )
+                        )
+                continue
+            status_i = int(out_row[1])
+            m_stellar = check_finite_non_negative(
+                float(out_row[2]),
+                name="segmented survivor stellar mass",
+            )
+            M_IMBH_current = check_finite_non_negative(
+                float(out_row[8]),
+                name="segmented survivor IMBH mass",
+            )
+            if branch != mpb_branch_i:
+                channels_msun = 1.0e5 * np.asarray(depo_i[0, :], dtype=float)
+                if float(np.sum(channels_msun)) > 0.0:
+                    depo_imports.append(
+                        _deposit_only_state_from_state(
+                            state,
+                            channels_msun,
+                            current_z=float(final_redshift),
+                        )
+                    )
+            if status_i in (1, -4) and branch != mpb_branch_i:
+                current_mass = M_IMBH_current if status_i == -4 else m_stellar + M_IMBH_current
+                if current_mass > 0.0:
+                    continued = dict(state)
+                    continued["current_mass_msun"] = float(current_mass)
+                    continued["current_z"] = float(final_redshift)
+                    continued["current_r_kpc"] = float(out_row[6])
+                    continued["M_IMBH_current"] = float(M_IMBH_current)
+                    survivors.append(continued)
+                else:
+                    finalise_state(state, out_row)
+            else:
+                finalise_state(state, out_row)
+
+    cumulative = _cumulative_central_events(
+        central_deltas,
+        eddington_ratio=eddington_ratio,
+    )
+    t_branch_final = float(Redshift2CosmicAge(final_redshift, time_unit="Gyr"))
+    if cumulative:
+        last_time = _checked_non_negative_time(
+            float(cumulative[-1].get("t_cosmic_gyr", t_branch_final)),
+            "last central-event time",
+        )
+        M_SMBH_current = float(grow_eddington_mass_msun(
+            check_finite_non_negative(
+                float(cumulative[-1]["M_SMBH_current"]),
+                name="branch current BH mass",
+            ),
+            dt_Gyr=_checked_non_negative_time(
+                t_branch_final - last_time,
+                "branch central BH growth timestep",
+            ),
+            f_Eddington=eddington_ratio,
+        ))
+        M_NSC_branch = check_finite_non_negative(float(cumulative[-1]["M_NSC"]), name="branch NSC mass")
+        M_SMBH_init_branch = check_finite_non_negative(float(cumulative[-1]["M_SMBH_init"]), name="branch initial BH mass")
+        M_SMBH_entry_branch = check_finite_non_negative(float(cumulative[-1]["M_SMBH_entry"]), name="branch entry BH mass")
+    else:
+        M_SMBH_current = 0.0
+        M_NSC_branch = 0.0
+        M_SMBH_init_branch = 0.0
+        M_SMBH_entry_branch = 0.0
+    return SegmentedBranchResult(
+        branch_id=branch,
+        final_records=final_records,
+        survivors=survivors,
+        depo_imports=depo_imports,
+        central_history=cumulative,
+        M_NSC=M_NSC_branch,
+        M_SMBH_init=M_SMBH_init_branch,
+        M_SMBH_entry=M_SMBH_entry_branch,
+        M_SMBH_current=M_SMBH_current,
+        t_smbh_current_gyr=t_branch_final,
+        event_count=sum(int(result.event_count) for _, result in child_results_sorted) + len(central_deltas),
+        imbh_inventory_by_z={float(k): float(v) for k, v in imbh_inventory_by_z.items()},
+        deposit_path=deposit_path,
+        deposit_shift_gyr=deposit_shift_gyr,
+    )
+
+
 def _evolve_one_segmented_halo_task(
     *,
     hz0: int,
@@ -1935,15 +2194,17 @@ def _evolve_one_segmented_halo_task(
     ts_r: float,
     eddington_ratio: float,
     import_branch_central_masses: bool,
+    satellite_jobs: int,
     out_redshifts: Sequence[float],
 ) -> tuple[int, np.ndarray, np.ndarray, np.ndarray, np.ndarray, np.ndarray, List[dict], Dict[float, float]]:
-    """Evolve one halo with recursive ex-situ branch continuation."""
+    """Evolve one halo with dependency-aware ex-situ branch continuation."""
 
     tmp_work_dir_p = Path(tmp_work_dir)
     halo_rows_arr = np.asarray(halo_rows, dtype=float)
     halo_global_indices_arr = np.asarray(halo_global_indices, dtype=int)
     branch_ids_arr = np.asarray(branch_ids, dtype=int)
     tree_rows_arr = np.asarray(tree_rows, dtype=object)
+    satellite_jobs = _validate_worker_count(satellite_jobs, "satellite_jobs")
     if len(halo_rows_arr) != len(halo_global_indices_arr) or len(halo_rows_arr) != len(branch_ids_arr):
         raise ValueError(f"Halo {int(hz0)} has inconsistent segmented-evolution input lengths.")
     if halo_rows_arr.ndim != 2 or halo_rows_arr.shape[1] <= 12:
@@ -1952,6 +2213,7 @@ def _evolve_one_segmented_halo_task(
         raise ValueError(f"Halo {int(hz0)} has negative branch IDs.")
     _check_array(halo_rows_arr[:, 7], f"halo {int(hz0)} formation redshifts", non_negative=True)
     _check_array(halo_rows_arr[:, 9], f"halo {int(hz0)} initial GC radii", positive=True)
+    t_z0 = float(Redshift2CosmicAge(0.0, time_unit="Gyr"))
 
     mpb_branch = _mpb_branch_id(tree_rows_arr)
     initial_by_branch: Dict[int, List[dict]] = {}
@@ -1963,208 +2225,147 @@ def _evolve_one_segmented_halo_task(
     children_by_recipient: Dict[int, List[int]] = {}
     for event in events_by_source.values():
         children_by_recipient.setdefault(int(event.recipient_branch_id), []).append(int(event.source_branch_id))
+    for child_list in children_by_recipient.values():
+        child_list.sort()
 
-    t_z0 = float(Redshift2CosmicAge(0.0, time_unit="Gyr"))
+    branch_set = set(initial_by_branch.keys()) | set(events_by_source.keys()) | {int(mpb_branch)}
+    non_mpb_branches = sorted(branch_set.difference({int(mpb_branch)}))
+    if any(branch not in events_by_source for branch in non_mpb_branches):
+        unresolved = sorted(branch for branch in non_mpb_branches if branch not in events_by_source)
+        raise RuntimeError(
+            f"Halo {int(hz0)} has unresolved non-MPB branch events: {unresolved}"
+        )
+
+    def branch_kwargs(branch: int) -> dict:
+        child_ids = children_by_recipient.get(int(branch), [])
+        missing_children = [child for child in child_ids if child not in results_by_branch]
+        if missing_children:
+            raise RuntimeError(
+                f"Halo {int(hz0)} branch {int(branch)} is missing completed children: {missing_children}"
+            )
+        return {
+            "hz0": int(hz0),
+            "branch_id": int(branch),
+            "initial_states": initial_by_branch.get(int(branch), []),
+            "child_results": [
+                (events_by_source[int(child)], results_by_branch[int(child)])
+                for child in child_ids
+            ],
+            "tree_rows": tree_rows_arr,
+            "mpb_branch": int(mpb_branch),
+            "branch_final_redshift": (
+                0.0 if int(branch) == int(mpb_branch)
+                else float(events_by_source[int(branch)].z_merge)
+            ),
+            "ns": float(ns),
+            "ns_tag": str(ns_tag),
+            "tmp_work_dir": str(tmp_work_dir_p),
+            "ts_m": float(ts_m),
+            "ts_r": float(ts_r),
+            "eddington_ratio": float(eddington_ratio),
+            "import_branch_central_masses": bool(import_branch_central_masses),
+            "out_redshifts": [float(z) for z in out_redshifts],
+        }
+
+    results_by_branch: Dict[int, SegmentedBranchResult] = {}
+
+    def validate_postorder(branch: int, active: set[int], visited: set[int], order: List[int]) -> None:
+        branch_i = int(branch)
+        if branch_i in active:
+            cycle = sorted(active | {branch_i})
+            raise RuntimeError(f"Halo {int(hz0)} branch dependency cycle: {cycle}")
+        if branch_i in visited:
+            return
+        active.add(branch_i)
+        for child in sorted(children_by_recipient.get(branch_i, [])):
+            validate_postorder(child, active, visited, order)
+        active.remove(branch_i)
+        visited.add(branch_i)
+        if branch_i != int(mpb_branch):
+            order.append(branch_i)
+
+    postorder: List[int] = []
+    validate_postorder(int(mpb_branch), set(), set(), postorder)
+    expected_non_mpb = set(non_mpb_branches)
+    if set(postorder) != expected_non_mpb:
+        unresolved = sorted(expected_non_mpb.difference(postorder))
+        raise RuntimeError(
+            f"Halo {int(hz0)} has unresolved branch dependencies: {unresolved}"
+        )
+
+    if satellite_jobs == 1:
+        for branch in postorder:
+            results_by_branch[int(branch)] = _evolve_one_segmented_branch_task(**branch_kwargs(int(branch)))
+    else:
+        unsubmitted = set(non_mpb_branches)
+        active_futures: Dict[object, int] = {}
+        with ProcessPoolExecutor(max_workers=satellite_jobs) as executor:
+            while unsubmitted or active_futures:
+                ready = sorted(
+                    branch
+                    for branch in unsubmitted
+                    if all(child in results_by_branch for child in children_by_recipient.get(branch, []))
+                )
+                while ready and len(active_futures) < satellite_jobs:
+                    branch = int(ready.pop(0))
+                    future = executor.submit(
+                        _evolve_one_segmented_branch_task,
+                        **branch_kwargs(branch),
+                    )
+                    active_futures[future] = branch
+                    unsubmitted.remove(branch)
+                if not active_futures:
+                    unresolved = sorted(unsubmitted)
+                    missing = {
+                        branch: sorted(
+                            child
+                            for child in children_by_recipient.get(branch, [])
+                            if child not in results_by_branch
+                        )
+                        for branch in unresolved
+                    }
+                    raise RuntimeError(
+                        f"Halo {int(hz0)} has unresolved branch dependencies: {missing}"
+                    )
+                completed_futures, _ = wait(
+                    tuple(active_futures),
+                    return_when=FIRST_COMPLETED,
+                )
+                for future in sorted(
+                    completed_futures,
+                    key=lambda item: active_futures[item],
+                ):
+                    branch = active_futures.pop(future)
+                    results_by_branch[branch] = future.result()
+
+    mpb_result = _evolve_one_segmented_branch_task(**branch_kwargs(int(mpb_branch)))
+    results_by_branch[int(mpb_branch)] = mpb_result
+
     final_records: Dict[int, tuple[int, float, float, float, float]] = {}
+    imbh_inventory_by_z: Dict[float, float] = {
+        float(z): 0.0 for z in ([0.0] + [float(v) for v in out_redshifts])
+    }
     depos_rows: List[tuple[float, int, str]] = []
-    imbh_inventory_by_z: Dict[float, float] = {float(z): 0.0 for z in ([0.0] + [float(v) for v in out_redshifts])}
-    memo: Dict[int, dict] = {}
-    event_order = 0
-
-    def add_depos_rows(path: Path, shift_gyr: float) -> None:
-        for row in _iter_numeric_text_lines(path):
-            shifted = _shift_depos_row_lookback(row, shift_gyr)
+    for branch in sorted(results_by_branch):
+        result = results_by_branch[branch]
+        final_records.update(result.final_records)
+        for z_value, inventory in result.imbh_inventory_by_z.items():
+            z_key = check_finite_non_negative(float(z_value), name="IMBH inventory redshift")
+            imbh_inventory_by_z[z_key] = imbh_inventory_by_z.get(z_key, 0.0) + check_finite_non_negative(
+                float(inventory),
+                name="IMBH inventory mass",
+            )
+    if mpb_result.deposit_path is not None:
+        deposit_path = Path(mpb_result.deposit_path)
+        if not deposit_path.exists():
+            raise FileNotFoundError(f"Halo {int(hz0)} MPB deposit file is missing: {deposit_path}")
+        if mpb_result.deposit_shift_gyr is None:
+            raise ValueError(f"Halo {int(hz0)} MPB deposit file has no lookback shift.")
+        for row in _iter_numeric_text_lines(deposit_path):
+            shifted = _shift_depos_row_lookback(row, float(mpb_result.deposit_shift_gyr))
             parts = shifted.split()
             depos_rows.append((float(parts[0]), int(float(parts[1])), shifted))
 
-    def finalise_state(state: dict, out_row: np.ndarray, segment_final_redshift: float) -> None:
-        status_float = check_finite(float(out_row[1]), name="GC evolution status")
-        status_i = int(round(status_float))
-        if abs(status_float - float(status_i)) > 1.0e-8 or status_i not in VALID_EVOLUTION_STATUS:
-            raise ValueError(f"Halo {int(hz0)} has invalid segmented-evolution status {out_row[1]}")
-        m_final_i = check_finite_non_negative(float(out_row[2]), name="segmented final GC stellar mass")
-        r_final_i = check_finite_non_negative(float(out_row[6]), name="segmented final GC radius")
-        m_imbh_final_i = check_finite_non_negative(float(out_row[8]), name="segmented final IMBH mass")
-        segment_z = check_finite_non_negative(segment_final_redshift, name="segment final redshift")
-        t_segment_end = float(Redshift2CosmicAge(segment_z, time_unit="Gyr"))
-        segment_lookback = _checked_non_negative_time(float(out_row[4]), "segment final lookback time")
-        lookback_final_z0 = _checked_non_negative_time(
-            t_z0 - (t_segment_end - segment_lookback),
-            "z=0 final lookback time",
-        )
-        final_records[int(state["global_index"])] = (
-            status_i,
-            m_final_i,
-            lookback_final_z0,
-            r_final_i,
-            m_imbh_final_i,
-        )
-
-    def process_branch(branch_id: int) -> dict:
-        nonlocal event_order
-        branch = int(branch_id)
-        if branch in memo:
-            return memo[branch]
-
-        live_states: List[dict] = [dict(state) for state in initial_by_branch.get(branch, [])]
-        central_deltas: List[dict] = []
-
-        for child_branch in sorted(children_by_recipient.get(branch, [])):
-            child_result = process_branch(int(child_branch))
-            event = events_by_source[int(child_branch)]
-            child_smbh_current = float(grow_eddington_mass_msun(
-                check_finite_non_negative(float(child_result["M_SMBH_current"]), name="child-branch current BH mass"),
-                dt_Gyr=_checked_non_negative_time(
-                    float(event.t_merge_gyr) - float(child_result["t_smbh_current_gyr"]),
-                    "child-branch central BH growth timestep",
-                ),
-                f_Eddington=eddington_ratio))
-            child_nsc = check_finite_non_negative(float(child_result["M_NSC"]), name="child-branch NSC mass")
-            if import_branch_central_masses and child_smbh_current > 0.0:
-                event_order += 1
-                central_deltas.append(
-                    {
-                        "gc_index": -1,
-                        "status": 0,
-                        "t_cosmic_gyr": float(event.t_merge_gyr),
-                        "redshift": float(event.z_merge),
-                        "delta_M_NSC": 0.0,
-                        "delta_M_SMBH_init": check_finite_non_negative(float(child_result["M_SMBH_init"]), name="child-branch initial BH mass"),
-                        "delta_M_SMBH_entry": check_finite_non_negative(float(child_result["M_SMBH_entry"]), name="child-branch entry BH mass"),
-                        "delta_M_SMBH_current": float(child_smbh_current),
-                        "event_order": event_order,
-                        "source_branch_id": int(child_branch),
-                        "recipient_branch_id": int(branch),
-                        "event_type": "branch_bh_import",
-                    }
-                )
-            if import_branch_central_masses:
-                for imported_depo in child_result.get("depo_imports", []):
-                    continued_depo = dict(imported_depo)
-                    continued_depo["current_z"] = float(event.z_merge)
-                    continued_depo["current_r_kpc"] = MIN_RAD_KPC
-                    live_states.append(continued_depo)
-            for survivor in child_result["survivors"]:
-                continued = dict(survivor)
-                continued["current_r_kpc"] = check_finite_positive(event.r_accretion_kpc, name="branch accretion radius")
-                continued["current_z"] = check_finite_non_negative(event.z_merge, name="branch merger redshift")
-                live_states.append(continued)
-
-        final_redshift = 0.0 if branch == int(mpb_branch) else check_finite_non_negative(events_by_source[branch].z_merge, name="branch final redshift")
-        survivors: List[dict] = []
-        depo_imports: List[dict] = []
-
-        if live_states:
-            for state in live_states:
-                current_z = check_finite_non_negative(float(state["current_z"]), name="live GC redshift")
-                if current_z < final_redshift - 1.0e-3:
-                    raise ValueError(
-                        f"Halo {int(hz0)} branch {branch} has a live GC/import at z={state['current_z']} "
-                        f"after the branch final redshift z={final_redshift}."
-                    )
-                if current_z < final_redshift:
-                    state["current_z"] = final_redshift
-                    z_gc_init = check_finite_non_negative(float(state["z_GC_init"]), name="live GC initial redshift")
-                    if z_gc_init < final_redshift:
-                        state["z_GC_init"] = final_redshift
-
-            gcini_segment = tmp_work_dir_p / f"gcini_halo{int(hz0)}_branch{branch}_seg_ns{ns_tag}.txt"
-            np.savetxt(gcini_segment, _extended_gcini_rows_from_states(live_states), fmt="%.10e", header=FINAL_GC_HEADER)
-            tree_segment = _tmp_product_path(tmp_work_dir_p, "tree_branch", int(hz0), ns_tag, branch_id=branch)
-            _write_branch_tree(tree_segment, tree_rows_arr, branch)
-            depos_segment = _tmp_product_path(tmp_work_dir_p, "depos_branch", int(hz0), ns_tag, branch_id=branch)
-            gcfin_segment = _tmp_product_path(tmp_work_dir_p, "final_gcs_branch", int(hz0), ns_tag, branch_id=branch)
-            gcfin_arr, depo_arr, local_central, local_imbh_inventory = evolve_single_halo(
-                ts_m=ts_m,
-                ts_r=ts_r,
-                gcini_path=gcini_segment,
-                depos_path=depos_segment,
-                gcfin_path=gcfin_segment,
-                haloevo_path=tree_segment,
-                sersic_n=float(ns),
-                final_redshift=float(final_redshift),
-                eddington_ratio=float(eddington_ratio),
-                inventory_redshifts=[0.0] + [float(z) for z in out_redshifts],
-            )
-            gcfin_arr = _check_gcfin_array(gcfin_arr, f"halo {int(hz0)} branch {branch}")
-            for z_value, inventory in local_imbh_inventory.items():
-                z_key = check_finite_non_negative(float(z_value), name="IMBH inventory redshift")
-                imbh_inventory_by_z[z_key] = imbh_inventory_by_z.get(z_key, 0.0) + check_finite_non_negative(float(inventory), name="IMBH inventory mass")
-            shift_gyr = _checked_non_negative_time(
-                t_z0 - float(Redshift2CosmicAge(float(final_redshift), time_unit="Gyr")),
-                "branch deposit lookback shift",
-            )
-            if branch == int(mpb_branch):
-                add_depos_rows(depos_segment, shift_gyr)
-            for event in local_central:
-                event_order += 1
-                central_deltas.append({**event, "event_order": event_order, "branch_id": branch, "event_type": "local_sink"})
-
-            for state, out_row, depo_i in zip(live_states, gcfin_arr, depo_arr):
-                if bool(state.get("deposit_only", False)):
-                    if branch != int(mpb_branch):
-                        channels_msun = 1.0e5 * np.asarray(depo_i[0, :], dtype=float)
-                        if float(np.sum(channels_msun)) > 0.0:
-                            depo_imports.append(
-                                _deposit_only_state_from_state(state, channels_msun, current_z=float(final_redshift))
-                            )
-                    continue
-                status_i = int(out_row[1])
-                m_stellar = check_finite_non_negative(float(out_row[2]), name="segmented survivor stellar mass")
-                M_IMBH_current = check_finite_non_negative(float(out_row[8]), name="segmented survivor IMBH mass")
-                if branch != int(mpb_branch):
-                    channels_msun = 1.0e5 * np.asarray(depo_i[0, :], dtype=float)
-                    if float(np.sum(channels_msun)) > 0.0:
-                        depo_imports.append(
-                            _deposit_only_state_from_state(state, channels_msun, current_z=float(final_redshift))
-                        )
-                if status_i in (1, -4) and branch != int(mpb_branch):
-                    if status_i == -4:
-                        current_mass = M_IMBH_current
-                    else:
-                        current_mass = m_stellar + M_IMBH_current
-                    if current_mass > 0.0:
-                        continued = dict(state)
-                        continued["current_mass_msun"] = float(current_mass)
-                        continued["current_z"] = float(final_redshift)
-                        continued["current_r_kpc"] = float(out_row[6])
-                        continued["M_IMBH_current"] = float(M_IMBH_current)
-                        survivors.append(continued)
-                    else:
-                        finalise_state(state, out_row, final_redshift)
-                else:
-                    finalise_state(state, out_row, final_redshift)
-
-        cumulative = _cumulative_central_events(central_deltas, eddington_ratio=eddington_ratio)
-        t_branch_final = float(Redshift2CosmicAge(float(final_redshift), time_unit="Gyr"))
-        if cumulative:
-            last_time = _checked_non_negative_time(float(cumulative[-1].get("t_cosmic_gyr", t_branch_final)), "last central-event time")
-            M_SMBH_current = float(grow_eddington_mass_msun(
-                check_finite_non_negative(float(cumulative[-1]["M_SMBH_current"]), name="branch current BH mass"),
-                dt_Gyr=_checked_non_negative_time(t_branch_final - last_time, "branch central BH growth timestep"),
-                f_Eddington=eddington_ratio))
-            M_NSC_branch = check_finite_non_negative(float(cumulative[-1]["M_NSC"]), name="branch NSC mass")
-            M_SMBH_init_branch = check_finite_non_negative(float(cumulative[-1]["M_SMBH_init"]), name="branch initial BH mass")
-            M_SMBH_entry_branch = check_finite_non_negative(float(cumulative[-1]["M_SMBH_entry"]), name="branch entry BH mass")
-        else:
-            M_SMBH_current = 0.0
-            M_NSC_branch = 0.0
-            M_SMBH_init_branch = 0.0
-            M_SMBH_entry_branch = 0.0
-        result = {
-            "survivors": survivors,
-            "central_history": cumulative,
-            "M_NSC": M_NSC_branch,
-            "M_SMBH_init": M_SMBH_init_branch,
-            "M_SMBH_entry": M_SMBH_entry_branch,
-            "M_SMBH_current": M_SMBH_current,
-            "t_smbh_current_gyr": t_branch_final,
-            "depo_imports": depo_imports,
-        }
-        memo[branch] = result
-        return result
-
-    mpb_result = process_branch(int(mpb_branch))
     missing = [int(idx) for idx in halo_global_indices_arr if int(idx) not in final_records]
     if missing:
         raise ValueError(f"Halo {int(hz0)} segmented evolution did not finalise {len(missing)} GC rows.")
@@ -2211,7 +2412,7 @@ def _evolve_one_segmented_halo_task(
         lookback_time_final,
         r_final,
         M_IMBH_final,
-        list(mpb_result["central_history"]),
+        list(mpb_result.central_history),
         {float(k): float(v) for k, v in imbh_inventory_by_z.items()},
     )
 
@@ -2237,25 +2438,19 @@ def _run_single_ns_pipeline(
     ts_r: float,
     eddington_ratio: float,
     out_redshifts: Sequence[float],
-    jobs: int) -> tuple[float, np.ndarray, pd.DataFrame, pd.DataFrame, pd.DataFrame]:
-    """Run formation + evolution for one Sersic index value.
-
-    Each ``N_s`` gets its own isolated temporary output directory for
-    ``main_spatial.py`` and its own temporary GCini directory. That avoids file
-    collisions when multiple ``N_s`` values are processed concurrently, while
-    still reading the raw data directly from the bundled project ``data/``.
-    """
+    main_jobs: int,
+    satellite_jobs: int) -> tuple[float, np.ndarray, pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+    """Run formation and evolution once for one Sérsic index value."""
 
     ns_tag = _ns_tag(ns)
     p2_tag = _fmt_param_tag(p2)
     p3_tag = _fmt_param_tag(p3)
-    ns_output_dir = _ns_output_dir(output_dir, ns)
     ex_situ_mode = int(ex_situ_mode)
     if ex_situ_mode not in EX_SITU_MODES:
         raise ValueError(f"Unsupported ex-situ mode {ex_situ_mode}; expected one of {EX_SITU_MODES}")
 
-    stage_dir = stage_root / f"ns{ns_tag}"
-    tmp_gcini_dir = tmp_gcini_root / f"ns{ns_tag}"
+    stage_dir = stage_root
+    tmp_gcini_dir = tmp_gcini_root
     _clear_dir_contents(stage_dir)
     _clear_dir_contents(tmp_gcini_dir)
 
@@ -2274,7 +2469,7 @@ def _run_single_ns_pipeline(
         n_halos=n_halos)
     eff_summary_src = stage_dir / f"eff_radius_summary_{float(ns):.1f}.csv"
     if eff_summary_src.exists():
-        shutil.copy2(eff_summary_src, ns_output_dir / eff_summary_src.name)
+        shutil.copy2(eff_summary_src, output_dir / "eff_radius_summary.csv")
     all_rows_raw = _read_main_spatial_all(all_path)
     row_order = _stable_row_order(all_rows_raw)
     # The raw all_<Ns>.txt order depends on legacy tree traversal and can vary
@@ -2311,14 +2506,15 @@ def _run_single_ns_pipeline(
     status = np.zeros(len(all_rows), dtype=int)
     unique_halos = np.unique(hid_z0)
     halo_index_map = {int(hz0): np.where(hid_z0 == hz0)[0] for hz0 in unique_halos}
-    jobs = max(1, int(jobs))
+    main_jobs = _validate_worker_count(main_jobs, "main_jobs")
+    satellite_jobs = _validate_worker_count(satellite_jobs, "satellite_jobs")
     central_history_by_halo: Dict[int, List[dict]] = {}
     branch_mode = ex_situ_mode in (EX_SITU_BRANCH_NO_IMPORT, EX_SITU_BRANCH_IMPORT)
     import_branch_central_masses = ex_situ_mode == EX_SITU_BRANCH_IMPORT
 
     if branch_mode:
         branch_ids = _branch_ids_for_rows(all_rows, tree_dir)
-        if jobs == 1:
+        if main_jobs == 1:
             for hz0 in unique_halos:
                 idx = halo_index_map[int(hz0)]
                 print(f"N_s={ns_tag}: segmented ex-situ evolution for halo {hz0} ({len(idx)} GCs)")
@@ -2335,6 +2531,7 @@ def _run_single_ns_pipeline(
                     ts_r=ts_r,
                     eddington_ratio=eddington_ratio,
                     import_branch_central_masses=import_branch_central_masses,
+                    satellite_jobs=satellite_jobs,
                     out_redshifts=out_redshifts,
                 )
                 status[idx] = status_h
@@ -2344,7 +2541,7 @@ def _run_single_ns_pipeline(
                 M_IMBH_final[idx] = M_IMBH_final_h
                 central_history_by_halo[int(hz0_ret)] = list(central_history)
         else:
-            max_workers = min(jobs, len(unique_halos))
+            max_workers = min(main_jobs, len(unique_halos))
             futures = {}
             with ProcessPoolExecutor(max_workers=max_workers) as ex:
                 for hz0 in unique_halos:
@@ -2363,6 +2560,7 @@ def _run_single_ns_pipeline(
                         ts_r=ts_r,
                         eddington_ratio=eddington_ratio,
                         import_branch_central_masses=import_branch_central_masses,
+                        satellite_jobs=satellite_jobs,
                         out_redshifts=out_redshifts,
                     )
                     futures[fut] = int(hz0)
@@ -2384,7 +2582,7 @@ def _run_single_ns_pipeline(
         if analytic_rows is None:
             raise RuntimeError("Gao-style analytic mode requires analytic_survival rows.")
         is_mpb_flags = _build_ismpb_flags(all_rows, tree_dir)
-        if jobs == 1:
+        if main_jobs == 1:
             for hz0 in unique_halos:
                 idx = halo_index_map[int(hz0)]
                 tree_halo = _tree_file_for_halo(tree_dir, int(hz0))
@@ -2411,7 +2609,7 @@ def _run_single_ns_pipeline(
                 M_IMBH_final[idx] = M_IMBH_final_h
                 central_history_by_halo[int(hz0_ret)] = list(central_history)
         else:
-            max_workers = min(jobs, len(unique_halos))
+            max_workers = min(main_jobs, len(unique_halos))
             futures = {}
             with ProcessPoolExecutor(max_workers=max_workers) as ex:
                 for hz0 in unique_halos:
@@ -2456,12 +2654,12 @@ def _run_single_ns_pipeline(
         tree_dir=tree_dir,
         z_snap=z_snap,
     )
-    allcat_ns_path = ns_output_dir / f"allcat_ns{ns_tag}_s-0_p2-{p2_tag}_p3-{p3_tag}.txt"
-    np.savetxt(allcat_ns_path, allcat, fmt=ALLCAT_FMT, header=ALLCAT_HEADER)
+    allcat_path = output_dir / f"allcat_s-0_p2-{p2_tag}_p3-{p3_tag}.txt"
+    np.savetxt(allcat_path, allcat, fmt=ALLCAT_FMT, header=ALLCAT_HEADER)
 
     _combine_per_halo_outputs(
         per_halo_dir=tmp_gcini_dir,
-        ns_output_dir=ns_output_dir,
+        output_dir=output_dir,
         ns_value=ns,
         halo_ids=unique_halos,
         all_rows=all_rows,
@@ -2469,7 +2667,6 @@ def _run_single_ns_pipeline(
 
     summary_df = pd.DataFrame(
         {
-            "ns": np.full(len(all_rows), float(ns)),
             "hid_z0": hid_z0.astype(int),
             "status": status.astype(int),
             "M_GC_final": m_final,
@@ -2488,7 +2685,7 @@ def _run_single_ns_pipeline(
         central_history_by_halo=central_history_by_halo,
         eddington_ratio=eddington_ratio,
     )
-    halo_summary_df.to_csv(ns_output_dir / f"haloSummary_ns{ns_tag}.csv", index=False, float_format="%.17g")
+    halo_summary_df.to_csv(output_dir / "haloSummary.csv", index=False, float_format="%.17g")
     halo_summary_by_z_df = _build_halo_summary_by_z_table(
         all_rows=all_rows,
         status=status,
@@ -2500,7 +2697,7 @@ def _run_single_ns_pipeline(
         central_history_by_halo=central_history_by_halo,
         eddington_ratio=eddington_ratio,
     )
-    halo_summary_by_z_df.to_csv(ns_output_dir / _ns_product_name("halo_summary_by_z", ns), index=False, float_format="%.17g")
+    halo_summary_by_z_df.to_csv(output_dir / "haloSummaryByZ.csv", index=False, float_format="%.17g")
     return float(ns), allcat[:, 0].astype(int), summary_df, halo_summary_df, halo_summary_by_z_df
 
 
@@ -2516,13 +2713,14 @@ def main() -> None:
         type=int,
         default=0,
         choices=(0, 1, 2),
-        help="Output clearing mode: 0 keep existing output with a warning if non-empty, 1 ask before clearing, 2 clear without asking.",
+        help="Output clearing mode: 0 require an empty directory, 1 ask before clearing, 2 clear without asking.",
     )
     parser.add_argument(
-        "--ns-values",
-        type=str,
-        default=",".join(str(v) for v in NS_VALUES_DEFAULT),
-        help="Comma-separated N_s values to run.",
+        "--N_S",
+        dest="N_S",
+        type=float,
+        default=N_S_DEFAULT,
+        help="Positive dimensionless Sérsic index controlling the initial GC radial distribution.",
     )
 
     # Physics/evolution controls used by the active Python GCevo rewrite.
@@ -2557,13 +2755,20 @@ def main() -> None:
     parser.add_argument("--log-mh-min", type=float, default=11.5, help="minimum descendant z=0 host-halo log mass when --run-all=0")
     parser.add_argument("--log-mh-max", type=float, default=12.5, help="maximum descendant z=0 host-halo log mass when --run-all=0")
     parser.add_argument("--n-halos", type=int, default=10, help="maximum number of halos to run when --run-all=0")
-    parser.add_argument("--jobs", type=int, default=1, help="Parallel halo-evolution workers per N_s run.")
-    parser.add_argument("--ns-jobs", type=int, default=1, help="Concurrent N_s pipelines.")
     parser.add_argument(
-        "--plot_Gao+2024",
-        dest="plot_gao2023",
-        action="store_true",
-        help="Run plot/plot_Gao+2024.py automatically after the simulation and write figures to <output>/_plots_Gao+2024.",
+        "--main_jobs",
+        type=int,
+        default=1,
+        help="Concurrent descendant-halo evolution workers; this does not parallelise formation or individual GCs.",
+    )
+    parser.add_argument(
+        "--satellite_jobs",
+        type=int,
+        default=1,
+        help=(
+            "Concurrent independent satellite-branch evolution workers within one descendant halo "
+            "for dynamic --ex-situ 1/2; this does not parallelise formation or individual GCs."
+        ),
     )
     parser.add_argument(
         "--plot_Choksi+2018",
@@ -2572,40 +2777,48 @@ def main() -> None:
         help="Run plot/plot_Choksi+2018.py automatically after the simulation and write figures to <output>/_plots_Choksi+2018.",
     )
     parser.add_argument(
-        "--plot_Neumayer+2020",
-        dest="plot_neumayer2020",
+        "--plot_KongLi2026",
+        dest="plot_kongli2026",
         action="store_true",
-        help="Run plot/plot_Neumayer+2020.py automatically after the simulation and write figures to <output>/_plots_Neumayer+2020.",
-    )
-    parser.add_argument(
-        "--plot_Kong+2026",
-        dest="plot_kong2026",
-        action="store_true",
-        help="Run plot/plot_Kong+2026.py automatically after the simulation and write figures to <output>/_plots_Kong+2026.",
+        help="Run plot/plot_Kong&Li2026.py automatically after the simulation and write figures to <output>/_plots_Kong&Li2026.",
     )
     old_ex_situ_flag = "--ex-situ" + "NSC"
+    if any(arg == "--jobs" or arg.startswith("--jobs=") for arg in sys.argv[1:]):
+        parser.error("--jobs has been removed; use --main_jobs for different halos and --satellite_jobs for satellite branches")
     if any(arg == old_ex_situ_flag or arg.startswith(old_ex_situ_flag + "=") for arg in sys.argv[1:]):
         parser.error(f"{old_ex_situ_flag} has been removed; use --ex-situ")
     args = parser.parse_args()
+    try:
+        main_jobs = _validate_worker_count(args.main_jobs, "main_jobs")
+        satellite_jobs = _validate_worker_count(args.satellite_jobs, "satellite_jobs")
+    except ValueError as exc:
+        parser.error(str(exc))
+
+    if int(args.ex_situ) == EX_SITU_GAO_ANALYTIC:
+        warnings.warn(
+            "--ex-situ 0 does not use satellite_jobs; the setting is accepted and ignored.",
+            RuntimeWarning,
+            stacklevel=2,
+        )
+    else:
+        _report_parallel_capacity(main_jobs, satellite_jobs)
 
     data_dir, tree_dir = _check_project_layout(
-        plot_gao2023_requested=bool(args.plot_gao2023),
         plot_choksi2018_requested=bool(args.plot_choksi2018),
-        plot_neumayer2020_requested=bool(args.plot_neumayer2020),
-        plot_kong2026_requested=bool(args.plot_kong2026),
+        plot_kong_li2026_requested=bool(args.plot_kongli2026),
         tree_dir=args.tree_dir,
     )
 
     output_dir = args.output.resolve()
+    ns_value = check_finite_positive(float(args.N_S), name="Sersic index N_S")
     if args.clear_output == 0:
-        _warn_if_output_nonempty(output_dir)
+        _require_empty_output(output_dir)
     elif args.clear_output == 1:
         _confirm_clear_output(output_dir)
         _clear_dir_contents(output_dir)
     elif args.clear_output == 2:
         _clear_dir_contents(output_dir)
 
-    ns_values = _parse_ns_values(args.ns_values)
     out_redshifts = _parse_out_z(args.out_z)
     eddington_ratio = check_finite_non_negative(args.Eddington, name="Eddington ratio f_Eddington")
     z_snap = _build_snap_map(SNAPS_PATH)
@@ -2626,105 +2839,29 @@ def main() -> None:
         print(f"TEMP_STAGE {stage_root}")
         print(f"TEMP_GCINI {tmp_gcini_root}")
 
-        p2_tag = _fmt_param_tag(args.p2)
-        p3_tag = _fmt_param_tag(args.p3)
-
         t0 = time.time()
-        summary_parts: List[pd.DataFrame] = []
-        halo_summary_parts: List[pd.DataFrame] = []
-        halo_summary_by_z_parts: List[pd.DataFrame] = []
-        template_halo_ids: np.ndarray | None = None
-        ns_jobs = max(1, int(args.ns_jobs))
-        ns_results: Dict[float, tuple[np.ndarray, pd.DataFrame, pd.DataFrame, pd.DataFrame]] = {}
-
-        if ns_jobs == 1 or len(ns_values) == 1:
-            for ns in ns_values:
-                ns_ret, halo_ids_ret, summary_df_ret, halo_summary_df_ret, halo_summary_by_z_df_ret = _run_single_ns_pipeline(
-                    ns=ns,
-                    data_dir=data_dir,
-                    tree_dir=tree_dir,
-                    output_dir=output_dir,
-                    stage_root=stage_root,
-                    tmp_gcini_root=tmp_gcini_root,
-                    z_snap=z_snap,
-                    p2=args.p2,
-                    p3=args.p3,
-                    lg_cut_off_mass=args.lg_cut_off_mass,
-                    ex_situ_mode=args.ex_situ,
-                    run_all=args.run_all,
-                    log_mh_min=args.log_mh_min,
-                    log_mh_max=args.log_mh_max,
-                    n_halos=args.n_halos,
-                    ts_m=args.ts_m,
-                    ts_r=args.ts_r,
-                    eddington_ratio=eddington_ratio,
-                    out_redshifts=out_redshifts,
-                    jobs=args.jobs)
-                ns_results[ns_ret] = (halo_ids_ret, summary_df_ret, halo_summary_df_ret, halo_summary_by_z_df_ret)
-        else:
-            max_ns_workers = min(ns_jobs, len(ns_values))
-            if args.jobs > 1:
-                print(
-                    "Running concurrent N_s pipelines with nested halo workers: "
-                    f"ns_jobs={max_ns_workers}, halo_jobs={max(1, int(args.jobs))}, "
-                    f"max_processes~{max_ns_workers * max(1, int(args.jobs))}"
-                )
-            futures = {}
-            with ThreadPoolExecutor(max_workers=max_ns_workers) as ex:
-                for ns in ns_values:
-                    fut = ex.submit(
-                        _run_single_ns_pipeline,
-                        ns=ns,
-                        data_dir=data_dir,
-                        tree_dir=tree_dir,
-                        output_dir=output_dir,
-                        stage_root=stage_root,
-                        tmp_gcini_root=tmp_gcini_root,
-                        z_snap=z_snap,
-                        p2=args.p2,
-                        p3=args.p3,
-                        lg_cut_off_mass=args.lg_cut_off_mass,
-                        ex_situ_mode=args.ex_situ,
-                        run_all=args.run_all,
-                        log_mh_min=args.log_mh_min,
-                        log_mh_max=args.log_mh_max,
-                        n_halos=args.n_halos,
-                        ts_m=args.ts_m,
-                        ts_r=args.ts_r,
-                        eddington_ratio=eddington_ratio,
-                        out_redshifts=out_redshifts,
-                        jobs=args.jobs)
-                    futures[fut] = float(ns)
-
-                completed = 0
-                for fut in as_completed(futures):
-                    ns_ret, halo_ids_ret, summary_df_ret, halo_summary_df_ret, halo_summary_by_z_df_ret = fut.result()
-                    ns_results[ns_ret] = (halo_ids_ret, summary_df_ret, halo_summary_df_ret, halo_summary_by_z_df_ret)
-                    completed += 1
-                    print(f"N_s batch: completed {completed}/{len(ns_values)} N_s runs")
-
-        for ns in ns_values:
-            halo_ids_ret, summary_df_ret, halo_summary_df_ret, halo_summary_by_z_df_ret = ns_results[float(ns)]
-            summary_parts.append(summary_df_ret)
-            halo_summary_parts.append(halo_summary_df_ret.assign(ns=float(ns)))
-            halo_summary_by_z_parts.append(halo_summary_by_z_df_ret.assign(ns=float(ns)))
-            if template_halo_ids is None:
-                template_halo_ids = halo_ids_ret
-                template_ns_tag = _ns_tag(ns)
-                template_ns_path = (
-                    output_dir
-                    / f"ns{template_ns_tag}"
-                    / f"allcat_ns{template_ns_tag}_s-0_p2-{p2_tag}_p3-{p3_tag}.txt"
-                )
-                template_allcat = np.loadtxt(template_ns_path, ndmin=2)
-                # Keep one top-level allcat template for downstream tools that
-                # accept the historical single-file entry point and then infer
-                # the per-N_s directories from it.
-                template_path = output_dir / f"allcat_s-0_p2-{p2_tag}_p3-{p3_tag}.txt"
-                np.savetxt(template_path, template_allcat, fmt=ALLCAT_FMT, header=ALLCAT_HEADER)
-
-        if template_halo_ids is None:
-            raise RuntimeError("No catalogs were produced; check input trees and model parameters.")
+        _, template_halo_ids, summary, halo_summary, halo_summary_by_z = _run_single_ns_pipeline(
+            ns=ns_value,
+            data_dir=data_dir,
+            tree_dir=tree_dir,
+            output_dir=output_dir,
+            stage_root=stage_root,
+            tmp_gcini_root=tmp_gcini_root,
+            z_snap=z_snap,
+            p2=args.p2,
+            p3=args.p3,
+            lg_cut_off_mass=args.lg_cut_off_mass,
+            ex_situ_mode=args.ex_situ,
+            run_all=args.run_all,
+            log_mh_min=args.log_mh_min,
+            log_mh_max=args.log_mh_max,
+            n_halos=args.n_halos,
+            ts_m=args.ts_m,
+            ts_r=args.ts_r,
+            eddington_ratio=eddington_ratio,
+            out_redshifts=out_redshifts,
+            main_jobs=main_jobs,
+            satellite_jobs=satellite_jobs)
 
         _build_mpb_csv_from_trees(
             tree_dir=tree_dir,
@@ -2738,14 +2875,7 @@ def main() -> None:
             halo_ids=template_halo_ids,
         )
 
-        _combine_all_ns_outputs(output_dir=output_dir, ns_values=ns_values)
-
-        summary = pd.concat(summary_parts, ignore_index=True)
         summary.to_csv(output_dir / "python_evo_summary.csv", index=False, float_format="%.17g")
-        halo_summary = pd.concat(halo_summary_parts, ignore_index=True)
-        halo_summary.to_csv(output_dir / "haloSummary_all.csv", index=False, float_format="%.17g")
-        halo_summary_by_z = pd.concat(halo_summary_by_z_parts, ignore_index=True)
-        halo_summary_by_z.to_csv(output_dir / "haloSummaryByZ_all.csv", index=False, float_format="%.17g")
         central_warning_values = pd.concat(
             [
                 halo_summary[["M_SMBH_final"]],
@@ -2759,7 +2889,10 @@ def main() -> None:
             float(np.max(finite_central_warning_values)) if len(finite_central_warning_values) else 0.0
         )
         metadata = {
-            "metadata_schema": "nsc_ex_situ_modes_v1",
+            "metadata_schema": "nsc_ex_situ_modes_single_ns_v1",
+            "N_S": float(ns_value),
+            "main_jobs": int(main_jobs),
+            "satellite_jobs": int(satellite_jobs),
             "tree_dir": str(tree_dir.resolve()),
             "final_redshift": 0.0,
             "out_z": [float(z) for z in out_redshifts],
@@ -2789,7 +2922,6 @@ def main() -> None:
             "log_mh_min": float(args.log_mh_min),
             "log_mh_max": float(args.log_mh_max),
             "n_halos": int(args.n_halos),
-            "ns_values": [float(v) for v in ns_values],
             "min_rad_pc": float(MIN_RAD_PC),
             "min_rad_kpc": float(MIN_RAD_KPC),
             "nsc_rad_pc": float(NSC_RAD_PC),
@@ -2823,9 +2955,9 @@ def main() -> None:
                 "Final bound stellar mass of each GC outside the central NSC sink; zero is valid and negative values are disallowed."
             ),
             "deposited_mass_bookkeeping": (
-                "depos_ns*.dat and depos_all.dat retain radial stellar mass-loss, stripping, exhaustion, "
-                "tidal-disruption, and fixed 1 pc sink-deposit profiles. The first radial bin is always "
-                "[0, 1e-3] kpc; public M_NSC is sampled from the evolved stellar channel inside NSC_RAD_PC."
+                "depos.dat retains radial stellar mass-loss, stripping, exhaustion, tidal-disruption, "
+                "and fixed 1 pc sink-deposit profiles. The first radial bin is always [0, 1e-3] kpc; "
+                "public M_NSC is sampled from the evolved stellar channel inside NSC_RAD_PC."
             ),
             "haloSummaryByZ_definition": (
                 "Redshift-resolved deposited stellar NSC sample and central BH state. "
@@ -2870,33 +3002,17 @@ def main() -> None:
             json.dump(metadata, f, indent=2, sort_keys=True)
 
         plot_outputs: List[Path] = []
-        if args.plot_gao2023:
-            plot_outputs.append(_run_plot_product(
-                "gao2023",
-                output_dir=output_dir,
-                ns_values=ns_values))
         if args.plot_choksi2018:
-            plot_outputs.append(_run_plot_product(
-                "choksi2018",
-                output_dir=output_dir,
-                ns_values=ns_values))
-        if args.plot_neumayer2020:
-            plot_outputs.append(_run_plot_product(
-                "neumayer2020",
-                output_dir=output_dir,
-                ns_values=ns_values))
-        if args.plot_kong2026:
-            plot_outputs.append(_run_plot_product(
-                "kong2026",
-                output_dir=output_dir,
-                ns_values=ns_values))
+            plot_outputs.append(_run_plot_product("choksi2018", output_dir=output_dir))
+        if args.plot_kongli2026:
+            plot_outputs.append(_run_plot_product("kongli2026", output_dir=output_dir))
 
         elapsed = time.time() - t0
         print(
             "DONE "
-            f"ns={len(ns_values)} "
+            f"N_S={ns_value:g} "
             f"halos={len(np.unique(template_halo_ids))} "
-            f"rows_per_ns={len(template_halo_ids)} "
+            f"rows={len(template_halo_ids)} "
             f"elapsed_s={elapsed:.2f}"
         )
         print(f"OUTPUT {output_dir}")

@@ -9,7 +9,6 @@ from dataclasses import dataclass
 import json
 import math
 from pathlib import Path
-import re
 import sys
 from typing import Dict, Iterable, List, Tuple
 
@@ -98,7 +97,6 @@ HALO_SUMMARY_COLUMN_MAP = {
     "M_NSC": "nsc_mass_msun",
     "M_SMBH_init": "central_bh_mass_init_msun",
     "M_SMBH_final": "central_bh_mass_final_msun",
-    "ns": "sersic_n",
 }
 HALO_SUMMARY_BY_Z_COLUMN_MAP = {
     "hid_z0": "halo_id_z0",
@@ -112,7 +110,6 @@ HALO_SUMMARY_BY_Z_COLUMN_MAP = {
     "z_depos_sampled": "deposit_sample_redshift",
     "lookback_depos_sampled_gyr": "deposit_sample_lookback_gyr",
     "depos_time_match_delta_gyr": "deposit_sample_time_delta_gyr",
-    "ns": "sersic_n",
 }
 
 
@@ -122,13 +119,10 @@ class OutputPaths:
     root_allcat: Path
     mpb: Path
     run_metadata: Path
-    ns_value: float | None = None
-    ns_dir: Path | None = None
-    ns_allcat: Path | None = None
-    final_gcs: Path | None = None
-    deposit: Path | None = None
-    halo_summary: Path | None = None
-    halo_summary_by_z: Path | None = None
+    final_gcs: Path
+    deposit: Path
+    halo_summary: Path
+    halo_summary_by_z: Path
 
 
 @dataclass
@@ -185,10 +179,6 @@ class KongModel:
     paths: OutputPaths
 
 
-def ns_tag(ns_value: float) -> str:
-    return f"{float(ns_value):.1f}".replace(".", "p")
-
-
 def root_allcat_path(out_dir: Path) -> Path:
     candidates = sorted(Path(out_dir).resolve().glob("allcat_s-*.txt"))
     if len(candidates) == 0:
@@ -210,64 +200,47 @@ def run_metadata_path(out_dir: Path) -> Path:
     return Path(out_dir).resolve() / RUN_METADATA_NAME
 
 
-def ns_dir(out_dir: Path, ns_value: float) -> Path:
-    return Path(out_dir).resolve() / f"ns{ns_tag(ns_value)}"
-
-
-def ns_allcat_path(out_dir: Path, ns_value: float, root_allcat: Path | None = None) -> Path:
-    root = Path(root_allcat) if root_allcat is not None else root_allcat_path(out_dir)
-    match = re.match(r"^(?P<prefix>.+?)(?P<suffix>_s-.*\.txt)$", root.name)
-    if match is None:
-        raise ValueError(f"Cannot infer per-N_s allcat path from template name. Expected '*_s-...txt', got {root.name}")
-    tag = ns_tag(ns_value)
-    prefix = re.sub(r"_ns[0-9p]+$", "", match.group("prefix"))
-    return ns_dir(out_dir, ns_value) / f"{prefix}_ns{tag}{match.group('suffix')}"
-
-
-def final_gcs_path(out_dir: Path, ns_value: float) -> Path:
-    path = ns_dir(out_dir, ns_value) / f"finalGCs_ns{ns_tag(ns_value)}.dat"
+def final_gcs_path(out_dir: Path) -> Path:
+    path = Path(out_dir).resolve() / "finalGCs.dat"
     if not path.exists():
-        raise FileNotFoundError(f"Missing per-N_s final-GC catalogue: {path}")
+        raise FileNotFoundError(f"Missing final-GC catalogue: {path}")
     return path
 
 
-def deposit_path(out_dir: Path, ns_value: float) -> Path:
-    return ns_dir(out_dir, ns_value) / f"depos_ns{ns_tag(ns_value)}.dat"
+def deposit_path(out_dir: Path) -> Path:
+    path = Path(out_dir).resolve() / "depos.dat"
+    if not path.exists():
+        raise FileNotFoundError(f"Missing deposited-mass profile: {path}")
+    return path
 
 
-def halo_summary_path(out_dir: Path, ns_value: float) -> Path:
-    path = ns_dir(out_dir, ns_value) / f"haloSummary_ns{ns_tag(ns_value)}.csv"
+def halo_summary_path(out_dir: Path) -> Path:
+    path = Path(out_dir).resolve() / "haloSummary.csv"
     if not path.exists():
         raise FileNotFoundError(f"Missing haloSummary file: {path}")
     return path
 
 
-def halo_summary_by_z_path(out_dir: Path, ns_value: float) -> Path:
-    path = ns_dir(out_dir, ns_value) / f"haloSummaryByZ_ns{ns_tag(ns_value)}.csv"
+def halo_summary_by_z_path(out_dir: Path) -> Path:
+    path = Path(out_dir).resolve() / "haloSummaryByZ.csv"
     if not path.exists():
         raise FileNotFoundError(f"Missing redshift-resolved halo summary: {path}")
     return path
 
 
-def output_paths(out_dir: Path, ns_value: float | None = None) -> OutputPaths:
+def output_paths(out_dir: Path) -> OutputPaths:
     out_dir = Path(out_dir).resolve()
     root = root_allcat_path(out_dir)
     mpb = mpb_path(out_dir)
-    if ns_value is None:
-        return OutputPaths(out_dir=out_dir, root_allcat=root, mpb=mpb, run_metadata=run_metadata_path(out_dir))
-    ns_allcat = ns_allcat_path(out_dir, ns_value, root)
     return OutputPaths(
         out_dir=out_dir,
         root_allcat=root,
         mpb=mpb,
         run_metadata=run_metadata_path(out_dir),
-        ns_value=float(ns_value),
-        ns_dir=ns_dir(out_dir, ns_value),
-        ns_allcat=ns_allcat,
-        final_gcs=final_gcs_path(out_dir, ns_value),
-        deposit=deposit_path(out_dir, ns_value),
-        halo_summary=halo_summary_path(out_dir, ns_value),
-        halo_summary_by_z=halo_summary_by_z_path(out_dir, ns_value),
+        final_gcs=final_gcs_path(out_dir),
+        deposit=deposit_path(out_dir),
+        halo_summary=halo_summary_path(out_dir),
+        halo_summary_by_z=halo_summary_by_z_path(out_dir),
     )
 
 
@@ -752,18 +725,15 @@ def _population_from_threshold(feh: pd.Series, threshold: float) -> pd.Series:
 
 
 def build_gao_model(out_dir: Path, ns_value: float | None = None) -> GaoModel:
-    paths = output_paths(out_dir, ns_value)
-    formed = load_allcat(paths.ns_allcat if paths.ns_allcat is not None else paths.root_allcat)
+    paths = output_paths(out_dir)
+    formed = load_allcat(paths.root_allcat)
     mpb = load_mpb(paths.mpb)
     return GaoModel(formed=formed, mpb=mpb, paths=paths)
 
 
-def build_choksi_model(out_dir: Path, ns_value: float) -> ChoksiModel:
-    paths = output_paths(out_dir, ns_value)
-    assert paths.ns_allcat is not None
-    assert paths.final_gcs is not None
-    assert paths.halo_summary is not None
-    formed = load_allcat(paths.ns_allcat)
+def build_choksi_model(out_dir: Path) -> ChoksiModel:
+    paths = output_paths(out_dir)
+    formed = load_allcat(paths.root_allcat)
     final_gcs = load_final_gcs(paths.final_gcs, expected_halo_ids=formed["halo_id_z0"].to_numpy(dtype=int))
     keep_cols = [col for col in ["status", "gc_mass_final_msun", "log10_gc_mass_final", "radius_final_kpc"] if col in final_gcs.columns]
     catalog = formed.join(final_gcs[keep_cols])
@@ -791,7 +761,7 @@ def build_choksi_model(out_dir: Path, ns_value: float) -> ChoksiModel:
         survivors=survivors,
         halo_summary=halo_summary,
         mpb=mpb,
-        allcat_path=paths.ns_allcat,
+        allcat_path=paths.root_allcat,
         final_gcs_path=paths.final_gcs,
         run_metadata=load_run_metadata(paths.out_dir),
         split_threshold=split_threshold,
@@ -831,10 +801,8 @@ def load_choksi_paper_model(path: Path | None = None) -> ChoksiPaperModel:
 
 
 def build_neumayer_model(out_dir: Path, ns_value: float, nsc_radius_pc: float = NSC_RAD_PC) -> NeumayerModel:
-    paths = output_paths(out_dir, ns_value)
-    assert paths.ns_allcat is not None
-    assert paths.halo_summary is not None
-    formed = load_allcat(paths.ns_allcat)
+    paths = output_paths(out_dir)
+    formed = load_allcat(paths.root_allcat)
     halo_summary = load_halo_summary(paths.halo_summary)
     halo = (
         formed.groupby("halo_id_z0", sort=True)
@@ -1010,11 +978,8 @@ def _stellar_mass_from_halo_mass_at_redshift(halo_mass: np.ndarray | float, reds
 
 
 def build_kong_model(out_dir: Path, ns_value: float) -> KongModel:
-    paths = output_paths(out_dir, ns_value)
-    assert paths.ns_allcat is not None
-    assert paths.final_gcs is not None
-    assert paths.halo_summary_by_z is not None
-    formation = load_allcat(paths.ns_allcat)
+    paths = output_paths(out_dir)
+    formation = load_allcat(paths.root_allcat)
     summary = load_halo_summary_by_z(paths.halo_summary_by_z)
     final_gc = load_final_gcs(paths.final_gcs)
     z0_lookup = _z0_halo_mass_lookup(paths.root_allcat)

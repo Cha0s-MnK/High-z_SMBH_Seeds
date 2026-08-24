@@ -1,0 +1,307 @@
+curve_id,curve_label,curve_role,panel,quantity,x_log10_1pz,redshift,value_mpc3,colour,linestyle,source
+all_seeds_a,All seeds,all_seeds,a,rate,0.8412282542,5.9379034888,1.1220861236e-05,#000000,-,Chen+2026 Fig.6a vector path 985; page-10 first-column trace
+all_seeds_a,All seeds,all_seeds,a,rate,0.8601621816,6.2470654179,2.7066079036e-05,#000000,-,Chen+2026 Fig.6a vector path 985; page-10 first-column trace
+all_seeds_a,All seeds,all_seeds,a,rate,0.8889730849,6.7441380262,6.4815896000e-05,#000000,-,Chen+2026 Fig.6a vector path 985; page-10 first-column trace
+all_seeds_a,All seeds,all_seeds,a,rate,0.9095523006,7.1199302864,1.2890422841e-04,#000000,-,Chen+2026 Fig.6a vector path 985; page-10 first-column trace
+all_seeds_a,All seeds,all_seeds,a,rate,0.9249798975,7.4135619634,2.1213425960e-04,#000000,-,Chen+2026 Fig.6a vector path 985; page-10 first-column trace
+all_seeds_a,All seeds,all_seeds,a,rate,0.9445505977,7.8013764657,4.8641718909e-04,#000000,-,Chen+2026 Fig.6a vector path 985; page-10 first-column trace
+all_seeds_a,All seeds,all_seeds,a,rate,0.9651025539,8.2278930811,1.0874430063e-03,#000000,-,Chen+2026 Fig.6a vector path 985; page-10 first-column trace
+all_seeds_a,All seeds,all_seeds,a,rate,0.9877533229,8.7219486514,2.0447199487e-03,#000000,-,Chen+2026 Fig.6a vector path 985; page-10 first-column trace
+all_seeds_a,All seeds,all_seeds,a,rate,1.0083325386,9.1937162057,3.0739010388e-03,#000000,-,Chen+2026 Fig.6a vector path 985; page-10 first-column trace
+all_seeds_a,All seeds,all_seeds,a,rate,1.0289117543,9.6883767657,4.7139961087e-03,#000000,-,Chen+2026 Fig.6a vector path 985; page-10 first-column trace
+all_seeds_a,All seeds,all_seeds,a,rate,1.0597669515,10.4753767137,1.0078709230e-02,#000000,-,Chen+2026 Fig.6a vector path 985; page-10 first-column trace
+all_seeds_a,All seeds,all_seeds,a,rate,1.0872149900,11.2240464065,1.8244479596e-02,#000000,-,Chen+2026 Fig.6a vector path 985; page-10 first-column trace
+all_seeds_a,All seeds,all_seeds,a,rate,1.1047141402,11.7266511597,2.5589809999e-02,#000000,-,Chen+2026 Fig.6a vector path 985; page-10 first-column trace
+all_seeds_a,All seeds,all_seeds,a,rate,1.1255114146,12.3509267954,4.0225826046e-02,#000000,-,Chen+2026 Fig.6a vector path 985; page-10 first-column trace
+all_seeds_a,All seeds,all_seeds,a,rate,1.1493342424,13.1037383492,7.2291715757e-02,#000000,-,Chen+2026 Fig.6a vector path 985; page-10 first-column trace
+all_seeds_a,All seeds,all_seeds,a,rate,1.1719032364,13.8560460318,1.2613573531e-01,#000000,-,Chen+2026 Fig.6a vector path 985; page-10 first-column trace
+all_seeds_a,All seeds,all_seeds,a,rate,1.1933546838,14.6082669352,2.0682844104e-01,#000000,-,Chen+2026 Fig.6a vector path 985; page-10 first-column trace
+all_seeds_a,All seeds,all_seeds,a,rate,1.2149969339,15.4057819088,3.3873382123e-01,#000000,-,Chen+2026 Fig.6a vector path 985; page-10 first-column trace
+all_seeds_a,All seeds,all_seeds,a,rate,1.2367482117,16.2483760352,5.5175923658e-01,#000000,-,Chen+2026 Fig.6a vector path 985; page-10 first-column trace
+all_seeds_a,All seeds,all_seeds,a,rate,1.2574637146,17.0910475279,8.5127152879e-01,#000000,-,Chen+2026 Fig.6a vector path 985; page-10 first-column trace
+all_seeds_a,All seeds,all_seeds,a,rate,1.2772524702,17.9344402221,1.2283264260e+00,#000000,-,Chen+2026 Fig.6a vector path 985; page-10 first-column trace
+all_seeds_a,All seeds,all_seeds,a,rate,1.2961689940,18.7773907430,1.6797661835e+00,#000000,-,Chen+2026 Fig.6a vector path 985; page-10 first-column trace
+all_seeds_a,All seeds,all_seeds,a,rate,1.3142950611,19.6203038763,2.1968579601e+00,#000000,-,Chen+2026 Fig.6a vector path 985; page-10 first-column trace
+all_seeds_a,All seeds,all_seeds,a,rate,1.3332660971,20.5410117242,2.7510414683e+00,#000000,-,Chen+2026 Fig.6a vector path 985; page-10 first-column trace
+all_seeds_a,All seeds,all_seeds,a,rate,1.3529730844,21.5409950903,3.2103170115e+00,#000000,-,Chen+2026 Fig.6a vector path 985; page-10 first-column trace
+all_seeds_a,All seeds,all_seeds,a,rate,1.3718078366,22.5400746983,3.5163931681e+00,#000000,-,Chen+2026 Fig.6a vector path 985; page-10 first-column trace
+all_seeds_a,All seeds,all_seeds,a,rate,1.3898793848,23.5402727212,3.7035850731e+00,#000000,-,Chen+2026 Fig.6a vector path 985; page-10 first-column trace
+all_seeds_a,All seeds,all_seeds,a,rate,1.4072149918,24.5396529683,3.7372407766e+00,#000000,-,Chen+2026 Fig.6a vector path 985; page-10 first-column trace
+all_seeds_a,All seeds,all_seeds,a,rate,1.4238964224,25.5397252430,3.6044253195e+00,#000000,-,Chen+2026 Fig.6a vector path 985; page-10 first-column trace
+all_seeds_a,All seeds,all_seeds,a,rate,1.4399509362,26.5391756600,3.3588585948e+00,#000000,-,Chen+2026 Fig.6a vector path 985; page-10 first-column trace
+all_seeds_a,All seeds,all_seeds,a,rate,1.4554330487,27.5386252512,3.0333862154e+00,#000000,-,Chen+2026 Fig.6a vector path 985; page-10 first-column trace
+all_seeds_a,All seeds,all_seeds,a,rate,1.4703700158,28.5372470760,2.6041299003e+00,#000000,-,Chen+2026 Fig.6a vector path 985; page-10 first-column trace
+all_seeds_a,All seeds,all_seeds,a,rate,1.4848436128,29.5382124959,2.0971735184e+00,#000000,-,Chen+2026 Fig.6a vector path 985; page-10 first-column trace
+all_seeds_a,All seeds,all_seeds,a,rate,1.4988265766,30.5374501156,1.5910223468e+00,#000000,-,Chen+2026 Fig.6a vector path 985; page-10 first-column trace
+all_seeds_a,All seeds,all_seeds,a,rate,1.5123734229,31.5366939978,1.1543467899e+00,#000000,-,Chen+2026 Fig.6a vector path 985; page-10 first-column trace
+all_seeds_a,All seeds,all_seeds,a,rate,1.5255114144,32.5360118483,8.1904055134e-01,#000000,-,Chen+2026 Fig.6a vector path 985; page-10 first-column trace
+all_seeds_a,All seeds,all_seeds,a,rate,1.5382678006,33.5356632198,5.7416426669e-01,#000000,-,Chen+2026 Fig.6a vector path 985; page-10 first-column trace
+all_seeds_a,All seeds,all_seeds,a,rate,1.5506698475,34.5361068902,4.0128906103e-01,#000000,-,Chen+2026 Fig.6a vector path 985; page-10 first-column trace
+all_seeds_a,All seeds,all_seeds,a,rate,1.5627175452,35.5357094772,2.7660140523e-01,#000000,-,Chen+2026 Fig.6a vector path 985; page-10 first-column trace
+all_seeds_a,All seeds,all_seeds,a,rate,1.5744381598,36.5351503464,1.8465872645e-01,#000000,-,Chen+2026 Fig.6a vector path 985; page-10 first-column trace
+all_seeds_a,All seeds,all_seeds,a,rate,1.5858316878,37.5328993287,1.1825322419e-01,#000000,-,Chen+2026 Fig.6a vector path 985; page-10 first-column trace
+all_seeds_a,All seeds,all_seeds,a,rate,1.5969526416,38.5323508979,7.1900395635e-02,#000000,-,Chen+2026 Fig.6a vector path 985; page-10 first-column trace
+all_seeds_a,All seeds,all_seeds,a,rate,1.6078010211,39.5322787810,4.1985672609e-02,#000000,-,Chen+2026 Fig.6a vector path 985; page-10 first-column trace
+all_seeds_a,All seeds,all_seeds,a,rate,1.6183768296,40.5314247110,2.3674441771e-02,#000000,-,Chen+2026 Fig.6a vector path 985; page-10 first-column trace
+all_seeds_a,All seeds,all_seeds,a,rate,1.6287073266,41.5311696674,1.2905980059e-02,#000000,-,Chen+2026 Fig.6a vector path 985; page-10 first-column trace
+all_seeds_a,All seeds,all_seeds,a,rate,1.6387925054,42.5303847132,6.6278467465e-03,#000000,-,Chen+2026 Fig.6a vector path 985; page-10 first-column trace
+all_seeds_a,All seeds,all_seeds,a,rate,1.6486596254,43.5307105953,3.3507658099e-03,#000000,-,Chen+2026 Fig.6a vector path 985; page-10 first-column trace
+all_seeds_a,All seeds,all_seeds,a,rate,1.6583086867,44.5311570288,1.5977532100e-03,#000000,-,Chen+2026 Fig.6a vector path 985; page-10 first-column trace
+all_seeds_a,All seeds,all_seeds,a,rate,1.6677396925,45.5307114053,7.7530203395e-04,#000000,-,Chen+2026 Fig.6a vector path 985; page-10 first-column trace
+all_seeds_a,All seeds,all_seeds,a,rate,1.6769526395,46.5283392761,3.4222455793e-04,#000000,-,Chen+2026 Fig.6a vector path 985; page-10 first-column trace
+all_seeds_a,All seeds,all_seeds,a,rate,1.6860020434,47.5290783461,1.8757704849e-04,#000000,-,Chen+2026 Fig.6a vector path 985; page-10 first-column trace
+all_seeds_a,All seeds,all_seeds,a,rate,1.6948606479,48.5291241121,1.2545295706e-04,#000000,-,Chen+2026 Fig.6a vector path 985; page-10 first-column trace
+all_seeds_a,All seeds,all_seeds,a,rate,1.7035284497,49.5275743343,8.3752225557e-05,#000000,-,Chen+2026 Fig.6a vector path 985; page-10 first-column trace
+popiii_subedd_a,Pop-III (sub-Eddington),popiii_subedd,a,rate,1.0311560999,9.7437550927,1.1220861236e-05,#377eb8,-,Chen+2026 Fig.6a vector path 1161; page-10 first-column trace
+popiii_subedd_a,Pop-III (sub-Eddington),popiii_subedd,a,rate,1.0597669515,10.4753767137,7.4370148636e-05,#377eb8,-,Chen+2026 Fig.6a vector path 1161; page-10 first-column trace
+popiii_subedd_a,Pop-III (sub-Eddington),popiii_subedd,a,rate,1.0872149900,11.2240464065,3.4160594522e-04,#377eb8,-,Chen+2026 Fig.6a vector path 1161; page-10 first-column trace
+popiii_subedd_a,Pop-III (sub-Eddington),popiii_subedd,a,rate,1.1047141402,11.7266511597,9.6388017283e-04,#377eb8,-,Chen+2026 Fig.6a vector path 1161; page-10 first-column trace
+popiii_subedd_a,Pop-III (sub-Eddington),popiii_subedd,a,rate,1.1255114146,12.3509267954,3.1565615992e-03,#377eb8,-,Chen+2026 Fig.6a vector path 1161; page-10 first-column trace
+popiii_subedd_a,Pop-III (sub-Eddington),popiii_subedd,a,rate,1.1493342424,13.1037383492,8.6890699034e-03,#377eb8,-,Chen+2026 Fig.6a vector path 1161; page-10 first-column trace
+popiii_subedd_a,Pop-III (sub-Eddington),popiii_subedd,a,rate,1.1933546838,14.6082669352,3.1168362651e-02,#377eb8,-,Chen+2026 Fig.6a vector path 1161; page-10 first-column trace
+popiii_subedd_a,Pop-III (sub-Eddington),popiii_subedd,a,rate,1.2149969339,15.4057819088,6.2512442846e-02,#377eb8,-,Chen+2026 Fig.6a vector path 1161; page-10 first-column trace
+popiii_subedd_a,Pop-III (sub-Eddington),popiii_subedd,a,rate,1.2367482117,16.2483760352,1.0475327915e-01,#377eb8,-,Chen+2026 Fig.6a vector path 1161; page-10 first-column trace
+popiii_subedd_a,Pop-III (sub-Eddington),popiii_subedd,a,rate,1.2574637146,17.0910475279,1.4153515227e-01,#377eb8,-,Chen+2026 Fig.6a vector path 1161; page-10 first-column trace
+popiii_subedd_a,Pop-III (sub-Eddington),popiii_subedd,a,rate,1.2772524702,17.9344402221,1.9088653193e-01,#377eb8,-,Chen+2026 Fig.6a vector path 1161; page-10 first-column trace
+popiii_subedd_a,Pop-III (sub-Eddington),popiii_subedd,a,rate,1.3142950611,19.6203038763,4.2546445495e-01,#377eb8,-,Chen+2026 Fig.6a vector path 1161; page-10 first-column trace
+popiii_subedd_a,Pop-III (sub-Eddington),popiii_subedd,a,rate,1.3332660971,20.5410117242,5.7763741914e-01,#377eb8,-,Chen+2026 Fig.6a vector path 1161; page-10 first-column trace
+popiii_subedd_a,Pop-III (sub-Eddington),popiii_subedd,a,rate,1.3529730844,21.5409950903,6.9848847227e-01,#377eb8,-,Chen+2026 Fig.6a vector path 1161; page-10 first-column trace
+popiii_subedd_a,Pop-III (sub-Eddington),popiii_subedd,a,rate,1.3718078366,22.5400746983,7.7343399153e-01,#377eb8,-,Chen+2026 Fig.6a vector path 1161; page-10 first-column trace
+popiii_subedd_a,Pop-III (sub-Eddington),popiii_subedd,a,rate,1.4238964224,25.5397252430,9.0473569961e-01,#377eb8,-,Chen+2026 Fig.6a vector path 1161; page-10 first-column trace
+popiii_subedd_a,Pop-III (sub-Eddington),popiii_subedd,a,rate,1.4399509362,26.5391756600,9.4033896233e-01,#377eb8,-,Chen+2026 Fig.6a vector path 1161; page-10 first-column trace
+popiii_subedd_a,Pop-III (sub-Eddington),popiii_subedd,a,rate,1.4554330487,27.5386252512,9.2626769821e-01,#377eb8,-,Chen+2026 Fig.6a vector path 1161; page-10 first-column trace
+popiii_subedd_a,Pop-III (sub-Eddington),popiii_subedd,a,rate,1.4703700158,28.5372470760,8.3550424860e-01,#377eb8,-,Chen+2026 Fig.6a vector path 1161; page-10 first-column trace
+popiii_subedd_a,Pop-III (sub-Eddington),popiii_subedd,a,rate,1.4848436128,29.5382124959,6.8184010922e-01,#377eb8,-,Chen+2026 Fig.6a vector path 1161; page-10 first-column trace
+popiii_subedd_a,Pop-III (sub-Eddington),popiii_subedd,a,rate,1.4988265766,30.5374501156,5.0494928490e-01,#377eb8,-,Chen+2026 Fig.6a vector path 1161; page-10 first-column trace
+popiii_subedd_a,Pop-III (sub-Eddington),popiii_subedd,a,rate,1.5123734229,31.5366939978,3.4554280290e-01,#377eb8,-,Chen+2026 Fig.6a vector path 1161; page-10 first-column trace
+popiii_subedd_a,Pop-III (sub-Eddington),popiii_subedd,a,rate,1.5382678006,33.5356632198,1.4808399325e-01,#377eb8,-,Chen+2026 Fig.6a vector path 1161; page-10 first-column trace
+popiii_subedd_a,Pop-III (sub-Eddington),popiii_subedd,a,rate,1.5506698475,34.5361068902,1.0072633144e-01,#377eb8,-,Chen+2026 Fig.6a vector path 1161; page-10 first-column trace
+popiii_subedd_a,Pop-III (sub-Eddington),popiii_subedd,a,rate,1.5627175452,35.5357094772,7.0568654064e-02,#377eb8,-,Chen+2026 Fig.6a vector path 1161; page-10 first-column trace
+popiii_subedd_a,Pop-III (sub-Eddington),popiii_subedd,a,rate,1.5744381598,36.5351503464,4.8436804918e-02,#377eb8,-,Chen+2026 Fig.6a vector path 1161; page-10 first-column trace
+popiii_subedd_a,Pop-III (sub-Eddington),popiii_subedd,a,rate,1.5858316878,37.5328993287,3.1432638358e-02,#377eb8,-,Chen+2026 Fig.6a vector path 1161; page-10 first-column trace
+popiii_subedd_a,Pop-III (sub-Eddington),popiii_subedd,a,rate,1.5969526416,38.5323508979,1.8803008244e-02,#377eb8,-,Chen+2026 Fig.6a vector path 1161; page-10 first-column trace
+popiii_subedd_a,Pop-III (sub-Eddington),popiii_subedd,a,rate,1.6078010211,39.5322787810,1.0293712128e-02,#377eb8,-,Chen+2026 Fig.6a vector path 1161; page-10 first-column trace
+popiii_subedd_a,Pop-III (sub-Eddington),popiii_subedd,a,rate,1.6183768296,40.5314247110,5.2608769109e-03,#377eb8,-,Chen+2026 Fig.6a vector path 1161; page-10 first-column trace
+popiii_subedd_a,Pop-III (sub-Eddington),popiii_subedd,a,rate,1.6287073266,41.5311696674,2.6436904361e-03,#377eb8,-,Chen+2026 Fig.6a vector path 1161; page-10 first-column trace
+popiii_subedd_a,Pop-III (sub-Eddington),popiii_subedd,a,rate,1.6387925054,42.5303847132,1.2290674380e-03,#377eb8,-,Chen+2026 Fig.6a vector path 1161; page-10 first-column trace
+popiii_subedd_a,Pop-III (sub-Eddington),popiii_subedd,a,rate,1.6583086867,44.5311570288,2.5176496283e-04,#377eb8,-,Chen+2026 Fig.6a vector path 1161; page-10 first-column trace
+popiii_subedd_a,Pop-III (sub-Eddington),popiii_subedd,a,rate,1.6677396925,45.5307114053,1.0615239562e-04,#377eb8,-,Chen+2026 Fig.6a vector path 1161; page-10 first-column trace
+popiii_subedd_a,Pop-III (sub-Eddington),popiii_subedd,a,rate,1.6769526395,46.5283392761,5.1046068952e-05,#377eb8,-,Chen+2026 Fig.6a vector path 1161; page-10 first-column trace
+popiii_subedd_a,Pop-III (sub-Eddington),popiii_subedd,a,rate,1.6860020434,47.5290783461,3.4098844530e-05,#377eb8,-,Chen+2026 Fig.6a vector path 1161; page-10 first-column trace
+popiii_subedd_a,Pop-III (sub-Eddington),popiii_subedd,a,rate,1.6948606479,48.5291241121,1.8388080685e-05,#377eb8,-,Chen+2026 Fig.6a vector path 1161; page-10 first-column trace
+popiii_subedd_a,Pop-III (sub-Eddington),popiii_subedd,a,rate,1.7035284497,49.5275743343,1.8091086247e-05,#377eb8,-,Chen+2026 Fig.6a vector path 1161; page-10 first-column trace
+popiii_edd_a,Pop-III (Eddington),popiii_edd,a,rate,0.8588652016,6.2254550159,1.1220861236e-05,#e41a1c,-,Chen+2026 Fig.6a vector path 1162; page-10 first-column trace
+popiii_edd_a,Pop-III (Eddington),popiii_edd,a,rate,0.8601621816,6.2470654179,1.2583181436e-05,#e41a1c,-,Chen+2026 Fig.6a vector path 1162; page-10 first-column trace
+popiii_edd_a,Pop-III (Eddington),popiii_edd,a,rate,0.8889730849,6.7441380262,3.6768788443e-05,#e41a1c,-,Chen+2026 Fig.6a vector path 1162; page-10 first-column trace
+popiii_edd_a,Pop-III (Eddington),popiii_edd,a,rate,0.9095523006,7.1199302864,6.7610747010e-05,#e41a1c,-,Chen+2026 Fig.6a vector path 1162; page-10 first-column trace
+popiii_edd_a,Pop-III (Eddington),popiii_edd,a,rate,0.9249798975,7.4135619634,1.0986493317e-04,#e41a1c,-,Chen+2026 Fig.6a vector path 1162; page-10 first-column trace
+popiii_edd_a,Pop-III (Eddington),popiii_edd,a,rate,0.9445505977,7.8013764657,2.9167761720e-04,#e41a1c,-,Chen+2026 Fig.6a vector path 1162; page-10 first-column trace
+popiii_edd_a,Pop-III (Eddington),popiii_edd,a,rate,0.9651025539,8.2278930811,7.0781769549e-04,#e41a1c,-,Chen+2026 Fig.6a vector path 1162; page-10 first-column trace
+popiii_edd_a,Pop-III (Eddington),popiii_edd,a,rate,0.9877533229,8.7219486514,1.3666998052e-03,#e41a1c,-,Chen+2026 Fig.6a vector path 1162; page-10 first-column trace
+popiii_edd_a,Pop-III (Eddington),popiii_edd,a,rate,1.0289117543,9.6883767657,3.1470574677e-03,#e41a1c,-,Chen+2026 Fig.6a vector path 1162; page-10 first-column trace
+popiii_edd_a,Pop-III (Eddington),popiii_edd,a,rate,1.0597669515,10.4753767137,6.6558858554e-03,#e41a1c,-,Chen+2026 Fig.6a vector path 1162; page-10 first-column trace
+popiii_edd_a,Pop-III (Eddington),popiii_edd,a,rate,1.0872149900,11.2240464065,1.2394885954e-02,#e41a1c,-,Chen+2026 Fig.6a vector path 1162; page-10 first-column trace
+popiii_edd_a,Pop-III (Eddington),popiii_edd,a,rate,1.1047141402,11.7266511597,1.8255486808e-02,#e41a1c,-,Chen+2026 Fig.6a vector path 1162; page-10 first-column trace
+popiii_edd_a,Pop-III (Eddington),popiii_edd,a,rate,1.1255114146,12.3509267954,2.9879944261e-02,#e41a1c,-,Chen+2026 Fig.6a vector path 1162; page-10 first-column trace
+popiii_edd_a,Pop-III (Eddington),popiii_edd,a,rate,1.1719032364,13.8560460318,1.0060490891e-01,#e41a1c,-,Chen+2026 Fig.6a vector path 1162; page-10 first-column trace
+popiii_edd_a,Pop-III (Eddington),popiii_edd,a,rate,1.1933546838,14.6082669352,1.6566269696e-01,#e41a1c,-,Chen+2026 Fig.6a vector path 1162; page-10 first-column trace
+popiii_edd_a,Pop-III (Eddington),popiii_edd,a,rate,1.2149969339,15.4057819088,2.6596823552e-01,#e41a1c,-,Chen+2026 Fig.6a vector path 1162; page-10 first-column trace
+popiii_edd_a,Pop-III (Eddington),popiii_edd,a,rate,1.2574637146,17.0910475279,6.9848847227e-01,#e41a1c,-,Chen+2026 Fig.6a vector path 1162; page-10 first-column trace
+popiii_edd_a,Pop-III (Eddington),popiii_edd,a,rate,1.2772524702,17.9344402221,1.0244167867e+00,#e41a1c,-,Chen+2026 Fig.6a vector path 1162; page-10 first-column trace
+popiii_edd_a,Pop-III (Eddington),popiii_edd,a,rate,1.2961689940,18.7773907430,1.3816168634e+00,#e41a1c,-,Chen+2026 Fig.6a vector path 1162; page-10 first-column trace
+popiii_edd_a,Pop-III (Eddington),popiii_edd,a,rate,1.3142950611,19.6203038763,1.7617338198e+00,#e41a1c,-,Chen+2026 Fig.6a vector path 1162; page-10 first-column trace
+popiii_edd_a,Pop-III (Eddington),popiii_edd,a,rate,1.3332660971,20.5410117242,2.1665958684e+00,#e41a1c,-,Chen+2026 Fig.6a vector path 1162; page-10 first-column trace
+popiii_edd_a,Pop-III (Eddington),popiii_edd,a,rate,1.3529730844,21.5409950903,2.5070435526e+00,#e41a1c,-,Chen+2026 Fig.6a vector path 1162; page-10 first-column trace
+popiii_edd_a,Pop-III (Eddington),popiii_edd,a,rate,1.3718078366,22.5400746983,2.7411045664e+00,#e41a1c,-,Chen+2026 Fig.6a vector path 1162; page-10 first-column trace
+popiii_edd_a,Pop-III (Eddington),popiii_edd,a,rate,1.3898793848,23.5402727212,2.8818060571e+00,#e41a1c,-,Chen+2026 Fig.6a vector path 1162; page-10 first-column trace
+popiii_edd_a,Pop-III (Eddington),popiii_edd,a,rate,1.4072149918,24.5396529683,2.8748625994e+00,#e41a1c,-,Chen+2026 Fig.6a vector path 1162; page-10 first-column trace
+popiii_edd_a,Pop-III (Eddington),popiii_edd,a,rate,1.4238964224,25.5397252430,2.6984587581e+00,#e41a1c,-,Chen+2026 Fig.6a vector path 1162; page-10 first-column trace
+popiii_edd_a,Pop-III (Eddington),popiii_edd,a,rate,1.4399509362,26.5391756600,2.4194059135e+00,#e41a1c,-,Chen+2026 Fig.6a vector path 1162; page-10 first-column trace
+popiii_edd_a,Pop-III (Eddington),popiii_edd,a,rate,1.4554330487,27.5386252512,2.1073162260e+00,#e41a1c,-,Chen+2026 Fig.6a vector path 1162; page-10 first-column trace
+popiii_edd_a,Pop-III (Eddington),popiii_edd,a,rate,1.4703700158,28.5372470760,1.7691868356e+00,#e41a1c,-,Chen+2026 Fig.6a vector path 1162; page-10 first-column trace
+popiii_edd_a,Pop-III (Eddington),popiii_edd,a,rate,1.4848436128,29.5382124959,1.4153515452e+00,#e41a1c,-,Chen+2026 Fig.6a vector path 1162; page-10 first-column trace
+popiii_edd_a,Pop-III (Eddington),popiii_edd,a,rate,1.4988265766,30.5374501156,1.0861320981e+00,#e41a1c,-,Chen+2026 Fig.6a vector path 1162; page-10 first-column trace
+popiii_edd_a,Pop-III (Eddington),popiii_edd,a,rate,1.5123734229,31.5366939978,8.0873297157e-01,#e41a1c,-,Chen+2026 Fig.6a vector path 1162; page-10 first-column trace
+popiii_edd_a,Pop-III (Eddington),popiii_edd,a,rate,1.5255114144,32.5360118483,5.9174148450e-01,#e41a1c,-,Chen+2026 Fig.6a vector path 1162; page-10 first-column trace
+popiii_edd_a,Pop-III (Eddington),popiii_edd,a,rate,1.5382678006,33.5356632198,4.2597795841e-01,#e41a1c,-,Chen+2026 Fig.6a vector path 1162; page-10 first-column trace
+popiii_edd_a,Pop-III (Eddington),popiii_edd,a,rate,1.5506698475,34.5361068902,3.0078826367e-01,#e41a1c,-,Chen+2026 Fig.6a vector path 1162; page-10 first-column trace
+popiii_edd_a,Pop-III (Eddington),popiii_edd,a,rate,1.5627175452,35.5357094772,2.0595713926e-01,#e41a1c,-,Chen+2026 Fig.6a vector path 1162; page-10 first-column trace
+popiii_edd_a,Pop-III (Eddington),popiii_edd,a,rate,1.5744381598,36.5351503464,1.3617632592e-01,#e41a1c,-,Chen+2026 Fig.6a vector path 1162; page-10 first-column trace
+popiii_edd_a,Pop-III (Eddington),popiii_edd,a,rate,1.5858316878,37.5328993287,8.6890700417e-02,#e41a1c,-,Chen+2026 Fig.6a vector path 1162; page-10 first-column trace
+popiii_edd_a,Pop-III (Eddington),popiii_edd,a,rate,1.5969526416,38.5323508979,5.3440190557e-02,#e41a1c,-,Chen+2026 Fig.6a vector path 1162; page-10 first-column trace
+popiii_edd_a,Pop-III (Eddington),popiii_edd,a,rate,1.6078010211,39.5322787810,3.1584658234e-02,#e41a1c,-,Chen+2026 Fig.6a vector path 1162; page-10 first-column trace
+popiii_edd_a,Pop-III (Eddington),popiii_edd,a,rate,1.6183768296,40.5314247110,1.8454739657e-02,#e41a1c,-,Chen+2026 Fig.6a vector path 1162; page-10 first-column trace
+popiii_edd_a,Pop-III (Eddington),popiii_edd,a,rate,1.6287073266,41.5311696674,1.0418624065e-02,#e41a1c,-,Chen+2026 Fig.6a vector path 1162; page-10 first-column trace
+popiii_edd_a,Pop-III (Eddington),popiii_edd,a,rate,1.6387925054,42.5303847132,5.5242515071e-03,#e41a1c,-,Chen+2026 Fig.6a vector path 1162; page-10 first-column trace
+popiii_edd_a,Pop-III (Eddington),popiii_edd,a,rate,1.6486596254,43.5307105953,2.8403948936e-03,#e41a1c,-,Chen+2026 Fig.6a vector path 1162; page-10 first-column trace
+popiii_edd_a,Pop-III (Eddington),popiii_edd,a,rate,1.6583086867,44.5311570288,1.3454367375e-03,#e41a1c,-,Chen+2026 Fig.6a vector path 1162; page-10 first-column trace
+popiii_edd_a,Pop-III (Eddington),popiii_edd,a,rate,1.6677396925,45.5307114053,6.1912137308e-04,#e41a1c,-,Chen+2026 Fig.6a vector path 1162; page-10 first-column trace
+popiii_edd_a,Pop-III (Eddington),popiii_edd,a,rate,1.6769526395,46.5283392761,2.9916006144e-04,#e41a1c,-,Chen+2026 Fig.6a vector path 1162; page-10 first-column trace
+popiii_edd_a,Pop-III (Eddington),popiii_edd,a,rate,1.6860020434,47.5290783461,1.5833646261e-04,#e41a1c,-,Chen+2026 Fig.6a vector path 1162; page-10 first-column trace
+popiii_edd_a,Pop-III (Eddington),popiii_edd,a,rate,1.7035284497,49.5275743343,5.8288660775e-05,#e41a1c,-,Chen+2026 Fig.6a vector path 1162; page-10 first-column trace
+popii_a,Pop-II,popii,a,rate,0.8369797607,5.8703642145,1.1220861236e-05,#1b9e77,-,Chen+2026 Fig.6a vector path 987; page-10 first-column trace
+popii_a,Pop-II,popii,a,rate,0.8406187376,5.9281732212,1.3149536565e-05,#1b9e77,-,Chen+2026 Fig.6a vector path 987; page-10 first-column trace
+popii_a,Pop-II,popii,a,rate,0.8601621816,6.2470654179,1.4988096160e-05,#1b9e77,-,Chen+2026 Fig.6a vector path 987; page-10 first-column trace
+popii_a,Pop-II,popii,a,rate,0.8889730849,6.7441380262,3.0060690548e-05,#1b9e77,-,Chen+2026 Fig.6a vector path 987; page-10 first-column trace
+popii_a,Pop-II,popii,a,rate,0.9095523006,7.1199302864,5.1046068952e-05,#1b9e77,-,Chen+2026 Fig.6a vector path 987; page-10 first-column trace
+popii_a,Pop-II,popii,a,rate,0.9249798975,7.4135619634,9.8207009313e-05,#1b9e77,-,Chen+2026 Fig.6a vector path 987; page-10 first-column trace
+popii_a,Pop-II,popii,a,rate,0.9445505977,7.8013764657,1.8123847605e-04,#1b9e77,-,Chen+2026 Fig.6a vector path 987; page-10 first-column trace
+popii_a,Pop-II,popii,a,rate,0.9651025539,8.2278930811,3.5270127329e-04,#1b9e77,-,Chen+2026 Fig.6a vector path 987; page-10 first-column trace
+popii_a,Pop-II,popii,a,rate,0.9877533229,8.7219486514,6.7082741051e-04,#1b9e77,-,Chen+2026 Fig.6a vector path 987; page-10 first-column trace
+popii_a,Pop-II,popii,a,rate,1.0083325386,9.1937162057,1.0913850640e-03,#1b9e77,-,Chen+2026 Fig.6a vector path 987; page-10 first-column trace
+popii_a,Pop-II,popii,a,rate,1.0289117543,9.6883767657,1.7094028135e-03,#1b9e77,-,Chen+2026 Fig.6a vector path 987; page-10 first-column trace
+popii_a,Pop-II,popii,a,rate,1.0597669515,10.4753767137,3.3125895888e-03,#1b9e77,-,Chen+2026 Fig.6a vector path 987; page-10 first-column trace
+popii_a,Pop-II,popii,a,rate,1.0872149900,11.2240464065,5.3118870624e-03,#1b9e77,-,Chen+2026 Fig.6a vector path 987; page-10 first-column trace
+popii_a,Pop-II,popii,a,rate,1.1047141402,11.7266511597,6.4698730601e-03,#1b9e77,-,Chen+2026 Fig.6a vector path 987; page-10 first-column trace
+popii_a,Pop-II,popii,a,rate,1.1255114146,12.3509267954,7.2597550132e-03,#1b9e77,-,Chen+2026 Fig.6a vector path 987; page-10 first-column trace
+popii_a,Pop-II,popii,a,rate,1.1493342424,13.1037383492,7.8993321617e-03,#1b9e77,-,Chen+2026 Fig.6a vector path 987; page-10 first-column trace
+popii_a,Pop-II,popii,a,rate,1.1719032364,13.8560460318,8.7258290179e-03,#1b9e77,-,Chen+2026 Fig.6a vector path 987; page-10 first-column trace
+popii_a,Pop-II,popii,a,rate,1.1933546838,14.6082669352,9.5808467923e-03,#1b9e77,-,Chen+2026 Fig.6a vector path 987; page-10 first-column trace
+popii_a,Pop-II,popii,a,rate,1.2149969339,15.4057819088,1.0557778862e-02,#1b9e77,-,Chen+2026 Fig.6a vector path 987; page-10 first-column trace
+popii_a,Pop-II,popii,a,rate,1.2367482117,16.2483760352,1.1690593863e-02,#1b9e77,-,Chen+2026 Fig.6a vector path 987; page-10 first-column trace
+popii_a,Pop-II,popii,a,rate,1.2574637146,17.0910475279,1.2552863037e-02,#1b9e77,-,Chen+2026 Fig.6a vector path 987; page-10 first-column trace
+popii_a,Pop-II,popii,a,rate,1.2772524702,17.9344402221,1.2937151945e-02,#1b9e77,-,Chen+2026 Fig.6a vector path 987; page-10 first-column trace
+popii_a,Pop-II,popii,a,rate,1.2961689940,18.7773907430,1.1754220281e-02,#1b9e77,-,Chen+2026 Fig.6a vector path 987; page-10 first-column trace
+popii_a,Pop-II,popii,a,rate,1.3142950611,19.6203038763,9.1737277099e-03,#1b9e77,-,Chen+2026 Fig.6a vector path 987; page-10 first-column trace
+popii_a,Pop-II,popii,a,rate,1.3332660971,20.5410117242,6.4232194041e-03,#1b9e77,-,Chen+2026 Fig.6a vector path 987; page-10 first-column trace
+popii_a,Pop-II,popii,a,rate,1.3529730844,21.5409950903,4.1432287774e-03,#1b9e77,-,Chen+2026 Fig.6a vector path 987; page-10 first-column trace
+popii_a,Pop-II,popii,a,rate,1.3718078366,22.5400746983,2.8472553153e-03,#1b9e77,-,Chen+2026 Fig.6a vector path 987; page-10 first-column trace
+popii_a,Pop-II,popii,a,rate,1.3898793848,23.5402727212,1.9123220143e-03,#1b9e77,-,Chen+2026 Fig.6a vector path 987; page-10 first-column trace
+popii_a,Pop-II,popii,a,rate,1.4072149918,24.5396529683,1.2613573129e-03,#1b9e77,-,Chen+2026 Fig.6a vector path 987; page-10 first-column trace
+popii_a,Pop-II,popii,a,rate,1.4238964224,25.5397252430,7.5363458026e-04,#1b9e77,-,Chen+2026 Fig.6a vector path 987; page-10 first-column trace
+popii_a,Pop-II,popii,a,rate,1.4399509362,26.5391756600,4.3375515241e-04,#1b9e77,-,Chen+2026 Fig.6a vector path 987; page-10 first-column trace
+popii_a,Pop-II,popii,a,rate,1.4554330487,27.5386252512,2.4710176363e-04,#1b9e77,-,Chen+2026 Fig.6a vector path 987; page-10 first-column trace
+popii_a,Pop-II,popii,a,rate,1.4703700158,28.5372470760,1.3576631449e-04,#1b9e77,-,Chen+2026 Fig.6a vector path 987; page-10 first-column trace
+popii_a,Pop-II,popii,a,rate,1.4848436128,29.5382124959,5.8113158705e-05,#1b9e77,-,Chen+2026 Fig.6a vector path 987; page-10 first-column trace
+popii_a,Pop-II,popii,a,rate,1.4988265766,30.5374501156,2.8438231564e-05,#1b9e77,-,Chen+2026 Fig.6a vector path 987; page-10 first-column trace
+popii_a,Pop-II,popii,a,rate,1.5098441071,31.3477521681,1.1220861236e-05,#1b9e77,-,Chen+2026 Fig.6a vector path 987; page-10 first-column trace
+all_seeds_d,All seeds,all_seeds,d,cumulative,0.7781451459,4.9999156643,7.4731682562e-01,#000000,-,Chen+2026 Fig.6d vector path 1630; page-10 first-column trace
+all_seeds_d,All seeds,all_seeds,d,cumulative,1.0001008510,9.0023224496,7.4731682562e-01,#000000,-,Chen+2026 Fig.6d vector path 1630; page-10 first-column trace
+all_seeds_d,All seeds,all_seeds,d,cumulative,1.0165642262,9.3887722683,7.4692682459e-01,#000000,-,Chen+2026 Fig.6d vector path 1630; page-10 first-column trace
+all_seeds_d,All seeds,all_seeds,d,cumulative,1.0412592857,9.9966217199,7.4692682459e-01,#000000,-,Chen+2026 Fig.6d vector path 1630; page-10 first-column trace
+all_seeds_d,All seeds,all_seeds,d,cumulative,1.0783018733,10.9757266158,7.4653702710e-01,#000000,-,Chen+2026 Fig.6d vector path 1630; page-10 first-column trace
+all_seeds_d,All seeds,all_seeds,d,cumulative,1.0961553661,11.4782983754,7.4614738506e-01,#000000,-,Chen+2026 Fig.6d vector path 1630; page-10 first-column trace
+all_seeds_d,All seeds,all_seeds,d,cumulative,1.1132729143,11.9799468541,7.4575799433e-01,#000000,-,Chen+2026 Fig.6d vector path 1630; page-10 first-column trace
+all_seeds_d,All seeds,all_seeds,d,cumulative,1.1377499150,12.7325097168,7.4497977450e-01,#000000,-,Chen+2026 Fig.6d vector path 1630; page-10 first-column trace
+all_seeds_d,All seeds,all_seeds,d,cumulative,1.1609185698,13.4850023431,7.4303784764e-01,#000000,-,Chen+2026 Fig.6d vector path 1630; page-10 first-column trace
+all_seeds_d,All seeds,all_seeds,d,cumulative,1.1828879030,14.2365942699,7.4032757508e-01,#000000,-,Chen+2026 Fig.6d vector path 1630; page-10 first-column trace
+all_seeds_d,All seeds,all_seeds,d,cumulative,1.2038214646,14.9890059685,7.3608856875e-01,#000000,-,Chen+2026 Fig.6d vector path 1630; page-10 first-column trace
+all_seeds_d,All seeds,all_seeds,d,cumulative,1.2261451438,15.8323651469,7.2844343126e-01,#000000,-,Chen+2026 Fig.6d vector path 1630; page-10 first-column trace
+all_seeds_d,All seeds,all_seeds,d,cumulative,1.2473512763,16.6746684708,7.1675001214e-01,#000000,-,Chen+2026 Fig.6d vector path 1630; page-10 first-column trace
+all_seeds_d,All seeds,all_seeds,d,cumulative,1.2676034056,17.5183976494,6.9974352935e-01,#000000,-,Chen+2026 Fig.6d vector path 1630; page-10 first-column trace
+all_seeds_d,All seeds,all_seeds,d,cumulative,1.2869287909,18.3610448432,6.7569250216e-01,#000000,-,Chen+2026 Fig.6d vector path 1630; page-10 first-column trace
+all_seeds_d,All seeds,all_seeds,d,cumulative,1.3054364566,19.2039579797,6.4468104248e-01,#000000,-,Chen+2026 Fig.6d vector path 1630; page-10 first-column trace
+all_seeds_d,All seeds,all_seeds,d,cumulative,1.3231809183,20.0465501393,6.0585125545e-01,#000000,-,Chen+2026 Fig.6d vector path 1630; page-10 first-column trace
+all_seeds_d,All seeds,all_seeds,d,cumulative,1.3433240198,21.0457064269,5.5036495097e-01,#000000,-,Chen+2026 Fig.6d vector path 1630; page-10 first-column trace
+all_seeds_d,All seeds,all_seeds,d,cumulative,1.3625948896,22.0459645535,4.8860751577e-01,#000000,-,Chen+2026 Fig.6d vector path 1630; page-10 first-column trace
+all_seeds_d,All seeds,all_seeds,d,cumulative,1.3810207837,23.0447786646,4.2370872113e-01,#000000,-,Chen+2026 Fig.6d vector path 1630; page-10 first-column trace
+all_seeds_d,All seeds,all_seeds,d,cumulative,1.3987107332,24.0444058628,3.5815064219e-01,#000000,-,Chen+2026 Fig.6d vector path 1630; page-10 first-column trace
+all_seeds_d,All seeds,all_seeds,d,cumulative,1.4157192504,25.0446934664,2.9462862668e-01,#000000,-,Chen+2026 Fig.6d vector path 1630; page-10 first-column trace
+all_seeds_d,All seeds,all_seeds,d,cumulative,1.4320735945,26.0441660941,2.3563600185e-01,#000000,-,Chen+2026 Fig.6d vector path 1630; page-10 first-column trace
+all_seeds_d,All seeds,all_seeds,d,cumulative,1.4478282779,27.0432457555,1.8273943222e-01,#000000,-,Chen+2026 Fig.6d vector path 1630; page-10 first-column trace
+all_seeds_d,All seeds,all_seeds,d,cumulative,1.4630378194,28.0427555473,1.3663217026e-01,#000000,-,Chen+2026 Fig.6d vector path 1630; page-10 first-column trace
+all_seeds_d,All seeds,all_seeds,d,cumulative,1.4777294717,29.0420435760,9.8338502983e-02,#000000,-,Chen+2026 Fig.6d vector path 1630; page-10 first-column trace
+all_seeds_d,All seeds,all_seeds,d,cumulative,1.4919304943,30.0406276572,6.8523253286e-02,#000000,-,Chen+2026 Fig.6d vector path 1630; page-10 first-column trace
+all_seeds_d,All seeds,all_seeds,d,cumulative,1.5056953994,31.0402133556,4.6614772076e-02,#000000,-,Chen+2026 Fig.6d vector path 1630; page-10 first-column trace
+all_seeds_d,All seeds,all_seeds,d,cumulative,1.5190514463,32.0408678792,3.1218191302e-02,#000000,-,Chen+2026 Fig.6d vector path 1630; page-10 first-column trace
+all_seeds_d,All seeds,all_seeds,d,cumulative,1.5319713791,33.0385756848,2.0625161703e-02,#000000,-,Chen+2026 Fig.6d vector path 1630; page-10 first-column trace
+all_seeds_d,All seeds,all_seeds,d,cumulative,1.5445642254,34.0400103194,1.3407842267e-02,#000000,-,Chen+2026 Fig.6d vector path 1630; page-10 first-column trace
+all_seeds_d,All seeds,all_seeds,d,cumulative,1.5567754697,35.0392271977,8.5003771847e-03,#000000,-,Chen+2026 Fig.6d vector path 1630; page-10 first-column trace
+all_seeds_d,All seeds,all_seeds,d,cumulative,1.5686596241,36.0390316639,5.2147623974e-03,#000000,-,Chen+2026 Fig.6d vector path 1630; page-10 first-column trace
+all_seeds_d,All seeds,all_seeds,d,cumulative,1.5802166954,37.0379142821,3.0795042794e-03,#000000,-,Chen+2026 Fig.6d vector path 1630; page-10 first-column trace
+all_seeds_d,All seeds,all_seeds,d,cumulative,1.5914739363,38.0367754355,1.7478206339e-03,#000000,-,Chen+2026 Fig.6d vector path 1630; page-10 first-column trace
+all_seeds_d,All seeds,all_seeds,d,cumulative,1.6024586030,39.0367303414,9.5840672524e-04,#000000,-,Chen+2026 Fig.6d vector path 1630; page-10 first-column trace
+all_seeds_d,All seeds,all_seeds,d,cumulative,1.6131706986,40.0365364621,5.0879944165e-04,#000000,-,Chen+2026 Fig.6d vector path 1630; page-10 first-column trace
+all_seeds_d,All seeds,all_seeds,d,cumulative,1.6236102200,41.0349194939,2.6137283650e-04,#000000,-,Chen+2026 Fig.6d vector path 1630; page-10 first-column trace
+all_seeds_d,All seeds,all_seeds,d,cumulative,1.6338044298,42.0332780716,1.2965357150e-04,#000000,-,Chen+2026 Fig.6d vector path 1630; page-10 first-column trace
+all_seeds_d,All seeds,all_seeds,d,cumulative,1.6437805776,43.0332334310,6.3546861948e-05,#000000,-,Chen+2026 Fig.6d vector path 1630; page-10 first-column trace
+all_seeds_d,All seeds,all_seeds,d,cumulative,1.6516604837,43.8394713553,3.5488044159e-05,#000000,-,Chen+2026 Fig.6d vector path 1630; page-10 first-column trace
+popiii_subedd_d,Pop-III (sub-Eddington),popiii_subedd,d,cumulative,0.7781451459,4.9999156643,1.7820330456e-01,#377eb8,-,Chen+2026 Fig.6d vector path 1816; page-10 first-column trace
+popiii_subedd_d,Pop-III (sub-Eddington),popiii_subedd,d,cumulative,1.1377499150,12.7325097168,1.7812435892e-01,#377eb8,-,Chen+2026 Fig.6d vector path 1816; page-10 first-column trace
+popiii_subedd_d,Pop-III (sub-Eddington),popiii_subedd,d,cumulative,1.2038214646,14.9890059685,1.7691964297e-01,#377eb8,-,Chen+2026 Fig.6d vector path 1816; page-10 first-column trace
+popiii_subedd_d,Pop-III (sub-Eddington),popiii_subedd,d,cumulative,1.2473512763,16.6746684708,1.7326367216e-01,#377eb8,-,Chen+2026 Fig.6d vector path 1816; page-10 first-column trace
+popiii_subedd_d,Pop-III (sub-Eddington),popiii_subedd,d,cumulative,1.2869287909,18.3610448432,1.6678517504e-01,#377eb8,-,Chen+2026 Fig.6d vector path 1816; page-10 first-column trace
+popiii_subedd_d,Pop-III (sub-Eddington),popiii_subedd,d,cumulative,1.3054364566,19.2039579797,1.6147348858e-01,#377eb8,-,Chen+2026 Fig.6d vector path 1816; page-10 first-column trace
+popiii_subedd_d,Pop-III (sub-Eddington),popiii_subedd,d,cumulative,1.3231809183,20.0465501393,1.5390176217e-01,#377eb8,-,Chen+2026 Fig.6d vector path 1816; page-10 first-column trace
+popiii_subedd_d,Pop-III (sub-Eddington),popiii_subedd,d,cumulative,1.3433240198,21.0457064269,1.4223611417e-01,#377eb8,-,Chen+2026 Fig.6d vector path 1816; page-10 first-column trace
+popiii_subedd_d,Pop-III (sub-Eddington),popiii_subedd,d,cumulative,1.3625948896,22.0459645535,1.2880548509e-01,#377eb8,-,Chen+2026 Fig.6d vector path 1816; page-10 first-column trace
+popiii_subedd_d,Pop-III (sub-Eddington),popiii_subedd,d,cumulative,1.3810207837,23.0447786646,1.1453121575e-01,#377eb8,-,Chen+2026 Fig.6d vector path 1816; page-10 first-column trace
+popiii_subedd_d,Pop-III (sub-Eddington),popiii_subedd,d,cumulative,1.3987107332,24.0444058628,1.0004724237e-01,#377eb8,-,Chen+2026 Fig.6d vector path 1816; page-10 first-column trace
+popiii_subedd_d,Pop-III (sub-Eddington),popiii_subedd,d,cumulative,1.4157192504,25.0446934664,8.5455042713e-02,#377eb8,-,Chen+2026 Fig.6d vector path 1816; page-10 first-column trace
+popiii_subedd_d,Pop-III (sub-Eddington),popiii_subedd,d,cumulative,1.4320735945,26.0441660941,7.0629697784e-02,#377eb8,-,Chen+2026 Fig.6d vector path 1816; page-10 first-column trace
+popiii_subedd_d,Pop-III (sub-Eddington),popiii_subedd,d,cumulative,1.4478282779,27.0432457555,5.5813549528e-02,#377eb8,-,Chen+2026 Fig.6d vector path 1816; page-10 first-column trace
+popiii_subedd_d,Pop-III (sub-Eddington),popiii_subedd,d,cumulative,1.4630378194,28.0427555473,4.1731148605e-02,#377eb8,-,Chen+2026 Fig.6d vector path 1816; page-10 first-column trace
+popiii_subedd_d,Pop-III (sub-Eddington),popiii_subedd,d,cumulative,1.4777294717,29.0420435760,2.9445291634e-02,#377eb8,-,Chen+2026 Fig.6d vector path 1816; page-10 first-column trace
+popiii_subedd_d,Pop-III (sub-Eddington),popiii_subedd,d,cumulative,1.4919304943,30.0406276572,1.9750594458e-02,#377eb8,-,Chen+2026 Fig.6d vector path 1816; page-10 first-column trace
+popiii_subedd_d,Pop-III (sub-Eddington),popiii_subedd,d,cumulative,1.5056953994,31.0402133556,1.2805841650e-02,#377eb8,-,Chen+2026 Fig.6d vector path 1816; page-10 first-column trace
+popiii_subedd_d,Pop-III (sub-Eddington),popiii_subedd,d,cumulative,1.5190514463,32.0408678792,8.1953638286e-03,#377eb8,-,Chen+2026 Fig.6d vector path 1816; page-10 first-column trace
+popiii_subedd_d,Pop-III (sub-Eddington),popiii_subedd,d,cumulative,1.5445642254,34.0400103194,3.4041584676e-03,#377eb8,-,Chen+2026 Fig.6d vector path 1816; page-10 first-column trace
+popiii_subedd_d,Pop-III (sub-Eddington),popiii_subedd,d,cumulative,1.5567754697,35.0392271977,2.1740175084e-03,#377eb8,-,Chen+2026 Fig.6d vector path 1816; page-10 first-column trace
+popiii_subedd_d,Pop-III (sub-Eddington),popiii_subedd,d,cumulative,1.5686596241,36.0390316639,1.3357940502e-03,#377eb8,-,Chen+2026 Fig.6d vector path 1816; page-10 first-column trace
+popiii_subedd_d,Pop-III (sub-Eddington),popiii_subedd,d,cumulative,1.5802166954,37.0379142821,7.7536155160e-04,#377eb8,-,Chen+2026 Fig.6d vector path 1816; page-10 first-column trace
+popiii_subedd_d,Pop-III (sub-Eddington),popiii_subedd,d,cumulative,1.5914739363,38.0367754355,4.2140833499e-04,#377eb8,-,Chen+2026 Fig.6d vector path 1816; page-10 first-column trace
+popiii_subedd_d,Pop-III (sub-Eddington),popiii_subedd,d,cumulative,1.6024586030,39.0367303414,2.1501544545e-04,#377eb8,-,Chen+2026 Fig.6d vector path 1816; page-10 first-column trace
+popiii_subedd_d,Pop-III (sub-Eddington),popiii_subedd,d,cumulative,1.6131706986,40.0365364621,1.0478170433e-04,#377eb8,-,Chen+2026 Fig.6d vector path 1816; page-10 first-column trace
+popiii_subedd_d,Pop-III (sub-Eddington),popiii_subedd,d,cumulative,1.6236102200,41.0349194939,4.9798811395e-05,#377eb8,-,Chen+2026 Fig.6d vector path 1816; page-10 first-column trace
+popiii_subedd_d,Pop-III (sub-Eddington),popiii_subedd,d,cumulative,1.6280178161,41.4636983491,3.5488044159e-05,#377eb8,-,Chen+2026 Fig.6d vector path 1816; page-10 first-column trace
+popiii_edd_d,Pop-III (Eddington),popiii_edd,d,cumulative,0.7781451459,4.9999156643,5.6597289245e-01,#e41a1c,-,Chen+2026 Fig.6d vector path 1817; page-10 first-column trace
+popiii_edd_d,Pop-III (Eddington),popiii_edd,d,cumulative,1.0412592857,9.9966217199,5.6580472319e-01,#e41a1c,-,Chen+2026 Fig.6d vector path 1817; page-10 first-column trace
+popiii_edd_d,Pop-III (Eddington),popiii_edd,d,cumulative,1.1609185698,13.4850023431,5.6315267488e-01,#e41a1c,-,Chen+2026 Fig.6d vector path 1817; page-10 first-column trace
+popiii_edd_d,Pop-III (Eddington),popiii_edd,d,cumulative,1.2038214646,14.9890059685,5.5759466918e-01,#e41a1c,-,Chen+2026 Fig.6d vector path 1817; page-10 first-column trace
+popiii_edd_d,Pop-III (Eddington),popiii_edd,d,cumulative,1.2473512763,16.6746684708,5.4237893426e-01,#e41a1c,-,Chen+2026 Fig.6d vector path 1817; page-10 first-column trace
+popiii_edd_d,Pop-III (Eddington),popiii_edd,d,cumulative,1.2676034056,17.5183976494,5.2812949315e-01,#e41a1c,-,Chen+2026 Fig.6d vector path 1817; page-10 first-column trace
+popiii_edd_d,Pop-III (Eddington),popiii_edd,d,cumulative,1.2869287909,18.3610448432,5.0838221806e-01,#e41a1c,-,Chen+2026 Fig.6d vector path 1817; page-10 first-column trace
+popiii_edd_d,Pop-III (Eddington),popiii_edd,d,cumulative,1.3054364566,19.2039579797,4.8277606892e-01,#e41a1c,-,Chen+2026 Fig.6d vector path 1817; page-10 first-column trace
+popiii_edd_d,Pop-III (Eddington),popiii_edd,d,cumulative,1.3231809183,20.0465501393,4.5157140122e-01,#e41a1c,-,Chen+2026 Fig.6d vector path 1817; page-10 first-column trace
+popiii_edd_d,Pop-III (Eddington),popiii_edd,d,cumulative,1.3433240198,21.0457064269,4.0786584020e-01,#e41a1c,-,Chen+2026 Fig.6d vector path 1817; page-10 first-column trace
+popiii_edd_d,Pop-III (Eddington),popiii_edd,d,cumulative,1.3625948896,22.0459645535,3.5946177632e-01,#e41a1c,-,Chen+2026 Fig.6d vector path 1817; page-10 first-column trace
+popiii_edd_d,Pop-III (Eddington),popiii_edd,d,cumulative,1.3810207837,23.0447786646,3.0896257311e-01,#e41a1c,-,Chen+2026 Fig.6d vector path 1817; page-10 first-column trace
+popiii_edd_d,Pop-III (Eddington),popiii_edd,d,cumulative,1.3987107332,24.0444058628,2.5804162469e-01,#e41a1c,-,Chen+2026 Fig.6d vector path 1817; page-10 first-column trace
+popiii_edd_d,Pop-III (Eddington),popiii_edd,d,cumulative,1.4157192504,25.0446934664,2.0919486477e-01,#e41a1c,-,Chen+2026 Fig.6d vector path 1817; page-10 first-column trace
+popiii_edd_d,Pop-III (Eddington),popiii_edd,d,cumulative,1.4320735945,26.0441660941,1.6505290605e-01,#e41a1c,-,Chen+2026 Fig.6d vector path 1817; page-10 first-column trace
+popiii_edd_d,Pop-III (Eddington),popiii_edd,d,cumulative,1.4478282779,27.0432457555,1.2693646571e-01,#e41a1c,-,Chen+2026 Fig.6d vector path 1817; page-10 first-column trace
+popiii_edd_d,Pop-III (Eddington),popiii_edd,d,cumulative,1.4630378194,28.0427555473,9.4859398389e-02,#e41a1c,-,Chen+2026 Fig.6d vector path 1817; page-10 first-column trace
+popiii_edd_d,Pop-III (Eddington),popiii_edd,d,cumulative,1.4777294717,29.0420435760,6.8881900755e-02,#e41a1c,-,Chen+2026 Fig.6d vector path 1817; page-10 first-column trace
+popiii_edd_d,Pop-III (Eddington),popiii_edd,d,cumulative,1.4919304943,30.0406276572,4.8755194647e-02,#e41a1c,-,Chen+2026 Fig.6d vector path 1817; page-10 first-column trace
+popiii_edd_d,Pop-III (Eddington),popiii_edd,d,cumulative,1.5056953994,31.0402133556,3.3813870607e-02,#e41a1c,-,Chen+2026 Fig.6d vector path 1817; page-10 first-column trace
+popiii_edd_d,Pop-III (Eddington),popiii_edd,d,cumulative,1.5190514463,32.0408678792,2.3014798739e-02,#e41a1c,-,Chen+2026 Fig.6d vector path 1817; page-10 first-column trace
+popiii_edd_d,Pop-III (Eddington),popiii_edd,d,cumulative,1.5319713791,33.0385756848,1.5356927859e-02,#e41a1c,-,Chen+2026 Fig.6d vector path 1817; page-10 first-column trace
+popiii_edd_d,Pop-III (Eddington),popiii_edd,d,cumulative,1.5445642254,34.0400103194,1.0003978389e-02,#e41a1c,-,Chen+2026 Fig.6d vector path 1817; page-10 first-column trace
+popiii_edd_d,Pop-III (Eddington),popiii_edd,d,cumulative,1.5567754697,35.0392271977,6.3324516523e-03,#e41a1c,-,Chen+2026 Fig.6d vector path 1817; page-10 first-column trace
+popiii_edd_d,Pop-III (Eddington),popiii_edd,d,cumulative,1.5686596241,36.0390316639,3.8868245987e-03,#e41a1c,-,Chen+2026 Fig.6d vector path 1817; page-10 first-column trace
+popiii_edd_d,Pop-III (Eddington),popiii_edd,d,cumulative,1.5802166954,37.0379142821,2.3109390395e-03,#e41a1c,-,Chen+2026 Fig.6d vector path 1817; page-10 first-column trace
+popiii_edd_d,Pop-III (Eddington),popiii_edd,d,cumulative,1.5914739363,38.0367754355,1.3323120572e-03,#e41a1c,-,Chen+2026 Fig.6d vector path 1817; page-10 first-column trace
+popiii_edd_d,Pop-III (Eddington),popiii_edd,d,cumulative,1.6024586030,39.0367303414,7.4559117105e-04,#e41a1c,-,Chen+2026 Fig.6d vector path 1817; page-10 first-column trace
+popiii_edd_d,Pop-III (Eddington),popiii_edd,d,cumulative,1.6131706986,40.0365364621,4.0713649506e-04,#e41a1c,-,Chen+2026 Fig.6d vector path 1817; page-10 first-column trace
+popiii_edd_d,Pop-III (Eddington),popiii_edd,d,cumulative,1.6236102200,41.0349194939,2.1434303708e-04,#e41a1c,-,Chen+2026 Fig.6d vector path 1817; page-10 first-column trace
+popiii_edd_d,Pop-III (Eddington),popiii_edd,d,cumulative,1.6338044298,42.0332780716,1.0800274767e-04,#e41a1c,-,Chen+2026 Fig.6d vector path 1817; page-10 first-column trace
+popiii_edd_d,Pop-III (Eddington),popiii_edd,d,cumulative,1.6488726935,43.5525630475,3.5488044159e-05,#e41a1c,-,Chen+2026 Fig.6d vector path 1817; page-10 first-column trace
+popii_d,Pop-II,popii,d,cumulative,0.7781451459,4.9999156643,2.8849722920e-03,#1b9e77,-,Chen+2026 Fig.6d vector path 1631; page-10 first-column trace
+popii_d,Pop-II,popii,d,cumulative,0.8457703563,6.0108448510,2.8849722920e-03,#1b9e77,-,Chen+2026 Fig.6d vector path 1631; page-10 first-column trace
+popii_d,Pop-II,popii,d,cumulative,0.8745812597,6.4917152083,2.8834667162e-03,#1b9e77,-,Chen+2026 Fig.6d vector path 1631; page-10 first-column trace
+popii_d,Pop-II,popii,d,cumulative,0.9033921630,7.0055682239,2.8834667162e-03,#1b9e77,-,Chen+2026 Fig.6d vector path 1631; page-10 first-column trace
+popii_d,Pop-II,popii,d,cumulative,0.9157396944,7.2364429455,2.8819617408e-03,#1b9e77,-,Chen+2026 Fig.6d vector path 1631; page-10 first-column trace
+popii_d,Pop-II,popii,d,cumulative,0.9342473601,7.5950292725,2.8804577361e-03,#1b9e77,-,Chen+2026 Fig.6d vector path 1631; page-10 first-column trace
+popii_d,Pop-II,popii,d,cumulative,0.9548265758,8.0121119052,2.8774518959e-03,#1b9e77,-,Chen+2026 Fig.6d vector path 1631; page-10 first-column trace
+popii_d,Pop-II,popii,d,cumulative,0.9754057915,8.4494339016,2.8699511036e-03,#1b9e77,-,Chen+2026 Fig.6d vector path 1631; page-10 first-column trace
+popii_d,Pop-II,popii,d,cumulative,1.0001008510,9.0023224496,2.8535183710e-03,#1b9e77,-,Chen+2026 Fig.6d vector path 1631; page-10 first-column trace
+popii_d,Pop-II,popii,d,cumulative,1.0165642262,9.3887722683,2.8356989121e-03,#1b9e77,-,Chen+2026 Fig.6d vector path 1631; page-10 first-column trace
+popii_d,Pop-II,popii,d,cumulative,1.0412592857,9.9966217199,2.7930932130e-03,#1b9e77,-,Chen+2026 Fig.6d vector path 1631; page-10 first-column trace
+popii_d,Pop-II,popii,d,cumulative,1.0783018733,10.9757266158,2.6704722663e-03,#1b9e77,-,Chen+2026 Fig.6d vector path 1631; page-10 first-column trace
+popii_d,Pop-II,popii,d,cumulative,1.0961553661,11.4782983754,2.5746496594e-03,#1b9e77,-,Chen+2026 Fig.6d vector path 1631; page-10 first-column trace
+popii_d,Pop-II,popii,d,cumulative,1.1132729143,11.9799468541,2.4641901626e-03,#1b9e77,-,Chen+2026 Fig.6d vector path 1631; page-10 first-column trace
+popii_d,Pop-II,popii,d,cumulative,1.1377499150,12.7325097168,2.2869370978e-03,#1b9e77,-,Chen+2026 Fig.6d vector path 1631; page-10 first-column trace
+popii_d,Pop-II,popii,d,cumulative,1.1609185698,13.4850023431,2.1036819894e-03,#1b9e77,-,Chen+2026 Fig.6d vector path 1631; page-10 first-column trace
+popii_d,Pop-II,popii,d,cumulative,1.1828879030,14.2365942699,1.9120161187e-03,#1b9e77,-,Chen+2026 Fig.6d vector path 1631; page-10 first-column trace
+popii_d,Pop-II,popii,d,cumulative,1.2038214646,14.9890059685,1.7117027578e-03,#1b9e77,-,Chen+2026 Fig.6d vector path 1631; page-10 first-column trace
+popii_d,Pop-II,popii,d,cumulative,1.2261451438,15.8323651469,1.4758484308e-03,#1b9e77,-,Chen+2026 Fig.6d vector path 1631; page-10 first-column trace
+popii_d,Pop-II,popii,d,cumulative,1.2473512763,16.6746684708,1.2274730525e-03,#1b9e77,-,Chen+2026 Fig.6d vector path 1631; page-10 first-column trace
+popii_d,Pop-II,popii,d,cumulative,1.2676034056,17.5183976494,9.7353426849e-04,#1b9e77,-,Chen+2026 Fig.6d vector path 1631; page-10 first-column trace
+popii_d,Pop-II,popii,d,cumulative,1.2869287909,18.3610448432,7.2373251785e-04,#1b9e77,-,Chen+2026 Fig.6d vector path 1631; page-10 first-column trace
+popii_d,Pop-II,popii,d,cumulative,1.3054364566,19.2039579797,5.0615027504e-04,#1b9e77,-,Chen+2026 Fig.6d vector path 1631; page-10 first-column trace
+popii_d,Pop-II,popii,d,cumulative,1.3231809183,20.0465501393,3.4324545098e-04,#1b9e77,-,Chen+2026 Fig.6d vector path 1631; page-10 first-column trace
+popii_d,Pop-II,popii,d,cumulative,1.3433240198,21.0457064269,2.1378429877e-04,#1b9e77,-,Chen+2026 Fig.6d vector path 1631; page-10 first-column trace
+popii_d,Pop-II,popii,d,cumulative,1.3625948896,22.0459645535,1.3405843244e-04,#1b9e77,-,Chen+2026 Fig.6d vector path 1631; page-10 first-column trace
+popii_d,Pop-II,popii,d,cumulative,1.3810207837,23.0447786646,8.1557342487e-05,#1b9e77,-,Chen+2026 Fig.6d vector path 1631; page-10 first-column trace
+popii_d,Pop-II,popii,d,cumulative,1.3987107332,24.0444058628,4.7737010924e-05,#1b9e77,-,Chen+2026 Fig.6d vector path 1631; page-10 first-column trace
+popii_d,Pop-II,popii,d,cumulative,1.4071629092,24.5365903179,3.5488044159e-05,#1b9e77,-,Chen+2026 Fig.6d vector path 1631; page-10 first-column trace

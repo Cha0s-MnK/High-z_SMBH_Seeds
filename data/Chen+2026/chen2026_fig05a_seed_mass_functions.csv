@@ -1,0 +1,483 @@
+curve_id,curve_label,curve_role,redshift,log10_mbh_seed_msun,phi_mpc3_dex1,colour,linestyle,source
+all_seeds_central,All seeds,all_seeds_central,20.0,0.2813115637,4.6029599686e-06,#000000,-,Chen+2026 Fig.5a vector path 1261
+all_seeds_lower,All seeds (lower envelope),all_seeds_lower_envelope,20.0,0.2813115637,1.0000000000e-06,#9e9e9e,-,Chen+2026 Fig.5a grey filled support floor; vector path 1261
+all_seeds_upper,All seeds (upper envelope),all_seeds_upper_envelope,20.0,0.2813115637,4.6029599686e-06,#9e9e9e,-,Chen+2026 Fig.5a black boundary; vector path 1261
+all_seeds_central,All seeds,all_seeds_central,20.0,0.3437939656,1.1805960874e-05,#000000,-,Chen+2026 Fig.5a vector path 1261
+all_seeds_lower,All seeds (lower envelope),all_seeds_lower_envelope,20.0,0.3437939656,1.0000000000e-06,#9e9e9e,-,Chen+2026 Fig.5a grey filled support floor; vector path 1261
+all_seeds_upper,All seeds (upper envelope),all_seeds_upper_envelope,20.0,0.3437939656,1.1805960874e-05,#9e9e9e,-,Chen+2026 Fig.5a black boundary; vector path 1261
+all_seeds_central,All seeds,all_seeds_central,20.0,0.4062763849,1.8920286433e-05,#000000,-,Chen+2026 Fig.5a vector path 1261
+all_seeds_lower,All seeds (lower envelope),all_seeds_lower_envelope,20.0,0.4062763849,1.0000000000e-06,#9e9e9e,-,Chen+2026 Fig.5a grey filled support floor; vector path 1261
+all_seeds_upper,All seeds (upper envelope),all_seeds_upper_envelope,20.0,0.4062763849,1.8920286433e-05,#9e9e9e,-,Chen+2026 Fig.5a black boundary; vector path 1261
+all_seeds_central,All seeds,all_seeds_central,20.0,0.4687587869,2.7261542299e-05,#000000,-,Chen+2026 Fig.5a vector path 1261
+all_seeds_lower,All seeds (lower envelope),all_seeds_lower_envelope,20.0,0.4687587869,1.0000000000e-06,#9e9e9e,-,Chen+2026 Fig.5a grey filled support floor; vector path 1261
+all_seeds_upper,All seeds (upper envelope),all_seeds_upper_envelope,20.0,0.4687587869,2.7261542299e-05,#9e9e9e,-,Chen+2026 Fig.5a black boundary; vector path 1261
+all_seeds_central,All seeds,all_seeds_central,20.0,0.5312412062,4.4647186244e-05,#000000,-,Chen+2026 Fig.5a vector path 1261
+all_seeds_lower,All seeds (lower envelope),all_seeds_lower_envelope,20.0,0.5312412062,1.0000000000e-06,#9e9e9e,-,Chen+2026 Fig.5a grey filled support floor; vector path 1261
+all_seeds_upper,All seeds (upper envelope),all_seeds_upper_envelope,20.0,0.5312412062,4.4647186244e-05,#9e9e9e,-,Chen+2026 Fig.5a black boundary; vector path 1261
+all_seeds_central,All seeds,all_seeds_central,20.0,0.5937236081,7.7982178844e-05,#000000,-,Chen+2026 Fig.5a vector path 1261
+all_seeds_lower,All seeds (lower envelope),all_seeds_lower_envelope,20.0,0.5937236081,1.0000000000e-06,#9e9e9e,-,Chen+2026 Fig.5a grey filled support floor; vector path 1261
+all_seeds_upper,All seeds (upper envelope),all_seeds_upper_envelope,20.0,0.5937236081,7.7982178844e-05,#9e9e9e,-,Chen+2026 Fig.5a black boundary; vector path 1261
+all_seeds_central,All seeds,all_seeds_central,20.0,0.6562060101,1.2354318227e-04,#000000,-,Chen+2026 Fig.5a vector path 1261
+all_seeds_lower,All seeds (lower envelope),all_seeds_lower_envelope,20.0,0.6562060101,1.0000000000e-06,#9e9e9e,-,Chen+2026 Fig.5a grey filled support floor; vector path 1261
+all_seeds_upper,All seeds (upper envelope),all_seeds_upper_envelope,20.0,0.6562060101,1.2354318227e-04,#9e9e9e,-,Chen+2026 Fig.5a black boundary; vector path 1261
+all_seeds_central,All seeds,all_seeds_central,20.0,0.7186884294,1.9665376217e-04,#000000,-,Chen+2026 Fig.5a vector path 1261
+all_seeds_lower,All seeds (lower envelope),all_seeds_lower_envelope,20.0,0.7186884294,1.0000000000e-06,#9e9e9e,-,Chen+2026 Fig.5a grey filled support floor; vector path 1261
+all_seeds_upper,All seeds (upper envelope),all_seeds_upper_envelope,20.0,0.7186884294,1.9665376217e-04,#9e9e9e,-,Chen+2026 Fig.5a black boundary; vector path 1261
+all_seeds_central,All seeds,all_seeds_central,20.0,0.7813115689,2.9651212341e-04,#000000,-,Chen+2026 Fig.5a vector path 1261
+all_seeds_lower,All seeds (lower envelope),all_seeds_lower_envelope,20.0,0.7813115689,1.0000000000e-06,#9e9e9e,-,Chen+2026 Fig.5a grey filled support floor; vector path 1261
+all_seeds_upper,All seeds (upper envelope),all_seeds_upper_envelope,20.0,0.7813115689,2.9651212341e-04,#9e9e9e,-,Chen+2026 Fig.5a black boundary; vector path 1261
+all_seeds_central,All seeds,all_seeds_central,20.0,0.8437939708,4.2176800215e-04,#000000,-,Chen+2026 Fig.5a vector path 1261
+all_seeds_lower,All seeds (lower envelope),all_seeds_lower_envelope,20.0,0.8437939708,1.0000000000e-06,#9e9e9e,-,Chen+2026 Fig.5a grey filled support floor; vector path 1261
+all_seeds_upper,All seeds (upper envelope),all_seeds_upper_envelope,20.0,0.8437939708,4.2176800215e-04,#9e9e9e,-,Chen+2026 Fig.5a black boundary; vector path 1261
+all_seeds_central,All seeds,all_seeds_central,20.0,0.9062763901,5.5835446855e-04,#000000,-,Chen+2026 Fig.5a vector path 1261
+all_seeds_lower,All seeds (lower envelope),all_seeds_lower_envelope,20.0,0.9062763901,1.0000000000e-06,#9e9e9e,-,Chen+2026 Fig.5a grey filled support floor; vector path 1261
+all_seeds_upper,All seeds (upper envelope),all_seeds_upper_envelope,20.0,0.9062763901,5.5835446855e-04,#9e9e9e,-,Chen+2026 Fig.5a black boundary; vector path 1261
+all_seeds_central,All seeds,all_seeds_central,20.0,0.9687587921,7.8087932069e-04,#000000,-,Chen+2026 Fig.5a vector path 1261
+all_seeds_lower,All seeds (lower envelope),all_seeds_lower_envelope,20.0,0.9687587921,1.0000000000e-06,#9e9e9e,-,Chen+2026 Fig.5a grey filled support floor; vector path 1261
+all_seeds_upper,All seeds (upper envelope),all_seeds_upper_envelope,20.0,0.9687587921,7.8087932069e-04,#9e9e9e,-,Chen+2026 Fig.5a black boundary; vector path 1261
+all_seeds_central,All seeds,all_seeds_central,20.0,1.0312411940,1.2582432941e-03,#000000,-,Chen+2026 Fig.5a vector path 1261
+all_seeds_lower,All seeds (lower envelope),all_seeds_lower_envelope,20.0,1.0312411940,1.0000000000e-06,#9e9e9e,-,Chen+2026 Fig.5a grey filled support floor; vector path 1261
+all_seeds_upper,All seeds (upper envelope),all_seeds_upper_envelope,20.0,1.0312411940,1.2582432941e-03,#9e9e9e,-,Chen+2026 Fig.5a black boundary; vector path 1261
+all_seeds_central,All seeds,all_seeds_central,20.0,1.0937236133,2.4114805545e-03,#000000,-,Chen+2026 Fig.5a vector path 1261
+all_seeds_lower,All seeds (lower envelope),all_seeds_lower_envelope,20.0,1.0937236133,1.0000000000e-06,#9e9e9e,-,Chen+2026 Fig.5a grey filled support floor; vector path 1261
+all_seeds_upper,All seeds (upper envelope),all_seeds_upper_envelope,20.0,1.0937236133,2.4114805545e-03,#9e9e9e,-,Chen+2026 Fig.5a black boundary; vector path 1261
+all_seeds_central,All seeds,all_seeds_central,20.0,1.1562060153,4.9524548410e-03,#000000,-,Chen+2026 Fig.5a vector path 1261
+all_seeds_lower,All seeds (lower envelope),all_seeds_lower_envelope,20.0,1.1562060153,1.0000000000e-06,#9e9e9e,-,Chen+2026 Fig.5a grey filled support floor; vector path 1261
+all_seeds_upper,All seeds (upper envelope),all_seeds_upper_envelope,20.0,1.1562060153,4.9524548410e-03,#9e9e9e,-,Chen+2026 Fig.5a black boundary; vector path 1261
+all_seeds_central,All seeds,all_seeds_central,20.0,1.2186884346,1.0316619628e-02,#000000,-,Chen+2026 Fig.5a vector path 1261
+all_seeds_lower,All seeds (lower envelope),all_seeds_lower_envelope,20.0,1.2186884346,1.0000000000e-06,#9e9e9e,-,Chen+2026 Fig.5a grey filled support floor; vector path 1261
+all_seeds_upper,All seeds (upper envelope),all_seeds_upper_envelope,20.0,1.2186884346,1.0316619628e-02,#9e9e9e,-,Chen+2026 Fig.5a black boundary; vector path 1261
+all_seeds_central,All seeds,all_seeds_central,20.0,1.2813115567,2.0831326726e-02,#000000,-,Chen+2026 Fig.5a vector path 1261
+all_seeds_lower,All seeds (lower envelope),all_seeds_lower_envelope,20.0,1.2813115567,1.0000000000e-06,#9e9e9e,-,Chen+2026 Fig.5a grey filled support floor; vector path 1261
+all_seeds_upper,All seeds (upper envelope),all_seeds_upper_envelope,20.0,1.2813115567,2.0831326726e-02,#9e9e9e,-,Chen+2026 Fig.5a black boundary; vector path 1261
+all_seeds_central,All seeds,all_seeds_central,20.0,1.3437939760,3.9493661539e-02,#000000,-,Chen+2026 Fig.5a vector path 1261
+all_seeds_lower,All seeds (lower envelope),all_seeds_lower_envelope,20.0,1.3437939760,1.0000000000e-06,#9e9e9e,-,Chen+2026 Fig.5a grey filled support floor; vector path 1261
+all_seeds_upper,All seeds (upper envelope),all_seeds_upper_envelope,20.0,1.3437939760,3.9493661539e-02,#9e9e9e,-,Chen+2026 Fig.5a black boundary; vector path 1261
+all_seeds_central,All seeds,all_seeds_central,20.0,1.4062763780,6.9027633705e-02,#000000,-,Chen+2026 Fig.5a vector path 1261
+all_seeds_lower,All seeds (lower envelope),all_seeds_lower_envelope,20.0,1.4062763780,1.0000000000e-06,#9e9e9e,-,Chen+2026 Fig.5a grey filled support floor; vector path 1261
+all_seeds_upper,All seeds (upper envelope),all_seeds_upper_envelope,20.0,1.4062763780,6.9027633705e-02,#9e9e9e,-,Chen+2026 Fig.5a black boundary; vector path 1261
+all_seeds_central,All seeds,all_seeds_central,20.0,1.4687587973,1.1002592234e-01,#000000,-,Chen+2026 Fig.5a vector path 1261
+all_seeds_lower,All seeds (lower envelope),all_seeds_lower_envelope,20.0,1.4687587973,1.0000000000e-06,#9e9e9e,-,Chen+2026 Fig.5a grey filled support floor; vector path 1261
+all_seeds_upper,All seeds (upper envelope),all_seeds_upper_envelope,20.0,1.4687587973,1.1002592234e-01,#9e9e9e,-,Chen+2026 Fig.5a black boundary; vector path 1261
+all_seeds_central,All seeds,all_seeds_central,20.0,1.5312411992,1.6036909627e-01,#000000,-,Chen+2026 Fig.5a vector path 1261
+all_seeds_lower,All seeds (lower envelope),all_seeds_lower_envelope,20.0,1.5312411992,1.0000000000e-06,#9e9e9e,-,Chen+2026 Fig.5a grey filled support floor; vector path 1261
+all_seeds_upper,All seeds (upper envelope),all_seeds_upper_envelope,20.0,1.5312411992,1.6036909627e-01,#9e9e9e,-,Chen+2026 Fig.5a black boundary; vector path 1261
+all_seeds_central,All seeds,all_seeds_central,20.0,1.5937236185,2.1476326523e-01,#000000,-,Chen+2026 Fig.5a vector path 1261
+all_seeds_lower,All seeds (lower envelope),all_seeds_lower_envelope,20.0,1.5937236185,1.0000000000e-06,#9e9e9e,-,Chen+2026 Fig.5a grey filled support floor; vector path 1261
+all_seeds_upper,All seeds (upper envelope),all_seeds_upper_envelope,20.0,1.5937236185,2.1476326523e-01,#9e9e9e,-,Chen+2026 Fig.5a black boundary; vector path 1261
+all_seeds_central,All seeds,all_seeds_central,20.0,1.6562060205,2.6514560416e-01,#000000,-,Chen+2026 Fig.5a vector path 1261
+all_seeds_lower,All seeds (lower envelope),all_seeds_lower_envelope,20.0,1.6562060205,1.0000000000e-06,#9e9e9e,-,Chen+2026 Fig.5a grey filled support floor; vector path 1261
+all_seeds_upper,All seeds (upper envelope),all_seeds_upper_envelope,20.0,1.6562060205,2.6514560416e-01,#9e9e9e,-,Chen+2026 Fig.5a black boundary; vector path 1261
+all_seeds_central,All seeds,all_seeds_central,20.0,1.7186884225,3.0157800674e-01,#000000,-,Chen+2026 Fig.5a vector path 1261
+all_seeds_lower,All seeds (lower envelope),all_seeds_lower_envelope,20.0,1.7186884225,1.0000000000e-06,#9e9e9e,-,Chen+2026 Fig.5a grey filled support floor; vector path 1261
+all_seeds_upper,All seeds (upper envelope),all_seeds_upper_envelope,20.0,1.7186884225,3.0157800674e-01,#9e9e9e,-,Chen+2026 Fig.5a black boundary; vector path 1261
+all_seeds_central,All seeds,all_seeds_central,20.0,1.7813115619,3.1601357558e-01,#000000,-,Chen+2026 Fig.5a vector path 1261
+all_seeds_lower,All seeds (lower envelope),all_seeds_lower_envelope,20.0,1.7813115619,1.0000000000e-06,#9e9e9e,-,Chen+2026 Fig.5a grey filled support floor; vector path 1261
+all_seeds_upper,All seeds (upper envelope),all_seeds_upper_envelope,20.0,1.7813115619,3.1601357558e-01,#9e9e9e,-,Chen+2026 Fig.5a black boundary; vector path 1261
+all_seeds_central,All seeds,all_seeds_central,20.0,1.8437939812,3.0569299463e-01,#000000,-,Chen+2026 Fig.5a vector path 1261
+all_seeds_lower,All seeds (lower envelope),all_seeds_lower_envelope,20.0,1.8437939812,1.0000000000e-06,#9e9e9e,-,Chen+2026 Fig.5a grey filled support floor; vector path 1261
+all_seeds_upper,All seeds (upper envelope),all_seeds_upper_envelope,20.0,1.8437939812,3.0569299463e-01,#9e9e9e,-,Chen+2026 Fig.5a black boundary; vector path 1261
+all_seeds_central,All seeds,all_seeds_central,20.0,1.9062763832,2.7502749460e-01,#000000,-,Chen+2026 Fig.5a vector path 1261
+all_seeds_lower,All seeds (lower envelope),all_seeds_lower_envelope,20.0,1.9062763832,1.0000000000e-06,#9e9e9e,-,Chen+2026 Fig.5a grey filled support floor; vector path 1261
+all_seeds_upper,All seeds (upper envelope),all_seeds_upper_envelope,20.0,1.9062763832,2.7502749460e-01,#9e9e9e,-,Chen+2026 Fig.5a black boundary; vector path 1261
+all_seeds_central,All seeds,all_seeds_central,20.0,1.9687588025,2.3485854523e-01,#000000,-,Chen+2026 Fig.5a vector path 1261
+all_seeds_lower,All seeds (lower envelope),all_seeds_lower_envelope,20.0,1.9687588025,1.0000000000e-06,#9e9e9e,-,Chen+2026 Fig.5a grey filled support floor; vector path 1261
+all_seeds_upper,All seeds (upper envelope),all_seeds_upper_envelope,20.0,1.9687588025,2.3485854523e-01,#9e9e9e,-,Chen+2026 Fig.5a black boundary; vector path 1261
+all_seeds_central,All seeds,all_seeds_central,20.0,2.0312412044,1.9732115588e-01,#000000,-,Chen+2026 Fig.5a vector path 1261
+all_seeds_lower,All seeds (lower envelope),all_seeds_lower_envelope,20.0,2.0312412044,1.0000000000e-06,#9e9e9e,-,Chen+2026 Fig.5a grey filled support floor; vector path 1261
+all_seeds_upper,All seeds (upper envelope),all_seeds_upper_envelope,20.0,2.0312412044,1.9732115588e-01,#9e9e9e,-,Chen+2026 Fig.5a black boundary; vector path 1261
+all_seeds_central,All seeds,all_seeds_central,20.0,2.0937236064,1.7419037660e-01,#000000,-,Chen+2026 Fig.5a vector path 1261
+all_seeds_lower,All seeds (lower envelope),all_seeds_lower_envelope,20.0,2.0937236064,1.0000000000e-06,#9e9e9e,-,Chen+2026 Fig.5a grey filled support floor; vector path 1261
+all_seeds_upper,All seeds (upper envelope),all_seeds_upper_envelope,20.0,2.0937236064,1.7419037660e-01,#9e9e9e,-,Chen+2026 Fig.5a black boundary; vector path 1261
+all_seeds_central,All seeds,all_seeds_central,20.0,2.1562060257,1.7407238503e-01,#000000,-,Chen+2026 Fig.5a vector path 1261
+all_seeds_lower,All seeds (lower envelope),all_seeds_lower_envelope,20.0,2.1562060257,1.0000000000e-06,#9e9e9e,-,Chen+2026 Fig.5a grey filled support floor; vector path 1261
+all_seeds_upper,All seeds (upper envelope),all_seeds_upper_envelope,20.0,2.1562060257,1.7407238503e-01,#9e9e9e,-,Chen+2026 Fig.5a black boundary; vector path 1261
+all_seeds_central,All seeds,all_seeds_central,20.0,2.2186884277,1.9974268244e-01,#000000,-,Chen+2026 Fig.5a vector path 1261
+all_seeds_lower,All seeds (lower envelope),all_seeds_lower_envelope,20.0,2.2186884277,1.0000000000e-06,#9e9e9e,-,Chen+2026 Fig.5a grey filled support floor; vector path 1261
+all_seeds_upper,All seeds (upper envelope),all_seeds_upper_envelope,20.0,2.2186884277,1.9974268244e-01,#9e9e9e,-,Chen+2026 Fig.5a black boundary; vector path 1261
+all_seeds_central,All seeds,all_seeds_central,20.0,2.2811708469,2.4895186755e-01,#000000,-,Chen+2026 Fig.5a vector path 1261
+all_seeds_lower,All seeds (lower envelope),all_seeds_lower_envelope,20.0,2.2811708469,1.0000000000e-06,#9e9e9e,-,Chen+2026 Fig.5a grey filled support floor; vector path 1261
+all_seeds_upper,All seeds (upper envelope),all_seeds_upper_envelope,20.0,2.2811708469,2.4895186755e-01,#9e9e9e,-,Chen+2026 Fig.5a black boundary; vector path 1261
+all_seeds_central,All seeds,all_seeds_central,20.0,2.3437939691,3.1451812858e-01,#000000,-,Chen+2026 Fig.5a vector path 1261
+all_seeds_lower,All seeds (lower envelope),all_seeds_lower_envelope,20.0,2.3437939691,1.0000000000e-06,#9e9e9e,-,Chen+2026 Fig.5a grey filled support floor; vector path 1261
+all_seeds_upper,All seeds (upper envelope),all_seeds_upper_envelope,20.0,2.3437939691,3.1451812858e-01,#9e9e9e,-,Chen+2026 Fig.5a black boundary; vector path 1261
+all_seeds_central,All seeds,all_seeds_central,20.0,2.4062763884,3.8672689266e-01,#000000,-,Chen+2026 Fig.5a vector path 1261
+all_seeds_lower,All seeds (lower envelope),all_seeds_lower_envelope,20.0,2.4062763884,1.0000000000e-06,#9e9e9e,-,Chen+2026 Fig.5a grey filled support floor; vector path 1261
+all_seeds_upper,All seeds (upper envelope),all_seeds_upper_envelope,20.0,2.4062763884,3.8672689266e-01,#9e9e9e,-,Chen+2026 Fig.5a black boundary; vector path 1261
+all_seeds_central,All seeds,all_seeds_central,20.0,2.4687587904,4.5409975673e-01,#000000,-,Chen+2026 Fig.5a vector path 1261
+all_seeds_lower,All seeds (lower envelope),all_seeds_lower_envelope,20.0,2.4687587904,1.0000000000e-06,#9e9e9e,-,Chen+2026 Fig.5a grey filled support floor; vector path 1261
+all_seeds_upper,All seeds (upper envelope),all_seeds_upper_envelope,20.0,2.4687587904,4.5409975673e-01,#9e9e9e,-,Chen+2026 Fig.5a black boundary; vector path 1261
+all_seeds_central,All seeds,all_seeds_central,20.0,2.5312412096,5.0816357868e-01,#000000,-,Chen+2026 Fig.5a vector path 1261
+all_seeds_lower,All seeds (lower envelope),all_seeds_lower_envelope,20.0,2.5312412096,1.0000000000e-06,#9e9e9e,-,Chen+2026 Fig.5a grey filled support floor; vector path 1261
+all_seeds_upper,All seeds (upper envelope),all_seeds_upper_envelope,20.0,2.5312412096,5.0816357868e-01,#9e9e9e,-,Chen+2026 Fig.5a black boundary; vector path 1261
+all_seeds_central,All seeds,all_seeds_central,20.0,2.5937236116,5.4268743134e-01,#000000,-,Chen+2026 Fig.5a vector path 1261
+all_seeds_lower,All seeds (lower envelope),all_seeds_lower_envelope,20.0,2.5937236116,1.0000000000e-06,#9e9e9e,-,Chen+2026 Fig.5a grey filled support floor; vector path 1261
+all_seeds_upper,All seeds (upper envelope),all_seeds_upper_envelope,20.0,2.5937236116,5.4268743134e-01,#9e9e9e,-,Chen+2026 Fig.5a black boundary; vector path 1261
+all_seeds_central,All seeds,all_seeds_central,20.0,2.6562060309,5.5458365809e-01,#000000,-,Chen+2026 Fig.5a vector path 1261
+all_seeds_lower,All seeds (lower envelope),all_seeds_lower_envelope,20.0,2.6562060309,1.0000000000e-06,#9e9e9e,-,Chen+2026 Fig.5a grey filled support floor; vector path 1261
+all_seeds_upper,All seeds (upper envelope),all_seeds_upper_envelope,20.0,2.6562060309,5.5458365809e-01,#9e9e9e,-,Chen+2026 Fig.5a black boundary; vector path 1261
+all_seeds_central,All seeds,all_seeds_central,20.0,2.7186884329,5.4452922228e-01,#000000,-,Chen+2026 Fig.5a vector path 1261
+all_seeds_lower,All seeds (lower envelope),all_seeds_lower_envelope,20.0,2.7186884329,1.0000000000e-06,#9e9e9e,-,Chen+2026 Fig.5a grey filled support floor; vector path 1261
+all_seeds_upper,All seeds (upper envelope),all_seeds_upper_envelope,20.0,2.7186884329,5.4452922228e-01,#9e9e9e,-,Chen+2026 Fig.5a black boundary; vector path 1261
+all_seeds_central,All seeds,all_seeds_central,20.0,2.7811708348,5.1579597368e-01,#000000,-,Chen+2026 Fig.5a vector path 1261
+all_seeds_lower,All seeds (lower envelope),all_seeds_lower_envelope,20.0,2.7811708348,1.0000000000e-06,#9e9e9e,-,Chen+2026 Fig.5a grey filled support floor; vector path 1261
+all_seeds_upper,All seeds (upper envelope),all_seeds_upper_envelope,20.0,2.7811708348,5.1579597368e-01,#9e9e9e,-,Chen+2026 Fig.5a black boundary; vector path 1261
+all_seeds_central,All seeds,all_seeds_central,20.0,2.8437939743,4.7358432777e-01,#000000,-,Chen+2026 Fig.5a vector path 1261
+all_seeds_lower,All seeds (lower envelope),all_seeds_lower_envelope,20.0,2.8437939743,1.0000000000e-06,#9e9e9e,-,Chen+2026 Fig.5a grey filled support floor; vector path 1261
+all_seeds_upper,All seeds (upper envelope),all_seeds_upper_envelope,20.0,2.8437939743,4.7358432777e-01,#9e9e9e,-,Chen+2026 Fig.5a black boundary; vector path 1261
+all_seeds_central,All seeds,all_seeds_central,20.0,2.9062763936,4.2262624525e-01,#000000,-,Chen+2026 Fig.5a vector path 1261
+all_seeds_lower,All seeds (lower envelope),all_seeds_lower_envelope,20.0,2.9062763936,1.0000000000e-06,#9e9e9e,-,Chen+2026 Fig.5a grey filled support floor; vector path 1261
+all_seeds_upper,All seeds (upper envelope),all_seeds_upper_envelope,20.0,2.9062763936,4.2262624525e-01,#9e9e9e,-,Chen+2026 Fig.5a black boundary; vector path 1261
+all_seeds_central,All seeds,all_seeds_central,20.0,2.9687587956,3.6731467490e-01,#000000,-,Chen+2026 Fig.5a vector path 1261
+all_seeds_lower,All seeds (lower envelope),all_seeds_lower_envelope,20.0,2.9687587956,1.0000000000e-06,#9e9e9e,-,Chen+2026 Fig.5a grey filled support floor; vector path 1261
+all_seeds_upper,All seeds (upper envelope),all_seeds_upper_envelope,20.0,2.9687587956,3.6731467490e-01,#9e9e9e,-,Chen+2026 Fig.5a black boundary; vector path 1261
+all_seeds_central,All seeds,all_seeds_central,20.0,3.0312411975,3.1175966051e-01,#000000,-,Chen+2026 Fig.5a vector path 1261
+all_seeds_lower,All seeds (lower envelope),all_seeds_lower_envelope,20.0,3.0312411975,1.0000000000e-06,#9e9e9e,-,Chen+2026 Fig.5a grey filled support floor; vector path 1261
+all_seeds_upper,All seeds (upper envelope),all_seeds_upper_envelope,20.0,3.0312411975,3.1175966051e-01,#9e9e9e,-,Chen+2026 Fig.5a black boundary; vector path 1261
+all_seeds_central,All seeds,all_seeds_central,20.0,3.0937236168,2.5945803623e-01,#000000,-,Chen+2026 Fig.5a vector path 1261
+all_seeds_lower,All seeds (lower envelope),all_seeds_lower_envelope,20.0,3.0937236168,1.0000000000e-06,#9e9e9e,-,Chen+2026 Fig.5a grey filled support floor; vector path 1261
+all_seeds_upper,All seeds (upper envelope),all_seeds_upper_envelope,20.0,3.0937236168,2.5945803623e-01,#9e9e9e,-,Chen+2026 Fig.5a black boundary; vector path 1261
+all_seeds_central,All seeds,all_seeds_central,20.0,3.1562060188,2.1287969302e-01,#000000,-,Chen+2026 Fig.5a vector path 1261
+all_seeds_lower,All seeds (lower envelope),all_seeds_lower_envelope,20.0,3.1562060188,1.0000000000e-06,#9e9e9e,-,Chen+2026 Fig.5a grey filled support floor; vector path 1261
+all_seeds_upper,All seeds (upper envelope),all_seeds_upper_envelope,20.0,3.1562060188,2.1287969302e-01,#9e9e9e,-,Chen+2026 Fig.5a black boundary; vector path 1261
+all_seeds_central,All seeds,all_seeds_central,20.0,3.2186884381,1.7219526668e-01,#000000,-,Chen+2026 Fig.5a vector path 1261
+all_seeds_lower,All seeds (lower envelope),all_seeds_lower_envelope,20.0,3.2186884381,1.0000000000e-06,#9e9e9e,-,Chen+2026 Fig.5a grey filled support floor; vector path 1261
+all_seeds_upper,All seeds (upper envelope),all_seeds_upper_envelope,20.0,3.2186884381,1.7219526668e-01,#9e9e9e,-,Chen+2026 Fig.5a black boundary; vector path 1261
+all_seeds_central,All seeds,all_seeds_central,20.0,3.2811708400,1.3731820615e-01,#000000,-,Chen+2026 Fig.5a vector path 1261
+all_seeds_lower,All seeds (lower envelope),all_seeds_lower_envelope,20.0,3.2811708400,1.0000000000e-06,#9e9e9e,-,Chen+2026 Fig.5a grey filled support floor; vector path 1261
+all_seeds_upper,All seeds (upper envelope),all_seeds_upper_envelope,20.0,3.2811708400,1.3731820615e-01,#9e9e9e,-,Chen+2026 Fig.5a black boundary; vector path 1261
+all_seeds_central,All seeds,all_seeds_central,20.0,3.3437939795,1.0708371124e-01,#000000,-,Chen+2026 Fig.5a vector path 1261
+all_seeds_lower,All seeds (lower envelope),all_seeds_lower_envelope,20.0,3.3437939795,1.0000000000e-06,#9e9e9e,-,Chen+2026 Fig.5a grey filled support floor; vector path 1261
+all_seeds_upper,All seeds (upper envelope),all_seeds_upper_envelope,20.0,3.3437939795,1.0708371124e-01,#9e9e9e,-,Chen+2026 Fig.5a black boundary; vector path 1261
+all_seeds_central,All seeds,all_seeds_central,20.0,3.4062763815,8.1992254898e-02,#000000,-,Chen+2026 Fig.5a vector path 1261
+all_seeds_lower,All seeds (lower envelope),all_seeds_lower_envelope,20.0,3.4062763815,1.0000000000e-06,#9e9e9e,-,Chen+2026 Fig.5a grey filled support floor; vector path 1261
+all_seeds_upper,All seeds (upper envelope),all_seeds_upper_envelope,20.0,3.4062763815,8.1992254898e-02,#9e9e9e,-,Chen+2026 Fig.5a black boundary; vector path 1261
+all_seeds_central,All seeds,all_seeds_central,20.0,3.4687588008,6.1725554285e-02,#000000,-,Chen+2026 Fig.5a vector path 1261
+all_seeds_lower,All seeds (lower envelope),all_seeds_lower_envelope,20.0,3.4687588008,1.0000000000e-06,#9e9e9e,-,Chen+2026 Fig.5a grey filled support floor; vector path 1261
+all_seeds_upper,All seeds (upper envelope),all_seeds_upper_envelope,20.0,3.4687588008,6.1725554285e-02,#9e9e9e,-,Chen+2026 Fig.5a black boundary; vector path 1261
+all_seeds_central,All seeds,all_seeds_central,20.0,3.5312412027,4.6060792264e-02,#000000,-,Chen+2026 Fig.5a vector path 1261
+all_seeds_lower,All seeds (lower envelope),all_seeds_lower_envelope,20.0,3.5312412027,1.0000000000e-06,#9e9e9e,-,Chen+2026 Fig.5a grey filled support floor; vector path 1261
+all_seeds_upper,All seeds (upper envelope),all_seeds_upper_envelope,20.0,3.5312412027,4.6060792264e-02,#9e9e9e,-,Chen+2026 Fig.5a black boundary; vector path 1261
+all_seeds_central,All seeds,all_seeds_central,20.0,3.5937236220,3.4023849844e-02,#000000,-,Chen+2026 Fig.5a vector path 1261
+all_seeds_lower,All seeds (lower envelope),all_seeds_lower_envelope,20.0,3.5937236220,1.0000000000e-06,#9e9e9e,-,Chen+2026 Fig.5a grey filled support floor; vector path 1261
+all_seeds_upper,All seeds (upper envelope),all_seeds_upper_envelope,20.0,3.5937236220,3.4023849844e-02,#9e9e9e,-,Chen+2026 Fig.5a black boundary; vector path 1261
+all_seeds_central,All seeds,all_seeds_central,20.0,3.6562060240,2.4810982405e-02,#000000,-,Chen+2026 Fig.5a vector path 1261
+all_seeds_lower,All seeds (lower envelope),all_seeds_lower_envelope,20.0,3.6562060240,1.0000000000e-06,#9e9e9e,-,Chen+2026 Fig.5a grey filled support floor; vector path 1261
+all_seeds_upper,All seeds (upper envelope),all_seeds_upper_envelope,20.0,3.6562060240,2.4810982405e-02,#9e9e9e,-,Chen+2026 Fig.5a black boundary; vector path 1261
+all_seeds_central,All seeds,all_seeds_central,20.0,3.7186884433,1.7716643331e-02,#000000,-,Chen+2026 Fig.5a vector path 1261
+all_seeds_lower,All seeds (lower envelope),all_seeds_lower_envelope,20.0,3.7186884433,1.0000000000e-06,#9e9e9e,-,Chen+2026 Fig.5a grey filled support floor; vector path 1261
+all_seeds_upper,All seeds (upper envelope),all_seeds_upper_envelope,20.0,3.7186884433,1.7716643331e-02,#9e9e9e,-,Chen+2026 Fig.5a black boundary; vector path 1261
+all_seeds_central,All seeds,all_seeds_central,20.0,3.7811708452,1.2295854827e-02,#000000,-,Chen+2026 Fig.5a vector path 1261
+all_seeds_lower,All seeds (lower envelope),all_seeds_lower_envelope,20.0,3.7811708452,1.0000000000e-06,#9e9e9e,-,Chen+2026 Fig.5a grey filled support floor; vector path 1261
+all_seeds_upper,All seeds (upper envelope),all_seeds_upper_envelope,20.0,3.7811708452,1.2295854827e-02,#9e9e9e,-,Chen+2026 Fig.5a black boundary; vector path 1261
+all_seeds_central,All seeds,all_seeds_central,20.0,3.8437939847,8.4416499894e-03,#000000,-,Chen+2026 Fig.5a vector path 1261
+all_seeds_lower,All seeds (lower envelope),all_seeds_lower_envelope,20.0,3.8437939847,1.0000000000e-06,#9e9e9e,-,Chen+2026 Fig.5a grey filled support floor; vector path 1261
+all_seeds_upper,All seeds (upper envelope),all_seeds_upper_envelope,20.0,3.8437939847,8.4416499894e-03,#9e9e9e,-,Chen+2026 Fig.5a black boundary; vector path 1261
+all_seeds_central,All seeds,all_seeds_central,20.0,3.9062763867,5.7408462304e-03,#000000,-,Chen+2026 Fig.5a vector path 1261
+all_seeds_lower,All seeds (lower envelope),all_seeds_lower_envelope,20.0,3.9062763867,1.0000000000e-06,#9e9e9e,-,Chen+2026 Fig.5a grey filled support floor; vector path 1261
+all_seeds_upper,All seeds (upper envelope),all_seeds_upper_envelope,20.0,3.9062763867,5.7408462304e-03,#9e9e9e,-,Chen+2026 Fig.5a black boundary; vector path 1261
+all_seeds_central,All seeds,all_seeds_central,20.0,3.9687588060,3.8988443227e-03,#000000,-,Chen+2026 Fig.5a vector path 1261
+all_seeds_lower,All seeds (lower envelope),all_seeds_lower_envelope,20.0,3.9687588060,1.0000000000e-06,#9e9e9e,-,Chen+2026 Fig.5a grey filled support floor; vector path 1261
+all_seeds_upper,All seeds (upper envelope),all_seeds_upper_envelope,20.0,3.9687588060,3.8988443227e-03,#9e9e9e,-,Chen+2026 Fig.5a black boundary; vector path 1261
+all_seeds_central,All seeds,all_seeds_central,20.0,4.0312412079,2.5700826236e-03,#000000,-,Chen+2026 Fig.5a vector path 1261
+all_seeds_lower,All seeds (lower envelope),all_seeds_lower_envelope,20.0,4.0312412079,1.0000000000e-06,#9e9e9e,-,Chen+2026 Fig.5a grey filled support floor; vector path 1261
+all_seeds_upper,All seeds (upper envelope),all_seeds_upper_envelope,20.0,4.0312412079,2.5700826236e-03,#9e9e9e,-,Chen+2026 Fig.5a black boundary; vector path 1261
+all_seeds_central,All seeds,all_seeds_central,20.0,4.0937236099,1.6388455369e-03,#000000,-,Chen+2026 Fig.5a vector path 1261
+all_seeds_lower,All seeds (lower envelope),all_seeds_lower_envelope,20.0,4.0937236099,1.0000000000e-06,#9e9e9e,-,Chen+2026 Fig.5a grey filled support floor; vector path 1261
+all_seeds_upper,All seeds (upper envelope),all_seeds_upper_envelope,20.0,4.0937236099,1.6388455369e-03,#9e9e9e,-,Chen+2026 Fig.5a black boundary; vector path 1261
+all_seeds_central,All seeds,all_seeds_central,20.0,4.1562060292,1.0330611069e-03,#000000,-,Chen+2026 Fig.5a vector path 1261
+all_seeds_lower,All seeds (lower envelope),all_seeds_lower_envelope,20.0,4.1562060292,1.0000000000e-06,#9e9e9e,-,Chen+2026 Fig.5a grey filled support floor; vector path 1261
+all_seeds_upper,All seeds (upper envelope),all_seeds_upper_envelope,20.0,4.1562060292,1.0330611069e-03,#9e9e9e,-,Chen+2026 Fig.5a black boundary; vector path 1261
+all_seeds_central,All seeds,all_seeds_central,20.0,4.2186884311,6.6053241409e-04,#000000,-,Chen+2026 Fig.5a vector path 1261
+all_seeds_lower,All seeds (lower envelope),all_seeds_lower_envelope,20.0,4.2186884311,1.0000000000e-06,#9e9e9e,-,Chen+2026 Fig.5a grey filled support floor; vector path 1261
+all_seeds_upper,All seeds (upper envelope),all_seeds_upper_envelope,20.0,4.2186884311,6.6053241409e-04,#9e9e9e,-,Chen+2026 Fig.5a black boundary; vector path 1261
+all_seeds_central,All seeds,all_seeds_central,20.0,4.2811708504,4.3689467665e-04,#000000,-,Chen+2026 Fig.5a vector path 1261
+all_seeds_lower,All seeds (lower envelope),all_seeds_lower_envelope,20.0,4.2811708504,1.0000000000e-06,#9e9e9e,-,Chen+2026 Fig.5a grey filled support floor; vector path 1261
+all_seeds_upper,All seeds (upper envelope),all_seeds_upper_envelope,20.0,4.2811708504,4.3689467665e-04,#9e9e9e,-,Chen+2026 Fig.5a black boundary; vector path 1261
+all_seeds_central,All seeds,all_seeds_central,20.0,4.3437939899,3.1154850945e-04,#000000,-,Chen+2026 Fig.5a vector path 1261
+all_seeds_lower,All seeds (lower envelope),all_seeds_lower_envelope,20.0,4.3437939899,1.0000000000e-06,#9e9e9e,-,Chen+2026 Fig.5a grey filled support floor; vector path 1261
+all_seeds_upper,All seeds (upper envelope),all_seeds_upper_envelope,20.0,4.3437939899,3.1154850945e-04,#9e9e9e,-,Chen+2026 Fig.5a black boundary; vector path 1261
+all_seeds_central,All seeds,all_seeds_central,20.0,4.4062763919,2.3138330820e-04,#000000,-,Chen+2026 Fig.5a vector path 1261
+all_seeds_lower,All seeds (lower envelope),all_seeds_lower_envelope,20.0,4.4062763919,1.0000000000e-06,#9e9e9e,-,Chen+2026 Fig.5a grey filled support floor; vector path 1261
+all_seeds_upper,All seeds (upper envelope),all_seeds_upper_envelope,20.0,4.4062763919,2.3138330820e-04,#9e9e9e,-,Chen+2026 Fig.5a black boundary; vector path 1261
+all_seeds_central,All seeds,all_seeds_central,20.0,4.4687587938,1.5961022044e-04,#000000,-,Chen+2026 Fig.5a vector path 1261
+all_seeds_lower,All seeds (lower envelope),all_seeds_lower_envelope,20.0,4.4687587938,1.0000000000e-06,#9e9e9e,-,Chen+2026 Fig.5a grey filled support floor; vector path 1261
+all_seeds_upper,All seeds (upper envelope),all_seeds_upper_envelope,20.0,4.4687587938,1.5961022044e-04,#9e9e9e,-,Chen+2026 Fig.5a black boundary; vector path 1261
+all_seeds_central,All seeds,all_seeds_central,20.0,4.5312412131,1.0295669279e-04,#000000,-,Chen+2026 Fig.5a vector path 1261
+all_seeds_lower,All seeds (lower envelope),all_seeds_lower_envelope,20.0,4.5312412131,1.0000000000e-06,#9e9e9e,-,Chen+2026 Fig.5a grey filled support floor; vector path 1261
+all_seeds_upper,All seeds (upper envelope),all_seeds_upper_envelope,20.0,4.5312412131,1.0295669279e-04,#9e9e9e,-,Chen+2026 Fig.5a black boundary; vector path 1261
+all_seeds_central,All seeds,all_seeds_central,20.0,4.5937236151,5.4563740512e-05,#000000,-,Chen+2026 Fig.5a vector path 1261
+all_seeds_lower,All seeds (lower envelope),all_seeds_lower_envelope,20.0,4.5937236151,1.0000000000e-06,#9e9e9e,-,Chen+2026 Fig.5a grey filled support floor; vector path 1261
+all_seeds_upper,All seeds (upper envelope),all_seeds_upper_envelope,20.0,4.5937236151,5.4563740512e-05,#9e9e9e,-,Chen+2026 Fig.5a black boundary; vector path 1261
+all_seeds_central,All seeds,all_seeds_central,20.0,4.6562060344,2.7150928101e-05,#000000,-,Chen+2026 Fig.5a vector path 1261
+all_seeds_lower,All seeds (lower envelope),all_seeds_lower_envelope,20.0,4.6562060344,1.0000000000e-06,#9e9e9e,-,Chen+2026 Fig.5a grey filled support floor; vector path 1261
+all_seeds_upper,All seeds (upper envelope),all_seeds_upper_envelope,20.0,4.6562060344,2.7150928101e-05,#9e9e9e,-,Chen+2026 Fig.5a black boundary; vector path 1261
+all_seeds_central,All seeds,all_seeds_central,20.0,4.7186884363,1.1404926566e-05,#000000,-,Chen+2026 Fig.5a vector path 1261
+all_seeds_lower,All seeds (lower envelope),all_seeds_lower_envelope,20.0,4.7186884363,1.0000000000e-06,#9e9e9e,-,Chen+2026 Fig.5a grey filled support floor; vector path 1261
+all_seeds_upper,All seeds (upper envelope),all_seeds_upper_envelope,20.0,4.7186884363,1.1404926566e-05,#9e9e9e,-,Chen+2026 Fig.5a black boundary; vector path 1261
+all_seeds_central,All seeds,all_seeds_central,20.0,4.7811708556,5.3104647602e-06,#000000,-,Chen+2026 Fig.5a vector path 1261
+all_seeds_lower,All seeds (lower envelope),all_seeds_lower_envelope,20.0,4.7811708556,1.0000000000e-06,#9e9e9e,-,Chen+2026 Fig.5a grey filled support floor; vector path 1261
+all_seeds_upper,All seeds (upper envelope),all_seeds_upper_envelope,20.0,4.7811708556,5.3104647602e-06,#9e9e9e,-,Chen+2026 Fig.5a black boundary; vector path 1261
+all_seeds_central,All seeds,all_seeds_central,20.0,4.8437939778,3.3452319925e-06,#000000,-,Chen+2026 Fig.5a vector path 1261
+all_seeds_lower,All seeds (lower envelope),all_seeds_lower_envelope,20.0,4.8437939778,1.0000000000e-06,#9e9e9e,-,Chen+2026 Fig.5a grey filled support floor; vector path 1261
+all_seeds_upper,All seeds (upper envelope),all_seeds_upper_envelope,20.0,4.8437939778,3.3452319925e-06,#9e9e9e,-,Chen+2026 Fig.5a black boundary; vector path 1261
+all_seeds_central,All seeds,all_seeds_central,20.0,4.9062763971,1.9678707650e-06,#000000,-,Chen+2026 Fig.5a vector path 1261
+all_seeds_lower,All seeds (lower envelope),all_seeds_lower_envelope,20.0,4.9062763971,1.0000000000e-06,#9e9e9e,-,Chen+2026 Fig.5a grey filled support floor; vector path 1261
+all_seeds_upper,All seeds (upper envelope),all_seeds_upper_envelope,20.0,4.9062763971,1.9678707650e-06,#9e9e9e,-,Chen+2026 Fig.5a black boundary; vector path 1261
+all_seeds_central,All seeds,all_seeds_central,20.0,4.9687587990,2.1244740790e-06,#000000,-,Chen+2026 Fig.5a vector path 1261
+all_seeds_lower,All seeds (lower envelope),all_seeds_lower_envelope,20.0,4.9687587990,1.0000000000e-06,#9e9e9e,-,Chen+2026 Fig.5a grey filled support floor; vector path 1261
+all_seeds_upper,All seeds (upper envelope),all_seeds_upper_envelope,20.0,4.9687587990,2.1244740790e-06,#9e9e9e,-,Chen+2026 Fig.5a black boundary; vector path 1261
+popiii_subedd,Pop-III (sub-Eddington),popiii_subedd,20.0,0.7186884294,1.2980817465e-06,#377eb8,-,Chen+2026 Fig.5a vector path 1262
+popiii_subedd,Pop-III (sub-Eddington),popiii_subedd,20.0,0.7813115689,5.3902256214e-06,#377eb8,-,Chen+2026 Fig.5a vector path 1262
+popiii_subedd,Pop-III (sub-Eddington),popiii_subedd,20.0,0.8437939708,1.5221601421e-05,#377eb8,-,Chen+2026 Fig.5a vector path 1262
+popiii_subedd,Pop-III (sub-Eddington),popiii_subedd,20.0,0.9062763901,4.8396578888e-05,#377eb8,-,Chen+2026 Fig.5a vector path 1262
+popiii_subedd,Pop-III (sub-Eddington),popiii_subedd,20.0,0.9687587921,1.5821036569e-04,#377eb8,-,Chen+2026 Fig.5a vector path 1262
+popiii_subedd,Pop-III (sub-Eddington),popiii_subedd,20.0,1.0312411940,4.7326357481e-04,#377eb8,-,Chen+2026 Fig.5a vector path 1262
+popiii_subedd,Pop-III (sub-Eddington),popiii_subedd,20.0,1.0937236133,1.2429893208e-03,#377eb8,-,Chen+2026 Fig.5a vector path 1262
+popiii_subedd,Pop-III (sub-Eddington),popiii_subedd,20.0,1.1562060153,2.9470927575e-03,#377eb8,-,Chen+2026 Fig.5a vector path 1262
+popiii_subedd,Pop-III (sub-Eddington),popiii_subedd,20.0,1.2186884346,6.4374082344e-03,#377eb8,-,Chen+2026 Fig.5a vector path 1262
+popiii_subedd,Pop-III (sub-Eddington),popiii_subedd,20.0,1.2813115567,1.3149023819e-02,#377eb8,-,Chen+2026 Fig.5a vector path 1262
+popiii_subedd,Pop-III (sub-Eddington),popiii_subedd,20.0,1.3437939760,2.4895186755e-02,#377eb8,-,Chen+2026 Fig.5a vector path 1262
+popiii_subedd,Pop-III (sub-Eddington),popiii_subedd,20.0,1.4062763780,4.3335641727e-02,#377eb8,-,Chen+2026 Fig.5a vector path 1262
+popiii_subedd,Pop-III (sub-Eddington),popiii_subedd,20.0,1.4687587973,6.8794152027e-02,#377eb8,-,Chen+2026 Fig.5a vector path 1262
+popiii_subedd,Pop-III (sub-Eddington),popiii_subedd,20.0,1.5312411992,9.9796926218e-02,#377eb8,-,Chen+2026 Fig.5a vector path 1262
+popiii_subedd,Pop-III (sub-Eddington),popiii_subedd,20.0,1.5937236185,1.3301371542e-01,#377eb8,-,Chen+2026 Fig.5a vector path 1262
+popiii_subedd,Pop-III (sub-Eddington),popiii_subedd,20.0,1.6562060205,1.6355171983e-01,#377eb8,-,Chen+2026 Fig.5a vector path 1262
+popiii_subedd,Pop-III (sub-Eddington),popiii_subedd,20.0,1.7186884225,1.8552105311e-01,#377eb8,-,Chen+2026 Fig.5a vector path 1262
+popiii_subedd,Pop-III (sub-Eddington),popiii_subedd,20.0,1.7813115619,1.9348139828e-01,#377eb8,-,Chen+2026 Fig.5a vector path 1262
+popiii_subedd,Pop-III (sub-Eddington),popiii_subedd,20.0,1.8437939812,1.8577265750e-01,#377eb8,-,Chen+2026 Fig.5a vector path 1262
+popiii_subedd,Pop-III (sub-Eddington),popiii_subedd,20.0,1.9062763832,1.6544668283e-01,#377eb8,-,Chen+2026 Fig.5a vector path 1262
+popiii_subedd,Pop-III (sub-Eddington),popiii_subedd,20.0,1.9687588025,1.3787764718e-01,#377eb8,-,Chen+2026 Fig.5a vector path 1262
+popiii_subedd,Pop-III (sub-Eddington),popiii_subedd,20.0,2.0312412044,1.0972810232e-01,#377eb8,-,Chen+2026 Fig.5a vector path 1262
+popiii_subedd,Pop-III (sub-Eddington),popiii_subedd,20.0,2.0937236064,8.6442539521e-02,#377eb8,-,Chen+2026 Fig.5a vector path 1262
+popiii_subedd,Pop-III (sub-Eddington),popiii_subedd,20.0,2.1562060257,7.2038276996e-02,#377eb8,-,Chen+2026 Fig.5a vector path 1262
+popiii_subedd,Pop-III (sub-Eddington),popiii_subedd,20.0,2.2186884277,6.7045321055e-02,#377eb8,-,Chen+2026 Fig.5a vector path 1262
+popiii_subedd,Pop-III (sub-Eddington),popiii_subedd,20.0,2.2811708469,6.9827410143e-02,#377eb8,-,Chen+2026 Fig.5a vector path 1262
+popiii_subedd,Pop-III (sub-Eddington),popiii_subedd,20.0,2.3437939691,7.7088994373e-02,#377eb8,-,Chen+2026 Fig.5a vector path 1262
+popiii_subedd,Pop-III (sub-Eddington),popiii_subedd,20.0,2.4062763884,8.4760416809e-02,#377eb8,-,Chen+2026 Fig.5a vector path 1262
+popiii_subedd,Pop-III (sub-Eddington),popiii_subedd,20.0,2.4687587904,8.9603488883e-02,#377eb8,-,Chen+2026 Fig.5a vector path 1262
+popiii_subedd,Pop-III (sub-Eddington),popiii_subedd,20.0,2.5312412096,8.9664232341e-02,#377eb8,-,Chen+2026 Fig.5a vector path 1262
+popiii_subedd,Pop-III (sub-Eddington),popiii_subedd,20.0,2.5937236116,8.4187999892e-02,#377eb8,-,Chen+2026 Fig.5a vector path 1262
+popiii_subedd,Pop-III (sub-Eddington),popiii_subedd,20.0,2.6562060309,7.3917345781e-02,#377eb8,-,Chen+2026 Fig.5a vector path 1262
+popiii_subedd,Pop-III (sub-Eddington),popiii_subedd,20.0,2.7186884329,6.0688688277e-02,#377eb8,-,Chen+2026 Fig.5a vector path 1262
+popiii_subedd,Pop-III (sub-Eddington),popiii_subedd,20.0,2.7811708348,4.6720932472e-02,#377eb8,-,Chen+2026 Fig.5a vector path 1262
+popiii_subedd,Pop-III (sub-Eddington),popiii_subedd,20.0,2.8437939743,3.4162464658e-02,#377eb8,-,Chen+2026 Fig.5a vector path 1262
+popiii_subedd,Pop-III (sub-Eddington),popiii_subedd,20.0,2.9062763936,2.3774075071e-02,#377eb8,-,Chen+2026 Fig.5a vector path 1262
+popiii_subedd,Pop-III (sub-Eddington),popiii_subedd,20.0,2.9687587956,1.5746166567e-02,#377eb8,-,Chen+2026 Fig.5a vector path 1262
+popiii_subedd,Pop-III (sub-Eddington),popiii_subedd,20.0,3.0312411975,9.7722411369e-03,#377eb8,-,Chen+2026 Fig.5a vector path 1262
+popiii_subedd,Pop-III (sub-Eddington),popiii_subedd,20.0,3.0937236168,5.6789399991e-03,#377eb8,-,Chen+2026 Fig.5a vector path 1262
+popiii_subedd,Pop-III (sub-Eddington),popiii_subedd,20.0,3.1562060188,3.1644215444e-03,#377eb8,-,Chen+2026 Fig.5a vector path 1262
+popiii_subedd,Pop-III (sub-Eddington),popiii_subedd,20.0,3.2186884381,1.7126432624e-03,#377eb8,-,Chen+2026 Fig.5a vector path 1262
+popiii_subedd,Pop-III (sub-Eddington),popiii_subedd,20.0,3.2811708400,8.8697340965e-04,#377eb8,-,Chen+2026 Fig.5a vector path 1262
+popiii_subedd,Pop-III (sub-Eddington),popiii_subedd,20.0,3.3437939795,4.4526330774e-04,#377eb8,-,Chen+2026 Fig.5a vector path 1262
+popiii_subedd,Pop-III (sub-Eddington),popiii_subedd,20.0,3.4062763815,2.1101265820e-04,#377eb8,-,Chen+2026 Fig.5a vector path 1262
+popiii_subedd,Pop-III (sub-Eddington),popiii_subedd,20.0,3.4687588008,8.9179479994e-05,#377eb8,-,Chen+2026 Fig.5a vector path 1262
+popiii_subedd,Pop-III (sub-Eddington),popiii_subedd,20.0,3.5312412027,3.3271463644e-05,#377eb8,-,Chen+2026 Fig.5a vector path 1262
+popiii_subedd,Pop-III (sub-Eddington),popiii_subedd,20.0,3.5937236220,1.2667985353e-05,#377eb8,-,Chen+2026 Fig.5a vector path 1262
+popiii_subedd,Pop-III (sub-Eddington),popiii_subedd,20.0,3.6562060240,4.6816015221e-06,#377eb8,-,Chen+2026 Fig.5a vector path 1262
+popiii_subedd,Pop-III (sub-Eddington),popiii_subedd,20.0,3.7186884433,1.4955771447e-06,#377eb8,-,Chen+2026 Fig.5a vector path 1262
+popiii_edd,Pop-III (Eddington),popiii_edd,20.0,0.7813115689,2.9510898627e-06,#e41a1c,-,Chen+2026 Fig.5a vector path 1263
+popiii_edd,Pop-III (Eddington),popiii_edd,20.0,0.8437939708,8.4588297683e-06,#e41a1c,-,Chen+2026 Fig.5a vector path 1263
+popiii_edd,Pop-III (Eddington),popiii_edd,20.0,0.9062763901,3.1281777319e-05,#e41a1c,-,Chen+2026 Fig.5a vector path 1263
+popiii_edd,Pop-III (Eddington),popiii_edd,20.0,0.9687587921,9.9932279545e-05,#e41a1c,-,Chen+2026 Fig.5a vector path 1263
+popiii_edd,Pop-III (Eddington),popiii_edd,20.0,1.0312411940,2.7372604860e-04,#e41a1c,-,Chen+2026 Fig.5a vector path 1263
+popiii_edd,Pop-III (Eddington),popiii_edd,20.0,1.0937236133,6.9261913580e-04,#e41a1c,-,Chen+2026 Fig.5a vector path 1263
+popiii_edd,Pop-III (Eddington),popiii_edd,20.0,1.1562060153,1.6200748272e-03,#e41a1c,-,Chen+2026 Fig.5a vector path 1263
+popiii_edd,Pop-III (Eddington),popiii_edd,20.0,1.2186884346,3.5967917172e-03,#e41a1c,-,Chen+2026 Fig.5a vector path 1263
+popiii_edd,Pop-III (Eddington),popiii_edd,20.0,1.2813115567,7.5231189078e-03,#e41a1c,-,Chen+2026 Fig.5a vector path 1263
+popiii_edd,Pop-III (Eddington),popiii_edd,20.0,1.3437939760,1.4565702046e-02,#e41a1c,-,Chen+2026 Fig.5a vector path 1263
+popiii_edd,Pop-III (Eddington),popiii_edd,20.0,1.4062763780,2.5666017881e-02,#e41a1c,-,Chen+2026 Fig.5a vector path 1263
+popiii_edd,Pop-III (Eddington),popiii_edd,20.0,1.4687587973,4.1188257234e-02,#e41a1c,-,Chen+2026 Fig.5a vector path 1263
+popiii_edd,Pop-III (Eddington),popiii_edd,20.0,1.5312411992,6.0606493509e-02,#e41a1c,-,Chen+2026 Fig.5a vector path 1263
+popiii_edd,Pop-III (Eddington),popiii_edd,20.0,1.5937236185,8.1659569850e-02,#e41a1c,-,Chen+2026 Fig.5a vector path 1263
+popiii_edd,Pop-III (Eddington),popiii_edd,20.0,1.6562060205,1.0163961368e-01,#e41a1c,-,Chen+2026 Fig.5a vector path 1263
+popiii_edd,Pop-III (Eddington),popiii_edd,20.0,1.7186884225,1.1631262422e-01,#e41a1c,-,Chen+2026 Fig.5a vector path 1263
+popiii_edd,Pop-III (Eddington),popiii_edd,20.0,1.7813115619,1.2287524942e-01,#e41a1c,-,Chen+2026 Fig.5a vector path 1263
+popiii_edd,Pop-III (Eddington),popiii_edd,20.0,1.8437939812,1.1983279250e-01,#e41a1c,-,Chen+2026 Fig.5a vector path 1263
+popiii_edd,Pop-III (Eddington),popiii_edd,20.0,1.9062763832,1.0965377565e-01,#e41a1c,-,Chen+2026 Fig.5a vector path 1263
+popiii_edd,Pop-III (Eddington),popiii_edd,20.0,1.9687588025,9.6865332973e-02,#e41a1c,-,Chen+2026 Fig.5a vector path 1263
+popiii_edd,Pop-III (Eddington),popiii_edd,20.0,2.0312412044,8.7622035356e-02,#e41a1c,-,Chen+2026 Fig.5a vector path 1263
+popiii_edd,Pop-III (Eddington),popiii_edd,20.0,2.0937236064,8.7800342144e-02,#e41a1c,-,Chen+2026 Fig.5a vector path 1263
+popiii_edd,Pop-III (Eddington),popiii_edd,20.0,2.1562060257,1.0212288202e-01,#e41a1c,-,Chen+2026 Fig.5a vector path 1263
+popiii_edd,Pop-III (Eddington),popiii_edd,20.0,2.2186884277,1.3274358836e-01,#e41a1c,-,Chen+2026 Fig.5a vector path 1263
+popiii_edd,Pop-III (Eddington),popiii_edd,20.0,2.2811708469,1.7885516383e-01,#e41a1c,-,Chen+2026 Fig.5a vector path 1263
+popiii_edd,Pop-III (Eddington),popiii_edd,20.0,2.3437939691,2.3741876245e-01,#e41a1c,-,Chen+2026 Fig.5a vector path 1263
+popiii_edd,Pop-III (Eddington),popiii_edd,20.0,2.4062763884,3.0198700803e-01,#e41a1c,-,Chen+2026 Fig.5a vector path 1263
+popiii_edd,Pop-III (Eddington),popiii_edd,20.0,2.4687587904,3.6483406966e-01,#e41a1c,-,Chen+2026 Fig.5a vector path 1263
+popiii_edd,Pop-III (Eddington),popiii_edd,20.0,2.5312412096,4.1863582040e-01,#e41a1c,-,Chen+2026 Fig.5a vector path 1263
+popiii_edd,Pop-III (Eddington),popiii_edd,20.0,2.5937236116,4.5842822281e-01,#e41a1c,-,Chen+2026 Fig.5a vector path 1263
+popiii_edd,Pop-III (Eddington),popiii_edd,20.0,2.6562060309,4.8069731740e-01,#e41a1c,-,Chen+2026 Fig.5a vector path 1263
+popiii_edd,Pop-III (Eddington),popiii_edd,20.0,2.7186884329,4.8363788361e-01,#e41a1c,-,Chen+2026 Fig.5a vector path 1263
+popiii_edd,Pop-III (Eddington),popiii_edd,20.0,2.7811708348,4.6879499463e-01,#e41a1c,-,Chen+2026 Fig.5a vector path 1263
+popiii_edd,Pop-III (Eddington),popiii_edd,20.0,2.8437939743,4.3926950234e-01,#e41a1c,-,Chen+2026 Fig.5a vector path 1263
+popiii_edd,Pop-III (Eddington),popiii_edd,20.0,2.9062763936,3.9897139186e-01,#e41a1c,-,Chen+2026 Fig.5a vector path 1263
+popiii_edd,Pop-III (Eddington),popiii_edd,20.0,2.9687587956,3.5172534981e-01,#e41a1c,-,Chen+2026 Fig.5a vector path 1263
+popiii_edd,Pop-III (Eddington),popiii_edd,20.0,3.0312411975,3.0198700803e-01,#e41a1c,-,Chen+2026 Fig.5a vector path 1263
+popiii_edd,Pop-III (Eddington),popiii_edd,20.0,3.0937236168,2.5372049132e-01,#e41a1c,-,Chen+2026 Fig.5a vector path 1263
+popiii_edd,Pop-III (Eddington),popiii_edd,20.0,3.1562060188,2.0944559440e-01,#e41a1c,-,Chen+2026 Fig.5a vector path 1263
+popiii_edd,Pop-III (Eddington),popiii_edd,20.0,3.2186884381,1.7045386510e-01,#e41a1c,-,Chen+2026 Fig.5a vector path 1263
+popiii_edd,Pop-III (Eddington),popiii_edd,20.0,3.2811708400,1.3620611334e-01,#e41a1c,-,Chen+2026 Fig.5a vector path 1263
+popiii_edd,Pop-III (Eddington),popiii_edd,20.0,3.3437939795,1.0664920825e-01,#e41a1c,-,Chen+2026 Fig.5a vector path 1263
+popiii_edd,Pop-III (Eddington),popiii_edd,20.0,3.4062763815,8.1770316883e-02,#e41a1c,-,Chen+2026 Fig.5a vector path 1263
+popiii_edd,Pop-III (Eddington),popiii_edd,20.0,3.4687588008,6.1683743164e-02,#e41a1c,-,Chen+2026 Fig.5a vector path 1263
+popiii_edd,Pop-III (Eddington),popiii_edd,20.0,3.5312412027,4.6060792264e-02,#e41a1c,-,Chen+2026 Fig.5a vector path 1263
+popiii_edd,Pop-III (Eddington),popiii_edd,20.0,3.5937236220,3.4046912246e-02,#e41a1c,-,Chen+2026 Fig.5a vector path 1263
+popiii_edd,Pop-III (Eddington),popiii_edd,20.0,3.6562060240,2.4861471606e-02,#e41a1c,-,Chen+2026 Fig.5a vector path 1263
+popiii_edd,Pop-III (Eddington),popiii_edd,20.0,3.7186884433,1.7788821795e-02,#e41a1c,-,Chen+2026 Fig.5a vector path 1263
+popiii_edd,Pop-III (Eddington),popiii_edd,20.0,3.7811708452,1.2379457660e-02,#e41a1c,-,Chen+2026 Fig.5a vector path 1263
+popiii_edd,Pop-III (Eddington),popiii_edd,20.0,3.8437939847,8.4932907423e-03,#e41a1c,-,Chen+2026 Fig.5a vector path 1263
+popiii_edd,Pop-III (Eddington),popiii_edd,20.0,3.9062763867,5.7564283065e-03,#e41a1c,-,Chen+2026 Fig.5a vector path 1263
+popiii_edd,Pop-III (Eddington),popiii_edd,20.0,3.9687588060,3.8962033573e-03,#e41a1c,-,Chen+2026 Fig.5a vector path 1263
+popiii_edd,Pop-III (Eddington),popiii_edd,20.0,4.0312412079,2.5718247039e-03,#e41a1c,-,Chen+2026 Fig.5a vector path 1263
+popiii_edd,Pop-III (Eddington),popiii_edd,20.0,4.0937236099,1.6421805117e-03,#e41a1c,-,Chen+2026 Fig.5a vector path 1263
+popiii_edd,Pop-III (Eddington),popiii_edd,20.0,4.1562060292,1.0316620489e-03,#e41a1c,-,Chen+2026 Fig.5a vector path 1263
+popiii_edd,Pop-III (Eddington),popiii_edd,20.0,4.2186884311,6.5340952944e-04,#e41a1c,-,Chen+2026 Fig.5a vector path 1263
+popiii_edd,Pop-III (Eddington),popiii_edd,20.0,4.2811708504,4.2926471427e-04,#e41a1c,-,Chen+2026 Fig.5a vector path 1263
+popiii_edd,Pop-III (Eddington),popiii_edd,20.0,4.3437939899,3.0735469944e-04,#e41a1c,-,Chen+2026 Fig.5a vector path 1263
+popiii_edd,Pop-III (Eddington),popiii_edd,20.0,4.4062763919,2.2811399363e-04,#e41a1c,-,Chen+2026 Fig.5a vector path 1263
+popiii_edd,Pop-III (Eddington),popiii_edd,20.0,4.4687587938,1.6036910966e-04,#e41a1c,-,Chen+2026 Fig.5a vector path 1263
+popiii_edd,Pop-III (Eddington),popiii_edd,20.0,4.5312412131,1.0088483122e-04,#e41a1c,-,Chen+2026 Fig.5a vector path 1263
+popiii_edd,Pop-III (Eddington),popiii_edd,20.0,4.5937236151,5.5458375065e-05,#e41a1c,-,Chen+2026 Fig.5a vector path 1263
+popiii_edd,Pop-III (Eddington),popiii_edd,20.0,4.6562060344,2.6389091983e-05,#e41a1c,-,Chen+2026 Fig.5a vector path 1263
+popiii_edd,Pop-III (Eddington),popiii_edd,20.0,4.7186884363,1.1404926566e-05,#e41a1c,-,Chen+2026 Fig.5a vector path 1263
+popiii_edd,Pop-III (Eddington),popiii_edd,20.0,4.7811708556,4.9962752906e-06,#e41a1c,-,Chen+2026 Fig.5a vector path 1263
+popiii_edd,Pop-III (Eddington),popiii_edd,20.0,4.8437939778,3.3046769744e-06,#e41a1c,-,Chen+2026 Fig.5a vector path 1263
+popiii_edd,Pop-III (Eddington),popiii_edd,20.0,4.9062763971,2.7934757937e-06,#e41a1c,-,Chen+2026 Fig.5a vector path 1263
+popiii_edd,Pop-III (Eddington),popiii_edd,20.0,4.9687587990,3.0693845394e-06,#e41a1c,-,Chen+2026 Fig.5a vector path 1263
+fast_halo,Fast halo (gamma_v >= 3),fast_halo,20.0,0.5312412062,3.0693845394e-06,#d95f02,--,Chen+2026 Fig.5a vector path 1264
+fast_halo,Fast halo (gamma_v >= 3),fast_halo,20.0,0.5937236081,7.1989486339e-06,#d95f02,--,Chen+2026 Fig.5a vector path 1264
+fast_halo,Fast halo (gamma_v >= 3),fast_halo,20.0,0.6562060101,1.0067995217e-05,#d95f02,--,Chen+2026 Fig.5a vector path 1264
+fast_halo,Fast halo (gamma_v >= 3),fast_halo,20.0,0.7186884294,1.0781182026e-05,#d95f02,--,Chen+2026 Fig.5a vector path 1264
+fast_halo,Fast halo (gamma_v >= 3),fast_halo,20.0,0.7813115689,1.5108563547e-05,#d95f02,--,Chen+2026 Fig.5a vector path 1264
+fast_halo,Fast halo (gamma_v >= 3),fast_halo,20.0,0.8437939708,2.4427290984e-05,#d95f02,--,Chen+2026 Fig.5a vector path 1264
+fast_halo,Fast halo (gamma_v >= 3),fast_halo,20.0,0.9062763901,3.0798017773e-05,#d95f02,--,Chen+2026 Fig.5a vector path 1264
+fast_halo,Fast halo (gamma_v >= 3),fast_halo,20.0,0.9687587921,2.6676762195e-05,#d95f02,--,Chen+2026 Fig.5a vector path 1264
+fast_halo,Fast halo (gamma_v >= 3),fast_halo,20.0,1.0312411940,1.8690909882e-05,#d95f02,--,Chen+2026 Fig.5a vector path 1264
+fast_halo,Fast halo (gamma_v >= 3),fast_halo,20.0,1.0937236133,1.6399565332e-05,#d95f02,--,Chen+2026 Fig.5a vector path 1264
+fast_halo,Fast halo (gamma_v >= 3),fast_halo,20.0,1.1562060153,1.7897644212e-05,#d95f02,--,Chen+2026 Fig.5a vector path 1264
+fast_halo,Fast halo (gamma_v >= 3),fast_halo,20.0,1.2186884346,1.5661039267e-05,#d95f02,--,Chen+2026 Fig.5a vector path 1264
+fast_halo,Fast halo (gamma_v >= 3),fast_halo,20.0,1.2813115567,8.9725024466e-06,#d95f02,--,Chen+2026 Fig.5a vector path 1264
+fast_halo,Fast halo (gamma_v >= 3),fast_halo,20.0,1.3437939760,4.3659877315e-06,#d95f02,--,Chen+2026 Fig.5a vector path 1264
+fast_halo,Fast halo (gamma_v >= 3),fast_halo,20.0,1.4062763780,3.6582435006e-06,#d95f02,--,Chen+2026 Fig.5a vector path 1264
+fast_halo,Fast halo (gamma_v >= 3),fast_halo,20.0,1.4687587973,3.2646133418e-06,#d95f02,--,Chen+2026 Fig.5a vector path 1264
+fast_halo,Fast halo (gamma_v >= 3),fast_halo,20.0,1.5312411992,1.9282700776e-06,#d95f02,--,Chen+2026 Fig.5a vector path 1264
+fast_halo,Fast halo (gamma_v >= 3),fast_halo,20.0,1.7813115619,1.2980817465e-06,#d95f02,--,Chen+2026 Fig.5a vector path 1264
+fast_halo,Fast halo (gamma_v >= 3),fast_halo,20.0,1.8437939812,3.1859378317e-06,#d95f02,--,Chen+2026 Fig.5a vector path 1264
+fast_halo,Fast halo (gamma_v >= 3),fast_halo,20.0,1.9062763832,3.8568015817e-06,#d95f02,--,Chen+2026 Fig.5a vector path 1264
+fast_halo,Fast halo (gamma_v >= 3),fast_halo,20.0,1.9687588025,4.2897397846e-06,#d95f02,--,Chen+2026 Fig.5a vector path 1264
+fast_halo,Fast halo (gamma_v >= 3),fast_halo,20.0,2.0312412044,6.7684406463e-06,#d95f02,--,Chen+2026 Fig.5a vector path 1264
+fast_halo,Fast halo (gamma_v >= 3),fast_halo,20.0,2.0937236064,1.6015192436e-05,#d95f02,--,Chen+2026 Fig.5a vector path 1264
+fast_halo,Fast halo (gamma_v >= 3),fast_halo,20.0,2.1562060257,2.8643998670e-05,#d95f02,--,Chen+2026 Fig.5a vector path 1264
+fast_halo,Fast halo (gamma_v >= 3),fast_halo,20.0,2.2186884277,4.7583613040e-05,#d95f02,--,Chen+2026 Fig.5a vector path 1264
+fast_halo,Fast halo (gamma_v >= 3),fast_halo,20.0,2.2811708469,7.7141260518e-05,#d95f02,--,Chen+2026 Fig.5a vector path 1264
+fast_halo,Fast halo (gamma_v >= 3),fast_halo,20.0,2.3437939691,1.4214676085e-04,#d95f02,--,Chen+2026 Fig.5a vector path 1264
+fast_halo,Fast halo (gamma_v >= 3),fast_halo,20.0,2.4062763884,2.4114805545e-04,#d95f02,--,Chen+2026 Fig.5a vector path 1264
+fast_halo,Fast halo (gamma_v >= 3),fast_halo,20.0,2.4687587904,3.7997309605e-04,#d95f02,--,Chen+2026 Fig.5a vector path 1264
+fast_halo,Fast halo (gamma_v >= 3),fast_halo,20.0,2.5312412096,5.6789399991e-04,#d95f02,--,Chen+2026 Fig.5a vector path 1264
+fast_halo,Fast halo (gamma_v >= 3),fast_halo,20.0,2.5937236116,8.5800604374e-04,#d95f02,--,Chen+2026 Fig.5a vector path 1264
+fast_halo,Fast halo (gamma_v >= 3),fast_halo,20.0,2.6562060309,1.2329228817e-03,#d95f02,--,Chen+2026 Fig.5a vector path 1264
+fast_halo,Fast halo (gamma_v >= 3),fast_halo,20.0,2.7186884329,1.7360120297e-03,#d95f02,--,Chen+2026 Fig.5a vector path 1264
+fast_halo,Fast halo (gamma_v >= 3),fast_halo,20.0,2.7811708348,2.3422284571e-03,#d95f02,--,Chen+2026 Fig.5a vector path 1264
+fast_halo,Fast halo (gamma_v >= 3),fast_halo,20.0,2.8437939743,3.0881606054e-03,#d95f02,--,Chen+2026 Fig.5a vector path 1264
+fast_halo,Fast halo (gamma_v >= 3),fast_halo,20.0,2.9062763936,3.9014870782e-03,#d95f02,--,Chen+2026 Fig.5a vector path 1264
+fast_halo,Fast halo (gamma_v >= 3),fast_halo,20.0,2.9687587956,4.7551377297e-03,#d95f02,--,Chen+2026 Fig.5a vector path 1264
+fast_halo,Fast halo (gamma_v >= 3),fast_halo,20.0,3.0312411975,5.6138955932e-03,#d95f02,--,Chen+2026 Fig.5a vector path 1264
+fast_halo,Fast halo (gamma_v >= 3),fast_halo,20.0,3.0937236168,6.3982681552e-03,#d95f02,--,Chen+2026 Fig.5a vector path 1264
+fast_halo,Fast halo (gamma_v >= 3),fast_halo,20.0,3.1562060188,7.0349844371e-03,#d95f02,--,Chen+2026 Fig.5a vector path 1264
+fast_halo,Fast halo (gamma_v >= 3),fast_halo,20.0,3.2186884381,7.4520858355e-03,#d95f02,--,Chen+2026 Fig.5a vector path 1264
+fast_halo,Fast halo (gamma_v >= 3),fast_halo,20.0,3.2811708400,7.6154426736e-03,#d95f02,--,Chen+2026 Fig.5a vector path 1264
+fast_halo,Fast halo (gamma_v >= 3),fast_halo,20.0,3.3437939795,7.4621923839e-03,#d95f02,--,Chen+2026 Fig.5a vector path 1264
+fast_halo,Fast halo (gamma_v >= 3),fast_halo,20.0,3.4062763815,6.9969505692e-03,#d95f02,--,Chen+2026 Fig.5a vector path 1264
+fast_halo,Fast halo (gamma_v >= 3),fast_halo,20.0,3.4687588008,6.2993211002e-03,#d95f02,--,Chen+2026 Fig.5a vector path 1264
+fast_halo,Fast halo (gamma_v >= 3),fast_halo,20.0,3.5312412027,5.4711835428e-03,#d95f02,--,Chen+2026 Fig.5a vector path 1264
+fast_halo,Fast halo (gamma_v >= 3),fast_halo,20.0,3.5937236220,4.6092017519e-03,#d95f02,--,Chen+2026 Fig.5a vector path 1264
+fast_halo,Fast halo (gamma_v >= 3),fast_halo,20.0,3.6562060240,3.7460429227e-03,#d95f02,--,Chen+2026 Fig.5a vector path 1264
+fast_halo,Fast halo (gamma_v >= 3),fast_halo,20.0,3.7186884433,2.9590993564e-03,#d95f02,--,Chen+2026 Fig.5a vector path 1264
+fast_halo,Fast halo (gamma_v >= 3),fast_halo,20.0,3.7811708452,2.2534849633e-03,#d95f02,--,Chen+2026 Fig.5a vector path 1264
+fast_halo,Fast halo (gamma_v >= 3),fast_halo,20.0,3.8437939847,1.7161284122e-03,#d95f02,--,Chen+2026 Fig.5a vector path 1264
+fast_halo,Fast halo (gamma_v >= 3),fast_halo,20.0,3.9062763867,1.3077936163e-03,#d95f02,--,Chen+2026 Fig.5a vector path 1264
+fast_halo,Fast halo (gamma_v >= 3),fast_halo,20.0,3.9687588060,9.9122962463e-04,#d95f02,--,Chen+2026 Fig.5a vector path 1264
+fast_halo,Fast halo (gamma_v >= 3),fast_halo,20.0,4.0312412079,6.9780111057e-04,#d95f02,--,Chen+2026 Fig.5a vector path 1264
+fast_halo,Fast halo (gamma_v >= 3),fast_halo,20.0,4.0937236099,4.4677449468e-04,#d95f02,--,Chen+2026 Fig.5a vector path 1264
+fast_halo,Fast halo (gamma_v >= 3),fast_halo,20.0,4.1562060292,2.8527772750e-04,#d95f02,--,Chen+2026 Fig.5a vector path 1264
+fast_halo,Fast halo (gamma_v >= 3),fast_halo,20.0,4.2186884311,1.9243539455e-04,#d95f02,--,Chen+2026 Fig.5a vector path 1264
+fast_halo,Fast halo (gamma_v >= 3),fast_halo,20.0,4.2811708504,1.3033700857e-04,#d95f02,--,Chen+2026 Fig.5a vector path 1264
+fast_halo,Fast halo (gamma_v >= 3),fast_halo,20.0,4.3437939899,7.7823810990e-05,#d95f02,--,Chen+2026 Fig.5a vector path 1264
+fast_halo,Fast halo (gamma_v >= 3),fast_halo,20.0,4.4062763919,3.8281600804e-05,#d95f02,--,Chen+2026 Fig.5a vector path 1264
+fast_halo,Fast halo (gamma_v >= 3),fast_halo,20.0,4.4687587938,2.0578785471e-05,#d95f02,--,Chen+2026 Fig.5a vector path 1264
+fast_halo,Fast halo (gamma_v >= 3),fast_halo,20.0,4.5312412131,1.5534207205e-05,#d95f02,--,Chen+2026 Fig.5a vector path 1264
+fast_halo,Fast halo (gamma_v >= 3),fast_halo,20.0,4.5937236151,1.3528628811e-05,#d95f02,--,Chen+2026 Fig.5a vector path 1264
+fast_halo,Fast halo (gamma_v >= 3),fast_halo,20.0,4.6562060344,8.9300425559e-06,#d95f02,--,Chen+2026 Fig.5a vector path 1264
+fast_halo,Fast halo (gamma_v >= 3),fast_halo,20.0,4.7186884363,3.3046769744e-06,#d95f02,--,Chen+2026 Fig.5a vector path 1264
+lw_halo,"LW halo (J_LW,21 >= 7.5)",lw_halo,20.0,0.4687587869,1.5345882433e-06,#d95f02,-,Chen+2026 Fig.5a vector path 1265
+lw_halo,"LW halo (J_LW,21 >= 7.5)",lw_halo,20.0,0.5312412062,3.6981223902e-06,#d95f02,-,Chen+2026 Fig.5a vector path 1265
+lw_halo,"LW halo (J_LW,21 >= 7.5)",lw_halo,20.0,0.5937236081,6.0606503624e-06,#d95f02,-,Chen+2026 Fig.5a vector path 1265
+lw_halo,"LW halo (J_LW,21 >= 7.5)",lw_halo,20.0,0.6562060101,1.3060224925e-05,#d95f02,-,Chen+2026 Fig.5a vector path 1265
+lw_halo,"LW halo (J_LW,21 >= 7.5)",lw_halo,20.0,0.7186884294,2.6550521783e-05,#d95f02,-,Chen+2026 Fig.5a vector path 1265
+lw_halo,"LW halo (J_LW,21 >= 7.5)",lw_halo,20.0,0.7813115689,4.5471568451e-05,#d95f02,-,Chen+2026 Fig.5a vector path 1265
+lw_halo,"LW halo (J_LW,21 >= 7.5)",lw_halo,20.0,0.8437939708,6.3982686891e-05,#d95f02,-,Chen+2026 Fig.5a vector path 1265
+lw_halo,"LW halo (J_LW,21 >= 7.5)",lw_halo,20.0,0.9062763901,7.5742712542e-05,#d95f02,-,Chen+2026 Fig.5a vector path 1265
+lw_halo,"LW halo (J_LW,21 >= 7.5)",lw_halo,20.0,0.9687587921,7.6828258467e-05,#d95f02,-,Chen+2026 Fig.5a vector path 1265
+lw_halo,"LW halo (J_LW,21 >= 7.5)",lw_halo,20.0,1.0312411940,7.2823579758e-05,#d95f02,-,Chen+2026 Fig.5a vector path 1265
+lw_halo,"LW halo (J_LW,21 >= 7.5)",lw_halo,20.0,1.0937236133,6.2398436123e-05,#d95f02,-,Chen+2026 Fig.5a vector path 1265
+lw_halo,"LW halo (J_LW,21 >= 7.5)",lw_halo,20.0,1.1562060153,5.1930309628e-05,#d95f02,-,Chen+2026 Fig.5a vector path 1265
+lw_halo,"LW halo (J_LW,21 >= 7.5)",lw_halo,20.0,1.2186884346,3.6458697195e-05,#d95f02,-,Chen+2026 Fig.5a vector path 1265
+lw_halo,"LW halo (J_LW,21 >= 7.5)",lw_halo,20.0,1.2813115567,2.2382665733e-05,#d95f02,-,Chen+2026 Fig.5a vector path 1265
+lw_halo,"LW halo (J_LW,21 >= 7.5)",lw_halo,20.0,1.3437939760,1.4042349464e-05,#d95f02,-,Chen+2026 Fig.5a vector path 1265
+lw_halo,"LW halo (J_LW,21 >= 7.5)",lw_halo,20.0,1.4062763780,8.7325673846e-06,#d95f02,-,Chen+2026 Fig.5a vector path 1265
+lw_halo,"LW halo (J_LW,21 >= 7.5)",lw_halo,20.0,1.4687587973,6.4899687916e-06,#d95f02,-,Chen+2026 Fig.5a vector path 1265
+lw_halo,"LW halo (J_LW,21 >= 7.5)",lw_halo,20.0,1.5312411992,2.7540053395e-06,#d95f02,-,Chen+2026 Fig.5a vector path 1265
+lw_halo,"LW halo (J_LW,21 >= 7.5)",lw_halo,20.0,3.0937236168,1.8092746767e-06,#d95f02,-,Chen+2026 Fig.5a vector path 1265
+lw_halo,"LW halo (J_LW,21 >= 7.5)",lw_halo,20.0,3.1562060188,5.5083845146e-06,#d95f02,-,Chen+2026 Fig.5a vector path 1265
+lw_halo,"LW halo (J_LW,21 >= 7.5)",lw_halo,20.0,3.2186884381,1.1054907449e-05,#d95f02,-,Chen+2026 Fig.5a vector path 1265
+lw_halo,"LW halo (J_LW,21 >= 7.5)",lw_halo,20.0,3.2811708400,1.6645879640e-05,#d95f02,-,Chen+2026 Fig.5a vector path 1265
+lw_halo,"LW halo (J_LW,21 >= 7.5)",lw_halo,20.0,3.3437939795,1.8690909882e-05,#d95f02,-,Chen+2026 Fig.5a vector path 1265
+lw_halo,"LW halo (J_LW,21 >= 7.5)",lw_halo,20.0,3.4062763815,1.9191450718e-05,#d95f02,-,Chen+2026 Fig.5a vector path 1265
+lw_halo,"LW halo (J_LW,21 >= 7.5)",lw_halo,20.0,3.4687588008,1.9269637619e-05,#d95f02,-,Chen+2026 Fig.5a vector path 1265
+lw_halo,"LW halo (J_LW,21 >= 7.5)",lw_halo,20.0,3.5312412027,2.8877868179e-05,#d95f02,-,Chen+2026 Fig.5a vector path 1265
+lw_halo,"LW halo (J_LW,21 >= 7.5)",lw_halo,20.0,3.5937236220,4.3423835001e-05,#d95f02,-,Chen+2026 Fig.5a vector path 1265
+lw_halo,"LW halo (J_LW,21 >= 7.5)",lw_halo,20.0,3.6562060240,5.2389796476e-05,#d95f02,-,Chen+2026 Fig.5a vector path 1265
+lw_halo,"LW halo (J_LW,21 >= 7.5)",lw_halo,20.0,3.7186884433,5.4195252375e-05,#d95f02,-,Chen+2026 Fig.5a vector path 1265
+lw_halo,"LW halo (J_LW,21 >= 7.5)",lw_halo,20.0,3.7811708452,4.6405413450e-05,#d95f02,-,Chen+2026 Fig.5a vector path 1265
+lw_halo,"LW halo (J_LW,21 >= 7.5)",lw_halo,20.0,3.8437939847,4.0386763887e-05,#d95f02,-,Chen+2026 Fig.5a vector path 1265
+lw_halo,"LW halo (J_LW,21 >= 7.5)",lw_halo,20.0,3.9062763867,3.0178247587e-05,#d95f02,-,Chen+2026 Fig.5a vector path 1265
+lw_halo,"LW halo (J_LW,21 >= 7.5)",lw_halo,20.0,3.9687588060,2.6712939097e-05,#d95f02,-,Chen+2026 Fig.5a vector path 1265
+lw_halo,"LW halo (J_LW,21 >= 7.5)",lw_halo,20.0,4.0312412079,2.8239275257e-05,#d95f02,-,Chen+2026 Fig.5a vector path 1265
+lw_halo,"LW halo (J_LW,21 >= 7.5)",lw_halo,20.0,4.0937236099,3.9600860405e-05,#d95f02,-,Chen+2026 Fig.5a vector path 1265
+lw_halo,"LW halo (J_LW,21 >= 7.5)",lw_halo,20.0,4.1562060292,5.2071261328e-05,#d95f02,-,Chen+2026 Fig.5a vector path 1265
+lw_halo,"LW halo (J_LW,21 >= 7.5)",lw_halo,20.0,4.2186884311,6.0606498567e-05,#d95f02,-,Chen+2026 Fig.5a vector path 1265
+lw_halo,"LW halo (J_LW,21 >= 7.5)",lw_halo,20.0,4.2811708504,5.7408467095e-05,#d95f02,-,Chen+2026 Fig.5a vector path 1265
+lw_halo,"LW halo (J_LW,21 >= 7.5)",lw_halo,20.0,4.3437939899,4.5905002161e-05,#d95f02,-,Chen+2026 Fig.5a vector path 1265
+lw_halo,"LW halo (J_LW,21 >= 7.5)",lw_halo,20.0,4.4062763919,3.5244115344e-05,#d95f02,-,Chen+2026 Fig.5a vector path 1265
+lw_halo,"LW halo (J_LW,21 >= 7.5)",lw_halo,20.0,4.4687587938,2.7934755606e-05,#d95f02,-,Chen+2026 Fig.5a vector path 1265
+lw_halo,"LW halo (J_LW,21 >= 7.5)",lw_halo,20.0,4.5312412131,2.1201594753e-05,#d95f02,-,Chen+2026 Fig.5a vector path 1265
+lw_halo,"LW halo (J_LW,21 >= 7.5)",lw_halo,20.0,4.5937236151,1.2745480191e-05,#d95f02,-,Chen+2026 Fig.5a vector path 1265
+lw_halo,"LW halo (J_LW,21 >= 7.5)",lw_halo,20.0,4.6562060344,5.8231246283e-06,#d95f02,-,Chen+2026 Fig.5a vector path 1265
+lw_halo,"LW halo (J_LW,21 >= 7.5)",lw_halo,20.0,4.7186884363,3.8962036824e-06,#d95f02,-,Chen+2026 Fig.5a vector path 1265
+lw_halo,"LW halo (J_LW,21 >= 7.5)",lw_halo,20.0,4.7811708556,3.8962036824e-06,#d95f02,-,Chen+2026 Fig.5a vector path 1265
+lw_halo,"LW halo (J_LW,21 >= 7.5)",lw_halo,20.0,4.8437939778,3.5006099433e-06,#d95f02,-,Chen+2026 Fig.5a vector path 1265
+lw_halo,"LW halo (J_LW,21 >= 7.5)",lw_halo,20.0,4.9062763971,2.3216862344e-06,#d95f02,-,Chen+2026 Fig.5a vector path 1265
+lw_halo,"LW halo (J_LW,21 >= 7.5)",lw_halo,20.0,4.9687587990,2.4394209499e-06,#d95f02,-,Chen+2026 Fig.5a vector path 1265
+popii,Pop-II,popii,20.0,0.2813115637,4.6029599686e-06,#1b9e77,-,Chen+2026 Fig.5a vector path 1032
+popii,Pop-II,popii,20.0,0.3437939656,1.2237670131e-05,#1b9e77,-,Chen+2026 Fig.5a vector path 1032
+popii,Pop-II,popii,20.0,0.4062763849,1.9545808783e-05,#1b9e77,-,Chen+2026 Fig.5a vector path 1032
+popii,Pop-II,popii,20.0,0.4687587869,2.8721743168e-05,#1b9e77,-,Chen+2026 Fig.5a vector path 1032
+popii,Pop-II,popii,20.0,0.5312412062,4.8134932135e-05,#1b9e77,-,Chen+2026 Fig.5a vector path 1032
+popii,Pop-II,popii,20.0,0.5937236081,7.9799700771e-05,#1b9e77,-,Chen+2026 Fig.5a vector path 1032
+popii,Pop-II,popii,20.0,0.6562060101,1.2599497286e-04,#1b9e77,-,Chen+2026 Fig.5a vector path 1032
+popii,Pop-II,popii,20.0,0.7186884294,1.8971639185e-04,#1b9e77,-,Chen+2026 Fig.5a vector path 1032
+popii,Pop-II,popii,20.0,0.7813115689,2.8181923989e-04,#1b9e77,-,Chen+2026 Fig.5a vector path 1032
+popii,Pop-II,popii,20.0,0.8437939708,3.9147287302e-04,#1b9e77,-,Chen+2026 Fig.5a vector path 1032
+popii,Pop-II,popii,20.0,0.9062763901,4.8200208899e-04,#1b9e77,-,Chen+2026 Fig.5a vector path 1032
+popii,Pop-II,popii,20.0,0.9687587921,5.3140639117e-04,#1b9e77,-,Chen+2026 Fig.5a vector path 1032
+popii,Pop-II,popii,20.0,1.0312411940,5.2212591248e-04,#1b9e77,-,Chen+2026 Fig.5a vector path 1032
+popii,Pop-II,popii,20.0,1.0937236133,4.8102322898e-04,#1b9e77,-,Chen+2026 Fig.5a vector path 1032
+popii,Pop-II,popii,20.0,1.1562060153,4.1076771595e-04,#1b9e77,-,Chen+2026 Fig.5a vector path 1032
+popii,Pop-II,popii,20.0,1.2186884346,3.2337889565e-04,#1b9e77,-,Chen+2026 Fig.5a vector path 1032
+popii,Pop-II,popii,20.0,1.2813115567,2.2826861625e-04,#1b9e77,-,Chen+2026 Fig.5a vector path 1032
+popii,Pop-II,popii,20.0,1.3437939760,1.4272587364e-04,#1b9e77,-,Chen+2026 Fig.5a vector path 1032
+popii,Pop-II,popii,20.0,1.4062763780,7.9475912051e-05,#1b9e77,-,Chen+2026 Fig.5a vector path 1032
+popii,Pop-II,popii,20.0,1.4687587973,3.9253539443e-05,#1b9e77,-,Chen+2026 Fig.5a vector path 1032
+popii,Pop-II,popii,20.0,1.5312411992,1.6211730985e-05,#1b9e77,-,Chen+2026 Fig.5a vector path 1032
+popii,Pop-II,popii,20.0,1.5937236185,6.9261919360e-06,#1b9e77,-,Chen+2026 Fig.5a vector path 1032
+popii,Pop-II,popii,20.0,1.6562060205,2.2036525371e-06,#1b9e77,-,Chen+2026 Fig.5a vector path 1032

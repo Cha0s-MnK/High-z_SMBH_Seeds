@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Shared helpers for the Illustris-1-Dark + TNG50-1-Dark fixed-tree pipeline."""
+"""Shared helpers for the TNG50-1-Dark and TNG100-1-Dark tree pipeline."""
 
 from __future__ import annotations
 
@@ -16,66 +16,94 @@ from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 
 
-ROOT = Path(__file__).resolve().parents[1]
-DATA_DIR = ROOT / "data"
+DEFAULT_DATA_DIR = Path("/lingshan/disk3/subonan/TNG50+100-1-Dark")
+TNG_API_ENV = "TNG_API_KEY"
+BASE_URL = "https://www.tng-project.org/api/"
+TNG_H = 0.6774
+TNG_BOX_SIZES_CKPC_H = {
+    "tng50_1_dark": 35000.0,
+    "tng100_1_dark": 75000.0,
+}
+TNG_DM_PARTICLE_MASS_MSUN = {
+    "tng50_1_dark": 5.3843825e5,
+    "tng100_1_dark": 8.8565106e6,
+}
+TNG_TREE_MIN_PARTICLES = 500
+TNG_TREE_MIN_MASS_MSUN = {
+    sim_key: TNG_TREE_MIN_PARTICLES * particle_mass
+    for sim_key, particle_mass in TNG_DM_PARTICLE_MASS_MSUN.items()
+}
+
+
+ROOT = DEFAULT_DATA_DIR
+DATA_DIR = DEFAULT_DATA_DIR
 RAW_TREE_DIR = DATA_DIR / "sublink_full_dark"
 FIXED_TREE_DIR = DATA_DIR / "fixed_trees_large_spin_dark"
 
 TARGETS_JSON = DATA_DIR / "targets_z0_dark.json"
 TARGET_MANIFEST_CSV = DATA_DIR / "target_manifest_dark.csv"
 SELECTION_LABELS_CSV = DATA_DIR / "halo_selection_labels_dark.csv"
-FULL_PHYSICS_COUNTERPARTS_CSV = DATA_DIR / "full_physics_counterparts_z0.csv"
-FULL_PHYSICS_COUNTERPARTS_SUMMARY_JSON = DATA_DIR / "full_physics_counterparts_summary.json"
-EFF_RADIUS_CATALOGUE_CSV = DATA_DIR / "eff_radius_catalogue.csv"
-NEUMAYER_FIG3_DIVIDER_JSON = DATA_DIR / "neumayer2020_fig3_divider.json"
+SELECTED_HALO_IDS_TXT = DATA_DIR / "selected_halos_z0_dark.txt"
+SELECTED_SUBHALO_IDS_TXT = DATA_DIR / "selected_subhalos_z0_dark.txt"
 
-SUBHALO_MATCHING_TO_DARK_FILES = {
-    "illustris1": DATA_DIR / "subhalo_matching_to_dark_illustris1.hdf5",
-    "tng50_1": DATA_DIR / "subhalo_matching_to_dark_tng50_1.hdf5",
-}
+DOWNLOAD_FAILURES_JSON = DATA_DIR / "full_tree_download_failures.json"
+DOWNLOAD_SUMMARY_JSON = DATA_DIR / "full_tree_download_summary.json"
 
-DOWNLOAD_FAILURES_JSON = ROOT / "full_tree_download_failures.json"
-DOWNLOAD_SUMMARY_JSON = ROOT / "full_tree_download_summary.json"
 
-BASE_URL = "https://www.illustris-project.org/api/"
-H100 = 0.704
+def _build_simulations(data_dir: Path) -> dict[str, dict[str, Any]]:
+    return {
+        "tng50_1_dark": {
+            "key": "tng50_1_dark",
+            "name": "TNG50-1-Dark",
+            "h": TNG_H,
+            "box_size_ckpc_h": TNG_BOX_SIZES_CKPC_H["tng50_1_dark"],
+            "groupcat_dir": data_dir / "groupcat_fields_tng50_1_dark",
+            "snap_to_z_path": data_dir / "snaps2redshifts_tng50_1_dark.txt",
+            "is_dark": True,
+        },
+        "tng100_1_dark": {
+            "key": "tng100_1_dark",
+            "name": "TNG100-1-Dark",
+            "h": TNG_H,
+            "box_size_ckpc_h": TNG_BOX_SIZES_CKPC_H["tng100_1_dark"],
+            "groupcat_dir": data_dir / "groupcat_fields_tng100_1_dark",
+            "snap_to_z_path": data_dir / "snaps2redshifts_tng100_1_dark.txt",
+            "is_dark": True,
+        },
+    }
 
-SIMULATIONS: dict[str, dict[str, Any]] = {
-    "illustris1_dark": {
-        "key": "illustris1_dark",
-        "name": "Illustris-1-Dark",
-        "groupcat_dir": DATA_DIR / "groupcat_fields_illustris1_dark",
-        "snap_to_z_path": DATA_DIR / "snaps2redshifts_illustris1_dark.txt",
-        "full_physics_key": "illustris1",
-        "is_dark": True,
-    },
-    "tng50_1_dark": {
-        "key": "tng50_1_dark",
-        "name": "TNG50-1-Dark",
-        "groupcat_dir": DATA_DIR / "groupcat_fields_tng50_1_dark",
-        "snap_to_z_path": DATA_DIR / "snaps2redshifts_tng50_1_dark.txt",
-        "full_physics_key": "tng50_1",
-        "is_dark": True,
-    },
-    "illustris1": {
-        "key": "illustris1",
-        "name": "Illustris-1",
-        "groupcat_dir": DATA_DIR / "groupcat_fields_illustris1",
-        "snap_to_z_path": DATA_DIR / "snaps2redshifts_illustris1.txt",
-        "matching_to_dark_path": SUBHALO_MATCHING_TO_DARK_FILES["illustris1"],
-        "dark_key": "illustris1_dark",
-        "is_dark": False,
-    },
-    "tng50_1": {
-        "key": "tng50_1",
-        "name": "TNG50-1",
-        "groupcat_dir": DATA_DIR / "groupcat_fields_tng50_1",
-        "snap_to_z_path": DATA_DIR / "snaps2redshifts_tng50_1.txt",
-        "matching_to_dark_path": SUBHALO_MATCHING_TO_DARK_FILES["tng50_1"],
-        "dark_key": "tng50_1_dark",
-        "is_dark": False,
-    },
-}
+
+SIMULATIONS: dict[str, dict[str, Any]] = _build_simulations(DATA_DIR)
+
+
+def configure_data_dir(data_dir: str | os.PathLike[str] | Path) -> Path:
+    """Configure every pipeline path from one absolute data directory."""
+
+    candidate = Path(data_dir).expanduser()
+    if not candidate.is_absolute():
+        raise ValueError(
+            f"--data_dir must be an absolute path, received: {data_dir}"
+        )
+    configured = Path(os.path.abspath(candidate))
+
+    global ROOT, DATA_DIR, RAW_TREE_DIR, FIXED_TREE_DIR
+    global TARGETS_JSON, TARGET_MANIFEST_CSV, SELECTION_LABELS_CSV
+    global SELECTED_HALO_IDS_TXT, SELECTED_SUBHALO_IDS_TXT
+    global DOWNLOAD_FAILURES_JSON, DOWNLOAD_SUMMARY_JSON, SIMULATIONS
+
+    ROOT = configured
+    DATA_DIR = configured
+    RAW_TREE_DIR = DATA_DIR / "sublink_full_dark"
+    FIXED_TREE_DIR = DATA_DIR / "fixed_trees_large_spin_dark"
+    TARGETS_JSON = DATA_DIR / "targets_z0_dark.json"
+    TARGET_MANIFEST_CSV = DATA_DIR / "target_manifest_dark.csv"
+    SELECTION_LABELS_CSV = DATA_DIR / "halo_selection_labels_dark.csv"
+    SELECTED_HALO_IDS_TXT = DATA_DIR / "selected_halos_z0_dark.txt"
+    SELECTED_SUBHALO_IDS_TXT = DATA_DIR / "selected_subhalos_z0_dark.txt"
+    DOWNLOAD_FAILURES_JSON = DATA_DIR / "full_tree_download_failures.json"
+    DOWNLOAD_SUMMARY_JSON = DATA_DIR / "full_tree_download_summary.json"
+    SIMULATIONS = _build_simulations(DATA_DIR)
+    return DATA_DIR
 
 
 def ensure_dirs() -> None:
@@ -109,61 +137,34 @@ def groupcat_snapshot_field_path(sim_key: str, snapnum: int, field: str) -> Path
     return spec["groupcat_dir"] / f"snap_{int(snapnum):03d}" / f"{field}.hdf5"
 
 
-def full_physics_key_for_dark(sim_key: str) -> str:
-    spec = get_simulation_spec(sim_key)
-    if not spec.get("is_dark", False):
-        return spec["key"]
-    fp_key = spec.get("full_physics_key")
-    if not fp_key:
-        raise KeyError(f"No full-physics counterpart is registered for simulation {sim_key}")
-    return str(fp_key)
-
-
-def subhalo_matching_to_dark_path(sim_key_or_fp_key: str) -> Path:
-    fp_key = full_physics_key_for_dark(sim_key_or_fp_key)
-    spec = get_simulation_spec(fp_key)
-    try:
-        return Path(spec["matching_to_dark_path"])
-    except KeyError as exc:
-        raise KeyError(f"No subhalo_matching_to_dark cache path is registered for simulation {sim_key_or_fp_key}") from exc
-
-
-def full_physics_groupcat_field_path(sim_key_or_fp_key: str, field: str) -> Path:
-    fp_key = full_physics_key_for_dark(sim_key_or_fp_key)
-    return groupcat_field_path(fp_key, field)
-
-
-def full_physics_groupcat_snapshot_field_path(sim_key_or_fp_key: str, snapnum: int, field: str) -> Path:
-    fp_key = full_physics_key_for_dark(sim_key_or_fp_key)
-    return groupcat_snapshot_field_path(fp_key, snapnum, field)
-
-
 def snap_to_z_path(sim_key: str) -> Path:
-    spec = get_simulation_spec(sim_key)
-    return spec["snap_to_z_path"]
+    return get_simulation_spec(sim_key)["snap_to_z_path"]
 
 
 def suite_prefixed_raw_name(sim_key: str, subhalo_id: int) -> str:
-    sim_key = get_simulation_spec(sim_key)["key"]
-    return f"{sim_key}_sublink_full_subhalo_{int(subhalo_id)}.hdf5"
+    key = get_simulation_spec(sim_key)["key"]
+    return f"{key}_sublink_full_subhalo_{int(subhalo_id)}.hdf5"
 
 
 def suite_prefixed_fixed_name(sim_key: str, file_index: int) -> str:
-    sim_key = get_simulation_spec(sim_key)["key"]
-    return f"{sim_key}_{int(file_index):04d}.dat"
+    key = get_simulation_spec(sim_key)["key"]
+    return f"{key}_{int(file_index):04d}.dat"
 
 
 def require_api_key() -> str:
-    api_key = os.environ.get("ILLUSTRIS_API_KEY")
+    api_key = os.environ.get(TNG_API_ENV)
     if not api_key:
         raise RuntimeError(
-            "ILLUSTRIS_API_KEY is not set. Export it before running the pipeline."
+            f"{TNG_API_ENV} is not set. Export it before running the TNG pipeline."
         )
     return api_key
 
 
 def normalize_url(url: str) -> str:
-    return url.replace("http://www.illustris-project.org/", "https://www.illustris-project.org/")
+    return (
+        url.replace("http://www.tng-project.org/", "https://www.tng-project.org/")
+        .replace("http://tng-project.org/", "https://www.tng-project.org/")
+    )
 
 
 def build_session() -> requests.Session:
@@ -225,7 +226,14 @@ def download_binary(
             if tmp.exists():
                 tmp.unlink()
             env = os.environ.copy()
-            for key in ("http_proxy", "https_proxy", "HTTP_PROXY", "HTTPS_PROXY", "ALL_PROXY", "all_proxy"):
+            for key in (
+                "http_proxy",
+                "https_proxy",
+                "HTTP_PROXY",
+                "HTTPS_PROXY",
+                "ALL_PROXY",
+                "all_proxy",
+            ):
                 env.pop(key, None)
             cmd = [
                 "wget",
@@ -270,11 +278,13 @@ def write_json(path: Path, payload: Any) -> None:
     path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
 
 
-def read_json(path: Path = TARGETS_JSON) -> Any:
-    return json.loads(path.read_text(encoding="utf-8"))
+def read_json(path: Path | None = None) -> Any:
+    target = TARGETS_JSON if path is None else path
+    return json.loads(target.read_text(encoding="utf-8"))
 
 
-def read_manifest(path: Path = TARGET_MANIFEST_CSV) -> list[dict[str, str]]:
-    with path.open("r", encoding="utf-8", newline="") as handle:
+def read_manifest(path: Path | None = None) -> list[dict[str, str]]:
+    target = TARGET_MANIFEST_CSV if path is None else path
+    with target.open("r", encoding="utf-8", newline="") as handle:
         reader = csv.DictReader(handle)
         return [dict(row) for row in reader]

@@ -1,0 +1,85 @@
+{
+  "source_pdf": "/home/subonan/_papers/A two-phase model of galaxy formation- IV. Seeding and growing SMBHs in DM halos_Chen+2026.pdf",
+  "source_sha256": "88b7cb4cc8b1ffe74c7510ab4e0de3d01bf95cd49afeb8ce44944ddf341911bb",
+  "publication_identifier": "arXiv:2509.03283v3",
+  "official_machine_readable_array_found": false,
+  "pdf_page": 9,
+  "panel": "5a",
+  "raster_dpi": 300,
+  "raster_crop_pixels_full_page": [
+    360,
+    220,
+    620,
+    510
+  ],
+  "retained_raster": "chen2026_fig05a_panel.png",
+  "axis_calibration": {
+    "x": {
+      "pixel_coordinates_in_crop": [
+        11.126319172229216,
+        126.78388634370839,
+        242.4414555195417,
+        358.0990226910209,
+        473.75659186685436,
+        589.4141590383334
+      ],
+      "physical_values_log10_msun": [
+        0.0,
+        1.0,
+        2.0,
+        3.0,
+        4.0,
+        5.0
+      ],
+      "fit_log10_msun_per_pixel": [
+        0.008646213270205098,
+        -0.09620052599974015
+      ],
+      "rms_residual_dex": 4.142680035991919e-09,
+      "max_abs_residual_dex": 5.446596063052311e-09
+    },
+    "y": {
+      "pixel_coordinates_in_crop": [
+        45.33188715316669,
+        100.63788535614583,
+        155.92760619893755,
+        211.2336044019167,
+        266.5396006005418,
+        321.84559880352083,
+        377.1515950021459,
+        432.44131784929164,
+        485.4523926664168
+      ],
+      "physical_values_log10_phi": [
+        2.0,
+        1.0,
+        0.0,
+        -1.0,
+        -2.0,
+        -3.0,
+        -4.0,
+        -5.0,
+        -6.0
+      ],
+      "fit_log10_phi_per_pixel": [
+        -0.018132301576902637,
+        2.82835284984314
+      ],
+      "rms_residual_dex": 0.01095012027005377,
+      "max_abs_residual_dex": 0.02598366478671288
+    }
+  },
+  "trace_method": "Vector path extraction after reproducible pdftocairo SVG conversion; coloured paths were selected by source stroke colour and panel-5a transform. The grey all-seed support was digitised from vector path 1261.",
+  "vector_path_indices": {
+    "all_seeds": 1261,
+    "popiii_subedd": 1262,
+    "popiii_edd": 1263,
+    "fast_halo": 1264,
+    "lw_halo": 1265,
+    "popii": 1032
+  },
+  "interpolation": "None; retained every visible vector polyline vertex after removing off-panel closure points and duplicate x coordinates.",
+  "smoothing": "None.",
+  "uncertainty": "The source grey fill is plotted support down to the panel floor, not a statistical confidence interval. The lower-envelope rows record the positive panel floor required for log-axis rendering and are not an additional physical model prediction.",
+  "rows_written": 482
+}

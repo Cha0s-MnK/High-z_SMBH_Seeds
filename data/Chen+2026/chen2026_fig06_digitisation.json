@@ -1,0 +1,77 @@
+{
+  "source_pdf": "/home/subonan/_papers/A two-phase model of galaxy formation- IV. Seeding and growing SMBHs in DM halos_Chen+2026.pdf",
+  "source_sha256": "88b7cb4cc8b1ffe74c7510ab4e0de3d01bf95cd49afeb8ce44944ddf341911bb",
+  "publication_identifier": "arXiv:2509.03283v3",
+  "official_machine_readable_array_found": false,
+  "pdf_page": 10,
+  "panels": ["6a", "6d"],
+  "retained_panels": ["a", "d"],
+  "raster_dpi": 300,
+  "raster_crop_pixels_full_page": [230, 210, 755, 1090],
+  "retained_raster": "chen2026_fig06_panel.png",
+  "axis_calibration": {
+    "coordinate_system": "300-dpi crop pixels, origin at the upper-left of chen2026_fig06_panel.png",
+    "x": {
+      "pixel_coordinates_in_crop": [154.179705748, 273.597040465, 393.030650538, 512.447985256, 631.881595329],
+      "physical_values_log10_1pz": [0.8, 1.0, 1.2, 1.4, 1.6],
+      "fit_log10_1pz_per_pixel": [0.001674677531, 0.541803072],
+      "rms_residual_dex": 6.676350690e-06,
+      "max_abs_residual_dex": 8.176937365e-06
+    },
+    "rate_y": {
+      "pixel_coordinates_in_crop": [106.894392771, 169.036329051, 231.178265331, 293.320199607, 355.462135886, 417.604072166, 479.746008446],
+      "physical_values_log10_value": [2.0, 1.0, 0.0, -1.0, -2.0, -3.0, -4.0],
+      "fit_log10_value_per_pixel": [-0.016092187, 3.72016516],
+      "rms_residual_dex": 7.979498204e-09,
+      "max_abs_residual_dex": 1.381399661e-08,
+      "units": "Mpc^-3 dex^-1"
+    },
+    "cumulative_y": {
+      "pixel_coordinates_in_crop": [621.412694630, 693.206323803, 764.999952976, 836.793584153, 908.587213327, 980.364567144],
+      "physical_values_log10_value": [1.0, 0.0, -1.0, -2.0, -3.0, -4.0],
+      "fit_log10_value_per_pixel": [-0.01392926, 9.65586433],
+      "rms_residual_dex": 6.386889719e-05,
+      "max_abs_residual_dex": 1.07961637e-04,
+      "units": "Mpc^-3"
+    }
+  },
+  "source_panel_vector_bounds": {
+    "x_raw": [58.319963, 361.25749],
+    "rate_y_raw": [276.934934, 507.601406],
+    "cumulative_y_raw": [40.503019, 271.169491],
+    "vector_transform": "matrix(0.481045,0,0,-0.481045,61.01579,312.925178)"
+  },
+  "source_trace_redshift_range": [5.0, 50.0],
+  "vector_path_indices": {
+    "panel_6a": {
+      "all_seeds": 985,
+      "popiii_subedd": 1161,
+      "popiii_edd": 1162,
+      "popii": 987
+    },
+    "panel_6d": {
+      "all_seeds": 1630,
+      "popiii_subedd": 1816,
+      "popiii_edd": 1817,
+      "popii": 1631
+    },
+    "deliberately_excluded": {
+      "fast_halo_panel_6a": 1163,
+      "lw_halo_panel_6a": 1164,
+      "fast_halo_panel_6d": 1818,
+      "lw_halo_panel_6d": 1819
+    }
+  },
+  "excluded_reference_flavours": [
+    "Fast halo (gamma_v >= 3)",
+    "LW halo (J_LW,21 >= 7.5)"
+  ],
+  "trace_method": "Reproducible pdftocairo SVG vector-path extraction. The selected first-column paths were clipped to the panel rectangle and z<=50 boundary; off-panel closure points were removed, visible boundary intersections were retained, duplicate x coordinates were removed, and the remaining vertices were calibrated directly to the source axes.",
+  "interpolation": "None; no analytic fit or extrapolation below the native source low-redshift end near z=5.",
+  "smoothing": "None.",
+  "redshift_calibration_tolerance": 1.0e-6,
+  "uncertainty": "The digitised curves are source-figure traces, not uncertainty bands.",
+  "rows_written": 306,
+  "fig12_visible_roles": ["all_seeds", "popiii_subedd", "popiii_edd", "popii"],
+  "fig12_omission_statement": "Fast halo and LW halo were inspected during vector extraction but are deliberately absent from the Fig. 12 CSV and plot."
+}

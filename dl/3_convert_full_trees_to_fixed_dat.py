@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Convert raw dark-matter full trees to corrected fixed-tree .dat files."""
+"""Convert raw TNG dark-matter trees to corrected fixed-tree .dat files."""
 
 from __future__ import annotations
 
@@ -12,15 +12,7 @@ from pathlib import Path
 import h5py
 import numpy as np
 
-from _common import (
-    FIXED_TREE_DIR,
-    H100,
-    RAW_TREE_DIR,
-    TARGET_MANIFEST_CSV,
-    ensure_dirs,
-    snap_to_z_path,
-    write_json,
-)
+import _common
 
 
 HEADER = (
@@ -45,10 +37,12 @@ class HaloNode:
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
-        "--limit",
-        type=int,
-        default=0,
-        help="Convert only the first N manifest rows. 0 means all available rows.",
+        "--data_dir",
+        default=str(_common.DEFAULT_DATA_DIR),
+        help=(
+            "Absolute directory containing the manifest, raw trees, and fixed trees. "
+            "The default is /lingshan/disk3/subonan/TNG50+100-1-Dark."
+        ),
     )
     parser.add_argument(
         "--overwrite",
@@ -58,10 +52,15 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--min-mass-msun",
         type=float,
-        default=1e9,
-        help="Minimum halo mass retained before correction, matching Alex treefix.py.",
+        default=1.0e9,
+        help="Strict minimum halo mass retained at every snapshot [Msun].",
     )
-    return parser.parse_args()
+    args = parser.parse_args()
+    if not Path(args.data_dir).expanduser().is_absolute():
+        parser.error("--data_dir must be an absolute path.")
+    if args.min_mass_msun <= 0.0:
+        parser.error("--min-mass-msun must be positive.")
+    return args
 
 
 def load_snap_to_redshift(path: Path) -> np.ndarray:
@@ -73,9 +72,14 @@ def load_snap_to_redshift(path: Path) -> np.ndarray:
     return table
 
 
-def load_raw_nodes(path: Path, snap_to_z: np.ndarray, min_mass_msun: float) -> list[HaloNode]:
+def load_raw_nodes(
+    path: Path,
+    snap_to_z: np.ndarray,
+    min_mass_msun: float,
+    h: float,
+) -> list[HaloNode]:
     with h5py.File(path, "r") as handle:
-        mass = np.asarray(handle["SubhaloMass"][()], dtype=np.float64) * 1e10 / H100
+        mass = np.asarray(handle["SubhaloMass"][()], dtype=np.float64) * 1.0e10 / h
         first_progenitor = np.asarray(handle["FirstProgenitorID"][()], dtype=np.int64)
         subhalo_id = np.asarray(handle["SubhaloID"][()], dtype=np.int64)
         descendant_id = np.asarray(handle["DescendantID"][()], dtype=np.int64)
@@ -96,10 +100,10 @@ def load_raw_nodes(path: Path, snap_to_z: np.ndarray, min_mass_msun: float) -> l
     spin = spin[mask][::-1]
 
     if np.any((snap_num < 0) | (snap_num >= len(snap_to_z))):
-        raise RuntimeError(f"{path.name} contains snapshot indices outside the lookup table range.")
+        raise RuntimeError(f"{path.name} contains snapshot indices outside its lookup table.")
     redshift = snap_to_z[snap_num]
     if np.any(~np.isfinite(redshift)):
-        raise RuntimeError(f"{path.name} references snapshot numbers with undefined redshifts.")
+        raise RuntimeError(f"{path.name} references snapshots with undefined redshifts.")
 
     out: list[HaloNode] = []
     for idx in range(len(mass)):
@@ -171,37 +175,50 @@ def write_fixed_tree(path: Path, nodes: list[HaloNode]) -> None:
 
 def main() -> None:
     args = parse_args()
-    ensure_dirs()
+    _common.configure_data_dir(args.data_dir)
+    _common.ensure_dirs()
 
-    with TARGET_MANIFEST_CSV.open("r", encoding="utf-8", newline="") as handle:
-        rows = list(csv.DictReader(handle))
-    if args.limit > 0:
-        rows = rows[: args.limit]
-
+    rows = _common.read_manifest()
+    sim_keys = sorted({row["simulation_key"] for row in rows})
     snap_tables = {
-        sim_key: load_snap_to_redshift(snap_to_z_path(sim_key))
-        for sim_key in sorted({row["simulation_key"] for row in rows})
+        sim_key: load_snap_to_redshift(_common.snap_to_z_path(sim_key))
+        for sim_key in sim_keys
     }
 
     converted = 0
     skipped = 0
     conversion_rows: list[dict[str, object]] = []
+    per_suite: dict[str, dict[str, int]] = {
+        sim_key: {"requested": 0, "converted": 0, "skipped_existing": 0}
+        for sim_key in sim_keys
+    }
 
-    id_lookup_csv = FIXED_TREE_DIR / "id_lookup_large_dark.csv"
-    id_lookup_txt = FIXED_TREE_DIR / "id_lookup_large_dark.txt"
+    id_lookup_csv = _common.FIXED_TREE_DIR / "id_lookup_large_dark.csv"
+    id_lookup_txt = _common.FIXED_TREE_DIR / "id_lookup_large_dark.txt"
 
     for row in rows:
         sim_key = row["simulation_key"]
-        raw_path = RAW_TREE_DIR / row["raw_tree_basename"]
+        per_suite.setdefault(
+            sim_key, {"requested": 0, "converted": 0, "skipped_existing": 0}
+        )
+        per_suite[sim_key]["requested"] += 1
+        raw_path = _common.RAW_TREE_DIR / row["raw_tree_basename"]
         if not raw_path.exists():
             raise FileNotFoundError(f"Missing raw tree file: {raw_path}")
 
-        out_path = FIXED_TREE_DIR / row["fixed_tree_basename"]
+        out_path = _common.FIXED_TREE_DIR / row["fixed_tree_basename"]
         if out_path.exists() and not args.overwrite:
             skipped += 1
+            per_suite[sim_key]["skipped_existing"] += 1
             continue
 
-        raw_nodes = load_raw_nodes(raw_path, snap_tables[sim_key], args.min_mass_msun)
+        spec = _common.get_simulation_spec(sim_key)
+        raw_nodes = load_raw_nodes(
+            raw_path,
+            snap_tables[sim_key],
+            args.min_mass_msun,
+            float(spec["h"]),
+        )
         corrected_nodes: list[HaloNode] = []
         for main_leaf_id in sorted({node.main_leaf_id for node in raw_nodes}):
             branch = [node for node in raw_nodes if node.main_leaf_id == main_leaf_id]
@@ -209,6 +226,7 @@ def main() -> None:
 
         write_fixed_tree(out_path, corrected_nodes)
         converted += 1
+        per_suite[sim_key]["converted"] += 1
         conversion_rows.append(
             {
                 "file_index": int(row["file_index"]),
@@ -251,15 +269,21 @@ def main() -> None:
         "requested_rows": len(rows),
         "converted": converted,
         "skipped_existing": skipped,
-        "fixed_tree_dir": str(FIXED_TREE_DIR),
+        "strict_min_mass_msun": args.min_mass_msun,
+        "h_by_simulation": {
+            sim_key: float(_common.get_simulation_spec(sim_key)["h"])
+            for sim_key in sim_keys
+        },
+        "fixed_tree_dir": str(_common.FIXED_TREE_DIR),
+        "per_suite": per_suite,
         "per_file": conversion_rows,
     }
-    write_json(FIXED_TREE_DIR / "conversion_summary.json", summary)
+    _common.write_json(_common.FIXED_TREE_DIR / "conversion_summary.json", summary)
 
     print(f"Requested rows: {len(rows)}")
     print(f"Converted: {converted}")
     print(f"Skipped existing: {skipped}")
-    print(f"Fixed-tree directory: {FIXED_TREE_DIR}")
+    print(f"Fixed-tree directory: {_common.FIXED_TREE_DIR}")
 
 
 if __name__ == "__main__":

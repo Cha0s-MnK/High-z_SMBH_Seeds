@@ -61,9 +61,6 @@ from plot_common import plot_dir as default_plot_dir  # noqa: E402
 
 np.random.seed(1)
 
-NS_VALUE_DEFAULT = 2.0
-RUN_METADATA_NAME = "run_metadata.json"
-
 DEFAULT_OBS_CACHE_DIR = PROJECT_ROOT / "data" / "Choksi+2018"
 if not DEFAULT_OBS_CACHE_DIR.is_dir():
     DEFAULT_OBS_CACHE_DIR = PROJECT_ROOT.parent / "data" / "Choksi+2018"
@@ -178,17 +175,6 @@ def _apply_plot_style() -> None:
     )
     if use_tex:
         plt.rcParams["text.latex.preamble"] = r"\usepackage{amsmath} \usepackage{bm}"
-
-
-def _ns_tag(ns_value: float) -> str:
-    return f"{float(ns_value):.1f}".replace(".", "p")
-
-
-def _model_output_root_from_allcat_path(allcat_path: Path) -> Path:
-    parent = allcat_path.parent
-    if re.fullmatch(r"ns[0-9]+p[0-9]+", parent.name):
-        return parent.parent
-    return parent
 
 
 def present_day_halo_mass_from_observed_stellar_mass(stellar_mass: np.ndarray | float) -> np.ndarray | float:
@@ -1423,9 +1409,8 @@ def main() -> None:
         "--out_dir",
         type=Path,
         required=True,
-        help="Model output directory containing the root allcat file, mpb_from_fixed_trees.csv, ns*/, and run_metadata.json.",
+        help="Model output directory containing the root allcat file, finalGCs.dat, haloSummary.csv, and run_metadata.json.",
     )
-    parser.add_argument("--ns-value", type=float, default=NS_VALUE_DEFAULT, help="N_s value to plot.")
     parser.add_argument("--figures", type=str, default=None, help="Optional comma-separated subset, e.g. 1,2,5.")
     parser.add_argument("--final-z", type=float, default=None, help="Optional final redshift override. Defaults to run_metadata.json when present.")
     args = parser.parse_args()
@@ -1436,7 +1421,7 @@ def main() -> None:
 
     _apply_plot_style()
     observations = load_choksi_observations()
-    model_catalog = build_choksi_model(out_dir, args.ns_value)
+    model_catalog = build_choksi_model(out_dir)
     paper_model = load_choksi_paper_model()
     run_metadata = model_catalog.run_metadata
     final_redshift = float(args.final_z) if args.final_z is not None else float(run_metadata.get("final_redshift", 0.0))

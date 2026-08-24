@@ -1,9 +1,11 @@
 component,r_pc,r_err_low_pc,r_err_high_pc,v_km_s,v_err_low_km_s,v_err_high_km_s,source_kind,source_note
-resolved_kinematics,-138.2,20.6,20.6,-7.7,4.5,4.3,digitised,"Nature 2026 Fig.2, 600-dpi PDF render; visible marker/error-bar extent only"
-resolved_kinematics,-89.7,5.9,6.2,-7.6,8.2,8.1,digitised,"Nature 2026 Fig.2, 600-dpi PDF render; visible marker/error-bar extent only"
-resolved_kinematics,93.6,5.9,6.2,9.8,9.7,5.8,digitised,"Nature 2026 Fig.2, 600-dpi PDF render; visible marker/error-bar extent only"
-resolved_kinematics,152.9,29.0,15.5,4.0,9.0,8.1,digitised,"Nature 2026 Fig.2, 600-dpi PDF render; visible marker/error-bar extent only"
-spectroastrometry,-12.5,4.7,4.7,-51.0,4.0,4.0,text_value,Nature 2026 text/Methods: r_spec=12.5+-4.7 pc and <v sin i>=51+-4 km/s; signed to match Fig.2
-spectroastrometry,12.5,4.7,4.7,51.0,4.0,4.0,text_value,Nature 2026 text/Methods: r_spec=12.5+-4.7 pc and <v sin i>=51+-4 km/s; signed to match Fig.2
-spectroastrometry_fine,-47.8,9.9,10.2,-18.9,3.8,8.7,digitised,"Nature 2026 Fig.2, 600-dpi PDF render; visible marker/error-bar extent only"
-spectroastrometry_fine,48.2,10.0,10.1,18.7,8.9,3.7,digitised,"Nature 2026 Fig.2, 600-dpi PDF render; visible marker/error-bar extent only"
+resolved_kinematics,-138.38451268357812,20.42723631508676,20.827770360480656,-7.563025210084035,4.3697478991596626,4.201680672268907,digitised,"Nature 2026 Fig.2, 600-dpi PDF render; visible marker/error-bar extent only"
+resolved_kinematics,-89.91989319092124,0.0,0.0,-7.563025210084035,8.067226890756302,8.067226890756302,digitised,"Nature 2026 Fig.2, 600-dpi PDF render; visible marker/error-bar extent only"
+resolved_kinematics,93.12416555407208,0.0,0.0,10.924369747899156,9.7,5.8,digitised,"Nature 2026 Fig.2, 600-dpi PDF render; visible marker/error-bar extent only"
+resolved_kinematics,155.607476635514,29.0,15.5,4.201680672268907,9.0,8.1,digitised,"Nature 2026 Fig.2, 600-dpi PDF render; visible marker/error-bar extent only"
+spectroastrometry,-12.216288384512723,4.7,4.7,-49.915966386554615,4.0,4.0,text_value,Nature 2026 text/Methods: r_spec=12.5+-4.7 pc and <v sin i>=51+-4 km/s; signed to match Fig.2
+spectroastrometry,11.815754339118797,4.7,4.7,50.084033613445385,4.0,4.0,text_value,Nature 2026 text/Methods: r_spec=12.5+-4.7 pc and <v sin i>=51+-4 km/s; signed to match Fig.2
+spectroastrometry_fine,-47.86381842456609,9.9,10.2,-20.0,3.8,8.7,digitised,"Nature 2026 Fig.2, 600-dpi PDF render; visible marker/error-bar extent only"
+spectroastrometry_fine,-16.221628838451295,9.9,10.2,-56.9747899159664,3.8,8.7,digitised,"Nature 2026 Fig.2, 600-dpi PDF render; visible marker/error-bar extent only"
+spectroastrometry_fine,16.221628838451238,10.0,10.1,56.97478991596639,8.9,3.7,digitised,"Nature 2026 Fig.2, 600-dpi PDF render; visible marker/error-bar extent only"
+spectroastrometry_fine,47.863818424566034,10.0,10.1,20.0,8.9,3.7,digitised,"Nature 2026 Fig.2, 600-dpi PDF render; visible marker/error-bar extent only"
