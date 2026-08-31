@@ -1,4 +1,4 @@
-"""Legacy Gao+2024 GC formation stage.
+"""Gao+2024 GC formation-and-placement stage.
 
 This script reads one fixed merger tree per target halo, identifies GC-forming
 events from halo growth along each branch, samples a cluster initial mass
@@ -6,16 +6,12 @@ function for each event, assigns galactocentric radii, and writes:
 
 - `all_<Ns>.txt`: every formed GC, whether it survives to the configured final
   redshift or not
-- `z0_cat_<Ns>.txt`: only the subset that survives the analytic disruption
-  pass; the filename is historical and is still used even when `final_z > 0`
 
 Although the implementation is legacy-style and fairly stateful, the rough
 flow is:
 1. load one corrected tree from the configured fixed-tree directory
 2. walk every retained branch node and identify rapid-growth events
 3. form GCs and assign their birth radii
-4. apply the weak-field survival estimate to decide which reach the configured
-   final redshift
 """
 
 import argparse
@@ -31,20 +27,14 @@ from pathlib import Path
 from config import *
 
 #use same cosmology as Illustris
-fb = .167 #cosmic baryon fraction
+fb = 0.167 #cosmic baryon fraction
 
-#model parameters, as defined in CGL18
-sigma_m = 0.3 #MMR scatter, in dex
-max_feh = 0.3 #max [Fe/H]
-log_Mmin = 5.0 #min cluster mass to draw from CIMF
-tdep = 0.3 #scaling of the gas depletion time with redshift, tdep \propto (1+z)^(-alpha), alpha as here
-pr = 0.5 #normalized period of rotation; t_tid \propto P
-miso = (pr/1.7)**3 #mass where tiso < ttid
+# model parameters, as defined in CGL18
 TREE_LOOKUP_BASENAME = "id_lookup_large_dark.csv"
 ZFORM_FORMAT = "{:.10f}"
 
 def _build_arg_parser():
-    parser = argparse.ArgumentParser(description="Legacy Gao+2024 GC formation stage.", allow_abbrev=False)
+    parser = argparse.ArgumentParser(description="Gao+2024 GC formation-and-placement stage.", allow_abbrev=False)
     parser.add_argument("ns", type=float, help="Sersic index N_s")
     parser.add_argument(
         "--data-dir",
@@ -62,35 +52,65 @@ def _build_arg_parser():
         "--output-dir",
         type=Path,
         default=Path.cwd(),
-        help="Directory where all_<Ns>.txt and z0_cat_<Ns>.txt are written.",
+        help="Directory where all_<Ns>.txt is written.",
     )
     parser.add_argument("--p2", type=float, default=6.75, help="GC formation-efficiency normalization")
     parser.add_argument("--p3", type=float, default=0.5, help="halo growth-rate threshold for triggering GC formation")
     parser.add_argument("--lg_cut-off_mass", dest="lg_cut_off_mass", type=float, default=12.0, help="log10 Schechter cutoff mass Mc in Msun")
+    parser.add_argument(
+        "--Mmin",
+        type=float,
+        default=1.0e5,
+        help=(
+            "minimum initial GC mass Mmin in linear Msun (default: 1e5); "
+            "finite and positive and less than 1e6 Msun; controls the CIMF "
+            "lower endpoint and event-budget eligibility"
+        ),
+    )
+    parser.add_argument(
+        "--IMBH",
+        type=float,
+        default=1.0,
+        help=(
+            "dimensionless IMBH seed coefficient (default: 1.0); finite and "
+            "non-negative; applied once to the formation-time estimator result"
+        ),
+    )
+    parser.add_argument(
+        "--fit",
+        choices=IMBH_FIT_CHOICES,
+        default=DEFAULT_IMBH_FIT,
+        help=(
+            "formation-time IMBH mass prescription; choose Rantala+2026, "
+            "Vergara+2026conservative, or Vergara+2026optimistic "
+            "(default: Rantala+2026)"
+        ),
+    )
     parser.add_argument("--run-all", type=int, default=1, help="run all halos if 1, otherwise use the halo count and mass window below")
     parser.add_argument("--log-mh-min", type=float, default=11.5, help="minimum descendant z=0 host halo log mass for selection")
     parser.add_argument("--log-mh-max", type=float, default=12.5, help="maximum descendant z=0 host halo log mass for selection")
-    parser.add_argument("--n-halos", type=int, default=10, help="number of halos to keep when --run-all=0")
     parser.add_argument(
-        "--ex-situ",
-        dest="ex_situ",
+        "--n-halos",
         type=int,
-        choices=[0, 1, 2],
-        default=0,
-        help=(
-            "ex-situ GC treatment: 0 Gao+2024-style analytic survival for non-MPB GCs; "
-            "1 branch evolution without importing satellite central BH or sunk-stellar deposits; "
-            "2 branch evolution with satellite central BH and fixed-bin-1 sunk-stellar deposit import"
-        ),
+        default=10,
+        help="number of logarithmic descendant-mass bins and requested distinct halo trees when --run-all=0",
     )
     return parser
 
 
 _parser = _build_arg_parser()
-_old_ex_situ_flag = "--ex-situ" + "NSC"
-if any(arg == _old_ex_situ_flag or arg.startswith(_old_ex_situ_flag + "=") for arg in sys.argv[1:]):
-    _parser.error(f"{_old_ex_situ_flag} has been removed; use --ex-situ")
 args = _parser.parse_args()
+
+try:
+    Mmin = check_finite_positive(args.Mmin, name="Minimum cluster mass Mmin")
+    if Mmin >= 1.0e6:
+        raise ValueError(f"Minimum cluster mass Mmin must be less than 1e6 Msun, but got Mmin = {Mmin}!")
+    IMBH = check_finite_non_negative(args.IMBH, name="IMBH coefficient")
+    fit = validate_imbh_fit(args.fit)
+except ValueError as exc:
+    _parser.error(str(exc))
+
+log_Mmin = np.log10(Mmin)
 
 # Sersic index
 # ns = 2.2
@@ -101,22 +121,11 @@ data_dir = args.data_dir.resolve()
 output_dir = args.output_dir.resolve()
 output_dir.mkdir(parents = True, exist_ok = True)
 
-massloss_path = data_dir / "mass_loss.txt"
-snaps_path = data_dir / "snaps2redshifts.txt"
 treedir = args.tree_dir.resolve() if(args.tree_dir is not None) else (data_dir / "fixed_trees_large_spin")
-for required_path in (massloss_path, snaps_path, treedir):
-    if(not required_path.exists()):
-        raise FileNotFoundError("Required Gao+2024 input path not found: " + str(required_path))
+if(not treedir.exists()):
+    raise FileNotFoundError("Required Gao+2024 input path not found: " + str(treedir))
 
-fm = open(massloss_path)
-flost, t_solar, t_subsolar = np.loadtxt(fm, usecols = (1,2,3), unpack = True)
-
-ssub = interpolate.interp1d(t_subsolar, flost, kind = 'linear')
-ssolar = interpolate.interp1d(t_solar, flost, kind = 'linear')
-
-cat = open(output_dir / ('z0_cat_'+nsStr+'.txt'), 'w') #historical filename for the survivor catalog
 allcat = open(output_dir / ('all_'+nsStr+'.txt'), 'w') #full catalog of all GCs
-analytic_survival = open(output_dir / ('analytic_survival_'+nsStr+'.txt'), 'w')
 
 p2 = float(args.p2)
 p3 = float(args.p3)
@@ -125,56 +134,30 @@ run_all = bool(args.run_all)
 log_mh_min = float(args.log_mh_min)
 log_mh_max = float(args.log_mh_max)
 N = int(args.n_halos)
-ex_situ_mode = int(args.ex_situ)
-branch_local_radius_enabled = ex_situ_mode in (1, 2)
 
-cat.write('#model parameters: p2, p3, lg_cut_off_mass = ' +  str(p2) + " " +  str(p3) +  " " +  str(lg_cut_off_mass) + "\n")
-cat.write(
-    str("#haloID")
-    + " | "
-    + str('logMh(z=0)')
-    + " | "
-    + str("logM*(z=0)")
-    + " | "
-    + str('logMh(zform)')
-    + " | "
-    + str("logM*(zform)")
-    + " | "
-    + str("logM(z=0)")
-    + " | "
-    + str("logM(zform)")
-    + " | "
-    + str("zform")
-    + " | "
-    + str("feh")
-    + " | "
-    + str("isMPB")
-    + " | "
-    + str("halo ID @ formation")
-    + " | "
-    + str("rGalaxy (kpc)")
-    + " | "
-    + str("GC radius (pc)")
-    + " | "
-    + str("Sigma_h (Msun/pc^2)")
-    + " | "
-    + str("M_IMBH_init")
-    + "\n"
+if(not run_all):
+    if(N < 1):
+        raise ValueError("--n-halos must be at least 1 when --run-all=0")
+    if(not np.isfinite(log_mh_min)) or (not np.isfinite(log_mh_max)):
+        raise ValueError("--log-mh-min and --log-mh-max must be finite when --run-all=0")
+    if(log_mh_max <= log_mh_min):
+        raise ValueError("--log-mh-max must be greater than --log-mh-min when --run-all=0")
+
+allcat.write(
+    '#model parameters: p2, p3, lg_cut_off_mass, Mmin, IMBH, fit = '
+    + str(p2) + " " + str(p3) + " " + str(lg_cut_off_mass) + " " + str(Mmin) + " " + str(IMBH) + " " + fit + "\n"
 )
-
-allcat.write('#model parameters: p2, p3, lg_cut_off_mass = ' +  str(p2) + " " +  str(p3) + " " +  str(lg_cut_off_mass) + "\n")
 allcat.write(
     "#haloID | logMh(z=0) | haloID @ form | logMh(tform) | logM*(tform) | "
     "logMgas(tform) | logMcl(tform) | zform | [Fe/H] | rGalaxy (kpc) | "
     "GC radius (pc) | Sigma_h (Msun/pc^2) | M_IMBH_init\n"
 )
-analytic_survival.write("# hid_z0 gc_uid isMPB branch_id M_GC_analytic_final survives_analytic M_IMBH_init rGalaxy\n")
 
 #initialize all the interpolation tables for use with Schechter function
 mc = 10**lg_cut_off_mass
-mgc_to_mmax = makeLogMgcToLogMmaxInterpolator(mc)
+mgc_to_mmax = makeLogMgcToLogMmaxInterpolator(mc, Mmin=Mmin)
 alpha = -2.0
-ug52 = upper_gamma2_log_mass(5.0, mc)
+ug52 = upper_gamma2_log_mass(log_Mmin, mc)
 
 # First-step GC IMBH seeding: seed exactly once at GC formation, using the
 # Eq. (7) cluster radius relation and the GC metallicity after intrinsic
@@ -207,9 +190,9 @@ class GC :
         self.local_rGalaxy = radius
 
 
-def seed_imbh_properties(cluster_mass, metallicity):
+def seed_imbh_properties(cluster_mass, metallicity, fit=DEFAULT_IMBH_FIT):
     Z = 10.0**metallicity
-    estimate = estimate_for_gc(cluster_mass, Z)
+    estimate = estimate_for_gc(cluster_mass, Z, fit=fit)
     gc_radius_pc = float(estimate["r_h_pc"])
     sigma_h_msun_pc2 = float(estimate["sigma_h_msun_pc2"])
     imbh_mass_msun = float(estimate["imbh_mass_msun"])
@@ -217,38 +200,30 @@ def seed_imbh_properties(cluster_mass, metallicity):
     check_finite_positive(gc_radius_pc, "IMBH model GC half-mass radius")
     check_finite_positive(sigma_h_msun_pc2, "IMBH model GC half-mass surface density")
     check_finite_non_negative(imbh_mass_msun, "IMBH model seed mass")
+    imbh_mass_msun *= IMBH
+    check_finite_non_negative(imbh_mass_msun, "Scaled IMBH model seed mass")
 
     return gc_radius_pc, sigma_h_msun_pc2, imbh_mass_msun
 
-# The following two functions implement the accreted baryon fraction normalization as described in CGL18, which is used to cap the total baryonic mass (stars + gas) that can be formed in a halo at a given redshift. The soft step function provides a smooth transition around the characteristic mass scale where baryon accretion becomes inefficient due to reionization and other feedback processes.
-def soft_step(x, y):
-    return (1.0 + (2.0**(y/3.0) - 1.0) * x**y)**(-3.0/y)
-
+# the accreted baryon fraction normalization as described in CGL18, which is used to cap the total baryonic mass (stars + gas) that can be formed in a halo at a given redshift.
 def accreted_baryon_fin_norm(Mh, z):
-    z_rei = 6.0
-    gamma = 15.0
-    beta = z_rei*(np.log(1.82e3*np.exp(-0.63*z_rei)) - 1.0)**(-1.0/gamma)
-    mchar_baryon = 1.69e10*np.exp(-0.63*z - np.logaddexp(0.0, (z/beta)**gamma))
-    return soft_step(mchar_baryon/Mh, 2.0)
+    beta = 6.0 * (np.log(1.82e3 * np.exp(-3.78)) - 1.0) ** (-1.0 / 15.0) # 5.61
+    return (1.0 + (2.0 ** (2.0 / 3.0) - 1.0) * (1.69e10 * np.exp(- 0.63 * z) / Mh / (1 + np.exp((z / beta) ** 15.0))) ** 2.0) ** (- 1.5)
 
 # Calculate gas mass given stellar mass, halo mass, redshift using scaling relations. Double power law for SM-Mg relation, then scale with redshift. Revise if gas fraction exceeds accreted baryon fraction. As described in Choksi, Gnedin, and Li (2018).
 def gasMass(SM, Mh, z) :
     check_finite_positive(SM, "stellar mass in gasMass")
     check_finite_positive(Mh, "halo mass in gasMass")
-    slope = 0.33
-    if(SM < 1e9):
-        slope = 0.19
-    log_ratio = 0.05 - 0.5 -  slope*(np.log10(SM) - 9.0) #log10(Mg/M*)
-    if(z < 3): #fg saturates at z > 3
-        if(z < 2):
-            log_ratio += (3.0-tdep)*np.log10((1.+z)/3.) + (3.0-tdep)*np.log10(3.) #strong ssfr evolution at z < 2
-        else:
-            log_ratio += (1.7-tdep)*np.log10((1.+z)/3.) + (3.0-tdep)*np.log10(3.) #weak ssfr evolution at z > 2 (Lilly+)
-    else:
-        log_ratio += (1.7-tdep)*np.log10((1.+3)/3.) + (3.0-tdep)*np.log10(3.) #weak ssfr evolution at z > 2
+    n_M = 0.19 if SM < 1e9 else 0.33
+    log_ratio = np.log10(0.35 * 3 ** 2.7) -  n_M * (np.log10(SM) - 9.0) #log10(Mg/M*)
+    if (z <= 2):
+        log_ratio += 2.7 * np.log10((1.0 + z) / 3.0) # strong ssfr evolution at z < 2
+    elif (z <= 3):
+        log_ratio += 1.4 * np.log10((1.0 + z) / 3.0) # weak ssfr evolution at z > 2 (Lilly+)
+    else: #fg saturates at z > 3
+        log_ratio += 1.4 * np.log10(4.0 / 3.0) # weak ssfr evolution at z > 2
     log_ratio += np.random.normal(0, 0.3)
-    ratio = 10**log_ratio
-    Mg = SM*ratio
+    Mg = SM * (10 ** log_ratio)
     check_finite_positive(Mg, "unlimited gas mass in gasMass")
     fstar = SM/(fb*Mh)
     fgas = Mg/(fb*Mh)
@@ -258,24 +233,16 @@ def gasMass(SM, Mh, z) :
     check_finite_positive(fin, "accreted baryon fraction in gasMass")
 
     if(fstar+fgas > fin):
-        if(fstar >= fin):
-            return 0.0
-        fgas = fin-fstar
+        fgas = fin - fstar if fstar < fin else 0.0
         Mg = fgas*fb*Mh
-        check_finite_positive(fgas, "limited gas baryon fraction in gasMass")
-        check_finite_positive(Mg, "limited gas mass in gasMass")
+        check_finite_non_negative(fgas, "limited gas baryon fraction in gasMass")
+        check_finite_non_negative(Mg, "limited gas mass in gasMass")
     return Mg
 
-# Galaxy stellar mass-metallicity relation, with additional redshift evolution, as described in Chen and Gnedin (2024)
-def cap_metallicity(fe_h):
-    # The project uses a slightly supersolar saturation for both supported MZRs.
-    if(fe_h > max_feh):
-        fe_h = max_feh
-    return fe_h
-
-def MMR(SM, z):
-    fe_h = 0.3*np.log10(SM/1.0e9) - 1.0*np.log10(1+z) - 0.5
-    return cap_metallicity(fe_h)
+# galaxy stellar mass-metallicity relation (SMMR) as described in Chen&Gnedin2024
+def gSMMR(SM, z):
+    FeH = 0.3 * np.log10(SM / 1.0e9) - np.log10(1 + z) - 0.5
+    return 0.3 if FeH > 0.3 else FeH
 
 import scipy.special as special
 
@@ -332,55 +299,41 @@ def gc_sersic_sampling(gc_list, mass_sum, halomass, redshift, re_kpc, re_source,
 
     m_tot = -0.5*gc_list[0].mass
     for gc in gc_list:
-        if gc.is_mpb or branch_local_radius_enabled:
-            # Main-branch clusters are ordered by cumulative formed mass so the
-            # distribution matches the target enclosed Sersic mass profile. In
-            # branch-continuation modes, non-MPB clusters also need this local
-            # radius inside their own satellite branch.
-            m_tot += gc.mass
-            enclosed_mass_fraction_raw = m_tot/mass_sum
-            if((not np.isfinite(enclosed_mass_fraction_raw)) or (enclosed_mass_fraction_raw <= 0.0) or (enclosed_mass_fraction_raw >= 1.0)):
-                enclosed_mass_fraction = np.clip(enclosed_mass_fraction_raw, 1.0e-12, 1.0-1.0e-12) if np.isfinite(enclosed_mass_fraction_raw) else 1.0e-12
-                print(
-                    "[gc_sersic_sampling] invalid enclosed Sersic mass fraction "
-                    + f"(fm={enclosed_mass_fraction_raw}, m_tot={m_tot}, mass_sum={mass_sum}, "
-                    + f"halomass={halomass}, z={redshift}); clamping to {enclosed_mass_fraction}",
-                    file = sys.stderr,
-                )
-            else:
-                enclosed_mass_fraction = enclosed_mass_fraction_raw
-
-            rGalaxy = Mr_frac_sersic_inverse(enclosed_mass_fraction, ns) * Re
-            if((not np.isfinite(rGalaxy)) or (rGalaxy <= 0.0)):
-                print(
-                    "[gc_sersic_sampling] invalid Sersic-sampled GC radius "
-                    + f"(rGalaxy={rGalaxy}, fm={enclosed_mass_fraction}, Re={Re}, "
-                    + f"halomass={halomass}, z={redshift}); using fallback outer radius",
-                    file = sys.stderr,
-                )
-                rGalaxy = fallback_outer_kpc
-            rGalaxy = float(np.clip(rGalaxy, rgal_min_kpc, rgal_max_kpc))
-            gc.assign_local_rGalaxy(rGalaxy)
-            if gc.is_mpb or branch_local_radius_enabled:
-                gc.assign_rGalaxy(rGalaxy)
-            else:
-                gc.assign_rGalaxy(fallback_outer_kpc)
+        m_tot += gc.mass
+        enclosed_mass_fraction_raw = m_tot/mass_sum
+        if((not np.isfinite(enclosed_mass_fraction_raw)) or (enclosed_mass_fraction_raw <= 0.0) or (enclosed_mass_fraction_raw >= 1.0)):
+            enclosed_mass_fraction = np.clip(enclosed_mass_fraction_raw, 1.0e-12, 1.0-1.0e-12) if np.isfinite(enclosed_mass_fraction_raw) else 1.0e-12
+            print(
+                "[gc_sersic_sampling] invalid enclosed Sersic mass fraction "
+                + f"(fm={enclosed_mass_fraction_raw}, m_tot={m_tot}, mass_sum={mass_sum}, "
+                + f"halomass={halomass}, z={redshift}); clamping to {enclosed_mass_fraction}",
+                file = sys.stderr,
+            )
         else:
-            # Non-MPB clusters are treated as accreted satellites and placed at
-            # a representative outer-halo radius rather than in the disk model.
-            m_tot += gc.mass
-            gc.assign_local_rGalaxy(fallback_outer_kpc)
-            gc.assign_rGalaxy(fallback_outer_kpc)
+            enclosed_mass_fraction = enclosed_mass_fraction_raw
+
+        rGalaxy = Mr_frac_sersic_inverse(enclosed_mass_fraction, ns) * Re
+        if((not np.isfinite(rGalaxy)) or (rGalaxy <= 0.0)):
+            print(
+                "[gc_sersic_sampling] invalid Sersic-sampled GC radius "
+                + f"(rGalaxy={rGalaxy}, fm={enclosed_mass_fraction}, Re={Re}, "
+                + f"halomass={halomass}, z={redshift}); using fallback outer radius",
+                file = sys.stderr,
+            )
+            rGalaxy = fallback_outer_kpc
+        rGalaxy = float(np.clip(rGalaxy, rgal_min_kpc, rgal_max_kpc))
+        gc.assign_local_rGalaxy(rGalaxy)
+        gc.assign_rGalaxy(rGalaxy)
 
     return
 
 
-def clusterFormation(Mg, halomass, redshift, metallicity, SM, is_mpb, hid, jj, branch_id, formation_tree_index, re_kpc, re_source) :
+def clusterFormation(Mg, halomass, redshift, metallicity, SM, is_mpb, hid, jj, branch_id, formation_tree_index, re_kpc, re_source, fit=DEFAULT_IMBH_FIT) :
     gc_list = []
     if(Mg == 0.0):
         return gc_list
     check_finite_positive(Mg, "gas mass in clusterFormation")
-    Mgc = 3e-5*p2*Mg/fb #total mass of all GCs formed in cluster formation event
+    Mgc = 1.8e-4 * p2 * Mg #total mass of all GCs formed in cluster formation event
     check_finite_positive(Mgc, "GC mass budget in clusterFormation")
     log_Mgc = np.log10(Mgc)
     if(log_Mgc < log_Mmin): #not enough mass to form a single cluster of mass Mmin
@@ -395,8 +348,8 @@ def clusterFormation(Mg, halomass, redshift, metallicity, SM, is_mpb, hid, jj, b
     Mmax = 10**log_Mmax
     mt = np.logspace(log_Mmin, log_Mmax, num = 500)
 
-    maxGC_metallicity = metallicity + np.random.normal(0,sigma_m)
-    gc_radius_pc, sigma_h_msun_pc2, imbh_mass_msun = seed_imbh_properties(Mmax, maxGC_metallicity)
+    maxGC_metallicity = metallicity + np.random.normal(0, 0.3)
+    gc_radius_pc, sigma_h_msun_pc2, imbh_mass_msun = seed_imbh_properties(Mmax, maxGC_metallicity, fit=fit)
     maxGC = GC(
         Mmax,
         halomass,
@@ -426,8 +379,8 @@ def clusterFormation(Mg, halomass, redshift, metallicity, SM, is_mpb, hid, jj, b
         if(mass_sum+M > Mgc): #make sure the final cluster drawn doesn't exceed the total mass to be formed. it may produce some clusters below Mmin, but shouldn't really matter (will disrupt)
             M = Mgc-mass_sum
         mass_sum += M
-        cluster_metallicity = metallicity + np.random.normal(0,sigma_m)
-        gc_radius_pc, sigma_h_msun_pc2, imbh_mass_msun = seed_imbh_properties(M, cluster_metallicity)
+        cluster_metallicity = metallicity + np.random.normal(0, 0.3)
+        gc_radius_pc, sigma_h_msun_pc2, imbh_mass_msun = seed_imbh_properties(M, cluster_metallicity, fit=fit)
         cluster = GC(
             M,
             halomass,
@@ -453,47 +406,19 @@ def clusterFormation(Mg, halomass, redshift, metallicity, SM, is_mpb, hid, jj, b
     return gc_list
 
 
-#metallicity dependent stellar evolution, as calculated by Prieto & Gnedin
-def massFraction(fe_h, t_alive):
-    if(fe_h >= 0 ): #supersolar metallicity
-        return ssolar(t_alive)
-    elif(fe_h <= -0.69): #if Z<= 0.2Zsun
-        return ssub(t_alive)
-    else: #intermediate case: interpolate (in log-space)  between .2*Z_sun and Z_sun
-        slope = (t_solar - t_subsolar)/0.69 #log10(0.2) = -0.69
-        t_int= t_subsolar + slope*(fe_h - -0.69) #new intermediate MS lifetime table
-        sint = interpolate.interp1d(t_int, flost, kind = 'linear')
-        return sint(t_alive)
-#disruption prescription as described in CGL18
-def disruption(M0, fe_h, origin_redshift, tnow, use_weak = False): #if use_weak = True, allow for disruption in weak tidal field limit (see CGL18 for details)
-    m0 = M0/2e5
-    tform = Redshift2CosmicAge(origin_redshift, time_unit="yr")
-    t_tid0 = 1e10*m0**(2./3)*pr
-    nu_tid0 = 1./t_tid0
-
-    k = 1-(2./3)*nu_tid0*(tnow - tform)
-    k = max(k, 0) #can't raise negative number to fractional exponent; if 1-k < 0, the tidal-evolved mass at the final epoch would be below miso
-    mtid_z0 = m0*k**1.5
-
-    if(use_weak): #use dM/dt = -M/min(t_tid, t_iso), as in CGL18
-        if(mtid_z0 >= miso):
-            mf = mtid_z0
-        else:
-            tiso = tform + 3.0*(1 - (miso/m0)**(2./3))/(2*nu_tid0)
-            mf = miso - (tnow - tiso)/(1.7e10)
-        if(mf <= 0):
-            return 0
-
-    f_lost = massFraction(fe_h, tnow - tform) #stellar evolution
-    if(use_weak):
-        return mf*2e5*(1-f_lost)
-    else:
-        return mtid_z0*2e5*(1-f_lost)
-
 @dataclass(frozen = True)
 class TreeEntry:
     halo_id_z0: int
     path: Path
+
+
+@dataclass(frozen = True)
+class HaloCandidate:
+    """Metadata for one non-empty tree eligible for mass-bin selection."""
+
+    tree_entry: TreeEntry
+    log_msub_z0: float
+    traversal_index: int
 
 
 def _legacy_tree_entries(tree_dir):
@@ -538,6 +463,69 @@ def _iter_tree_files(tree_dir):
     if(len(tree_entries) == 0):
         raise RuntimeError("No usable fixed-tree files were found under " + str(tree_dir))
     return tree_entries
+
+
+def _select_halos_by_mass_bins(candidates, n_bins, log_mh_min, log_mh_max):
+    """Select distinct halo trees using direct matches followed by bin-centre fallback."""
+
+    bin_width = (log_mh_max - log_mh_min) / n_bins
+    bin_edges = np.linspace(log_mh_min, log_mh_max, n_bins + 1)
+    bin_centres = 0.5 * (bin_edges[:-1] + bin_edges[1:])
+    in_range_candidates = [
+        candidate
+        for candidate in candidates
+        if np.isfinite(candidate.log_msub_z0)
+        and log_mh_min <= candidate.log_msub_z0 <= log_mh_max
+    ]
+    if(len(in_range_candidates) == 0):
+        raise RuntimeError(
+            "No non-empty fixed-tree halo lies within descendant log-mass interval "
+            + f"[{log_mh_min}, {log_mh_max}] for --run-all=0."
+        )
+
+    selected_by_bin = [None] * n_bins
+    selected_indices = set()
+    for candidate in in_range_candidates:
+        bin_index = int(np.searchsorted(bin_edges, candidate.log_msub_z0, side="right") - 1)
+        if(bin_index == n_bins):
+            bin_index = n_bins - 1
+        if(selected_by_bin[bin_index] is None):
+            selected_by_bin[bin_index] = candidate
+            selected_indices.add(candidate.traversal_index)
+
+    fallback_bins = 0
+    for bin_index in range(n_bins):
+        if(selected_by_bin[bin_index] is not None):
+            continue
+        available = [
+            candidate
+            for candidate in in_range_candidates
+            if candidate.traversal_index not in selected_indices
+        ]
+        if(len(available) == 0):
+            break
+        selected = min(
+            available,
+            key=lambda candidate: (
+                abs(candidate.log_msub_z0 - bin_centres[bin_index]),
+                candidate.traversal_index,
+            ),
+        )
+        selected_by_bin[bin_index] = selected
+        selected_indices.add(selected.traversal_index)
+        fallback_bins += 1
+
+    selected_candidates = sorted(
+        [
+            candidate
+            for candidate in in_range_candidates
+            if candidate.traversal_index in selected_indices
+        ],
+        key=lambda candidate: candidate.traversal_index,
+    )
+    missing_bins = sum(candidate is None for candidate in selected_by_bin)
+    selected_log_masses = [candidate.log_msub_z0 for candidate in selected_candidates]
+    return selected_candidates, fallback_bins, missing_bins, selected_log_masses
 
 
 def loadTree(tree_path):
@@ -665,25 +653,60 @@ def loadTree(tree_path):
     )
 
 
-t0 = Redshift2CosmicAge(0.0, time_unit="yr")
-
 num = -1
 num_run = 0
-for tree_entry in _iter_tree_files(treedir):
+tree_entries = _iter_tree_files(treedir)
+if(run_all):
+    formation_tree_entries = tree_entries
+else:
+    candidates = []
+    for traversal_index, tree_entry in enumerate(tree_entries):
+        tree_data = loadTree(tree_entry.path)
+        if(len(tree_data[0]) == 0):
+            del tree_data
+            continue
+        log_msub_z0 = float(np.log10(tree_data[6]))
+        del tree_data
+        if(not np.isfinite(log_msub_z0)) or (log_msub_z0 < log_mh_min) or (log_msub_z0 > log_mh_max):
+            continue
+        candidates.append(
+            HaloCandidate(
+                tree_entry = tree_entry,
+                log_msub_z0 = log_msub_z0,
+                traversal_index = traversal_index,
+            )
+        )
+
+    selected_candidates, fallback_bins, missing_bins, selected_log_masses = _select_halos_by_mass_bins(
+        candidates,
+        N,
+        log_mh_min,
+        log_mh_max,
+    )
+    selected_log_mh_min = float(np.min(selected_log_masses))
+    selected_log_mh_max = float(np.max(selected_log_masses))
+    bin_width = (log_mh_max - log_mh_min) / N
+    print(
+        "HALO_SELECTION_SUMMARY "
+        + f"requested_logMh_min={log_mh_min:.10g} "
+        + f"requested_logMh_max={log_mh_max:.10g} "
+        + f"n_bins={N} "
+        + f"bin_width_dex={bin_width:.10g} "
+        + f"candidate_halos={len(candidates)} "
+        + f"selected_halos={len(selected_candidates)} "
+        + f"fallback_bins={fallback_bins} "
+        + f"missing_bins={missing_bins} "
+        + f"selected_logMh_min={selected_log_mh_min:.10g} "
+        + f"selected_logMh_max={selected_log_mh_max:.10g}"
+    )
+    formation_tree_entries = [candidate.tree_entry for candidate in selected_candidates]
+
+for tree_entry in formation_tree_entries:
     hid_num = int(tree_entry.halo_id_z0)
     tree_path = tree_entry.path
     m, fp, subid, redshifts, jsp, mpi, msub_z0, mpbi = loadTree(tree_path)
     if(len(m) == 0):
         continue
-    # if(run_all == False and msub  < 10**log_mh_min or msub > 10**log_mh_max or num_run >= N):
-        # continue
-
-    if (run_all == False):
-        if (num_run >= N):
-            continue
-        # The selection cut is always applied to the descendant z=0 host mass.
-        if (msub_z0  < 10**log_mh_min) or (msub_z0 > 10**log_mh_max):
-            continue
 
     num_run += 1
 
@@ -710,55 +733,27 @@ for tree_entry in _iter_tree_files(treedir):
         #evolve stellar mass self-consistently as described in CGL18
         sm1 = Mstar_SMHM(Mhalo=mass, z=znow, scatter=False); sm2 = Mstar_SMHM(Mhalo=progMass, z=zbefore, scatter=False)
         dsm = sm1-sm2
-        a = 1./(1+znow)
-        scatter = np.random.normal(0,.218 - .023*(a-1))
+        scatter = np.random.normal(0, 0.218 + 0.023 * znow / (1.0 + znow))
         SM = sm_arr[progIdx] + dsm*10**scatter
         if(SM < 0): #only happens in very weird cases at very high redshift
             SM = sm_arr[progIdx]
         sm_arr[i] = SM
         Mg = gasMass(SM, mass, znow)
         if(ratio > p3):  #if merger criterion satisfied
-            metallicity = MMR(SM, znow)
+            metallicity = gSMMR(SM, znow)
             is_mpb = mpi[i] == mpbi
             #Re = resolve_birth_re_kpc(halomass_msun = mass, redshift = znow, jsp = jj) # [kpc]
             Re = calcRe(mhalo_1e9msun=mass/1.0e9, t_Gyr=Redshift2CosmicAge(znow, time_unit="Gyr"), j=jj) # [kpc]
             # `subid[i]` records the halo hosting the formation event; later
             # stages use it to mark MPB vs accreted GCs in merged catalogs.
-            clusters.extend(clusterFormation(Mg, mass, znow, metallicity, SM, is_mpb, subid[i], jj, mpi[i], i, Re, "Gao+2024"))
+            clusters.extend(clusterFormation(Mg, mass, znow, metallicity, SM, is_mpb, subid[i], jj, mpi[i], i, Re, "Gao+2024", fit=fit))
             continue
 
     for gc_uid, cluster in enumerate(clusters, start=1):
         cluster.gc_uid = gc_uid
 
-    clusters2, log_initial_masses, analytic_final_masses = [], [], []
-    for cluster in clusters:
-        final_mass = disruption(cluster.mass, cluster.metallicity, cluster.origin_redshift, t0)
-        analytic_final_masses.append(float(final_mass))
-        if(final_mass > 0):
-            log_initial_masses.append(np.log10(cluster.mass))
-        evolved_cluster = GC(
-            final_mass,
-            cluster.originHaloMass,
-            cluster.origin_redshift,
-            cluster.metallicity,
-            cluster.origin_sm,
-            cluster.origin_mgas,
-            cluster.is_mpb,
-            cluster.idform,
-            gc_radius_pc = cluster.gc_radius_pc,
-            gc_sigma_h_msun_pc2 = cluster.gc_sigma_h_msun_pc2,
-            imbh_mass_msun = cluster.imbh_mass_msun,
-            branch_id = cluster.branch_id,
-            formation_tree_index = cluster.formation_tree_index,
-            gc_uid = cluster.gc_uid,
-        )
-        evolved_cluster.assign_rGalaxy(cluster.rGalaxy)
-        evolved_cluster.assign_local_rGalaxy(cluster.local_rGalaxy)
-        clusters2.append(evolved_cluster)
-
-    evolved_clusters = [cluster for cluster in clusters2 if cluster.mass > 0]
-
-    # all GCs that form, regardless of survival -- for use w/ allcat.txt
+    # All formed GCs are passed to the dynamic evolution stage for survival and
+    # deposition decisions.
     GC_mets = np.array([cluster.metallicity for cluster in clusters]); GC_masses = np.array([cluster.mass for cluster in clusters]); GC_log_masses = np.log10(GC_masses); GC_redshifts = np.array([cluster.origin_redshift for cluster in clusters])
     GC_idform = np.array([cluster.idform for cluster in clusters]); GC_mhost_tform = np.array([cluster.originHaloMass for cluster in clusters])
     GC_log_mhost_tform = np.log10(GC_mhost_tform); GC_log_mstar_tform = np.round(np.log10(np.array([cluster.origin_sm for cluster in clusters])), 3)
@@ -768,24 +763,9 @@ for tree_entry in _iter_tree_files(treedir):
     GC_sigma_h = np.array([cluster.gc_sigma_h_msun_pc2 for cluster in clusters])
     GC_imbh_mass = np.array([cluster.imbh_mass_msun for cluster in clusters])
 
-    # Repeat the same bookkeeping for the survivors at the chosen final redshift.
-    GC_masses2 = np.array([cluster.mass for cluster in evolved_clusters]); GC_metallicity2 = np.array([cluster.metallicity for cluster in evolved_clusters])
-    GC_redshifts2 = np.array([cluster.origin_redshift for cluster in evolved_clusters]); GC_mhost_tform2 = np.array([cluster.originHaloMass for cluster in evolved_clusters])
-    GC_mstar_tform2 = np.array([cluster.origin_sm for cluster in evolved_clusters]); GC_ismpb2 = np.array([cluster.is_mpb for cluster in evolved_clusters])
-    GC_idform2 = np.array([cluster.idform for cluster in evolved_clusters]); log_gc_masses2 = np.log10(GC_masses2)
-    GC_radius2 = np.array([cluster.rGalaxy for cluster in evolved_clusters])
-    GC_gc_radius_pc2 = np.array([cluster.gc_radius_pc for cluster in evolved_clusters])
-    GC_sigma_h2 = np.array([cluster.gc_sigma_h_msun_pc2 for cluster in evolved_clusters])
-    GC_imbh_mass2 = np.array([cluster.imbh_mass_msun for cluster in evolved_clusters])
-
-
     logmsub = np.log10(msub_z0)
-    log_GC_mhost =  np.empty(len(GC_masses2))
-    log_GC_mhost.fill(logmsub)
-    logms = np.log10(Mstar_SMHM(Mhalo=msub_z0, z=0.0, scatter=False))
 
-    # The historical host columns always refer to the descendant z=0 halo.
-    # write to output files
+    # The host column refers to the descendant z=0 halo.
     for i in range(len(GC_masses)): #all clusters
         allcat.write(
             str(hid_num)
@@ -815,56 +795,5 @@ for tree_entry in _iter_tree_files(treedir):
             + str(np.round(GC_imbh_mass[i],5))
             + "\n"
         )
-        analytic_survival.write(
-            f"{int(hid_num)} "
-            f"{int(clusters[i].gc_uid)} "
-            f"{int(bool(clusters[i].is_mpb))} "
-            f"{int(clusters[i].branch_id)} "
-            f"{float(analytic_final_masses[i]):.10e} "
-            f"{int(float(analytic_final_masses[i]) > 0.0)} "
-            f"{float(clusters[i].imbh_mass_msun):.10e} "
-            f"{float(clusters[i].rGalaxy):.10e}\n"
-        )
-    for i in range(len(GC_masses2)): #only those surviving to the chosen final redshift
-        zform = GC_redshifts2[i]
-        mh_tform = GC_mhost_tform2[i]; log_mh_tform = np.log10(mh_tform);
-        sm_tform = GC_mstar_tform2[i]; log_sm_tform = np.log10(sm_tform);
-        logm = log_gc_masses2[i]; logm_tform = log_initial_masses[i];
-        cat.write(
-            str(hid_num)
-            +  " "
-            + str(np.round(logmsub,5))
-            + " "
-            + str(np.round(logms, 5))
-            + " "
-            +  str(np.round(log_mh_tform, 5))
-            + " "
-            + str(np.round(log_sm_tform,5))
-            + " "
-            +  str(np.round(logm,5))
-            + " "
-            + str(np.round(logm_tform,5))
-            + " "
-            + ZFORM_FORMAT.format(float(zform))
-            + " "
-            + str(np.round(GC_metallicity2[i],5))
-            + " "
-            + str(float(GC_ismpb2[i]))
-            +  " "
-            + str(GC_idform2[i])
-            + " "
-            + str(np.round(GC_radius2[i],5))
-            + " "
-            + str(np.round(GC_gc_radius_pc2[i],5))
-            + " "
-            + str(np.round(GC_sigma_h2[i],5))
-            + " "
-            + str(np.round(GC_imbh_mass2[i],5))
-            + "\n"
-        )
-cat.close()
 allcat.close()
-analytic_survival.close()
-if(num_run < N and run_all == False):
-    print("requested", N, "halos, but there were only", num_run, "halos stored in the mass range you requested. Model was run on all available halos.\n")
 print("all done!")

@@ -42,7 +42,7 @@ nohup bash -c '
     sleep 30
   done
   ' > /lingshan/disk3/subonan/TNG50+100-1-Dark/full_tree_download_loop.log 2>&1 < /dev/null & echo "PID: $!"
-python3 /home/subonan/GitHub/dl/3_convert_and_validate_fixed_trees.py --data_dir /lingshan/disk3/subonan/TNG50+100-1-Dark
+python3 /home/subonan/GitHub/dl/3_convert_and_validate_fixed_trees.py --data_dir /lingshan/disk3/subonan/TNG50+100-1-Dark --min_particle 500 --min_mass 7.17e7 --out_dir /lingshan/disk3/subonan/TNG50+100-1-Dark_Small
 ```
 
 The old `3_convert_full_trees_to_fixed_dat.py` and `4_validate_fixed_trees.py` remain unchanged legacy/reference entry points. They retain their historical interfaces and mass-filter behaviour. They are not part of the normal three-stage workflow. The new combined command has no `--overwrite` and no `--min-mass-msun` option: every fixed `.dat` file named by the current manifest is converted again and replaces the current-manifest product after all conversions and validations succeed.

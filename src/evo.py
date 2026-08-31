@@ -55,8 +55,6 @@ class Tunables:
     binnub: int = 100
     # Minimum base timescale in Gyr allowed for the ts_m and ts_r timestep floors.
     t_limit: float = 1.0e-2
-    # Little-h used in the halo virial-radius and spin conversions.
-    h: float = 0.704
 
 def _numeric_rows(path: Path) -> np.ndarray:
     """Read whitespace-delimited numeric rows, ignoring comments and blanks."""
@@ -124,18 +122,15 @@ def rho_bkgd(r_kpc: float, SersicReff_kpc: float, Mv_1e9Msun: float, t_Gyr: floa
         )
 
     p, b = Sersic_coefs(2.2)
-    c = 9.354 / ((Mv_1e9Msun * tun.h / 1.0e3) ** 0.094) # halo concentration
+    c = 10 ** 0.971 / ((Mv_1e9Msun * ReducedH0 / 1.0e3) ** 0.094) # halo concentration
     check_finite_positive(c, name="Halo concentration c")
-    #Rs = Rv_kpc(Mv_1e9Msun, t_Gyr, tun) / c # halo scale radius
     Rs = Rv(Mhalo=Mv_1e9Msun*1.0e9, z=CosmicAge2Redshift(t=t_Gyr, time_unit="Gyr")) / c # halo scale radius
     check_finite_positive(Rs, name="Halo scale radius in kpc Rs")
-    dphidr_dm = Mv_1e9Msun * (math.log(1.0 + r_kpc / Rs) / (r_kpc * r_kpc) - 1.0 / ((Rs + r_kpc) * r_kpc))
+    dPhiNFW_dr = G_kpc * Mv_1e9Msun * 1.0e9 / (math.log(1.0 + c) - c / (1.0 + c)) * (math.log(1.0 + r_kpc / Rs) / (r_kpc * r_kpc) - 1.0 / ((Rs + r_kpc) * r_kpc))
 
-    sersic_z = b * (r_kpc / SersicReff_kpc) ** (1.0 / 2.2)
-    #m_ser_r = Mstar_1e9Msun_SMHM(Mv_1e9Msun, t_Gyr) * float(special.gammainc(2.2 * (3.0 - p), sersic_z))
-    m_ser_r = Mstar_SMHM(Mhalo=Mv_1e9Msun*1.0e9, z=CosmicAge2Redshift(t=t_Gyr, time_unit="Gyr")) * float(special.gammainc(2.2 * (3.0 - p), sersic_z))
-    vc_bg = math.sqrt(max(r_kpc * dphidr_dm + m_ser_r / r_kpc, 0.0))
-    return vc_bg * vc_bg / ((4.0 / 3.0) * PI * r_kpc * r_kpc)
+    Mstar_encl = Mstar_SMHM(Mhalo=Mv_1e9Msun*1.0e9, z=CosmicAge2Redshift(t=t_Gyr, time_unit="Gyr")) * special.gammainc(2.2 * (3.0 - p), b * (r_kpc / SersicReff_kpc) ** (1.0 / 2.2))
+    return check_finite_positive(3.0 / (4.0 * PI * r_kpc ** 3) * ((r_kpc ** 2) * np.abs(dPhiNFW_dr) + G_kpc * Mstar_encl),
+                                 name="Background density in M☉/kpc³ rho_bg")
 
 def swf(t_gyr: float) -> float:
     t_safe = max(float(t_gyr), 1.0e-12)
@@ -143,15 +138,12 @@ def swf(t_gyr: float) -> float:
     return max(0.0, -(x * x) / 100.0 + 0.288 * x - 1.42)
 
 def rateStrippingFragioneP2019(M_GC_1e5Msun: float, r_kpc: float, v_kms: float) -> float:
-    check_finite_positive(M_GC_1e5Msun, name="GC mass in 1e5 Msun M_GC_1e5Msun")
+    check_finite_positive(M_GC_1e5Msun, name="GC mass in 1e5 M☉ M_GC_1e5Msun")
     check_finite_positive(r_kpc, name="GC distance from the galactic centre in kpc r_kpc")
     check_finite_positive(v_kms, name="GC circular velocity in km/s v_kms")
 
-    P = 100.0 * r_kpc / v_kms
-    check_finite_positive(P, name="(Normalized) GC orbital period in Myr P")
-    dMdt_1e5MsunOverGyr = 0.1 * (2.0 ** (2.0 / 3.0)) * (M_GC_1e5Msun ** (1.0 / 3.0)) / P
-    check_finite_positive(dMdt_1e5MsunOverGyr, name="GC mass-loss rate due to tidal stripping in 1e5 Msun/Gyr dMdt_1e5MsunOverGyr")
-    return dMdt_1e5MsunOverGyr
+    dMdt_1e5MsunOverGyr = (2.0 ** (2.0 / 3.0)) * (M_GC_1e5Msun ** (1.0 / 3.0)) * v_kms / (r_kpc * 1.0e3)
+    return check_finite_positive(dMdt_1e5MsunOverGyr, name="GC mass-loss rate due to tidal stripping in 1e5 M☉/Gyr dMdt_1e5MsunOverGyr")
 
 def assign_bin_fast(
     r_kpc: float,
@@ -166,22 +158,19 @@ def assign_bin_fast(
     return max(1, min(binnub, b))
 
 def cluster_halfmass_density(M_GC_1e5Msun: float) -> float:
+    check_finite_positive(M_GC_1e5Msun, name="GC mass in 1e5 M☉ M_GC_1e5Msun")
     if M_GC_1e5Msun < 1.0:
         return 1.0e3
     if M_GC_1e5Msun > 10.0:
         return 1.0e5
     return 1.0e3 * (M_GC_1e5Msun**2)
 
-def vc_kms(Mencl_1e5Msun: float, r_kpc: float, rho_bkgd: float) -> float:
-    check_finite_non_negative(Mencl_1e5Msun, name="Enclosed mass in 1e5 Msun Mencl_1e5Msun")
+def vc_kms(Mgc_encl_1e5Msun: float, r_kpc: float, rho_bg: float) -> float:
+    check_finite_non_negative(Mgc_encl_1e5Msun, name="Enclosed GC mass in 1e5 M☉ Mgc_encl_1e5Msun")
     check_finite_positive(r_kpc, name="GC distance from the galactic centre in kpc r_kpc")
-    check_finite_positive(rho_bkgd, name="Background density in Msun/kpc^3 rho_bkgd")
+    check_finite_positive(rho_bg, name="Background density in M☉/kpc³ rho_bg")
 
-    rho_GC = (Mencl_1e5Msun * 1.0e5) / ((4.0 / 3.0) * PI * (r_kpc**3))
-    check_finite_non_negative(rho_GC, name="GC density in Msun/kpc^3 rho_GC")
-    vc_kms = math.sqrt((4.0 * PI / 3.0) * G_kpc * (rho_bkgd + rho_GC) * (r_kpc**2))
-    check_finite_positive(vc_kms, name="Circular velocity in km/s vc_kms")
-    return vc_kms
+    return check_finite_positive(np.sqrt(G_kpc * ((4.0 * PI / 3.0) * rho_bg * (r_kpc**2) + (Mgc_encl_1e5Msun * 1.0e5) / r_kpc)), name="Circular velocity in km/s vc_kms")
 
 def _prefix_from_sumgc_total(m_sumgc_total: np.ndarray) -> np.ndarray:
     """Prefix sums of deposited mass by radial bin for fast enclosed-mass queries."""
@@ -454,7 +443,7 @@ def evolve_single_halo(
     mhalo = 10.0 ** (halo[:, 0] - 9.0)
     redshift_halo = halo[:, 5].astype(float)
     bg_time = np.array([Redshift2CosmicAge(z=z, time_unit="Gyr") for z in redshift_halo], dtype=float)
-    spin_norm = np.sqrt(halo[:, 6] ** 2 + halo[:, 7] ** 2 + halo[:, 8] ** 2) * kpc / tun.h * 1.0e3
+    spin_norm = np.sqrt(halo[:, 6] ** 2 + halo[:, 7] ** 2 + halo[:, 8] ** 2) * kpc / ReducedH0 * 1.0e3
 
     base_block_edges = np.linspace(0.0, t_end, int(tun.t_div) + 1, dtype=float)
     inventory_edge_times = np.asarray([t for _, t in pending_inventory_targets], dtype=float)

@@ -6,11 +6,26 @@ This repository is the current working branch derived from `/home/subonan/Gao+20
 
 ### Python GC-evolution workflow
 
-The original Python-plus-Fortran split has been replaced by an active Python evolution path centred on `src/evo.py`. Relative to `/home/subonan/Gao+2024`, the current workflow always uses the evolving-host background with analytical background-density evaluation and exposes timestep controls, one selected Sérsic index through `--N_S`, the `--DF` dynamical-friction switch, the `--tidal_stripping` continuous-stripping switch, and a redshift-list interface for extra central NSC/BH summary outputs directly through `src/run.py`, while keeping the formation stage tied to the Gao-style tree and GC catalogue logic. The physical simulation itself now always runs to `z=0`, and optional extra redshifts are reconstructed afterwards from the `z=0` evolution outputs. The current pipeline is also easier to inspect and compare because one command now rebuilds formation catalogues, runs halo-by-halo evolution, and writes one flat set of outputs.
+The original Python-plus-Fortran split has been replaced by an active Python evolution path centred on `src/evo.py`. Relative to `/home/subonan/Gao+2024`, the current workflow always uses the evolving-host background with analytical background-density evaluation and exposes timestep controls, one selected Sérsic index through `--N_S`, the `--DF` dynamical-friction switch, the `--tidal_stripping` continuous-stripping switch, and a redshift-list interface for extra central NSC/BH summary outputs directly through `src/run.py`, while keeping the formation stage tied to the Gao-style tree and GC catalogue logic. All branches use one dynamic branch-import treatment: live child GCs are released at `0.5 Rvir`, and child central BH states plus fixed-bin-1 deposited stellar components are imported at branch merger. The physical simulation itself now always runs to `z=0`, and optional extra redshifts are reconstructed afterwards from the `z=0` evolution outputs. The current pipeline is also easier to inspect and compare because one command now rebuilds formation catalogues, runs halo-by-halo evolution, and writes one flat set of outputs.
 
 ### IMBH extension
 
-The main scientific extension beyond Gao+2024 is the IMBH path. `src/IMBH.py` adds formation-time IMBH seeding tied to GC structural properties, and the formation catalogs now store GC radius, surface density, metallicity, and IMBH seed mass for downstream use. Halo-level summaries also track SMBH-proxy quantities from sunk GC and IMBH channels. When `--Eddington` is positive, it applies only to the stored central BH state after central entry or branch import; IMBHs inside GCs and non-central wandering IMBHs do not accrete. This is still a first bridge from GC evolution to SMBH-oriented diagnostics rather than a full black-hole growth model with accretion and merger physics.
+The main scientific extension beyond Gao+2024 is the IMBH path. `src/config.py` and `src/main.py` add formation-time IMBH seeding, and the formation catalogues now store GC radius, surface density, metallicity, and IMBH seed mass for downstream use. Halo-level summaries also track SMBH-proxy quantities from sunk GC and IMBH channels. When `--Eddington` is positive, it applies only to the stored central BH state after central entry or branch import; IMBHs inside GCs and non-central wandering IMBHs do not accrete. This is still a first bridge from GC evolution to SMBH-oriented diagnostics rather than a full black-hole growth model with accretion and merger physics.
+
+The formation-time IMBH prescription is selected with `--fit`. The default `Rantala+2026` keeps the existing metallicity- and surface-density-dependent estimator, including its current $100\,M_\odot$ IMBH convention. `Vergara+2026conservative` and `Vergara+2026optimistic` use the birth stellar mass of each cluster, namely the `cluster.mass` value drawn from the CIMF before evolution, expressed in $M_\odot$; they do not use metallicity, radius, or surface density in the BH-mass formula. The two fits are:
+
+$$
+\log_{10}\left(\frac{M_{\rm BH}}{M_\odot}\right) = -2 + 0.88\log_{10}\left(\frac{M_{\rm cl,\star,birth}}{M_\odot}\right)
+$$
+
+for `Vergara+2026conservative`, and
+
+$$
+\log_{10}\left(\frac{M_{\rm BH}}{M_\odot}\right) = -0.76 + 0.76\log_{10}\left(\frac{M_{\rm cl,\star,birth}}{M_\odot}\right)
+$$
+
+for `Vergara+2026optimistic`. Every GC that is formed by the existing event and CIMF-budget logic receives the selected Vergara estimate. The relation is directly extrapolated for finite positive birth masses: there is no implicit calibration-range gate, clipping, warning, or range-based rejection. GC radius and surface-density columns remain available for diagnostics in every fit, but post-formation stellar mass loss does not recompute or reduce the stored IMBH mass. The finite, non-negative `--IMBH` coefficient is applied once to the selected fit result at formation; its scaled value is then carried into `M_IMBH_init`, evolution, and aggregation without a second multiplication.
+The selected fit is recorded in the formation-catalogue comment and `run_metadata.json`; it does not add a numeric output column or change output filenames.
 
 ### Improved outputs and analysis support
 
@@ -30,9 +45,9 @@ The plotting helpers are split by responsibility: `plot/load_output.py` handles 
 
 - `data/`: reference tables used by the model, plus the bundled fixed-tree sample. External corrected tree directories can also be supplied at runtime through `--tree-dir`.
 - `data/fixed_trees_large_spin/`: bundled Gao-compatible fixed-tree input set.
-- `src/main_spatial.py`: GC formation stage based on the Gao/Choksi-style model.
+- `src/main.py`: GC formation stage based on the Gao/Choksi-style model.
 - `src/evo.py`: active Python GC evolution solver.
-- `src/IMBH.py`: IMBH seeding module used at GC formation.
+- `src/config.py`: IMBH fitting functions and shared model configuration used at GC formation.
 - `src/schechter_interp.py`: Schechter-sampling support for GC initial masses.
 - `src/smhm.py`: stellar-mass-halo-mass helper functions.
 - `src/run.py`: end-to-end runner for one formation/evolution pass and optional paper-style plotting.
@@ -47,51 +62,72 @@ The plotting helpers are split by responsibility: `plot/load_output.py` handles 
 
 ## Typical Run
 
+Use a separate output directory for each `--fit` choice; the three example runs below therefore write to three different directories.
+
 ```bash
 python ~/GitHub/src/run.py --help
 nohup python3 /home/subonan/GitHub/src/run.py \
   --tree-dir /lingshan/disk3/subonan/TNG50+100-1-Dark/fixed_trees_large_spin_dark \
-  --clear-output 2 --output /lingshan/disk3/subonan/_outputs/TNG50+100_Eddington0_Mc7 \
-  --Eddington 0 --ex-situ 2 --lg_cut-off_mass 7.0 --N_S 2.0 --p2 6.75 --p3 0.5 --ts-m 0.2 --ts-r 0.2 \
-  --run-all 1 --n-halos 32768 --log-mh-min 10.0 --log-mh-max 15.0 \
+  --clear-output 2 --output /lingshan/disk3/subonan/_outputs/TNG50_Eddington0_IMBH1_Min1e5_p2-7.0_p3-0.5_Rantala+2026 \
+  --Eddington 0 --fit "Rantala+2026" --Mmin 1.0e5 --IMBH 1.0 --lg_cut-off_mass 7.0 --N_S 2.0 --p2 7.0 --p3 0.5 --ts-m 0.2 --ts-r 0.2 \
+  --run-all 0 --n-halos 128 --log-mh-min 10.0 --log-mh-max 13.0 \
   --out_z '1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0'\
-  --main_jobs 96 --satellite_jobs 1 --plot_Choksi+2018 --plot_KongLi2026 \
-  > ~/TNG50+100_Eddington0_Mc7.log 2>&1 &
+  --main_jobs 32 --satellite_jobs 1 --plot_Choksi+2018 --plot_KongLi2026 \
+  > ~/TNG50_Eddington0_IMBH1_Min1e5_p2-7.0_p3-0.5_Rantala+2026.log 2>&1 &
+
+nohup python3 /home/subonan/GitHub/src/run.py \
+  --tree-dir /lingshan/disk3/subonan/TNG50+100-1-Dark_Small/fixed_trees \
+  --clear-output 2 --output /lingshan/disk3/subonan/_outputs/TNG50_Eddington0_IMBH1_Min3e4_p2-14.0_p3-0.7_Rantala+2026 \
+  --Eddington 0 --fit "Rantala+2026" --Mmin 3.0e4 --IMBH 1.0 --lg_cut-off_mass 7.0 --N_S 2.0 --p2 14.0 --p3 0.7 --ts-m 0.2 --ts-r 0.2 \
+  --run-all 0 --n-halos 128 --log-mh-min 10.0 --log-mh-max 13.0 \
+  --out_z '1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0'\
+  --main_jobs 32 --satellite_jobs 1 --plot_Choksi+2018 --plot_KongLi2026 \
+  > ~/TNG50_Eddington0_IMBH1_Min3e4_p2-14.0_p3-0.7_Rantala+2026.log 2>&1 &
+
+nohup python3 /home/subonan/GitHub/src/run.py \
+  --tree-dir /lingshan/disk3/subonan/TNG50+100-1-Dark_Small/fixed_trees \
+  --clear-output 2 --output /lingshan/disk3/subonan/_outputs/TNG50_Eddington0.25_IMBH1_Min3e4_p2-14.0_p3-0.7_Rantala+2026 \
+  --Eddington 0.25 --fit "Rantala+2026" --Mmin 3.0e4 --IMBH 1.0 --lg_cut-off_mass 7.0 --N_S 2.0 --p2 14.0 --p3 0.7 --ts-m 0.2 --ts-r 0.2 \
+  --run-all 0 --n-halos 128 --log-mh-min 10.0 --log-mh-max 13.0 \
+  --out_z '1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0'\
+  --main_jobs 32 --satellite_jobs 1 --plot_Choksi+2018 --plot_KongLi2026 \
+  > ~/TNG50_Eddington0.25_IMBH1_Min3e4_p2-14.0_p3-0.7_Rantala+2026.log 2>&1 &
+
+nohup python3 /home/subonan/GitHub/src/run.py \
+  --tree-dir /lingshan/disk3/subonan/TNG50+100-1-Dark_Small/fixed_trees \
+  --clear-output 2 --output /lingshan/disk3/subonan/_outputs/TNG50+100_Eddington0.25_IMBH1_Min3e4_p2-14.0_p3-0.7_Rantala+2026 \
+  --Eddington 0.25 --fit "Rantala+2026" --Mmin 3.0e4 --IMBH 1.0 --lg_cut-off_mass 7.0 --N_S 2.0 --p2 14.0 --p3 0.7 --ts-m 0.2 --ts-r 0.2 \
+  --run-all 0 --n-halos 256 --log-mh-min 10.0 --log-mh-max 14.0 \
+  --out_z '1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0'\
+  --main_jobs 64 --satellite_jobs 1 --plot_Choksi+2018 --plot_KongLi2026 \
+  > ~/TNG50+100_Eddington0.25_IMBH1_Min3e4_p2-14.0_p3-0.7_Rantala+2026.log 2>&1 &
 
 nohup python3 /home/subonan/GitHub/src/run.py \
   --tree-dir /lingshan/disk3/subonan/TNG50+100-1-Dark/fixed_trees_large_spin_dark \
-  --clear-output 2 --output /lingshan/disk3/subonan/_outputs/TNG50+100_Eddington0.3_Mc7 \
-  --Eddington 0.3 --ex-situ 2 --lg_cut-off_mass 7.0 --N_S 2.0 --p2 6.75 --p3 0.5 --ts-m 0.2 --ts-r 0.2 \
-  --run-all 1 --n-halos 32768 --log-mh-min 10.0 --log-mh-max 15.0 \
+  --clear-output 2 --output /lingshan/disk3/subonan/_outputs/TNG50_Eddington0.25_IMBH3_Min1e5_p2-7.0_p3-0.5_Rantala+2026 \
+  --Eddington 0.25 --fit "Rantala+2026" --Mmin 1.0e5 --IMBH 10.0 --lg_cut-off_mass 7.0 --N_S 2.0 --p2 7.0 --p3 0.5 --ts-m 0.2 --ts-r 0.2 \
+  --run-all 0 --n-halos 128 --log-mh-min 10.0 --log-mh-max 13.0 \
   --out_z '1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0'\
-  --main_jobs 96 --satellite_jobs 1 --plot_Choksi+2018 --plot_KongLi2026 \
-  > ~/TNG50+100_Eddington0.3_Mc7.log 2>&1 &
+  --main_jobs 32 --satellite_jobs 1 --plot_Choksi+2018 --plot_KongLi2026 \
+  > ~/TNG50_Eddington0.25_IMBH3_Min1e5_p2-7.0_p3-0.5_Rantala+2026.log 2>&1 &
 
 nohup python3 /home/subonan/GitHub/src/run.py \
   --tree-dir /lingshan/disk3/subonan/TNG50+100-1-Dark/fixed_trees_large_spin_dark \
-  --clear-output 2 --output /lingshan/disk3/subonan/_outputs/TNG50+100Small_Eddington0.3_Mc7 \
-  --Eddington 0.3 --ex-situ 2 --lg_cut-off_mass 7.0 --N_S 2.0 --p2 6.75 --p3 0.5 --ts-m 0.2 --ts-r 0.2 \
-  --run-all 1 --n-halos 32768 --log-mh-min 10.0 --log-mh-max 11.0 \
+  --clear-output 2 --output /lingshan/disk3/subonan/_outputs/TNG50+100_Eddington0_IMBH3_Min1e5_p2-7.0_p3-0.5_Rantala+2026 \
+  --Eddington 0 --fit "Rantala+2026" --Mmin 1.0e5 --IMBH 1.0 --lg_cut-off_mass 7.0 --N_S 2.0 --p2 7.0 --p3 0.5 --ts-m 0.2 --ts-r 0.2 \
+  --run-all 1 --n-halos 32768 --log-mh-min 10.0 --log-mh-max 15.0 \
   --out_z '1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0'\
-  --main_jobs 96 --satellite_jobs 1 --plot_Choksi+2018 --plot_KongLi2026 \
-  > ~/TNG50+100Small_Eddington0.3_Mc7.log 2>&1 &
+  --main_jobs 80 --satellite_jobs 1 --plot_Choksi+2018 --plot_KongLi2026 \
+  > ~/TNG50+100_Eddington0_IMBH3_Min1e5_p2-7.0_p3-0.5_Rantala+2026.log 2>&1 &
 
-nohup python3 ~/GitHub/src/run.py \
-  --tree-dir /lingshan/disk3/subonan/Illustris-1-Dark_Cube/data/fixed_trees_large_spin_dark \
-  --clear-output 2 --output /lingshan/disk3/subonan/_outputs/IllustrisCube_Eddington0_Mc7 \
-  --Eddington 0.0 --ex-situ 2 --lg_cut-off_mass 7.0 --N_S 2.0 --p2 6.75 --p3 0.5 --ts-m 0.2 --ts-r 0.2 \
-  --run-all 1 --n-halos 512 --log-mh-min 10.0 --log-mh-max 14.65 \
+nohup python3 /home/subonan/GitHub/src/run.py \
+  --tree-dir /lingshan/disk3/subonan/TNG50+100-1-Dark/fixed_trees_large_spin_dark \
+  --clear-output 2 --output /lingshan/disk3/subonan/_outputs/TNG50+100_Eddington0.25_IMBH3_Min1e5_p2-7.0_p3-0.5_Rantala+2026 \
+  --Eddington 0.25 --fit "Rantala+2026" --Mmin 1.0e5 --IMBH 1.0 --lg_cut-off_mass 7.0 --N_S 2.0 --p2 7.0 --p3 0.5 --ts-m 0.2 --ts-r 0.2 \
+  --run-all 1 --n-halos 32768 --log-mh-min 10.0 --log-mh-max 15.0 \
   --out_z '1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0'\
-  --main_jobs 32 --satellite_jobs 1 --plot_Choksi+2018 --plot_KongLi2026 \
-  > ~/IllustrisCube_Eddington0_Mc7.log 2>&1 &
-nohup python3 ~/GitHub/src/run.py \
-  --tree-dir /lingshan/disk3/subonan/Illustris-1-Dark+TNG50-1-Dark/data/fixed_trees_large_spin_dark \
-  --clear-output 2 --output /lingshan/disk3/subonan/_outputs/Test_Eddington0.3_M9-13.5_Mc7 \
-  --Eddington 0.3 --ex-situ 2 --lg_cut-off_mass 7.0 --p2 6.75 --p3 0.5 --ts-m 0.2 --ts-r 0.2 \
-  --run-all 0 --n-halos 256 --log-mh-min 9.0 --log-mh-max 13.5 \
-  --out_z '1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0' --N_S 2.0 \
-  --main_jobs 32 --satellite_jobs 1 --plot_Choksi+2018 --plot_KongLi2026 \
-  > ~/test_Eddington0.3_M9-13.5_Mc7.log 2>&1 &
+  --main_jobs 80 --satellite_jobs 1 --plot_Choksi+2018 --plot_KongLi2026 \
+  > ~/TNG50+100_Eddington0.25_IMBH3_Min1e5_p2-7.0_p3-0.5_Rantala+2026.log 2>&1 &
 ```
 
 Prefer running from the repository root because the project path contains spaces and the `src/run.py` entry point is the least error-prone form.
@@ -100,9 +136,8 @@ Prefer running from the repository root because the project path contains spaces
 - `--run-all 1` processes the full tree set, while `--run-all 0` activates the mass window and `--n-halos` selection.
 - `--N_S` selects the one positive, dimensionless Sérsic index used by this run; the default is `2.0`.
 - `--main_jobs` controls parallel evolution of different descendant halos within this one `N_S` run. There is no parallel `N_S` job layer.
-- `--satellite_jobs` controls independent ready satellite-branch evolution within one descendant halo in dynamic `--ex-situ 1` or `--ex-situ 2`; child branches must finish before their recipient branch runs. Neither worker setting parallelises formation or individual GCs.
+- `--satellite_jobs` controls independent ready satellite-branch evolution within one descendant halo; child branches must finish before their recipient branch runs. Neither worker setting parallelises formation or individual GCs.
 - The two worker limits are independent. The runtime message reports `main_jobs = M`, `satellite_jobs = S`, and `M * S = P` possible inner satellite-worker slots, together with the possible process footprint including the outer halo workers and coordinator. No automatic global cap is applied.
-- `--ex-situ 0` accepts `--satellite_jobs` but does not use it and always emits a warning.
 - GC evolution now always uses the evolving host-halo background.
 - The physical simulation now always runs to `z=0`; `--out_z` only controls extra halo-level central NSC/BH summaries reconstructed at earlier redshifts.
 - `z=0` is always included automatically in the redshift-resolved central NSC/BH outputs.
@@ -115,7 +150,7 @@ Prefer running from the repository root because the project path contains spaces
 
 ```bash
 python3 ~/GitHub/plot/plot_Choksi+2018.py --out_dir /lingshan/disk3/subonan/_outputs/TNG50+100_Eddington0.3_ll_Mc7
-python3 -u ~/GitHub/plot/plot_Kong\&Li2026.py --abundance-matching-redshifts 4.0 5.0 6.0 7.0 8.0 9.0 10.0 --out_dir /lingshan/disk3/subonan/_outputs/TNG50+100_Eddington0.3_Mc7 2>&1 | tee /tmp/plot_KongLi2026.log
+python3 -u ~/GitHub/plot/plot_Kong\&Li2026.py --out_dir /lingshan/disk3/subonan/_outputs/TNG50+100_Eddington0.3_Mc7 2>&1 | tee /tmp/plot_KongLi2026.log
 ```
 
 New style:
@@ -142,6 +177,8 @@ The active workflow no longer uses the legacy Gao `input.txt` interface. The mai
 - `--p3`: threshold in `((Delta M_h / M_h) / Delta t)` above which a formation event is triggered.
 - MPB-only switch: if `1`, form GCs only on the main progenitor branch; if `0`, include all retained branches in the fixed tree.
 - `--lg_cut-off_mass`: `log10(M_c / Msun)` for the Schechter cutoff mass in the GC initial-mass function.
+- `--fit`: formation-time IMBH mass prescription. The default is `Rantala+2026`; the other allowed values are `Vergara+2026conservative` and `Vergara+2026optimistic`. The Rantala choice retains the existing metallicity/surface-density calculation, while both Vergara choices use only the birth stellar cluster mass in the relations above.
+- `--Mmin`: minimum initial GC mass in linear $M_\odot$ (not `log10`), default $10^5\,M_\odot$; it must be finite, positive, and less than $10^6\,M_\odot$. The same value sets the lower endpoint of the CIMF and the event-eligibility check. Ordinary CIMF draws and the reserved maximum cluster use this lower endpoint, but the final budget-correction residual may be below `Mmin` so that the event budget remains conserved.
 - `--metal`: stellar mass-metallicity relation used at GC formation; choices are `Choksi+2018` and `Chen&Gnedin2024`.
 - `--accreted_baryon`: accreted-baryon fraction limiter used for the cold-gas mass; choices are `Muratov&Gnedin2010` and `Chen&Gnedin2023`.
 - `--eff_rad`: effective-radius model used for both GC birth radii and the analytical stellar-background radius. `Gao+2024` keeps the current spin-based `R_e` control. `empirical` uses the star-forming galaxy size-mass-redshift relation from `papers/gc_birth_radius_methods.pdf`, with stellar mass supplied by the existing SMHM relation. `catalogue` uses the matched full-physics SFR-concentration sidecar and falls back to the empirical relation for missing, unresolved, zero-SFR, or out-of-domain rows.
@@ -163,14 +200,12 @@ The evolution solver now always uses the evolving-host background implementation
 - `--DF`: if `1`, enable dynamical-friction orbital decay; if `0`, disable the radial-inspiral term while leaving stellar evolution, tidal stripping, and tidal tearing active.
 - `--tidal_stripping`: continuous tidal-stripping prescription. `Fragione+2019` keeps the current local-orbit rate; `Choksi+2018` uses a fixed `P = 0.5` Choksi-style disruption/stripping rate. Direct tidal tearing and stellar evolution are unchanged.
 - `--out_z`: comma-separated extra redshifts for halo-level central NSC/BH summaries. The simulation itself still runs to `z=0`, `z=0` is always included automatically, and halo selection remains tied to the descendant `z=0` host.
-- `--IMBH`: if `1`, enable IMBH seeding in `src/main_spatial.py`; if `0`, write zero IMBH-related columns.
+- `--IMBH`: finite, non-negative, dimensionless coefficient for the IMBH seed mass, default `1.0`. The coefficient is applied once in `src/main.py` to the formation-time estimator result: `1` preserves the estimate, `0` sets every formation seed to zero while retaining GC formation and its GC radius and surface density, and values above `1` amplify the seed. It does not change the GC radius or surface density and is not applied again during evolution or aggregation.
 - `--Eddington`: dimensionless Eddington ratio for uncapped growth of the stored central BH state only; IMBHs inside GCs and non-central wandering IMBHs remain non-accreting.
-- `--ex-situ`: tri-state ex-situ GC treatment. Mode `0` applies Gao+2024-style analytic survival/disruption to non-MPB GCs to `z = 0` while MPB GCs use the active dynamical NSC path. Mode `1` evolves satellite branches and releases surviving non-central GCs/wanderers at `0.5 Rvir`, but does not import satellite central BH masses or sunk stellar deposits. Mode `2` evolves satellite branches, releases surviving non-central GCs/wanderers, and imports the child central BH plus child fixed-bin-1 sunk stellar deposit components at branch merger.
-- The former satellite-NSC boolean option has been removed; pass `--ex-situ 2` for the previous branch-import behaviour.
-- Mode `0` keeps the active `src/config.py` cosmology and time conversion, not the original Gao+2024 `smhm.py` cosmology. Non-MPB analytic survivors and wanderers keep `r_final_kpc = r_init_kpc`, and disrupted non-MPB IMBH hosts are retained as `status = -4` wanderers.
+- Branch-import GC treatment is unconditional: every formed GC receives its local Sérsic placement, every branch uses dynamic evolution, live child GCs are released at `0.5 Rvir`, and child central BH states plus fixed-bin-1 deposited stellar components are imported at branch merger.
 - `--N_S`: one positive, dimensionless Sérsic index for the run; default `2.0`. Compare different values with separate output directories.
 - `--main_jobs`: positive integer number of concurrent descendant-halo evolution workers; default `1`.
-- `--satellite_jobs`: positive integer number of concurrent independent satellite-branch evolution workers within one descendant halo for dynamic `--ex-situ 1/2`; default `1`. With `--ex-situ 0`, the setting is accepted but unused and a warning is emitted.
+- `--satellite_jobs`: positive integer number of concurrent independent satellite-branch evolution workers within one descendant halo; default `1`. Child branches finish before their recipient branch runs.
 - `--plot_Choksi+2018`: run `plot/plot_Choksi+2018.py` automatically after the simulation.
 - `--plot_KongLi2026`: run `plot/plot_Kong&Li2026.py` automatically after the simulation.
 - Automatic plotting is opt-in. If a requested plotter fails, the simulation retains its data products and emits a warning.
@@ -259,7 +294,7 @@ Status codes:
 - `-1`: exhausted to zero mass
 - `-2`: tidally torn apart
 - `-3`: sunk into the galaxy center
-- `-4`: non-central IMBH wanderer at the final simulated epoch, including disrupted non-MPB analytic IMBH hosts in `--ex-situ 0`
+- `-4`: non-central IMBH wanderer at the final simulated epoch
 - `-5`: IMBH wanderer sunk into the galaxy center
 
 #### `finalGCs.dat`
@@ -282,7 +317,7 @@ Columns:
 - `M_IMBH_init`
 - `M_IMBH_final`
 
-`M_GC_final` is the final bound stellar mass outside the BH. For `--ex-situ 0` non-MPB analytic rows this is `max(M_GC_analytic_final - M_IMBH_init, 0)`.
+`M_GC_final` is the final bound stellar mass outside the BH.
 
 #### `depos.dat`
 
@@ -360,13 +395,14 @@ Keys surfaced in the README:
 - `p2`
 - `p3`
 - `lg_cut_off_mass`
-- `ex_situ_mode`
+- `Mmin`: linear minimum initial GC mass in $M_\odot$ used for the CIMF lower endpoint and the event-budget eligibility check; the default is $10^5\,M_\odot$ and the accepted range is finite, positive, and below $10^6\,M_\odot$.
+- `fit`: exact formation-time IMBH prescription selected by `--fit`; the default is `Rantala+2026`, with `Vergara+2026conservative` and `Vergara+2026optimistic` as the alternatives.
+- `IMBH`: finite, non-negative, dimensionless coefficient applied once to the formation-time IMBH estimator result; the default is `1.0`.
 - `metal`
 - `accreted_baryon`
 - `eff_rad`
 - `eff_rad_catalogue`
 - `eff_rad_catalogue_fallback_policy`
-- `IMBH`
 - `mpb_only`
 - `run_all`
 - `log_mh_min`

@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
-"""Convert, correct, and validate the current mixed TNG fixed-tree manifest."""
+"""Convert, correct, and validate the current mixed TNG fixed-tree manifest.
+
+History nodes are retained when either the inclusive equivalent dark-matter
+particle-count threshold or the inclusive physical halo-mass threshold is met,
+provided that the node has a first progenitor. All conversion products are
+written below ``out_dir/fixed_trees``.
+"""
 
 from __future__ import annotations
 
@@ -75,13 +81,47 @@ def parse_args() -> argparse.Namespace:
         "--data_dir",
         default=str(_common.DEFAULT_DATA_DIR),
         help=(
-            "Absolute directory containing the manifest, raw trees, and fixed trees. "
-            "The default is /lingshan/disk3/subonan/TNG50+100-1-Dark."
+            "Absolute input directory containing the manifest, raw trees, and "
+            "snapshot-to-redshift tables (default: "
+            "/lingshan/disk3/subonan/TNG50+100-1-Dark)."
+        ),
+    )
+    parser.add_argument(
+        "--min_particle",
+        type=int,
+        default=500,
+        help=(
+            "Inclusive minimum equivalent dark-matter particle count. Nodes are "
+            "kept when this criterion OR --min_mass is met (default: 500)."
+        ),
+    )
+    parser.add_argument(
+        "--min_mass",
+        type=float,
+        default=4.76e8,
+        metavar="M_SUN",
+        help=(
+            "Inclusive minimum physical halo mass in M_sun. Nodes are kept when "
+            "this criterion OR --min_particle is met (default: 4.76e8 M_sun)."
+        ),
+    )
+    parser.add_argument(
+        "--out_dir",
+        required=True,
+        help=(
+            "Required absolute output-root directory. All products are written "
+            "under out_dir/fixed_trees; there is no default."
         ),
     )
     args = parser.parse_args()
     if not Path(args.data_dir).expanduser().is_absolute():
         parser.error("--data_dir must be an absolute path.")
+    if args.min_particle <= 0:
+        parser.error("--min_particle must be a positive integer.")
+    if not math.isfinite(args.min_mass) or args.min_mass <= 0.0:
+        parser.error("--min_mass must be finite and positive.")
+    if not Path(args.out_dir).expanduser().is_absolute():
+        parser.error("--out_dir must be an absolute path.")
     return args
 
 
@@ -128,11 +168,25 @@ def _read_integer_hdf5_array(handle: h5py.File, name: str) -> np.ndarray:
 def load_raw_nodes(
     path: Path,
     snap_to_z: np.ndarray,
+    min_particle: int,
     min_mass_msun: float,
+    dm_particle_mass_msun: float,
     h: float,
 ) -> tuple[list[HaloNode], set[int]]:
     """Load one raw tree and return filtered nodes plus all source node IDs."""
 
+    if (
+        isinstance(min_particle, bool)
+        or not isinstance(min_particle, (int, np.integer))
+        or int(min_particle) <= 0
+    ):
+        raise RuntimeError(f"Invalid equivalent particle threshold: {min_particle!r}")
+    if not np.isfinite(min_mass_msun) or min_mass_msun <= 0.0:
+        raise RuntimeError(f"Invalid node mass threshold: {min_mass_msun!r}")
+    if not np.isfinite(dm_particle_mass_msun) or dm_particle_mass_msun <= 0.0:
+        raise RuntimeError(
+            f"Invalid dark-matter particle mass: {dm_particle_mass_msun!r}"
+        )
     if not np.isfinite(h) or h <= 0.0:
         raise RuntimeError(f"Invalid Hubble parameter for {path.name}: {h!r}")
     try:
@@ -186,13 +240,17 @@ def load_raw_nodes(
     if np.any(redshift_all < 0.0):
         raise RuntimeError(f"{path.name} references negative redshifts.")
 
+    n_dm = mass_msun / float(dm_particle_mass_msun)
+    if not np.all(np.isfinite(n_dm)):
+        raise RuntimeError(f"{path.name}: equivalent particle counts are non-finite.")
+
     source_ids: set[int] = set()
     for values in (subhalo_id, first_progenitor, descendant_id, main_leaf):
         source_ids.update(int(value) for value in values if int(value) >= 0)
 
-    if not np.isfinite(min_mass_msun) or min_mass_msun <= 0.0:
-        raise RuntimeError(f"Invalid node mass threshold: {min_mass_msun!r}")
-    mask = (mass_msun >= float(min_mass_msun)) & (first_progenitor != -1)
+    mask = (
+        (n_dm >= int(min_particle)) | (mass_msun >= float(min_mass_msun))
+    ) & (first_progenitor != -1)
     if not np.any(mask):
         return [], source_ids
 
@@ -543,13 +601,28 @@ def write_reports(
     summary: dict[str, Any],
     validation_report: dict[str, Any],
     errors: list[str],
+    fixed_tree_dir: Path,
 ) -> None:
-    _atomic_write_json(_common.FIXED_TREE_DIR / "conversion_summary.json", summary)
-    _atomic_write_json(_common.FIXED_TREE_DIR / "validation_report.json", validation_report)
+    _atomic_write_json(fixed_tree_dir / "conversion_summary.json", summary)
+    _atomic_write_json(fixed_tree_dir / "validation_report.json", validation_report)
     _atomic_write_text(
-        _common.FIXED_TREE_DIR / "validation_errors.txt",
+        fixed_tree_dir / "validation_errors.txt",
         ("\n".join(errors) + "\n") if errors else "No validation errors.\n",
     )
+
+
+def _node_filter_report(min_particle: int, min_mass_msun: float) -> dict[str, Any]:
+    return {
+        "min_particle": int(min_particle),
+        "min_mass_msun": float(min_mass_msun),
+        "comparison": "inclusive",
+        "logic": "OR",
+        "condition": "(N_DM >= min_particle) OR (SubhaloMass_msun >= min_mass_msun)",
+        "dm_particle_mass_msun_by_simulation": {
+            sim_key: float(_common.TNG_DM_PARTICLE_MASS_MSUN[sim_key])
+            for sim_key in ("tng50_1_dark", "tng100_1_dark")
+        },
+    }
 
 
 def build_manifest_identity(rows: list[dict[str, str]]) -> dict[str, Any]:
@@ -563,8 +636,25 @@ def build_manifest_identity(rows: list[dict[str, str]]) -> dict[str, Any]:
 
 def main() -> None:
     args = parse_args()
-    _common.configure_data_dir(args.data_dir)
-    _common.ensure_dirs()
+    data_dir = _common.configure_data_dir(args.data_dir)
+    source_root = data_dir.resolve()
+    raw_tree_dir = _common.RAW_TREE_DIR.resolve()
+    output_root = Path(args.out_dir).expanduser().resolve()
+    if output_root == source_root:
+        raise RuntimeError("--out_dir must not be the --data_dir input root.")
+    if output_root == raw_tree_dir:
+        raise RuntimeError("--out_dir must not be the raw-tree directory.")
+    if source_root in output_root.parents:
+        raise RuntimeError("--out_dir must not be inside the --data_dir input root.")
+    if output_root.is_symlink() or (output_root.exists() and not output_root.is_dir()):
+        raise RuntimeError(f"Output root is not a directory: {output_root}")
+    fixed_tree_dir = output_root / "fixed_trees"
+    if fixed_tree_dir.is_symlink() or (
+        fixed_tree_dir.exists() and not fixed_tree_dir.is_dir()
+    ):
+        raise RuntimeError(f"Fixed-tree output path is not a directory: {fixed_tree_dir}")
+    output_root.mkdir(parents=True, exist_ok=True)
+    fixed_tree_dir.mkdir(parents=True, exist_ok=True)
 
     rows: list[dict[str, str]] = []
     conversion_rows: list[dict[str, Any]] = []
@@ -585,7 +675,7 @@ def main() -> None:
             sim_key: load_snap_to_redshift(_common.snap_to_z_path(sim_key))
             for sim_key in ("tng50_1_dark", "tng100_1_dark")
         }
-        stage_dir = Path(tempfile.mkdtemp(prefix=".combined_fixed_trees_", dir=_common.FIXED_TREE_DIR))
+        stage_dir = Path(tempfile.mkdtemp(prefix=".combined_fixed_trees_", dir=fixed_tree_dir))
 
         for row in rows:
             sim_key = row["simulation_key"]
@@ -597,7 +687,9 @@ def main() -> None:
             nodes, source_ids = load_raw_nodes(
                 raw_path,
                 snap_tables[sim_key],
-                float(_common.TNG_TREE_MIN_MASS_MSUN[sim_key]),
+                args.min_particle,
+                args.min_mass,
+                float(_common.TNG_DM_PARTICLE_MASS_MSUN[sim_key]),
                 float(spec["h"]),
             )
             corrected_nodes = convert_nodes(nodes)
@@ -605,7 +697,7 @@ def main() -> None:
             write_fixed_tree(staged_path, corrected_nodes)
             per_suite[sim_key]["converted"] += 1
             per_suite[sim_key]["replaced_existing"] += int(
-                (_common.FIXED_TREE_DIR / row["fixed_tree_basename"]).exists()
+                (fixed_tree_dir / row["fixed_tree_basename"]).exists()
             )
             conversion_rows.append(
                 {
@@ -644,15 +736,7 @@ def main() -> None:
             "converted": len(conversion_rows),
             "skipped_existing": 0,
             "replaced_current_manifest_files": sum(item["replaced_existing"] for item in per_suite.values()),
-            "node_filter": {
-                "min_particles": _common.TNG_TREE_MIN_PARTICLES,
-                "comparison": "inclusive",
-                "condition": "SubhaloMass_msun >= min_mass_msun",
-                "min_mass_msun_by_simulation": {
-                    sim_key: float(_common.TNG_TREE_MIN_MASS_MSUN[sim_key])
-                    for sim_key in ("tng50_1_dark", "tng100_1_dark")
-                },
-            },
+            "node_filter": _node_filter_report(args.min_particle, args.min_mass),
             "h_by_simulation": {
                 sim_key: float(_common.get_simulation_spec(sim_key)["h"])
                 for sim_key in ("tng50_1_dark", "tng100_1_dark")
@@ -660,7 +744,9 @@ def main() -> None:
             "tng100_halo_id_offset": TNG100_HALO_ID_OFFSET,
             "reference_lookup_shift": reference_info,
             "manifest_identity": manifest_identity,
-            "fixed_tree_dir": str(_common.FIXED_TREE_DIR),
+            "data_dir": str(data_dir),
+            "out_dir": str(output_root),
+            "fixed_tree_dir": str(fixed_tree_dir),
             "per_suite": per_suite,
             "per_file": conversion_rows,
         }
@@ -673,30 +759,33 @@ def main() -> None:
                 sorted(Counter(int(item["unique_main_leaf_ids"]) for item in validation_rows).items())
             ),
             "lookup_validation": lookup_info,
-            "fixed_tree_dir": str(_common.FIXED_TREE_DIR),
+            "node_filter": _node_filter_report(args.min_particle, args.min_mass),
+            "data_dir": str(data_dir),
+            "out_dir": str(output_root),
+            "fixed_tree_dir": str(fixed_tree_dir),
             "per_file": validation_rows,
         }
         if errors:
-            write_reports(summary, validation_report, errors)
+            write_reports(summary, validation_report, errors, fixed_tree_dir)
             diagnostics_written = True
             raise RuntimeError(
                 f"Conversion/validation found {len(errors)} issue(s). See "
-                f"{_common.FIXED_TREE_DIR / 'validation_errors.txt'}."
+                f"{fixed_tree_dir / 'validation_errors.txt'}."
             )
 
         commit_names = [row["fixed_tree_basename"] for row in rows]
         commit_names.extend(["id_lookup_original.csv", "id_lookup_large_dark.csv", "id_lookup_large_dark.txt"])
         for name in commit_names:
-            (stage_dir / name).replace(_common.FIXED_TREE_DIR / name)
+            (stage_dir / name).replace(fixed_tree_dir / name)
         summary["committed"] = True
         validation_report["committed"] = True
-        write_reports(summary, validation_report, [])
+        write_reports(summary, validation_report, [], fixed_tree_dir)
         diagnostics_written = True
         print(f"Requested rows: {len(rows)}")
         print(f"Converted and replaced: {len(conversion_rows)}")
         print(f"TNG100 halo-ID offset in model-facing lookup: +{TNG100_HALO_ID_OFFSET}")
-        print(f"Fixed-tree directory: {_common.FIXED_TREE_DIR}")
-        print(f"Validation report: {_common.FIXED_TREE_DIR / 'validation_report.json'}")
+        print(f"Fixed-tree directory: {fixed_tree_dir}")
+        print(f"Validation report: {fixed_tree_dir / 'validation_report.json'}")
     except Exception as error:
         if not diagnostics_written:
             failure_text = str(error)
@@ -706,13 +795,10 @@ def main() -> None:
                 "requested_rows": len(rows),
                 "converted": len(conversion_rows),
                 "skipped_existing": 0,
-                "node_filter": {
-                    "min_particles": _common.TNG_TREE_MIN_PARTICLES,
-                    "comparison": "inclusive",
-                    "min_mass_msun_by_simulation": {
-                        sim_key: float(_common.TNG_TREE_MIN_MASS_MSUN[sim_key])
-                        for sim_key in ("tng50_1_dark", "tng100_1_dark")
-                    },
+                "node_filter": _node_filter_report(args.min_particle, args.min_mass),
+                "h_by_simulation": {
+                    sim_key: float(_common.get_simulation_spec(sim_key)["h"])
+                    for sim_key in ("tng50_1_dark", "tng100_1_dark")
                 },
                 "tng100_halo_id_offset": TNG100_HALO_ID_OFFSET,
                 "reference_lookup_shift": reference_info,
@@ -721,7 +807,9 @@ def main() -> None:
                     if _common.TARGET_MANIFEST_CSV.exists()
                     else None
                 ),
-                "fixed_tree_dir": str(_common.FIXED_TREE_DIR),
+                "data_dir": str(data_dir),
+                "out_dir": str(output_root),
+                "fixed_tree_dir": str(fixed_tree_dir),
                 "per_suite": per_suite,
                 "per_file": conversion_rows,
                 "error": failure_text,
@@ -732,10 +820,13 @@ def main() -> None:
                 "validated_files": len(validation_rows),
                 "error_count": 1,
                 "lookup_validation": {},
-                "fixed_tree_dir": str(_common.FIXED_TREE_DIR),
+                "node_filter": _node_filter_report(args.min_particle, args.min_mass),
+                "data_dir": str(data_dir),
+                "out_dir": str(output_root),
+                "fixed_tree_dir": str(fixed_tree_dir),
                 "per_file": validation_rows,
             }
-            write_reports(failure_summary, failure_report, errors + [failure_text])
+            write_reports(failure_summary, failure_report, errors + [failure_text], fixed_tree_dir)
         raise
     finally:
         if stage_dir is not None and stage_dir.exists():

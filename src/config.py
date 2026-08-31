@@ -378,7 +378,7 @@ def upperIncompleteGammaMinus1(x):
 
     return np.exp(-x) / x - scipy.special.exp1(x)
 
-def makeLogMgcToLogMmaxInterpolator(Mc: float, Mmin: float = 1.0e5, dlog_mmax: float = 0.02): # to be checked
+def makeLogMgcToLogMmaxInterpolator(Mc: float, Mmin: float = 3.0e4, dlog_mmax: float = 0.02): # to be checked
     """
     Build an interpolator from log10(total GC mass) to log10(Mmax)
     for a Schechter cluster initial mass function with alpha = -2.
@@ -510,9 +510,27 @@ def calcRe(mhalo_1e9msun: float, t_Gyr: float, j: float) -> float:
 Function-only scalar IMBH seeding estimator for GC formation outputs.
 
 Metallicity inputs are the literal ratio Z/Zsun, not [Fe/H].  The Rantala+2026
-fit is evaluated for finite positive floats and warns outside the simulated
-metallicity range 0.01 <= Z/Zsun <= 1.0.
+fit uses the cluster surface density and metallicity, while the Vergara+2026
+fits use only the birth stellar cluster mass.
 """
+
+IMBH_FIT_RANTALA = "Rantala+2026"
+IMBH_FIT_VERGARA_CONSERVATIVE = "Vergara+2026conservative"
+IMBH_FIT_VERGARA_OPTIMISTIC = "Vergara+2026optimistic"
+IMBH_FIT_CHOICES = (
+    IMBH_FIT_RANTALA,
+    IMBH_FIT_VERGARA_CONSERVATIVE,
+    IMBH_FIT_VERGARA_OPTIMISTIC,
+)
+DEFAULT_IMBH_FIT = IMBH_FIT_RANTALA
+
+def validate_imbh_fit(fit: str) -> str:
+    """Validate and return an IMBH formation-mass fit name."""
+
+    if fit not in IMBH_FIT_CHOICES:
+        choices = ", ".join(IMBH_FIT_CHOICES)
+        raise ValueError(f"Unknown IMBH fit {fit!r}; choose one of: {choices}.")
+    return fit
 
 def initMRRofSCs(Mcl: float, f_h: float = 0.125) -> float:
     """Eq.7: initial mass-radius relation of star clusters,
@@ -650,14 +668,43 @@ def imbh_mass_from_sigma_metallicity(sigma_h_msun_pc2: float, z_ratio: float) ->
     """Estimate IMBH mass from Sigma_h and metallicity Z/Zsun."""
     Sigma_h = check_finite_positive(sigma_h_msun_pc2, name="Projected 2D half-mass surface density Sigma_h in M☉/pc²")
     Z       = check_finite_non_negative(z_ratio, name="Metallicity Z in Z☉")
-    if Z < 0.01 or Z > 1.0:
-        warnings.warn(f"Rantala+2026 IMBH fit evaluated outside 0.01 <= Z/Z☉ <= 1.0: Z/Z☉ = {Z:.6g}.",
-            RuntimeWarning, stacklevel=2)
+    #if Z < 0.01 or Z > 1.0:
+    #    warnings.warn(f"Rantala+2026 IMBH fit evaluated outside 0.01 <= Z/Z☉ <= 1.0: Z/Z☉ = {Z:.6g}.",
+    #        RuntimeWarning, stacklevel=2)
 
     Mimbh = calcMimbhEq10(Sigma_h, Z) if math.log10(Sigma_h) >= 5.22 else calcMimbhEq9(Sigma_h, Z)
     return Mimbh if Mimbh >= 100.0 else 0.0
 
-def estimate_for_gc(Mcl: float, Z: float) -> dict:
+def imbh_mass_from_cluster_mass(Mcl: float, fit: str) -> float:
+    """Estimate a Vergara+2026 IMBH mass from birth stellar cluster mass.
+
+    Parameters
+    ----------
+    Mcl : float
+        Birth stellar cluster mass in M☉.
+    fit : str
+        One of the two Vergara+2026 fit names.
+
+    Returns
+    -------
+    float
+        Formation-time IMBH mass in M☉.  The power law is evaluated directly
+        for every finite positive input mass, without the Rantala 100 M☉ cut.
+    """
+    Mcl = check_finite_positive(Mcl, name="Birth stellar cluster mass Mcl in M☉")
+    fit = validate_imbh_fit(fit)
+    if fit == IMBH_FIT_VERGARA_CONSERVATIVE:
+        intercept, slope = -2.0, 0.88
+    elif fit == IMBH_FIT_VERGARA_OPTIMISTIC:
+        intercept, slope = -0.76, 0.76
+    else:
+        raise ValueError(f"Mass-only IMBH helper does not support fit {fit!r}.")
+
+    log_Mimbh = intercept + slope * math.log10(Mcl)
+    Mimbh = 10.0**log_Mimbh
+    return check_finite_positive(Mimbh, name="Vergara IMBH mass Mimbh in M☉")
+
+def estimate_for_gc(Mcl: float, Z: float, fit: str = DEFAULT_IMBH_FIT) -> dict:
     """Full GC-level IMBH estimate.
 
     Parameters
@@ -666,6 +713,8 @@ def estimate_for_gc(Mcl: float, Z: float) -> dict:
         GC mass in Msun.
     Z : float
         Metallicity ratio Z/Zsun.
+    fit : str, optional
+        Formation-time IMBH mass prescription.  The default is Rantala+2026.
 
     Returns
     -------
@@ -674,10 +723,14 @@ def estimate_for_gc(Mcl: float, Z: float) -> dict:
     """
     Mcl = check_finite_positive(Mcl, name="Star cluster mass Mcl in M☉")
     Z   = check_finite_non_negative(Z, name="Metallicity Z in Z☉")
+    fit = validate_imbh_fit(fit)
 
     r_h     = initMRRofSCs(Mcl=Mcl, f_h=0.125)
     Sigma_h = calcSigma_h(Mcl=Mcl, r_h=r_h)
-    Mimbh   = imbh_mass_from_sigma_metallicity(sigma_h_msun_pc2=Sigma_h, z_ratio=Z)
+    if fit == IMBH_FIT_RANTALA:
+        Mimbh = imbh_mass_from_sigma_metallicity(sigma_h_msun_pc2=Sigma_h, z_ratio=Z)
+    else:
+        Mimbh = imbh_mass_from_cluster_mass(Mcl=Mcl, fit=fit)
 
     return {
         "r_h_pc": r_h,

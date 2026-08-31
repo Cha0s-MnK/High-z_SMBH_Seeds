@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # Licensed under BSD-3-Clause License - see LICENSE
 
-"""Self-contained Kong & Li 2026 plots for MBH-Mstar, Mbh-Mhalo abundance matching, UV aperture, QSO1 rotation, and BHMF."""
+"""Self-contained Kong & Li 2026 plots for MBH-Mstar, UV aperture, QSO1 rotation, and BHMF."""
 
 import argparse
 import json
@@ -70,43 +70,44 @@ from run import (  # noqa: E402
 # input params
 DATA_ROOT = PROJECT_ROOT / "data"
 MBH_MSTAR_DATA_PATH = DATA_ROOT / "Mbh-Mstar.csv"
-BHMF_DATA_PATH = DATA_ROOT / "BHMF.csv"
-FIGURE_10_FILENAME = "Fig.10_BHSMF.pdf"
+BHMF_DATA_PATH = DATA_ROOT / "BHMFs" / "BHMFs.csv"
+FIGURE_08_FILENAME = "Fig.08_BHSMF.pdf"
+FIGURE_06_FILENAME = "Fig.06_BHMFs.pdf"
 CHEN2026_FIG05A_DATA_PATH = DATA_ROOT / "Chen+2026" / "chen2026_fig05a_seed_mass_functions.csv"
 CHEN2026_FIG05A_REDSHIFT = 20.0
-FIGURE_12_FILENAME = "Fig.12_BHseed_hist.pdf"
+FIGURE_03_FILENAME = "Fig.03_BHseed_hist.pdf"
 CHEN2026_FIG06_DATA_PATH = DATA_ROOT / "Chen+2026" / "chen2026_fig06_seeding_history.csv"
-FIG12_CHEN_CURVE_ROLES = ("all_seeds", "popiii_subedd", "popiii_edd", "popii")
-FIG12_CHEN_CURVE_LABELS = {
+FIG03_CHEN_CURVE_ROLES = ("all_seeds", "popiii_subedd", "popiii_edd", "popii")
+FIG03_CHEN_CURVE_LABELS = {
     "all_seeds": "All seeds",
     "popiii_subedd": "Pop-III (sub-Eddington)",
     "popiii_edd": "Pop-III (Eddington)",
     "popii": "Pop-II",
 }
-FIG12_DISPLAY_REDSHIFT_RANGE = (0.0, 50.0)
-FIG12_XLIM_LOG1PZ = tuple(np.log10(1.0 + np.asarray(FIG12_DISPLAY_REDSHIFT_RANGE, dtype=float)))
-FIG12_RATE_LOG1PZ_BIN_WIDTH = 0.02
-FIG12_CHEN_REDSHIFT_ATOL = 1.0e-6
-FIG12_MODEL_COLOUR = "#6a3d9a"
-FIG12_MODEL_LINEWIDTH = 2.2
-FIG12_REFERENCE_LINEWIDTH = 1.35
-FIG12_FIGSIZE = (7.0, 7.0)
-FIG10_SEED_LOGM_BIN_EDGES = np.round(np.arange(0.0, 5.0 + 0.05, 0.1), decimals=10)
-if len(FIG10_SEED_LOGM_BIN_EDGES) != 51 or not np.isclose(FIG10_SEED_LOGM_BIN_EDGES[-1], 5.0, rtol=0.0, atol=1.0e-12):
-    raise RuntimeError("Fig. 10 seed-mass grid must contain the explicit 0.0--5.0 dex sequence in 0.1 dex steps.")
-FIG10_SEED_LOGM_BIN_WIDTH_DEX = 0.1
-FIG10_CENTRAL_LOGM_BIN_EDGES = np.round(np.arange(0.0, 8.0 + 0.05, 0.1), decimals=10)
+FIG03_DISPLAY_REDSHIFT_RANGE = (0.0, 50.0)
+FIG03_XLIM_LOG1PZ = tuple(np.log10(1.0 + np.asarray(FIG03_DISPLAY_REDSHIFT_RANGE, dtype=float)))
+FIG03_RATE_LOG1PZ_BIN_WIDTH = 0.02
+FIG03_CHEN_REDSHIFT_ATOL = 1.0e-6
+FIG03_MODEL_COLOUR = "#6a3d9a"
+FIG03_MODEL_LINEWIDTH = 2.2
+FIG03_REFERENCE_LINEWIDTH = 1.35
+FIG03_FIGSIZE = (7.0, 7.0)
+FIG08_SEED_LOGM_BIN_EDGES = np.round(np.arange(0.0, 5.0 + 0.05, 0.1), decimals=10)
+if len(FIG08_SEED_LOGM_BIN_EDGES) != 51 or not np.isclose(FIG08_SEED_LOGM_BIN_EDGES[-1], 5.0, rtol=0.0, atol=1.0e-12):
+    raise RuntimeError("Fig. 08 seed-mass grid must contain the explicit 0.0--5.0 dex sequence in 0.1 dex steps.")
+FIG08_SEED_LOGM_BIN_WIDTH_DEX = 0.1
+FIG08_CENTRAL_LOGM_BIN_EDGES = np.round(np.arange(0.0, 8.0 + 0.05, 0.1), decimals=10)
 if (
-    len(FIG10_CENTRAL_LOGM_BIN_EDGES) != 81
-    or not np.isclose(FIG10_CENTRAL_LOGM_BIN_EDGES[0], 0.0, rtol=0.0, atol=1.0e-12)
-    or not np.isclose(FIG10_CENTRAL_LOGM_BIN_EDGES[-1], 8.0, rtol=0.0, atol=1.0e-12)
-    or np.any(~np.isfinite(FIG10_CENTRAL_LOGM_BIN_EDGES))
-    or np.any(np.diff(FIG10_CENTRAL_LOGM_BIN_EDGES) <= 0.0)
-    or not np.allclose(np.diff(FIG10_CENTRAL_LOGM_BIN_EDGES), 0.1, rtol=0.0, atol=1.0e-12)
+    len(FIG08_CENTRAL_LOGM_BIN_EDGES) != 81
+    or not np.isclose(FIG08_CENTRAL_LOGM_BIN_EDGES[0], 0.0, rtol=0.0, atol=1.0e-12)
+    or not np.isclose(FIG08_CENTRAL_LOGM_BIN_EDGES[-1], 8.0, rtol=0.0, atol=1.0e-12)
+    or np.any(~np.isfinite(FIG08_CENTRAL_LOGM_BIN_EDGES))
+    or np.any(np.diff(FIG08_CENTRAL_LOGM_BIN_EDGES) <= 0.0)
+    or not np.allclose(np.diff(FIG08_CENTRAL_LOGM_BIN_EDGES), 0.1, rtol=0.0, atol=1.0e-12)
 ):
-    raise RuntimeError("Fig. 10 central-BH grid must contain the explicit 0.0--8.0 dex sequence in 0.1 dex steps.")
-FIG10_CENTRAL_LOGM_BIN_WIDTH_DEX = 0.1
-FIG10_CHEN_CURVE_ROLES = (
+    raise RuntimeError("Fig. 08 central-BH grid must contain the explicit 0.0--8.0 dex sequence in 0.1 dex steps.")
+FIG08_CENTRAL_LOGM_BIN_WIDTH_DEX = 0.1
+FIG08_CHEN_CURVE_ROLES = (
     "all_seeds_central",
     "all_seeds_lower_envelope",
     "all_seeds_upper_envelope",
@@ -116,7 +117,7 @@ FIG10_CHEN_CURVE_ROLES = (
     "lw_halo",
     "popii",
 )
-FIG10_CHEN_CURVE_LABELS = {
+FIG08_CHEN_CURVE_LABELS = {
     "all_seeds_central": "All seeds",
     "all_seeds_lower_envelope": "All seeds (lower envelope)",
     "all_seeds_upper_envelope": "All seeds (upper envelope)",
@@ -126,7 +127,7 @@ FIG10_CHEN_CURVE_LABELS = {
     "lw_halo": "LW halo (J_LW,21 >= 7.5)",
     "popii": "Pop-II",
 }
-FIG10_CHEN_VISIBLE_CURVE_ROLES = (
+FIG08_CHEN_VISIBLE_CURVE_ROLES = (
     "popiii_subedd",
     "popiii_edd",
     "popii",
@@ -194,33 +195,23 @@ TNG50_NATIVE_SIDE_CMPC_H = 35.0
 TNG100_NATIVE_SIDE_CMPC_H = 75.0
 TNG50_FULL_BOX_SIDE_CMPC = TNG50_NATIVE_SIDE_CMPC_H / TNG_H
 TNG100_FULL_BOX_SIDE_CMPC = TNG100_NATIVE_SIDE_CMPC_H / TNG_H
-FIG09_BHMF_SIDE_CMPC = TNG50_FULL_BOX_SIDE_CMPC
-FIG09_BHMF_VOLUME_CMPC3 = FIG09_BHMF_SIDE_CMPC**3
-FIG09_BIN_EDGES = np.logspace(2.0, 9.0, 32)
+BHMF_REFERENCE_SIDE_CMPC = TNG50_FULL_BOX_SIDE_CMPC
+BHMF_REFERENCE_VOLUME_CMPC3 = BHMF_REFERENCE_SIDE_CMPC**3
+BHMF_BIN_EDGES = np.logspace(2.0, 9.0, 32)
 FIG06_BIN_EDGES = np.arange(4.0, 9.1, 0.25)
 FIG06_MIN_MODEL_REDSHIFT_EXCLUSIVE = 3.0
 # Fixed common halo-mass binning selected from the available project outputs;
 # this preserves comparable resolution and count semantics between output runs.
-FIGURE_09_DISTR_FILENAME = "Fig.09_distr.pdf"
-FIG09_DISTR_BIN_WIDTH_DEX = 0.5
-FIGURE_11_FILENAME = "Fig.11_assembly.pdf"
-FIG11_TARGET_REDSHIFT = 7.0
-FIG11_REDSHIFT_ROW_ATOL = 1.0e-10
-FIG11_COMPARISON_COUNT = 8
-FIG11_MAX_PANELS = 9
-FIG11_SATELLITE_CMAP = "jet"
-FIG11_SCORE_RTOL = 1.0e-10
-FIG11_SCORE_ATOL = 1.0e-10
-
-# The abundance-matching figures use the high-redshift snapshots most relevant
-# to the seed problem.  The physical TNG50 full box is the reference volume for
-# converting the mixed-suite counts to cumulative number densities.
-ABUNDANCE_MATCHING_REDSHIFTS = (5.0, 7.0, 9.0)
-ABUNDANCE_MATCHING_REDSHIFT_ATOL = 0.11
-ABUNDANCE_MATCHING_BIN_WIDTH_DEX = 0.5
-ABUNDANCE_MATCHING_VOLUME_CMPC3 = FIG09_BHMF_VOLUME_CMPC3
-FIGURE_07_FILENAME = "Fig.07_Mbh-Mhalo_AbundanceMatching.pdf"
-FIGURE_08_FILENAME = "Fig.08_Mbh-Mhalo_CumulativeAbundance.pdf"
+FIGURE_07_DISTR_FILENAME = "Fig.07_distr.pdf"
+FIG07_DISTR_BIN_WIDTH_DEX = 0.5
+FIGURE_09_FILENAME = "Fig.09_assembly.pdf"
+FIG09_TARGET_REDSHIFT = 7.0
+FIG09_REDSHIFT_ROW_ATOL = 1.0e-10
+FIG09_COMPARISON_COUNT = 8
+FIG09_MAX_PANELS = 9
+FIG09_SATELLITE_CMAP = "jet"
+FIG09_SCORE_RTOL = 1.0e-10
+FIG09_SCORE_ATOL = 1.0e-10
 
 TNG_CATALOGUE_ROOT = Path("/lingshan/disk3/subonan/TNG50+100-1-Dark")
 TNG_TARGET_MANIFEST_FILENAME = "target_manifest_dark.csv"
@@ -422,11 +413,11 @@ def load_halo_summary_by_z(out_dir):
     )
 
 
-def _build_fig09_halo_distribution(summary_by_z, best):
+def _build_fig07_halo_distribution(summary_by_z, best):
     required = ["halo_id_z0", "redshift", "halo_mass_available", "log10_halo_mass_at_redshift"]
     missing = [name for name in required if name not in summary_by_z.columns]
     if missing:
-        raise ValueError(f"haloSummaryByZ is missing Fig. 09 distribution columns: {missing}")
+        raise ValueError(f"haloSummaryByZ is missing Fig. 07 distribution columns: {missing}")
 
     table = summary_by_z.loc[:, required].copy()
     for column in required:
@@ -436,36 +427,36 @@ def _build_fig09_halo_distribution(summary_by_z, best):
     available_raw = table["halo_mass_available"].to_numpy(dtype=float)
     log10_halo_mass = table["log10_halo_mass_at_redshift"].to_numpy(dtype=float)
     if np.any(~np.isfinite(halo_id_raw)) or np.any(np.abs(halo_id_raw - np.rint(halo_id_raw)) > 1.0e-8):
-        raise ValueError("Fig. 09 haloSummaryByZ contains non-finite or non-integer halo IDs.")
+        raise ValueError("Fig. 07 haloSummaryByZ contains non-finite or non-integer halo IDs.")
     if np.any(~np.isfinite(redshift)) or np.any(redshift < 0.0):
-        raise ValueError("Fig. 09 haloSummaryByZ contains non-finite or negative redshifts.")
+        raise ValueError("Fig. 07 haloSummaryByZ contains non-finite or negative redshifts.")
     if np.any(~np.isfinite(available_raw)) or np.any(~np.isin(available_raw, np.asarray([0.0, 1.0]))):
-        raise ValueError("Fig. 09 haloSummaryByZ halo_mass_available must contain only finite 0/1 values.")
+        raise ValueError("Fig. 07 haloSummaryByZ halo_mass_available must contain only finite 0/1 values.")
 
     halo_id = np.rint(halo_id_raw).astype(np.int64)
     available = available_raw == 1.0
     key_table = pd.DataFrame({"halo_id_z0": halo_id, "redshift": redshift})
     if key_table.duplicated().any():
         duplicate_keys = key_table.loc[key_table.duplicated(keep=False)].drop_duplicates().to_dict("records")
-        raise ValueError(f"Fig. 09 requires one haloSummaryByZ row per (halo_id_z0, redshift); duplicates={duplicate_keys[:10]}.")
+        raise ValueError(f"Fig. 07 requires one haloSummaryByZ row per (halo_id_z0, redshift); duplicates={duplicate_keys[:10]}.")
 
     invalid_available_mass = available & ~np.isfinite(log10_halo_mass)
     if np.any(invalid_available_mass):
         bad_keys = key_table.loc[invalid_available_mass].to_dict("records")
-        raise ValueError(f"Fig. 09 has unavailable numeric halo masses for rows marked available: {bad_keys[:10]}.")
+        raise ValueError(f"Fig. 07 has unavailable numeric halo masses for rows marked available: {bad_keys[:10]}.")
     with np.errstate(over="ignore", invalid="ignore", under="ignore"):
         halo_mass_msun = np.power(10.0, log10_halo_mass)
     valid_mass = available & np.isfinite(log10_halo_mass) & np.isfinite(halo_mass_msun) & (halo_mass_msun > 0.0)
     invalid_mass = available & ~valid_mass
     if np.any(invalid_mass):
         bad_keys = key_table.loc[invalid_mass].to_dict("records")
-        raise ValueError(f"Fig. 09 has non-positive or non-finite available halo masses: {bad_keys[:10]}.")
+        raise ValueError(f"Fig. 07 has non-positive or non-finite available halo masses: {bad_keys[:10]}.")
     if not np.any(valid_mass):
-        raise ValueError("Fig. 09 cannot plot a halo distribution because no valid MPB halo masses remain.")
+        raise ValueError("Fig. 07 cannot plot a halo distribution because no valid MPB halo masses remain.")
 
-    log_edges = _regular_log_bin_edges(log10_halo_mass[valid_mass], FIG09_DISTR_BIN_WIDTH_DEX)
+    log_edges = _regular_log_bin_edges(log10_halo_mass[valid_mass], FIG07_DISTR_BIN_WIDTH_DEX)
     if len(log_edges) < 2 or np.any(~np.isfinite(log_edges)) or np.any(np.diff(log_edges) <= 0.0):
-        raise ValueError("Fig. 09 generated invalid common logarithmic halo-mass bin edges.")
+        raise ValueError("Fig. 07 generated invalid common logarithmic halo-mass bin edges.")
     all_redshifts = np.sort(np.unique(redshift))
     distributions = []
     empty_redshifts = []
@@ -478,7 +469,7 @@ def _build_fig09_halo_distribution(summary_by_z, best):
         samples_log = log10_halo_mass[valid_z]
         counts, _ = np.histogram(samples_log, bins=log_edges)
         if int(np.sum(counts)) != int(len(samples_log)):
-            raise ValueError(f"Fig. 09 histogram dropped halo masses at z={float(z_value):.6g}.")
+            raise ValueError(f"Fig. 07 histogram dropped halo masses at z={float(z_value):.6g}.")
         distributions.append(
             {
                 "redshift": float(z_value),
@@ -488,18 +479,18 @@ def _build_fig09_halo_distribution(summary_by_z, best):
             }
         )
     if len(distributions) == 0:
-        raise ValueError("Fig. 09 has no redshift snapshot with valid halo masses.")
+        raise ValueError("Fig. 07 has no redshift snapshot with valid halo masses.")
 
     try:
         best_id_value = float(best["halo_id_z0"])
     except (KeyError, TypeError, ValueError) as exc:
-        raise ValueError("Fig. 09 best-halo selection is missing a finite halo_id_z0.") from exc
+        raise ValueError("Fig. 07 best-halo selection is missing a finite halo_id_z0.") from exc
     if not np.isfinite(best_id_value) or abs(best_id_value - np.rint(best_id_value)) > 1.0e-8:
-        raise ValueError(f"Fig. 09 best-halo selection has an invalid halo_id_z0={best_id_value!r}.")
+        raise ValueError(f"Fig. 07 best-halo selection has an invalid halo_id_z0={best_id_value!r}.")
     best_id = int(np.rint(best_id_value))
     best_rows = halo_id == best_id
     if not np.any(best_rows):
-        raise ValueError(f"Fig. 09 best halo_id_z0={best_id} is absent from haloSummaryByZ.")
+        raise ValueError(f"Fig. 07 best halo_id_z0={best_id} is absent from haloSummaryByZ.")
     best_track = []
     best_missing_redshifts = []
     for z_value in all_redshifts:
@@ -519,7 +510,7 @@ def _build_fig09_halo_distribution(summary_by_z, best):
         else:
             best_missing_redshifts.append(float(z_value))
     if len(best_track) == 0:
-        raise ValueError(f"Fig. 09 best halo_id_z0={best_id} has no valid MPB halo mass at any output redshift.")
+        raise ValueError(f"Fig. 07 best halo_id_z0={best_id} has no valid MPB halo mass at any output redshift.")
 
     return {
         "redshifts": np.asarray([item["redshift"] for item in distributions], dtype=float),
@@ -558,20 +549,20 @@ def load_final_gc(out_dir):
     return table
 
 
-def _fig11_allcat_path(out_dir):
+def _fig09_allcat_path(out_dir):
     paths = sorted(Path(out_dir).resolve().glob("allcat_*.txt"))
     if len(paths) != 1:
         raise ValueError(
-            f"Fig. 11 requires exactly one allcat_*.txt catalogue in {Path(out_dir).resolve()}, "
+            f"Fig. 09 requires exactly one allcat_*.txt catalogue in {Path(out_dir).resolve()}, "
             f"found {len(paths)}: {[path.name for path in paths[:10]]}."
         )
     path = paths[0]
     if not path.is_file():
-        raise ValueError(f"Fig. 11 allcat catalogue is not a regular file: {path}")
+        raise ValueError(f"Fig. 09 allcat catalogue is not a regular file: {path}")
     return path
 
 
-def _fig11_read_allcat_header(path):
+def _fig09_read_allcat_header(path):
     header = None
     with Path(path).open("r", encoding="utf-8") as handle:
         for line in handle:
@@ -587,22 +578,22 @@ def _fig11_read_allcat_header(path):
     required = ("hid_z0", "logMh_form", "zform", "isMPB", "subfind_form")
     missing = [name for name in required if name not in header]
     if missing:
-        raise ValueError(f"Fig. 11 allcat catalogue {path} is missing required fields: {missing}")
+        raise ValueError(f"Fig. 09 allcat catalogue {path} is missing required fields: {missing}")
     return header
 
 
-def _fig11_integer_values(values, name):
+def _fig09_integer_values(values, name):
     raw = np.asarray(values, dtype=float)
     if np.any(~np.isfinite(raw)) or np.any(np.abs(raw - np.rint(raw)) > 1.0e-8):
-        raise ValueError(f"Fig. 11 {name} contains non-finite or non-integer values.")
+        raise ValueError(f"Fig. 09 {name} contains non-finite or non-integer values.")
     return np.rint(raw).astype(np.int64)
 
 
-def _load_fig11_formation_catalogue(out_dir, final_gc):
+def _load_fig09_formation_catalogue(out_dir, final_gc):
     """Read only the allcat fields needed for branch membership and auditing."""
 
-    path = _fig11_allcat_path(out_dir)
-    header = _fig11_read_allcat_header(path)
+    path = _fig09_allcat_path(out_dir)
+    header = _fig09_read_allcat_header(path)
     required = ["hid_z0", "logMh_form", "zform", "isMPB", "subfind_form"]
     dtype = {name: np.float64 for name in required}
     try:
@@ -617,38 +608,38 @@ def _load_fig11_formation_catalogue(out_dir, final_gc):
             engine="c",
         )
     except (OSError, ValueError, TypeError) as exc:
-        raise ValueError(f"Could not read the required Fig. 11 allcat fields from {path}") from exc
+        raise ValueError(f"Could not read the required Fig. 09 allcat fields from {path}") from exc
     if table.empty:
-        raise ValueError(f"Fig. 11 allcat catalogue is empty: {path}")
+        raise ValueError(f"Fig. 09 allcat catalogue is empty: {path}")
 
-    halo_id = _fig11_integer_values(table["hid_z0"].to_numpy(dtype=float), "allcat halo IDs")
-    subfind_form = _fig11_integer_values(table["subfind_form"].to_numpy(dtype=float), "allcat subfind_form")
-    is_mpb = _fig11_integer_values(table["isMPB"].to_numpy(dtype=float), "allcat isMPB flags")
+    halo_id = _fig09_integer_values(table["hid_z0"].to_numpy(dtype=float), "allcat halo IDs")
+    subfind_form = _fig09_integer_values(table["subfind_form"].to_numpy(dtype=float), "allcat subfind_form")
+    is_mpb = _fig09_integer_values(table["isMPB"].to_numpy(dtype=float), "allcat isMPB flags")
     if not np.all(np.isin(is_mpb, np.asarray([0, 1], dtype=np.int64))):
-        raise ValueError("Fig. 11 allcat isMPB flags must be exactly 0 or 1.")
+        raise ValueError("Fig. 09 allcat isMPB flags must be exactly 0 or 1.")
     logmh_form = table["logMh_form"].to_numpy(dtype=float)
     zform = table["zform"].to_numpy(dtype=float)
     if np.any(~np.isfinite(logmh_form)) or np.any(~np.isfinite(zform)) or np.any(zform < 0.0):
-        raise ValueError("Fig. 11 allcat formation log masses and redshifts must be finite, with zform >= 0.")
+        raise ValueError("Fig. 09 allcat formation log masses and redshifts must be finite, with zform >= 0.")
 
     final_required = ["halo_id_z0", "gc_index_halo", "status"]
     missing = [name for name in final_required if name not in final_gc.columns]
     if missing:
-        raise ValueError(f"finalGCs.dat is missing the Fig. 11 alignment fields: {missing}")
-    final_halo_id = _fig11_integer_values(final_gc["halo_id_z0"].to_numpy(dtype=float), "finalGCs halo IDs")
-    final_gc_index = _fig11_integer_values(final_gc["gc_index_halo"].to_numpy(dtype=float), "finalGCs GC indices")
-    final_status = _fig11_integer_values(final_gc["status"].to_numpy(dtype=float), "finalGCs statuses")
+        raise ValueError(f"finalGCs.dat is missing the Fig. 09 alignment fields: {missing}")
+    final_halo_id = _fig09_integer_values(final_gc["halo_id_z0"].to_numpy(dtype=float), "finalGCs halo IDs")
+    final_gc_index = _fig09_integer_values(final_gc["gc_index_halo"].to_numpy(dtype=float), "finalGCs GC indices")
+    final_status = _fig09_integer_values(final_gc["status"].to_numpy(dtype=float), "finalGCs statuses")
     if np.any(final_gc_index < 1):
-        raise ValueError("Fig. 11 finalGCs GC indices must be positive and one-based.")
+        raise ValueError("Fig. 09 finalGCs GC indices must be positive and one-based.")
     if len(final_halo_id) != len(halo_id):
         raise ValueError(
-            f"Fig. 11 allcat/finalGCs row counts disagree: allcat={len(halo_id)}, finalGCs={len(final_halo_id)}."
+            f"Fig. 09 allcat/finalGCs row counts disagree: allcat={len(halo_id)}, finalGCs={len(final_halo_id)}."
         )
     if not np.array_equal(final_halo_id, halo_id):
         mismatch = np.flatnonzero(final_halo_id != halo_id)
         first = int(mismatch[0]) if len(mismatch) else -1
         raise ValueError(
-            "Fig. 11 allcat/finalGCs parent halo IDs are not aligned "
+            "Fig. 09 allcat/finalGCs parent halo IDs are not aligned "
             f"(first mismatch row={first}, allcat={int(halo_id[first]) if first >= 0 else 'n/a'}, "
             f"finalGCs={int(final_halo_id[first]) if first >= 0 else 'n/a'})."
         )
@@ -661,7 +652,7 @@ def _load_fig11_formation_catalogue(out_dir, final_gc):
         mismatch = np.flatnonzero(final_gc_index != expected_gc_index)
         first = int(mismatch[0]) if len(mismatch) else -1
         raise ValueError(
-            "Fig. 11 allcat/finalGCs GC indices are not aligned "
+            "Fig. 09 allcat/finalGCs GC indices are not aligned "
             f"(first mismatch row={first}, expected={int(expected_gc_index[first]) if first >= 0 else 'n/a'}, "
             f"finalGCs={int(final_gc_index[first]) if first >= 0 else 'n/a'})."
         )
@@ -677,24 +668,24 @@ def _load_fig11_formation_catalogue(out_dir, final_gc):
     }
 
 
-def _fig11_fixed_tree_path(fixed_tree_basename, tree_root=None):
+def _fig09_fixed_tree_path(fixed_tree_basename, tree_root=None):
     root = (Path(tree_root) if tree_root is not None else TNG_CATALOGUE_ROOT / TNG_FIXED_TREE_DIRNAME).resolve()
     basename = str(fixed_tree_basename).strip()
     if not basename or Path(basename).is_absolute():
-        raise ValueError(f"Fig. 11 fixed-tree basename must be a non-empty relative path: {fixed_tree_basename!r}")
+        raise ValueError(f"Fig. 09 fixed-tree basename must be a non-empty relative path: {fixed_tree_basename!r}")
     path = (root / basename).resolve()
     try:
         inside_root = os.path.commonpath([str(root), str(path)]) == str(root)
     except ValueError:
         inside_root = False
     if not inside_root:
-        raise ValueError(f"Fig. 11 fixed tree escapes the declared tree directory: {fixed_tree_basename!r}")
+        raise ValueError(f"Fig. 09 fixed tree escapes the declared tree directory: {fixed_tree_basename!r}")
     if not path.exists() or not path.is_file():
-        raise FileNotFoundError(f"Fig. 11 fixed tree is missing or not a regular file: {path}")
+        raise FileNotFoundError(f"Fig. 09 fixed tree is missing or not a regular file: {path}")
     return path
 
 
-def _fig11_read_full_tree_numeric(path):
+def _fig09_read_full_tree_numeric(path):
     """Validate raw fixed-tree rows before using the shared project reader."""
 
     with Path(path).open("r", encoding="utf-8") as handle:
@@ -707,7 +698,7 @@ def _fig11_read_full_tree_numeric(path):
                 continue
             parts = stripped.split()
             if len(parts) < 9:
-                raise ValueError(f"Fig. 11 raw fixed tree has fewer than nine columns at line {line_no}: {path}")
+                raise ValueError(f"Fig. 09 raw fixed tree has fewer than nine columns at line {line_no}: {path}")
             try:
                 float(parts[0])
                 int(parts[1])
@@ -719,7 +710,7 @@ def _fig11_read_full_tree_numeric(path):
                 float(parts[7])
                 float(parts[8])
             except ValueError as exc:
-                raise ValueError(f"Fig. 11 raw fixed tree has a malformed numeric row at line {line_no}: {path}") from exc
+                raise ValueError(f"Fig. 09 raw fixed tree has a malformed numeric row at line {line_no}: {path}") from exc
     with warnings.catch_warnings():
         # The shared reader recognises the legacy logMh header but the
         # current fixed-tree files use log10_mhalo_msun for the same header.
@@ -730,57 +721,57 @@ def _fig11_read_full_tree_numeric(path):
         )
         rows = _read_full_tree_numeric(path)
     if rows.ndim != 2 or rows.shape[0] == 0:
-        raise ValueError(f"Fig. 11 raw fixed tree contains no numeric rows: {path}")
+        raise ValueError(f"Fig. 09 raw fixed tree contains no numeric rows: {path}")
     return rows
 
 
-def _fig11_tree_logmass_and_redshift(tree_rows, context):
+def _fig09_tree_logmass_and_redshift(tree_rows, context):
     rows = np.asarray(tree_rows, dtype=object)
     if rows.ndim != 2 or rows.shape[0] == 0 or rows.shape[1] < 6:
-        raise ValueError(f"Fig. 11 {context} fixed-tree rows are empty or malformed: shape={rows.shape}")
+        raise ValueError(f"Fig. 09 {context} fixed-tree rows are empty or malformed: shape={rows.shape}")
     logmh = np.asarray(rows[:, 0], dtype=float)
     redshift = np.asarray(rows[:, 5], dtype=float)
     if np.any(~np.isfinite(logmh)) or np.any(~np.isfinite(redshift)) or np.any(redshift < 0.0):
-        raise ValueError(f"Fig. 11 {context} fixed-tree log masses and redshifts must be finite, with z >= 0.")
+        raise ValueError(f"Fig. 09 {context} fixed-tree log masses and redshifts must be finite, with z >= 0.")
     with np.errstate(over="ignore", invalid="ignore", under="ignore"):
         mass = np.power(10.0, logmh)
     if np.any(~np.isfinite(mass)) or np.any(mass <= 0.0):
-        raise ValueError(f"Fig. 11 {context} fixed-tree halo masses must be finite and positive.")
+        raise ValueError(f"Fig. 09 {context} fixed-tree halo masses must be finite and positive.")
     return logmh, redshift, mass
 
 
-def _fig11_main_track(path, mpb_rows=None):
+def _fig09_main_track(path, mpb_rows=None):
     if mpb_rows is None:
         mpb_rows = read_haloevo_mpb(path)
     rows = np.asarray(mpb_rows, dtype=float)
     if rows.ndim != 2 or rows.shape[0] == 0 or rows.shape[1] < 9:
-        raise ValueError(f"Fig. 11 raw MPB is empty or malformed: {path}")
+        raise ValueError(f"Fig. 09 raw MPB is empty or malformed: {path}")
     logmh = np.asarray(rows[:, 0], dtype=float)
     redshift = np.asarray(rows[:, 5], dtype=float)
     if np.any(~np.isfinite(logmh)) or np.any(~np.isfinite(redshift)) or np.any(redshift < 0.0):
-        raise ValueError(f"Fig. 11 raw MPB has non-finite log mass/redshift values: {path}")
+        raise ValueError(f"Fig. 09 raw MPB has non-finite log mass/redshift values: {path}")
     with np.errstate(over="ignore", invalid="ignore", under="ignore"):
         mass = np.power(10.0, logmh)
     if np.any(~np.isfinite(mass)) or np.any(mass <= 0.0):
-        raise ValueError(f"Fig. 11 raw MPB masses must be finite and positive: {path}")
-    if float(np.max(redshift)) < FIG11_TARGET_REDSHIFT - FIG11_REDSHIFT_ROW_ATOL or float(np.min(redshift)) > FIG11_TARGET_REDSHIFT + FIG11_REDSHIFT_ROW_ATOL:
-        raise ValueError(f"Fig. 11 raw MPB does not bracket z={FIG11_TARGET_REDSHIFT:g}: {path}")
+        raise ValueError(f"Fig. 09 raw MPB masses must be finite and positive: {path}")
+    if float(np.max(redshift)) < FIG09_TARGET_REDSHIFT - FIG09_REDSHIFT_ROW_ATOL or float(np.min(redshift)) > FIG09_TARGET_REDSHIFT + FIG09_REDSHIFT_ROW_ATOL:
+        raise ValueError(f"Fig. 09 raw MPB does not bracket z={FIG09_TARGET_REDSHIFT:g}: {path}")
 
-    exact = np.flatnonzero(np.abs(redshift - FIG11_TARGET_REDSHIFT) <= FIG11_REDSHIFT_ROW_ATOL)
+    exact = np.flatnonzero(np.abs(redshift - FIG09_TARGET_REDSHIFT) <= FIG09_REDSHIFT_ROW_ATOL)
     if len(exact) > 1:
-        raise ValueError(f"Fig. 11 raw MPB contains duplicate z={FIG11_TARGET_REDSHIFT:g} rows: {path}")
+        raise ValueError(f"Fig. 09 raw MPB contains duplicate z={FIG09_TARGET_REDSHIFT:g} rows: {path}")
     if len(exact) == 1:
         endpoint_logmh = float(logmh[int(exact[0])])
     else:
-        endpoint_logmh, available = _interpolate_mpb_logmh_at_redshift(rows[:, :9], FIG11_TARGET_REDSHIFT)
+        endpoint_logmh, available = _interpolate_mpb_logmh_at_redshift(rows[:, :9], FIG09_TARGET_REDSHIFT)
         if int(available) != 1 or not np.isfinite(endpoint_logmh):
-            raise ValueError(f"Fig. 11 raw MPB cannot be interpolated to z={FIG11_TARGET_REDSHIFT:g}: {path}")
+            raise ValueError(f"Fig. 09 raw MPB cannot be interpolated to z={FIG09_TARGET_REDSHIFT:g}: {path}")
 
-    visible = redshift >= FIG11_TARGET_REDSHIFT
+    visible = redshift >= FIG09_TARGET_REDSHIFT
     if len(exact) == 1:
         visible[int(exact[0])] = False
     if not np.any(visible) and len(exact) == 0:
-        raise ValueError(f"Fig. 11 raw MPB has no raw rows above z={FIG11_TARGET_REDSHIFT:g}: {path}")
+        raise ValueError(f"Fig. 09 raw MPB has no raw rows above z={FIG09_TARGET_REDSHIFT:g}: {path}")
     visible_logmh = logmh[visible]
     visible_redshift = redshift[visible]
     visible_time = np.asarray([Redshift2CosmicAge(float(z), time_unit="Gyr") for z in visible_redshift], dtype=float)
@@ -789,14 +780,14 @@ def _fig11_main_track(path, mpb_rows=None):
     visible_redshift = visible_redshift[order]
     visible_time = visible_time[order]
     visible_x = float(Redshift2CosmicAge(0.0, time_unit="Gyr")) - visible_time
-    endpoint_time = float(Redshift2CosmicAge(FIG11_TARGET_REDSHIFT, time_unit="Gyr"))
+    endpoint_time = float(Redshift2CosmicAge(FIG09_TARGET_REDSHIFT, time_unit="Gyr"))
     endpoint_x = float(Redshift2CosmicAge(0.0, time_unit="Gyr")) - endpoint_time
     track_logmh = np.concatenate([visible_logmh, np.asarray([endpoint_logmh], dtype=float)])
-    track_redshift = np.concatenate([visible_redshift, np.asarray([FIG11_TARGET_REDSHIFT], dtype=float)])
+    track_redshift = np.concatenate([visible_redshift, np.asarray([FIG09_TARGET_REDSHIFT], dtype=float)])
     track_x = np.concatenate([visible_x, np.asarray([endpoint_x], dtype=float)])
     track_mass = np.power(10.0, track_logmh)
-    if np.any(~np.isfinite(track_mass)) or np.any(track_mass <= 0.0) or np.any(track_redshift < FIG11_TARGET_REDSHIFT):
-        raise ValueError(f"Fig. 11 raw MPB produced an invalid z >= 7 track: {path}")
+    if np.any(~np.isfinite(track_mass)) or np.any(track_mass <= 0.0) or np.any(track_redshift < FIG09_TARGET_REDSHIFT):
+        raise ValueError(f"Fig. 09 raw MPB produced an invalid z >= 7 track: {path}")
     return {
         "x_gyr": track_x,
         "redshift": track_redshift,
@@ -806,28 +797,28 @@ def _fig11_main_track(path, mpb_rows=None):
     }
 
 
-def _fig11_map_formation_rows_to_branches(logmh_form, zform, subfind_form, tree_rows):
+def _fig09_map_formation_rows_to_branches(logmh_form, zform, subfind_form, tree_rows):
     logmh_form = np.asarray(logmh_form, dtype=float)
     zform = np.asarray(zform, dtype=float)
-    subfind_form = _fig11_integer_values(subfind_form, "formation subfind IDs")
+    subfind_form = _fig09_integer_values(subfind_form, "formation subfind IDs")
     if len(logmh_form) != len(zform) or len(logmh_form) != len(subfind_form):
-        raise ValueError("Fig. 11 formation fields have inconsistent lengths.")
+        raise ValueError("Fig. 09 formation fields have inconsistent lengths.")
     if np.any(~np.isfinite(logmh_form)) or np.any(~np.isfinite(zform)) or np.any(zform < 0.0):
-        raise ValueError("Fig. 11 formation fields must be finite, with zform >= 0.")
+        raise ValueError("Fig. 09 formation fields must be finite, with zform >= 0.")
     rows = np.asarray(tree_rows, dtype=object)
     candidates_by_subfind = {}
     for row in rows:
         branch = int(row[3])
         subfind = int(row[2])
         if branch < 0:
-            raise ValueError(f"Fig. 11 fixed-tree branch IDs must be non-negative; got {branch}")
+            raise ValueError(f"Fig. 09 fixed-tree branch IDs must be non-negative; got {branch}")
         candidates_by_subfind.setdefault(subfind, []).append((branch, float(row[5]), float(row[0])))
     branch_ids = np.empty(len(logmh_form), dtype=np.int64)
     for index, (logmh, z_value, subfind) in enumerate(zip(logmh_form, zform, subfind_form)):
         candidates = candidates_by_subfind.get(int(subfind), ())
         if not candidates:
             raise ValueError(
-                f"Fig. 11 cannot map formation row {index}: subfind_form={int(subfind)} is absent from the raw tree."
+                f"Fig. 09 cannot map formation row {index}: subfind_form={int(subfind)} is absent from the raw tree."
             )
         scored = [
             (abs(float(z_tree) - float(z_value)) + abs(float(logmh_tree) - float(logmh)), int(branch), float(z_tree), float(logmh_tree))
@@ -837,25 +828,25 @@ def _fig11_map_formation_rows_to_branches(logmh_form, zform, subfind_form, tree_
         best_score, best_branch, _, _ = scored[0]
         if best_score > 1.0e-3:
             raise ValueError(
-                f"Fig. 11 cannot robustly map formation row {index} to a raw-tree branch; "
+                f"Fig. 09 cannot robustly map formation row {index} to a raw-tree branch; "
                 f"nearest score={best_score:.6g}, branch={best_branch}."
             )
         branch_ids[index] = int(best_branch)
     return branch_ids
 
 
-def _fig11_satellite_tracks(tree_rows, mpb_branch, branch_ids, formation):
+def _fig09_satellite_tracks(tree_rows, mpb_branch, branch_ids, formation):
     branch_ids = np.asarray(branch_ids, dtype=np.int64)
     statuses = np.asarray(formation["status"], dtype=np.int64)
     zform = np.asarray(formation["zform"], dtype=float)
     valid_status = np.isin(statuses, np.asarray(sorted(VALID_EVOLUTION_STATUS), dtype=np.int64))
-    high_z_gc = valid_status & np.isfinite(zform) & (zform >= FIG11_TARGET_REDSHIFT)
+    high_z_gc = valid_status & np.isfinite(zform) & (zform >= FIG09_TARGET_REDSHIFT)
     tree_branch = np.asarray(tree_rows[:, 3], dtype=np.int64)
-    tree_logmh, tree_redshift, tree_mass = _fig11_tree_logmass_and_redshift(tree_rows, "satellite")
+    tree_logmh, tree_redshift, tree_mass = _fig09_tree_logmass_and_redshift(tree_rows, "satellite")
     tracks = []
     for branch in sorted(set(int(value) for value in tree_branch if int(value) != int(mpb_branch))):
         branch_gc_count = int(np.count_nonzero(high_z_gc & (branch_ids == int(branch))))
-        visible = (tree_branch == int(branch)) & (tree_redshift >= FIG11_TARGET_REDSHIFT)
+        visible = (tree_branch == int(branch)) & (tree_redshift >= FIG09_TARGET_REDSHIFT)
         if not np.any(visible):
             # Omit a branch with no visible raw-tree row from both the plot and
             # the reported satellite count.
@@ -889,16 +880,16 @@ def _fig11_satellite_tracks(tree_rows, mpb_branch, branch_ids, formation):
     return tracks
 
 
-def _fig11_load_history(candidate, formation):
-    tree_path = _fig11_fixed_tree_path(candidate["fixed_tree_basename"])
-    tree_rows = _fig11_read_full_tree_numeric(tree_path)
-    _fig11_tree_logmass_and_redshift(tree_rows, "full")
+def _fig09_load_history(candidate, formation):
+    tree_path = _fig09_fixed_tree_path(candidate["fixed_tree_basename"])
+    tree_rows = _fig09_read_full_tree_numeric(tree_path)
+    _fig09_tree_logmass_and_redshift(tree_rows, "full")
     mpb_branch = _mpb_branch_id(tree_rows)
     mpb_rows = read_haloevo_mpb(tree_path)
-    main = _fig11_main_track(tree_path, mpb_rows=mpb_rows)
+    main = _fig09_main_track(tree_path, mpb_rows=mpb_rows)
     row_indices = np.flatnonzero(formation["halo_id_z0"] == int(candidate["halo_id_z0"]))
     if len(row_indices):
-        branch_ids = _fig11_map_formation_rows_to_branches(
+        branch_ids = _fig09_map_formation_rows_to_branches(
             formation["logMh_form"][row_indices],
             formation["zform"][row_indices],
             formation["subfind_form"][row_indices],
@@ -910,10 +901,10 @@ def _fig11_load_history(candidate, formation):
             mismatch = np.flatnonzero(allcat_is_mpb != expected_is_mpb)
             first = int(mismatch[0]) if len(mismatch) else -1
             raise ValueError(
-                f"Fig. 11 allcat isMPB disagrees with raw-tree branch membership for halo {int(candidate['halo_id_z0'])}; "
+                f"Fig. 09 allcat isMPB disagrees with raw-tree branch membership for halo {int(candidate['halo_id_z0'])}; "
                 f"first local mismatch={first}."
             )
-        satellite_tracks = _fig11_satellite_tracks(
+        satellite_tracks = _fig09_satellite_tracks(
             tree_rows,
             mpb_branch,
             branch_ids,
@@ -923,7 +914,7 @@ def _fig11_load_history(candidate, formation):
             },
         )
     else:
-        satellite_tracks = _fig11_satellite_tracks(
+        satellite_tracks = _fig09_satellite_tracks(
             tree_rows,
             mpb_branch,
             np.asarray([], dtype=np.int64),
@@ -945,30 +936,30 @@ def _fig11_load_history(candidate, formation):
     return history
 
 
-def _fig11_lookup_table(tng_volume_context):
+def _fig09_lookup_table(tng_volume_context):
     lookup = tng_volume_context.get("lookup") if isinstance(tng_volume_context, dict) else None
     if not isinstance(lookup, pd.DataFrame):
-        raise ValueError("Fig. 11 requires the validated TNG lookup in tng_volume_context.")
+        raise ValueError("Fig. 09 requires the validated TNG lookup in tng_volume_context.")
     required = ["halo_id_z0", "simulation_key", "fixed_tree_basename"]
     missing = [name for name in required if name not in lookup.columns]
     if missing:
-        raise ValueError(f"Fig. 11 TNG lookup is missing required provenance fields: {missing}")
+        raise ValueError(f"Fig. 09 TNG lookup is missing required provenance fields: {missing}")
     out = lookup.loc[:, [name for name in lookup.columns if name in required + ["simulation"]]].copy()
-    out["halo_id_z0"] = _fig11_integer_values(out["halo_id_z0"].to_numpy(dtype=float), "TNG lookup halo IDs")
+    out["halo_id_z0"] = _fig09_integer_values(out["halo_id_z0"].to_numpy(dtype=float), "TNG lookup halo IDs")
     out["simulation_key"] = out["simulation_key"].fillna("").astype(str).str.strip()
     out["fixed_tree_basename"] = out["fixed_tree_basename"].fillna("").astype(str).str.strip()
     if "simulation" in out.columns:
         out["simulation"] = out["simulation"].fillna("").astype(str).str.strip()
     if out["simulation_key"].eq("").any() or out["fixed_tree_basename"].eq("").any():
-        raise ValueError("Fig. 11 TNG lookup contains blank suite or fixed-tree provenance values.")
+        raise ValueError("Fig. 09 TNG lookup contains blank suite or fixed-tree provenance values.")
     if not set(out["simulation_key"]).issubset(set(TNG_SUITE_KEYS)):
-        raise ValueError(f"Fig. 11 TNG lookup contains unsupported suites: {sorted(set(out['simulation_key']) - set(TNG_SUITE_KEYS))}")
+        raise ValueError(f"Fig. 09 TNG lookup contains unsupported suites: {sorted(set(out['simulation_key']) - set(TNG_SUITE_KEYS))}")
     if out["halo_id_z0"].duplicated().any():
-        raise ValueError("Fig. 11 TNG lookup contains duplicate model-facing halo IDs.")
+        raise ValueError("Fig. 09 TNG lookup contains duplicate model-facing halo IDs.")
     return out
 
 
-def _fig11_exact_catalogue_rows(summary_by_z, best_id):
+def _fig09_exact_catalogue_rows(summary_by_z, best_id):
     column_aliases = {
         "halo_id_z0": "halo_id_z0",
         "redshift": "redshift" if "redshift" in summary_by_z.columns else "z_out",
@@ -977,20 +968,20 @@ def _fig11_exact_catalogue_rows(summary_by_z, best_id):
     }
     missing = [name for name, source in column_aliases.items() if source not in summary_by_z.columns]
     if missing:
-        raise ValueError(f"haloSummaryByZ is missing Fig. 11 catalogue fields: {missing}")
+        raise ValueError(f"haloSummaryByZ is missing Fig. 09 catalogue fields: {missing}")
     table = summary_by_z.loc[:, list(column_aliases.values())].copy()
     table.columns = list(column_aliases.keys())
     for column in table.columns:
         table[column] = pd.to_numeric(table[column], errors="coerce")
-    halo_id = _fig11_integer_values(table["halo_id_z0"].to_numpy(dtype=float), "haloSummaryByZ halo IDs")
+    halo_id = _fig09_integer_values(table["halo_id_z0"].to_numpy(dtype=float), "haloSummaryByZ halo IDs")
     redshift = table["redshift"].to_numpy(dtype=float)
     available = table["halo_mass_available"].to_numpy(dtype=float)
     logmh = table["log10_halo_mass_at_redshift"].to_numpy(dtype=float)
     if np.any(~np.isfinite(redshift)) or np.any(redshift < 0.0):
-        raise ValueError("haloSummaryByZ contains invalid redshifts for Fig. 11.")
-    exact = np.abs(redshift - FIG11_TARGET_REDSHIFT) <= FIG11_REDSHIFT_ROW_ATOL
+        raise ValueError("haloSummaryByZ contains invalid redshifts for Fig. 09.")
+    exact = np.abs(redshift - FIG09_TARGET_REDSHIFT) <= FIG09_REDSHIFT_ROW_ATOL
     if not np.any(exact):
-        raise ValueError(f"haloSummaryByZ contains no exact z={FIG11_TARGET_REDSHIFT:g} catalogue row.")
+        raise ValueError(f"haloSummaryByZ contains no exact z={FIG09_TARGET_REDSHIFT:g} catalogue row.")
     exact_table = pd.DataFrame(
         {
             "halo_id_z0": halo_id[exact],
@@ -1001,16 +992,16 @@ def _fig11_exact_catalogue_rows(summary_by_z, best_id):
     )
     if exact_table["halo_id_z0"].duplicated().any():
         duplicate_ids = exact_table.loc[exact_table["halo_id_z0"].duplicated(keep=False), "halo_id_z0"].drop_duplicates().tolist()
-        raise ValueError(f"haloSummaryByZ contains duplicate exact z={FIG11_TARGET_REDSHIFT:g} rows: {duplicate_ids[:10]}")
+        raise ValueError(f"haloSummaryByZ contains duplicate exact z={FIG09_TARGET_REDSHIFT:g} rows: {duplicate_ids[:10]}")
     with np.errstate(over="ignore", invalid="ignore", under="ignore"):
         exact_mass = np.power(10.0, exact_table["catalogue_log10_halo_mass"].to_numpy(dtype=float))
     exact_table["catalogue_halo_mass_msun"] = exact_mass
     best_rows = exact_table.loc[exact_table["halo_id_z0"] == int(best_id)]
     if len(best_rows) != 1:
-        raise ValueError(f"Fig. 11 Fig. 02 best halo {int(best_id)} lacks one unique exact z=7 catalogue row.")
+        raise ValueError(f"Fig. 09 Fig. 02 best halo {int(best_id)} lacks one unique exact z=7 catalogue row.")
     best_row = best_rows.iloc[0]
     if float(best_row["halo_mass_available"]) != 1.0 or not np.isfinite(float(best_row["catalogue_log10_halo_mass"])) or not np.isfinite(float(best_row["catalogue_halo_mass_msun"])) or float(best_row["catalogue_halo_mass_msun"]) <= 0.0:
-        raise ValueError(f"Fig. 11 Fig. 02 best halo {int(best_id)} has an invalid exact z=7 catalogue mass gate row.")
+        raise ValueError(f"Fig. 09 Fig. 02 best halo {int(best_id)} has an invalid exact z=7 catalogue mass gate row.")
     exact_table["catalogue_mass_valid"] = (
         (exact_table["halo_mass_available"] == 1.0)
         & np.isfinite(exact_table["catalogue_log10_halo_mass"])
@@ -1020,7 +1011,7 @@ def _fig11_exact_catalogue_rows(summary_by_z, best_id):
     return exact_table, best_row
 
 
-def _fig11_candidate_row(row, suite_label=None):
+def _fig09_candidate_row(row, suite_label=None):
     simulation_key = str(row["simulation_key"])
     if suite_label is None:
         suite_label = {"tng50_1_dark": "TNG50", "tng100_1_dark": "TNG100"}.get(simulation_key, simulation_key)
@@ -1032,7 +1023,7 @@ def _fig11_candidate_row(row, suite_label=None):
     return candidate
 
 
-def _fig11_unavailable_score_fields():
+def _fig09_unavailable_score_fields():
     return {
         "score_keplerian": np.nan,
         "score_uv": np.nan,
@@ -1043,11 +1034,11 @@ def _fig11_unavailable_score_fields():
     }
 
 
-def _fig11_score_lookup(score_table, fig02_best):
-    """Join validated Fig. 02 scores to Fig. 11 histories by integer halo ID."""
+def _fig09_score_lookup(score_table, fig02_best):
+    """Join validated Fig. 02 scores to Fig. 09 histories by integer halo ID."""
 
     if not isinstance(score_table, pd.DataFrame):
-        raise ValueError("Fig. 11 score propagation requires the Fig. 02 score table as a pandas DataFrame.")
+        raise ValueError("Fig. 09 score propagation requires the Fig. 02 score table as a pandas DataFrame.")
     redshift_column = "redshift" if "redshift" in score_table.columns else "z_out" if "z_out" in score_table.columns else None
     required = ["halo_id_z0", "keplerian_term", "uv_term", "score_keplerian_uv"]
     if redshift_column is None:
@@ -1056,7 +1047,7 @@ def _fig11_score_lookup(score_table, fig02_best):
         required.append(redshift_column)
     missing = [name for name in required if name not in score_table.columns]
     if missing:
-        raise ValueError(f"Fig. 11 score table is missing required columns: {missing}")
+        raise ValueError(f"Fig. 09 score table is missing required columns: {missing}")
 
     table = score_table.loc[:, ["halo_id_z0", redshift_column, "keplerian_term", "uv_term", "score_keplerian_uv"]].copy()
     for column in table.columns:
@@ -1064,25 +1055,25 @@ def _fig11_score_lookup(score_table, fig02_best):
     halo_id_raw = table["halo_id_z0"].to_numpy(dtype=float)
     redshift = table[redshift_column].to_numpy(dtype=float)
     if np.any(~np.isfinite(halo_id_raw)) or np.any(np.abs(halo_id_raw - np.rint(halo_id_raw)) > 1.0e-8):
-        raise ValueError("Fig. 11 target score rows contain non-finite or non-integer halo IDs.")
+        raise ValueError("Fig. 09 target score rows contain non-finite or non-integer halo IDs.")
     if np.any(~np.isfinite(redshift)) or np.any(redshift < 0.0):
-        raise ValueError("Fig. 11 score rows contain non-finite or negative redshifts.")
+        raise ValueError("Fig. 09 score rows contain non-finite or negative redshifts.")
     table["halo_id_z0"] = np.rint(halo_id_raw).astype(np.int64)
     keplerian = table["keplerian_term"].to_numpy(dtype=float)
     uv = table["uv_term"].to_numpy(dtype=float)
     combined = table["score_keplerian_uv"].to_numpy(dtype=float)
     if np.any(np.isfinite(keplerian) & (keplerian < 0.0)):
-        raise ValueError("Fig. 11 score table contains a finite negative keplerian_term.")
+        raise ValueError("Fig. 09 score table contains a finite negative keplerian_term.")
     if np.any(np.isfinite(combined) & (combined < 0.0)):
-        raise ValueError("Fig. 11 score table contains a finite negative score_keplerian_uv.")
+        raise ValueError("Fig. 09 score table contains a finite negative score_keplerian_uv.")
 
-    target = np.abs(redshift - FIG11_TARGET_REDSHIFT) <= FIG11_REDSHIFT_ROW_ATOL
+    target = np.abs(redshift - FIG09_TARGET_REDSHIFT) <= FIG09_REDSHIFT_ROW_ATOL
     target_table = table.loc[target].copy()
     if len(target_table) == 0:
-        raise ValueError(f"Fig. 11 score table contains no row at target z={FIG11_TARGET_REDSHIFT:g}.")
+        raise ValueError(f"Fig. 09 score table contains no row at target z={FIG09_TARGET_REDSHIFT:g}.")
     if target_table["halo_id_z0"].duplicated().any():
         duplicate_ids = target_table.loc[target_table["halo_id_z0"].duplicated(keep=False), "halo_id_z0"].drop_duplicates().tolist()
-        raise ValueError(f"Fig. 11 score table contains duplicate target-redshift rows for halo IDs: {duplicate_ids[:10]}")
+        raise ValueError(f"Fig. 09 score table contains duplicate target-redshift rows for halo IDs: {duplicate_ids[:10]}")
 
     target_keplerian = target_table["keplerian_term"].to_numpy(dtype=float)
     target_uv = target_table["uv_term"].to_numpy(dtype=float)
@@ -1090,38 +1081,38 @@ def _fig11_score_lookup(score_table, fig02_best):
     finite_combined_missing_component = np.isfinite(target_combined) & (~np.isfinite(target_keplerian) | ~np.isfinite(target_uv))
     if np.any(finite_combined_missing_component):
         bad_ids = target_table.loc[finite_combined_missing_component, "halo_id_z0"].astype(int).tolist()
-        raise ValueError(f"Fig. 11 finite combined scores require finite keplerian and UV components: halo IDs={bad_ids[:10]}")
+        raise ValueError(f"Fig. 09 finite combined scores require finite keplerian and UV components: halo IDs={bad_ids[:10]}")
     finite_all = np.isfinite(target_keplerian) & np.isfinite(target_uv) & np.isfinite(target_combined)
     if np.any(finite_all):
         expected_combined = np.sqrt(
             QSO1_SCORE_WEIGHT_KEPLERIAN * target_keplerian[finite_all] ** 2
             + QSO1_SCORE_WEIGHT_MUV * target_uv[finite_all] ** 2
         )
-        if not np.allclose(target_combined[finite_all], expected_combined, rtol=FIG11_SCORE_RTOL, atol=FIG11_SCORE_ATOL):
+        if not np.allclose(target_combined[finite_all], expected_combined, rtol=FIG09_SCORE_RTOL, atol=FIG09_SCORE_ATOL):
             bad_ids = target_table.loc[finite_all, "halo_id_z0"].astype(int).to_numpy()
-            mismatch = ~np.isclose(target_combined[finite_all], expected_combined, rtol=FIG11_SCORE_RTOL, atol=FIG11_SCORE_ATOL)
-            raise ValueError(f"Fig. 11 score table violates the weighted score formula for halo IDs={bad_ids[mismatch][:10].tolist()}")
+            mismatch = ~np.isclose(target_combined[finite_all], expected_combined, rtol=FIG09_SCORE_RTOL, atol=FIG09_SCORE_ATOL)
+            raise ValueError(f"Fig. 09 score table violates the weighted score formula for halo IDs={bad_ids[mismatch][:10].tolist()}")
 
     try:
         best_id_raw = float(fig02_best["halo_id_z0"])
     except (KeyError, TypeError, ValueError) as exc:
-        raise ValueError("Fig. 11 cannot validate the Fig. 02 best-halo score without halo_id_z0.") from exc
+        raise ValueError("Fig. 09 cannot validate the Fig. 02 best-halo score without halo_id_z0.") from exc
     if not np.isfinite(best_id_raw) or abs(best_id_raw - np.rint(best_id_raw)) > 1.0e-8:
-        raise ValueError(f"Fig. 11 Fig. 02 best halo ID is not a finite integer: {best_id_raw!r}")
+        raise ValueError(f"Fig. 09 Fig. 02 best halo ID is not a finite integer: {best_id_raw!r}")
     best_id = int(np.rint(best_id_raw))
     best_rows = target_table.loc[target_table["halo_id_z0"] == best_id]
     if len(best_rows) != 1:
-        raise ValueError(f"Fig. 11 Fig. 02 best halo {best_id} lacks one unique target-redshift score row.")
+        raise ValueError(f"Fig. 09 Fig. 02 best halo {best_id} lacks one unique target-redshift score row.")
     best_row = best_rows.iloc[0]
     for column in ("keplerian_term", "uv_term", "score_keplerian_uv"):
         try:
             best_value = float(fig02_best[column])
         except (KeyError, TypeError, ValueError) as exc:
-            raise ValueError(f"Fig. 11 Fig. 02 best-halo score is missing {column}.") from exc
+            raise ValueError(f"Fig. 09 Fig. 02 best-halo score is missing {column}.") from exc
         joined_value = float(best_row[column])
-        if not np.isfinite(best_value) or not np.isfinite(joined_value) or not np.isclose(joined_value, best_value, rtol=FIG11_SCORE_RTOL, atol=FIG11_SCORE_ATOL):
+        if not np.isfinite(best_value) or not np.isfinite(joined_value) or not np.isclose(joined_value, best_value, rtol=FIG09_SCORE_RTOL, atol=FIG09_SCORE_ATOL):
             raise ValueError(
-                f"Fig. 11 best-halo {column} mismatch for halo_id_z0={best_id}: "
+                f"Fig. 09 best-halo {column} mismatch for halo_id_z0={best_id}: "
                 f"joined={joined_value!r}, Fig. 02={best_value!r}."
             )
 
@@ -1141,69 +1132,69 @@ def _fig11_score_lookup(score_table, fig02_best):
             "score_uv_available": uv_available,
             "score_keplerian_uv_available": combined_available,
         }
-    return {"by_halo_id": by_halo_id, "target_rows": target_table, "target_redshift": FIG11_TARGET_REDSHIFT}
+    return {"by_halo_id": by_halo_id, "target_rows": target_table, "target_redshift": FIG09_TARGET_REDSHIFT}
 
 
-def _fig11_score_text(value, available):
+def _fig09_score_text(value, available):
     return f"{float(value):.2f}" if bool(available) and np.isfinite(float(value)) else "n/a"
 
 
-def _fig11_score_annotation(history):
-    keplerian = _fig11_score_text(history["score_keplerian"], history["score_keplerian_available"])
-    uv = _fig11_score_text(history["score_uv"], history["score_uv_available"])
+def _fig09_score_annotation(history):
+    keplerian = _fig09_score_text(history["score_keplerian"], history["score_keplerian_available"])
+    uv = _fig09_score_text(history["score_uv"], history["score_uv_available"])
     combined_available = (
         history["score_keplerian_available"]
         and history["score_uv_available"]
         and history["score_keplerian_uv_available"]
     )
-    combined = _fig11_score_text(history["score_keplerian_uv"], combined_available)
+    combined = _fig09_score_text(history["score_keplerian_uv"], combined_available)
     keplerian_text = rf"$S_{{\rm K}}={keplerian}$" if keplerian != "n/a" else r"$S_{\rm K}$=n/a"
     uv_text = rf"$S_{{\rm UV}}={uv}$" if uv != "n/a" else r"$S_{\rm UV}$=n/a"
     combined_text = rf"$S_{{\rm K+UV}}={combined}$" if combined != "n/a" else r"$S_{\rm K+UV}$=n/a"
     return f"{keplerian_text}, {uv_text}\n{combined_text}"
 
 
-def _fig11_score_diagnostic(history):
-    keplerian = _fig11_score_text(history["score_keplerian"], history["score_keplerian_available"])
-    uv = _fig11_score_text(history["score_uv"], history["score_uv_available"])
+def _fig09_score_diagnostic(history):
+    keplerian = _fig09_score_text(history["score_keplerian"], history["score_keplerian_available"])
+    uv = _fig09_score_text(history["score_uv"], history["score_uv_available"])
     combined_available = (
         history["score_keplerian_available"]
         and history["score_uv_available"]
         and history["score_keplerian_uv_available"]
     )
-    combined = _fig11_score_text(history["score_keplerian_uv"], combined_available)
+    combined = _fig09_score_text(history["score_keplerian_uv"], combined_available)
     return f"S_K={keplerian}, S_UV={uv}, S_K+UV={combined}"
 
 
-def select_fig11_assembly_histories(out_dir, summary_by_z, final_gc, metadata, tng_volume_context, score_table, fig02_best):
-    """Select Fig. 11 panels and build their raw-tree assembly histories."""
+def select_fig09_assembly_histories(out_dir, summary_by_z, final_gc, metadata, tng_volume_context, score_table, fig02_best):
+    """Select Fig. 09 panels and build their raw-tree assembly histories."""
 
     if not isinstance(metadata, dict):
-        raise ValueError("Fig. 11 requires the validated run metadata mapping.")
+        raise ValueError("Fig. 09 requires the validated run metadata mapping.")
     try:
         best_id_value = float(fig02_best["halo_id_z0"])
     except (KeyError, TypeError, ValueError) as exc:
-        raise ValueError("Fig. 11 cannot read the Fig. 02 best halo ID.") from exc
+        raise ValueError("Fig. 09 cannot read the Fig. 02 best halo ID.") from exc
     if not np.isfinite(best_id_value) or abs(best_id_value - np.rint(best_id_value)) > 1.0e-8:
-        raise ValueError(f"Fig. 11 Fig. 02 best halo ID is not a finite integer: {best_id_value!r}")
+        raise ValueError(f"Fig. 09 Fig. 02 best halo ID is not a finite integer: {best_id_value!r}")
     best_id = int(np.rint(best_id_value))
-    score_lookup = _fig11_score_lookup(score_table, fig02_best)
+    score_lookup = _fig09_score_lookup(score_table, fig02_best)
     scores_by_halo_id = score_lookup["by_halo_id"]
-    formation = _load_fig11_formation_catalogue(out_dir, final_gc)
-    exact_table, best_row = _fig11_exact_catalogue_rows(summary_by_z, best_id)
-    lookup = _fig11_lookup_table(tng_volume_context)
+    formation = _load_fig09_formation_catalogue(out_dir, final_gc)
+    exact_table, best_row = _fig09_exact_catalogue_rows(summary_by_z, best_id)
+    lookup = _fig09_lookup_table(tng_volume_context)
     missing_provenance = sorted(set(exact_table["halo_id_z0"].tolist()) - set(lookup["halo_id_z0"].tolist()))
     if missing_provenance:
-        raise ValueError(f"Fig. 11 exact z=7 catalogue rows lack strict TNG provenance: {missing_provenance[:10]}")
+        raise ValueError(f"Fig. 09 exact z=7 catalogue rows lack strict TNG provenance: {missing_provenance[:10]}")
     candidate_table = exact_table.merge(lookup, on="halo_id_z0", how="left", validate="one_to_one")
     best_lookup = candidate_table.loc[candidate_table["halo_id_z0"] == best_id]
     if len(best_lookup) != 1:
-        raise ValueError(f"Fig. 11 Fig. 02 best halo {best_id} lacks one unique strict TNG provenance row.")
-    best_candidate = _fig11_candidate_row(best_lookup.iloc[0])
+        raise ValueError(f"Fig. 09 Fig. 02 best halo {best_id} lacks one unique strict TNG provenance row.")
+    best_candidate = _fig09_candidate_row(best_lookup.iloc[0])
     # The best halo is a fatal gate: the first panel cannot be replaced by a
     # nearby halo if its raw MPB is incomplete at z=7.
-    best_history = _fig11_load_history(best_candidate, formation)
-    best_history.update(scores_by_halo_id.get(best_id, _fig11_unavailable_score_fields()))
+    best_history = _fig09_load_history(best_candidate, formation)
+    best_history.update(scores_by_halo_id.get(best_id, _fig09_unavailable_score_fields()))
 
     best_mass = float(best_row["catalogue_halo_mass_msun"])
     comparisons = candidate_table.loc[
@@ -1218,22 +1209,22 @@ def select_fig11_assembly_histories(out_dir, summary_by_z, final_gc, metadata, t
     histories = [best_history]
     rejected = []
     for _, row in comparisons.iterrows():
-        if len(histories) >= FIG11_MAX_PANELS:
+        if len(histories) >= FIG09_MAX_PANELS:
             break
-        candidate = _fig11_candidate_row(row)
+        candidate = _fig09_candidate_row(row)
         try:
-            history = _fig11_load_history(candidate, formation)
+            history = _fig09_load_history(candidate, formation)
         except (FileNotFoundError, OSError, RuntimeError, TypeError, ValueError, OverflowError) as exc:
             rejected.append({"halo_id_z0": int(candidate["halo_id_z0"]), "reason": str(exc)})
             continue
-        history.update(scores_by_halo_id.get(int(candidate["halo_id_z0"]), _fig11_unavailable_score_fields()))
+        history.update(scores_by_halo_id.get(int(candidate["halo_id_z0"]), _fig09_unavailable_score_fields()))
         histories.append(history)
     return {
         "histories": histories,
         "rejected": rejected,
         "formation_catalogue_path": formation["path"],
         "best_halo_id_z0": best_id,
-        "target_redshift": FIG11_TARGET_REDSHIFT,
+        "target_redshift": FIG09_TARGET_REDSHIFT,
     }
 
 
@@ -1438,13 +1429,12 @@ def attach_tng_volume_weights(out_dir, summary_by_z, final_gc):
 def _set_tng_volume_context(context):
     """Use the current full-box metadata for all physical-density figures."""
 
-    global FIG09_BHMF_SIDE_CMPC, FIG09_BHMF_VOLUME_CMPC3, ABUNDANCE_MATCHING_VOLUME_CMPC3
+    global BHMF_REFERENCE_SIDE_CMPC, BHMF_REFERENCE_VOLUME_CMPC3
     volume_tng50 = float(context["volume_tng50_cmpc3"])
     if not np.isfinite(volume_tng50) or volume_tng50 <= 0.0:
         raise ValueError("TNG50 full-box volume must be finite and positive.")
-    FIG09_BHMF_VOLUME_CMPC3 = volume_tng50
-    FIG09_BHMF_SIDE_CMPC = float(volume_tng50 ** (1.0 / 3.0))
-    ABUNDANCE_MATCHING_VOLUME_CMPC3 = volume_tng50
+    BHMF_REFERENCE_VOLUME_CMPC3 = volume_tng50
+    BHMF_REFERENCE_SIDE_CMPC = float(volume_tng50 ** (1.0 / 3.0))
 
 
 def _read_csv_required(path, required, numeric=()):
@@ -2157,19 +2147,10 @@ def score_fig02_candidate_haloes(out_dir, points, z_rows, deposit_profile, final
     return score_table, best
 
 
-def load_kritos2025_fig9():
-    path = DATA_ROOT / "Kritos+2025Fig9" / "kritos2025_fig9_greene2020_mass_functions.csv"
-    numeric = ["log10_mbh_msun", "mbh_msun", "linear_mpc3", "linear_low_mpc3", "linear_high_mpc3", "nsc_mpc3", "nsc_low_mpc3", "nsc_high_mpc3"]
-    table = _read_csv_required(path, numeric + ["source_kind", "source_note"], numeric=numeric)
-    if np.any(table[[name for name in numeric if name != "log10_mbh_msun"]].to_numpy(dtype=float) <= 0.0):
-        raise ValueError("Kritos Fig. 9 reference table contains non-positive plotted values.")
-    return table
-
-
 def load_bhmf_data():
     required = [
-        "Phi [lgM☉⁻¹Mpc⁻³]", "sigma_Phi [lgM☉⁻¹Mpc⁻³]", "Mbh [M☉]", "sigma_Mbh",
-        "colour", "face colour", "shape", "label", "ADSABS", "data",
+        "Phi [lgM☉⁻¹Mpc⁻³]", "sigma_Phi_low [lgM☉⁻¹Mpc⁻³]", "sigma_Phi_high [lgM☉⁻¹Mpc⁻³]",
+        "Mbh [M☉]", "sigma_Mbh_low", "sigma_Mbh_high", "shape", "label", "z_low", "z_high", "ADSABS", "data",
     ]
     if not BHMF_DATA_PATH.exists():
         raise FileNotFoundError(f"Missing BHMF catalogue: {BHMF_DATA_PATH}")
@@ -2178,59 +2159,54 @@ def load_bhmf_data():
         raise ValueError(f"BHMF catalogue columns must be exactly {required}, got {list(table.columns)}")
     for column in required:
         table[column] = table[column].astype(str).str.strip()
-    numeric_columns = [required[0], required[1], required[2], required[3]]
+    numeric_columns = [
+        "Phi [lgM☉⁻¹Mpc⁻³]", "sigma_Phi_low [lgM☉⁻¹Mpc⁻³]", "sigma_Phi_high [lgM☉⁻¹Mpc⁻³]",
+        "Mbh [M☉]", "sigma_Mbh_low", "sigma_Mbh_high", "z_low", "z_high",
+    ]
     for column in numeric_columns:
         table[column] = pd.to_numeric(table[column].replace("", np.nan), errors="coerce")
     if table.empty:
         raise ValueError("BHMF catalogue is empty.")
-    if table[required[0]].isna().any() or ~np.isfinite(table[required[0]].to_numpy(dtype=float)).all():
-        raise ValueError("BHMF catalogue contains non-finite Phi values.")
-    if table[required[2]].isna().any() or ~np.isfinite(table[required[2]].to_numpy(dtype=float)).all() or np.any(table[required[2]] <= 0.0):
+    phi = table["Phi [lgM☉⁻¹Mpc⁻³]"].to_numpy(dtype=float)
+    mass = table["Mbh [M☉]"].to_numpy(dtype=float)
+    if np.any(~np.isfinite(phi)):
+        raise ValueError("BHMF catalogue contains non-finite logarithmic Phi values.")
+    if np.any(~np.isfinite(mass)) or np.any(mass <= 0.0):
         raise ValueError("BHMF catalogue contains non-positive or non-finite Mbh values.")
-    allowed_shapes = {"h", "s", "o", "^", "line"}
+    allowed_shapes = {"h", "s", "o", "^"}
     if not set(table["shape"]).issubset(allowed_shapes):
         raise ValueError(f"BHMF catalogue contains unsupported shapes: {sorted(set(table['shape']) - allowed_shapes)}")
     if table["label"].eq("").any():
         raise ValueError("BHMF catalogue contains an empty label.")
-    for column in ["colour", "face colour"]:
-        invalid = [value for value in table[column].unique() if value.lower() != "none" and not mpl.colors.is_color_like(value)]
-        if invalid:
-            raise ValueError(f"BHMF catalogue contains invalid {column} values: {invalid}")
+    if table["ADSABS"].eq("").any() or table["data"].eq("").any():
+        raise ValueError("BHMF catalogue contains an empty provenance URL.")
     for column in ["ADSABS", "data"]:
         invalid = []
         for value in table[column]:
-            if value == "":
-                continue
             parsed = urlparse(value)
             if parsed.scheme not in {"http", "https"} or not parsed.netloc:
                 invalid.append(value)
         if invalid:
             raise ValueError(f"BHMF catalogue contains invalid {column} URLs: {invalid[:5]}")
-    marker = table["shape"].ne("line")
-    line = ~marker
-    if table.loc[marker, required[1]].isna().any() or np.any(table.loc[marker, required[1]] < 0.0):
-        raise ValueError("BHMF marker rows must have finite non-negative sigma_Phi values.")
-    if table.loc[marker, required[3]].isna().any() or np.any(table.loc[marker, required[3]] <= 0.0):
-        raise ValueError("BHMF marker rows must have positive sigma_Mbh values in dex.")
-    if table.loc[line, required[1]].notna().any() or table.loc[line, required[3]].notna().any():
-        raise ValueError("BHMF line rows must leave sigma_Phi and sigma_Mbh blank.")
-    if table.loc[marker, "ADSABS"].eq("").any() or table.loc[line, "ADSABS"].eq("").any():
-        raise ValueError("Every BHMF row must have an ADSABS or arXiv provenance URL.")
-    expected_marker_counts = {"Fei+2026": 4, "Fei+2026 (w/o correction)": 4, "Matthee+2024": 3, "Taylor+2025": 5, "He+2024": 5}
-    marker_counts = table.loc[marker, "label"].value_counts().to_dict()
-    if marker_counts != expected_marker_counts:
-        raise ValueError(f"BHMF marker counts must be {expected_marker_counts}, got {marker_counts}")
-    line_labels = {
-        "Heavy Eddington-limited", "Heavy Eddington-limited (lower envelope)", "Heavy Eddington-limited (upper envelope)",
-        "Heavy Super-Eddington", "Heavy Super-Eddington (lower envelope)", "Heavy Super-Eddington (upper envelope)",
-        "Light Eddington-limited", "Light Eddington-limited (lower envelope)", "Light Eddington-limited (upper envelope)",
-    }
-    if set(table.loc[line, "label"]) != line_labels:
-        raise ValueError(f"BHMF line labels are incomplete or unexpected: {sorted(set(table.loc[line, 'label']))}")
-    for label in line_labels:
-        rows = table.loc[line & table["label"].eq(label)].sort_values(required[2])
-        if len(rows) < 1000 or np.any(np.diff(rows[required[2]].to_numpy(dtype=float)) <= 0.0):
-            raise ValueError(f"BHMF line group {label!r} is not a dense strictly increasing curve.")
+    phi_low = table["sigma_Phi_low [lgM☉⁻¹Mpc⁻³]"].to_numpy(dtype=float)
+    phi_high = table["sigma_Phi_high [lgM☉⁻¹Mpc⁻³]"].to_numpy(dtype=float)
+    mass_low = table["sigma_Mbh_low"].to_numpy(dtype=float)
+    mass_high = table["sigma_Mbh_high"].to_numpy(dtype=float)
+    if np.any(np.isnan(phi_low)) or np.any(phi_low < 0.0) or np.any(~np.isfinite(phi_high)) or np.any(phi_high < 0.0):
+        raise ValueError("BHMF catalogue contains invalid logarithmic Phi uncertainties.")
+    infinite_low = np.isposinf(phi_low)
+    if np.any(np.isneginf(phi_low)) or np.any(infinite_low & ~table["label"].isin({"Wu+2022", "Lai+2024"}).to_numpy()):
+        raise ValueError("Only Wu+2022 and Lai+2024 rows may have a positive infinite lower Phi error.")
+    if np.any(~np.isfinite(mass_low)) or np.any(~np.isfinite(mass_high)) or np.any(mass_low < 0.0) or np.any(mass_high < 0.0):
+        raise ValueError("BHMF catalogue contains invalid non-negative Mbh uncertainties in dex.")
+    z_low = table["z_low"].to_numpy(dtype=float)
+    z_high = table["z_high"].to_numpy(dtype=float)
+    if np.any(~np.isfinite(z_low)) or np.any(~np.isfinite(z_high)) or np.any(z_low < 0.0) or np.any(z_low >= z_high):
+        raise ValueError("BHMF catalogue contains invalid redshift limits.")
+    expected_counts = {"Fei+2026": 4, "Matthee+2024": 2, "He+2024": 11, "Taylor+2025": 4, "Wu+2022": 11, "Lai+2024": 6}
+    counts = table["label"].value_counts().to_dict()
+    if len(table) != 38 or counts != expected_counts:
+        raise ValueError(f"BHMF catalogue counts must total 38 with {expected_counts}, got {counts}")
     return table
 
 
@@ -2263,7 +2239,7 @@ def load_chen2026_fig05a_seed_mass_functions():
         raise ValueError(f"Chen+2026 Fig. 5a must contain only the reference redshift z={CHEN2026_FIG05A_REDSHIFT:g}.")
     log_mass = table["log10_mbh_seed_msun"].to_numpy(dtype=float)
     phi = table["phi_mpc3_dex1"].to_numpy(dtype=float)
-    if np.any(log_mass < FIG10_SEED_LOGM_BIN_EDGES[0] - 1.0e-10) or np.any(log_mass > FIG10_SEED_LOGM_BIN_EDGES[-1] + 1.0e-10):
+    if np.any(log_mass < FIG08_SEED_LOGM_BIN_EDGES[0] - 1.0e-10) or np.any(log_mass > FIG08_SEED_LOGM_BIN_EDGES[-1] + 1.0e-10):
         raise ValueError("Chen+2026 Fig. 5a mass coordinates lie outside the calibrated 0--5 dex range.")
     if np.any(phi <= 0.0):
         raise ValueError("Chen+2026 Fig. 5a Phi values must be finite and positive.")
@@ -2278,15 +2254,15 @@ def load_chen2026_fig05a_seed_mass_functions():
         raise ValueError("Chen+2026 Fig. 5a contains duplicate curve-coordinate pairs.")
 
     roles = set(table["curve_role"])
-    if roles != set(FIG10_CHEN_CURVE_ROLES):
-        raise ValueError(f"Chen+2026 Fig. 5a curve roles must be exactly {FIG10_CHEN_CURVE_ROLES}, got {sorted(roles)}")
-    if table["curve_id"].nunique() != len(FIG10_CHEN_CURVE_ROLES):
+    if roles != set(FIG08_CHEN_CURVE_ROLES):
+        raise ValueError(f"Chen+2026 Fig. 5a curve roles must be exactly {FIG08_CHEN_CURVE_ROLES}, got {sorted(roles)}")
+    if table["curve_id"].nunique() != len(FIG08_CHEN_CURVE_ROLES):
         raise ValueError("Chen+2026 Fig. 5a must contain one unique curve identifier per curve role.")
 
     by_role = {}
-    for role in FIG10_CHEN_CURVE_ROLES:
+    for role in FIG08_CHEN_CURVE_ROLES:
         rows = table.loc[table["curve_role"].eq(role)].sort_values("log10_mbh_seed_msun").reset_index(drop=True)
-        if rows["curve_label"].nunique() != 1 or rows["curve_label"].iloc[0] != FIG10_CHEN_CURVE_LABELS[role]:
+        if rows["curve_label"].nunique() != 1 or rows["curve_label"].iloc[0] != FIG08_CHEN_CURVE_LABELS[role]:
             raise ValueError(f"Chen+2026 Fig. 5a label for {role!r} is missing or unexpected.")
         if rows["curve_id"].nunique() != 1 or rows["curve_id"].iloc[0] == "":
             raise ValueError(f"Chen+2026 Fig. 5a role {role!r} must have one non-empty curve identifier.")
@@ -2314,7 +2290,7 @@ def load_chen2026_fig05a_seed_mass_functions():
     return {
         "table": sorted_table,
         "by_role": by_role,
-        "roles": FIG10_CHEN_CURVE_ROLES,
+        "roles": FIG08_CHEN_CURVE_ROLES,
         "redshift": CHEN2026_FIG05A_REDSHIFT,
         "log10_mass_range": (float(log_mass.min()), float(log_mass.max())),
         "phi_range": (float(phi.min()), float(phi.max())),
@@ -2351,9 +2327,9 @@ def load_chen2026_fig06_seed_history():
         raise ValueError("Chen+2026 Fig. 6 reference values must be finite and positive.")
     if set(table["panel"]) != {"a", "d"}:
         raise ValueError(f"Chen+2026 Fig. 6 panels must be exactly ['a', 'd'], got {sorted(set(table['panel']))}")
-    if set(table["curve_role"]) != set(FIG12_CHEN_CURVE_ROLES):
+    if set(table["curve_role"]) != set(FIG03_CHEN_CURVE_ROLES):
         raise ValueError(
-            f"Chen+2026 Fig. 6 visible curve roles must be exactly {FIG12_CHEN_CURVE_ROLES}, "
+            f"Chen+2026 Fig. 6 visible curve roles must be exactly {FIG03_CHEN_CURVE_ROLES}, "
             f"got {sorted(set(table['curve_role']))}. Fast/LW rows cannot be plotted."
         )
     if table.duplicated(["curve_id", "panel", "x_log10_1pz"]).any():
@@ -2370,15 +2346,15 @@ def load_chen2026_fig06_seed_history():
     expected_quantity = {"a": "rate", "d": "cumulative"}
     for panel in ("a", "d"):
         panel_rows = table.loc[table["panel"].eq(panel)]
-        if set(panel_rows["curve_role"]) != set(FIG12_CHEN_CURVE_ROLES):
+        if set(panel_rows["curve_role"]) != set(FIG03_CHEN_CURVE_ROLES):
             raise ValueError(f"Chen+2026 Fig. 6 panel {panel} does not contain exactly the four visible roles.")
         if set(panel_rows["quantity"]) != {expected_quantity[panel]}:
             raise ValueError(f"Chen+2026 Fig. 6 panel {panel} must have quantity={expected_quantity[panel]!r}.")
-        for role in FIG12_CHEN_CURVE_ROLES:
+        for role in FIG03_CHEN_CURVE_ROLES:
             rows = panel_rows.loc[panel_rows["curve_role"].eq(role)].reset_index(drop=True)
             if len(rows) < 2:
                 raise ValueError(f"Chen+2026 Fig. 6 curve {panel}/{role} has fewer than two vertices.")
-            if rows["curve_label"].nunique() != 1 or rows["curve_label"].iloc[0] != FIG12_CHEN_CURVE_LABELS[role]:
+            if rows["curve_label"].nunique() != 1 or rows["curve_label"].iloc[0] != FIG03_CHEN_CURVE_LABELS[role]:
                 raise ValueError(f"Chen+2026 Fig. 6 label for {panel}/{role} is missing or unexpected.")
             if rows["curve_id"].nunique() != 1:
                 raise ValueError(f"Chen+2026 Fig. 6 curve {panel}/{role} must have one curve identifier.")
@@ -2388,7 +2364,7 @@ def load_chen2026_fig06_seed_history():
             if rows["colour"].nunique() != 1 or rows["linestyle"].nunique() != 1 or rows["source"].nunique() != 1:
                 raise ValueError(f"Chen+2026 Fig. 6 curve {panel}/{role} has inconsistent plotting metadata.")
             expected_redshift = np.power(10.0, x_values) - 1.0
-            if not np.allclose(rows["redshift"].to_numpy(dtype=float), expected_redshift, rtol=0.0, atol=FIG12_CHEN_REDSHIFT_ATOL):
+            if not np.allclose(rows["redshift"].to_numpy(dtype=float), expected_redshift, rtol=0.0, atol=FIG03_CHEN_REDSHIFT_ATOL):
                 raise ValueError(f"Chen+2026 Fig. 6 redshift calibration disagrees with x for {panel}/{role}.")
             by_panel[panel][role] = rows
 
@@ -2396,9 +2372,9 @@ def load_chen2026_fig06_seed_history():
     return {
         "table": sorted_table,
         "by_panel": by_panel,
-        "roles": FIG12_CHEN_CURVE_ROLES,
+        "roles": FIG03_CHEN_CURVE_ROLES,
         "panels": ("a", "d"),
-        "redshift_atol": FIG12_CHEN_REDSHIFT_ATOL,
+        "redshift_atol": FIG03_CHEN_REDSHIFT_ATOL,
     }
 
 
@@ -2874,15 +2850,15 @@ def _weighted_density_inputs(masses, weights):
 
 def _bhmf_density(masses, weights=None):
     masses, weights = _weighted_density_inputs(masses, weights)
-    counts, _ = np.histogram(masses, bins=FIG09_BIN_EDGES, weights=weights)
-    return counts.astype(float) / FIG09_BHMF_VOLUME_CMPC3
+    counts, _ = np.histogram(masses, bins=BHMF_BIN_EDGES, weights=weights)
+    return counts.astype(float) / BHMF_REFERENCE_VOLUME_CMPC3
 
 
 def _bhmf_density_per_dex(masses, weights=None):
     masses, weights = _weighted_density_inputs(masses, weights)
     counts, _ = np.histogram(masses, bins=10.0 ** FIG06_BIN_EDGES, weights=weights)
     bin_width_dex = np.diff(FIG06_BIN_EDGES)
-    return counts.astype(float) / (FIG09_BHMF_VOLUME_CMPC3 * bin_width_dex)
+    return counts.astype(float) / (BHMF_REFERENCE_VOLUME_CMPC3 * bin_width_dex)
 
 
 def _fig06_project_densities(summary_by_z):
@@ -2951,17 +2927,17 @@ def _fig06_project_densities(summary_by_z):
     return 0.5 * (FIG06_BIN_EDGES[:-1] + FIG06_BIN_EDGES[1:]), this_work_by_z, inventory
 
 
-def _fig12_project_bhseed_events(final_gc, volume_cmpc3):
+def _fig03_project_bhseed_events(final_gc, volume_cmpc3):
     """Return every final-GC row with a positive initial IMBH seed mass."""
 
     if not isinstance(final_gc, pd.DataFrame):
-        raise ValueError("Fig. 12 seed-event projection requires finalGCs.dat as a pandas DataFrame.")
+        raise ValueError("Fig. 03 seed-event projection requires finalGCs.dat as a pandas DataFrame.")
     required = ["M_IMBH_init", "lookback_time_init_gyr", "volume_weight_tng50", "halo_id_z0", "status"]
     missing = [name for name in required if name not in final_gc.columns]
     if missing:
-        raise ValueError(f"Fig. 12 finalGCs.dat is missing required columns: {missing}")
+        raise ValueError(f"Fig. 03 finalGCs.dat is missing required columns: {missing}")
     if len(final_gc) == 0:
-        raise ValueError("Fig. 12 cannot project an empty finalGCs.dat catalogue.")
+        raise ValueError("Fig. 03 cannot project an empty finalGCs.dat catalogue.")
 
     initial_mass = pd.to_numeric(final_gc["M_IMBH_init"], errors="coerce").to_numpy(dtype=float)
     lookback_init = pd.to_numeric(final_gc["lookback_time_init_gyr"], errors="coerce").to_numpy(dtype=float)
@@ -2969,38 +2945,38 @@ def _fig12_project_bhseed_events(final_gc, volume_cmpc3):
     status_raw = pd.to_numeric(final_gc["status"], errors="coerce").to_numpy(dtype=float)
     halo_id_raw = pd.to_numeric(final_gc["halo_id_z0"], errors="coerce").to_numpy(dtype=float)
     if np.any(~np.isfinite(initial_mass)) or np.any(initial_mass < 0.0):
-        raise ValueError("Fig. 12 M_IMBH_init values must be finite and non-negative.")
+        raise ValueError("Fig. 03 M_IMBH_init values must be finite and non-negative.")
     if np.any(~np.isfinite(lookback_init)) or np.any(lookback_init < 0.0):
-        raise ValueError("Fig. 12 initial lookback times must be finite and non-negative.")
+        raise ValueError("Fig. 03 initial lookback times must be finite and non-negative.")
     if np.any(~np.isfinite(weights)) or np.any(weights <= 0.0):
-        raise ValueError("Fig. 12 inherited volume weights must be finite and strictly positive.")
+        raise ValueError("Fig. 03 inherited volume weights must be finite and strictly positive.")
     if np.any(~np.isfinite(status_raw)) or np.any(np.abs(status_raw - np.rint(status_raw)) > 1.0e-8):
-        raise ValueError("Fig. 12 finalGCs.dat statuses must be finite integers.")
+        raise ValueError("Fig. 03 finalGCs.dat statuses must be finite integers.")
     if np.any(~np.isfinite(halo_id_raw)) or np.any(np.abs(halo_id_raw - np.rint(halo_id_raw)) > 1.0e-8):
-        raise ValueError("Fig. 12 finalGCs.dat parent halo IDs must be finite integers.")
+        raise ValueError("Fig. 03 finalGCs.dat parent halo IDs must be finite integers.")
     status = np.rint(status_raw).astype(np.int64)
     halo_id = np.rint(halo_id_raw).astype(np.int64)
 
     volume_cmpc3 = float(volume_cmpc3)
     if not np.isfinite(volume_cmpc3) or volume_cmpc3 <= 0.0:
-        raise ValueError("Fig. 12 reference volume must be finite and strictly positive.")
+        raise ValueError("Fig. 03 reference volume must be finite and strictly positive.")
     t0 = float(Redshift2CosmicAge(0.0, time_unit="Gyr"))
     formation_time = t0 - lookback_init
     if np.any(~np.isfinite(formation_time)) or np.any(formation_time <= 0.0) or np.any(formation_time > t0):
-        raise ValueError("Fig. 12 contains a cosmic formation time outside 0 < t_form <= t_0.")
+        raise ValueError("Fig. 03 contains a cosmic formation time outside 0 < t_form <= t_0.")
     formation_redshift = np.asarray(
         [CosmicAge2Redshift(float(value), time_unit="Gyr") for value in formation_time],
         dtype=float,
     )
     if np.any(~np.isfinite(formation_redshift)) or np.any(formation_redshift < 0.0):
-        raise ValueError("Fig. 12 formation-time conversion produced an invalid formation redshift.")
+        raise ValueError("Fig. 03 formation-time conversion produced an invalid formation redshift.")
     formation_x = np.log10(1.0 + formation_redshift)
     if np.any(~np.isfinite(formation_x)) or np.any(formation_x < 0.0):
-        raise ValueError("Fig. 12 formation redshift conversion produced an invalid log10(1+z).")
+        raise ValueError("Fig. 03 formation redshift conversion produced an invalid log10(1+z).")
 
     positive = initial_mass > 0.0
     if not np.any(positive):
-        raise ValueError("Fig. 12 found no positive M_IMBH_init seed masses.")
+        raise ValueError("Fig. 03 found no positive M_IMBH_init seed masses.")
     positive_indices = np.flatnonzero(positive)
     positive_status = status[positive]
     positive_weights = weights[positive]
@@ -3014,11 +2990,11 @@ def _fig12_project_bhseed_events(final_gc, volume_cmpc3):
         int(code): float(np.sum(positive_weights[positive_status == code]))
         for code in np.unique(positive_status)
     }
-    display_mask = (positive_x >= FIG12_XLIM_LOG1PZ[0]) & (positive_x <= FIG12_XLIM_LOG1PZ[1])
-    outside_low_mask = positive_x < FIG12_XLIM_LOG1PZ[0]
-    outside_high_mask = positive_x > FIG12_XLIM_LOG1PZ[1]
+    display_mask = (positive_x >= FIG03_XLIM_LOG1PZ[0]) & (positive_x <= FIG03_XLIM_LOG1PZ[1])
+    outside_low_mask = positive_x < FIG03_XLIM_LOG1PZ[0]
+    outside_high_mask = positive_x > FIG03_XLIM_LOG1PZ[1]
     if np.any(display_mask & (outside_low_mask | outside_high_mask)):
-        raise ValueError("Fig. 12 display-window event masks overlap unexpectedly.")
+        raise ValueError("Fig. 03 display-window event masks overlap unexpectedly.")
     return {
         "positive_indices": positive_indices,
         "M_IMBH_init": initial_mass[positive],
@@ -3045,7 +3021,7 @@ def _fig12_project_bhseed_events(final_gc, volume_cmpc3):
     }
 
 
-def _fig10_project_seed_densities(summary_by_z, final_gc, volume_cmpc3):
+def _fig08_project_seed_densities(summary_by_z, final_gc, volume_cmpc3):
     """Project weighted, cumulative initial IMBH seed mass functions."""
 
     if "z_out" in summary_by_z.columns:
@@ -3053,13 +3029,13 @@ def _fig10_project_seed_densities(summary_by_z, final_gc, volume_cmpc3):
     elif "redshift" in summary_by_z.columns:
         z_column = "redshift"
     else:
-        raise ValueError("Fig. 10 requires z_out or redshift in haloSummaryByZ.")
+        raise ValueError("Fig. 08 requires z_out or redshift in haloSummaryByZ.")
     summary_redshift = pd.to_numeric(summary_by_z[z_column], errors="coerce").to_numpy(dtype=float)
     if np.any(~np.isfinite(summary_redshift)) or np.any(summary_redshift < 0.0):
-        raise ValueError("Fig. 10 requires finite non-negative output redshifts in haloSummaryByZ.")
+        raise ValueError("Fig. 08 requires finite non-negative output redshifts in haloSummaryByZ.")
     redshift_values = np.sort(np.unique(summary_redshift))
     if len(redshift_values) == 0:
-        raise ValueError("Fig. 10 requires at least one output redshift in haloSummaryByZ.")
+        raise ValueError("Fig. 08 requires at least one output redshift in haloSummaryByZ.")
 
     required = [
         "M_IMBH_init", "lookback_time_init_gyr", "lookback_time_final_gyr",
@@ -3067,9 +3043,9 @@ def _fig10_project_seed_densities(summary_by_z, final_gc, volume_cmpc3):
     ]
     missing = [name for name in required if name not in final_gc.columns]
     if missing:
-        raise ValueError(f"Fig. 10 finalGCs.dat is missing required columns: {missing}")
+        raise ValueError(f"Fig. 08 finalGCs.dat is missing required columns: {missing}")
     if len(final_gc) == 0:
-        raise ValueError("Fig. 10 cannot project an empty finalGCs.dat catalogue.")
+        raise ValueError("Fig. 08 cannot project an empty finalGCs.dat catalogue.")
 
     initial_mass = pd.to_numeric(final_gc["M_IMBH_init"], errors="coerce").to_numpy(dtype=float)
     lookback_init = pd.to_numeric(final_gc["lookback_time_init_gyr"], errors="coerce").to_numpy(dtype=float)
@@ -3078,55 +3054,55 @@ def _fig10_project_seed_densities(summary_by_z, final_gc, volume_cmpc3):
     status_raw = pd.to_numeric(final_gc["status"], errors="coerce").to_numpy(dtype=float)
     halo_id_raw = pd.to_numeric(final_gc["halo_id_z0"], errors="coerce").to_numpy(dtype=float)
     if np.any(~np.isfinite(initial_mass)) or np.any(initial_mass < 0.0):
-        raise ValueError("Fig. 10 initial IMBH seed masses must be finite and non-negative.")
+        raise ValueError("Fig. 08 initial IMBH seed masses must be finite and non-negative.")
     if np.any(~np.isfinite(lookback_init)) or np.any(lookback_init < 0.0):
-        raise ValueError("Fig. 10 initial lookback times must be finite and non-negative.")
+        raise ValueError("Fig. 08 initial lookback times must be finite and non-negative.")
     if np.any(~np.isfinite(lookback_final)) or np.any(lookback_final < 0.0):
-        raise ValueError("Fig. 10 final lookback times must be finite and non-negative.")
+        raise ValueError("Fig. 08 final lookback times must be finite and non-negative.")
     if np.any(~np.isfinite(weights)) or np.any(weights <= 0.0):
-        raise ValueError("Fig. 10 inherited volume weights must be finite and strictly positive.")
+        raise ValueError("Fig. 08 inherited volume weights must be finite and strictly positive.")
     if np.any(~np.isfinite(status_raw)) or np.any(np.abs(status_raw - np.rint(status_raw)) > 1.0e-8):
-        raise ValueError("Fig. 10 finalGCs.dat statuses must be finite integers.")
+        raise ValueError("Fig. 08 finalGCs.dat statuses must be finite integers.")
     status = np.rint(status_raw).astype(np.int64)
     allowed_statuses = np.asarray([STATUS_EXHAUSTED, STATUS_TORN, STATUS_SUNK_GC, STATUS_WANDERER, STATUS_ALIVE, STATUS_SUNK_WANDERER], dtype=int)
     if not np.all(np.isin(status, allowed_statuses)):
-        raise ValueError(f"Fig. 10 found unsupported finalGC status codes: {sorted(set(status.tolist()) - set(allowed_statuses.tolist()))}")
+        raise ValueError(f"Fig. 08 found unsupported finalGC status codes: {sorted(set(status.tolist()) - set(allowed_statuses.tolist()))}")
     if np.any(~np.isfinite(halo_id_raw)) or np.any(np.abs(halo_id_raw - np.rint(halo_id_raw)) > 1.0e-8):
-        raise ValueError("Fig. 10 finalGCs.dat parent halo IDs must be finite integers.")
+        raise ValueError("Fig. 08 finalGCs.dat parent halo IDs must be finite integers.")
 
     volume_cmpc3 = float(volume_cmpc3)
     if not np.isfinite(volume_cmpc3) or volume_cmpc3 <= 0.0:
-        raise ValueError("Fig. 10 reference volume must be finite and strictly positive.")
+        raise ValueError("Fig. 08 reference volume must be finite and strictly positive.")
     t0 = float(Redshift2CosmicAge(0.0, time_unit="Gyr"))
     # finalGCs.dat writes lookback times at 1e-10 Gyr precision; this small
     # comparison tolerance also absorbs the round-off of an event at formation.
     time_tolerance = 1.0e-8
     formation_time = t0 - lookback_init
     if np.any(~np.isfinite(formation_time)) or np.any(formation_time <= 0.0) or np.any(formation_time > t0 + time_tolerance):
-        raise ValueError("Fig. 10 contains an invalid cosmic formation time after lookback conversion.")
+        raise ValueError("Fig. 08 contains an invalid cosmic formation time after lookback conversion.")
     formation_redshift = np.asarray([CosmicAge2Redshift(float(value), time_unit="Gyr") for value in formation_time], dtype=float)
     if np.any(~np.isfinite(formation_redshift)) or np.any(formation_redshift < 0.0):
-        raise ValueError("Fig. 10 formation-time conversion produced an invalid formation redshift.")
+        raise ValueError("Fig. 08 formation-time conversion produced an invalid formation redshift.")
 
     sink_status = np.isin(status, np.asarray([STATUS_SUNK_GC, STATUS_SUNK_WANDERER], dtype=int))
     sink_time = np.full(len(final_gc), np.nan, dtype=float)
     sink_time[sink_status] = t0 - lookback_final[sink_status]
     if np.any(sink_status & (~np.isfinite(sink_time) | (sink_time < 0.0) | (sink_time > t0 + time_tolerance))):
-        raise ValueError("Fig. 10 central-sink event times are outside the cosmic-time interval.")
+        raise ValueError("Fig. 08 central-sink event times are outside the cosmic-time interval.")
     if np.any(sink_status & (sink_time < formation_time - time_tolerance)):
-        raise ValueError("Fig. 10 contains a central-sink event earlier than seed formation.")
+        raise ValueError("Fig. 08 contains a central-sink event earlier than seed formation.")
 
     positive = initial_mass > 0.0
     if not np.any(positive):
-        raise ValueError("Fig. 10 found no positive M_IMBH_init seed masses.")
+        raise ValueError("Fig. 08 found no positive M_IMBH_init seed masses.")
     log_mass = np.full(len(final_gc), np.nan, dtype=float)
     log_mass[positive] = np.log10(initial_mass[positive])
     if np.any(~np.isfinite(log_mass[positive])):
-        raise ValueError("Fig. 10 positive initial IMBH masses have non-finite logarithms.")
-    if np.any(log_mass[positive] < FIG10_SEED_LOGM_BIN_EDGES[0] - 1.0e-12) or np.any(log_mass[positive] > FIG10_SEED_LOGM_BIN_EDGES[-1] + 1.0e-12):
-        raise ValueError("Fig. 10 positive seed masses lie outside the fixed 0--5 dex mass grid.")
+        raise ValueError("Fig. 08 positive initial IMBH masses have non-finite logarithms.")
+    if np.any(log_mass[positive] < FIG08_SEED_LOGM_BIN_EDGES[0] - 1.0e-12) or np.any(log_mass[positive] > FIG08_SEED_LOGM_BIN_EDGES[-1] + 1.0e-12):
+        raise ValueError("Fig. 08 positive seed masses lie outside the fixed 0--5 dex mass grid.")
 
-    bin_edges = np.asarray(FIG10_SEED_LOGM_BIN_EDGES, dtype=float)
+    bin_edges = np.asarray(FIG08_SEED_LOGM_BIN_EDGES, dtype=float)
     bin_centres = 0.5 * (bin_edges[:-1] + bin_edges[1:])
     bin_width = np.diff(bin_edges)
     densities = {group: [] for group in ("total", "nuclear", "satellite")}
@@ -3147,7 +3123,7 @@ def _fig10_project_seed_densities(summary_by_z, final_gc, volume_cmpc3):
         satellite = formed & ~nuclear
         groups = {"total": formed, "nuclear": nuclear, "satellite": satellite}
         if not np.array_equal(formed, nuclear | satellite) or np.any(nuclear & satellite):
-            raise ValueError(f"Fig. 10 group partition failed at z={float(redshift):.6g}.")
+            raise ValueError(f"Fig. 08 group partition failed at z={float(redshift):.6g}.")
 
         density_by_group = {}
         for group, mask in groups.items():
@@ -3156,7 +3132,7 @@ def _fig10_project_seed_densities(summary_by_z, final_gc, volume_cmpc3):
             weighted_counts, _ = np.histogram(selected_log_mass, bins=bin_edges, weights=selected_weights)
             integer_counts, _ = np.histogram(selected_log_mass, bins=bin_edges)
             if int(np.sum(integer_counts)) != int(np.count_nonzero(mask)):
-                raise ValueError(f"Fig. 10 histogram dropped selected {group} seeds at z={float(redshift):.6g}.")
+                raise ValueError(f"Fig. 08 histogram dropped selected {group} seeds at z={float(redshift):.6g}.")
             density_by_group[group] = weighted_counts.astype(float) / (volume_cmpc3 * bin_width)
             densities[group].append(density_by_group[group])
             raw_counts[group].append(int(np.count_nonzero(mask)))
@@ -3164,15 +3140,15 @@ def _fig10_project_seed_densities(summary_by_z, final_gc, volume_cmpc3):
             if not np.any(mask):
                 missing_groups.setdefault(float(redshift), []).append(group)
         if not np.allclose(density_by_group["total"], density_by_group["nuclear"] + density_by_group["satellite"], rtol=1.0e-10, atol=identity_tolerance):
-            raise ValueError(f"Fig. 10 total=nuclear+satellite identity failed at z={float(redshift):.6g}.")
+            raise ValueError(f"Fig. 08 total=nuclear+satellite identity failed at z={float(redshift):.6g}.")
         plotted_redshifts.append(float(redshift))
 
     if not plotted_redshifts:
-        raise ValueError("Fig. 10 has no output redshift with a formed positive seed.")
+        raise ValueError("Fig. 08 has no output redshift with a formed positive seed.")
     effective_total = np.asarray(effective_counts["total"], dtype=float)
     effective_tolerance = 1.0e-10 * max(1.0, float(np.max(effective_total)))
     if np.any(np.diff(effective_total) > effective_tolerance):
-        raise ValueError("Fig. 10 total effective seed inventory is not non-increasing with output redshift.")
+        raise ValueError("Fig. 08 total effective seed inventory is not non-increasing with output redshift.")
     densities = {group: np.asarray(values, dtype=float) for group, values in densities.items()}
     raw_counts = {group: np.asarray(values, dtype=int) for group, values in raw_counts.items()}
     effective_counts = {group: np.asarray(values, dtype=float) for group, values in effective_counts.items()}
@@ -3191,11 +3167,11 @@ def _fig10_project_seed_densities(summary_by_z, final_gc, volume_cmpc3):
     }
 
 
-def _fig10_project_central_bh_densities(summary_by_z, volume_cmpc3, mass_column="M_SMBH_init"):
+def _fig08_project_central_bh_densities(summary_by_z, volume_cmpc3, mass_column="M_SMBH_init"):
     """Project one weighted central M_SMBH_init state per halo and snapshot."""
 
     if not isinstance(summary_by_z, pd.DataFrame):
-        raise ValueError("Fig. 10 central-state projection requires haloSummaryByZ as a pandas DataFrame.")
+        raise ValueError("Fig. 08 central-state projection requires haloSummaryByZ as a pandas DataFrame.")
     mass_aliases = {
         "M_SMBH_init": "central_bh_mass_init_msun",
         "central_bh_mass_init_msun": "M_SMBH_init",
@@ -3208,13 +3184,13 @@ def _fig10_project_central_bh_densities(summary_by_z, volume_cmpc3, mass_column=
     elif "z_out" in summary_by_z.columns:
         redshift_column = "z_out"
     else:
-        raise ValueError("Fig. 10 central-state projection requires redshift or z_out in haloSummaryByZ.")
+        raise ValueError("Fig. 08 central-state projection requires redshift or z_out in haloSummaryByZ.")
     required = ["halo_id_z0", redshift_column, source_mass_column, "volume_weight_tng50"]
     missing = [name for name in required if name not in summary_by_z.columns]
     if missing:
-        raise ValueError(f"haloSummaryByZ is missing Fig. 10 central-state columns: {missing}")
+        raise ValueError(f"haloSummaryByZ is missing Fig. 08 central-state columns: {missing}")
     if len(summary_by_z) == 0:
-        raise ValueError("Fig. 10 central-state projection cannot use an empty haloSummaryByZ.")
+        raise ValueError("Fig. 08 central-state projection cannot use an empty haloSummaryByZ.")
 
     table = summary_by_z.loc[:, required].copy()
     for column in required:
@@ -3224,24 +3200,24 @@ def _fig10_project_central_bh_densities(summary_by_z, volume_cmpc3, mass_column=
     central_mass = table[source_mass_column].to_numpy(dtype=float)
     weights = table["volume_weight_tng50"].to_numpy(dtype=float)
     if np.any(~np.isfinite(halo_id_raw)) or np.any(np.abs(halo_id_raw - np.rint(halo_id_raw)) > 1.0e-8):
-        raise ValueError("Fig. 10 central states contain non-finite or non-integer halo IDs.")
+        raise ValueError("Fig. 08 central states contain non-finite or non-integer halo IDs.")
     if np.any(~np.isfinite(redshift)) or np.any(redshift < 0.0):
-        raise ValueError("Fig. 10 central states require finite non-negative output redshifts.")
+        raise ValueError("Fig. 08 central states require finite non-negative output redshifts.")
     if np.any(~np.isfinite(central_mass)) or np.any(central_mass < 0.0):
-        raise ValueError("Fig. 10 central M_SMBH_init states must be finite and non-negative.")
+        raise ValueError("Fig. 08 central M_SMBH_init states must be finite and non-negative.")
     if np.any(~np.isfinite(weights)) or np.any(weights <= 0.0):
-        raise ValueError("Fig. 10 central-state inherited volume weights must be finite and strictly positive.")
+        raise ValueError("Fig. 08 central-state inherited volume weights must be finite and strictly positive.")
     volume_cmpc3 = float(volume_cmpc3)
     if not np.isfinite(volume_cmpc3) or volume_cmpc3 <= 0.0:
-        raise ValueError("Fig. 10 central-state reference volume must be finite and strictly positive.")
+        raise ValueError("Fig. 08 central-state reference volume must be finite and strictly positive.")
 
     halo_id = np.rint(halo_id_raw).astype(np.int64)
     key_table = pd.DataFrame({"halo_id_z0": halo_id, "redshift": redshift})
     if key_table.duplicated().any():
         duplicate_keys = key_table.loc[key_table.duplicated(keep=False)].drop_duplicates().to_dict("records")
-        raise ValueError(f"Fig. 10 central projection requires one state per (halo_id_z0, redshift); duplicates={duplicate_keys[:10]}.")
+        raise ValueError(f"Fig. 08 central projection requires one state per (halo_id_z0, redshift); duplicates={duplicate_keys[:10]}.")
 
-    bin_edges = np.asarray(FIG10_CENTRAL_LOGM_BIN_EDGES, dtype=float)
+    bin_edges = np.asarray(FIG08_CENTRAL_LOGM_BIN_EDGES, dtype=float)
     if (
         len(bin_edges) != 81
         or not np.isclose(bin_edges[0], 0.0, rtol=0.0, atol=1.0e-12)
@@ -3250,18 +3226,18 @@ def _fig10_project_central_bh_densities(summary_by_z, volume_cmpc3, mass_column=
         or np.any(np.diff(bin_edges) <= 0.0)
         or not np.allclose(np.diff(bin_edges), 0.1, rtol=0.0, atol=1.0e-12)
     ):
-        raise RuntimeError("Fig. 10 central-state mass grid is not the validated 0.0--8.0 dex sequence.")
+        raise RuntimeError("Fig. 08 central-state mass grid is not the validated 0.0--8.0 dex sequence.")
     bin_centres = 0.5 * (bin_edges[:-1] + bin_edges[1:])
     bin_width = np.diff(bin_edges)
     positive = central_mass > 0.0
     if not np.any(positive):
-        raise ValueError("Fig. 10 found no positive M_SMBH_init central states.")
+        raise ValueError("Fig. 08 found no positive M_SMBH_init central states.")
     positive_log_mass = np.log10(central_mass[positive])
     if np.any(~np.isfinite(positive_log_mass)):
-        raise ValueError("Fig. 10 positive central M_SMBH_init states have non-finite logarithms.")
+        raise ValueError("Fig. 08 positive central M_SMBH_init states have non-finite logarithms.")
     if np.any(positive_log_mass < bin_edges[0] - 1.0e-12) or np.any(positive_log_mass > bin_edges[-1] + 1.0e-12):
         offending = central_mass[positive][(positive_log_mass < bin_edges[0] - 1.0e-12) | (positive_log_mass > bin_edges[-1] + 1.0e-12)]
-        raise ValueError(f"Fig. 10 positive central M_SMBH_init states lie outside the fixed 0--8 dex mass grid: {offending[:10].tolist()}")
+        raise ValueError(f"Fig. 08 positive central M_SMBH_init states lie outside the fixed 0--8 dex mass grid: {offending[:10].tolist()}")
 
     redshift_values = np.sort(np.unique(redshift))
     densities = []
@@ -3281,10 +3257,10 @@ def _fig10_project_central_bh_densities(summary_by_z, volume_cmpc3, mass_column=
         snapshot_raw, _ = np.histogram(snapshot_log_mass, bins=bin_edges)
         snapshot_effective, _ = np.histogram(snapshot_log_mass, bins=bin_edges, weights=snapshot_weights)
         if int(np.sum(snapshot_raw)) != int(np.count_nonzero(positive_snapshot)):
-            raise ValueError(f"Fig. 10 central histogram dropped positive states at z={float(redshift_value):.6g}.")
+            raise ValueError(f"Fig. 08 central histogram dropped positive states at z={float(redshift_value):.6g}.")
         positive_effective = float(np.sum(snapshot_weights))
         if not np.isclose(float(np.sum(snapshot_effective)), positive_effective, rtol=identity_tolerance, atol=identity_tolerance):
-            raise ValueError(f"Fig. 10 central histogram weights failed at z={float(redshift_value):.6g}.")
+            raise ValueError(f"Fig. 08 central histogram weights failed at z={float(redshift_value):.6g}.")
         densities.append(snapshot_effective.astype(float) / (volume_cmpc3 * bin_width))
         raw_counts.append(snapshot_raw.astype(int, copy=False))
         effective_counts.append(snapshot_effective.astype(float, copy=False))
@@ -3301,12 +3277,12 @@ def _fig10_project_central_bh_densities(summary_by_z, volume_cmpc3, mass_column=
     raw_counts = np.asarray(raw_counts, dtype=int)
     effective_counts = np.asarray(effective_counts, dtype=float)
     if int(np.sum(raw_counts)) != int(np.sum(positive_raw_counts)):
-        raise ValueError("Fig. 10 central per-bin raw counts do not equal the positive-state inventory.")
+        raise ValueError("Fig. 08 central per-bin raw counts do not equal the positive-state inventory.")
     if not np.isclose(float(np.sum(effective_counts)), float(np.sum(positive_effective_counts)), rtol=identity_tolerance, atol=identity_tolerance):
-        raise ValueError("Fig. 10 central per-bin effective counts do not equal the positive-state inventory.")
+        raise ValueError("Fig. 08 central per-bin effective counts do not equal the positive-state inventory.")
     positive_redshift_indices = np.flatnonzero(positive_raw_counts > 0)
     if len(positive_redshift_indices) == 0:
-        raise ValueError("Fig. 10 found no output redshift with a positive M_SMBH_init central state.")
+        raise ValueError("Fig. 08 found no output redshift with a positive M_SMBH_init central state.")
     return {
         "redshifts": redshift_values.astype(float),
         "plotted_redshifts": redshift_values[positive_redshift_indices].astype(float),
@@ -3340,144 +3316,124 @@ def _log10_plot_values(values):
     return out
 
 
-def plot_fig03_bhmf(summary_by_z, final_gc, reference):
-    bins = np.asarray(FIG09_BIN_EDGES, dtype=float)
-    x = bins[:-1]
-    z_values = np.sort(pd.to_numeric(summary_by_z["z_out"], errors="coerce").dropna().unique())
-    norm = mpl.colors.Normalize(vmin=float(z_values[0]) - 0.5, vmax=float(z_values[0]) + 0.5) if len(z_values) == 1 else mpl.colors.Normalize(vmin=float(z_values.min()), vmax=float(z_values.max()))
-    #cmap = mpl.cm.viridis
-    cmap = mpl.cm.jet
-
-    # Nuclear is redshift-resolved in haloSummaryByZ; satellites are only a final inventory.
-    nuclear_by_z, inventory, effective_inventory = {}, {}, {}
-    for z_out in z_values:
-        rows = summary_by_z[np.isclose(summary_by_z["z_out"].to_numpy(dtype=float), float(z_out), rtol=0.0, atol=1.0e-8)]
-        masses = pd.to_numeric(rows["M_SMBH_final"], errors="coerce").to_numpy(dtype=float)
-        weights = pd.to_numeric(rows["volume_weight_tng50"], errors="coerce").to_numpy(dtype=float)
-        positive = np.isfinite(masses) & (masses > 0.0)
-        masses = masses[positive]
-        weights = weights[positive]
-        inventory[float(z_out)] = int(len(masses))
-        effective_inventory[float(z_out)] = float(np.sum(weights))
-        if len(masses) > 0:
-            nuclear_by_z[float(z_out)] = _bhmf_density(masses, weights)
-    if not nuclear_by_z:
-        raise ValueError("No positive nuclear BH masses are available for Fig. 03.")
-
-    status = pd.to_numeric(final_gc["status"], errors="coerce").to_numpy(dtype=int)
-    imbh_mass = pd.to_numeric(final_gc["M_IMBH_final"], errors="coerce").to_numpy(dtype=float)
-    bad = np.isin(status, np.asarray([STATUS_EXHAUSTED, STATUS_TORN], dtype=int)) & np.isfinite(imbh_mass) & (imbh_mass > 0.0)
-    if np.any(bad):
-        raise ValueError(f"Fig. 03 found positive IMBH masses in exhausted/torn statuses: {sorted(set(status[bad].tolist()))}")
-    satellite_mask = np.isin(status, np.asarray(SATELLITE_BH_STATUSES, dtype=int)) & np.isfinite(imbh_mass) & (imbh_mass > 0.0)
-    satellite_mass = imbh_mass[satellite_mask]
-    satellite_weights = pd.to_numeric(final_gc["volume_weight_tng50"], errors="coerce").to_numpy(dtype=float)[satellite_mask]
-    satellite_density = _bhmf_density(satellite_mass, satellite_weights)
-
-    fig, ax = plt.subplots(1, 1, constrained_layout=True, dpi=STD_DPI, figsize=(5.4, 4.4))
-    first_nuclear = True
-    for z_out in z_values:
-        if float(z_out) not in nuclear_by_z:
-            continue
-        ax.plot(x, _plot_values(nuclear_by_z[float(z_out)]), c=cmap(norm(float(z_out))), lw=1.8, alpha=0.95, label="Nuclear" if first_nuclear else None)
-        first_nuclear = False
-    ax.plot(x, _plot_values(satellite_density), color="0.35", lw=2.0, ls="dashdot", label="Satellite")
-    positive_values = [arr[arr > 0.0] for arr in nuclear_by_z.values()]
-    positive_values.append(satellite_density[satellite_density > 0.0])
-    if reference is not None:
-        ref_x = reference["mbh_msun"].to_numpy(dtype=float)
-        ax.plot(ref_x, reference["linear_mpc3"].to_numpy(dtype=float), color="red", lw=1.0, label="Linear")
-        ax.fill_between(ref_x, reference["linear_low_mpc3"].to_numpy(dtype=float), reference["linear_high_mpc3"].to_numpy(dtype=float), color="red", alpha=0.20, linewidth=0.0)
-        ax.plot(ref_x, reference["nsc_mpc3"].to_numpy(dtype=float), color="blue", lw=1.0, label="NSC")
-        ax.fill_between(ref_x, reference["nsc_low_mpc3"].to_numpy(dtype=float), reference["nsc_high_mpc3"].to_numpy(dtype=float), color="blue", alpha=0.20, linewidth=0.0)
-        positive_values.append(reference[["linear_mpc3", "linear_low_mpc3", "linear_high_mpc3", "nsc_mpc3", "nsc_low_mpc3", "nsc_high_mpc3"]].to_numpy(dtype=float).ravel())
-    positive = np.concatenate([arr[np.isfinite(arr) & (arr > 0.0)] for arr in positive_values if len(arr) > 0])
-    y_min = 1.0e-5
-    y_max = 1.0e-1
-    colour_bar = fig.colorbar(mpl.cm.ScalarMappable(norm=norm, cmap=cmap), ax=ax, aspect=30, pad=0.0)
-    colour_bar.set_label("Redshift z")
-    if len(z_values) == 1:
-        colour_bar.set_ticks([float(z_values[0])])
-    ax.set_xscale("log")
-    ax.set_yscale("log")
-    ax.set_xlim(1.0e2, 1.0e11)
-    ax.set_ylim(y_min, y_max)
-    ax.set_xlabel(r"$M_{\rm BH}/M_{\odot}$")
-    ax.set_ylabel(r"$n_{\rm BH}/{\rm cMpc}^{-3}$")
-    ax.text(0.03, 0.04, r"TNG100 full-box objects weighted by $V_{\rm TNG50}/V_{\rm TNG100}$", transform=ax.transAxes, fontsize=7.0, color="0.25")
-    ax.grid(True, alpha=0.3, linestyle=":", which="both")
-    ax.legend(fontsize=8.5, frameon=False, loc="upper right", ncol=2)
-    ax.tick_params(direction="in", right=True, top=True, which="both")
-    return fig, {"nuclear_by_z": inventory, "nuclear_effective_by_z": effective_inventory, "satellite": int(len(satellite_mass)), "satellite_effective": float(np.sum(satellite_weights))}
-
-
-def plot_fig06_bhmf2(bhmf_data, summary_by_z):
-    required = ["Phi [lgM☉⁻¹Mpc⁻³]", "sigma_Phi [lgM☉⁻¹Mpc⁻³]", "Mbh [M☉]", "sigma_Mbh", "colour", "face colour", "shape", "label"]
+def plot_fig06_bhmfs(bhmf_data, summary_by_z):
+    required = [
+        "Phi [lgM☉⁻¹Mpc⁻³]", "sigma_Phi_low [lgM☉⁻¹Mpc⁻³]", "sigma_Phi_high [lgM☉⁻¹Mpc⁻³]",
+        "Mbh [M☉]", "sigma_Mbh_low", "sigma_Mbh_high", "shape", "label", "z_low", "z_high",
+    ]
     missing = [name for name in required if name not in bhmf_data.columns]
     if missing:
         raise ValueError(f"Fig. 06 BHMF table is missing required columns: {missing}")
     x_project, this_work_by_z, inventory = _fig06_project_densities(summary_by_z)
-    marker_rows = bhmf_data.loc[bhmf_data["shape"].ne("line")].copy()
-    line_rows = bhmf_data.loc[bhmf_data["shape"].eq("line")].copy()
+    marker_rows = bhmf_data.copy()
+    model_redshifts = np.asarray(sorted(this_work_by_z), dtype=float)
+    observation_redshifts = 0.5 * (
+        marker_rows["z_low"].to_numpy(dtype=float) + marker_rows["z_high"].to_numpy(dtype=float)
+    )
+    colour_redshifts = np.unique(np.concatenate((model_redshifts, observation_redshifts)))
+    cmap = mpl.cm.jet
+    if len(colour_redshifts) == 1:
+        norm = mpl.colors.Normalize(vmin=float(colour_redshifts[0]) - 0.5, vmax=float(colour_redshifts[0]) + 0.5)
+    else:
+        norm = mpl.colors.Normalize(vmin=float(colour_redshifts.min()), vmax=float(colour_redshifts.max()))
+
+    model_plot_values = {
+        float(redshift): _log10_plot_values(density)
+        for redshift, density in this_work_by_z.items()
+    }
+    y_values = [values[np.isfinite(values)] for values in model_plot_values.values()]
+    for _, row in marker_rows.iterrows():
+        phi = float(row["Phi [lgM☉⁻¹Mpc⁻³]"])
+        sigma_low = float(row["sigma_Phi_low [lgM☉⁻¹Mpc⁻³]"])
+        sigma_high = float(row["sigma_Phi_high [lgM☉⁻¹Mpc⁻³]"])
+        y_values.append(np.asarray([phi, phi + sigma_high], dtype=float))
+        if np.isfinite(sigma_low):
+            y_values.append(np.asarray([phi - sigma_low], dtype=float))
+    finite_y_values = np.concatenate([values[np.isfinite(values)] for values in y_values if len(values) > 0])
+    if len(finite_y_values) == 0:
+        raise ValueError("Fig. 06 cannot determine finite logarithmic density limits.")
+    y_min = float(np.floor((np.min(finite_y_values) - 0.25) * 10.0) / 10.0)
+    y_max = float(np.ceil((np.max(finite_y_values) + 0.25) * 10.0) / 10.0)
+    x_values = np.log10(marker_rows["Mbh [M☉]"].to_numpy(dtype=float))
+    x_min = min(4.2, float(np.min(x_project)))
+    x_max = max(10.9, float(np.max(x_values) + 0.25))
 
     fig, ax = plt.subplots(1, 1, constrained_layout=True, dpi=STD_DPI, figsize=(6.8, 5.0))
     plotted_labels = set()
+    this_work_label_used = False
+    for z_out, density in sorted(this_work_by_z.items()):
+        ax.plot(
+            x_project,
+            model_plot_values[float(z_out)],
+            c=cmap(norm(float(z_out))),
+            lw=1.5,
+            alpha=0.9,
+            label="This work" if not this_work_label_used else None,
+            zorder=2,
+        )
+        this_work_label_used = True
     for _, row in marker_rows.iterrows():
         label = str(row["label"])
         marker_label = label if label not in plotted_labels else None
         plotted_labels.add(label)
-        face_colour = str(row["face colour"])
-        ax.errorbar(np.log10(float(row["Mbh [M☉]"])), float(row["Phi [lgM☉⁻¹Mpc⁻³]"]), xerr=float(row["sigma_Mbh"]), yerr=float(row["sigma_Phi [lgM☉⁻¹Mpc⁻³]"]), fmt=str(row["shape"]), ms=6.0, color=str(row["colour"]), ecolor=str(row["colour"]), markerfacecolor=face_colour, markeredgecolor=str(row["colour"]), markeredgewidth=0.8, elinewidth=0.8, capsize=0.0, label=marker_label, zorder=7)
+        x_value = float(np.log10(float(row["Mbh [M☉]"])))
+        phi = float(row["Phi [lgM☉⁻¹Mpc⁻³]"])
+        sigma_phi_low = float(row["sigma_Phi_low [lgM☉⁻¹Mpc⁻³]"])
+        sigma_phi_high = float(row["sigma_Phi_high [lgM☉⁻¹Mpc⁻³]"])
+        sigma_mbh_low = float(row["sigma_Mbh_low"])
+        sigma_mbh_high = float(row["sigma_Mbh_high"])
+        z_mid = 0.5 * (float(row["z_low"]) + float(row["z_high"]))
+        colour = cmap(norm(z_mid))
+        finite_sigma_phi_low = sigma_phi_low if np.isfinite(sigma_phi_low) else 0.0
+        ax.errorbar(
+            x_value,
+            phi,
+            xerr=np.asarray([[sigma_mbh_low], [sigma_mbh_high]], dtype=float),
+            yerr=np.asarray([[finite_sigma_phi_low], [sigma_phi_high]], dtype=float),
+            fmt=str(row["shape"]),
+            ms=6.0,
+            color=colour,
+            ecolor=colour,
+            markerfacecolor=colour,
+            markeredgecolor=colour,
+            markeredgewidth=0.8,
+            elinewidth=0.8,
+            capsize=0.0,
+            label=marker_label,
+            zorder=7,
+        )
+        if np.isposinf(sigma_phi_low):
+            ax.plot([x_value, x_value], [phi, y_min], color=colour, lw=0.8, solid_capstyle="butt", zorder=6)
 
-    base_line_labels = sorted(label for label in line_rows["label"].unique() if not label.endswith(" (lower envelope)") and not label.endswith(" (upper envelope)"))
-    for base_label in base_line_labels:
-        central = line_rows.loc[line_rows["label"].eq(base_label)].sort_values("Mbh [M☉]")
-        lower = line_rows.loc[line_rows["label"].eq(base_label + " (lower envelope)")].sort_values("Mbh [M☉]")
-        upper = line_rows.loc[line_rows["label"].eq(base_label + " (upper envelope)")].sort_values("Mbh [M☉]")
-        if len(central) == 0 or len(lower) != len(central) or len(upper) != len(central):
-            raise ValueError(f"Fig. 06 line group {base_label!r} does not contain matching central and envelope rows.")
-        x_line = np.log10(central["Mbh [M☉]"].to_numpy(dtype=float))
-        lower_x = np.log10(lower["Mbh [M☉]"].to_numpy(dtype=float))
-        upper_x = np.log10(upper["Mbh [M☉]"].to_numpy(dtype=float))
-        if not np.allclose(x_line, lower_x, rtol=0.0, atol=1.0e-12) or not np.allclose(x_line, upper_x, rtol=0.0, atol=1.0e-12):
-            raise ValueError(f"Fig. 06 line group {base_label!r} has mismatched mass grids.")
-        colour = str(central["colour"].iloc[0])
-        face_colour = str(lower["face colour"].iloc[0])
-        ax.fill_between(x_line, lower["Phi [lgM☉⁻¹Mpc⁻³]"].to_numpy(dtype=float), upper["Phi [lgM☉⁻¹Mpc⁻³]"].to_numpy(dtype=float), color=face_colour, alpha=0.35, linewidth=0.0, zorder=1)
-        ax.plot(x_line, central["Phi [lgM☉⁻¹Mpc⁻³]"].to_numpy(dtype=float), alpha=0.3, c=colour, lw=1.0, label=base_label, zorder=3)
-
-    z_values = np.asarray(sorted(this_work_by_z), dtype=float)
-    if len(z_values) > 0:
-        cmap = mpl.cm.jet
-        norm = mpl.colors.Normalize(vmin=float(z_values[0]) - 0.5, vmax=float(z_values[0]) + 0.5) if len(z_values) == 1 else mpl.colors.Normalize(vmin=float(z_values.min()), vmax=float(z_values.max()))
-        this_work_label_used = False
-        for z_out, density in sorted(this_work_by_z.items()):
-            ax.plot(x_project, _log10_plot_values(density), c=cmap(norm(float(z_out))), lw=1.5, alpha=0.9, label="This work" if not this_work_label_used else None, zorder=2)
-            this_work_label_used = True
-        colour_bar = fig.colorbar(mpl.cm.ScalarMappable(norm=norm, cmap=cmap), ax=ax, aspect=30, pad=0.0)
-        colour_bar.set_label(r"Redshift $z$")
-        if len(z_values) == 1:
-            colour_bar.set_ticks([float(z_values[0])])
-    ax.set_xlim(4.2, 8.9)
-    ax.set_ylim(-6.2, 0.2)
+    colour_bar = fig.colorbar(mpl.cm.ScalarMappable(norm=norm, cmap=cmap), ax=ax, aspect=30, pad=0.0)
+    colour_bar.set_label(r"Redshift $z$")
+    if len(colour_redshifts) == 1:
+        colour_bar.set_ticks([float(colour_redshifts[0])])
+    ax.set_xlim(x_min, x_max)
+    ax.set_ylim(y_min, y_max)
     ax.set_xlabel(r"$\log_{10}(M_{\rm BH}/M_{\odot})$")
     ax.set_ylabel(r"$\log \Phi\ [M_{\odot}^{-1}\,\mathrm{Mpc}^{-3}\,\mathrm{dex}^{-1}]$")
     ax.grid(True, alpha=0.3, linestyle=":", which="both")
     ax.legend(frameon=False, loc="lower left", fontsize=7.0, ncol=2)
     ax.tick_params(direction="in", right=True, top=True, which="both")
+    inventory["model_redshifts"] = model_redshifts
+    inventory["observational_redshift_midpoints"] = observation_redshifts
+    inventory["colour_redshifts"] = colour_redshifts
+    inventory["plot_y_limits"] = (y_min, y_max)
+    inventory["infinite_lower_count"] = int(np.count_nonzero(np.isposinf(marker_rows["sigma_Phi_low [lgM☉⁻¹Mpc⁻³]"].to_numpy(dtype=float))))
     return fig, inventory
 
 
-def plot_fig10_bhsmf(chen_data, summary_by_z, volume_cmpc3=FIG09_BHMF_VOLUME_CMPC3):
+def plot_fig08_bhsmf(chen_data, summary_by_z, volume_cmpc3=BHMF_REFERENCE_VOLUME_CMPC3):
     """Plot the Chen+2026 reference curves and the central This work curve."""
 
     if not isinstance(chen_data, dict) or "by_role" not in chen_data:
-        raise ValueError("Fig. 10 requires the structured output of load_chen2026_fig05a_seed_mass_functions().")
+        raise ValueError("Fig. 08 requires the structured output of load_chen2026_fig05a_seed_mass_functions().")
     chen_curves = chen_data["by_role"]
-    missing_roles = [role for role in FIG10_CHEN_CURVE_ROLES if role not in chen_curves]
+    missing_roles = [role for role in FIG08_CHEN_CURVE_ROLES if role not in chen_curves]
     if missing_roles:
-        raise ValueError(f"Fig. 10 Chen+2026 data is missing curve roles: {missing_roles}")
-    central_projection = _fig10_project_central_bh_densities(summary_by_z, volume_cmpc3=volume_cmpc3, mass_column="M_SMBH_init")
+        raise ValueError(f"Fig. 08 Chen+2026 data is missing curve roles: {missing_roles}")
+    central_projection = _fig08_project_central_bh_densities(summary_by_z, volume_cmpc3=volume_cmpc3, mass_column="M_SMBH_init")
     central_x = central_projection["mass_bin_centres_msun"]
     central_z_values = central_projection["plotted_redshifts"]
     colour_redshifts = central_z_values
@@ -3496,7 +3452,7 @@ def plot_fig10_bhsmf(chen_data, summary_by_z, volume_cmpc3=FIG09_BHMF_VOLUME_CMP
     ax.plot(x_chen, y_lower, c="#9e9e9e", lw=0.65, zorder=2)
     ax.plot(x_chen, y_upper, c="#9e9e9e", lw=0.65, zorder=2)
     ax.plot(x_chen, y_central, c="#000000", lw=1.6, zorder=3)
-    for role in FIG10_CHEN_VISIBLE_CURVE_ROLES:
+    for role in FIG08_CHEN_VISIBLE_CURVE_ROLES:
         curve = chen_curves[role]
         x_curve = np.power(10.0, curve["log10_mbh_seed_msun"].to_numpy(dtype=float))
         y_curve = curve["phi_mpc3_dex1"].to_numpy(dtype=float)
@@ -3510,7 +3466,7 @@ def plot_fig10_bhsmf(chen_data, summary_by_z, volume_cmpc3=FIG09_BHMF_VOLUME_CMP
 
     positive_x = [x_chen]
     positive_y = [y_central, y_lower, y_upper]
-    for role in FIG10_CHEN_VISIBLE_CURVE_ROLES:
+    for role in FIG08_CHEN_VISIBLE_CURVE_ROLES:
         curve = chen_curves[role]
         positive_x.append(np.power(10.0, curve["log10_mbh_seed_msun"].to_numpy(dtype=float)))
         positive_y.append(curve["phi_mpc3_dex1"].to_numpy(dtype=float))
@@ -3523,12 +3479,12 @@ def plot_fig10_bhsmf(chen_data, summary_by_z, volume_cmpc3=FIG09_BHMF_VOLUME_CMP
     x_positive = np.concatenate([values[np.isfinite(values) & (values > 0.0)] for values in positive_x])
     y_positive = np.concatenate([values[np.isfinite(values) & (values > 0.0)] for values in positive_y])
     if len(x_positive) == 0 or len(y_positive) == 0:
-        raise ValueError("Fig. 10 cannot determine finite positive plot limits.")
+        raise ValueError("Fig. 08 cannot determine finite positive plot limits.")
     ax.set_xlim(float(np.min(x_positive) / 1.35), float(np.max(x_positive) * 1.35))
     y_min = 1.0e-6
     y_max = float(np.max(y_positive) * 1.6)
     if not np.isfinite(y_max) or y_max <= y_min:
-        raise ValueError(f"Fig. 10 visible curves do not extend above the requested y-axis floor {y_min:.1e}.")
+        raise ValueError(f"Fig. 08 visible curves do not extend above the requested y-axis floor {y_min:.1e}.")
     ax.set_ylim(y_min, y_max)
     ax.set_xscale("log")
     ax.set_yscale("log")
@@ -3540,7 +3496,7 @@ def plot_fig10_bhsmf(chen_data, summary_by_z, volume_cmpc3=FIG09_BHMF_VOLUME_CMP
         Line2D([], [], color="#000000", lw=1.6, label="All seeds"),
         Patch(facecolor="#9e9e9e", edgecolor="none", alpha=0.35, label="All seeds envelope"),
     ]
-    for role in FIG10_CHEN_VISIBLE_CURVE_ROLES:
+    for role in FIG08_CHEN_VISIBLE_CURVE_ROLES:
         curve = chen_curves[role]
         source_handles.append(Line2D([], [], color=str(curve["colour"].iloc[0]), ls=str(curve["linestyle"].iloc[0]), lw=1.25, label=str(curve["curve_label"].iloc[0])))
     source_legend = ax.legend(handles=source_handles, title="Chen+2026", frameon=False, fontsize=6.7, title_fontsize=7.4, loc="upper right", ncol=1, borderaxespad=0.3)
@@ -3556,46 +3512,46 @@ def plot_fig10_bhsmf(chen_data, summary_by_z, volume_cmpc3=FIG09_BHMF_VOLUME_CMP
     return fig, {"central": central_projection, "colour_redshifts": colour_redshifts}
 
 
-def plot_fig12_bhseed_history(chen_data, final_gc, volume_cmpc3=FIG09_BHMF_VOLUME_CMPC3):
+def plot_fig03_bhseed_history(chen_data, final_gc, volume_cmpc3=BHMF_REFERENCE_VOLUME_CMPC3):
     """Plot the unpartitioned final-GC IMBH-seed formation history."""
 
     if not isinstance(chen_data, dict) or "by_panel" not in chen_data:
-        raise ValueError("Fig. 12 requires the structured output of load_chen2026_fig06_seed_history().")
+        raise ValueError("Fig. 03 requires the structured output of load_chen2026_fig06_seed_history().")
     for panel in ("a", "d"):
         if panel not in chen_data["by_panel"]:
-            raise ValueError(f"Fig. 12 Chen+2026 data is missing panel {panel!r}.")
-        missing_roles = [role for role in FIG12_CHEN_CURVE_ROLES if role not in chen_data["by_panel"][panel]]
+            raise ValueError(f"Fig. 03 Chen+2026 data is missing panel {panel!r}.")
+        missing_roles = [role for role in FIG03_CHEN_CURVE_ROLES if role not in chen_data["by_panel"][panel]]
         if missing_roles:
-            raise ValueError(f"Fig. 12 Chen+2026 panel {panel} is missing curve roles: {missing_roles}")
+            raise ValueError(f"Fig. 03 Chen+2026 panel {panel} is missing curve roles: {missing_roles}")
 
-    events = _fig12_project_bhseed_events(final_gc, volume_cmpc3)
+    events = _fig03_project_bhseed_events(final_gc, volume_cmpc3)
     volume_cmpc3 = float(events["volume_cmpc3"])
     display_x = events["formation_x"][events["display_mask"]]
     display_weights = events["weights"][events["display_mask"]]
     if len(display_x) == 0:
-        raise ValueError("Fig. 12 has no positive IMBH seeds in the requested 0 <= z <= 50 display range.")
+        raise ValueError("Fig. 03 has no positive IMBH seeds in the requested 0 <= z <= 50 display range.")
 
-    x_left, x_right = map(float, FIG12_XLIM_LOG1PZ)
-    rate_edges = np.arange(x_left, x_right, FIG12_RATE_LOG1PZ_BIN_WIDTH, dtype=float)
+    x_left, x_right = map(float, FIG03_XLIM_LOG1PZ)
+    rate_edges = np.arange(x_left, x_right, FIG03_RATE_LOG1PZ_BIN_WIDTH, dtype=float)
     if len(rate_edges) == 0 or not np.isclose(rate_edges[0], x_left, rtol=0.0, atol=1.0e-12):
-        raise RuntimeError("Fig. 12 rate grid failed to start at the requested lower x limit.")
+        raise RuntimeError("Fig. 03 rate grid failed to start at the requested lower x limit.")
     if rate_edges[-1] < x_right - 1.0e-12:
         rate_edges = np.append(rate_edges, x_right)
     else:
         rate_edges[-1] = x_right
     if np.any(np.diff(rate_edges) <= 0.0):
-        raise RuntimeError("Fig. 12 rate grid is not strictly increasing.")
+        raise RuntimeError("Fig. 03 rate grid is not strictly increasing.")
     rate_bin_widths = np.diff(rate_edges)
     rate_x = 0.5 * (rate_edges[:-1] + rate_edges[1:])
     weighted_counts, _ = np.histogram(display_x, bins=rate_edges, weights=display_weights)
     raw_counts, _ = np.histogram(display_x, bins=rate_edges)
     if int(np.sum(raw_counts)) != int(events["display_raw_count"]):
-        raise ValueError("Fig. 12 rate histogram dropped positive seed events in the display range.")
+        raise ValueError("Fig. 03 rate histogram dropped positive seed events in the display range.")
     rate_density = weighted_counts.astype(float) / (volume_cmpc3 * rate_bin_widths)
     rate_integral = float(np.sum(rate_density * rate_bin_widths))
     expected_rate_integral = float(events["display_effective_count"] / volume_cmpc3)
     if not np.isclose(rate_integral, expected_rate_integral, rtol=1.0e-12, atol=1.0e-15):
-        raise ValueError("Fig. 12 weighted rate integral does not equal the displayed effective seed density.")
+        raise ValueError("Fig. 03 weighted rate integral does not equal the displayed effective seed density.")
 
     # The survival count uses all positive events before the display cut and the
     # strict convention z_form > z, implemented equivalently in x.
@@ -3608,34 +3564,34 @@ def plot_fig12_bhseed_history(chen_data, final_gc, volume_cmpc3=FIG09_BHMF_VOLUM
     has_survivors = survival_index < len(sorted_x)
     cumulative_density[has_survivors] = suffix_weights[survival_index[has_survivors]] / volume_cmpc3
     if np.any(~np.isfinite(cumulative_density)) or np.any(cumulative_density < 0.0):
-        raise ValueError("Fig. 12 cumulative seed density is not finite and non-negative.")
+        raise ValueError("Fig. 03 cumulative seed density is not finite and non-negative.")
     if np.any(np.diff(cumulative_density) > 1.0e-12 * max(1.0, float(np.max(cumulative_density)))):
-        raise ValueError("Fig. 12 cumulative seed density is not non-increasing with redshift.")
+        raise ValueError("Fig. 03 cumulative seed density is not non-increasing with redshift.")
 
     reference_values = {"a": [], "d": []}
     for panel in ("a", "d"):
-        for role in FIG12_CHEN_CURVE_ROLES:
+        for role in FIG03_CHEN_CURVE_ROLES:
             reference_values[panel].append(chen_data["by_panel"][panel][role]["value_mpc3"].to_numpy(dtype=float))
     top_values = np.concatenate(reference_values["a"] + [rate_density[rate_density > 0.0]])
     bottom_values = np.concatenate(reference_values["d"] + [cumulative_density[cumulative_density > 0.0]])
     if len(top_values) == 0 or len(bottom_values) == 0:
-        raise ValueError("Fig. 12 cannot determine finite positive y-axis limits.")
+        raise ValueError("Fig. 03 cannot determine finite positive y-axis limits.")
     top_values = top_values[np.isfinite(top_values) & (top_values > 0.0)]
     bottom_values = bottom_values[np.isfinite(bottom_values) & (bottom_values > 0.0)]
     if len(top_values) == 0 or len(bottom_values) == 0:
-        raise ValueError("Fig. 12 has no finite positive values for logarithmic axes.")
+        raise ValueError("Fig. 03 has no finite positive values for logarithmic axes.")
     top_y_min = 10.0 ** (math.floor(math.log10(float(np.min(top_values)))) - 0.25)
     top_y_max = 10.0 ** (math.ceil(math.log10(float(np.max(top_values)))) + 0.25)
     bottom_y_min = 10.0 ** (math.floor(math.log10(float(np.min(bottom_values)))) - 0.25)
     bottom_y_max = 10.0 ** (math.ceil(math.log10(float(np.max(bottom_values)))) + 0.25)
 
-    fig, axes = plt.subplots(2, 1, sharex=True, constrained_layout=True, dpi=STD_DPI, figsize=FIG12_FIGSIZE)
+    fig, axes = plt.subplots(2, 1, sharex=True, constrained_layout=True, dpi=STD_DPI, figsize=FIG03_FIGSIZE)
     axes = np.asarray(axes).reshape(-1)
     for panel, ax, quantity, model_x, model_values in (
         ("a", axes[0], "rate", rate_x, rate_density),
         ("d", axes[1], "cumulative", rate_x, cumulative_density),
     ):
-        for role in FIG12_CHEN_CURVE_ROLES:
+        for role in FIG03_CHEN_CURVE_ROLES:
             curve = chen_data["by_panel"][panel][role]
             x_curve = curve["x_log10_1pz"].to_numpy(dtype=float)
             y_curve = curve["value_mpc3"].to_numpy(dtype=float)
@@ -3651,13 +3607,13 @@ def plot_fig12_bhseed_history(chen_data, final_gc, volume_cmpc3=FIG09_BHMF_VOLUM
             elif role == "popii":
                 fill_floor = float(np.min(y_curve) * 0.75)
                 ax.fill_between(x_curve, fill_floor, y_curve, color=colour, alpha=0.50, linewidth=0.0, zorder=1)
-            ax.plot(x_curve, y_curve, c=colour, ls=linestyle, lw=FIG12_REFERENCE_LINEWIDTH, zorder=3)
+            ax.plot(x_curve, y_curve, c=colour, ls=linestyle, lw=FIG03_REFERENCE_LINEWIDTH, zorder=3)
         model_plot_values = np.where(model_values > 0.0, model_values, np.nan)
         ax.plot(
             model_x,
             model_plot_values,
-            c=FIG12_MODEL_COLOUR,
-            lw=FIG12_MODEL_LINEWIDTH,
+            c=FIG03_MODEL_COLOUR,
+            lw=FIG03_MODEL_LINEWIDTH,
             drawstyle="steps-mid" if panel == "a" else "default",
             label="_nolegend_",
             zorder=5,
@@ -3677,19 +3633,19 @@ def plot_fig12_bhseed_history(chen_data, final_gc, volume_cmpc3=FIG09_BHMF_VOLUM
     axes[1].set_xticks(np.arange(0.0, 1.61, 0.2))
 
     source_handles = {}
-    for role in FIG12_CHEN_CURVE_ROLES:
+    for role in FIG03_CHEN_CURVE_ROLES:
         curve = chen_data["by_panel"]["a"][role]
         source_handles[role] = Line2D(
             [], [], color=str(curve["colour"].iloc[0]), ls=str(curve["linestyle"].iloc[0]),
-            lw=FIG12_REFERENCE_LINEWIDTH, label=FIG12_CHEN_CURVE_LABELS[role],
+            lw=FIG03_REFERENCE_LINEWIDTH, label=FIG03_CHEN_CURVE_LABELS[role],
         )
     axes[0].legend(
-        handles=[source_handles[role] for role in FIG12_CHEN_CURVE_ROLES[:3]],
+        handles=[source_handles[role] for role in FIG03_CHEN_CURVE_ROLES[:3]],
         title="Chen+2026", frameon=False, fontsize=6.9, title_fontsize=7.4,
         loc="best", ncol=1, borderaxespad=0.25,
     )
     axes[1].legend(
-        handles=[source_handles["popii"], Line2D([], [], color=FIG12_MODEL_COLOUR, lw=FIG12_MODEL_LINEWIDTH, label="This work")],
+        handles=[source_handles["popii"], Line2D([], [], color=FIG03_MODEL_COLOUR, lw=FIG03_MODEL_LINEWIDTH, label="This work")],
         title="Chen+2026 / model", frameon=False, fontsize=6.9, title_fontsize=7.4,
         loc="best", ncol=1, borderaxespad=0.25,
     )
@@ -3713,341 +3669,18 @@ def plot_fig12_bhseed_history(chen_data, final_gc, volume_cmpc3=FIG09_BHMF_VOLUM
         "cumulative_density": cumulative_density,
         "rate_integral": rate_integral,
         "expected_rate_integral": expected_rate_integral,
-        "rate_bin_width": float(FIG12_RATE_LOG1PZ_BIN_WIDTH),
+        "rate_bin_width": float(FIG03_RATE_LOG1PZ_BIN_WIDTH),
         "cumulative_boundary": "strict z_form > z",
     }
 
 
-def _select_abundance_matching_snapshot(summary_by_z, target_redshift):
-    required = ["halo_id_z0", "redshift", "halo_mass_available", "log10_halo_mass_at_redshift", "central_bh_mass_final_msun", "volume_weight_tng50"]
-    missing = [name for name in required if name not in summary_by_z.columns]
-    if missing:
-        raise ValueError(f"haloSummaryByZ is missing abundance-matching columns: {missing}")
-    target_redshift = float(target_redshift)
-    if not np.isfinite(target_redshift) or target_redshift < 0.0:
-        raise ValueError(f"Abundance-matching target redshift must be finite and non-negative, got {target_redshift!r}.")
-
-    redshift = pd.to_numeric(summary_by_z["redshift"], errors="coerce").to_numpy(dtype=float)
-    available_redshifts = np.unique(redshift[np.isfinite(redshift)])
-    if len(available_redshifts) == 0:
-        raise ValueError("haloSummaryByZ contains no finite redshifts for abundance matching.")
-    selected_redshift = float(available_redshifts[np.argmin(np.abs(available_redshifts - target_redshift))])
-    if abs(selected_redshift - target_redshift) >= ABUNDANCE_MATCHING_REDSHIFT_ATOL:
-        raise ValueError(
-            f"No output snapshot is within {ABUNDANCE_MATCHING_REDSHIFT_ATOL:.2f} of z={target_redshift:.3g}; "
-            f"nearest available redshift is z={selected_redshift:.6g}."
-        )
-
-    rows = summary_by_z.loc[np.isclose(redshift, selected_redshift, rtol=0.0, atol=1.0e-8)].copy()
-    for column in ["halo_id_z0", "halo_mass_available", "log10_halo_mass_at_redshift", "central_bh_mass_final_msun", "volume_weight_tng50"]:
-        rows[column] = pd.to_numeric(rows[column], errors="coerce")
-    valid = (
-        np.isfinite(rows["halo_id_z0"].to_numpy(dtype=float))
-        & (rows["halo_mass_available"].to_numpy(dtype=float) == 1.0)
-        & np.isfinite(rows["log10_halo_mass_at_redshift"].to_numpy(dtype=float))
-        & np.isfinite(rows["central_bh_mass_final_msun"].to_numpy(dtype=float))
-        & (rows["central_bh_mass_final_msun"].to_numpy(dtype=float) >= 0.0)
-        & np.isfinite(rows["volume_weight_tng50"].to_numpy(dtype=float))
-        & (rows["volume_weight_tng50"].to_numpy(dtype=float) > 0.0)
-    )
-    rows = rows.loc[valid].copy()
-    if len(rows) == 0:
-        raise ValueError(f"No valid halo--central-BH rows are available for abundance matching at z={selected_redshift:.6g}.")
-    rows["halo_id_z0"] = rows["halo_id_z0"].astype(int)
-    if rows["halo_id_z0"].duplicated().any():
-        duplicate_ids = rows.loc[rows["halo_id_z0"].duplicated(keep=False), "halo_id_z0"].tolist()
-        raise ValueError(f"Abundance matching requires one row per halo at z={selected_redshift:.6g}; duplicates={duplicate_ids[:10]}.")
-    rows["log10_halo_mass"] = rows["log10_halo_mass_at_redshift"].to_numpy(dtype=float)
-    rows["central_bh_mass_msun"] = rows["central_bh_mass_final_msun"].to_numpy(dtype=float)
-    rows["log10_central_bh_mass"] = np.where(
-        rows["central_bh_mass_msun"].to_numpy(dtype=float) > 0.0,
-        np.log10(np.maximum(rows["central_bh_mass_msun"].to_numpy(dtype=float), np.finfo(float).tiny)),
-        np.nan,
-    )
-    return rows.sort_values("halo_id_z0").reset_index(drop=True), selected_redshift
-
-
-def _cumulative_abundance_curve(log10_masses, volume_cmpc3, weights=None):
-    values = np.asarray(log10_masses, dtype=float)
-    if values.ndim != 1:
-        raise ValueError("Cumulative-abundance masses must be one-dimensional.")
-    if weights is None:
-        weight_values = np.ones(len(values), dtype=float)
-    else:
-        weight_values = np.asarray(weights, dtype=float)
-    if weight_values.ndim != 1 or len(weight_values) != len(values):
-        raise ValueError("Cumulative-abundance masses and weights must have equal one-dimensional lengths.")
-    if np.any(~np.isfinite(weight_values)) or np.any(weight_values < 0.0):
-        raise ValueError("Cumulative-abundance weights must be finite and non-negative.")
-    if np.any(~np.isfinite(values)):
-        raise ValueError("Cumulative-abundance masses must be finite after population selection.")
-    if len(values) == 0:
-        raise ValueError("Cannot construct a cumulative abundance curve from an empty mass sample.")
-    if not np.isfinite(volume_cmpc3) or volume_cmpc3 <= 0.0:
-        raise ValueError(f"Cumulative-abundance volume must be finite and positive, got {volume_cmpc3!r}.")
-    order = np.argsort(values, kind="mergesort")
-    ascending = values[order]
-    ascending_weights = weight_values[order]
-    count_above = np.cumsum(ascending_weights[::-1], dtype=float)[::-1]
-    density = count_above / float(volume_cmpc3)
-    if np.any(~np.isfinite(density)) or np.any(np.diff(density) > 1.0e-15):
-        raise ValueError("Cumulative-abundance density is non-finite or increases with mass threshold.")
-    return np.power(10.0, ascending), density
-
-
-def build_mbh_mhalo_abundance_matching(summary_by_z, target_redshifts=ABUNDANCE_MATCHING_REDSHIFTS, volume_cmpc3=ABUNDANCE_MATCHING_VOLUME_CMPC3):
-    target_redshifts = [float(value) for value in target_redshifts]
-    if len(target_redshifts) == 0:
-        raise ValueError("At least one target redshift is required for abundance matching.")
-    if not np.isfinite(volume_cmpc3) or float(volume_cmpc3) <= 0.0:
-        raise ValueError(f"Abundance-matching volume must be finite and positive, got {volume_cmpc3!r}.")
-
-    table_rows = []
-    snapshots = []
-    selected_redshifts = []
-    for target_redshift in target_redshifts:
-        rows, selected_redshift = _select_abundance_matching_snapshot(summary_by_z, target_redshift)
-        if any(np.isclose(selected_redshift, value, rtol=0.0, atol=1.0e-8) for value in selected_redshifts):
-            raise ValueError(f"Target redshifts select the same output snapshot more than once: z={selected_redshift:.6g}.")
-        selected_redshifts.append(selected_redshift)
-
-        log10_halo_mass = rows["log10_halo_mass"].to_numpy(dtype=float)
-        central_bh_mass = rows["central_bh_mass_msun"].to_numpy(dtype=float)
-        log10_central_bh_mass = rows["log10_central_bh_mass"].to_numpy(dtype=float)
-        volume_weights = rows["volume_weight_tng50"].to_numpy(dtype=float)
-        halo_order = np.argsort(-log10_halo_mass, kind="mergesort")
-        positive = central_bh_mass > 0.0
-        positive_indices = np.flatnonzero(positive)
-        if len(positive_indices) == 0:
-            raise ValueError(f"No positive central BH masses are available for abundance matching at z={selected_redshift:.6g}.")
-        positive_order = positive_indices[np.argsort(-log10_central_bh_mass[positive_indices], kind="mergesort")]
-        n_halo = len(rows)
-        n_positive_bh = len(positive_indices)
-        if n_positive_bh > n_halo:
-            raise ValueError(f"Positive central-BH count exceeds halo count at z={selected_redshift:.6g}.")
-
-        matched_halo_indices = halo_order[:n_positive_bh]
-        matched_bh_indices = positive_order[:n_positive_bh]
-        matched_halo_log_mass = log10_halo_mass[matched_halo_indices]
-        matched_bh_log_mass = log10_central_bh_mass[matched_bh_indices]
-        direct_bh_at_matched_halo_log_mass = log10_central_bh_mass[matched_halo_indices]
-        rank = np.arange(1, n_positive_bh + 1, dtype=int)
-        cumulative_number_density = rank.astype(float) / float(volume_cmpc3)
-        cumulative_fraction = rank.astype(float) / float(n_halo)
-        halo_rank = np.empty(n_halo, dtype=int)
-        halo_rank[halo_order] = np.arange(1, n_halo + 1, dtype=int)
-
-        table_rows.append(
-            pd.DataFrame(
-                {
-                    "target_redshift": float(target_redshift),
-                    "redshift": float(selected_redshift),
-                    "rank_desc": rank,
-                    "halo_id_z0": rows.iloc[matched_halo_indices]["halo_id_z0"].to_numpy(dtype=int),
-                    "halo_rank_desc": rank,
-                    "log10_halo_mass_ranked": matched_halo_log_mass,
-                    "log10_central_bh_mass_abundance_matched": matched_bh_log_mass,
-                    "log10_central_bh_mass_model_at_ranked_halo": direct_bh_at_matched_halo_log_mass,
-                    "model_bh_positive_at_ranked_halo": np.isfinite(direct_bh_at_matched_halo_log_mass),
-                    "cumulative_fraction_of_halo_sample": cumulative_fraction,
-                    "cumulative_number_density_cmpc3": cumulative_number_density,
-                    "occupation_fraction": float(n_positive_bh) / float(n_halo),
-                }
-            )
-        )
-        halo_curve_mass, halo_curve_density = _cumulative_abundance_curve(log10_halo_mass, volume_cmpc3, volume_weights)
-        bh_curve_mass, bh_curve_density = _cumulative_abundance_curve(log10_central_bh_mass[positive], volume_cmpc3, volume_weights[positive])
-        snapshots.append(
-            {
-                "target_redshift": float(target_redshift),
-                "redshift": float(selected_redshift),
-                "n_halo": int(n_halo),
-                "n_positive_bh": int(n_positive_bh),
-                "n_halo_effective": float(np.sum(volume_weights)),
-                "n_positive_bh_effective": float(np.sum(volume_weights[positive])),
-                "occupation_fraction": float(n_positive_bh) / float(n_halo),
-                "log10_halo_mass": log10_halo_mass,
-                "log10_halo_mass_positive_bh": log10_halo_mass[positive],
-                "log10_central_bh_mass": log10_central_bh_mass[positive],
-                "matched_halo_log_mass": matched_halo_log_mass,
-                "matched_bh_log_mass": matched_bh_log_mass,
-                "matched_halo_threshold_log_mass": float(matched_halo_log_mass[-1]),
-                "halo_curve_mass": halo_curve_mass,
-                "halo_curve_density": halo_curve_density,
-                "bh_curve_mass": bh_curve_mass,
-                "bh_curve_density": bh_curve_density,
-                "halo_rank": halo_rank,
-            }
-        )
-    return pd.concat(table_rows, ignore_index=True), snapshots
-
-
-def _binned_log_relation_percentiles(x_log, y_log, bin_width_dex):
-    x_log = np.asarray(x_log, dtype=float)
-    y_log = np.asarray(y_log, dtype=float)
-    valid = np.isfinite(x_log) & np.isfinite(y_log)
-    if not np.any(valid):
-        return pd.DataFrame(columns=["logx_center", "median", "lower", "upper"])
-    edges = _regular_log_bin_edges(x_log[valid], bin_width_dex)
-    records = []
-    for index, (left, right) in enumerate(zip(edges[:-1], edges[1:])):
-        mask = valid & (x_log >= left)
-        mask &= x_log <= right if index == len(edges) - 2 else x_log < right
-        if np.any(mask):
-            records.append(
-                {
-                    "logx_center": 0.5 * (left + right),
-                    "median": float(np.percentile(y_log[mask], 50.0)),
-                    "lower": float(np.percentile(y_log[mask], 16.0)),
-                    "upper": float(np.percentile(y_log[mask], 84.0)),
-                }
-            )
-    return pd.DataFrame(records)
-
-
-def _abundance_matching_colour_setup(snapshots):
-    redshifts = np.asarray([float(snapshot["redshift"]) for snapshot in snapshots], dtype=float)
-    if len(redshifts) == 1:
-        norm = mpl.colors.Normalize(vmin=float(redshifts[0]) - 0.5, vmax=float(redshifts[0]) + 0.5)
-    else:
-        norm = mpl.colors.Normalize(vmin=float(redshifts.min()), vmax=float(redshifts.max()))
-    return redshifts, norm, mpl.cm.viridis
-
-
-def plot_fig07_mbh_mhalo_abundance_matching(snapshots):
-    if len(snapshots) == 0:
-        raise ValueError("Fig. 07 requires at least one abundance-matching snapshot.")
-    redshifts, norm, cmap = _abundance_matching_colour_setup(snapshots)
-    all_halo_log_mass = np.concatenate([snapshot["log10_halo_mass"] for snapshot in snapshots])
-    all_bh_log_mass = np.concatenate([snapshot["log10_central_bh_mass"] for snapshot in snapshots])
-    x_limits = (float(np.min(all_halo_log_mass)) - 0.15, float(np.max(all_halo_log_mass)) + 0.15)
-    y_limits = (max(0.0, float(np.min(all_bh_log_mass)) - 0.35), float(np.max(all_bh_log_mass)) + 0.35)
-
-    fig, axes = plt.subplots(1, 2, constrained_layout=True, dpi=STD_DPI, figsize=(10.0, 4.4), sharex=True, sharey=True)
-    direct_ax, matched_ax = axes
-    for index, snapshot in enumerate(snapshots):
-        colour = cmap(norm(float(snapshot["redshift"])))
-        direct_ax.scatter(
-            np.power(10.0, snapshot["log10_halo_mass_positive_bh"]),
-            np.power(10.0, snapshot["log10_central_bh_mass"]),
-            s=12.0,
-            color=colour,
-            alpha=0.24,
-            edgecolors="none",
-            label="Positive central BHs" if index == 0 else None,
-            rasterized=True,
-        )
-        binned = _binned_log_relation_percentiles(snapshot["log10_halo_mass_positive_bh"], snapshot["log10_central_bh_mass"], ABUNDANCE_MATCHING_BIN_WIDTH_DEX)
-        if len(binned) > 0:
-            x_binned = np.power(10.0, binned["logx_center"].to_numpy(dtype=float))
-            direct_ax.fill_between(
-                x_binned,
-                np.power(10.0, binned["lower"].to_numpy(dtype=float)),
-                np.power(10.0, binned["upper"].to_numpy(dtype=float)),
-                color=colour,
-                alpha=0.12,
-                linewidth=0.0,
-            )
-            direct_ax.plot(x_binned, np.power(10.0, binned["median"].to_numpy(dtype=float)), color=colour, lw=1.8)
-
-        matched_x = np.power(10.0, snapshot["matched_halo_log_mass"][::-1])
-        matched_y = np.power(10.0, snapshot["matched_bh_log_mass"][::-1])
-        matched_ax.plot(
-            matched_x,
-            matched_y,
-            color=colour,
-            lw=2.0,
-            label=rf"$z={float(snapshot['redshift']):.1f}$, $f_{{\mathrm{{occ}}}}={float(snapshot['occupation_fraction']):.2f}$",
-        )
-        matched_ax.axvline(
-            np.power(10.0, snapshot["matched_halo_threshold_log_mass"]),
-            color=colour,
-            ls=":",
-            lw=0.9,
-            alpha=0.75,
-        )
-
-    direct_ax.plot([], [], color="0.35", lw=1.8, label="Median; shaded 16--84%")
-    matched_ax.plot([], [], color="0.35", ls=":", lw=0.9, label="BH occupation threshold")
-    for ax in axes:
-        ax.set_xscale("log")
-        ax.set_yscale("log")
-        ax.set_xlim(np.power(10.0, x_limits[0]), np.power(10.0, x_limits[1]))
-        ax.set_ylim(np.power(10.0, y_limits[0]), np.power(10.0, y_limits[1]))
-        ax.grid(True, alpha=0.3, linestyle=":", which="both")
-        ax.tick_params(direction="in", right=True, top=True, which="both")
-    direct_ax.set_title("Direct model pairing")
-    matched_ax.set_title("Rank-ordered abundance matching")
-    direct_ax.set_xlabel(r"Halo mass $M_{\mathrm{h}}(z)$ [$M_{\odot}$]")
-    matched_ax.set_xlabel(r"Halo mass $M_{\mathrm{h}}(z)$ [$M_{\odot}$]")
-    direct_ax.set_ylabel(r"Nuclear BH mass $M_{\bullet}$ [$M_{\odot}$]")
-    direct_ax.legend(frameon=False, fontsize=7.3, loc="lower right")
-    matched_ax.legend(frameon=False, fontsize=7.0, loc="lower right")
-    colour_bar = fig.colorbar(mpl.cm.ScalarMappable(norm=norm, cmap=cmap), ax=axes, aspect=30, pad=0.01)
-    colour_bar.set_label("Redshift z")
-    if len(redshifts) == 1:
-        colour_bar.set_ticks([float(redshifts[0])])
-    return fig
-
-
-def plot_fig08_mbh_mhalo_cumulative_abundance(snapshots):
-    if len(snapshots) == 0:
-        raise ValueError("Fig. 08 requires at least one abundance-matching snapshot.")
-    redshifts, norm, cmap = _abundance_matching_colour_setup(snapshots)
-    fig, ax = plt.subplots(1, 1, constrained_layout=True, dpi=STD_DPI, figsize=(6.8, 4.8))
-    for index, snapshot in enumerate(snapshots):
-        colour = cmap(norm(float(snapshot["redshift"])))
-        ax.step(
-            snapshot["halo_curve_mass"],
-            snapshot["halo_curve_density"],
-            where="post",
-            color=colour,
-            lw=1.8,
-            label="Halo population" if index == 0 else None,
-        )
-        ax.step(
-            snapshot["bh_curve_mass"],
-            snapshot["bh_curve_density"],
-            where="post",
-            color=colour,
-            ls="--",
-            lw=1.6,
-            label="Positive central-BH population" if index == 0 else None,
-        )
-
-    all_curve_mass = np.concatenate([np.concatenate([snapshot["halo_curve_mass"], snapshot["bh_curve_mass"]]) for snapshot in snapshots])
-    all_curve_density = np.concatenate([np.concatenate([snapshot["halo_curve_density"], snapshot["bh_curve_density"]]) for snapshot in snapshots])
-    ax.set_xscale("log")
-    ax.set_yscale("log")
-    ax.set_xlim(float(np.min(all_curve_mass)) * 0.9, float(np.max(all_curve_mass)) * 1.1)
-    ax.set_ylim(float(np.min(all_curve_density)) * 0.7, float(np.max(all_curve_density)) * 1.5)
-    ax.set_xlabel(r"Mass threshold $M$ [$M_{\odot}$]")
-    ax.set_ylabel(r"Cumulative abundance $n(>M)$ [cMpc$^{-3}$]")
-    ax.grid(True, alpha=0.3, linestyle=":", which="both")
-    ax.tick_params(direction="in", right=True, top=True, which="both")
-    ax.text(
-        0.03,
-        0.04,
-        rf"Reference volume $V=({FIG09_BHMF_SIDE_CMPC:.2f}\,\mathrm{{cMpc}})^3$; parent-halo weights; TNG100: $V_{{\rm TNG50}}/V_{{\rm TNG100}}$",
-        transform=ax.transAxes,
-        fontsize=7.4,
-        color="0.25",
-    )
-    ax.legend(frameon=False, fontsize=8.0, loc="lower left", bbox_to_anchor=(0.0, 0.10))
-    colour_bar = fig.colorbar(mpl.cm.ScalarMappable(norm=norm, cmap=cmap), ax=ax, aspect=30, pad=0.0)
-    colour_bar.set_label("Redshift z")
-    if len(redshifts) == 1:
-        colour_bar.set_ticks([float(redshifts[0])])
-    return fig
-
-
-def plot_fig09_halo_distribution(summary_by_z, best):
-    distribution = _build_fig09_halo_distribution(summary_by_z, best)
+def plot_fig07_halo_distribution(summary_by_z, best):
+    distribution = _build_fig07_halo_distribution(summary_by_z, best)
     redshifts = distribution["redshifts"]
     log_edges = distribution["log_bin_edges"]
     mass_edges = np.power(10.0, log_edges)
     if np.any(~np.isfinite(mass_edges)) or np.any(mass_edges <= 0.0):
-        raise ValueError("Fig. 09 generated non-positive or non-finite linear halo-mass bin edges.")
+        raise ValueError("Fig. 07 generated non-positive or non-finite linear halo-mass bin edges.")
     if len(redshifts) == 1:
         norm = mpl.colors.Normalize(vmin=float(redshifts[0]) - 0.5, vmax=float(redshifts[0]) + 0.5)
     else:
@@ -4060,7 +3693,7 @@ def plot_fig09_halo_distribution(summary_by_z, best):
         z_value = float(item["redshift"])
         counts = np.asarray(item["counts"], dtype=int)
         if len(counts) != len(mass_edges) - 1 or np.any(counts < 0):
-            raise ValueError(f"Fig. 09 contains invalid integer histogram counts at z={z_value:.6g}.")
+            raise ValueError(f"Fig. 07 contains invalid integer histogram counts at z={z_value:.6g}.")
         maximum_count = max(maximum_count, int(np.max(counts)))
         ax.stairs(counts, mass_edges, baseline=0.0, fill=False, color=cmap(norm(z_value)), lw=1.35, alpha=0.92, zorder=2)
 
@@ -4095,31 +3728,31 @@ def plot_fig09_halo_distribution(summary_by_z, best):
     return fig, distribution
 
 
-def _fig11_redshift_tick_values(maximum_redshift):
+def _fig09_redshift_tick_values(maximum_redshift):
     standard = np.asarray([7.0, 8.0, 9.0, 10.0, 12.0, 15.0, 20.0, 30.0, 40.0, 50.0, 75.0, 100.0], dtype=float)
-    ticks = standard[standard <= float(maximum_redshift) + FIG11_REDSHIFT_ROW_ATOL]
+    ticks = standard[standard <= float(maximum_redshift) + FIG09_REDSHIFT_ROW_ATOL]
     if len(ticks) == 0:
-        ticks = np.asarray([FIG11_TARGET_REDSHIFT], dtype=float)
+        ticks = np.asarray([FIG09_TARGET_REDSHIFT], dtype=float)
     return ticks
 
 
-def plot_fig11_assembly(selection):
+def plot_fig09_assembly(selection):
     histories = list(selection.get("histories", ()))
-    if len(histories) == 0 or len(histories) > FIG11_MAX_PANELS:
-        raise ValueError(f"Fig. 11 requires between one and {FIG11_MAX_PANELS} selected histories.")
+    if len(histories) == 0 or len(histories) > FIG09_MAX_PANELS:
+        raise ValueError(f"Fig. 09 requires between one and {FIG09_MAX_PANELS} selected histories.")
     if len({int(history["halo_id_z0"]) for history in histories}) != len(histories):
-        raise ValueError("Fig. 11 selected histories contain repeated halo IDs.")
+        raise ValueError("Fig. 09 selected histories contain repeated halo IDs.")
 
     t0 = float(Redshift2CosmicAge(0.0, time_unit="Gyr"))
-    x_right = float(t0 - Redshift2CosmicAge(FIG11_TARGET_REDSHIFT, time_unit="Gyr"))
+    x_right = float(t0 - Redshift2CosmicAge(FIG09_TARGET_REDSHIFT, time_unit="Gyr"))
     x_left = max(float(np.max(history["main"]["x_gyr"])) for history in histories)
     if not np.isfinite(x_left) or not np.isfinite(x_right) or x_left < x_right:
-        raise ValueError("Fig. 11 selected histories do not share a valid high-z to z=7 time interval.")
+        raise ValueError("Fig. 09 selected histories do not share a valid high-z to z=7 time interval.")
     if x_left == x_right:
         x_left = float(np.nextafter(x_right, np.inf))
 
     mass_values = []
-    maximum_redshift = FIG11_TARGET_REDSHIFT
+    maximum_redshift = FIG09_TARGET_REDSHIFT
     for history in histories:
         main = history["main"]
         mass_values.append(np.asarray(main["halo_mass_msun"], dtype=float))
@@ -4128,19 +3761,19 @@ def plot_fig11_assembly(selection):
             mass_values.append(np.asarray(satellite["halo_mass_msun"], dtype=float))
     all_mass = np.concatenate(mass_values)
     if np.any(~np.isfinite(all_mass)) or np.any(all_mass <= 0.0):
-        raise ValueError("Fig. 11 contains non-finite or non-positive plotted halo masses.")
+        raise ValueError("Fig. 09 contains non-finite or non-positive plotted halo masses.")
     mass_min = float(np.min(all_mass))
     mass_max = float(np.max(all_mass))
     if mass_min == mass_max:
         mass_min = float(np.nextafter(mass_min, 0.0))
         mass_max = float(np.nextafter(mass_max, np.inf))
-    redshift_ticks = _fig11_redshift_tick_values(maximum_redshift)
+    redshift_ticks = _fig09_redshift_tick_values(maximum_redshift)
     redshift_x = np.asarray([t0 - Redshift2CosmicAge(float(z), time_unit="Gyr") for z in redshift_ticks], dtype=float)
-    in_range = (redshift_x >= x_right - FIG11_REDSHIFT_ROW_ATOL) & (redshift_x <= x_left + FIG11_REDSHIFT_ROW_ATOL)
+    in_range = (redshift_x >= x_right - FIG09_REDSHIFT_ROW_ATOL) & (redshift_x <= x_left + FIG09_REDSHIFT_ROW_ATOL)
     redshift_ticks = redshift_ticks[in_range]
     redshift_x = redshift_x[in_range]
     if len(redshift_ticks) == 0:
-        redshift_ticks = np.asarray([FIG11_TARGET_REDSHIFT], dtype=float)
+        redshift_ticks = np.asarray([FIG09_TARGET_REDSHIFT], dtype=float)
         redshift_x = np.asarray([x_right], dtype=float)
 
     satellite_gc_counts = [
@@ -4149,10 +3782,10 @@ def plot_fig11_assembly(selection):
         for satellite in history["satellites"]
     ]
     if any(count < 0 for count in satellite_gc_counts):
-        raise ValueError("Fig. 11 satellite GC counts must be non-negative.")
+        raise ValueError("Fig. 09 satellite GC counts must be non-negative.")
     maximum_satellite_gc_count = max(satellite_gc_counts, default=0)
     satellite_norm = mpl.colors.Normalize(vmin=0.0, vmax=max(1.0, float(maximum_satellite_gc_count)))
-    satellite_cmap = plt.get_cmap(FIG11_SATELLITE_CMAP)
+    satellite_cmap = plt.get_cmap(FIG09_SATELLITE_CMAP)
     colour_mappable = mpl.cm.ScalarMappable(norm=satellite_norm, cmap=satellite_cmap)
     colour_mappable.set_array(np.asarray(satellite_gc_counts, dtype=float))
 
@@ -4208,7 +3841,7 @@ def plot_fig11_assembly(selection):
             ax.set_xlabel(r"Redshift $z$")
         if column_index == 0:
             ax.set_ylabel(r"Halo mass $M_{\rm h}$ [$M_{\odot}$]")
-        score_annotation = _fig11_score_annotation(history)
+        score_annotation = _fig09_score_annotation(history)
         ax.text(
             0.04,
             0.96,
@@ -4246,7 +3879,6 @@ def main():
     parser = argparse.ArgumentParser(description="Plot the Kong & Li 2026 figures, including the UV-aperture diagnostic, from one High-z SMBH Seeds output directory.")
     parser.add_argument("--out_dir", type=Path, required=True, help="Model output directory.")
     parser.add_argument("--mass-bin-width-dex", type=float, default=0.5, help="Log10 stellar-mass bin width for Fig. 01.")
-    parser.add_argument("--abundance-matching-redshifts", type=float, nargs="+", default=ABUNDANCE_MATCHING_REDSHIFTS, metavar="Z", help="Output redshifts for the M_bh-M_h abundance-matching figures; each requested value is matched to the nearest available snapshot.")
     parser.add_argument("--plot-dir", type=Path, default=None, help="Output plot directory. Default: <out_dir>/_plots_Kong&Li2026.")
     parser.add_argument("--uv-table", type=Path, default=UV_CALIBRATION_PATH, help="FSPS-MIST/Chabrier pure-stellar 1500 Angstrom UV table per initially formed stellar mass; feh is log10(Z/Zsun).")
     args = parser.parse_args()
@@ -4276,44 +3908,44 @@ def main():
     final_redshift = float(metadata.get("final_redshift", 0.0))
     if not np.isfinite(final_redshift) or final_redshift < 0.0:
         raise ValueError(f"run_metadata final_redshift must be finite and non-negative, got {final_redshift!r}.")
-    chen_fig12_data = load_chen2026_fig06_seed_history()
-    fig12, inventory12 = plot_fig12_bhseed_history(
-        chen_fig12_data,
+    chen_fig03_data = load_chen2026_fig06_seed_history()
+    fig03, inventory03 = plot_fig03_bhseed_history(
+        chen_fig03_data,
         final_gc,
         volume_cmpc3=tng_volume_context["volume_tng50_cmpc3"],
     )
-    status_inventory12 = ", ".join(
-        f"status {int(status)}: raw={int(inventory12['status_raw_counts'][status])}, "
-        f"effective={float(inventory12['status_effective_counts'][status]):.6g}"
-        for status in sorted(inventory12["status_raw_counts"])
+    status_inventory03 = ", ".join(
+        f"status {int(status)}: raw={int(inventory03['status_raw_counts'][status])}, "
+        f"effective={float(inventory03['status_effective_counts'][status]):.6g}"
+        for status in sorted(inventory03["status_raw_counts"])
     )
     print(
-        f"Fig. 12 This work positive IMBH-seed inventory: raw={int(inventory12['raw_positive_count'])}, "
-        f"effective={float(inventory12['effective_positive_count']):.12g}; {status_inventory12}."
+        f"Fig. 03 This work positive IMBH-seed inventory: raw={int(inventory03['raw_positive_count'])}, "
+        f"effective={float(inventory03['effective_positive_count']):.12g}; {status_inventory03}."
     )
     print(
-        f"Fig. 12 display z range={FIG12_DISPLAY_REDSHIFT_RANGE[0]:g}--{FIG12_DISPLAY_REDSHIFT_RANGE[1]:g}: "
-        f"raw={int(inventory12['display_raw_count'])}, effective={float(inventory12['display_effective_count']):.12g}; "
-        f"outside low-z raw/effective={int(inventory12['outside_low_raw_count'])}/{float(inventory12['outside_low_effective_count']):.12g}, "
-        f"outside high-z raw/effective={int(inventory12['outside_high_raw_count'])}/{float(inventory12['outside_high_effective_count']):.12g}; "
-        f"unsmoothed Δlog10(1+z)={FIG12_RATE_LOG1PZ_BIN_WIDTH:g}."
+        f"Fig. 03 display z range={FIG03_DISPLAY_REDSHIFT_RANGE[0]:g}--{FIG03_DISPLAY_REDSHIFT_RANGE[1]:g}: "
+        f"raw={int(inventory03['display_raw_count'])}, effective={float(inventory03['display_effective_count']):.12g}; "
+        f"outside low-z raw/effective={int(inventory03['outside_low_raw_count'])}/{float(inventory03['outside_low_effective_count']):.12g}, "
+        f"outside high-z raw/effective={int(inventory03['outside_high_raw_count'])}/{float(inventory03['outside_high_effective_count']):.12g}; "
+        f"unsmoothed Δlog10(1+z)={FIG03_RATE_LOG1PZ_BIN_WIDTH:g}."
     )
     native_first_d = ", ".join(
-        f"{role}: x={float(chen_fig12_data['by_panel']['d'][role]['x_log10_1pz'].iloc[0]):.12g}, "
-        f"y={float(chen_fig12_data['by_panel']['d'][role]['value_mpc3'].iloc[0]):.12g}"
-        for role in FIG12_CHEN_CURVE_ROLES
+        f"{role}: x={float(chen_fig03_data['by_panel']['d'][role]['x_log10_1pz'].iloc[0]):.12g}, "
+        f"y={float(chen_fig03_data['by_panel']['d'][role]['value_mpc3'].iloc[0]):.12g}"
+        for role in FIG03_CHEN_CURVE_ROLES
     )
     print(
-        f"Fig. 12 cumulative model grid/value summary: N={len(inventory12['cumulative_x'])}, "
-        f"x={float(inventory12['cumulative_x'][0]):.12g}--{float(inventory12['cumulative_x'][-1]):.12g}, "
-        f"n={float(inventory12['cumulative_density'][0]):.12g}--{float(inventory12['cumulative_density'][-1]):.12g}, "
-        f"boundary={inventory12['cumulative_boundary']}; "
+        f"Fig. 03 cumulative model grid/value summary: N={len(inventory03['cumulative_x'])}, "
+        f"x={float(inventory03['cumulative_x'][0]):.12g}--{float(inventory03['cumulative_x'][-1]):.12g}, "
+        f"n={float(inventory03['cumulative_density'][0]):.12g}--{float(inventory03['cumulative_density'][-1]):.12g}, "
+        f"boundary={inventory03['cumulative_boundary']}; "
         f"Chen+2026 panel d native first points [{native_first_d}], "
         "endpoint-constant plotting extension to x=0; native CSV values unchanged."
     )
-    _save_figure(fig12, plot_dir / FIGURE_12_FILENAME)
+    _save_figure(fig03, plot_dir / FIGURE_03_FILENAME)
     bhmf_data = load_bhmf_data()
-    fig06, inventory06 = plot_fig06_bhmf2(bhmf_data, summary_by_z)
+    fig06, inventory06 = plot_fig06_bhmfs(bhmf_data, summary_by_z)
     counts06 = ", ".join(f"z={z:.6g}: {n}" for z, n in sorted(inventory06["this_work_by_z"].items()))
     effective_counts06 = ", ".join(f"z={z:.6g}: {n:.6g}" for z, n in sorted(inventory06["this_work_effective_by_z"].items()))
     invalid_counts06 = ", ".join(f"z={z:.6g}: {n}" for z, n in sorted(inventory06["invalid_mass_by_z"].items()) if n > 0)
@@ -4333,28 +3965,7 @@ def main():
     print(f"Fig. 06 positive masses outside plotted mass range: [{out_of_range_counts06}].")
     print(f"Fig. 06 omitted redshifts with no positive mass: [{omitted_no_positive06}].")
     print(f"Fig. 06 omitted redshifts with no visible density: [{omitted_no_visible06}].")
-    _save_figure(fig06, plot_dir / "Fig.06_BHMF2.pdf")
-    """
-    abundance_table, abundance_snapshots = build_mbh_mhalo_abundance_matching(
-        summary_by_z,
-        args.abundance_matching_redshifts,
-        volume_cmpc3=tng_volume_context["volume_tng50_cmpc3"],
-    )
-    abundance_table_path = plot_dir / "Fig.07_Mbh-Mhalo_AbundanceMatching.csv"
-    abundance_table.to_csv(abundance_table_path, index=False)
-    print(f"Saved {abundance_table_path}")
-    for snapshot in abundance_snapshots:
-        print(
-            f"Abundance matching z={float(snapshot['redshift']):.6g}: "
-            f"N_halo={int(snapshot['n_halo'])}, N_positive_central_BH={int(snapshot['n_positive_bh'])}, "
-            f"N_halo,eff={float(snapshot['n_halo_effective']):.6g}, N_positive_central_BH,eff={float(snapshot['n_positive_bh_effective']):.6g}, "
-            f"f_occ={float(snapshot['occupation_fraction']):.4f}, "
-            f"M_halo,occ={10.0**float(snapshot['matched_halo_threshold_log_mass']):.6g} M_sun."
-        )
-    fig07 = plot_fig07_mbh_mhalo_abundance_matching(abundance_snapshots)
-    _save_figure(fig07, plot_dir / FIGURE_07_FILENAME)
-    fig08 = plot_fig08_mbh_mhalo_cumulative_abundance(abundance_snapshots)
-    _save_figure(fig08, plot_dir / FIGURE_08_FILENAME)
+    _save_figure(fig06, plot_dir / FIGURE_06_FILENAME)
 
     observations = load_mbh_mstar_observations()
     fig01 = plot_fig01_mbh_mstar(summary_by_z, observations, float(args.mass_bin_width_dex))
@@ -4431,23 +4042,23 @@ def main():
     )
     _save_figure(fig02, plot_dir / "Fig.02_RotationCurve.pdf")
 
-    fig11_selection = select_fig11_assembly_histories(out_dir, summary_by_z, final_gc, metadata, tng_volume_context, score_table, fig02_best)
-    fig11 = plot_fig11_assembly(fig11_selection)
-    _save_figure(fig11, plot_dir / FIGURE_11_FILENAME)
+    fig09_selection = select_fig09_assembly_histories(out_dir, summary_by_z, final_gc, metadata, tng_volume_context, score_table, fig02_best)
+    fig09 = plot_fig09_assembly(fig09_selection)
+    _save_figure(fig09, plot_dir / FIGURE_09_FILENAME)
     print(
-        "Fig. 11 assembly panels: "
+        "Fig. 09 assembly panels: "
         + ", ".join(
             f"{history['suite_label']} halo_id_z0={int(history['halo_id_z0'])} "
             f"log10M_h,cat(z=7)={float(history['catalogue_log10_halo_mass']):.4f} "
             f"raw-MPB-log10M_h(z=7)={float(history['main']['endpoint_log10_halo_mass']):.4f} "
-            f"N_sat={int(history['n_satellites'])}; {_fig11_score_diagnostic(history)}"
-            for history in fig11_selection["histories"]
+            f"N_sat={int(history['n_satellites'])}; {_fig09_score_diagnostic(history)}"
+            for history in fig09_selection["histories"]
         )
     )
-    if fig11_selection["rejected"]:
+    if fig09_selection["rejected"]:
         print(
-            "Fig. 11 discarded comparison candidates: "
-            + ", ".join(str(item["halo_id_z0"]) for item in fig11_selection["rejected"])
+            "Fig. 09 discarded comparison candidates: "
+            + ", ".join(str(item["halo_id_z0"]) for item in fig09_selection["rejected"])
         )
 
     fig04 = plot_fig04_bh_masses(fig3_reference, fig02_best, fig02_best)
@@ -4460,46 +4071,36 @@ def main():
     fig05 = plot_fig05_uvmag(aperture_table)
     _save_figure(fig05, plot_dir / FIGURE_05_FILENAME)
 
-    reference = load_kritos2025_fig9()
-    fig03, inventory = plot_fig03_bhmf(summary_by_z, final_gc, reference)
-    counts = ", ".join(f"z={z:.6g}: {n}" for z, n in sorted(inventory["nuclear_by_z"].items()))
-    effective_counts = ", ".join(f"z={z:.6g}: {n:.6g}" for z, n in sorted(inventory["nuclear_effective_by_z"].items()))
-    print(f"Fig. 03 nuclear positive-BH inventory: {counts}.")
-    print(f"Fig. 03 nuclear effective inventory: {effective_counts}.")
-    print(f"Fig. 03 satellite positive-BH inventory: {inventory['satellite']} (status 1 and -4), effective={inventory['satellite_effective']:.6g}.")
-    _save_figure(fig03, plot_dir / "Fig.03_BHMF.pdf")
-
     chen_data = load_chen2026_fig05a_seed_mass_functions()
-    fig10, inventory10 = plot_fig10_bhsmf(chen_data, summary_by_z, volume_cmpc3=tng_volume_context["volume_tng50_cmpc3"])
-    central_inventory = inventory10["central"]
+    fig08, inventory08 = plot_fig08_bhsmf(chen_data, summary_by_z, volume_cmpc3=tng_volume_context["volume_tng50_cmpc3"])
+    central_inventory = inventory08["central"]
     plotted_central_indices = set(int(value) for value in central_inventory["positive_redshift_indices"])
     for index, redshift in enumerate(central_inventory["redshifts"]):
         print(
-            f"Fig. 10 This work inventory z={float(redshift):.6g}: "
+            f"Fig. 08 This work inventory z={float(redshift):.6g}: "
             f"positive raw={int(central_inventory['positive_raw_counts'][index])}, "
             f"positive effective={float(central_inventory['positive_effective_counts'][index]):.6g}, "
             f"zero raw={int(central_inventory['zero_raw_counts'][index])}, "
             f"zero effective={float(central_inventory['zero_effective_counts'][index]):.6g}, "
             f"plotted positive curve={index in plotted_central_indices}."
         )
-    #omitted = ", ".join(f"{float(redshift):.6g}" for redshift in inventory10["omitted_redshifts"])
-    #print(f"Fig. 10 omitted empty This work redshift thresholds: [{omitted}].")
-    print(f"Fig. 10 reference volume: {inventory10['central']['volume_cmpc3']:.12g} cMpc^3; positive central M_SMBH_init states use inherited TNG parent-halo weights.")
-    _save_figure(fig10, plot_dir / FIGURE_10_FILENAME)
+    #omitted = ", ".join(f"{float(redshift):.6g}" for redshift in inventory08["omitted_redshifts"])
+    #print(f"Fig. 08 omitted empty This work redshift thresholds: [{omitted}].")
+    print(f"Fig. 08 reference volume: {inventory08['central']['volume_cmpc3']:.12g} cMpc^3; positive central M_SMBH_init states use inherited TNG parent-halo weights.")
+    _save_figure(fig08, plot_dir / FIGURE_08_FILENAME)
 
-    fig09, inventory09 = plot_fig09_halo_distribution(summary_by_z, fig02_best)
-    _save_figure(fig09, plot_dir / FIGURE_09_DISTR_FILENAME)
-    empty_redshifts = ", ".join(f"{float(z):.6g}" for z in inventory09["empty_redshifts"])
-    missing_best_redshifts = ", ".join(f"{float(z):.6g}" for z in inventory09["best_halo_missing_redshifts"])
+    fig07, inventory07 = plot_fig07_halo_distribution(summary_by_z, fig02_best)
+    _save_figure(fig07, plot_dir / FIGURE_07_DISTR_FILENAME)
+    empty_redshifts = ", ".join(f"{float(z):.6g}" for z in inventory07["empty_redshifts"])
+    missing_best_redshifts = ", ".join(f"{float(z):.6g}" for z in inventory07["best_halo_missing_redshifts"])
     print(
-        f"Fig. 09 halo distribution: plotted redshifts={len(inventory09['redshifts'])}, "
-        f"excluded unavailable rows={int(inventory09['excluded_unavailable_rows'])}, "
-        f"empty redshifts=[{empty_redshifts}], bin width={FIG09_DISTR_BIN_WIDTH_DEX:.2f} dex, "
-        f"best halo_id_z0={int(inventory09['best_halo_id_z0'])}, "
-        f"best-halo track lines={len(inventory09['best_halo_track'])}, "
+        f"Fig. 07 halo distribution: plotted redshifts={len(inventory07['redshifts'])}, "
+        f"excluded unavailable rows={int(inventory07['excluded_unavailable_rows'])}, "
+        f"empty redshifts=[{empty_redshifts}], bin width={FIG07_DISTR_BIN_WIDTH_DEX:.2f} dex, "
+        f"best halo_id_z0={int(inventory07['best_halo_id_z0'])}, "
+        f"best-halo track lines={len(inventory07['best_halo_track'])}, "
         f"missing best-halo redshifts=[{missing_best_redshifts}]."
     )
-    """
 
 if __name__ == "__main__":
     main()
