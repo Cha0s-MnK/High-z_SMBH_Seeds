@@ -2379,17 +2379,21 @@ def load_chen2026_fig06_seed_history():
 
 
 def load_deposit_profile_for_redshift_summary(deposit_path, summary_rows, final_redshift):
-    table = _read_headered_whitespace_table(deposit_path)
+    try:
+        table = _read_headered_whitespace_table(deposit_path)
+    except pd.errors.EmptyDataError:
+        table = pd.DataFrame()
     required = ["halo_id_z0", "lookback_time_gyr", "bin_index", "r_inner_kpc", "r_outer_kpc", "m_star_no_evo_msun", "m_star_with_evo_msun"]
     missing = [name for name in required if name not in table.columns]
-    if missing:
+    if missing and len(table) > 0:
         raise ValueError(f"{deposit_path} is missing required deposit columns: {missing}")
-    for col in required:
-        table[col] = pd.to_numeric(table[col], errors="coerce")
-    if table[required].isna().any().any():
-        raise ValueError(f"{deposit_path} contains non-finite values in required deposit columns.")
-    table["halo_id_z0"] = table["halo_id_z0"].astype(int)
-    table["bin_index"] = table["bin_index"].astype(int)
+    if len(table) > 0:
+        for col in required:
+            table[col] = pd.to_numeric(table[col], errors="coerce")
+        if table[required].isna().any().any():
+            raise ValueError(f"{deposit_path} contains non-finite values in required deposit columns.")
+        table["halo_id_z0"] = table["halo_id_z0"].astype(int)
+        table["bin_index"] = table["bin_index"].astype(int)
 
     summary = summary_rows.copy()
     if "redshift" not in summary.columns and "z_out" in summary.columns:
@@ -2402,12 +2406,14 @@ def load_deposit_profile_for_redshift_summary(deposit_path, summary_rows, final_
         raise ValueError(f"Selected halo summary has duplicated halo_id_z0 values: {dupes[:10]}")
 
     final_age_gyr = Redshift2CosmicAge(float(final_redshift))
-    grouped = {int(hid): group for hid, group in table.groupby("halo_id_z0", sort=True)}
+    grouped = {} if len(table) == 0 else {int(hid): group for hid, group in table.groupby("halo_id_z0", sort=True)}
     halo_ids, r_outer, cumulative, cumulative_formed = [], [], [], []
+    missing_halo_ids = []
     for row in summary.sort_values("halo_id_z0").itertuples(index=False):
         hid = int(getattr(row, "halo_id_z0"))
         if hid not in grouped:
-            raise ValueError(f"Deposit profile has no rows for selected halo_id_z0={hid}.")
+            missing_halo_ids.append(hid)
+            continue
         group = grouped[hid]
         unique_lookbacks = np.unique(np.sort(group["lookback_time_gyr"].to_numpy(dtype=float)))
         target_lookback = getattr(row, "lookback_depos_sampled_gyr", np.nan)
@@ -2450,6 +2456,7 @@ def load_deposit_profile_for_redshift_summary(deposit_path, summary_rows, final_
         "r_outer_kpc": r_outer,
         "cumulative_mass_msun": cumulative,
         "cumulative_formed_mass_msun": cumulative_formed,
+        "missing_halo_ids": np.asarray(missing_halo_ids, dtype=int),
     }
 
 
@@ -3976,11 +3983,12 @@ def main():
     uv_calibration = load_uv_calibration(args.uv_table)
     all_z_rows = _select_fig02_z_rows(summary_by_z)
     all_deposit_profile = load_deposit_profile_for_redshift_summary(_deposit_path(out_dir), all_z_rows, final_redshift)
+    missing_profile_halo_ids = np.asarray(all_deposit_profile["missing_halo_ids"], dtype=int)
     profile_max_radius_pc = np.asarray([float(np.asarray(rout, dtype=float)[-1]) * 1.0e3 for rout in all_deposit_profile["r_outer_kpc"]], dtype=float)
     keep_profile = np.isfinite(profile_max_radius_pc) & (profile_max_radius_pc >= FIG08_MATCH_RADIUS_RANGE_PC[1])
     all_halo_ids = np.asarray(all_deposit_profile["halo_ids"], dtype=int)
     eligible_halo_ids = all_halo_ids[keep_profile]
-    excluded_halo_ids = all_halo_ids[~keep_profile]
+    insufficient_profile_halo_ids = all_halo_ids[~keep_profile]
     eligible_z_rows = all_z_rows.loc[all_z_rows["halo_id_z0"].isin(eligible_halo_ids)].reset_index(drop=True)
     eligible_deposit_profile = {
         "halo_ids": eligible_halo_ids,
@@ -3989,11 +3997,13 @@ def main():
         "cumulative_formed_mass_msun": [value for value, keep in zip(all_deposit_profile["cumulative_formed_mass_msun"], keep_profile) if keep],
     }
     print(
-        f"Fig. 02/Fig. 04 radial-coverage filter: excluded {len(excluded_halo_ids)} halo(s) "
+        f"Fig. 02/Fig. 04 profile filter: missing deposited profiles={len(missing_profile_halo_ids)} "
+        f"IDs={missing_profile_halo_ids.tolist()}; excluded {len(insufficient_profile_halo_ids)} halo(s) "
         f"with profile coverage <{FIG08_MATCH_RADIUS_RANGE_PC[1]:.0f} pc; "
-        f"IDs={excluded_halo_ids.tolist()}; eligible profiles={len(eligible_z_rows)}."
+        f"IDs={insufficient_profile_halo_ids.tolist()}; eligible profiles={len(eligible_z_rows)}."
     )
     score_table, fig02_best = score_fig02_candidate_haloes(out_dir, points, eligible_z_rows, eligible_deposit_profile, final_gc, uv_calibration)
+    excluded_halo_ids = np.concatenate([missing_profile_halo_ids, insufficient_profile_halo_ids])
     if len(excluded_halo_ids) > 0:
         excluded_summary = all_z_rows.set_index("halo_id_z0").loc[excluded_halo_ids]
         excluded_table = pd.DataFrame(np.nan, index=np.arange(len(excluded_halo_ids)), columns=score_table.columns)
@@ -4011,6 +4021,9 @@ def main():
         valid_excluded_bh = np.isfinite(excluded_bh) & (excluded_bh > 0.0)
         excluded_table.loc[valid_excluded_bh, "log10_central_bh_mass"] = np.log10(excluded_bh[valid_excluded_bh])
         excluded_table["missing_reason"] = [
+            f"no deposited stellar profile (depos.dat has no rows for halo_id_z0={hid})"
+            for hid in missing_profile_halo_ids
+        ] + [
             f"insufficient deposit radial coverage: {radius:.6g} pc < {FIG08_MATCH_RADIUS_RANGE_PC[1]:.6g} pc"
             for radius in profile_max_radius_pc[~keep_profile]
         ]
@@ -4065,7 +4078,7 @@ def main():
     _save_figure(fig04, plot_dir / FIGURE_04_FILENAME)
 
     fig05_best = fig02_best
-    if int(fig05_best["halo_id_z0"]) in set(excluded_halo_ids.tolist()):
+    if int(fig05_best["halo_id_z0"]) in set(insufficient_profile_halo_ids.tolist()):
         raise ValueError(f"Fig. 05 fig02_best halo_id_z0={int(fig05_best['halo_id_z0'])} is excluded for insufficient radial coverage.")
     aperture_table = estimate_uv_magnitude_apertures(all_deposit_profile, final_gc, int(fig05_best["halo_id_z0"]), uv_calibration)
     fig05 = plot_fig05_uvmag(aperture_table)
